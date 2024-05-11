@@ -1,0 +1,76 @@
+{
+    "name": "@maddimathon/utility-sass",
+    "version": "0.0.1",
+    "author": "Maddi Mathon (https://www.maddimathon.com)",
+    "description": "Sass utilities to use across projects.",
+    "homepage": "https://github.com/maddimathon/utility-sass",
+    "license": "MIT",
+    "config": {
+        "pkgdir": "@releases",
+        "title": "Maddi’s Sass Utilities"
+    },
+    "bugs": {
+        "url": "https://github.com/maddimathon/utility-sass/issues"
+    },
+    "bin": { "mmsass": "./dist/bin/index.js" },
+    "files": [
+        "./dist",
+        "./src/scss"
+    ],
+    "main": "./src/scss/_index.scss",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/maddimathon/utility-sass.git"
+    },
+    "type": "module",
+    "scripts": {
+        
+        "commit": "git commit -a --message=\"[post-${npm_package_version}] $(date +%Y-%m-%d@%H:%M)\"",
+        "release-filename": "echo \"maddimathon-utility-sass@${npm_package_version//\\./-}\"",
+        
+        "presetup": "mmutil msg \"Writing boilerplate files...\" --clr grey --italic --no-bold",
+        "setup": "tsx .scripts/boiler-files.ts",
+
+        "precompile": "tsx ./src/bin/index.ts notice compile-start",
+        "compile": "tsx .scripts/compile.ts",
+        "postcompile": "tsx ./src/bin/index.ts notice compile-end",
+
+        "watch": "mmutil msg 'None yet' --clr red --no-bold --italic",
+
+        "prebuild": "run-s setup compile && mmutil notice build-start",
+        "build": "tsx .scripts/build.ts",
+        "postbuild": "tsx ./src/bin/index.ts notice build-end",
+
+        "prepackage": "run-s prepackage:*",
+            "prepackage:notice": "mmutil notice package-start && sleep 10",
+            "prepackage:build": "npm run build",
+
+        "package": "run-s package:*",
+            "package:zip": "run-s package:zip:*",
+                "package:zip:notice": "mmutil msg \"zipping $( npm run --silent release-filename ).zip to ${npm_package_config_pkgdir}\" --clr pink --no-bold",
+                "package:zip:new": "thisdir=${PWD##*/} && thisdir=${thisdir:-/} && filename=$( npm run --silent release-filename ) && cd .. && zip -qr \"${thisdir}/${npm_package_config_pkgdir}/${filename}.zip\" \"${thisdir}\" -x@${thisdir}/.zipignore",
+                "package:zip:done": "mmutil msg \"committing changes\" --clr pink --no-bold",
+                "package:zip:git": "git add \"${npm_package_config_pkgdir}/$( npm run --silent release-filename ).zip\"",
+            
+            "package:commit": "git commit --allow-empty -m \"[${npm_package_version}] $(date +%Y-%m-%d@%H:%M)\" && git tag -a -f ${npm_package_version} -m \"Just before packaging version ${npm_package_version}\".",
+
+        "postpackage": "mmutil notice package-end",
+
+        "release": "gh release create ${npm_package_version} \"${npm_package_config_pkgdir}/$( npm run --silent release-filename ).zip#$( mmutil pkg-name )\" --generate-notes"
+    },
+    "dependencies": {
+        "glob": "~10.3.14",
+        "minimist": "~1.2.8",
+        "sass": "~1.77.1",
+        "yaml": "~2.4.2"
+    },
+    "devDependencies": {
+        "@tsconfig/node20": "~20.1.4",
+        "@tsconfig/recommended": "~1.0.6",
+        "@types/minimist": "~1.2.5",
+        "@types/node": "~20.12.11",
+        "npm-run-all": "~4.1.5",
+        "typescript": "~5.4.5",
+        "tsx": "~4.9.4"
+    }
+}
