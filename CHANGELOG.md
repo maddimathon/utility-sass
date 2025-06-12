@@ -2,7 +2,7 @@
 title: Changelog
 ---
 
-# NPM Library Template Changelog
+# Utility SASS Changelog
 
 All notable changes to this project will be documented in this file after/on
 each release.

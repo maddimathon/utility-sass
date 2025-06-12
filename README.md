@@ -6,44 +6,20 @@ children:
 ---
 
 <!--README_HEADER-->
-# NPM Library Template @ 1.3.0+tmpl
+# Utility SASS @ 1.3.0-draft+tmpl
 <!--/README_HEADER-->
 
 <!--README_DESC-->
-A template for building npm packages published on GitHub with typescript,
-versioning, basic compile scripts, and template setup script.
+Sass (scss) utilities to use in a variety of projects.
 <!--/README_DESC-->
-
-This README includes information relevant to this template, but it’s intended to
-be used as a template for the end library’s README rather than a resource about
-this template.  The only exception is this paragraph and the 
-[Search \& Replace](#template-setup--search--replace)
-section below, which is used to set up the template. If you’re a developer who
-isn’t me and wants to use this template, you probably want to fork it first and
-tailor it more to your tastes and needs. **Don’t forget to review and edit this
-file as you set up the template.**
-
-
-## Template Setup — Search & Replace
-
-Assume all those below are case-sensitive unless otherwise stated. Best replaced
-in the order listed.
-
-| Search                                                    | Replace                 | Notes                                         |
-| :-------------------------------------------------------- | :---------------------- | :-------------------------------------------- |
-| `https://github.com/maddimathon/template-npm-library.git` | *git repo url*          |                                               |
-| `@maddimathon/template-npm-library`                       | *package name*          | lower-case letters, numbers, and hyphens only |
-| `template-npm-library`                                    | *git repo name*         | check as you go; used in urls                 |
-| `NPM Library Template`                                    | *readable package name* | title case                                    |
-| `2025`                                                    | *launch year*           | four digits                                   |
 
 
 ## Changelog
 
 <!--README_DOCS_CHANGELOG-->
-Read it from [the source](https://github.com/maddimathon/template-npm-library/blob/main/CHANGELOG.md) 
+Read it from [the source](https://github.com/maddimathon/utility-sass/blob/main/CHANGELOG.md) 
 or 
-[the docs site](https://maddimathon.github.io/template-npm-library/Changelog.html).
+[the docs site](https://maddimathon.github.io/utility-sass/Changelog.html).
 <!--/README_DOCS_CHANGELOG-->
 
 
@@ -62,7 +38,7 @@ For an overview of all exported items, including types, see the documentation
 below.
 
 <!--README_DOCS_CTA-->
-<a href="https://maddimathon.github.io/template-npm-library" class="button">Read Documentation</a>
+<a href="https://maddimathon.github.io/utility-sass" class="button">Read Documentation</a>
 <!--/README_DOCS_CTA-->
 
 
@@ -78,21 +54,21 @@ import {
     type Types,
     classes,
     functions,
-} from '@maddimathon/template-npm-library';
+} from '@maddimathon/utility-sass';
 
-import type { ... } from '@maddimathon/template-npm-library/types';
+import type { ... } from '@maddimathon/utility-sass/types';
 
-import { ... } from '@maddimathon/template-npm-library/classes';
-import { ... } from '@maddimathon/template-npm-library/functions';
+import { ... } from '@maddimathon/utility-sass/classes';
+import { ... } from '@maddimathon/utility-sass/functions';
 ```
 
 
 ### Command Line
 
-#### template-npm-library
+#### utility-sass
 
 ```sh
-template-npm-library [bin-function]
+utility-sass [bin-function]
 ```
 
 
