@@ -1,0 +1,21 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@forward 'functions';
+@forward 'mixins';
+
+@use 'config';
+
+html {
+    @each $key, $value in config.$breakpoints {
+        --breakpoint-#{$key}: #{$value}em;
+    }
+}
+
+html {
+    @each $key, $value in config.$margins {
+        --margin-#{$key}: #{$value}rem;
+    }
+}

@@ -1,0 +1,80 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:color';
+// @use 'sass:list';
+@use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use '../config';
+
+// @use '01-01-meta' as *;
+// @use '01-02-lists' as *;
+// @use '01-03-maps' as *;
+@use '01-04-numbers' as *;
+// @use '01-05-strings' as *;
+// @use '01-06-selectors' as *;
+// @use '01-07-colours' as *;
+// @use '01-08-accessibility' as *;
+// @use '01-09-typography' as *;
+// @use '01-10-theming' as *;
+
+/// # SPACING FUNCTIONS
+/// ======================================================================== ///
+
+///
+/// Uses the margin config tokens to print the appropriate var(...) with a fallback.
+///
+@function var-mrg-firm($level) {
+    $fallback: #{map.get(config.$margins, '400')}rem;
+
+    @if not map.has-key(config.$margins, '#{$level}') {
+        @warn "$level was not a key in config.$margins";
+    } @else {
+        $fallback: #{map.get(config.$margins, '#{$level}')}rem;
+    }
+
+    @return var(--mrg-firm-#{$level}, #{$fallback});
+}
+
+///
+/// Uses the margin config tokens to print the appropriate var(...) with a fallback.
+///
+@function var-mrg-half($level) {
+    $fallback: map.get(config.$margins, '400');
+
+    @if not map.has-key(config.$margins, '#{$level}') {
+        @warn "$level was not a key in config.$margins";
+    } @else {
+        $fallback: map.get(config.$margins, '#{$level}');
+    }
+
+    @return var(
+        --mrg-half-#{$level},
+        #{calc(
+                $fallback - round-to-pixel($fallback * config.$margin_softener)
+            )}rem
+    );
+}
+
+///
+/// Uses the margin config tokens to print the appropriate var(...) with a fallback.
+///
+@function var-mrg-soft($level) {
+    $fallback: map.get(config.$margins, '400');
+
+    @if not map.has-key(config.$margins, '#{$level}') {
+        @warn "$level was not a key in config.$margins";
+    } @else {
+        $fallback: map.get(config.$margins, '#{$level}');
+    }
+
+    @return var(
+        --mrg-soft-#{$level},
+        #{round-to-pixel($fallback * config.$margin_softener)}rem
+    );
+}

@@ -1,0 +1,180 @@
+/// 
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+/// 
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+// @use 'utils' as *;
+@use '../../scss' as *;
+
+
+
+/* # TYPOGRAPHY
+ * ======================================================================== */
+
+$_fontFamily_system: (
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen-Sans,
+    Ubuntu,
+    Cantarell,
+    Helvetica Neue,
+    Helvetica,
+    Arial,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+);
+
+html {
+    font-family: font-list( $_fontFamily_system );
+
+    & {
+        color-scheme: light dark;
+    }
+
+    & {
+        font-size: 115%;
+        @include min-width( tablet ) { font-size: 105%; }
+    }
+}
+
+body {
+}
+
+::selection {
+}
+
+
+/* ## Typography - Inline ==================================== */
+
+strong,
+b {
+    font-weight: 700;
+
+    strong {
+        font-weight: 800;
+
+        strong {
+            font-weight: 900;
+        }
+    }
+}
+
+em,
+i {
+    font-style: italic;
+
+    em {
+        font-style: normal;
+
+        em {
+            font-style: italic;
+        }
+    }
+}
+
+a {
+    &[aria-disabled=true] {
+        cursor: not-allowed;
+    }
+}
+
+abbr[title] {
+}
+
+
+/* ## Typography - Block ==================================== */
+
+p {
+    margin-block: #{var-mrg-soft('400')} 0;
+}
+
+blockquote {
+}
+
+pre,
+code {
+    position: relative;
+}
+
+code {
+}
+
+pre {
+    display: block;
+    justify-self: center;
+
+    max-width: 100%;
+    overflow-inline: hidden;
+
+    > code {
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: none;
+        
+        width: fit-content;
+        max-width: 100%;
+        overflow: auto;
+    }
+}
+
+
+/* ## Typography - Headings ==================================== */
+
+@mixin _heading( $size: null ) {
+
+    margin-block: #{var-mrg-soft('600')} 0;
+    font-weight: 600;
+    
+    @if $size == title {
+        // font-size: #{var-fs($size)};
+    } @else if $size != null {
+        // font-size: #{var-fs(heading-#{$size})};
+        // color: #{var-theme(heading-#{$size})};
+    }
+}
+
+.heading,
+%heading {
+    @include _heading;
+}
+
+h1, .h1, %h1 {
+    @include _heading('1');
+}
+
+%title {
+    @include _heading('title');
+}
+
+h2, .h2, %h2 {
+    @include _heading('2');
+}
+
+h3, .h3, %h3 {
+    @include _heading('3');
+}
+
+h4, .h4, %h4 {
+    @include _heading('4');
+}
+
+h5, .h5, %h5 {
+    @include _heading('5');
+}
+
+h6, .h6, %h6 {
+    @include _heading('6');
+}

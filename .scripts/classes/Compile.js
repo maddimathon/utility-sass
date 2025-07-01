@@ -9,7 +9,7 @@
  */
 
 /**
- * @import { AbstractStage, Stage } from "@maddimathon/build-utilities"
+ * @import { Stage } from "@maddimathon/build-utilities"
  */
 
 import {
@@ -17,41 +17,49 @@ import {
 } from '@maddimathon/build-utilities';
 
 /**
- * @typedef {Stage.Args.Compile} Compile_Args
- */
-
-/**
- * @typedef {Stage.SubStage.Compile | "readme"} Compile_SubStage
- */
-
-/**
  * Extension of the built-in one.
- * 
- * @implements {AbstractStage<Compile_Args, Compile_SubStage>}
  */
 export class Compile extends CompileStage {
+
+    /**
+     * @type {Stage.SubStage.Compile[]}
+     * 
+     * @readonly
+     * @override
+     */
+    subStages = [
+        'ts',
+        'scss',
+        // @ts-expect-error
+        'templates',
+        'files',
+    ];
 
     /**
      * @protected
      * @override
      */
     async scss() {
-        this.console.progress( 'copying scss to dist...', 1 );
+        await this.runCustomDirCopySubStage( 'scss' );
+        await this.runCustomDirCopySubStage( 'templates' );
+    }
 
-        const distDir = this.getDistDir().trim().replace( /\/$/g, '' );
+    /**
+     * @protected
+     */
+    async templates() {
 
-        const srcDir = this.getSrcDir().trim().replace( /\/$/g, '' );
+        const templates = [
+            'base',
+            'demo',
+        ];
 
-        this.fs.copy(
-            'scss',
-            2,
-            distDir,
-            srcDir,
-            {
-                force: true,
-                rename: true,
-                recursive: true,
-            },
-        );
+        for ( const _tmpl of templates ) {
+
+            await this.runCustomScssDirSubStage(
+                'templates/' + _tmpl,
+                'templates/css/' + _tmpl,
+            );
+        }
     }
 }

@@ -1,0 +1,177 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
+// @use 'sass:math';
+@use 'sass:meta';
+// @use 'sass:selector';
+@use 'sass:string';
+
+// @use '../config';
+
+/// # FUNCTIONS - META
+/// ======================================================================== ///
+
+///
+/// Abbreviates variable types for shorter output.
+/// @param {string} $type
+/// @return {string}
+///
+@function var-type-abbreviator($type) {
+    $abbrs: (
+        'string': string.unquote('S'),
+        'number': string.unquote('#'),
+        'color': string.unquote('C'),
+        'bool': string.unquote('/'),
+        'list': string.unquote('()'),
+        'map': string.unquote(':'),
+        'arglist': string.unquote('⋯'),
+        'calculation': string.unquote('+'),
+        'function': string.unquote('@'),
+        'null': string.unquote('-'),
+    );
+    $return: map.get($abbrs, $type);
+    @return if($return != null, $return, string.unquote($type));
+}
+
+///
+/// Modelled after php var_dump() function -- converts given var to an
+/// easily-read string with var types in <>.
+///
+/// @param {any}  $var
+/// @param {bool} $withType     Optional. Include the variable type(s) in
+///                             output. Default true.
+/// @param {bool} $shortType    Optional. Whether to shorten the type output
+///                             with var-type-abbreviator(). Default true.
+/// @param {bool} $alwaysQuote  Optional. Whether strings should all be quoted.
+///                             Default false.
+/// @param {bool} $neverQuote   Optional. Whether strings should never be
+///                             quoted. Default false.
+///
+/// @return {string}
+///
+@function var-dump(
+    $var,
+    $withType: true,
+    $shortType: true,
+    $alwaysQuote: false,
+    $neverQuote: false
+) {
+    $type: meta.type-of($var);
+    $msg: meta.inspect($var);
+
+    @if $type == 'arglist' {
+        $msg: ();
+        @each $arg in $var {
+            $msg: list.append($msg, var-dump($arg), $separator: comma);
+        }
+        @if list.length(map.values(meta.keywords($var))) > 0 {
+            @each $key, $value in meta.keywords($var) {
+                $key: var-dump(
+                    $key,
+                    $withType: false,
+                    $shortType: $shortType,
+                    // $alwaysQuote: $alwaysQuote,
+                    $neverQuote: true
+                );
+
+                $msg: list.append(
+                    $msg,
+                    (string.unquote('$#{$key}:') var-dump($value)),
+                    $separator: comma
+                );
+            }
+        }
+
+        $msg: if(
+            list.length($msg) > 0,
+            string.unquote('( #{$msg} )'),
+            meta.inspect(())
+        );
+    }
+    @if $type == 'calculation' {
+        $msg: ();
+        @each $item in meta.calc-args($var) {
+            $msg: list.append(
+                $msg,
+                var-dump(
+                    $item,
+                    $withType: $withType,
+                    $shortType: $shortType,
+                    $alwaysQuote: true // $neverQuote: $neverQuote,
+                ),
+                $separator: comma
+            );
+        }
+        $msg: if(
+            list.length($msg) > 0,
+            string.unquote('#{meta.calc-name( $var )}( #{$msg} )'),
+            string.unquote('#{meta.calc-name( $var )}()')
+        );
+    }
+    @if $type == 'list' {
+        $bracketed: list.is-bracketed($var);
+        $separator: list.separator($var);
+
+        $msg: ();
+        @each $item in $var {
+            $msg: list.append(
+                $msg,
+                var-dump(
+                    $item,
+                    $withType: $withType,
+                    $shortType: $shortType,
+                    $alwaysQuote: $alwaysQuote,
+                    $neverQuote: $neverQuote
+                ),
+                $separator: $separator
+            );
+        }
+        $msg: if(list.length($msg) > 0, $msg, meta.inspect(()));
+        $msg: if(
+            $bracketed,
+            string.unquote('( [ #{$msg} ] )'),
+            string.unquote('( #{$msg} )')
+        );
+    }
+    @if $type == 'map' {
+        $msg: ();
+        @each $key, $value in $var {
+            $key: var-dump(
+                $key,
+                $withType: false,
+                $shortType: $shortType,
+                $alwaysQuote: true // $neverQuote: $neverQuote,
+            );
+
+            $msg: list.append(
+                $msg,
+                (string.unquote('#{$key}:') var-dump($value)),
+                $separator: comma
+            );
+        }
+        $msg: if(
+            list.length($msg) > 0,
+            string.unquote('( #{$msg} )'),
+            meta.inspect(())
+        );
+    }
+    @if $type == 'string' {
+        @if $alwaysQuote {
+            $msg: string.quote($var);
+        }
+        @if $neverQuote {
+            $msg: string.unquote($var);
+        }
+    }
+
+    $typeToPrint: if($shortType, var-type-abbreviator($type), $type);
+    @return if(
+        $withType,
+        string.unquote('<#{$typeToPrint}> #{meta.inspect( $msg )}'),
+        string.unquote('#{meta.inspect( $msg )}')
+    );
+}

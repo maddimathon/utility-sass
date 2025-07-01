@@ -1,13 +1,20 @@
-@forward 'config';
+/// 
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+/// 
 
-@forward 'functions';
-@forward 'mixins';
-@forward 'templates';
+@forward '01-functions';
+@forward '02-mixins';
+@forward '03-templates';
 
-/*!
- * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@___CURRENT_VERSION___
- * 
- * @author Maddi Mathon (www.maddimathon.com)
- * @license MIT
- */
+@use 'config';
+
+@if not config.$internal_supressCredit {
+    /*!
+     * This stylesheet includes css generated using 
+     * @maddimathon/utility-sass@___CURRENT_VERSION___
+     * 
+     * Author: Maddi Mathon (www.maddimathon.com)
+     * License: MIT
+     */
+}

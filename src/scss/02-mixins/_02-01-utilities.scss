@@ -1,0 +1,142 @@
+/// 
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+/// 
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+// @use 'sass:selector';
+@use 'sass:string';
+
+@use '../config';
+
+@use '../01-functions' as *;
+
+
+
+/// # UTILITY MIXINS
+/// ======================================================================== ///
+
+
+/// ## ACCESSIBILITY ==================================== ///
+
+/// 
+/// Nests the content in both a media query and selectors (if appropriate).
+/// 
+/// @param {bool} $bool         Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
+/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
+/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
+/// 
+@mixin _any-motion( $bool, $nestParent: true, $unifyParent: false ) {
+
+    @media ( prefers-reduced-motion: #{if( $bool, 'no-preference', 'less' )} ) {
+        @at-root #{selectors-parent-or-body()} {
+            @content;
+        }
+    }
+    @at-root #{motion-selector( $bool, $nestParent: $nestParent, $unifyParent: $unifyParent )} {
+        @content;
+    }
+}
+
+/// 
+/// Nests the content in both a media query and selectors (if appropriate).
+/// 
+/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
+/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
+/// 
+@mixin motion( $nestParent: true, $unifyParent: false ) {
+
+    @include _any-motion(
+        true,
+        $nestParent: $nestParent,
+        $unifyParent: $unifyParent,
+    ) {
+        @content;
+    }
+}
+
+/// 
+/// Nests the content in both a media query and selectors (if appropriate).
+/// 
+/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
+/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
+/// 
+@mixin no-motion( $nestParent: true, $unifyParent: false ) {
+
+    @include _any-motion(
+        false,
+        $nestParent: $nestParent,
+        $unifyParent: $unifyParent,
+    ) {
+        @content;
+    }
+}
+
+
+/// ## BREAKPOINTS ==================================== ///
+
+@mixin breakpoint( $point, $type ) {
+
+    @each $key, $value in config.$breakpoints {
+        @if ( $point == $key ) {
+            $point: $value;
+        }
+    }
+
+    @if meta.type-of( $point ) != number {
+        @warn "$num should be a key of config.$breakpoints or a number but it was a: #{meta.typeof( $num )} (#{$num})";
+    } @else {
+    
+        @if not math.is-unitless( $point ) {
+            @error 'Breakpoint #{$point} should not have a unit. An em unit will be added by the mixin.';
+            $point: deunit($point);
+        }
+    
+        $point: round-to-pixel( $point );
+        
+        @if string.slice( $type, 1, 3 ) == max {
+            $point: $point - 0.01;
+        }
+        
+        @media ( #{$type}: #{$point}em ) { @content; }
+    }
+}
+
+@mixin min-width( $point ) {
+    @include breakpoint( $point, 'min-width' ) { @content; };
+}
+@mixin max-width( $point ) {
+    @include breakpoint( $point, 'max-width' ) { @content; };
+}
+
+@mixin min-height( $point ) {
+    @include breakpoint( $point, 'min-height' ) { @content; };
+}
+@mixin max-height( $point ) {
+    @include breakpoint( $point, 'max-height' ) { @content; };
+}
+
+@mixin min-all( $min-width, $min-height ) {
+    @include breakpoint( $min-width, 'min-width' ) {
+        @include breakpoint( $min-height, 'min-height' ) { @content; };
+    };
+}
+@mixin max-all( $max-width, $max-height ) {
+    @include breakpoint( $max-width, 'max-width' ) {
+        @include breakpoint( $max-height, 'max-height' ) { @content; };
+    };
+}
+
+@mixin minmax-width( $min, $max ) {
+    @include breakpoint( $min, 'min-width' ) {
+        @include breakpoint( $max, 'max-width' ) { @content; };
+    };
+}
+@mixin minmax-height( $min, $max ) {
+    @include breakpoint( $min, 'min-height' ) {
+        @include breakpoint( $max, 'max-height' ) { @content; };
+    };
+}

@@ -1,0 +1,40 @@
+/// 
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+/// 
+// @use 'sass:color';
+// @use 'sass:list';
+@use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use 'functions' as *;
+
+
+
+/// # CONFIG - BREAKPOINTS
+/// ======================================================================== ///
+
+$_breakpoint_mobile: 25;
+$_breakpoint_tablet: 50;
+
+$breakpoints: () !default;
+
+$breakpoints: config-parse-args( (
+
+    'mobile': $_breakpoint_mobile,
+    'tablet': $_breakpoint_tablet,
+
+    'indent': if(
+        map.has-key( $breakpoints, 'mobile' ),
+        map.get( $breakpoints, 'mobile' ),
+        $_breakpoint_mobile
+    ),
+
+), $breakpoints );
+
+@each $key, $value in $breakpoints {
+    $breakpoints: map.set( $breakpoints, $key, config-round-to-pixel( $value ) );
+}

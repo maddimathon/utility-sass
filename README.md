@@ -6,7 +6,7 @@ children:
 ---
 
 <!--README_HEADER-->
-# Utility SASS @ 1.3.0-draft+tmpl
+# Utility Sass @ 0.1.0-alpha.draft
 <!--/README_HEADER-->
 
 <!--README_DESC-->
@@ -26,8 +26,9 @@ or
 ## Install
 
 <!--README_INSTALL-->
-```sh
-npm i -D github:maddimathon/build-utilities#1.3.0+tmpl
+```bash
+npm i -D @maddimathon/utility-sass@0.1.0-alpha
+npm i -D github:maddimathon/utility-sass#0.1.0-alpha
 ```
 <!--/README_INSTALL-->
 
@@ -44,31 +45,8 @@ below.
 
 ### Exports & Entry Points
 
-There are four defined entry points, including the root, though it should be
-possible to target individual files (carefully and at your own risk, paths may
-change without being considered a breaking change). The root entry point exports
-the other entry points as modules.
-
-```ts
-import {
-    type Types,
-    classes,
-    functions,
-} from '@maddimathon/utility-sass';
-
-import type { ... } from '@maddimathon/utility-sass/types';
-
-import { ... } from '@maddimathon/utility-sass/classes';
-import { ... } from '@maddimathon/utility-sass/functions';
-```
-
-
-### Command Line
-
-#### utility-sass
-
-```sh
-utility-sass [bin-function]
+```scss
+@forward 'pkg:@maddimathon/utility-sass';
 ```
 
 

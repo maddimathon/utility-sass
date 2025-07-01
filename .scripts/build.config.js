@@ -22,7 +22,7 @@ const _defaults = {
  */
 const config = {
 
-    title: 'Utility SASS',
+    title: 'Utility Sass',
     launchYear: '2025',
 
     stages: {
@@ -43,6 +43,9 @@ const config = {
 
                         html: undefined,
                         js: undefined,
+                        json: undefined,
+                        md: undefined,
+                        mdx: undefined,
                         ts: undefined,
                         yaml: undefined,
                     };
@@ -57,7 +60,23 @@ const config = {
             }
         ],
 
-        document: false,
+        document: {
+
+            entryPoints: [
+                'src/ts/index.ts',
+            ],
+
+            typeDoc: {
+
+                categorizeByGroup: false,
+                groupReferencesByType: false,
+
+                projectDocuments: [
+                    'README.md',
+                    'src/docs/*.md',
+                ],
+            },
+        },
 
         test: false,
     },

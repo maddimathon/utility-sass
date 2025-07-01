@@ -1,6 +1,6 @@
 {
     "name": "@maddimathon/utility-sass",
-    "version": "0.1.0",
+    "version": "0.1.0-alpha",
 
     "author": "Maddi Mathon (www.maddimathon.com)",
     "description": "Sass (scss) utilities to use in a variety of projects.",
@@ -39,12 +39,7 @@
         "./README.md"
     ],
 
-    "main": "./dist/js/index.js",
-    "types": "./dist/js/index.d.ts",
-
-    "bin": {
-        "utility-sass": "./dist/js/bin/index.js"
-    },
+    "main": "./dist/scss/index.scss",
 
     "bugs": {
         "url": "https://github.com/maddimathon/utility-sass/issues"
@@ -53,22 +48,29 @@
     "exports": {
 
         ".": {
-            "sass": "./dist/scss/index.scss",
-            "types": "./dist/js/index.d.ts",
-
-            "default": "./dist/js/index.js"
+            "sass": "./dist/scss/index.scss"
         },
 
-        "./classes": "./dist/js/classes/index.js",
-
-        "./functions": "./dist/js/functions/index.js",
-
-        "./types": "./dist/js/types/index.d.ts",
-        "./types/*": [
-            "./dist/js/types/*.d.ts",
-            "./dist/js/types/*/index.d.ts",
-            "./dist/js/types/*"
+        "./templates/*.scss": [
+            "./dist/templates/*.scss",
+            "./dist/templates/_*.scss",
+            "./dist/templates/*/index.scss",
+            "./dist/templates/*/_index.scss",
+            "./dist/templates/_*/index.scss",
+            "./dist/templates/_*/_index.scss"
         ],
+
+        "./templates/*": {
+
+            "sass": [
+                "./dist/templates/*.scss",
+                "./dist/templates/_*.scss",
+                "./dist/templates/*/index.scss",
+                "./dist/templates/*/_index.scss",
+                "./dist/templates/_*/index.scss",
+                "./dist/templates/_*/_index.scss"
+            ]
+        },
 
         "./*.scss": [
             "./dist/scss/*.scss",
@@ -88,17 +90,6 @@
                 "./dist/scss/*/_index.scss",
                 "./dist/scss/_*/index.scss",
                 "./dist/scss/_*/_index.scss"
-            ],
-
-            "types": [
-                "./dist/js/*.d.ts",
-                "./dist/js/*/index.d.ts"
-            ],
-
-            "default": [
-                "./dist/js/*.js",
-                "./dist/js/*/index.js",
-                "./dist/js/*"
             ]
         }
     },
@@ -123,7 +114,7 @@
         "prewatch": "build-utils compile -- --starting",
         
         "watch": "run-p --silent watch:*",
-            "watch:css": "watch -p 'src/scss/**/*' -c 'npm run --silent quick-build -- --only-compile scss --watchedWatcher \"watch:css\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:scss": "watch -p 'src/scss/**/*' -p 'src/templates/**/*' -c 'build-utils compile --only scss --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
 
         "package": "build-utils package",
@@ -133,16 +124,18 @@
     },
     
     "dependencies": {
+        "sass": "1.89.2"
     },
     "devDependencies": {
-        "@maddimathon/build-utilities": "0.1.2",
+        "@maddimathon/build-utilities": "file:../npm-build-utilities",
         "@maddimathon/utility-typescript": "2.0.0-beta",
         "@types/node": "22.15.30",
         "npm-run-all": "4.1.5",
-        "sass": "1.89.2",
+        "typedoc": "0.28.7",
         "typescript": "5.8.3",
         "watch-cli": "0.2.3"
     },
+    
     "browserslist": [
         "last 3 major versions",
         "> 0.5%",

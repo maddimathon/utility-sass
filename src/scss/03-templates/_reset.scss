@@ -1,0 +1,122 @@
+/// 
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+/// 
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+/// 
+/// A basic reset stylesheet.
+/// 
+@mixin reset {
+    /* #region Reset */
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        -moz-text-size-adjust: none;
+        -webkit-text-size-adjust: none;
+        text-size-adjust: none;
+
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    button {
+        text-align: left; /* fallback */
+        text-align: start;
+    }
+
+    ::placeholder,
+    blockquote,
+    button,
+    cite,
+    code,
+    dd,
+    dl,
+    figure,
+    input,
+    kbd,
+    ol,
+    optgroup,
+    pre,
+    samp,
+    select,
+    small,
+    td,
+    textarea,
+    th,
+    ul {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+        box-sizing: border-box;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font: inherit;
+        box-sizing: border-box;
+    }
+
+    td,
+    th {
+        vertical-align: top;
+    }
+
+    li {
+        box-sizing: border-box;
+    }
+
+    p {
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    embed,
+    iframe,
+    img,
+    object,
+    picture,
+    svg,
+    video {
+        display: block;
+        height: auto;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    img {
+        object-fit: cover;
+    }
+
+    hr {
+        margin: 0;
+        border: none;
+        border-block: currentColor solid 1px;
+        box-sizing: border-box;
+    }
+
+    input,
+    label,
+    pre,
+    pre > code {
+        display: block;
+        box-sizing: border-box;
+    }
+
+    /* #endregion Reset */
+}

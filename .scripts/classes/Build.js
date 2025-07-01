@@ -118,9 +118,9 @@ export class Build extends BuildStage {
             readmeContent = readmeContent.replace(
                 /(<!--README_INSTALL-->).*?(<!--\/README_INSTALL-->)/gs,
                 '$1\n' + escRegExpReplace( [
-                    '```sh',
-                    'npm i -D @maddimathon/build-utilities@' + this.pkg.version,
-                    'npm i -D github:maddimathon/build-utilities#' + this.pkg.version,
+                    '```bash',
+                    'npm i -D @maddimathon/utility-sass@' + this.pkg.version,
+                    'npm i -D github:maddimathon/utility-sass#' + this.pkg.version,
                     '```',
                 ].join( '\n' ) ) + '\n$2'
             );

@@ -1,0 +1,183 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:color';
+@use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+@use 'sass:meta';
+// @use 'sass:selector';
+@use 'sass:string';
+
+@use '../config';
+
+@use '01-01-meta' as *;
+// @use '01-02-lists' as *;
+// @use '01-03-maps' as *;
+// @use '01-04-numbers' as *;
+// @use '01-05-strings' as *;
+
+/// # SELECTOR FUNCTIONS
+/// ======================================================================== ///
+
+///
+/// Joins given selectors together nested in both directions and unified.
+///
+/// @param {selector} $selectorA  Selector to combine.
+/// @param {selector} $selectorB  Selector to combine.
+///
+/// @param {bool} $nestAinB  Whether to nest $selectorB in $selectorA.
+/// @param {bool} $nestBinA  Whether to nest $selectorA in $selectorB.
+/// @param {bool} $unify     Whether to unify the selectors.
+///
+/// @param {bool} $debug  Whether to print compiler information to the console.
+///
+/// @return {selector}
+///
+@function merge-selectors(
+    $selectorA,
+    $selectorB,
+    $nestAinB: true,
+    $nestBinA: true,
+    $unify: true,
+
+    $debug: false
+) {
+    @if $debug {
+        @debug '';
+        @debug '--  --  --';
+        @debug 'merge-selectors()';
+        @debug '';
+        @debug '$selectorA = #{var-dump($selectorA)}';
+        @debug '$selectorB = #{var-dump($selectorB)}';
+        @debug '';
+        @debug '$nestAinB = #{var-dump($nestAinB)}';
+        @debug '$nestBinA = #{var-dump($nestBinA)}';
+        @debug '$unify = #{var-dump($unify)}';
+    }
+
+    $selectorA: (string.unquote('#{$selectorA}'));
+    $selectorB: (string.unquote('#{$selectorB}'));
+
+    @if $debug {
+        @debug '';
+        @debug '$selectorA = #{var-dump($selectorA)}';
+        @debug '$selectorB = #{var-dump($selectorB)}';
+    }
+
+    // @debug "$selectorA = #{var-dump($selectorA)}";
+    // @debug "$selectorB = #{var-dump($selectorB)}";
+
+    $ret_override: null;
+
+    @if string.length('#{$selectorA}') < 1 {
+        $selectorA: config.$selector_null;
+    }
+    @if string.length('#{$selectorB}') < 1 {
+        $selectorB: config.$selector_null;
+    }
+
+    @if $selectorA ==
+        config.$selector_null and
+        $selectorB ==
+        config.$selector_null
+    {
+        $ret_override: config.$selector_null;
+    } @else {
+        @if $selectorA == config.$selector_null {
+            $ret_override: $selectorB;
+        }
+        @if $selectorB == config.$selector_null {
+            $ret_override: $selectorA;
+        }
+    }
+
+    @if $ret_override != null {
+        @if $debug {
+        }
+        @debug '';
+        @debug 'bailing early';
+        @debug '$selectors = #{$ret_override}';
+        @debug '-  -  -';
+        @debug '';
+        @return $ret_override;
+    }
+
+    $selectors: ();
+
+    @if $nestAinB {
+        $selectors: list.append(
+            $selectors,
+            selector.nest($selectorB, $selectorA),
+            $separator: comma
+        );
+    }
+
+    @if $nestBinA {
+        $selectors: list.append(
+            $selectors,
+            selector.nest($selectorA, $selectorB),
+            $separator: comma
+        );
+    }
+
+    @if $unify {
+        $selectors: list.append(
+            $selectors,
+            selector.unify($selectorA, $selectorB),
+            $separator: comma
+        );
+    }
+
+    @if $debug {
+        @debug '';
+        @debug '$selectors = #{$selectors}';
+        @debug '--  --  --';
+        @debug '';
+    }
+
+    @if list.length($selectors) > 0 {
+        @if $debug {
+            @debug '';
+            @debug '$selectors = ';
+            @each $select in $selectors {
+                @debug #{var-dump($select)};
+            }
+        }
+        @return $selectors;
+    }
+    @return config.$selector_null;
+}
+
+///
+/// Whether or not the parent selector is currently valid.
+///
+@function selectors-parent-exists() {
+    $parentSelector: &;
+    $parentSelectorType: meta.type-of(&);
+
+    @if $parentSelectorType != list and $parentSelectorType != string {
+        @return false;
+    }
+
+    @if string.length('#{&}') < 1 {
+        @return false;
+    }
+
+    @return true;
+}
+
+///
+/// Returns the current parent selector, or if none exists, the root selector.
+///
+@function selectors-parent-or-root() {
+    @return if(selectors-parent-exists(), &, (string.unquote('html')));
+}
+
+///
+/// Returns the current parent selector, or if none exists, the root selector.
+///
+@function selectors-parent-or-body() {
+    @return if(selectors-parent-exists(), &, (string.unquote('body')));
+}
