@@ -29,6 +29,8 @@
 /// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
 /// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
 /// 
+/// @since ___PKG_VERSION___
+/// 
 @mixin _any-motion( $bool, $nestParent: true, $unifyParent: false ) {
 
     @media ( prefers-reduced-motion: #{if( $bool, 'no-preference', 'less' )} ) {
@@ -47,6 +49,8 @@
 /// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
 /// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
 /// 
+/// @since ___PKG_VERSION___
+/// 
 @mixin motion( $nestParent: true, $unifyParent: false ) {
 
     @include _any-motion(
@@ -64,6 +68,8 @@
 /// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
 /// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
 /// 
+/// @since ___PKG_VERSION___
+/// 
 @mixin no-motion( $nestParent: true, $unifyParent: false ) {
 
     @include _any-motion(
@@ -78,6 +84,11 @@
 
 /// ## BREAKPOINTS ==================================== ///
 
+/// 
+/// Adds in a [min|max]-[height|width] media query with the given breakpoint.
+/// 
+/// @since ___PKG_VERSION___
+/// 
 @mixin breakpoint( $point, $type ) {
 
     @each $key, $value in config.$breakpoints {

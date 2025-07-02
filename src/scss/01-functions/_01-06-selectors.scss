@@ -38,6 +38,8 @@
 /// 
 /// @return {selector}
 /// 
+/// @since ___PKG_VERSION___
+/// 
 @function merge-selectors(
     $selectorA,
     $selectorB,
@@ -146,6 +148,8 @@
 /// 
 /// Whether or not the parent selector is currently valid.
 /// 
+/// @since ___PKG_VERSION___
+/// 
 @function selectors-parent-exists() {
     $parentSelector: &;
     $parentSelectorType: meta.type-of( & );
@@ -165,12 +169,16 @@
 /// 
 /// Returns the current parent selector, or if none exists, the root selector.
 /// 
+/// @since ___PKG_VERSION___
+/// 
 @function selectors-parent-or-root() {
     @return if( selectors-parent-exists(), &, ( string.unquote("html") ) );
 }
 
 /// 
 /// Returns the current parent selector, or if none exists, the root selector.
+/// 
+/// @since ___PKG_VERSION___
 /// 
 @function selectors-parent-or-body() {
     @return if( selectors-parent-exists(), &, ( string.unquote("body") ) );

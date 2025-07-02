@@ -29,6 +29,8 @@
 ///
 /// @returns {list}
 ///
+/// @since 0.1.0-alpha.draft
+///
 @function font-list($fonts) {
     $list: ();
 
@@ -48,4 +50,31 @@
     }
 
     @return $list;
+}
+
+///
+/// Returns a css-friendly font-family value for a system font stack.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function font-family-system-ui() {
+    @return font-list(
+        (
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            Segoe UI,
+            Roboto,
+            Oxygen-Sans,
+            Ubuntu,
+            Cantarell,
+            Helvetica Neue,
+            Helvetica,
+            Arial,
+            sans-serif,
+            Apple Color Emoji,
+            Segoe UI Emoji,
+            Segoe UI Symbol
+        )
+    );
 }
