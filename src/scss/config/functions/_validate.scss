@@ -1,9 +1,9 @@
-/// 
+///
 /// Functions used to validate the config file.
-/// 
+///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
-/// 
+///
 // @use 'sass:color';
 @use 'sass:list';
 @use 'sass:map';
@@ -12,129 +12,137 @@
 // @use 'sass:selector';
 // @use 'sass:string';
 
-
-/// 
+///
 /// Returns an updated version of $defaults based on the contents of $inputs.
-/// 
-/// @param {map} $defaults  The array of default args.
-/// @param {map} $inputs    The input array passed to the function.
-/// 
-/// @return {map}  The resulting array with all the $defaults keys with either 
-///                default values or input values, as appropriate.
-/// 
-@function config-parse-args( $defaults, $inputs ) {
-
-    $inputType: meta.type-of( $inputs );
+///
+/// Important: Strings that = 'UNDEFINED' are treated like JS undefined values.
+///
+/// @param {map}   $defaults   The array of default args.
+/// @param {map}   $inputs     The input array passed to the function.
+/// @param {?bool} $recursive  Whether to merge the maps recursively. Default false.
+///
+/// @return {map}  The resulting array with all the $defaults and $inputs props
+///                with either default values or input values, as appropriate.
+///
+@function config-merge-args($defaults, $inputs, $recursive: false) {
+    $inputType: meta.type-of($inputs);
 
     // returns
     @if $inputType != map {
-
         @if $inputType == list or not $inputType {
             @return $defaults;
         }
 
-        @warn "[parse-args] $inputs should be a map (was #{$inputType})";
+        @warn "[merge-args] $inputs should be a map (was #{$inputType})";
         @return $defaults;
     }
 
-    $return: ();
+    $return: $defaults;
 
-    @each $key, $value in $defaults {
+    @each $key, $inputValue in $inputs {
+        $defaultValue: map.get($defaults, $key);
 
-        $inputValue: map.get( $inputs, $key );
+        $mergeRecursively: if(
+            $recursive and
+                (meta.type-of($defaultValue) == map) and
+                (meta.type-of($inputValue) == map),
+            true,
+            false
+        );
 
-        $return: map.set( $return, $key, if(
-            $inputValue != null,
-            $inputValue, // = $key exists in $inputs
-            $value // = $key does not exist in $inputs, so set the default
-        ) );
+        @if $inputValue == 'UNDEFINED' {
+            // = ignore the $inputValue and maintain the default
+        } @else {
+            $return: map.set(
+                $return,
+                $key,
+                if(
+                    $mergeRecursively,
+                    config-merge-args($defaultValue, $inputValue, $recursive),
+                    $inputValue
+                )
+            );
+        }
     }
 
     @return $return;
 }
 
-
-/// 
+///
 /// Validates the value of a config variable that should be a boolean.
-/// 
+///
 /// @param {any}     $value  The variable's value.
 /// @param {string}  $name   The variable's name.
-/// 
-/// @returns {bool}  
-/// 
-@function validateBool( $value, $name ) {
-    @return if( $value, true, false );
+///
+/// @returns {bool}
+///
+@function config-validate-bool($value, $name) {
+    @return if($value, true, false);
 }
 
+$selectorTypes: ('attribute', 'class', 'null-selector');
 
-$selectorTypes: ( 'attribute', 'class', 'null-selector' );
-
-/// 
+///
 /// Validates the value of a config variable that should be a selector type (
-/// 
+///
 /// @param {any}     $value    The variable's value.
 /// @param {string}  $name     The variable's name.
 /// @param {?string} $default  Default value to return if $value is invalid.
-/// 
-@function validateSelectorType(
+///
+@function config-validate-selector-type(
     $value,
     $name,
-    $default: 'null-selector',
+    $default: 'null-selector'
 ) {
-    @return validateString(
+    @return config-validate-string(
         $value,
         $name,
         $default,
-        $options: $selectorTypes,
+        $options: $selectorTypes
     );
 }
 
-/// 
+///
 /// Validates the value of a config variable that should be a string.
-/// 
+///
 /// @param {any}     $value  The variable's value.
 /// @param {string}  $name   The variable's name.
-/// 
+///
 /// @param {?string} $default  Default value to return if $value is invalid.
 /// @param {?list}   $options  Optional. List of allowed values, if any. Default null.
-/// 
+///
 /// @param {bool}    $allowNullValue  Optional. Whether a null value is considered valid. Default false.
-/// 
+///
 /// @returns {string}  If $options is a list, the string is one of those values.
-/// 
-@function validateString(
+///
+@function config-validate-string(
     $value,
     $name,
-
     $default,
     $options: null,
 
-    $allowNullValue: false,
+    $allowNullValue: false
 ) {
-
     // value is not a string
-    @if meta.type-of( $value ) != 'string' {
-
+    @if meta.type-of($value) != 'string' {
         @if $value == null {
             @if $allowNullValue {
                 @return $value;
             }
         }
-        
+
         @warn "[config] $#{$name} must be a string (not the #{meta.type-of( $value )} '#{$value}')";
         @return $default;
     }
 
     // options are limited
-    @if meta.type-of( $options ) == 'list' and list.length( $options ) > 0 {
-
-        @if list.index( $options, $value ) == null {
-
+    @if meta.type-of($options) == 'list' and list.length($options) > 0 {
+        @if list.index($options, $value) == null {
             $optsList: ();
             @each $opt in $options {
-                $optsList: list.append( $optsList, "'#{$opt}'", comma );
+                $optsList: list.append($optsList, "'#{$opt}'", comma);
             }
-            
+
             @warn "[config] $#{$name} must be one of: #{$optsList} (not '#{$value}')";
             @return $default;
         }

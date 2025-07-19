@@ -15,13 +15,16 @@
 ///
 /// Returns an updated version of $defaults based on the contents of $inputs.
 ///
-/// @param {map} $defaults  The array of default args.
-/// @param {map} $inputs    The input array passed to the function.
+/// Important: Strings that = 'UNDEFINED' are treated like JS undefined values.
 ///
-/// @return {map}  The resulting array with all the $defaults keys with either
-///                default values or input values, as appropriate.
+/// @param {map}   $defaults   The array of default args.
+/// @param {map}   $inputs     The input array passed to the function.
+/// @param {?bool} $recursive  Whether to merge the maps recursively. Default false.
 ///
-@function config-parse-args($defaults, $inputs) {
+/// @return {map}  The resulting array with all the $defaults and $inputs props
+///                with either default values or input values, as appropriate.
+///
+@function config-merge-args($defaults, $inputs, $recursive: false) {
     $inputType: meta.type-of($inputs);
 
     // returns
@@ -30,25 +33,36 @@
             @return $defaults;
         }
 
-        @warn "[parse-args] $inputs should be a map (was #{$inputType})";
+        @warn "[merge-args] $inputs should be a map (was #{$inputType})";
         @return $defaults;
     }
 
-    $return: ();
+    $return: $defaults;
 
-    @each $key, $value in $defaults {
-        $inputValue: map.get($inputs, $key);
+    @each $key, $inputValue in $inputs {
+        $defaultValue: map.get($defaults, $key);
 
-        $return: map.set(
-            $return,
-            $key,
-            if(
-                $inputValue != null,
-                $inputValue,
-                // = $key exists in $inputs
-                $value // = $key does not exist in $inputs, so set the default
-            )
+        $mergeRecursively: if(
+            $recursive and
+                (meta.type-of($defaultValue) == map) and
+                (meta.type-of($inputValue) == map),
+            true,
+            false
         );
+
+        @if $inputValue == 'UNDEFINED' {
+            // = ignore the $inputValue and maintain the default
+        } @else {
+            $return: map.set(
+                $return,
+                $key,
+                if(
+                    $mergeRecursively,
+                    config-merge-args($defaultValue, $inputValue, $recursive),
+                    $inputValue
+                )
+            );
+        }
     }
 
     @return $return;
@@ -62,7 +76,7 @@
 ///
 /// @returns {bool}
 ///
-@function validateBool($value, $name) {
+@function config-validate-bool($value, $name) {
     @return if($value, true, false);
 }
 
@@ -75,8 +89,17 @@ $selectorTypes: ('attribute', 'class', 'null-selector');
 /// @param {string}  $name     The variable's name.
 /// @param {?string} $default  Default value to return if $value is invalid.
 ///
-@function validateSelectorType($value, $name, $default: 'null-selector') {
-    @return validateString($value, $name, $default, $options: $selectorTypes);
+@function config-validate-selector-type(
+    $value,
+    $name,
+    $default: 'null-selector'
+) {
+    @return config-validate-string(
+        $value,
+        $name,
+        $default,
+        $options: $selectorTypes
+    );
 }
 
 ///
@@ -92,7 +115,7 @@ $selectorTypes: ('attribute', 'class', 'null-selector');
 ///
 /// @returns {string}  If $options is a list, the string is one of those values.
 ///
-@function validateString(
+@function config-validate-string(
     $value,
     $name,
     $default,

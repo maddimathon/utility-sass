@@ -52,23 +52,23 @@
         },
 
         "./templates/*.scss": [
-            "./dist/templates/*.scss",
-            "./dist/templates/_*.scss",
-            "./dist/templates/*/index.scss",
-            "./dist/templates/*/_index.scss",
-            "./dist/templates/_*/index.scss",
-            "./dist/templates/_*/_index.scss"
+            "./dist/scss/templates/*.scss",
+            "./dist/scss/templates/_*.scss",
+            "./dist/scss/templates/*/index.scss",
+            "./dist/scss/templates/*/_index.scss",
+            "./dist/scss/templates/_*/index.scss",
+            "./dist/scss/templates/_*/_index.scss"
         ],
 
         "./templates/*": {
 
             "sass": [
-                "./dist/templates/*.scss",
-                "./dist/templates/_*.scss",
-                "./dist/templates/*/index.scss",
-                "./dist/templates/*/_index.scss",
-                "./dist/templates/_*/index.scss",
-                "./dist/templates/_*/_index.scss"
+                "./dist/scss/templates/*.scss",
+                "./dist/scss/templates/_*.scss",
+                "./dist/scss/templates/*/index.scss",
+                "./dist/scss/templates/*/_index.scss",
+                "./dist/scss/templates/_*/index.scss",
+                "./dist/scss/templates/_*/_index.scss"
             ]
         },
 
@@ -114,7 +114,7 @@
         "prewatch": "build-utils compile -- --starting",
         
         "watch": "run-p --silent watch:*",
-            "watch:scss": "watch -p 'src/scss/**/*' -p 'src/templates/**/*' -c 'build-utils compile --only scss --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:scss": "watch -p 'src/scss/**/*' -c 'build-utils compile --only scss --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
 
         "package": "build-utils package",
@@ -127,7 +127,7 @@
         "sass": "1.89.2"
     },
     "devDependencies": {
-        "@maddimathon/build-utilities": "file:../npm-build-utilities",
+        "@maddimathon/build-utilities": "0.2.0-alpha.1",
         "@maddimathon/utility-typescript": "2.0.0-beta",
         "@types/node": "22.15.30",
         "npm-run-all": "4.1.5",

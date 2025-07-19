@@ -1,7 +1,7 @@
-/// 
+///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
-/// 
+///
 // @use 'sass:color';
 // @use 'sass:list';
 // @use 'sass:map';
@@ -12,26 +12,27 @@
 
 @use 'functions' as *;
 
-
-
 /// # CONFIG - SELECTORS
 /// ======================================================================== ///
 
-$selector_null: ( string.unquote("%null") ) !default;
-
+$selector_null: (string.unquote('%null')) !default;
 
 /// Types ------------------ ///
 
-
-/// 
+///
 /// How to override browser settings for theme modes.
-/// 
+///
 $selectorType_mode: 'attribute' !default;
-$selectorType_mode: validateSelectorType( $selectorType_mode, 'selectorType_mode' );
+$selectorType_mode: config-validate-selector-type(
+    $selectorType_mode,
+    'selectorType_mode'
+);
 
-
-/// 
+///
 /// How to override browser settings for motion.
-/// 
+///
 $selectorType_motion: 'attribute' !default;
-$selectorType_motion: validateSelectorType( $selectorType_motion, 'selectorType_motion' );
+$selectorType_motion: config-validate-selector-type(
+    $selectorType_motion,
+    'selectorType_motion'
+);

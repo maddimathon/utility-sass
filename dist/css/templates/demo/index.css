@@ -1,0 +1,70 @@
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * 
+ * Author: Maddi Mathon (www.maddimathon.com)
+ * License: MIT
+ */
+test.utility-sass {
+    /* this is a test of utils.$scale_multiplier */
+    --content: 1.15625;
+}
+
+@media (min-width: 50em) {
+    test.utility-sass {
+        /* I am inside a min-width( tablet ) mixin from utility-sass */
+    }
+}
+/* # MIXINS - BREAKPOINTS
+ * ======================================================================== */
+@media (min-width: 25em) {
+    breakpoints {
+        /* min-width( indent ) */
+    }
+}
+@media (max-width: 24.99em) {
+    breakpoints {
+        /* max-width( mobile ) */
+    }
+}
+@media (min-height: 50em) {
+    breakpoints {
+        /* min-height( 50 ) */
+    }
+}
+@media (max-height: 49.99em) {
+    breakpoints {
+        /* max-height( 50 ) */
+    }
+}
+@media (min-width: 20em) and (min-height: 30em) {
+    breakpoints {
+        /* min-all( 20, 30 ) */
+    }
+}
+@media (max-width: 19.99em) and (max-height: 29.99em) {
+    breakpoints {
+        /* max-all( 20, 30 ) */
+    }
+}
+@media (min-width: 25em) and (max-width: 49.99em) {
+    breakpoints {
+        /* minmax-width( mobile, tablet ) */
+    }
+}
+@media (min-height: 20em) and (max-height: 34.99em) {
+    breakpoints {
+        /* minmax-height( 20, 35 ) */
+    }
+}
+
+test.utility-sass.templates.demo {
+    /* this is a test of utils.$scale_multiplier */
+    --content: 1.15625;
+}
+
+@media (min-width: 50em) {
+    test.utility-sass.templates.demo {
+        /* I am inside a min-width( tablet ) mixin from utility-sass */
+    }
+}

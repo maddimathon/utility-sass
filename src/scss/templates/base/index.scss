@@ -8,7 +8,7 @@
 
 @forward 'config';
 
-@forward '../../scss';
+@forward '../../index';
 
 @forward '_header';
 
@@ -21,3 +21,16 @@
 // @forward '06-tables';
 
 @forward '_footer';
+
+@use '../../index' as utils;
+
+test.utility-sass.templates.base {
+    /* this is a test of utils.$scale_multiplier */
+    --content: #{utils.$scale_multiplier};
+}
+
+@include utils.min-width(tablet) {
+    test.utility-sass.templates.base {
+        /* I am inside a min-width( tablet ) mixin from utility-sass */
+    }
+}

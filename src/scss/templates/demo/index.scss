@@ -1,0 +1,20 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward 'functions';
+@forward 'mixins';
+
+@use '../../index' as utils;
+
+test.utility-sass.templates.demo {
+    /* this is a test of utils.$scale_multiplier */
+    --content: #{utils.$scale_multiplier};
+}
+
+@include utils.min-width(tablet) {
+    test.utility-sass.templates.demo {
+        /* I am inside a min-width( tablet ) mixin from utility-sass */
+    }
+}

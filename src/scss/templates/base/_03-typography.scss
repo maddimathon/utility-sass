@@ -1,7 +1,7 @@
-/// 
+///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
-/// 
+///
 // @use 'sass:color';
 // @use 'sass:list';
 // @use 'sass:map';
@@ -11,24 +11,12 @@
 // @use 'sass:string';
 
 // @use 'utils' as *;
-@use '../../scss' as *;
-
-
+@use '../../index' as *;
 
 /* # TYPOGRAPHY
  * ======================================================================== */
 
 html {
-    font-family: #{font-family-system-ui()};
-
-    & {
-        color-scheme: light dark;
-    }
-
-    & {
-        font-size: 115%;
-        @include min-width( tablet ) { font-size: 105%; }
-    }
 }
 
 body {
@@ -36,7 +24,6 @@ body {
 
 ::selection {
 }
-
 
 /* ## Typography - Inline ==================================== */
 
@@ -67,14 +54,13 @@ i {
 }
 
 a {
-    &[aria-disabled=true] {
+    &[aria-disabled='true'] {
         cursor: not-allowed;
     }
 }
 
 abbr[title] {
 }
-
 
 /* ## Typography - Block ==================================== */
 
@@ -105,21 +91,19 @@ pre {
         margin: 0;
         padding: 0;
         border: none;
-        
+
         width: fit-content;
         max-width: 100%;
         overflow: auto;
     }
 }
 
-
 /* ## Typography - Headings ==================================== */
 
-@mixin _heading( $size: null ) {
-
+@mixin _heading($size: null) {
     margin-block: #{var-mrg-soft('600')} 0;
     font-weight: 600;
-    
+
     @if $size == title {
         // font-size: #{var-fs($size)};
     } @else if $size != null {
@@ -133,7 +117,9 @@ pre {
     @include _heading;
 }
 
-h1, .h1, %h1 {
+h1,
+.h1,
+%h1 {
     @include _heading('1');
 }
 
@@ -141,22 +127,32 @@ h1, .h1, %h1 {
     @include _heading('title');
 }
 
-h2, .h2, %h2 {
+h2,
+.h2,
+%h2 {
     @include _heading('2');
 }
 
-h3, .h3, %h3 {
+h3,
+.h3,
+%h3 {
     @include _heading('3');
 }
 
-h4, .h4, %h4 {
+h4,
+.h4,
+%h4 {
     @include _heading('4');
 }
 
-h5, .h5, %h5 {
+h5,
+.h5,
+%h5 {
     @include _heading('5');
 }
 
-h6, .h6, %h6 {
+h6,
+.h6,
+%h6 {
     @include _heading('6');
 }

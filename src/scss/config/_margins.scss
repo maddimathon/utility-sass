@@ -1,7 +1,7 @@
-/// 
+///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
-/// 
+///
 // @use 'sass:color';
 // @use 'sass:list';
 @use 'sass:map';
@@ -15,8 +15,6 @@
 @use 'functions' as *;
 @use 'scale' as *;
 
-
-
 /// # CONFIG - MARGINS
 /// ======================================================================== ///
 
@@ -26,16 +24,19 @@ $margins: () !default;
 
 $margins: config-token-margins(
     $scale_multiplier,
-    config-parse-args( (
-        '100': -9.0,
-        '200': -6.0,
-        '300': -3.0,
-        '400':  0.0,
-        '600':  4.0,
-        '800':  8.0,
-    ), $margins )
+    config-merge-args(
+        (
+            '100': -9,
+            '200': -6,
+            '300': -3,
+            '400': 0,
+            '600': 4,
+            '800': 8,
+        ),
+        $margins
+    )
 );
 
 @each $key, $value in $margins {
-    $margins: map.set( $margins, $key, config-round-to-pixel( $value ) );
+    $margins: map.set($margins, $key, config-round-to-pixel($value));
 }

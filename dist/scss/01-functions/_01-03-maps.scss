@@ -21,14 +21,17 @@
 ///
 /// Returns an updated version of $defaults based on the contents of $inputs.
 ///
-/// @param {map} $defaults  The array of default args.
-/// @param {map} $inputs    The input array passed to the function.
+/// Important: Strings that = 'UNDEFINED' are treated like JS undefined values.
 ///
-/// @return {map}  The resulting array with all the $defaults keys with either
-///                default values or input values, as appropriate.
+/// @param {map}   $defaults   The array of default args.
+/// @param {map}   $inputs     The input array passed to the function.
+/// @param {?bool} $recursive  Whether to merge the maps recursively. Default false.
+///
+/// @return {map}  The resulting array with all the $defaults and $inputs props
+///                with either default values or input values, as appropriate.
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function parse-args($defaults, $inputs) {
-    @return config.config-parse-args($defaults, $inputs);
+@function merge-args($defaults, $inputs, $recursive: false) {
+    @return config.config-merge-args($defaults, $inputs, $recursive);
 }

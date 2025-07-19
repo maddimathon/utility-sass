@@ -38,16 +38,13 @@ npm i -D github:maddimathon/utility-sass#0.1.0-alpha
 For an overview of all exported items, including types, see the documentation
 below.
 
-<!--README_DOCS_CTA-->
-<a href="https://maddimathon.github.io/utility-sass" class="button">Read Documentation</a>
-<!--/README_DOCS_CTA-->
-
-
-### Exports & Entry Points
-
 ```scss
 @forward 'pkg:@maddimathon/utility-sass';
 ```
+
+<!--README_DOCS_CTA-->
+<a href="https://maddimathon.github.io/utility-sass" class="button">Read Documentation</a>
+<!--/README_DOCS_CTA-->
 
 
 ## Development & Coding Practices

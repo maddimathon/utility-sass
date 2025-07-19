@@ -53,7 +53,29 @@
 }
 
 ///
+/// Returns a css-friendly font-family value for a monospace system font stack.
+///
+/// @see {font-list}  Used to format the font list before return.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function font-family-monospace-ui() {
+    @return font-list(
+        (
+            ui-monospace,
+            SFMono-Regular,
+            Consolas,
+            Liberation Mono,
+            Menlo,
+            monospace
+        )
+    );
+}
+
+///
 /// Returns a css-friendly font-family value for a system font stack.
+///
+/// @see {font-list}  Used to format the font list before return.
 ///
 /// @since 0.1.0-alpha.draft
 ///

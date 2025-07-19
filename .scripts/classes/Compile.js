@@ -40,8 +40,18 @@ export class Compile extends CompileStage {
      * @override
      */
     async scss() {
+
+        // runs templates sub-stage and returns
+        if (
+            this.params.watchedFilename
+            && this.params.watchedFilename.match( /(^|\/)src\/scss\/templates/gi )
+        ) {
+            await this.runCustomDirCopySubStage( 'scss/templates' );
+            await this.templates();
+            return;
+        }
+
         await this.runCustomDirCopySubStage( 'scss' );
-        await this.runCustomDirCopySubStage( 'templates' );
     }
 
     /**
@@ -57,8 +67,8 @@ export class Compile extends CompileStage {
         for ( const _tmpl of templates ) {
 
             await this.runCustomScssDirSubStage(
-                'templates/' + _tmpl,
-                'templates/css/' + _tmpl,
+                'scss/templates/' + _tmpl,
+                this.getDistDir( undefined, 'css/templates/', _tmpl ),
             );
         }
     }
