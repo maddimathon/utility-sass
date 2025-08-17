@@ -1,6 +1,4 @@
 /**
- * @mergeModuleWith <project>
- * 
  * @since ___PKG_VERSION___
  * 
  * @packageDocumentation
@@ -10,4 +8,4 @@
  * @license MIT
  */
 
-export * from './classes/index.js';
+export * from './FeatureCheck.js';

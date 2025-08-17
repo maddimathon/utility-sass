@@ -53,12 +53,7 @@ const config = {
             },
         ],
 
-        compile: [
-            Compile,
-            {
-                ts: false,
-            }
-        ],
+        compile: Compile,
 
         document: {
 

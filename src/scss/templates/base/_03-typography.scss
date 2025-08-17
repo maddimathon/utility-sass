@@ -17,6 +17,7 @@
  * ======================================================================== */
 
 html {
+    line-height: 1.65;
 }
 
 body {
@@ -54,7 +55,30 @@ i {
 }
 
 a {
+    display: inline;
+    border: none;
+    text-decoration: underline;
+
+    /// STATES ///
+
+    // @include hover-focus-visible-or-within {
+    //     opacity: 0.875;
+    // }
+
+    // &:active {
+    //     opacity: 0.875;
+    // }
+
+    /// EXCEPTIONS ///
+
+    &.no-style {
+        text-decoration: none;
+        font-weight: inherit;
+        color: inherit;
+    }
+
     &[aria-disabled='true'] {
+        opacity: 0.875;
         cursor: not-allowed;
     }
 }

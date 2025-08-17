@@ -48,7 +48,9 @@
     "exports": {
 
         ".": {
-            "sass": "./dist/scss/index.scss"
+            "sass": "./dist/scss/index.scss",
+            "types": "./dist/ts/index.d.ts",
+            "default": "./dist/ts/index.js"
         },
 
         "./templates/*.scss": [
@@ -90,6 +92,24 @@
                 "./dist/scss/*/_index.scss",
                 "./dist/scss/_*/index.scss",
                 "./dist/scss/_*/_index.scss"
+            ],
+
+            "types": [
+                "./dist/ts/*.d.ts",
+                "./dist/ts/_*.d.ts",
+                "./dist/ts/*/index.d.ts",
+                "./dist/ts/*/_index.d.ts",
+                "./dist/ts/_*/index.d.ts",
+                "./dist/ts/_*/_index.d.ts"
+            ],
+
+            "default": [
+                "./dist/ts/*.js",
+                "./dist/ts/_*.js",
+                "./dist/ts/*/index.js",
+                "./dist/ts/*/_index.js",
+                "./dist/ts/_*/index.js",
+                "./dist/ts/_*/_index.js"
             ]
         }
     },
@@ -114,7 +134,8 @@
         "prewatch": "build-utils compile -- --starting",
         
         "watch": "run-p --silent watch:*",
-            "watch:scss": "watch -p 'src/scss/**/*' -c 'build-utils compile --only scss --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:scss": "watch -p 'src/scss/**/*' -c 'build-utils build --compile-only scss --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:ts":   "watch -p 'src/ts/**/*'   -c 'build-utils build --compile-only ts   --watchedWatcher \"watch:ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
 
         "package": "build-utils package",
@@ -137,7 +158,7 @@
     },
     
     "peerDependencies": {
-        "@maddimathon/build-utilities": "^0.2.0-alpha",
+        "@maddimathon/build-utilities": "^0.2.0-alpha.1",
         "sass": "^1.89.0"
     },
     "peerDependenciesMeta": {
