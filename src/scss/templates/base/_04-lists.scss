@@ -1,0 +1,129 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use 'config';
+
+@use '../../index' as *;
+
+/* # LISTS
+ * ======================================================================== */
+
+$_list_indent: clamp(var-mrg-soft('400'), 10%, var-mrg-soft('800'));
+
+ol,
+ul {
+    margin: 0;
+
+    padding: 0;
+    padding-inline-start: 20%;
+
+    @include config.incl-html {
+        padding-inline-start: #{$_list_indent};
+    }
+
+    line-height: #{var-line-height('400')};
+
+    & & {
+        margin-block-start: 0;
+    }
+
+    & & & {
+        line-height: #{var-line-height('500')};
+        font-size: #{var-fs(smaller-1)};
+    }
+}
+
+ol {
+    /* level 1 - ol */
+    list-style-type: decimal;
+
+    /// BLOCK ///
+
+    ol {
+        /* level 2 - ol ol */
+        list-style-type: lower-alpha;
+
+        ol {
+            /* level 3 - ol ol ol */
+            list-style-type: lower-roman;
+
+            ol {
+                /* level 4 - ol ol ol ol */
+                @extend %ul-3;
+
+                ol {
+                    /* level 5 - ol ol ol ol ol */
+                    @extend %ul-4;
+                }
+            }
+        }
+    }
+}
+
+ul {
+    /* level 1 - ul */
+    list-style-type: disc;
+
+    /// BLOCK ///
+
+    ul {
+        /* level 2 - ul ul */
+        list-style-type: circle;
+
+        @at-root %ul-3,
+            & ul {
+            /* level 3 - ul ul ul */
+            /* level 4 - ol ol ol ol */
+            list-style-type: square; /* fallback */
+            list-style-type: '–  ';
+
+            @at-root %ul-4,
+                & ul {
+                /* level 4 - ul ul ul ul */
+                /* level 5 - ol ol ol ol ol */
+            }
+        }
+    }
+}
+
+li {
+    margin: 0;
+    margin-block-start: #{var-mrg-soft('300')};
+    padding: 0;
+
+    &::marker {
+        font-weight: 500;
+        font-size: #{var-fs(smaller-1)};
+    }
+
+    li {
+        color: #{var-theme(text-primary)};
+
+        li {
+            margin-block-start: #{var-mrg-soft('200')};
+
+            &::marker {
+                font-size: #{var-fs(smaller-2)};
+                // opacity: 0.8;
+                // @include colour-mode( ( 'high', 'forced-colors' ) ) { opacity: 1; }
+            }
+
+            li {
+                font-style: italic;
+
+                em {
+                    font-style: normal;
+                }
+            }
+        }
+    }
+}

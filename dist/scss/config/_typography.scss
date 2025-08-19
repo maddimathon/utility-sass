@@ -73,7 +73,7 @@ $font_sizes: config-merge-args(
 ///
 /// @since 0.1.0-alpha.draft
 ///
-$line_height_base: 1.625 !default;
+$line_height_base: 1.6875 !default;
 
 ///
 /// A map (merged with the defaults) of line height multipliers (0 = base lh)
@@ -99,7 +99,7 @@ $line_heights: config-merge-args(
     $lh: math.pow(spacing.$scale_multiplier, $value * 0.875) *
         $line_height_base;
 
-    $line_heights: map.set($line_heights, $key, config-round-to-pixel($lh));
+    $line_heights: map.set($line_heights, $key, config-round-to-pixel($lh, 32));
 }
 
 /// ## Function Config ==================================== ///

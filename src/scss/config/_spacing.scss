@@ -5,7 +5,7 @@
 // @use 'sass:color';
 // @use 'sass:list';
 @use 'sass:map';
-// @use 'sass:math';
+@use 'sass:math';
 // @use 'sass:meta';
 // @use 'sass:selector';
 // @use 'sass:string';
@@ -38,21 +38,22 @@ $margin_softener: 0.625 !default;
 ///
 $margins: () !default;
 
-$margins: config-token-margins(
-    $scale_multiplier,
-    config-merge-args(
-        (
-            '100': -9,
-            '200': -6,
-            '300': -3,
-            '400': 0,
-            '600': 4,
-            '800': 8,
-        ),
-        $margins
-    )
+$margins: config-merge-args(
+    (
+        '100': -9,
+        '200': -6,
+        '300': -3,
+        '400': 0,
+        '600': 4,
+        '800': 8,
+    ),
+    $margins
 );
 
-@each $key, $value in $margins {
-    $margins: map.set($margins, $key, config-round-to-pixel($value, 32));
+@each $key, $size in $margins {
+    $margins: map.set(
+        $margins,
+        $key,
+        config-round-to-pixel(math.pow($scale_multiplier, $size) * 1.25, 16)
+    );
 }

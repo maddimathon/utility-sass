@@ -62,13 +62,13 @@ a {
 
     /// STATES ///
 
-    // @include hover-focus-visible-or-within {
-    //     opacity: 0.875;
-    // }
+    @include hover-focus-visible-or-within {
+        opacity: 0.875;
+    }
 
-    // &:active {
-    //     opacity: 0.875;
-    // }
+    &:active {
+        opacity: 0.875;
+    }
 
     /// EXCEPTIONS ///
 
@@ -94,6 +94,8 @@ p {
 }
 
 blockquote {
+    @include centre-callout-block(config.$include_html);
+    margin-block: #{var-mrg-soft('400')} 0;
 }
 
 pre,
@@ -105,11 +107,12 @@ code {
 }
 
 pre {
-    display: block;
-    justify-self: center;
-
-    max-width: 100%;
+    @include centre-callout-block(config.$include_html);
+    margin-block: #{var-mrg-soft('400')} 0;
+    width: fit-content;
+    max-width: min(80ch, 100%);
     overflow-inline: hidden;
+    font-size: #{var-fs(smaller-1)};
 
     > code {
         display: block;

@@ -10,7 +10,8 @@ children:
 <!--/README_HEADER-->
 
 <!--README_DESC-->
-Sass (scss) utilities to use in a variety of projects.
+Sass (scss) utilities to use in a variety of projects with an opinionated,
+optionally configurable design token system.
 <!--/README_DESC-->
 
 

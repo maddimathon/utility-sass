@@ -255,7 +255,6 @@ pre {
     --width-sidebar: 17rem;
     --width-callout: 29.25rem;
     --width-page: 53rem;
-    --width-page: calc(53rem + var(--gap-inline--layout, 53vw));
 }
 
 /* #endregion Tokens - Width */
@@ -318,12 +317,12 @@ pre {
 /* #endregion Tokens - Font Size */
 /* #region Tokens - Font Size */
 :root {
-    --line-height-100: 1.125;
-    --line-height-200: 1.25;
-    --line-height-300: 1.375;
-    --line-height-400: 1.625;
-    --line-height-500: 1.875;
-    --line-height-600: 2.125;
+    --line-height-100: 1.1875;
+    --line-height-200: 1.3125;
+    --line-height-300: 1.4375;
+    --line-height-400: 1.6875;
+    --line-height-500: 1.90625;
+    --line-height-600: 2.1875;
 }
 
 /* #endregion Tokens - Font Size */
@@ -331,27 +330,23 @@ pre {
  * ======================================================================== */
 hr {
     display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+hr {
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
-    margin-top: var(--mrg-firm-600, 2.25);
-    margin-bottom: var(--mrg-firm-600, 2.25);
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: var(--mrg-firm-600, 2.25rem);
+    margin-bottom: var(--mrg-firm-600, 2.25rem);
     border: none;
     border-bottom: currentColor solid 2px;
-    max-width: 29.25rem;
-    max-width: var(--width-callout, 29.25rem);
-}
-:where(hr) {
-    justify-self: center;
-    align-self: center;
 }
 
 /* # TYPOGRAPHY
  * ======================================================================== */
 :root {
-    line-height: 1.625;
-    line-height: var(--line-height-400, 1.625);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
 }
 
 /* ## Typography - Inline ==================================== */
@@ -386,6 +381,25 @@ a {
     border: none;
     text-decoration: underline;
 }
+a:focus {
+    opacity: 0.875;
+}
+
+a:focus-visible {
+    opacity: 0.875;
+}
+
+a:hover {
+    opacity: 0.875;
+}
+
+a:focus-within {
+    opacity: 0.875;
+}
+
+a:active {
+    opacity: 0.875;
+}
 a.no-style {
     text-decoration: none;
     font-weight: inherit;
@@ -403,6 +417,15 @@ p {
     margin-bottom: 0;
 }
 
+blockquote {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+}
+
 pre,
 code {
     position: relative;
@@ -410,9 +433,17 @@ code {
 
 pre {
     display: block;
-    justify-self: center;
-    max-width: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: min(80ch, 100%);
     overflow-x: hidden;
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
 }
 pre > code {
     display: block;
@@ -438,40 +469,40 @@ pre > code {
 
 h1,
 .h1 {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
+    margin-top: 2.5rem;
+    margin-top: var(--mrg-soft-800, 2.5rem);
     margin-bottom: 0;
     font-weight: 900;
     font-size: clamp(1.8125rem, 3.125svw + 1rem, 2.6875rem);
     font-size: var(--fs-heading-1, 2.375rem);
-    line-height: 1.25;
-    line-height: var(--line-height-200, 1.25);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
 }
 
 h2,
 .h2 {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
+    margin-top: 2.5rem;
+    margin-top: var(--mrg-soft-800, 2.5rem);
     margin-bottom: 0;
     font-weight: 800;
     font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
     font-size: var(--fs-heading-2, 2.0625rem);
-    line-height: 1.25;
-    line-height: var(--line-height-200, 1.25);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
 }
 
 h3,
 .h3 {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
+    margin-top: 2.5rem;
+    margin-top: var(--mrg-soft-800, 2.5rem);
     margin-bottom: 0;
     font-weight: 700;
     font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
     font-size: var(--fs-heading-3, 1.8125rem);
-    line-height: 1.25;
-    line-height: var(--line-height-200, 1.25);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
 }
 
@@ -484,8 +515,8 @@ h4,
     font-style: italic;
     font-size: clamp(1.25rem, 2.1875svw + 1rem, 1.875rem);
     font-size: var(--fs-heading-4, 1.6875rem);
-    line-height: 1.375;
-    line-height: var(--line-height-300, 1.375);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
     text-wrap: balance;
 }
 
@@ -498,8 +529,8 @@ h5,
     font-style: italic;
     font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
     font-size: var(--fs-heading-5, 1.3125rem);
-    line-height: 1.375;
-    line-height: var(--line-height-300, 1.375);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
     text-wrap: balance;
 }
 
@@ -512,9 +543,295 @@ h6,
     font-style: italic;
     font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
     font-size: var(--fs-heading-6, 1.1875rem);
-    line-height: 1.375;
-    line-height: var(--line-height-300, 1.375);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
     text-wrap: balance;
+}
+
+/* # LISTS
+ * ======================================================================== */
+ol,
+ul {
+    margin: 0;
+    padding: 0;
+    padding-left: 20%;
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+}
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin-top: 0;
+}
+ol ol ol,
+ol ol ul,
+ol ul ol,
+ol ul ul,
+ul ol ol,
+ul ol ul,
+ul ul ol,
+ul ul ul {
+    line-height: 1.90625;
+    line-height: var(--line-height-500, 1.90625);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+
+ol {
+    /* level 1 - ol */
+    list-style-type: decimal;
+}
+ol ol {
+    /* level 2 - ol ol */
+    list-style-type: lower-alpha;
+}
+ol ol ol {
+    /* level 3 - ol ol ol */
+    list-style-type: lower-roman;
+}
+ol ol ol ol {
+    /* level 4 - ol ol ol ol */
+}
+ol ol ol ol ol {
+    /* level 5 - ol ol ol ol ol */
+}
+
+ul {
+    /* level 1 - ul */
+    list-style-type: disc;
+}
+ul ul {
+    /* level 2 - ul ul */
+    list-style-type: circle;
+}
+ol ol ol ol,
+ul ul ul {
+    /* level 3 - ul ul ul */
+    /* level 4 - ol ol ol ol */
+    list-style-type: square; /* fallback */
+    list-style-type: "–  ";
+}
+ol ol ol ol ol,
+ol ol ol ol ul,
+ul ul ul ul {
+    /* level 4 - ul ul ul ul */
+    /* level 5 - ol ol ol ol ol */
+}
+
+li {
+    margin: 0;
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-soft-300, 0.5rem);
+    padding: 0;
+}
+li::marker {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+li li {
+    color: var-theme(text-primary);
+}
+li li li {
+    margin-top: 0.3125rem;
+    margin-top: var(--mrg-soft-200, 0.3125rem);
+}
+li li li::marker {
+    font-size: 0.8125rem;
+    font-size: var(--fs-smaller-2, 0.8125rem);
+}
+li li li li {
+    font-style: italic;
+}
+li li li li em {
+    font-style: normal;
+}
+
+/* # FORMS
+ * ======================================================================== */
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+fieldset legend {
+    font-weight: 600;
+}
+
+a.button,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+a.button-secondary,
+.button-secondary,
+::file-selector-button,
+textarea,
+select,
+input {
+    display: block;
+    margin: 1.25rem 0 0;
+    margin: var(--mrg-firm-400, 1.25rem) 0 0;
+    padding: 0.1875rem 0.5rem;
+    padding: var(--mrg-soft-100, 0.1875rem) var(--mrg-firm-200, 0.5rem);
+    width: 100%;
+    font: inherit;
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    border: 1px solid currentColor;
+    border-radius: 0;
+}
+a.button::-moz-placeholder,
+button::-moz-placeholder,
+[role="button"]::-moz-placeholder,
+input[type="button"]::-moz-placeholder,
+input[type="submit"]::-moz-placeholder,
+input[type="reset"]::-moz-placeholder,
+.button-secondary::-moz-placeholder,
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    opacity: 1;
+}
+a.button::placeholder,
+button::placeholder,
+[role="button"]::placeholder,
+input[type="button"]::placeholder,
+input[type="submit"]::placeholder,
+input[type="reset"]::placeholder,
+.button-secondary::placeholder,
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    opacity: 1;
+}
+label + a.button,
+label + button,
+label + [role="button"],
+label + input[type="button"],
+label + input[type="submit"],
+label + input[type="reset"],
+label + .button-secondary,
+label + ::file-selector-button,
+label + textarea,
+label + select,
+label + input,
+label > a.button,
+label > button,
+label > [role="button"],
+label > input[type="button"],
+label > input[type="submit"],
+label > input[type="reset"],
+label > .button-secondary,
+label > ::file-selector-button,
+label > textarea,
+label > select,
+label > input {
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-firm-200, 0.5rem);
+}
+
+input[type="button"],
+input[type="checkbox"],
+input[type="color"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="radio"],
+input[type="range"],
+input[type="reset"],
+input[type="submit"],
+input[type="time"],
+input[type="week"] {
+    cursor: pointer;
+}
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="week"] {
+    cursor: text;
+}
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline-block;
+    padding: 0;
+    width: auto;
+}
+input[type="color"] {
+    padding: 0;
+    height: 2.25em;
+    width: 2.25em;
+}
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="time"],
+input[type="week"] {
+    width: auto;
+}
+input[type="range"] {
+    padding: 0;
+}
+
+a.button,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+a.button-secondary,
+.button-secondary,
+::file-selector-button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    width: -moz-fit-content;
+    width: fit-content;
+    cursor: pointer;
+}
+
+::file-selector-button {
+    display: initial;
+    margin: 0;
+    margin-right: 0.8125rem;
+    margin-right: var(--mrg-firm-300, 0.8125rem);
+}
+
+label {
+    display: block;
+    margin: 1.25rem 0 0;
+    margin: var(--mrg-firm-400, 1.25rem) 0 0;
+    font-weight: 600;
+}
+label:has(> input[type="checkbox"], > input[type="radio"]) {
+    display: grid;
+    grid-template-columns: fit-content(0) 1fr;
+    justify-content: end;
+    align-items: baseline;
+    grid-gap: 0.5rem;
+    grid-gap: var(--mrg-soft-300, 0.5rem);
+    gap: 0.5rem;
+    gap: var(--mrg-soft-300, 0.5rem);
+    text-wrap: balance;
+    cursor: pointer;
+}
+label:has(> input[type="checkbox"], > input[type="radio"])
+    + label:has(> input[type="checkbox"], > input[type="radio"]) {
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-firm-200, 0.5rem);
+}
+label > input[type="checkbox"],
+label > input[type="radio"] {
+    margin-top: 0;
 }
 
 /*! end of @maddimathon/utility-sass template */

@@ -1,0 +1,185 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use 'config';
+
+@use '../../index' as *;
+
+/* # FORMS
+ * ======================================================================== */
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+
+    legend {
+        font-weight: 600;
+    }
+}
+
+%_input-base {
+    display: block;
+    margin: #{var-mrg-firm('400')} 0 0;
+    padding: #{var-mrg-soft('100')} #{var-mrg-firm('200')};
+    width: 100%;
+
+    font: inherit;
+    line-height: #{var-line-height('200')};
+
+    border: 1px solid currentColor;
+    border-radius: 0;
+
+    /// STATES ///
+
+    // @include hover-focus-visible {
+    // }
+
+    // &::active {
+    // }
+
+    /// BLOCK ///
+
+    &::placeholder {
+        opacity: 1;
+    }
+
+    label + &,
+    label > & {
+        margin-block-start: #{var-mrg-firm('200')};
+    }
+}
+
+input {
+    @extend %_input-base;
+
+    /// EXCEPTIONS ///
+
+    &[type='button'],
+    &[type='checkbox'],
+    &[type='color'],
+    &[type='date'],
+    &[type='datetime-local'],
+    &[type='file'],
+    &[type='month'],
+    &[type='radio'],
+    &[type='range'],
+    &[type='reset'],
+    &[type='submit'],
+    &[type='time'],
+    &[type='week'] {
+        cursor: pointer;
+    }
+
+    &[type='email'],
+    &[type='month'],
+    &[type='number'],
+    &[type='password'],
+    &[type='search'],
+    &[type='tel'],
+    &[type='text'],
+    &[type='url'],
+    &[type='week'] {
+        cursor: text;
+    }
+
+    &[type='checkbox'],
+    &[type='radio'] {
+        display: inline-block;
+        // margin: 0;
+        padding: 0;
+        width: auto;
+    }
+
+    &[type='color'] {
+        padding: 0;
+        height: 2.25em;
+        width: 2.25em;
+    }
+
+    &[type='date'],
+    &[type='datetime-local'],
+    &[type='file'],
+    &[type='month'],
+    &[type='time'],
+    &[type='week'] {
+        width: auto;
+    }
+
+    &[type='range'] {
+        padding: 0;
+    }
+}
+
+select {
+    @extend %_input-base;
+}
+
+textarea {
+    @extend %_input-base;
+}
+
+a.button,
+button,
+[role='button'],
+input[type='button'],
+input[type='submit'],
+%button {
+    @extend %_input-base;
+    appearance: button;
+    width: fit-content;
+    cursor: pointer;
+    // @include button;
+}
+
+input[type='reset'],
+a.button-secondary,
+.button-secondary,
+::file-selector-button,
+%button-secondary {
+    @extend %button;
+    // @include button-colours-secondary;
+}
+
+::file-selector-button {
+    display: initial;
+    margin: 0;
+    margin-right: #{var-mrg-firm('300')};
+}
+
+label {
+    display: block;
+    margin: #{var-mrg-firm('400')} 0 0;
+    font-weight: 600;
+
+    &:has(> input[type='checkbox'], > input[type='radio']) {
+        display: grid;
+        grid-template-columns: fit-content(0) 1fr;
+        justify-content: end;
+        align-items: baseline;
+        gap: #{var-mrg-soft('300')};
+
+        text-wrap: balance;
+
+        // width: 100%;
+        cursor: pointer;
+
+        & + & {
+            margin-block-start: #{var-mrg-firm('200')};
+        }
+    }
+
+    > input[type='checkbox'],
+    > input[type='radio'] {
+        margin-block-start: 0;
+    }
+}

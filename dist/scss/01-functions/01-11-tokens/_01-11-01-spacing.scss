@@ -78,12 +78,13 @@
 
     $value: map.get(config.$widths, '#{$slug}');
 
-    @if $slug == 'page' {
-        @return (
-            #{$value}rem,
-            calc(#{$value}rem + var(--gap-inline--layout, #{$value}vw)) // calc( #{$value}rem + var(--gap-inline--layout, #{config.$margin_layoutVW}vw) ),
-        );
-    }
+    // @if $slug == 'page' {
+    //     @return (
+    //         #{$value}rem,
+    //         calc(#{$value}rem + var(--gap-inline--layout, #{$value}vw))
+    //         // calc( #{$value}rem + var(--gap-inline--layout, #{config.$margin_layoutVW}vw) ),
+    //     );
+    // }
 
     @return (#{$value}rem);
 }
@@ -97,7 +98,7 @@
 /// @since 0.1.0-alpha.draft
 ///
 @function var-mrg-firm($level) {
-    @return var(--mrg-firm-#{$level}, #{mrg-value-firm($level)});
+    @return var(--mrg-firm-#{$level}, #{mrg-value-firm($level)}rem);
 }
 
 ///

@@ -21,22 +21,42 @@
 }
 
 #{config.$selector_body} {
-    @include config.html {
-        margin-block: #{var-mrg-soft('400')};
-        margin-inline: #{var-mrg-soft('400')};
+    @include config.incl-html {
+        $_vw_margin: 2.5vw;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        margin-block: #{clamp(
+                var-mrg-soft('200'),
+                #{$_vw_margin} * config.$margin_softener,
+                var-mrg-soft('800')
+            )};
+
+        margin-inline: #{clamp(
+                var-mrg-firm('200'),
+                #{$_vw_margin},
+                var-mrg-firm('800')
+            )};
+
+        :where(& > *) {
+            width: min(#{var-width(page)}, 100%);
+        }
     }
 }
 
 hr {
-    display: block;
-    margin-block: #{var-mrg-firm('600')};
-    margin-inline: auto;
-    border: none;
-    border-block-end: currentColor solid 2px;
-    max-width: #{var-width('callout')};
+    @include centre-callout-block(config.$include_html);
 
-    :where(&) {
-        justify-self: center;
-        align-self: center;
+    & {
+        @include config.incl-html {
+            margin-block-start: calc(
+                #{var-mrg-soft('400')} + #{var-mrg-firm('600')}
+            );
+        }
+        margin-block: #{var-mrg-firm('600')};
+        border: none;
+        border-block-end: currentColor solid 2px;
     }
 }
