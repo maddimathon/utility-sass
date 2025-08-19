@@ -18,7 +18,7 @@
  * ======================================================================== */
 
 #{config.$selector_root} {
-    line-height: 1.65;
+    line-height: #{var-line-height('400')};
 }
 
 #{config.$selector_body} {
@@ -125,59 +125,47 @@ pre {
 
 /* ## Typography - Headings ==================================== */
 
-@mixin _heading($size: null) {
-    margin-block: #{var-mrg-soft('600')} 0;
-    font-weight: 600;
-
-    @if $size == title {
-        // font-size: #{var-fs($size)};
-    } @else if $size != null {
-        // font-size: #{var-fs(heading-#{$size})};
-        // color: #{var-theme(heading-#{$size})};
-    }
-}
-
 .heading,
 %heading {
-    @include _heading;
+    @include heading;
 }
 
 h1,
 .h1,
 %h1 {
-    @include _heading('1');
+    @include heading('1');
 }
 
 %title {
-    @include _heading('title');
+    @include heading('title');
 }
 
 h2,
 .h2,
 %h2 {
-    @include _heading('2');
+    @include heading('2');
 }
 
 h3,
 .h3,
 %h3 {
-    @include _heading('3');
+    @include heading('3');
 }
 
 h4,
 .h4,
 %h4 {
-    @include _heading('4');
+    @include heading('4');
 }
 
 h5,
 .h5,
 %h5 {
-    @include _heading('5');
+    @include heading('5');
 }
 
 h6,
 .h6,
 %h6 {
-    @include _heading('6');
+    @include heading('6');
 }

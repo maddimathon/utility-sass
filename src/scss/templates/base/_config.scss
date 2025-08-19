@@ -11,15 +11,21 @@
 );
 
 ///
+/// Whether to include ouput only suited for websites.
+///
+/// @since ___PKG_VERSION___
+///
+$include_html: false !default;
+
+///
 /// Whether to include the normalize mixin in the output.
 ///
 /// @since ___PKG_VERSION___
 ///
 $include_normalize: true !default;
 
-///
-/// Whether to include utility classes in the output.
-///
-/// @since ___PKG_VERSION___
-///
-$include_utilities: true !default;
+@mixin html {
+    @if $include_html {
+        @content;
+    }
+}

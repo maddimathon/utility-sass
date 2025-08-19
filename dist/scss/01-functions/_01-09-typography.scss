@@ -10,10 +10,12 @@
 // @use 'sass:selector';
 @use 'sass:string';
 
+@use '../config';
+
 // @use '01-01-meta' as *;
 // @use '01-02-lists' as *;
 // @use '01-03-maps' as *;
-// @use '01-04-numbers' as *;
+@use '01-04-numbers' as *;
 // @use '01-05-strings' as *;
 // @use '01-06-selectors' as *;
 // @use '01-07-colours' as *;
@@ -21,6 +23,34 @@
 
 /// # TYPOGRAPHY FUNCTIONS
 /// ======================================================================== ///
+
+///
+/// Returns a clamp value for given font size (uses svw).
+///
+/// @param {number}     $size  Rem/em value.
+/// @param {"em"|"rem"} $unit  Whether font should be in rem or em.
+///
+/// @returns {calc}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function clamp-font-size($size, $unit: 'rem') {
+    @if meta.type-of($size) != number {
+        @warn "$size should be a number";
+        @return #{$size}#{$unit};
+    }
+
+    $multi_min: config.$fn_clamp_font_size_multiplier_min;
+    $multi_svw: config.$fn_clamp_font_size_multiplier_svw;
+    $multi_max: config.$fn_clamp_font_size_multiplier_max;
+    $svw_rem: config.$fn_clamp_font_size_svw_rem;
+
+    @return clamp(
+        #{round-to-pixel($size * $multi_min)}#{$unit},
+        #{round-to-pixel($size * $multi_svw)}svw + #{$svw_rem}#{$unit},
+        #{round-to-pixel($size * $multi_max)}#{$unit}
+    );
+}
 
 ///
 /// Quotes font names as needed for valid output.

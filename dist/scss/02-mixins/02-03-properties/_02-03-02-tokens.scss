@@ -23,6 +23,38 @@
 /// ======================================================================== ///
 
 ///
+/// Prints out the font size custom property tokens based on config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-font-size {
+    /* #region Tokens - Font Size */
+    #{selectors-parent-or-root()} {
+        @each $slug, $_value in config.$font_sizes {
+            @each $value in fs-value($slug) {
+                --fs-#{$slug}: #{$value};
+            }
+        }
+    }
+    /* #endregion Tokens - Font Size */
+}
+
+///
+/// Prints out the line height custom property tokens based on config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-line-height {
+    /* #region Tokens - Font Size */
+    #{selectors-parent-or-root()} {
+        @each $slug, $_value in config.$line_heights {
+            --line-height-#{$slug}: #{line-height-value($slug)};
+        }
+    }
+    /* #endregion Tokens - Font Size */
+}
+
+///
 /// Prints out the margin custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha.draft
@@ -32,19 +64,19 @@
 
     /* #region Tokens - Margin */
     #{$selector} {
-        @each $level, $value in config.$margins {
+        @each $level, $_value in config.$margins {
             --mrg-firm-#{$level}: #{mrg-value-firm($level)}rem;
         }
     }
 
     #{$selector} {
-        @each $level, $value in config.$margins {
+        @each $level, $_value in config.$margins {
             --mrg-soft-#{$level}: #{mrg-value-soft($level)}rem;
         }
     }
 
     #{$selector} {
-        @each $level, $value in config.$margins {
+        @each $level, $_value in config.$margins {
             --mrg-half-#{$level}: #{mrg-value-half($level)}rem;
         }
     }
@@ -57,16 +89,13 @@
 /// @since 0.1.0-alpha.draft
 ///
 @mixin tokens-widths {
-    $selector: selectors-parent-or-root();
-
-    /* #region Tokens - Widths */
-    #{$selector} {
-        /* in progress */
-        // @each $slug in ( 'callout', 'content', 'sidebar', 'page', ) {
-        //     @each $value in width-value( $slug ) {
-        //         --wth-#{$slug}: #{$value};
-        //     }
-        // }
+    /* #region Tokens - Width */
+    #{selectors-parent-or-root()} {
+        @each $slug, $_value in config.$widths {
+            @each $value in width-value($slug) {
+                --width-#{$slug}: #{$value};
+            }
+        }
     }
-    /* #endregion Tokens - Widths */
+    /* #endregion Tokens - Width */
 }

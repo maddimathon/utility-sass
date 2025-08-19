@@ -7,14 +7,258 @@
  * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
  */
-/* # TOKENS & PROPERTIES
- * ======================================================================== */
-/* #region Tokens - Widths */
-:root {
-    /* in progress */
+/* #region Normalize */
+/*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
+/*
+Document
+========
+*/
+/**
+Use a better box model (opinionated).
+*/
+*,
+::before,
+::after {
+    box-sizing: border-box;
 }
 
-/* #endregion Tokens - Widths */
+:root {
+    /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+    /* font-family:
+      system-ui,
+      'Segoe UI',
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji'; */
+    line-height: 1.15; /* 1. Correct the line height in all browsers. */
+    -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
+}
+
+/*
+Sections
+========
+*/
+body {
+    margin: 0; /* Remove the margin in all browsers. */
+}
+
+/*
+Text-level semantics
+====================
+*/
+/**
+Add the correct font weight in Chrome and Safari.
+*/
+b,
+strong {
+    font-weight: bolder;
+}
+
+/**
+1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+2. Correct the odd 'em' font sizing in all browsers.
+*/
+code,
+kbd,
+samp,
+pre {
+    /* font-family:
+      ui-monospace,
+      SFMono-Regular,
+      Consolas,
+      'Liberation Mono',
+      Menlo,
+      monospace; */ /* 1 */
+    font-size: 1em; /* 2 */
+}
+
+/**
+Add the correct font size in all browsers.
+*/
+small {
+    font-size: 80%;
+}
+
+/**
+Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
+*/
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+/*
+Tabular data
+============
+*/
+/**
+Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016)
+*/
+table {
+    border-color: currentcolor;
+}
+
+/*
+Forms
+=====
+*/
+/**
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+*/
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 1 */
+    line-height: 1.15; /* 1 */
+    margin: 0; /* 2 */
+}
+
+/**
+Correct the inability to style clickable types in iOS and Safari.
+*/
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+}
+
+/**
+Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
+*/
+legend {
+    padding: 0;
+}
+
+/**
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+progress {
+    vertical-align: baseline;
+}
+
+/**
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    height: auto;
+}
+
+/**
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+[type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    outline-offset: -2px; /* 2 */
+}
+
+/**
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/**
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to 'inherit' in Safari.
+*/
+::-webkit-file-upload-button {
+    -webkit-appearance: button; /* 1 */
+    font: inherit; /* 2 */
+}
+
+/*
+Interactive
+===========
+*/
+/*
+Add the correct display in Chrome and Safari.
+*/
+summary {
+    display: list-item;
+}
+
+/*! end of modern-normalize */
+:root,
+test-root {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol";
+}
+:root,
+test-root {
+    color-scheme: light dark;
+}
+:root,
+test-root {
+    font-size: 115%;
+}
+@media (min-width: 50em) {
+    :root,
+    test-root {
+        font-size: 105%;
+    }
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+        monospace;
+}
+
+/* #endregion Normalize */
+/* # TOKENS & PROPERTIES
+ * ======================================================================== */
+/* #region Tokens - Width */
+:root {
+    --width-content: 36rem;
+    --width-sidebar: 17rem;
+    --width-callout: 29.25rem;
+    --width-page: 53rem;
+    --width-page: calc(53rem + var(--gap-inline--layout, 53vw));
+}
+
+/* #endregion Tokens - Width */
 /* #region Tokens - Margin */
 :root {
     --mrg-firm-100: 0.3125rem;
@@ -44,10 +288,70 @@
 }
 
 /* #endregion Tokens - Margin */
+/* #region Tokens - Font Size */
+:root {
+    --fs-title: 2.75rem;
+    --fs-title: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
+    --fs-heading-1: 2.375rem;
+    --fs-heading-1: clamp(1.8125rem, 3.125svw + 1rem, 2.6875rem);
+    --fs-heading-2: 2.0625rem;
+    --fs-heading-2: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
+    --fs-heading-3: 1.8125rem;
+    --fs-heading-3: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
+    --fs-heading-4: 1.6875rem;
+    --fs-heading-4: clamp(1.25rem, 2.1875svw + 1rem, 1.875rem);
+    --fs-heading-5: 1.3125rem;
+    --fs-heading-5: clamp(1rem, 1.75svw + 1rem, 1.5rem);
+    --fs-heading-6: 1.1875rem;
+    --fs-heading-6: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
+    --fs-smaller-2: 0.8125rem;
+    --fs-smaller-1: 0.9375rem;
+    --fs-normal: 1rem;
+    --fs-bigger-1: 1.1875rem;
+    --fs-bigger-2: 1.3125rem;
+    --fs-bigger-3: 1.5625rem;
+    --fs-bigger-4: 1.8125rem;
+    --fs-bigger-5: 2.0625rem;
+    --fs-bigger-6: 2.375rem;
+}
+
+/* #endregion Tokens - Font Size */
+/* #region Tokens - Font Size */
+:root {
+    --line-height-100: 1.125;
+    --line-height-200: 1.25;
+    --line-height-300: 1.375;
+    --line-height-400: 1.625;
+    --line-height-500: 1.875;
+    --line-height-600: 2.125;
+}
+
+/* #endregion Tokens - Font Size */
+/* # OBJECTS
+ * ======================================================================== */
+hr {
+    display: block;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+    margin-top: var(--mrg-firm-600, 2.25);
+    margin-bottom: var(--mrg-firm-600, 2.25);
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    border-bottom: currentColor solid 2px;
+    max-width: 29.25rem;
+    max-width: var(--width-callout, 29.25rem);
+}
+:where(hr) {
+    justify-self: center;
+    align-self: center;
+}
+
 /* # TYPOGRAPHY
  * ======================================================================== */
 :root {
-    line-height: 1.65;
+    line-height: 1.625;
+    line-height: var(--line-height-400, 1.625);
 }
 
 /* ## Typography - Inline ==================================== */
@@ -127,6 +431,9 @@ pre > code {
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
     font-weight: 600;
+    font-size: 1.1875rem;
+    font-size: var(--fs-bigger-1, 1.1875rem);
+    text-wrap: balance;
 }
 
 h1,
@@ -134,7 +441,12 @@ h1,
     margin-top: 1.4375rem;
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
-    font-weight: 600;
+    font-weight: 900;
+    font-size: clamp(1.8125rem, 3.125svw + 1rem, 2.6875rem);
+    font-size: var(--fs-heading-1, 2.375rem);
+    line-height: 1.25;
+    line-height: var(--line-height-200, 1.25);
+    text-wrap: balance;
 }
 
 h2,
@@ -142,7 +454,12 @@ h2,
     margin-top: 1.4375rem;
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
-    font-weight: 600;
+    font-weight: 800;
+    font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
+    font-size: var(--fs-heading-2, 2.0625rem);
+    line-height: 1.25;
+    line-height: var(--line-height-200, 1.25);
+    text-wrap: balance;
 }
 
 h3,
@@ -150,7 +467,12 @@ h3,
     margin-top: 1.4375rem;
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
+    font-size: var(--fs-heading-3, 1.8125rem);
+    line-height: 1.25;
+    line-height: var(--line-height-200, 1.25);
+    text-wrap: balance;
 }
 
 h4,
@@ -158,7 +480,13 @@ h4,
     margin-top: 1.4375rem;
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
-    font-weight: 600;
+    font-weight: 700;
+    font-style: italic;
+    font-size: clamp(1.25rem, 2.1875svw + 1rem, 1.875rem);
+    font-size: var(--fs-heading-4, 1.6875rem);
+    line-height: 1.375;
+    line-height: var(--line-height-300, 1.375);
+    text-wrap: balance;
 }
 
 h5,
@@ -167,6 +495,12 @@ h5,
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
     font-weight: 600;
+    font-style: italic;
+    font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
+    font-size: var(--fs-heading-5, 1.3125rem);
+    line-height: 1.375;
+    line-height: var(--line-height-300, 1.375);
+    text-wrap: balance;
 }
 
 h6,
@@ -174,7 +508,13 @@ h6,
     margin-top: 1.4375rem;
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
-    font-weight: 600;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
+    font-size: var(--fs-heading-6, 1.1875rem);
+    line-height: 1.375;
+    line-height: var(--line-height-300, 1.375);
+    text-wrap: balance;
 }
 
 /*! end of @maddimathon/utility-sass template */

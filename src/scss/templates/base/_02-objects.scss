@@ -1,0 +1,42 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use 'config';
+
+@use '../../index' as *;
+
+/* # OBJECTS
+ * ======================================================================== */
+
+#{config.$selector_root} {
+}
+
+#{config.$selector_body} {
+    @include config.html {
+        margin-block: #{var-mrg-soft('400')};
+        margin-inline: #{var-mrg-soft('400')};
+    }
+}
+
+hr {
+    display: block;
+    margin-block: #{var-mrg-firm('600')};
+    margin-inline: auto;
+    border: none;
+    border-block-end: currentColor solid 2px;
+    max-width: #{var-width('callout')};
+
+    :where(&) {
+        justify-self: center;
+        align-self: center;
+    }
+}

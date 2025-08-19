@@ -3,7 +3,7 @@
 /// @since ___PKG_VERSION___
 ///
 // @use 'sass:color';
-// @use 'sass:list';
+@use 'sass:list';
 @use 'sass:map';
 // @use 'sass:math';
 // @use 'sass:meta';
@@ -61,38 +61,38 @@
 }
 
 ///
-/// Uses the breakpoint config to prepare the appropriate numerical value (rem).
+/// Uses the widths config to prepare the appropriate numerical value (rem).
+/// Returns a list of values since some are calculations that may require
+/// fallbacks.
+///
+/// @return {list}
 ///
 /// @since ___PKG_VERSION___
 ///
 @function width-value($slug) {
-    // @if $slug == 'callout' {
-    //     @return ( #{round-to-pixel( config.$width_content * 0.8125 )}rem );
-    // }
+    // returns
+    @if not map.has-key(config.$widths, '#{$slug}') {
+        @warn "$slug was not a key in config.$widths";
+        @return ();
+    }
 
-    // @if $slug == 'content' {
-    //     @return ( #{config.$width_content}rem );
-    // }
+    $value: map.get(config.$widths, '#{$slug}');
 
-    // @if $slug == 'sidebar' {
-    //     @return ( #{config.$width_sidebar}rem );
-    // }
+    @if $slug == 'page' {
+        @return (
+            #{$value}rem,
+            calc(#{$value}rem + var(--gap-inline--layout, #{$value}vw)) // calc( #{$value}rem + var(--gap-inline--layout, #{config.$margin_layoutVW}vw) ),
+        );
+    }
 
-    // @if $slug == 'page' {
-    //     @return (
-    //         #{calc( config.$width_content + config.$width_sidebar )}rem,
-    //         calc( #{calc( config.$width_content + config.$width_sidebar )}rem + var(--gap-inline--layout, #{config.$margin_layoutVW}vw) ),
-    //     );
-    // }
-
-    // @warn "$slug ('#{$slug}') did not match any of the width keys";
-    // @return ( auto );
+    @return (#{$value}rem);
 }
 
 /// ## VARIABLES ==================================== ///
 
 ///
-/// Uses the margin config tokens to print the appropriate var(...) with a fallback.
+/// Uses the margin config tokens to print the appropriate var(...) with a
+/// fallback.
 ///
 /// @since ___PKG_VERSION___
 ///
@@ -101,7 +101,8 @@
 }
 
 ///
-/// Uses the margin config tokens to print the appropriate var(...) with a fallback.
+/// Uses the margin config tokens to print the appropriate var(...) with a
+/// fallback.
 ///
 /// @since ___PKG_VERSION___
 ///
@@ -110,10 +111,29 @@
 }
 
 ///
-/// Uses the margin config tokens to print the appropriate var(...) with a fallback.
+/// Uses the margin config tokens to print the appropriate var(...) with a
+/// fallback.
 ///
 /// @since ___PKG_VERSION___
 ///
 @function var-mrg-soft($level) {
     @return var(--mrg-soft-#{$level}, #{mrg-value-soft($level)}rem);
+}
+
+///
+/// Uses the width config tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function var-width($slug) {
+    $fallback: width-value($slug);
+
+    @if list.length($fallback) < 1 {
+        @return var(--width-#{$slug});
+    }
+
+    $fallback: list.nth($fallback, 1);
+
+    @return var(--width-#{$slug}, #{$fallback});
 }
