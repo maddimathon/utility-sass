@@ -11,6 +11,7 @@
 // @use 'sass:string';
 
 @use '../../config';
+@use '../../tokens';
 
 // @use '../01-01-meta' as *;
 // @use '../01-02-lists' as *;
@@ -36,12 +37,12 @@
 ///
 @function fs-value($slug, $fontScale: 1, $clampFontSize: null) {
     // returns
-    @if not map.has-key(config.$font_sizes, $slug) {
+    @if not map.has-key(tokens.$font_sizes, $slug) {
         @warn "$slug did not match any of the font family tokens";
         @return ();
     }
 
-    $size: map.get(config.$font_sizes, $slug);
+    $size: map.get(tokens.$font_sizes, $slug);
 
     @if $clampFontSize == null {
         $clampFontSize: false;
@@ -117,12 +118,12 @@
 /// @since ___PKG_VERSION___
 ///
 @function line-height-value($level) {
-    $value: map.get(config.$line_heights, '400');
+    $value: map.get(tokens.$line_heights, '400');
 
-    @if not map.has-key(config.$line_heights, '#{$level}') {
-        @warn "$level was not a key in config.$line_heights";
+    @if not map.has-key(tokens.$line_heights, '#{$level}') {
+        @warn "$level was not a key in tokens.$line_heights";
     } @else {
-        $value: map.get(config.$line_heights, '#{$level}');
+        $value: map.get(tokens.$line_heights, '#{$level}');
     }
 
     @return $value;

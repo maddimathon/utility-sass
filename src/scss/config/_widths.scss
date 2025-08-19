@@ -1,0 +1,56 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:color';
+// @use 'sass:list';
+@use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use 'functions' as *;
+
+/// # CONFIG - WIDTHS
+/// ======================================================================== ///
+
+$_widths_content: 36;
+$_widths_sidebar: 17;
+
+///
+/// A map (merged with the defaults) of widths used throughout.
+///
+/// Default keys are 'content' and 'sidebar'. After merging, values are
+/// rounded with config-round-to-pixel().
+///
+/// @since ___PKG_VERSION___
+///
+$widths: () !default;
+
+$widths: config-merge-args(
+    (
+        'content': $_widths_content,
+        'sidebar': $_widths_sidebar,
+
+        'callout': calc(
+                if(
+                        map.has-key($widths, 'mobile'),
+                        map.get($widths, 'mobile'),
+                        $_widths_content
+                    ) *
+                    0.8125
+            ),
+    ),
+    $widths
+);
+
+$widths: map.set(
+    $widths,
+    'page',
+    calc(map.get($widths, 'content') + map.get($widths, 'sidebar'))
+);
+
+@each $key, $value in $widths {
+    $widths: map.set($widths, $key, config-round-to-pixel($value));
+}

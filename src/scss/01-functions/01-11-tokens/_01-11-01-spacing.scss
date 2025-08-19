@@ -11,6 +11,7 @@
 // @use 'sass:string';
 
 @use '../../config';
+@use '../../tokens';
 
 // @use '../01-01-meta' as *;
 // @use '../01-02-lists' as *;
@@ -31,12 +32,12 @@
 /// @since ___PKG_VERSION___
 ///
 @function mrg-value-firm($level) {
-    $value: map.get(config.$margins, '400');
+    $value: map.get(tokens.$margins, '400');
 
-    @if not map.has-key(config.$margins, '#{$level}') {
-        @warn "$level was not a key in config.$margins";
+    @if not map.has-key(tokens.$margins, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$margins";
     } @else {
-        $value: map.get(config.$margins, '#{$level}');
+        $value: map.get(tokens.$margins, '#{$level}');
     }
 
     @return $value;

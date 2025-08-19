@@ -26,34 +26,3 @@ $scale_multiplier: 1.15625 !default;
 /// ## MARGINS ==================================== ///
 
 $margin_softener: 0.625 !default;
-
-///
-/// A map (merged with the defaults) of margin levels used as tokens throught
-/// the system.
-///
-/// Default keys are '100', '200', '300', '400', '600', and '800'. After
-/// merging, values are rounded with config-round-to-pixel().
-///
-/// @since 0.1.0-alpha.draft
-///
-$margins: () !default;
-
-$margins: config-merge-args(
-    (
-        '100': -9,
-        '200': -6,
-        '300': -3,
-        '400': 0,
-        '600': 4,
-        '800': 8,
-    ),
-    $margins
-);
-
-@each $key, $size in $margins {
-    $margins: map.set(
-        $margins,
-        $key,
-        config-round-to-pixel(math.pow($scale_multiplier, $size) * 1.25, 16)
-    );
-}

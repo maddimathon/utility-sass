@@ -29,7 +29,7 @@ fieldset {
 
 %_input-base {
     display: block;
-    margin: #{var-mrg-firm('400')} 0 0;
+    margin: #{var-mrg-firm('400')} 0 #{var-mrg-half('400')};
     padding: #{var-mrg-soft('100')} #{var-mrg-firm('200')};
     width: 100%;
 
@@ -168,6 +168,7 @@ label {
         align-items: baseline;
         gap: #{var-mrg-soft('300')};
 
+        font-weight: 400;
         text-wrap: balance;
 
         cursor: pointer;
@@ -175,10 +176,14 @@ label {
         & + & {
             margin-block-start: #{var-mrg-firm('200')};
         }
+
+        + %_input-base {
+            margin-block-start: #{var-mrg-firm('400')};
+        }
     }
 
     > input[type='checkbox'],
     > input[type='radio'] {
-        margin-block-start: 0;
+        margin-block: 0;
     }
 }

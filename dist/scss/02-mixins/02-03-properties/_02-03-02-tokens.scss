@@ -11,6 +11,7 @@
 // @use 'sass:string';
 
 @use '../../config';
+@use '../../tokens';
 
 @use '../../01-functions' as *;
 
@@ -30,7 +31,7 @@
 @mixin tokens-font-size {
     /* #region Tokens - Font Size */
     #{selectors-parent-or-root()} {
-        @each $slug, $_value in config.$font_sizes {
+        @each $slug, $_value in tokens.$font_sizes {
             @each $value in fs-value($slug) {
                 --fs-#{$slug}: #{$value};
             }
@@ -47,7 +48,7 @@
 @mixin tokens-line-height {
     /* #region Tokens - Font Size */
     #{selectors-parent-or-root()} {
-        @each $slug, $_value in config.$line_heights {
+        @each $slug, $_value in tokens.$line_heights {
             --line-height-#{$slug}: #{line-height-value($slug)};
         }
     }
@@ -64,19 +65,19 @@
 
     /* #region Tokens - Margin */
     #{$selector} {
-        @each $level, $_value in config.$margins {
+        @each $level, $_value in tokens.$margins {
             --mrg-firm-#{$level}: #{mrg-value-firm($level)}rem;
         }
     }
 
     #{$selector} {
-        @each $level, $_value in config.$margins {
+        @each $level, $_value in tokens.$margins {
             --mrg-soft-#{$level}: #{mrg-value-soft($level)}rem;
         }
     }
 
     #{$selector} {
-        @each $level, $_value in config.$margins {
+        @each $level, $_value in tokens.$margins {
             --mrg-half-#{$level}: #{mrg-value-half($level)}rem;
         }
     }

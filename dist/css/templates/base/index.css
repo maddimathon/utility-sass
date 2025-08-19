@@ -672,8 +672,8 @@ textarea,
 select,
 input {
     display: block;
-    margin: 1.25rem 0 0;
-    margin: var(--mrg-firm-400, 1.25rem) 0 0;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
     padding: 0.1875rem 0.5rem;
     padding: var(--mrg-soft-100, 0.1875rem) var(--mrg-firm-200, 0.5rem);
     width: 100%;
@@ -821,6 +821,7 @@ label:has(> input[type="checkbox"], > input[type="radio"]) {
     grid-gap: var(--mrg-soft-300, 0.5rem);
     gap: 0.5rem;
     gap: var(--mrg-soft-300, 0.5rem);
+    font-weight: 400;
     text-wrap: balance;
     cursor: pointer;
 }
@@ -829,9 +830,29 @@ label:has(> input[type="checkbox"], > input[type="radio"])
     margin-top: 0.5rem;
     margin-top: var(--mrg-firm-200, 0.5rem);
 }
+label:has(> input[type="checkbox"], > input[type="radio"]) + input,
+label:has(> input[type="checkbox"], > input[type="radio"]) + select,
+label:has(> input[type="checkbox"], > input[type="radio"]) + textarea,
+label:has(> input[type="checkbox"], > input[type="radio"]) + a.button,
+label:has(> input[type="checkbox"], > input[type="radio"]) + button,
+label:has(> input[type="checkbox"], > input[type="radio"]) + [role="button"],
+label:has(> input[type="checkbox"], > input[type="radio"])
+    + input[type="button"],
+label:has(> input[type="checkbox"], > input[type="radio"])
+    + input[type="submit"],
+label:has(> input[type="checkbox"], > input[type="radio"])
+    + input[type="reset"],
+label:has(> input[type="checkbox"], > input[type="radio"]) + a.button-secondary,
+label:has(> input[type="checkbox"], > input[type="radio"]) + .button-secondary,
+label:has(> input[type="checkbox"], > input[type="radio"])
+    + ::file-selector-button {
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
+}
 label > input[type="checkbox"],
 label > input[type="radio"] {
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 /*! end of @maddimathon/utility-sass template */
