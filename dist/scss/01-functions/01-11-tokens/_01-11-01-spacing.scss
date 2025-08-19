@@ -1,0 +1,119 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:color';
+// @use 'sass:list';
+@use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use '../../config';
+
+// @use '../01-01-meta' as *;
+// @use '../01-02-lists' as *;
+// @use '../01-03-maps' as *;
+@use '../01-04-numbers' as *;
+// @use '../01-05-strings' as *;
+// @use '../01-06-selectors' as *;
+// @use '../01-07-colours' as *;
+// @use '../01-08-accessibility' as *;
+// @use '../01-09-typography' as *;
+
+/// # SPACING TOKEN FUNCTIONS
+/// ======================================================================== ///
+
+///
+/// Uses the margin config to prepare the appropriate numerical value (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function mrg-value-firm($level) {
+    $value: map.get(config.$margins, '400');
+
+    @if not map.has-key(config.$margins, '#{$level}') {
+        @warn "$level was not a key in config.$margins";
+    } @else {
+        $value: map.get(config.$margins, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the margin config to prepare the appropriate numerical value (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function mrg-value-half($level) {
+    @return calc(mrg-value-firm($level) - mrg-value-soft($level));
+}
+
+///
+/// Uses the margin config to prepare the appropriate numerical value (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function mrg-value-soft($level) {
+    @return round-to-pixel(mrg-value-firm($level) * config.$margin_softener);
+}
+
+///
+/// Uses the breakpoint config to prepare the appropriate numerical value (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function width-value($slug) {
+    // @if $slug == 'callout' {
+    //     @return ( #{round-to-pixel( config.$width_content * 0.8125 )}rem );
+    // }
+
+    // @if $slug == 'content' {
+    //     @return ( #{config.$width_content}rem );
+    // }
+
+    // @if $slug == 'sidebar' {
+    //     @return ( #{config.$width_sidebar}rem );
+    // }
+
+    // @if $slug == 'page' {
+    //     @return (
+    //         #{calc( config.$width_content + config.$width_sidebar )}rem,
+    //         calc( #{calc( config.$width_content + config.$width_sidebar )}rem + var(--gap-inline--layout, #{config.$margin_layoutVW}vw) ),
+    //     );
+    // }
+
+    // @warn "$slug ('#{$slug}') did not match any of the width keys";
+    // @return ( auto );
+}
+
+/// ## VARIABLES ==================================== ///
+
+///
+/// Uses the margin config tokens to print the appropriate var(...) with a fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-mrg-firm($level) {
+    @return var(--mrg-firm-#{$level}, #{mrg-value-firm($level)});
+}
+
+///
+/// Uses the margin config tokens to print the appropriate var(...) with a fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-mrg-half($level) {
+    @return var(--mrg-half-#{$level}, #{mrg-value-half($level)}rem);
+}
+
+///
+/// Uses the margin config tokens to print the appropriate var(...) with a fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-mrg-soft($level) {
+    @return var(--mrg-soft-#{$level}, #{mrg-value-soft($level)}rem);
+}

@@ -12,7 +12,7 @@
 
 @forward '_header';
 
-// @forward '00-abstracts';
+@forward '00-abstracts';
 // @forward '01-accessibility';
 // @forward '02-objects';
 @forward '03-typography';
@@ -22,15 +22,16 @@
 
 @forward '_footer';
 
-@use '../../index' as utils;
+// TODO: remove testing
+// @use '../../index' as utils;
 
-test.utility-sass.templates.base {
-    /* this is a test of utils.$scale_multiplier */
-    --content: #{utils.$scale_multiplier};
-}
+// test.utility-sass.templates.base {
+//     /* this is a test of utils.$scale_multiplier */
+//     --content: #{utils.$scale_multiplier};
+// }
 
-@include utils.min-width(tablet) {
-    test.utility-sass.templates.base {
-        /* I am inside a min-width( tablet ) mixin from utility-sass */
-    }
-}
+// @include utils.min-width(tablet) {
+//     test.utility-sass.templates.base {
+//         /* I am inside a min-width( tablet ) mixin from utility-sass */
+//     }
+// }

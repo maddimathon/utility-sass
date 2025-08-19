@@ -15,13 +15,42 @@
 /// # CONFIG - SELECTORS
 /// ======================================================================== ///
 
-$selector_null: (string.unquote('%null')) !default;
-$selector_root: (string.unquote(':root')) !default;
-
-/// Types ------------------ ///
+///
+/// Selector to use for the body element.  Included here to allow
+/// lower-specificity options.
+///
+/// @default ( string.unquote('body') )
+///
+/// @since ___PKG_VERSION___
+///
+$selector_body: (string.unquote('body')) !default;
 
 ///
-/// How to override browser settings for theme modes.
+/// Selector used as a 'null' (e.g., not-output) selector within the system to
+/// avoid errors.  e.g., with the mode mixins if the targeted mode is disabled.
+///
+/// @default ( string.unquote('%null') )
+///
+/// @since ___PKG_VERSION___
+///
+$selector_null: (string.unquote('%null')) !default;
+
+///
+/// Selector to use for the root element.  Included here to allow
+/// lower-specificity options.
+///
+/// @default ( string.unquote(':root') )
+///
+/// @since ___PKG_VERSION___
+///
+$selector_root: (string.unquote(':root')) !default;
+
+///
+/// How to select for manual overrides of theme modes (e.g., brightness, contrast).
+///
+/// @default 'attribute'
+///
+/// @since ___PKG_VERSION___
 ///
 $selectorType_mode: 'attribute' !default;
 $selectorType_mode: config-validate-selector-type(
@@ -30,7 +59,11 @@ $selectorType_mode: config-validate-selector-type(
 );
 
 ///
-/// How to override browser settings for motion.
+/// How to select for manual overrides of motion preference.
+///
+/// @default 'attribute'
+///
+/// @since ___PKG_VERSION___
 ///
 $selectorType_motion: 'attribute' !default;
 $selectorType_motion: config-validate-selector-type(

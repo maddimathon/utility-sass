@@ -3,18 +3,23 @@
 /// @since ___PKG_VERSION___
 ///
 
+@forward 'config';
+
+@forward '../../index';
+
 @forward 'functions';
 @forward 'mixins';
 
-@use '../../index' as utils;
+// TODO: remove testing
+// @use '../../index' as utils;
 
-test.utility-sass.templates.demo {
-    /* this is a test of utils.$scale_multiplier */
-    --content: #{utils.$scale_multiplier};
-}
+// test.utility-sass.templates.demo {
+//     /* this is a test of utils.$scale_multiplier */
+//     --content: #{utils.$scale_multiplier};
+// }
 
-@include utils.min-width(tablet) {
-    test.utility-sass.templates.demo {
-        /* I am inside a min-width( tablet ) mixin from utility-sass */
-    }
-}
+// @include utils.min-width(tablet) {
+//     test.utility-sass.templates.demo {
+//         /* I am inside a min-width( tablet ) mixin from utility-sass */
+//     }
+// }

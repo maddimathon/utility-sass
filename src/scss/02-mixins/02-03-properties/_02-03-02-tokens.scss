@@ -1,0 +1,72 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use '../../config';
+
+@use '../../01-functions' as *;
+
+// @use '../02-01-utilities' as *;
+// @use '../02-02-theming' as *;
+
+// @use '02-03-01-utilities' as *;
+
+/// # PROPERTY MIXINS - Tokens
+/// ======================================================================== ///
+
+///
+/// Prints out the margin custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-margins {
+    $selector: selectors-parent-or-root();
+
+    /* #region Tokens - Margin */
+    #{$selector} {
+        @each $level, $value in config.$margins {
+            --mrg-firm-#{$level}: #{mrg-value-firm($level)}rem;
+        }
+    }
+
+    #{$selector} {
+        @each $level, $value in config.$margins {
+            --mrg-soft-#{$level}: #{mrg-value-soft($level)}rem;
+        }
+    }
+
+    #{$selector} {
+        @each $level, $value in config.$margins {
+            --mrg-half-#{$level}: #{mrg-value-half($level)}rem;
+        }
+    }
+    /* #endregion Tokens - Margin */
+}
+
+///
+/// Prints out the width custom property tokens based on breakpoints config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-widths {
+    $selector: selectors-parent-or-root();
+
+    /* #region Tokens - Widths */
+    #{$selector} {
+        /* in progress */
+        // @each $slug in ( 'callout', 'content', 'sidebar', 'page', ) {
+        //     @each $value in width-value( $slug ) {
+        //         --wth-#{$slug}: #{$value};
+        //     }
+        // }
+    }
+    /* #endregion Tokens - Widths */
+}

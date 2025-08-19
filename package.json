@@ -131,9 +131,10 @@
         "quick-build": "build-utils build -- --without minimize,prettify",
         
         
-        "prewatch": "build-utils compile -- --starting",
+        "prewatch": "build-utils build -- --without minimize,prettify --starting",
         
         "watch": "run-p --silent watch:*",
+            "watch:docs": "watch -p 'src/docs/**/*' -c 'build-utils document                  --watchedWatcher \"watch:docs\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "watch:scss": "watch -p 'src/scss/**/*' -c 'build-utils build --compile-only scss --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "watch:ts":   "watch -p 'src/ts/**/*'   -c 'build-utils build --compile-only ts   --watchedWatcher \"watch:ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         

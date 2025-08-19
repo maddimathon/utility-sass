@@ -10,6 +10,8 @@
 // @use 'sass:selector';
 // @use 'sass:string';
 
+@use '../config';
+
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 
@@ -35,7 +37,7 @@
         box-sizing: border-box;
     }
 
-    html {
+    #{config.$selector_root} {
         /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
         /* font-family:
             system-ui,
@@ -56,7 +58,7 @@
     ========
     */
 
-    body {
+    #{config.$selector_body} {
         margin: 0; /* Remove the margin in all browsers. */
     }
 
@@ -234,7 +236,7 @@
 
     /*! end of modern-normalize */
 
-    html {
+    #{config.$selector_root} {
         font-family: #{font-family-system-ui()};
 
         & {

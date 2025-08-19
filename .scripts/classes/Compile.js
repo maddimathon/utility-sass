@@ -62,6 +62,7 @@ export class Compile extends CompileStage {
         const templates = [
             'base',
             'demo',
+            'tokens',
         ];
 
         for ( const _tmpl of templates ) {

@@ -18,6 +18,15 @@
 $_breakpoint_mobile: 25;
 $_breakpoint_tablet: 50;
 
+///
+/// A map (merged with the defaults) of breakpoints used with the breakpoint
+/// mixins and --width-X properties.
+///
+/// Default keys are 'mobile', 'tablet', and 'indent'. After merging, values are
+/// rounded with config-round-to-pixel().
+///
+/// @since ___PKG_VERSION___
+///
 $breakpoints: () !default;
 
 $breakpoints: config-merge-args(
@@ -25,8 +34,7 @@ $breakpoints: config-merge-args(
         'mobile': $_breakpoint_mobile,
         'tablet': $_breakpoint_tablet,
 
-        'indent':
-            if(
+        'indent': if(
                 map.has-key($breakpoints, 'mobile'),
                 map.get($breakpoints, 'mobile'),
                 $_breakpoint_mobile

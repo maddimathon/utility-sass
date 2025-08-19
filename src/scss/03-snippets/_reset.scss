@@ -1,7 +1,7 @@
-/// 
+///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
-/// 
+///
 // @use 'sass:color';
 // @use 'sass:list';
 // @use 'sass:map';
@@ -10,19 +10,22 @@
 // @use 'sass:selector';
 // @use 'sass:string';
 
-/// 
+@use '../config';
+
+///
 /// A basic reset stylesheet.
-/// 
+///
 @mixin reset {
     /* #region Reset */
 
-    html, body {
+    #{config.$selector_root},
+    #{config.$selector_body} {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
 
-    html {
+    #{config.$selector_root} {
         -moz-text-size-adjust: none;
         -webkit-text-size-adjust: none;
         text-size-adjust: none;

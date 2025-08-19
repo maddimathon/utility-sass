@@ -27,29 +27,25 @@
 /// Returns the motion setting selector.
 ///
 /// @param {bool} $bool         Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
-/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
-/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
+/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default set based on parent selector type.
+/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default set based on parent selector type.
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function motion-selector($bool, $nestParent: true, $unifyParent: false) {
+@function motion-selector($bool, $nestParent: null, $unifyParent: null) {
     $mode: if($bool, 'no-preference', 'less');
 
-    $parentSelectorType: meta.type-of(&);
-
-    @if $parentSelectorType != list and $parentSelectorType != string {
+    @if not selectors-parent-exists() {
         $nestParent: false;
         $unifyParent: false;
-    } @else {
+    } @else if $nestParent == null or $unifyParent == null {
         $parentSelectorString: #{&};
 
-        @if $parentSelectorString == body {
-            $nestParent: false;
-        }
-
-        @if $parentSelectorString == html or $parentSelectorString == ':root' {
-            $nestParent: false;
-            $unifyParent: false;
+        @if selectors-parent-is-body() {
+            $nestParent: if($nestParent == null, false, $nestParent);
+        } @else if selectors-parent-is-root() {
+            $nestParent: if($nestParent == null, false, $nestParent);
+            $nestParent: if($unifyParent == null, false, $unifyParent);
         }
     }
 

@@ -1,7 +1,7 @@
-/// 
+///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
-/// 
+///
 // @use 'sass:color';
 @use 'sass:list';
 // @use 'sass:map';
@@ -20,76 +20,62 @@
 @use '01-06-selectors' as *;
 // @use '01-07-colours' as *;
 
-
-
 /// # FUNCTIONS - ACCESSIBILITY
 /// ======================================================================== ///
 
-/// 
+///
 /// Returns the motion setting selector.
-/// 
+///
 /// @param {bool} $bool         Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
-/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
-/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
-/// 
+/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default set based on parent selector type.
+/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default set based on parent selector type.
+///
 /// @since ___PKG_VERSION___
-/// 
-@function motion-selector( $bool, $nestParent: true, $unifyParent: false ) {
+///
+@function motion-selector($bool, $nestParent: null, $unifyParent: null) {
+    $mode: if($bool, 'no-preference', 'less');
 
-    $mode: if( $bool, 'no-preference', 'less' );
-
-
-    $parentSelectorType: meta.type-of( & );
-
-    @if $parentSelectorType != list and $parentSelectorType != string {
+    @if not selectors-parent-exists() {
         $nestParent: false;
         $unifyParent: false;
-    } @else {
+    } @else if $nestParent == null or $unifyParent == null {
         $parentSelectorString: #{&};
 
-        @if $parentSelectorString == body {
-            $nestParent: false;
-        }
-
-        @if $parentSelectorString == html
-            or $parentSelectorString == ':root'
-        {
-            $nestParent: false;
-            $unifyParent: false;
+        @if selectors-parent-is-body() {
+            $nestParent: if($nestParent == null, false, $nestParent);
+        } @else if selectors-parent-is-root() {
+            $nestParent: if($nestParent == null, false, $nestParent);
+            $nestParent: if($unifyParent == null, false, $unifyParent);
         }
     }
 
-    
     $selector: null;
-    
+
     @if config.$selectorType_motion == 'attribute' {
-        $selector: ( string.unquote( "[data-motion=#{$mode}]" ) );
+        $selector: (string.unquote('[data-motion=#{$mode}]'));
     }
 
     @if config.$selectorType_motion == 'class' {
-        $selector: ( string.unquote( ".motion-preference-#{$mode}" ) );
+        $selector: (string.unquote('.motion-preference-#{$mode}'));
     }
 
     @if $selector == null {
         @return config.$selector_null;
     }
 
-    $selectorsList: ( $selector );
+    $selectorsList: ($selector);
 
     @if $nestParent or $unifyParent {
-
         $selectorsList: merge-selectors(
             $selectorsList,
             &,
-        
             $nestAinB: false,
             $nestBinA: $nestParent,
-            $unify: $unifyParent,
+            $unify: $unifyParent
         );
     }
 
-
-    @if list.length( $selectorsList ) > 0 {
+    @if list.length($selectorsList) > 0 {
         @return $selectorsList;
     }
 

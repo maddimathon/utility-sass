@@ -23,32 +23,26 @@
         @return $selector;
     }
 
-    $parentSelector: #{&};
-
     // returns
-    @if $parentSelector ==
-        ':root' or
-        $parentSelector ==
-        html or
-        $parentSelector ==
-        #{config.$selector_root}
-    {
+    @if selectors-parent-is-root() {
         @return selector.unify(&, $selector);
     }
 
-    $parentIsModeSelector: if(
+    $parentSelector: #{&};
+
+    $parentIsModeOrBodySelector: if(
         (
-            string.index($parentSelector, '[data-motion=') != null or
+            selectors-parent-is-body() or
+                string.index($parentSelector, '[data-motion=') != null or
                 string.index($parentSelector, '[data-brightness-mode=') != null
                 or string.index($parentSelector, '[data-contrast-mode=') != null
-                or $parentSelector == body
         ),
         true,
         false
     );
 
     // returns
-    @if $parentIsModeSelector {
+    @if $parentIsModeOrBodySelector {
         @return (selector.nest($selector, &), selector.unify(&, $selector));
     }
 

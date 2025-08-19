@@ -68,9 +68,6 @@
         @debug '$selectorB = #{var-dump($selectorB)}';
     }
 
-    // @debug "$selectorA = #{var-dump($selectorA)}";
-    // @debug "$selectorB = #{var-dump($selectorB)}";
-
     $ret_override: null;
 
     @if string.length('#{$selectorA}') < 1 {
@@ -155,6 +152,8 @@
 ///
 /// Whether or not the parent selector is currently valid.
 ///
+/// @return {bool}
+///
 /// @since 0.1.0-alpha.draft
 ///
 @function selectors-parent-exists() {
@@ -165,7 +164,11 @@
         @return false;
     }
 
-    @if string.length('#{&}') < 1 {
+    @if string.length('#{&}') < 1 or list.length(&) < 1 {
+        @return false;
+    }
+
+    @if #{$parentSelector} == #{config.$selector_null} {
         @return false;
     }
 
@@ -173,19 +176,88 @@
 }
 
 ///
-/// Returns the current parent selector, or if none exists, the root selector.
+/// Checks if the parent selector (if any) is a *simple* body element selector.
+///
+/// This DOES NOT work for compound selectors.
+///
+/// @return {bool}
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function selectors-parent-or-root() {
-    @return if(selectors-parent-exists(), &, (string.unquote('html')));
+@function selectors-parent-is-body() {
+    // returns
+    @if not selectors-parent-exists() {
+        @return false;
+    }
+
+    $parentSelector: #{&};
+
+    // returns
+    @if $parentSelector == body {
+        @return true;
+    }
+
+    // returns
+    @if $parentSelector == #{config.$selector_body} {
+        @return true;
+    }
+
+    @return false;
+}
+
+///
+/// Checks if the parent selector (if any) is a *simple* root element selector.
+///
+/// This DOES NOT work for compound selectors.
+///
+/// @return {bool}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function selectors-parent-is-root() {
+    // returns
+    @if not selectors-parent-exists() {
+        @return false;
+    }
+
+    $parentSelector: #{&};
+
+    // returns
+    @if $parentSelector == html {
+        @return true;
+    }
+
+    // returns
+    @if $parentSelector == ':root' {
+        @return true;
+    }
+
+    // returns
+    @if $parentSelector == #{config.$selector_root} {
+        @return true;
+    }
+
+    @return false;
 }
 
 ///
 /// Returns the current parent selector, or if none exists, the root selector.
 ///
+/// @return {selector}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function selectors-parent-or-root() {
+    @return if(selectors-parent-exists(), &, config.$selector_root);
+}
+
+///
+/// Returns the current parent selector, or if none exists, the root selector.
+///
+/// @return {selector}
+///
 /// @since 0.1.0-alpha.draft
 ///
 @function selectors-parent-or-body() {
-    @return if(selectors-parent-exists(), &, (string.unquote('body')));
+    @return if(selectors-parent-exists(), &, config.$selector_body);
 }

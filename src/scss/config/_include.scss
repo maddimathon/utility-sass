@@ -15,6 +15,15 @@
 /// # CONFIG - INCLUDE
 /// ======================================================================== ///
 
+///
+/// Whether to include css for the FeatureCheck utility class.
+///
+/// If false, fallback mixins act as if all features are permanently unavaible.
+/// i.e., no-js and js-no-support prints content un altered, while js and
+/// js-support output nothing.
+///
+/// @since ___PKG_VERSION___
+///
 $include_featureCheck: false !default;
 $include_featureCheck: config-validate-bool(
     $include_featureCheck,

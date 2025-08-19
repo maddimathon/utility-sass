@@ -10,6 +10,6 @@
 // @use 'sass:selector';
 // @use 'sass:string';
 
-@function config-round-to-pixel($num) {
-    @return calc(math.round($num * 16) / 16);
+@function config-round-to-pixel($num, $factor: 16) {
+    @return calc(math.round($num * $factor) / $factor);
 }
