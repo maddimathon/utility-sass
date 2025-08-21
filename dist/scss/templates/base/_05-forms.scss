@@ -28,30 +28,13 @@ fieldset {
 }
 
 %_input-base {
-    display: block;
-    margin: #{var-mrg-firm('400')} 0 #{var-mrg-half('400')};
-    padding: #{var-mrg-soft('100')} #{var-mrg-firm('200')};
-    width: 100%;
+    @include snippet-input;
 
-    font: inherit;
-    line-height: #{var-line-height('200')};
-
-    border: 1px solid currentColor;
-    border-radius: 0;
-
-    /// STATES ///
-
-    // @include hover-focus-visible {
-    // }
-
-    // &::active {
-    // }
+    @include focus-visible-or-within {
+        outline-color: ActiveText;
+    }
 
     /// BLOCK ///
-
-    &::placeholder {
-        opacity: 1;
-    }
 
     label + &,
     label > & {
@@ -61,68 +44,7 @@ fieldset {
 
 input {
     @extend %_input-base;
-
-    /// EXCEPTIONS ///
-
-    &[type='button'],
-    &[type='checkbox'],
-    &[type='color'],
-    &[type='date'],
-    &[type='datetime-local'],
-    &[type='file'],
-    &[type='month'],
-    &[type='radio'],
-    &[type='range'],
-    &[type='reset'],
-    &[type='submit'],
-    &[type='time'],
-    &[type='week'] {
-        cursor: pointer;
-    }
-
-    &[type='email'],
-    &[type='month'],
-    &[type='number'],
-    &[type='password'],
-    &[type='search'],
-    &[type='tel'],
-    &[type='text'],
-    &[type='url'],
-    &[type='week'] {
-        cursor: text;
-    }
-
-    &[type='checkbox'],
-    &[type='radio'] {
-        display: inline-block;
-        // margin: 0;
-        padding: 0;
-        width: auto;
-    }
-
-    &[type='color'] {
-        padding: 0;
-        height: 2.25em;
-        width: 2.25em;
-    }
-
-    &[type='date'],
-    &[type='datetime-local'],
-    &[type='file'],
-    &[type='month'],
-    &[type='time'],
-    &[type='week'] {
-        width: auto;
-    }
-
-    &[type='file'] {
-        padding-inline: #{var-mrg-firm('300')};
-        font-size: #{var-fs(smaller-1)};
-    }
-
-    &[type='range'] {
-        padding: 0;
-    }
+    @include snippet-input-types($includeBase: false);
 }
 
 select {
@@ -141,11 +63,11 @@ button,
 input[type='button'],
 input[type='submit'],
 %button {
-    @extend %_input-base;
-    appearance: button;
-    width: fit-content;
-    cursor: pointer;
-    // @include button;
+    @include snippet-button;
+
+    @include focus-visible-or-within {
+        outline-color: ActiveText;
+    }
 }
 
 input[type='reset'],
@@ -154,7 +76,6 @@ a.button-secondary,
 ::file-selector-button,
 %button-secondary {
     @extend %button;
-    // @include button-colours-secondary;
 }
 
 ::file-selector-button {
@@ -167,34 +88,5 @@ a.button-secondary,
 }
 
 label {
-    display: block;
-    margin: #{var-mrg-firm('400')} 0 0;
-    font-weight: 600;
-    line-height: #{var-line-height('200')};
-
-    &:has(> input[type='checkbox'], > input[type='radio']) {
-        display: grid;
-        grid-template-columns: fit-content(0) 1fr;
-        justify-content: end;
-        align-items: baseline;
-        gap: #{var-mrg-soft('300')};
-
-        font-weight: 400;
-        text-wrap: balance;
-
-        cursor: pointer;
-
-        & + & {
-            margin-block-start: #{var-mrg-firm('200')};
-        }
-
-        + %_input-base {
-            margin-block-start: #{var-mrg-firm('400')};
-        }
-    }
-
-    > input[type='checkbox'],
-    > input[type='radio'] {
-        margin-block: 0;
-    }
+    @include snippet-label;
 }

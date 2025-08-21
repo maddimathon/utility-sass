@@ -1,0 +1,23 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+// @use 'config';
+
+@use '../../index' as *;
+
+/* # ACCESSIBILITY
+ * ======================================================================== */
+
+@include focus-visible {
+    outline: #{var-stroke-relative('400')} dashed currentColor;
+    outline-offset: #{var-border-width('200')};
+}

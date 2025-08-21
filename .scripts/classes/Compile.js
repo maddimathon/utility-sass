@@ -59,18 +59,13 @@ export class Compile extends CompileStage {
      */
     async templates() {
 
-        const templates = [
-            'base',
-            'demo',
-            'tokens',
-        ];
-
-        for ( const _tmpl of templates ) {
-
-            await this.runCustomScssDirSubStage(
-                'scss/templates/' + _tmpl,
-                this.getDistDir( undefined, 'css/templates/', _tmpl ),
-            );
-        }
+        await this.runCustomScssDirSubStage(
+            'scss/templates',
+            this.getDistDir( undefined, 'css/templates' ),
+            {
+                globs: [ '*/index.scss' ],
+                postCSS: true,
+            },
+        );
     }
 }

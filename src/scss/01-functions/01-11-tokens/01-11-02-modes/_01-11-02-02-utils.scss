@@ -37,11 +37,11 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function filter-active-token-modes($modes: (), $debug: false) {
+@function filter-token-modes-active-only($modes: (), $debug: false) {
     @if $debug {
         @debug '';
         @debug '-  -  -';
-        @debug 'filter-active-token-modes()';
+        @debug 'filter-token-modes-active-only()';
         @debug '';
         @debug '$modes = #{var-dump($modes)}';
         @debug '$debug = #{var-dump($debug)}';
@@ -58,19 +58,15 @@
     $filtered: ();
 
     @each $mode in $modes {
-        @if is-token-mode-option($mode) {
-            @if is-token-mode-included($mode) {
-                $filtered: list.append($filtered, $mode);
-                @if $debug {
-                    @debug 'mode active: #{$mode}';
-                }
-            } @else {
-                @if $debug {
-                    @debug 'mode not active: #{$mode}';
-                }
+        @if is-token-mode-included($mode) {
+            $filtered: list.append($filtered, $mode);
+            @if $debug {
+                @debug 'mode active: #{$mode}';
             }
         } @else {
-            @warn 'Invalid mode name: #{$mode}';
+            @if $debug {
+                @debug 'mode not included: #{$mode}';
+            }
         }
     }
 

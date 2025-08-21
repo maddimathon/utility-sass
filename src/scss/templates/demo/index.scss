@@ -7,13 +7,16 @@
 
 @forward '../../index';
 
-@forward 'functions';
-@forward 'mixins';
-
-@forward 'modes';
+// @forward 'functions';
+// @forward 'mixins';
 
 // TODO: remove testing
-// @use '../../index' as utils;
+@use '../../index' as utils;
+
+/* test */
+@include utils.focus-visible {
+    --focus-visible: test;
+}
 
 // test.utility-sass.templates.demo {
 //     /* this is a test of utils.$scale_multiplier */

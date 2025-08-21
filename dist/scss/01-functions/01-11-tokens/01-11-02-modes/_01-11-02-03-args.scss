@@ -37,7 +37,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function token-mode-args(
+@function token-mode-validate-args(
     $modes: (),
     $includeDefault: true,
     $ignoreParentSelector: false,
@@ -57,10 +57,10 @@
     $optionalArgs...
 ) {
     @if $debug {
-        @warn 'debugging token-mode-args()';
+        @warn 'debugging token-mode-validate-args()';
         // @debug "";
         @debug '-  -  -';
-        @debug 'token-mode-args()';
+        @debug 'token-mode-validate-args()';
         @debug '';
         @debug '& = #{var-dump( & )}';
         @debug '';
@@ -81,7 +81,7 @@
         @debug '$optionalArgs = #{var-dump($optionalArgs)}';
     }
 
-    $modes: filter-active-token-modes(
+    $modes: filter-token-modes-active-only(
         $modes: $modes,
         $debug: $debug,
     );

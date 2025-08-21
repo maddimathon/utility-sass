@@ -35,14 +35,14 @@
 ///
 /// Returns the selectors for the given colour modes.
 ///
-/// @param {bool} $clrModeArgs  Optional. Whether the token-mode-args() function has already been applied to the args. Default false.
-/// @param {bool} $args...      Remaining args. See {@link token-mode-args()} for details.
+/// @param {bool} $modeArgs  Optional. Whether the token-mode-validate-args() function has already been applied to the args. Default false.
+/// @param {bool} $args...   Remaining args. See {@link token-mode-validate-args()} for details.
 ///
 /// @since ___PKG_VERSION___
 ///
-@function media-queries-token-mode($clrModeArgs: false, $args...) {
-    @if not $clrModeArgs {
-        $args: token-mode-args($args...);
+@function media-queries-token-mode($modeArgs: false, $args...) {
+    @if not $modeArgs {
+        $args: token-mode-validate-args($args...);
     } @else {
         $args: meta.keywords($args);
     }
@@ -198,14 +198,14 @@
 ///
 /// Returns the selectors for the given colour modes.
 ///
-/// @param {bool} $clrModeArgs  Optional. Whether the token-mode-args() function has already been applied to the args. Default false.
-/// @param {bool} $args...      Remaining args. See {@link token-mode-args()} for details.
+/// @param {bool} $modeArgs  Optional. Whether the token-mode-validate-args() function has already been applied to the args. Default false.
+/// @param {bool} $args...   Remaining args. See {@link token-mode-validate-args()} for details.
 ///
 /// @since ___PKG_VERSION___
 ///
-@function selectors-token-mode($clrModeArgs: false, $args...) {
-    @if not $clrModeArgs {
-        $args: token-mode-args($args...);
+@function selectors-token-mode($modeArgs: false, $args...) {
+    @if not $modeArgs {
+        $args: token-mode-validate-args($args...);
     } @else {
         $args: meta.keywords($args);
     }
@@ -263,7 +263,7 @@
         }
 
         @if not $isDefaultOnly or $isDefault {
-            $modeType: token-mode-type($mode);
+            $modeType: get-token-mode-type($mode);
 
             $selector: ();
 

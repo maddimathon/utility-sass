@@ -21,8 +21,8 @@
 /// # THEMING MIXINS - Modes
 /// ======================================================================== ///
 
-$_brightnessModes: filter-active-token-modes(tokens.$brightnessMode_all);
-$_contrastModes: filter-active-token-modes(tokens.$contrastMode_all);
+$_brightnessModes: filter-token-modes-active-only(tokens.$brightnessMode_all);
+$_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
 
 ///
 /// Conditional rules for various colour modes.  When multiple modes are passed,
@@ -35,11 +35,11 @@ $_contrastModes: filter-active-token-modes(tokens.$contrastMode_all);
     $modes,
     $includeQuery: true,
     $includeSelectors: true,
-    $clrModeArgs: false,
+    $modeArgs: false,
     $args...
 ) {
-    @if not $clrModeArgs {
-        $args: token-mode-args($args..., $modes: $modes);
+    @if not $modeArgs {
+        $args: token-mode-validate-args($args..., $modes: $modes);
     } @else {
         $args: meta.keywords($args);
     }
@@ -166,7 +166,10 @@ $_contrastModes: filter-active-token-modes(tokens.$contrastMode_all);
     // iterate through brightness modes
     @each $brightness in $_brightnessModes {
         // local args
-        $brightness_args: token-mode-args($args..., $modes: $brightness);
+        $brightness_args: token-mode-validate-args(
+            $args...,
+            $modes: $brightness
+        );
 
         $brightnessIsDefault: is-token-mode-default($brightness);
 
@@ -175,7 +178,10 @@ $_contrastModes: filter-active-token-modes(tokens.$contrastMode_all);
         // iterate through contrast modes
         @each $contrast in $_contrastModes {
             // local args
-            $contrast_args: token-mode-args($args..., $modes: $contrast);
+            $contrast_args: token-mode-validate-args(
+                $args...,
+                $modes: $contrast
+            );
 
             $contrastIsDefault: is-token-mode-default($contrast);
 

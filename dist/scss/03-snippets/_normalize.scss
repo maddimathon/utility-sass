@@ -239,11 +239,11 @@
 
     #{config.$selector_root} {
         color-scheme: #{tokens.$brightnessMode_all};
-    }
 
-    @each $mode in tokens.$brightnessMode_all {
-        @include colour-mode($mode, $includeDefault: false) {
-            color-scheme: #{$mode};
+        @each $mode in tokens.$brightnessMode_all {
+            @include colour-mode($mode, $includeDefault: false) {
+                color-scheme: #{$mode};
+            }
         }
     }
 

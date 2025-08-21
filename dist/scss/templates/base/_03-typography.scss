@@ -8,7 +8,7 @@
 // @use 'sass:math';
 // @use 'sass:meta';
 // @use 'sass:selector';
-// @use 'sass:string';
+@use 'sass:string';
 
 @use 'config';
 @use '../../tokens';
@@ -26,6 +26,8 @@
 }
 
 ::selection {
+    background-color: Highlight;
+    color: HighlightText;
 }
 
 /* ## Typography - Inline ==================================== */
@@ -59,16 +61,19 @@ i {
 a {
     display: inline;
     border: none;
-    text-decoration: underline;
+    text-decoration: underline #{var-stroke-relative('200')};
+    color: LinkText;
 
     /// STATES ///
 
-    @include hover-focus-visible-or-within {
-        opacity: 0.875;
-    }
+    @include hover-focus-visible((string.unquote('&:active'))) {
+        outline-color: ActiveText;
+        color: ActiveText;
+        opacity: 0.75;
 
-    &:active {
-        opacity: 0.875;
+        @include colour-mode((high, forced-colors)) {
+            opacity: 1;
+        }
     }
 
     /// EXCEPTIONS ///
@@ -86,6 +91,8 @@ a {
 }
 
 abbr[title] {
+    text-decoration: dotted underline #{var-stroke-relative('400')};
+    cursor: help;
 }
 
 /* ## Typography - Block ==================================== */
@@ -116,7 +123,7 @@ pre {
     margin-block: #{var-mrg-soft('400')} 0;
     width: fit-content;
     max-width: min(80ch, 100%);
-    overflow-inline: hidden;
+    overflow: visible; /* otherwise the code block's focus ring is hidden */
     font-size: #{var-fs(smaller-1)};
 
     > code {
@@ -140,12 +147,10 @@ pre {
 
 h1,
 .h1,
-%h1 {
-    @include heading('1');
-}
-
+%h1,
 %title {
     @include heading('title');
+    // @include heading('1');
 }
 
 h2,
