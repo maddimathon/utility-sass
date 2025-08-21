@@ -1,0 +1,84 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:color';
+@use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+@use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+// @use '../../../config';
+// @use '../../../tokens';
+
+@use '../../01-01-meta' as *;
+// @use '../../01-02-lists' as *;
+// @use '../../01-03-maps' as *;
+// @use '../../01-04-numbers' as *;
+// @use '../../01-05-strings' as *;
+// @use '../../01-06-selectors' as *;
+// @use '../../01-07-colours' as *;
+// @use '../../01-08-accessibility' as *;
+// @use '../../01-09-typography' as *;
+
+// @use '../01-11-01-spacing' as *;
+
+@use '01-11-02-01-meta' as *;
+
+/// # MODE TOKEN FUNCTIONS - UTILITIES
+/// ======================================================================== ///
+
+///
+/// Filters a list of modes to include only those that are valid and active.
+///
+/// @param {string[]} $modes  Mode list to filter.
+///
+/// @since ___PKG_VERSION___
+///
+@function filter-active-token-modes($modes: (), $debug: false) {
+    @if $debug {
+        @debug '';
+        @debug '-  -  -';
+        @debug 'filter-active-token-modes()';
+        @debug '';
+        @debug '$modes = #{var-dump($modes)}';
+        @debug '$debug = #{var-dump($debug)}';
+    }
+
+    @if meta.type-of($modes) != list {
+        @if $modes == null {
+            $modes: ();
+        } @else if meta.type-of($modes) == string {
+            $modes: ($modes);
+        }
+    }
+
+    $filtered: ();
+
+    @each $mode in $modes {
+        @if is-token-mode-option($mode) {
+            @if is-token-mode-included($mode) {
+                $filtered: list.append($filtered, $mode);
+                @if $debug {
+                    @debug 'mode active: #{$mode}';
+                }
+            } @else {
+                @if $debug {
+                    @debug 'mode not active: #{$mode}';
+                }
+            }
+        } @else {
+            @warn 'Invalid mode name: #{$mode}';
+        }
+    }
+
+    @if $debug {
+        @debug '';
+        @debug 'filtered modes: #{var-dump($filtered)}';
+        @debug '-  -  -';
+        @debug '';
+    }
+    @return $filtered;
+}

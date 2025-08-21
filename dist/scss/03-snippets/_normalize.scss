@@ -11,6 +11,7 @@
 // @use 'sass:string';
 
 @use '../config';
+@use '../tokens';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
@@ -236,20 +237,22 @@
 
     /*! end of modern-normalize */
 
-    #{config.$selector_root},
-    test-root {
-        font-family: #{font-family-system-ui()};
+    #{config.$selector_root} {
+        color-scheme: #{tokens.$brightnessMode_all};
+    }
 
-        & {
-            color-scheme: light dark;
+    @each $mode in tokens.$brightnessMode_all {
+        @include colour-mode($mode, $includeDefault: false) {
+            color-scheme: #{$mode};
         }
+    }
 
-        & {
-            font-size: 115%;
+    #{config.$selector_root} {
+        font-family: #{font-family-system-ui()};
+        font-size: 115%;
 
-            @include min-width(tablet) {
-                font-size: 105%;
-            }
+        @include min-width(tablet) {
+            font-size: 105%;
         }
     }
 

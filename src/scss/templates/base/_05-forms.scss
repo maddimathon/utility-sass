@@ -115,6 +115,11 @@ input {
         width: auto;
     }
 
+    &[type='file'] {
+        padding-inline: #{var-mrg-firm('300')};
+        font-size: #{var-fs(smaller-1)};
+    }
+
     &[type='range'] {
         padding: 0;
     }
@@ -154,14 +159,18 @@ a.button-secondary,
 
 ::file-selector-button {
     display: initial;
-    margin: 0;
-    margin-right: #{var-mrg-firm('300')};
+    margin: #{var-mrg-firm('200')} 0;
+    margin-inline-end: #{var-mrg-firm('300')};
+    border: none;
+
+    font-size: #{var-fs(normal)};
 }
 
 label {
     display: block;
     margin: #{var-mrg-firm('400')} 0 0;
     font-weight: 600;
+    line-height: #{var-line-height('200')};
 
     &:has(> input[type='checkbox'], > input[type='radio']) {
         display: grid;

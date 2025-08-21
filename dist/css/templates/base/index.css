@@ -203,8 +203,21 @@ summary {
 }
 
 /*! end of modern-normalize */
-:root,
-test-root {
+:root {
+    color-scheme: light, dark;
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        color-scheme: light;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        color-scheme: dark;
+    }
+}
+:root {
     font-family:
         system-ui,
         -apple-system,
@@ -221,18 +234,10 @@ test-root {
         "Apple Color Emoji",
         "Segoe UI Emoji",
         "Segoe UI Symbol";
-}
-:root,
-test-root {
-    color-scheme: light dark;
-}
-:root,
-test-root {
     font-size: 115%;
 }
 @media (min-width: 50em) {
-    :root,
-    test-root {
+    :root {
         font-size: 105%;
     }
 }
@@ -460,6 +465,9 @@ p {
     margin-top: 0.8125rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
     margin-bottom: 0;
+}
+hr + p {
+    margin-top: 0;
 }
 
 blockquote {
@@ -823,6 +831,14 @@ input[type="time"],
 input[type="week"] {
     width: auto;
 }
+input[type="file"] {
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    padding-left: var(--mrg-firm-300, 0.8125rem);
+    padding-right: var(--mrg-firm-300, 0.8125rem);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
 input[type="range"] {
     padding: 0;
 }
@@ -854,9 +870,13 @@ a.button-secondary,
 
 ::file-selector-button {
     display: initial;
-    margin: 0;
+    margin: 0.5rem 0;
+    margin: var(--mrg-firm-200, 0.5rem) 0;
     margin-right: 0.8125rem;
     margin-right: var(--mrg-firm-300, 0.8125rem);
+    border: none;
+    font-size: 1rem;
+    font-size: var(--fs-normal, 1rem);
 }
 
 label {
@@ -864,6 +884,8 @@ label {
     margin: 1.25rem 0 0;
     margin: var(--mrg-firm-400, 1.25rem) 0 0;
     font-weight: 600;
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
 }
 label:has(> input[type="checkbox"], > input[type="radio"]) {
     display: grid;

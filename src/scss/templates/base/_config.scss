@@ -10,12 +10,15 @@
     $selectorType_motion: 'null-selector' !default
 );
 
+@use '../../config' as *;
+
 ///
 /// Whether to include ouput only suited for websites.
 ///
 /// @since ___PKG_VERSION___
 ///
 $include_html: false !default;
+$include_html: config-valid-bool($include_html, 'include_html');
 
 ///
 /// Whether to include the normalize mixin in the output.
@@ -23,7 +26,13 @@ $include_html: false !default;
 /// @since ___PKG_VERSION___
 ///
 $include_normalize: true !default;
+$include_normalize: config-valid-bool($include_normalize, 'include_normalize');
 
+///
+/// Uses $include_html to conditionally include CSS suited for websites.
+///
+/// @since ___PKG_VERSION___
+///
 @mixin incl-html {
     @if $include_html {
         @content;

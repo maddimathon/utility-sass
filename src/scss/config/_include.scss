@@ -25,7 +25,19 @@
 /// @since ___PKG_VERSION___
 ///
 $include_featureCheck: false !default;
-$include_featureCheck: config-validate-bool(
+$include_featureCheck: config-valid-bool(
     $include_featureCheck,
     'include_featureCheck'
+);
+
+///
+/// Whether to include 'no-preference' media queries. Most relevant to
+/// brightness and contrast modes.
+///
+/// @since ___PKG_VERSION___
+///
+$include_noPreferenceMediaQueries: false !default;
+$include_noPreferenceMediaQueries: config-valid-bool(
+    $include_noPreferenceMediaQueries,
+    'include_noPreferenceMediaQueries'
 );

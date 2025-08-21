@@ -22,7 +22,7 @@
 /// @since 0.1.0-alpha.draft
 ///
 $internal_supressCredit: false !default;
-$internal_supressCredit: config-validate-bool(
+$internal_supressCredit: config-valid-bool(
     $internal_supressCredit,
     'internal_supressCredit'
 );
@@ -30,5 +30,5 @@ $internal_supressCredit: config-validate-bool(
 /// ## Mixin Config ==================================== ///
 
 // unlikely to want to use these, but here just in case
-$mx_interactive_states_include_fallbacks: true;
-$mx_interactive_states_include_fallbacks_only: false;
+$mx_interactive_states_include_fallbacks: true !default;
+$mx_interactive_states_include_fallbacks_only: false !default;

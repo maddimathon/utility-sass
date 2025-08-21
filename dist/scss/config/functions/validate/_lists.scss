@@ -1,0 +1,103 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:color';
+@use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+@use 'sass:meta';
+// @use 'sass:selector';
+@use 'sass:string';
+
+@use 'strings' as *;
+
+///
+/// Validates the value of a config variable that should be a list of strings.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}       $value  The variable's value.
+/// @param {string}    $name   The variable's name.
+///
+/// @param {string[]}  $default  Default value to return if $value is invalid.
+/// @param {?string[]} $options  Optional. List of allowed values, if any. Default null.
+///
+/// @param {bool}      $allowEmptyList  Optional. Whether to return empty lists as valid. Default true.
+///
+/// @returns {string[]}  If $options is a list, all the list items are one of those values.
+///
+@function config-valid-list-strings(
+    $value,
+    $name,
+    $default,
+    $options: null,
+    $allowEmptyList: true
+) {
+    // returns - value is to be default
+    @if $value == null {
+        @return $default;
+    }
+
+    // returns - if empty or value is not a list
+    @if meta.type-of($value) == 'string' {
+        // returns - empty
+        @if string.length($value) < 1 {
+            @warn "[config] $#{$name} must be a valid list (not an empty string)";
+            @return $default;
+        }
+
+        $value: ($value);
+
+        // returns - value is not a selector
+    } @else if meta.type-of($value) != 'list' {
+        @warn "[config] $#{$name} must be a list (not the #{meta.type-of( $value )} '#{$value}')";
+        @return $default;
+    }
+
+    // returns - empty list
+    @if list.length($value) <1 {
+        // returns
+        @if $allowEmptyList {
+            @return if($allowEmptyList, $value, $default);
+        }
+
+        @warn "[config] $#{$name} cannot be an empty list";
+        @return $default;
+    }
+
+    $valid_list: ();
+
+    $list_separator: list.separator($value);
+
+    $fail_return: 'FAILED_VALIDATION_1568413546dsafdgfsd354scadsvnsfgnj65';
+    $i: 1;
+
+    @each $item in $value {
+        // validates the item
+        $valid_item: config-valid-string(
+            $item,
+            '#{$name}.#{$i}',
+            $fail_return,
+            $options
+        );
+
+        @if $valid_item != $fail_return {
+            // adds item to the valid list
+            $valid_list: list.append(
+                $valid_list,
+                $valid_item,
+                $separator: $list_separator
+            );
+        }
+
+        $i: $i + 1;
+    }
+
+    // returns - no items are valid
+    @if list.length($valid_list) <1 and not $allowEmptyList {
+        @return $default;
+    }
+
+    @return $valid_list;
+}

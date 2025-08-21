@@ -1,0 +1,54 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:color';
+@use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+@use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+///
+/// Validates the value of a config variable that should be a string.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}    $value  The variable's value.
+/// @param {string} $name   The variable's name.
+///
+/// @param {string} $default  Default value to return if $value is invalid.
+/// @param {?list}  $options  Optional. List of allowed values, if any. Default null.
+///
+/// @returns {string}  If $options is a list, the string is one of those values.
+///
+@function config-valid-string($value, $name, $default, $options: null) {
+    // returns - value is to be default
+    @if $value == null {
+        @return $default;
+    }
+
+    // returns - value is not a string
+    @if meta.type-of($value) != 'string' {
+        @warn "[config] $#{$name} must be a string (not the #{meta.type-of( $value )} '#{$value}')";
+        @return $default;
+    }
+
+    // options are limited
+    // returns if no match
+    @if meta.type-of($options) == 'list' and list.length($options) > 0 {
+        // returns - no match
+        @if list.index($options, $value) == null {
+            $optsList: ();
+            @each $opt in $options {
+                $optsList: list.append($optsList, "'#{$opt}'", comma);
+            }
+
+            @warn "[config] $#{$name} must be one of: #{$optsList} (not '#{$value}')";
+            @return $default;
+        }
+    }
+
+    @return $value;
+}

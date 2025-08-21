@@ -1,0 +1,56 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use '../../index' as *;
+
+/* #region light */
+@include light {
+    --mode-mixin: 'light';
+}
+/* #endregion light */
+
+/* #region dark */
+@include dark {
+    --mode-mixin: 'dark';
+}
+/* #endregion dark */
+
+/* #region low-contrast */
+@include low-contrast {
+    --mode-mixin: 'low-contrast';
+}
+/* #endregion low-contrast */
+
+/* #region average-contrast */
+@include average-contrast {
+    --mode-mixin: 'average-contrast';
+}
+/* #endregion average-contrast */
+
+/* #region high-contrast */
+@include high-contrast {
+    --mode-mixin: 'high-contrast';
+}
+/* #endregion high-contrast */
+
+/* #region forced-colors */
+@include forced-colors {
+    --mode-mixin: 'forced-colors';
+}
+/* #endregion forced-colors */
+
+/* #region token-mode-all */
+@include token-mode-all {
+    --mode-mixin: 'token-mode-all';
+}
+/* #endregion token-mode-all */
+
+/* # each-token-mode
+ * ======================================================================== */
+
+@include each-token-mode using ($brightness, $contrast) {
+    --mode-each-token-mode-brightness: #{$brightness};
+    --mode-each-token-mode-contrast: #{$contrast};
+}

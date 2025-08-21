@@ -23,17 +23,12 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-$selector_body: (string.unquote('body')) !default;
-
-///
-/// Selector used as a 'null' (e.g., not-output) selector within the system to
-/// avoid errors.  e.g., with the mode mixins if the targeted mode is disabled.
-///
-/// @default ( string.unquote('%null') )
-///
-/// @since 0.1.0-alpha.draft
-///
-$selector_null: (string.unquote('%null')) !default;
+$selector_body: null !default;
+$selector_body: config-valid-selector(
+    $selector_body,
+    'selector_body',
+    (string.unquote('body'))
+);
 
 ///
 /// Selector to use for the root element.  Included here to allow
@@ -43,7 +38,12 @@ $selector_null: (string.unquote('%null')) !default;
 ///
 /// @since 0.1.0-alpha.draft
 ///
-$selector_root: (string.unquote(':root')) !default;
+$selector_root: null !default;
+$selector_root: config-valid-selector(
+    $selector_root,
+    'selector_root',
+    (string.unquote(':root'))
+);
 
 ///
 /// How to select for manual overrides of theme modes (e.g., brightness, contrast).
@@ -52,10 +52,11 @@ $selector_root: (string.unquote(':root')) !default;
 ///
 /// @since 0.1.0-alpha.draft
 ///
-$selectorType_mode: 'attribute' !default;
-$selectorType_mode: config-validate-selector-type(
+$selectorType_mode: null !default;
+$selectorType_mode: config-valid-selector-type(
     $selectorType_mode,
-    'selectorType_mode'
+    'selectorType_mode',
+    'attribute'
 );
 
 ///
@@ -65,8 +66,9 @@ $selectorType_mode: config-validate-selector-type(
 ///
 /// @since 0.1.0-alpha.draft
 ///
-$selectorType_motion: 'attribute' !default;
-$selectorType_motion: config-validate-selector-type(
+$selectorType_motion: null !default;
+$selectorType_motion: config-valid-selector-type(
     $selectorType_motion,
-    'selectorType_motion'
+    'selectorType_motion',
+    'attribute'
 );

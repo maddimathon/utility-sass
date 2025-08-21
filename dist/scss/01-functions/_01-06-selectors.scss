@@ -7,7 +7,7 @@
 // @use 'sass:map';
 // @use 'sass:math';
 @use 'sass:meta';
-// @use 'sass:selector';
+@use 'sass:selector';
 @use 'sass:string';
 
 @use '../config';
@@ -37,7 +37,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function merge-selectors(
+@function selectors-merge(
     $selectorA,
     $selectorB,
     $nestAinB: true,
@@ -49,7 +49,7 @@
     @if $debug {
         @debug '';
         @debug '--  --  --';
-        @debug 'merge-selectors()';
+        @debug 'selectors-merge()';
         @debug '';
         @debug '$selectorA = #{var-dump($selectorA)}';
         @debug '$selectorB = #{var-dump($selectorB)}';
@@ -94,12 +94,12 @@
 
     @if $ret_override != null {
         @if $debug {
+            @debug '';
+            @debug 'bailing early';
+            @debug '$selectors = #{$ret_override}';
+            @debug '-  -  -';
+            @debug '';
         }
-        @debug '';
-        @debug 'bailing early';
-        @debug '$selectors = #{$ret_override}';
-        @debug '-  -  -';
-        @debug '';
         @return $ret_override;
     }
 

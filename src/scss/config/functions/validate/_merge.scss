@@ -1,0 +1,67 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:color';
+// @use 'sass:list';
+@use 'sass:map';
+// @use 'sass:math';
+@use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+///
+/// Returns an updated version of $defaults based on the contents of $inputs.
+///
+/// Important: Strings that = 'UNDEFINED' are treated like JS undefined values.
+///
+/// @param {map}   $defaults   The array of default args.
+/// @param {map}   $inputs     The input array passed to the function.
+/// @param {?bool} $recursive  Whether to merge the maps recursively. Default false.
+///
+/// @return {map}  The resulting array with all the $defaults and $inputs props
+///                with either default values or input values, as appropriate.
+///
+@function config-merge-args($defaults, $inputs, $recursive: false) {
+    $inputType: meta.type-of($inputs);
+
+    // returns
+    @if $inputType != map {
+        @if $inputType == list or not $inputType {
+            @return $defaults;
+        }
+
+        @warn "[merge-args] $inputs should be a map (was #{$inputType})";
+        @return $defaults;
+    }
+
+    $return: $defaults;
+
+    @each $key, $inputValue in $inputs {
+        $defaultValue: map.get($defaults, $key);
+
+        $mergeRecursively: if(
+            $recursive and
+                (meta.type-of($defaultValue) == map) and
+                (meta.type-of($inputValue) == map),
+            true,
+            false
+        );
+
+        @if $inputValue == 'UNDEFINED' {
+            // = ignore the $inputValue and maintain the default
+        } @else {
+            $return: map.set(
+                $return,
+                $key,
+                if(
+                    $mergeRecursively,
+                    config-merge-args($defaultValue, $inputValue, $recursive),
+                    $inputValue
+                )
+            );
+        }
+    }
+
+    @return $return;
+}
