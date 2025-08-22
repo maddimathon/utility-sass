@@ -4,9 +4,9 @@
 ///
 // @use 'sass:color';
 // @use 'sass:list';
-// @use 'sass:map';
+@use 'sass:map';
 // @use 'sass:math';
-// @use 'sass:meta';
+@use 'sass:meta';
 // @use 'sass:selector';
 // @use 'sass:string';
 
@@ -17,6 +17,53 @@
 
 /// # MAP FUNCTIONS
 /// ======================================================================== ///
+
+///
+/// Returns a single-level map with kebab case keys based on nested map keys.
+///
+/// @param {map}     $map     The map to flatten.
+/// @param {?string} $prefix  A prefix to add to all map keys. Default null.
+/// @param {?string} $suffix  A suffix to add to all map keys. Default null.
+///
+/// @return {map}
+///
+/// @since ___PKG_VERSION___
+///
+@function map-flatten($map, $prefix: null, $suffix: null) {
+    $return: ();
+
+    @each $key, $value in $map {
+        @if $prefix {
+            $key: '#{$prefix}-#{$key}';
+        }
+        @if $suffix {
+            $key: '#{$key}-#{$suffix}';
+        }
+
+        @if meta.type-of($value) == map {
+            @each $childKey, $childValue in $value {
+                @if meta.type-of($childValue) == map {
+                    @each $flatKey, $flatValue in map-flatten($childValue) {
+                        $return: map.set(
+                            $return,
+                            '#{$key}-#{$childKey}-#{$flatKey}',
+                            $flatValue
+                        );
+                    }
+                } @else {
+                    $return: map.set(
+                        $return,
+                        '#{$key}-#{$childKey}',
+                        $childValue
+                    );
+                }
+            }
+        } @else {
+            $return: map.set($return, $key, $value);
+        }
+    }
+    @return $return;
+}
 
 ///
 /// Returns an updated version of $defaults based on the contents of $inputs.
