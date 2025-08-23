@@ -63,7 +63,6 @@ export class Compile extends CompileStage {
             'scss/templates',
             this.getDistDir( undefined, 'css/templates' ),
             {
-                globs: [ '*/index.scss' ],
                 postCSS: true,
             },
         );

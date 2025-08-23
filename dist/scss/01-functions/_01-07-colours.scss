@@ -1,0 +1,156 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+// @use '../config';
+
+// @use '../01-functions' as *;
+
+// @use '02-01-utilities' as *;
+// @use '02-02-theming' as *;
+// @use '02-03-properties' as *;
+// @use '02-04-typography' as *;
+
+/// # COLOUR FUNCTIONS
+/// ======================================================================== ///
+
+///
+/// Get the dark level based on given map (flipped)
+///
+/// @param {string} $lightLvl
+/// @param {map}    $clrMap
+///
+/// @return {string}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function clr-get-dark-lvl($lightLvl, $clrMap) {
+    $lightLvlsList: map.keys($clrMap);
+    $lvlCount: list.length($lightLvlsList);
+    $lightLvlListIndex: list.index($lightLvlsList, $lightLvl);
+
+    $darkLvlIndex: $lvlCount - list.index($lightLvlsList, $lightLvl) + 1;
+
+    @return list.nth($lightLvlsList, $darkLvlIndex);
+}
+
+///
+/// Returns a map of colours with the keys '100' to '900'.
+///
+/// @param {map} $map  Partial colour map.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function colour-stepper($map) {
+    $c100: if(map.has-key($map, '100'), map.get($map, '100'), null);
+    $c200: if(map.has-key($map, '200'), map.get($map, '200'), null);
+    $c300: if(map.has-key($map, '300'), map.get($map, '300'), null);
+    $c400: if(map.has-key($map, '400'), map.get($map, '400'), null);
+    $c500: if(map.has-key($map, '500'), map.get($map, '500'), null);
+    $c600: if(map.has-key($map, '600'), map.get($map, '600'), null);
+    $c700: if(map.has-key($map, '700'), map.get($map, '700'), null);
+    $c800: if(map.has-key($map, '800'), map.get($map, '800'), null);
+    $c900: if(map.has-key($map, '900'), map.get($map, '900'), null);
+
+    @if meta.type-of($c100) != 'color' {
+        $c100: hsl(0, 0%, 98%);
+    }
+    @if meta.type-of($c900) != 'color' {
+        $c900: hsl(0, 0%, 2%);
+    }
+
+    @if meta.type-of($c500) != 'color' {
+        $c500: oklch-mix($c100, $c900);
+    }
+
+    @if meta.type-of($c300) != 'color' {
+        $c300: oklch-mix($c100, $c500);
+    }
+    @if meta.type-of($c700) != 'color' {
+        $c700: oklch-mix($c500, $c900);
+    }
+
+    @if meta.type-of($c200) != 'color' {
+        $c200: oklch-mix($c100, $c300);
+    }
+    @if meta.type-of($c400) != 'color' {
+        $c400: oklch-mix($c300, $c500);
+    }
+
+    @if meta.type-of($c600) != 'color' {
+        $c600: oklch-mix($c500, $c700);
+    }
+    @if meta.type-of($c800) != 'color' {
+        $c800: oklch-mix($c700, $c900);
+    }
+
+    @return (
+        '100': hsl-me($c100),
+        '200': hsl-me($c200),
+        '300': hsl-me($c300),
+        '400': hsl-me($c400),
+        '500': hsl-me($c500),
+        '600': hsl-me($c600),
+        '700': hsl-me($c700),
+        '800': hsl-me($c800),
+        '900': hsl-me($c900)
+    );
+}
+
+///
+/// Converts given colour to an hsl css function.
+///
+/// @param {color} $clr
+///
+/// @return {color}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function hsl-me($clr) {
+    @if meta.type-of($clr) != 'color' {
+        @warn "$clr should be a colour (was #{meta.type-of( $clr )})";
+        @return $clr;
+    }
+
+    $clr: color.to-space($clr, hsl);
+
+    @return hsl(
+        math.round(color.channel($clr, 'hue', $space: hsl)),
+        math.clamp(
+            0%,
+            math.round(color.channel($clr, 'saturation', $space: hsl)),
+            100%
+        ),
+        math.clamp(
+            0%,
+            math.round(color.channel($clr, 'lightness', $space: hsl)),
+            100%
+        )
+    );
+}
+
+///
+/// Mixes two given colours in the oklch colourspace.
+///
+/// @param {color}   $low
+/// @param {color}   $high
+/// @param {percent} $weight  Optional.
+///
+/// @return {color}
+///
+@function oklch-mix($low, $high, $weight: 50%) {
+    @return color.mix(
+        color.to-space($low, oklch),
+        color.to-space($high, oklch),
+        $weight: $weight,
+        $method: oklch shorter hue
+    );
+}

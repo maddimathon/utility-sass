@@ -1,11 +1,210 @@
+@charset "UTF-8";
 /*!
- * This stylesheet includes css generated using 
+ * Utility Sass Templates — Demo
+ *
+ * This stylesheet (and its partials) demonstrate a few of the core mixins.
+ * Extend the scss to play with the config, or see the defaults in the css
+ * included in the pacakge.
+ *
  * @maddimathon/utility-sass@0.1.0-alpha.draft
- * 
+ *
  * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
  */
-/* test */
-:focus {
-    --focus-visible: test;
+/* # MIXINS - BREAKPOINTS
+ * ======================================================================== */
+@media (min-width: 25em) {
+    breakpoints {
+        /* min-width( indent ) */
+    }
 }
+@media (max-width: 24.99em) {
+    breakpoints {
+        /* max-width( mobile ) */
+    }
+}
+@media (min-height: 50em) {
+    breakpoints {
+        /* min-height( 50 ) */
+    }
+}
+@media (max-height: 49.99em) {
+    breakpoints {
+        /* max-height( 50 ) */
+    }
+}
+@media (min-width: 20em) and (min-height: 30em) {
+    breakpoints {
+        /* min-all( 20, 30 ) */
+    }
+}
+@media (max-width: 19.99em) and (max-height: 29.99em) {
+    breakpoints {
+        /* max-all( 20, 30 ) */
+    }
+}
+@media (min-width: 25em) and (max-width: 49.99em) {
+    breakpoints {
+        /* minmax-width( mobile, tablet ) */
+    }
+}
+@media (min-height: 20em) and (max-height: 34.99em) {
+    breakpoints {
+        /* minmax-height( 20, 35 ) */
+    }
+}
+
+/* # MIXINS - MODES
+ * ======================================================================== */
+/* #region light */
+body {
+    --mode-mixin: "light";
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        --mode-mixin: "light";
+    }
+}
+/* #endregion light */
+/* #region dark */
+@media (prefers-color-scheme: dark) {
+    body {
+        --mode-mixin: "dark";
+    }
+}
+/* #endregion dark */
+/* #region low-contrast */
+@media (prefers-contrast: less) {
+    body {
+        --mode-mixin: "low-contrast";
+    }
+}
+/* #endregion low-contrast */
+/* #region average-contrast */
+body {
+    --mode-mixin: "average-contrast";
+}
+
+/* #endregion average-contrast */
+/* #region high-contrast */
+@media (prefers-contrast: more) {
+    body {
+        --mode-mixin: "high-contrast";
+    }
+}
+/* #endregion high-contrast */
+/* #region forced-colors */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    body {
+        --mode-mixin: "forced-colors";
+    }
+}
+/* #endregion forced-colors */
+/* #region token-mode-all */
+body {
+    --mode-mixin: "token-mode-all";
+}
+
+@media (prefers-color-scheme: light),
+    (prefers-color-scheme: dark),
+    (prefers-contrast: less),
+    (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    body {
+        --mode-mixin: "token-mode-all";
+    }
+}
+/* #endregion token-mode-all */
+/* ## each-token-mode ==================================== */
+/*#region light —— contrast average */
+body {
+    --each-token-mode-brightness: light;
+    --each-token-mode-contrast: average;
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: average;
+    }
+}
+/*#endregion light —— contrast average */
+/*#region light —— contrast low */
+@media (prefers-contrast: less) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: low;
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: low;
+    }
+}
+/*#endregion light —— contrast low */
+/*#region light —— contrast high */
+@media (prefers-contrast: more) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: high;
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: high;
+    }
+}
+/*#endregion light —— contrast high */
+/*#region light —— contrast forced-colors */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: forced-colors;
+    }
+}
+@media (( prefers-color-scheme: light ) and ( forced-colors: active )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: custom )) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: forced-colors;
+    }
+}
+/*#endregion light —— contrast forced-colors */
+/*#region dark —— contrast average */
+@media (prefers-color-scheme: dark) {
+    body {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: average;
+    }
+}
+/*#endregion dark —— contrast average */
+/*#region dark —— contrast low */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    body {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: low;
+    }
+}
+/*#endregion dark —— contrast low */
+/*#region dark —— contrast high */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    body {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: high;
+    }
+}
+/*#endregion dark —— contrast high */
+/*#region dark —— contrast forced-colors */
+@media (( prefers-color-scheme: dark ) and ( forced-colors: active )),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: custom )) {
+    body {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: forced-colors;
+    }
+}
+/*#endregion dark —— contrast forced-colors */
+/*! end of @maddimathon/utility-sass demo */

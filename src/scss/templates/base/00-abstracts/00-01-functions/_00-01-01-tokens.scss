@@ -1,0 +1,55 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:color';
+// @use 'sass:list';
+@use 'sass:map';
+// @use 'sass:math';
+@use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use '../../config';
+@use '../../tokens';
+
+@use '../../../../index' as *;
+
+/// # FUNCTIONS - Tokens
+/// ======================================================================== ///
+
+$_flattenedColours: map-flatten(tokens.$colours);
+
+///
+/// Returns the appropriate var (with fallback)
+///
+/// @param {string} $slugLevel  The sluge and level combined into a string 'slug-###'.
+///
+@function var-clr($slug, $level, $mode: config.$brightnessMode_default) {
+    // returns
+    @if not map.has-key(tokens.$colours, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in tokens.$colours";
+        @return var(--clr-#{$slug}-#{$level});
+    }
+
+    $slugMap: map.get(tokens.$colours, $slug);
+
+    // returns
+    @if meta.type-of($slugMap) != map or not map.has-key($slugMap, '#{$level}')
+    {
+        @warn "$level '#{$level}' was not a key in tokens.$colours.#{$slug}";
+        @return var(--clr-#{$slug}-#{$level});
+    }
+
+    @return var(
+        --clr-#{$slug}-#{$level},
+        #{map.get(
+                $slugMap,
+                if(
+                    $mode == dark,
+                    '#{clr-get-dark-lvl($level, $slugMap)}',
+                    '#{$level}'
+                )
+            )}
+    );
+}

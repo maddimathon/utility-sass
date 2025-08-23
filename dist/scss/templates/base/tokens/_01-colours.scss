@@ -1,0 +1,72 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:color';
+// @use 'sass:list';
+@use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+@use '../config';
+@use '../../../01-functions/01-07-colours' as utils;
+
+@use 'functions' as *;
+
+/// # TOKENS - CUSTOM
+/// ======================================================================== ///
+
+$_defaultClrMap: (
+    'base': (
+        '100': hsl(0, 0%, 98%),
+        '900': hsl(0, 0%, 2%),
+    ),
+
+    'primary': (
+        '100': hsl(281, 81%, 97%),
+        '500': hsl(281, 35%, 53%),
+        '900': hsl(281, 85%, 2%),
+    ),
+
+    'secondary': (
+        '100': hsl(146, 72%, 95%),
+        '500': hsl(166, 90%, 29%),
+        '900': hsl(166, 100%, 1%),
+    ),
+
+    'active': (
+        '100': hsl(359, 83%, 97%),
+        '500': hsl(359, 49%, 54%),
+        '900': hsl(351, 100%, 2%),
+    ),
+);
+
+///
+/// Colours used in the base styles.
+///
+/// @since 0.1.0-alpha.draft
+///
+$colours: () !default;
+
+$colours: config.config-merge-args($_defaultClrMap, $colours, $recursive: true);
+
+@each $slug, $map in $colours {
+    $map: tokens-valid-base-clr-map(
+        $map,
+        'colours.#{$slug}',
+        if(
+            map.has-key($_defaultClrMap, $slug),
+            map.get($_defaultClrMap, $slug),
+            map.get($_defaultClrMap, 'base')
+        ),
+        $recursive: false
+    );
+
+    @if config.$tokens_expandClrMaps {
+        $map: utils.colour-stepper($map);
+    }
+
+    $colours: map.set($colours, $slug, $map);
+}

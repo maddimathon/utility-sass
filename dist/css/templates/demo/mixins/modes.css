@@ -1,0 +1,286 @@
+@charset "UTF-8";
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * 
+ * Author: Maddi Mathon (www.maddimathon.com)
+ * License: MIT
+ */
+/* # MIXINS - MODES
+ * ======================================================================== */
+/* #region light */
+body,
+[data-brightness-mode="light"] {
+    --mode-mixin: "light";
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        --mode-mixin: "light";
+    }
+}
+/* #endregion light */
+/* #region dark */
+[data-brightness-mode="dark"] {
+    --mode-mixin: "dark";
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        --mode-mixin: "dark";
+    }
+}
+/* #endregion dark */
+/* #region low-contrast */
+[data-contrast-mode="low"] {
+    --mode-mixin: "low-contrast";
+}
+
+@media (prefers-contrast: less) {
+    body {
+        --mode-mixin: "low-contrast";
+    }
+}
+/* #endregion low-contrast */
+/* #region average-contrast */
+body,
+[data-contrast-mode="average"] {
+    --mode-mixin: "average-contrast";
+}
+
+/* #endregion average-contrast */
+/* #region high-contrast */
+[data-contrast-mode="high"] {
+    --mode-mixin: "high-contrast";
+}
+
+@media (prefers-contrast: more) {
+    body {
+        --mode-mixin: "high-contrast";
+    }
+}
+/* #endregion high-contrast */
+/* #region forced-colors */
+[data-contrast-mode="forced-colors"] {
+    --mode-mixin: "forced-colors";
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    body {
+        --mode-mixin: "forced-colors";
+    }
+}
+/* #endregion forced-colors */
+/* #region token-mode-all */
+body,
+[data-brightness-mode="light"],
+[data-brightness-mode="dark"],
+[data-contrast-mode="average"],
+[data-contrast-mode="low"],
+[data-contrast-mode="high"],
+[data-contrast-mode="forced-colors"] {
+    --mode-mixin: "token-mode-all";
+}
+
+@media (prefers-color-scheme: light),
+    (prefers-color-scheme: dark),
+    (prefers-contrast: less),
+    (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    body {
+        --mode-mixin: "token-mode-all";
+    }
+}
+/* #endregion token-mode-all */
+/* ## each-token-mode ==================================== */
+/*#region light —— contrast average */
+body,
+[data-brightness-mode="light"],
+[data-contrast-mode="average"],
+[data-brightness-mode="light"][data-contrast-mode="average"] {
+    --each-token-mode-brightness: light;
+    --each-token-mode-contrast: average;
+}
+
+@media (prefers-color-scheme: light) {
+    body,
+    [data-contrast-mode="average"] {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: average;
+    }
+}
+/*#endregion light —— contrast average */
+/*#region light —— contrast low */
+[data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="low"] {
+    --each-token-mode-brightness: light;
+    --each-token-mode-contrast: low;
+}
+
+@media (prefers-contrast: less) {
+    body,
+    [data-brightness-mode="light"] {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: low;
+    }
+}
+@media (prefers-color-scheme: light) {
+    [data-contrast-mode="low"] {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: low;
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: low;
+    }
+}
+/*#endregion light —— contrast low */
+/*#region light —— contrast high */
+[data-contrast-mode="high"],
+[data-brightness-mode="light"][data-contrast-mode="high"] {
+    --each-token-mode-brightness: light;
+    --each-token-mode-contrast: high;
+}
+
+@media (prefers-contrast: more) {
+    body,
+    [data-brightness-mode="light"] {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: high;
+    }
+}
+@media (prefers-color-scheme: light) {
+    [data-contrast-mode="high"] {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: high;
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: high;
+    }
+}
+/*#endregion light —— contrast high */
+/*#region light —— contrast forced-colors */
+[data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"][data-contrast-mode="forced-colors"] {
+    --each-token-mode-brightness: light;
+    --each-token-mode-contrast: forced-colors;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    body,
+    [data-brightness-mode="light"] {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: forced-colors;
+    }
+}
+@media (prefers-color-scheme: light) {
+    [data-contrast-mode="forced-colors"] {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: forced-colors;
+    }
+}
+@media (( prefers-color-scheme: light ) and ( forced-colors: active )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: custom )) {
+    body {
+        --each-token-mode-brightness: light;
+        --each-token-mode-contrast: forced-colors;
+    }
+}
+/*#endregion light —— contrast forced-colors */
+/*#region dark —— contrast average */
+[data-brightness-mode="dark"],
+[data-brightness-mode="dark"][data-contrast-mode="average"] {
+    --each-token-mode-brightness: dark;
+    --each-token-mode-contrast: average;
+}
+
+@media (prefers-color-scheme: dark) {
+    body,
+    [data-contrast-mode="average"] {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: average;
+    }
+}
+/*#endregion dark —— contrast average */
+/*#region dark —— contrast low */
+[data-brightness-mode="dark"][data-contrast-mode="low"] {
+    --each-token-mode-brightness: dark;
+    --each-token-mode-contrast: low;
+}
+
+@media (prefers-contrast: less) {
+    [data-brightness-mode="dark"] {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: low;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="low"] {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: low;
+    }
+}
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    body {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: low;
+    }
+}
+/*#endregion dark —— contrast low */
+/*#region dark —— contrast high */
+[data-brightness-mode="dark"][data-contrast-mode="high"] {
+    --each-token-mode-brightness: dark;
+    --each-token-mode-contrast: high;
+}
+
+@media (prefers-contrast: more) {
+    [data-brightness-mode="dark"] {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: high;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="high"] {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: high;
+    }
+}
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    body {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: high;
+    }
+}
+/*#endregion dark —— contrast high */
+/*#region dark —— contrast forced-colors */
+[data-brightness-mode="dark"][data-contrast-mode="forced-colors"] {
+    --each-token-mode-brightness: dark;
+    --each-token-mode-contrast: forced-colors;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    [data-brightness-mode="dark"] {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: forced-colors;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="forced-colors"] {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: forced-colors;
+    }
+}
+@media (( prefers-color-scheme: dark ) and ( forced-colors: active )),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: custom )) {
+    body {
+        --each-token-mode-brightness: dark;
+        --each-token-mode-contrast: forced-colors;
+    }
+}
+/*#endregion dark —— contrast forced-colors */

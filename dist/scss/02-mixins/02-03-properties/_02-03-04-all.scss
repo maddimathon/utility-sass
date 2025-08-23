@@ -29,24 +29,55 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin tokens-all {
+@mixin tokens-all(
+    $borderRadius: true,
+    $borderWidth: true,
+    $custom: true,
+    $fontSize: true,
+    $lineHeight: true,
+    $margins: true,
+    $strokeRelative: true,
+    $trTime: true,
+    $widths: true,
+    $zIndex: true
+) {
     // $selector: selectors-parent-or-root();
 
     // spacing
-    @include tokens-widths;
-    @include tokens-margins;
+    @if $widths {
+        @include tokens-widths;
+    }
+    @if $margins {
+        @include tokens-margins;
+    }
 
     // typography
-    @include tokens-font-size;
-    @include tokens-line-height;
+    @if $fontSize {
+        @include tokens-font-size;
+    }
+    @if $lineHeight {
+        @include tokens-line-height;
+    }
 
     // decoration
-    @include tokens-border-radius;
-    @include tokens-border-width;
-    @include tokens-stroke-relative;
-    @include tokens-tr-time;
-    @include tokens-z-index;
+    @if $borderRadius {
+        @include tokens-border-radius;
+    }
+    @if $borderWidth {
+        @include tokens-border-width;
+    }
+    @if $strokeRelative {
+        @include tokens-stroke-relative;
+    }
+    @if $trTime {
+        @include tokens-tr-time;
+    }
+    @if $zIndex {
+        @include tokens-z-index;
+    }
 
     // custom
-    @include tokens-custom;
+    @if $custom {
+        @include tokens-custom;
+    }
 }

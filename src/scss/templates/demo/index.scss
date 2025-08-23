@@ -3,28 +3,16 @@
 /// @since ___PKG_VERSION___
 ///
 
-@forward 'config';
+@forward 'config' with (
+    $internal_supressCredit: true
+);
+@forward 'tokens';
 
 @forward '../../index';
 
-// @forward 'functions';
-// @forward 'mixins';
+@forward '_header';
 
-// TODO: remove testing
-@use '../../index' as utils;
+@forward 'functions';
+@forward 'mixins';
 
-/* test */
-@include utils.focus-visible {
-    --focus-visible: test;
-}
-
-// test.utility-sass.templates.demo {
-//     /* this is a test of utils.$scale_multiplier */
-//     --content: #{utils.$scale_multiplier};
-// }
-
-// @include utils.min-width(tablet) {
-//     test.utility-sass.templates.demo {
-//         /* I am inside a min-width( tablet ) mixin from utility-sass */
-//     }
-// }
+@forward '_footer';

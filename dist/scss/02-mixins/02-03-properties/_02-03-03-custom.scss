@@ -3,8 +3,8 @@
 /// @since 0.1.0-alpha.draft
 ///
 // @use 'sass:color';
-// @use 'sass:list';
-// @use 'sass:map';
+@use 'sass:list';
+@use 'sass:map';
 // @use 'sass:math';
 // @use 'sass:meta';
 // @use 'sass:selector';
@@ -28,12 +28,17 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin tokens-custom {
-    /* #region Tokens - Custom */
-    #{selectors-parent-or-root()} {
-        @each $slug, $_value in custom-token-map() {
-            --tkn-#{$slug}: #{$_value};
+@mixin tokens-custom($tokens: null) {
+    //
+    $tokens: if($tokens == null, custom-token-map(), $tokens);
+
+    @if list.length(map.keys($tokens)) >0 {
+        /* #region Tokens - Misc. */
+        #{selectors-parent-or-root()} {
+            @each $slug, $_value in $tokens {
+                --#{$slug}: #{$_value}; /* #{var-custom-token($slug)} */
+            }
         }
+        /* #endregion Tokens - Misc. */
     }
-    /* #endregion Tokens - Custom */
 }

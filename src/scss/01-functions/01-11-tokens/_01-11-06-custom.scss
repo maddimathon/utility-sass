@@ -70,11 +70,8 @@ $_flattened_customTokens: map-flatten(tokens.$customTokens);
     // returns
     @if not map.has-key($_flattened_customTokens, '#{$slug}') {
         @warn "$slug '#{$slug}' was not a key in the flattened tokens.$customTokens";
-        @return var(--tkn-#{$slug});
+        @return var(--#{$slug});
     }
 
-    @return var(
-        --tkn-#{$slug},
-        #{map.get($_flattened_customTokens, '#{$slug}')}
-    );
+    @return var(--#{$slug}, #{map.get($_flattened_customTokens, '#{$slug}')});
 }
