@@ -1,0 +1,26 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../../../config' with (
+    $internal_supressCredit: true,
+
+    $selectorType_mode: 'null-selector' !default,
+    $selectorType_motion: 'null-selector' !default
+);
+
+@forward 'include';
+
+@use 'include';
+
+///
+/// Uses $include_html to conditionally include CSS suited for websites.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin incl-html {
+    @if include.$include_html {
+        @content;
+    }
+}

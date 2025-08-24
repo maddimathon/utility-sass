@@ -1,0 +1,22 @@
+///
+/// This allows modules to forward this header without repeating it all over the
+/// output stylesheet.
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward 'config/internal';
+@use 'config/internal' as config;
+
+@if not config.$internal_supressCredit {
+    @at-root {
+        /*!
+         * This stylesheet includes css generated using 
+         * @maddimathon/utility-sass@___CURRENT_VERSION___
+         * 
+         * Author: Maddi Mathon (www.maddimathon.com)
+         * License: MIT
+         */
+    }
+}

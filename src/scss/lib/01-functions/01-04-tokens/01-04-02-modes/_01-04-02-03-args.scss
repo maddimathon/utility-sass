@@ -1,0 +1,255 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+@use 'sass:map';
+@use 'sass:string';
+
+@use '../../../../config';
+@use '../../../../tokens';
+
+@use '../../../../modules/list';
+@use '../../../../modules/meta';
+@use '../../../../modules/selector';
+
+// @use '../../01-01-selectors' as *;
+// @use '../../01-02-accessibility' as *;
+// @use '../../01-03-typography' as *;
+
+// @use '../01-04-01-spacing' as *;
+
+@use '01-04-02-01-meta' as *;
+@use '01-04-02-02-utils' as *;
+
+/// # MODE TOKEN FUNCTIONS - ARGS
+/// ======================================================================== ///
+
+///
+/// Validates and defines defaults for arguments used in multiple clr mode
+/// functions/mixins.
+///
+/// @since ___PKG_VERSION___
+///
+@function token-mode-validate-args(
+    $modes: (),
+    $includeDefault: true,
+    $ignoreParentSelector: false,
+
+    $nestParentSelector: null,
+    $unifyParentSelector: null,
+    $wrapParentSelector: null,
+
+    $parentIsRoot: null,
+    $parentIsBody: null,
+
+    $parentSelector: null,
+    $parentSelectorExists: null,
+
+    $debug: false,
+
+    $optionalArgs...
+) {
+    @if $debug {
+        @warn 'debugging token-mode-validate-args()';
+        // @debug "";
+        @debug '-  -  -';
+        @debug 'token-mode-validate-args()';
+        @debug '';
+        @debug '& = #{meta.var-dump( & )}';
+        @debug '';
+        @debug '$modes = #{meta.var-dump($modes)}';
+        @debug '$includeDefault = #{meta.var-dump($includeDefault)}';
+        @debug '$ignoreParentSelector = #{meta.var-dump($ignoreParentSelector)}';
+        @debug '';
+        @debug '$nestParentSelector = #{meta.var-dump($nestParentSelector)}';
+        @debug '$unifyParentSelector = #{meta.var-dump($unifyParentSelector)}';
+        @debug '$wrapParentSelector = #{meta.var-dump($wrapParentSelector)}';
+        @debug '';
+        @debug '$parentIsRoot = #{meta.var-dump($parentIsRoot)}';
+        @debug '$parentIsBody = #{meta.var-dump($parentIsBody)}';
+        @debug '';
+        @debug '$parentSelector = #{meta.var-dump($parentSelector)}';
+        @debug '$parentSelectorExists = #{meta.var-dump($parentSelectorExists)}';
+        @debug '';
+        @debug '$optionalArgs = #{meta.var-dump($optionalArgs)}';
+    }
+
+    $modes: filter-token-modes-active-only(
+        $modes: $modes,
+        $debug: $debug,
+    );
+
+    $parentIsRoot: if($parentIsRoot != null, $parentIsRoot, false);
+    $parentIsBody: if($parentIsBody != null, $parentIsBody, false);
+
+    @if $parentSelectorExists == null {
+        $parentSelectorExists: selector.parent-exists();
+    }
+
+    @if $ignoreParentSelector {
+        $parentSelectorExists: false;
+    }
+
+    @if $parentSelector == null {
+        @if $parentSelectorExists {
+            $parentSelector: selector.parent-or-body();
+        } @else {
+            $parentSelector: config.$selector_body;
+            $parentIsRoot: false;
+            $parentIsBody: true;
+        }
+    }
+
+    // testing if parent is root or body
+    @if $parentSelectorExists and not ($parentIsRoot and $parentIsBody) {
+        @if $debug {
+            @debug '[determining if parent is root/body]';
+        }
+
+        $simpleSelectors: ();
+
+        @each $sel in list.flatten($parentSelector) {
+            @each $s in string.split('#{$sel}', ' ') {
+                $simpleSelectors: list.join(
+                    $simpleSelectors,
+                    selector.simple-selectors($s),
+                    $separator: comma
+                );
+            }
+        }
+        @if $debug {
+            @debug '$simpleSelectors = #{meta.var-dump($simpleSelectors)}';
+        }
+
+        @each $sel in $simpleSelectors {
+            @if $debug {
+                @debug '  ~  ';
+                @debug '$sel = #{meta.var-dump($sel)}';
+            }
+
+            @if $parentIsRoot {
+                @if $debug {
+                    @debug '$parentIsRoot is truthy';
+                }
+            } @else if string.index($sel, ':root') == 1 {
+                @if $debug {
+                    @debug matched ':root';
+                }
+                $parentIsRoot: true;
+            } @else if string.index($sel, 'html') == 1 {
+                @if $debug {
+                    @debug "matched 'html'";
+                }
+                $parentIsRoot: true;
+            }
+
+            @if $parentIsBody {
+                @if $debug {
+                    @debug '$parentIsBody is truthy';
+                }
+            }
+            @if string.index($sel, 'body') == 1 {
+                @if $debug {
+                    @debug "matched 'body'";
+                }
+                $parentIsBody: true;
+            } @else if string.index($sel, '[data-brightness-mode=') == 1 {
+                @if $debug {
+                    @debug "matched '[data-brightness-mode='";
+                }
+                $parentIsBody: true;
+            } @else if string.index($sel, '[data-contrast-mode=') == 1 {
+                @if $debug {
+                    @debug "matched '[data-contrast-mode='";
+                }
+                $parentIsBody: true;
+            } @else if string.index($sel, '[data-motion=') == 1 {
+                @if $debug {
+                    @debug "matched '[data-motion='";
+                }
+                $parentIsBody: true;
+            }
+        }
+        @if $debug {
+            @debug '[/determining if parent is root/body]';
+        }
+    }
+
+    @if $debug {
+        @debug '';
+        @debug '$parentIsRoot = #{meta.var-dump($parentIsRoot)}';
+        @debug '$parentIsBody = #{meta.var-dump($parentIsBody)}';
+        @debug '';
+        @debug '$parentSelector = #{meta.var-dump($parentSelector)}';
+        @debug '$parentSelectorExists = #{meta.var-dump($parentSelectorExists)}';
+    }
+
+    @if $nestParentSelector == null {
+        $nestParentSelector: true;
+        @if $parentIsRoot or $parentIsBody {
+            $nestParentSelector: false;
+        }
+    }
+
+    @if $unifyParentSelector == null {
+        $unifyParentSelector: false;
+        @if $parentIsBody {
+            $unifyParentSelector: true;
+        }
+    }
+
+    @if $wrapParentSelector == null {
+        $wrapParentSelector: false;
+        @if $parentIsRoot {
+            $wrapParentSelector: true;
+        }
+    }
+
+    @if $debug {
+        @debug '';
+        @debug '$nestParentSelector = #{meta.var-dump($nestParentSelector)}';
+        @debug '$unifyParentSelector = #{meta.var-dump($unifyParentSelector)}';
+        @debug '$wrapParentSelector = #{meta.var-dump($wrapParentSelector)}';
+    }
+
+    $isClrModeDefault: false;
+
+    @each $mode in $modes {
+        @if is-token-mode-default($mode) {
+            $isClrModeDefault: true;
+        }
+    }
+
+    $args: map.merge(
+        (
+            modes: $modes,
+            includeDefault: $includeDefault,
+
+            nestParentSelector: $nestParentSelector,
+            unifyParentSelector: $unifyParentSelector,
+            wrapParentSelector: $wrapParentSelector,
+
+            parentSelector: $parentSelector,
+            parentSelectorExists: $parentSelectorExists,
+
+            parentIsRoot: $parentIsRoot,
+            parentIsBody: $parentIsBody,
+
+            isClrModeDefault: $isClrModeDefault,
+
+            debug: $debug,
+
+            clrModeArgs: true,
+        ),
+        meta.keywords($optionalArgs)
+    );
+
+    @if $debug {
+        // @debug "";
+        // @debug "$args = #{meta.var-dump($args)}";
+        @debug '-  -  -';
+        @debug '';
+    }
+
+    @return $args;
+}

@@ -1,0 +1,100 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:string';
+
+@use '../../config';
+
+@use '../01-functions' as *;
+
+// @use '02-01-utilities' as *;
+// @use '02-02-theming' as *;
+// @use '02-03-properties' as *;
+
+/// # TYPOGRAPHY MIXINS
+/// ======================================================================== ///
+
+@mixin centre-callout-block($incl_html: true) {
+    display: block;
+    margin-inline: 10%;
+
+    @if $incl_html {
+        margin-inline: auto;
+        width: fit-content;
+        max-width: min(#{var-width('callout')}, 100%);
+    }
+}
+
+///
+/// Adds basic rules for the given heading using tokens in the system.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin heading($slug: null) {
+    //
+    $fontWeight: 600;
+    $fontStyle: null;
+    $lineHeight: null;
+    $marginBlockStart: #{var-mrg-soft('600')};
+    $size: var-fs(bigger-1);
+
+    @if $slug == title {
+        $fontWeight: 900;
+        $lineHeight: var-line-height('100');
+        $size: var-fs($slug);
+    } @else if $slug != null {
+        $size: var-fs(heading-#{$slug});
+    }
+
+    @if $slug == '1' {
+        $fontWeight: 900;
+        $lineHeight: var-line-height('200');
+        $marginBlockStart: #{var-mrg-soft('800')};
+    }
+
+    @if $slug == '2' {
+        $fontWeight: 800;
+        $lineHeight: var-line-height('200');
+        $marginBlockStart: #{var-mrg-soft('800')};
+    }
+
+    @if $slug == '3' {
+        $fontWeight: 700;
+        $lineHeight: var-line-height('200');
+        $marginBlockStart: #{var-mrg-soft('800')};
+    }
+
+    @if $slug == '4' {
+        $fontWeight: 700;
+        $fontStyle: italic;
+        $lineHeight: var-line-height('300');
+    }
+
+    @if $slug == '5' {
+        $fontWeight: 600;
+        $fontStyle: italic;
+        $lineHeight: var-line-height('300');
+    }
+
+    @if $slug == '6' {
+        $fontWeight: 500;
+        $fontStyle: italic;
+        $lineHeight: var-line-height('300');
+    }
+
+    margin-block: #{$marginBlockStart} 0;
+    font-weight: #{$fontWeight};
+
+    @if $fontStyle {
+        font-style: #{$fontStyle};
+    }
+
+    font-size: #{$size};
+
+    @if $lineHeight {
+        line-height: #{$lineHeight};
+    }
+
+    text-wrap: balance;
+}

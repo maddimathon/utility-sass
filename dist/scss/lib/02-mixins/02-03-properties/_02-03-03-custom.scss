@@ -1,0 +1,41 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use '../../../config';
+
+@use '../../../modules/list';
+@use '../../../modules/map';
+@use '../../../modules/selector';
+
+@use '../../01-functions' as *;
+
+// @use '../02-01-utilities' as *;
+// @use '../02-02-theming' as *;
+
+// @use '02-03-01-utilities' as *;
+// @use '02-03-02-tokens' as *;
+
+/// # PROPERTY MIXINS - Custom
+/// ======================================================================== ///
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-custom($tokens: null) {
+    //
+    $tokens: if($tokens == null, custom-token-map(), $tokens);
+
+    @if list.length(map.keys($tokens)) >0 {
+        /* #region Tokens - Misc. */
+        #{selector.parent-or-root()} {
+            @each $slug, $_value in $tokens {
+                --#{$slug}: #{$_value}; /* #{var-custom-token($slug)} */
+            }
+        }
+        /* #endregion Tokens - Misc. */
+    }
+}

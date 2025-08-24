@@ -2,13 +2,9 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-// @use 'sass:color';
-// @use 'sass:list';
-@use 'sass:map';
-@use 'sass:math';
-// @use 'sass:meta';
-// @use 'sass:selector';
-// @use 'sass:string';
+
+@use '../modules/map';
+@use '../modules/math';
 
 @use '../config';
 // @use 'functions' as *;
@@ -21,13 +17,13 @@
 /// the system.
 ///
 /// Default keys are '100', '200', '300', '400', '600', and '800'. After
-/// merging, values are rounded with config-round-to-pixel().
+/// merging, values are rounded with math.round-to-pixel().
 ///
 /// @since ___PKG_VERSION___
 ///
 $margins: () !default;
 
-$margins: config.config-merge-args(
+$margins: map.merge(
     (
         '100': -9,
         '200': -6,
@@ -43,8 +39,6 @@ $margins: config.config-merge-args(
     $margins: map.set(
         $margins,
         $key,
-        config.config-round-to-pixel(
-            math.pow(config.$scale_multiplier, $size) * 1.25
-        )
+        math.round-to-pixel(math.pow(config.$scale_multiplier, $size) * 1.25)
     );
 }

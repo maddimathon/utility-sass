@@ -1,0 +1,116 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use '../../../lib';
+
+@use '../../../modules/map';
+@use '../../../modules/meta';
+
+/* # MODULES - MAP
+ * ======================================================================== */
+
+// #region $_map
+$_map: (
+    '$': default,
+
+    one: (
+        '$': default,
+        A: value,
+        B: (
+            '$': default,
+            1: value,
+        ),
+    ),
+
+    two: (
+        A: (
+            value is a list,
+        ),
+        B: (
+            '$': default,
+            1: (
+                value is a list,
+            ),
+        ),
+    ),
+);
+// #endregion $_map
+
+// #region $_defaults
+$_defaults: (
+    option1: A,
+    option2: B,
+    option3: C,
+
+    optionList: (
+        1,
+        2,
+        3,
+        4,
+        5,
+    ),
+    optionSet: (
+        option1: S-A,
+        option2: S-B,
+        option3: S-C,
+    ),
+);
+// #endregion $_defaults
+
+// #region $_inputs
+$_inputs: (
+    option3: OVERRIDE,
+    optionList: OVERRIDE,
+
+    optionSet: (
+        option2: OVERRIDE,
+    ),
+);
+// #endregion $_inputs
+
+test {
+    > map.merge {
+        /*
+            $_defaults: #{meta.var-dump($_defaults)};
+            $_inputs: #{meta.var-dump($_inputs)};
+         */
+        /*
+            map.merge( $recursive: false ): #{meta.var-dump(map.merge($_defaults, $_inputs))};
+         */
+        /*
+            map.merge( $recursive: true ): #{meta.var-dump(map.merge($_defaults, $_inputs, true))};
+         */
+    }
+
+    > map.flatten {
+        /*
+            map: #{meta.var-dump($_map)};
+         */
+
+        @each $key, $value in map.flatten($_map) {
+            /* #{$key}: #{meta.var-dump($value)} */
+        }
+
+        > with-prefix {
+            @each $key, $value in map.flatten($_map, $prefix: 'pre') {
+                /* #{$key}: #{meta.var-dump($value)} */
+            }
+        }
+
+        > with-suffix {
+            @each $key, $value in map.flatten($_map, $suffix: 'suf') {
+                /* #{$key}: #{meta.var-dump($value)} */
+            }
+        }
+
+        > with-both {
+            @each $key,
+                $value in map.flatten($_map, $prefix: 'pre', $suffix: 'suf')
+            {
+                /* #{$key}: #{meta.var-dump($value)} */
+            }
+        }
+    }
+}

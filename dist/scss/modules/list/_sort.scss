@@ -1,0 +1,147 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use 'sass:list';
+@use 'sass:math';
+
+@use '../string';
+
+// #region $sortOrder
+$sortOrder: (
+    ' ',
+    '-',
+    _,
+    0,
+    '0',
+    1,
+    '1',
+    2,
+    '2',
+    3,
+    '3',
+    4,
+    '4',
+    5,
+    '5',
+    6,
+    '6',
+    7,
+    '7',
+    8,
+    '8',
+    9,
+    '9',
+    a,
+    b,
+    c,
+    d,
+    e,
+    f,
+    g,
+    h,
+    i,
+    j,
+    k,
+    l,
+    m,
+    n,
+    o,
+    p,
+    q,
+    r,
+    s,
+    t,
+    u,
+    v,
+    w,
+    x,
+    y,
+    z
+);
+// #endregion $sortOrder
+
+///
+/// @return {number} true if $string_a goes before $string_b and false if not
+///
+@function _compare($string_a, $string_b) {
+    $string_a: string.slugify('#{$string_a}');
+    $string_b: string.slugify('#{$string_b}');
+
+    @for $i
+        from 1
+        through math.min(string.length($string_a), string.length($string_b))
+    {
+        $char_a: string.slice($string_a, $i, $i);
+        $char_b: string.slice($string_b, $i, $i);
+
+        @if $char_a and
+            $char_b and
+            list.index($sortOrder, $char_a) !=
+            list.index($sortOrder, $char_b)
+        {
+            @return (
+                list.index($sortOrder, $char_a) <
+                    list.index($sortOrder, $char_b)
+            );
+        }
+    }
+
+    @return string.length($string_a) < string.length($string_b);
+}
+
+///
+/// Swaps the position of two items in a list.
+///
+@function _swap($list, $index_a, $index_b) {
+    // returns - invalid list indices
+    @if math.abs($index_a) >
+        list.length($list) or
+        math.abs($index_b) >
+        list.length($list)
+    {
+        @return $list;
+    }
+
+    $tmp_value_a: list.nth($list, $index_a);
+
+    $list: list.set-nth($list, $index_a, list.nth($list, $index_b));
+
+    $list: list.set-nth($list, $index_b, $tmp_value_a);
+
+    @return $list;
+}
+
+///
+/// Sorts a list of items as strings.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function sort($list, $sortAs: 'string') {
+    // iterate through items
+    @for $i from 1 through list.length($list) {
+        // swaps with nearby items as relevant
+        @for $index_a from $i * -1 through -1 {
+            $index_a: math.abs($index_a);
+            $index_b: $index_a - 1;
+
+            @if $index_a > 1 {
+                $str_a: list.nth($list, $index_a);
+                $str_b: list.nth($list, $index_b);
+
+                $swap: if(
+                    $sortAs == 'number',
+                    if($str_a < $str_b, true, false),
+                    _compare($str_a, $str_b)
+                );
+
+                @if $swap {
+                    $list: _swap($list, $index_a, $index_b);
+                }
+            }
+        }
+    }
+
+    @return $list;
+}

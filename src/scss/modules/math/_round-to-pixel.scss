@@ -1,0 +1,33 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:math';
+@use 'sass:meta';
+
+///
+/// Tries to get slightly nicer outputed numbers for calculated em and rem values.
+///
+/// @param {number} $num
+/// @param {number} $factor
+///
+/// @return {number}
+///
+/// @since ___PKG_VERSION___
+///
+@function round-to-pixel($num, $factor: 16) {
+    // returns
+    @if meta.type-of($num) != number {
+        @warn "$num should be a number but it was a: #{meta.typeof( $num )}";
+        @return $num;
+    }
+
+    // returns
+    @if meta.type-of($factor) != number {
+        @warn "$factor should be a number but it was a: #{meta.typeof( $factor )}";
+        $factor: 16;
+    }
+
+    @return calc(math.round($num * $factor) / $factor);
+}

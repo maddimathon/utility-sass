@@ -1,50 +1,40 @@
-/// 
+///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
-/// 
-// @use 'sass:color';
-// @use 'sass:list';
-// @use 'sass:map';
-// @use 'sass:math';
-// @use 'sass:meta';
-// @use 'sass:selector';
+///
 // @use 'sass:string';
 
-// @use '../utils' as *;
-@use '../../../index' as *;
-
-
+@use '../../../lib';
 
 /* # MIXINS - BREAKPOINTS
  * ======================================================================== */
 
 breakpoints {
-
-    @include min-width( indent ) {
+    @include lib.min-width(indent) {
         /* min-width( indent ) */
     }
-    @include max-width( mobile ) {
+    @include lib.max-width(mobile) {
         /* max-width( mobile ) */
     }
 
-    @include min-height( 50 ) {
+    @include lib.min-height(50) {
         /* min-height( 50 ) */
     }
-    @include max-height( 50 ) {
+    @include lib.max-height(50) {
         /* max-height( 50 ) */
     }
 
-    @include min-all( 20, 30 ) {
+    @include lib.min-all(20, 30) {
         /* min-all( 20, 30 ) */
     }
-    @include max-all( 20, 30 ) {
+    @include lib.max-all(20, 30) {
         /* max-all( 20, 30 ) */
     }
 
-    @include minmax-width( mobile, tablet ) {
+    @include lib.minmax-width(mobile, tablet) {
         /* minmax-width( mobile, tablet ) */
     }
-    @include minmax-height( 20, 35 ) {
+    @include lib.minmax-height(20, 35) {
         /* minmax-height( 20, 35 ) */
     }
 }

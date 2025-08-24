@@ -1,0 +1,34 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:string';
+
+///
+/// Replaces $search with $replace in $string. Replaces all though recursion.
+///
+/// @param {string} $string   Initial string.
+/// @param {string} $search   Substring to replace.
+/// @param {string} $replace  Optional. Replacement value. Default ''.
+///
+/// @return {string}
+///
+/// @since ___PKG_VERSION___
+///
+@function replace($string, $search, $replace: '') {
+    $string: #{$string};
+    $index: string.index($string, $search);
+
+    @if $index {
+        $return: string.slice($string, 1, $index - 1) +
+            $replace +
+            replace(
+                string.slice($string, $index + string.length($search)),
+                $search,
+                $replace
+            );
+        @return $return;
+    }
+    @return $string;
+}

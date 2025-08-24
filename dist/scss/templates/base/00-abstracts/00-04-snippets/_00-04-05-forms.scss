@@ -1,0 +1,45 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:string';
+
+@use '../../config';
+@use '../../tokens';
+
+@use '../../../../modules/map';
+@use '../../../../modules/meta';
+
+@use '../../../../lib';
+
+/// # SNIPPETS - Forms
+/// ======================================================================== ///
+
+///
+/// Base styles for a button element.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin snippet-button(
+    $borderClr: ButtonBorder,
+    $borderWidth: '100',
+    $display: block,
+    $lh: '100',
+    $margin: #{var-mrg-firm('400')} 0 #{var-mrg-half('400')},
+    $padding: #{var-mrg-soft('200')} #{var-mrg-firm('300')},
+    $width: fit-content,
+
+    $includeClrs: true
+) {
+    @include lib.snippet-button(
+        $borderClr: $borderClr,
+        $borderWidth: $borderWidth,
+        $display: $display,
+        $lh: $lh,
+        $margin: $margin,
+        $padding: $padding,
+        $width: $width,
+
+        $includeClrs: false
+    );
+}

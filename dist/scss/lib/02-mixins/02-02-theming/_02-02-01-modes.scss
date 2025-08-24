@@ -1,0 +1,414 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+@use 'sass:string';
+
+@use '../../../config';
+@use '../../../tokens';
+
+@use '../../../modules/list';
+@use '../../../modules/map';
+@use '../../../modules/meta';
+@use '../../../modules/selector';
+
+@use '../../01-functions' as *;
+
+// @use '../02-01-utilities' as *;
+// @use '../02-02-theming' as *;
+
+/// # THEMING MIXINS - Modes
+/// ======================================================================== ///
+
+$_brightnessModes: filter-token-modes-active-only(tokens.$brightnessMode_all);
+$_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
+
+///
+/// Conditional rules for various colour modes.  When multiple modes are passed,
+/// the selectors are joined (as a list), not unified or merged.  To require
+/// more than one mode, nest them.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin colour-mode(
+    $modes,
+    $includeQuery: true,
+    $includeSelectors: true,
+
+    $modeArgs: false,
+    $args...
+) {
+    @if not $modeArgs {
+        $args: token-mode-validate-args($args..., $modes: $modes);
+    } @else {
+        $args: meta.keywords($args);
+    }
+
+    $modes: map.get($args, 'modes');
+    $includeDefault: map.get($args, 'includeDefault');
+
+    $nestParentSelector: map.get($args, 'nestParentSelector');
+    $unifyParentSelector: map.get($args, 'unifyParentSelector');
+    $wrapParentSelector: map.get($args, 'wrapParentSelector');
+
+    $parentSelector: map.get($args, 'parentSelector');
+    $parentSelectorExists: map.get($args, 'parentSelectorExists');
+
+    $isClrModeDefault: map.get($args, 'isClrModeDefault');
+
+    $debug: map.get($args, 'debug');
+
+    /// Setting using selectors
+    @if $includeSelectors {
+        $selectors: selectors-token-mode(
+            $modes: $modes,
+            $args...,
+        );
+
+        @if list.length($selectors) > 0 {
+            @at-root #{$selectors} {
+                @content;
+            }
+        }
+    }
+
+    /// Setting using media queries
+    @if $includeQuery {
+        $queries: media-queries-token-mode(
+            $modes: $modes,
+            $args...,
+        );
+
+        @if list.length($queries) > 0 {
+            @at-root {
+                @media #{$queries} {
+                    #{$parentSelector} {
+                        @content;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//#region Individual colour modes
+@mixin light($args...) {
+    @include colour-mode('light', $args...) {
+        @content;
+    }
+}
+@mixin dark($args...) {
+    @include colour-mode('dark', $args...) {
+        @content;
+    }
+}
+@mixin low-contrast($args...) {
+    @include colour-mode('low', $args...) {
+        @content;
+    }
+}
+@mixin average-contrast($args...) {
+    @include colour-mode('average', $args...) {
+        @content;
+    }
+}
+@mixin high-contrast($args...) {
+    @include colour-mode('high', $args...) {
+        @content;
+    }
+}
+@mixin forced-colors($args...) {
+    @include colour-mode('forced-colors', $args...) {
+        @content;
+    }
+}
+//#endregion Individual colour modes
+
+@mixin token-mode-all($args...) {
+    $allModes: list.join($_brightnessModes, $_contrastModes);
+    @include colour-mode($modes: $allModes, $args...) {
+        @content;
+    }
+}
+
+/// ## Each Colour Mode ==================================== ///
+
+///
+/// Iterates though brightness modes, and within that it iterates through
+/// contrast modes. Content is using $brightness, $contrast.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin token-mode-each(
+    $includeQuery: true,
+    $includeSelectors: true,
+
+    $nestParentSelector: false,
+    $unifyParentSelector: true,
+    $wrapParentSelector: false,
+
+    $includeDefault: true,
+    $includeRegions: true,
+
+    $args...
+) {
+    $args: meta.keywords($args);
+
+    $selectors_parentOrBody: selector.parent-or-body();
+    $parentSelectorExists: selector.parent-exists();
+
+    $args: map.set($args, 'includeQuery', $includeQuery);
+    $args: map.set($args, 'includeSelectors', $includeSelectors);
+
+    $args: map.set($args, 'ignoreParentSelector', true);
+    $args: map.set($args, 'includeDefault', false);
+
+    // iterate through brightness modes
+    @each $brightness in $_brightnessModes {
+        // local args
+        $brightness_args: token-mode-validate-args(
+            $args...,
+            $modes: $brightness
+        );
+
+        $brightnessIsDefault: is-token-mode-default($brightness);
+
+        $queries_brightness: media-queries-token-mode($brightness_args...);
+
+        // iterate through contrast modes
+        @each $contrast in $_contrastModes {
+            // local args
+            $contrast_args: token-mode-validate-args(
+                $args...,
+                $modes: $contrast
+            );
+
+            $contrastIsDefault: is-token-mode-default($contrast);
+
+            $queries_contrast: media-queries-token-mode($contrast_args...);
+
+            $includeSelectors: if(
+                (
+                    map.get($brightness_args, 'includeSelectors') and
+                        map.get($contrast_args, 'includeSelectors')
+                ),
+                true,
+                false
+            );
+
+            $includeQuery: if(
+                (
+                    map.get($brightness_args, 'includeQuery') and
+                        map.get($contrast_args, 'includeQuery')
+                ),
+                true,
+                false
+            );
+
+            @at-root {
+                @if $includeRegions {
+                    /*#region #{$brightness} —— contrast #{$contrast} */
+                }
+
+                @if $includeSelectors {
+                    // here to reset if body selector is added for default modes
+                    $selectors_brightness: selectors-token-mode(
+                        $brightness_args...
+                    );
+
+                    $selectors_contrast: selectors-token-mode(
+                        $contrast_args...
+                    );
+
+                    $selectors_merged: selector.unify(
+                        '#{$selectors_brightness}',
+                        '#{$selectors_contrast}'
+                    );
+
+                    // now we can do unifying, etc. as appropriate
+                    @if selector.parent-exists() {
+                        $selectors_brightness: selector.merge(
+                            $selectorA: $selectors_parentOrBody,
+                            $selectorB: $selectors_brightness,
+
+                            $nestAinB: $nestParentSelector,
+                            $nestBinA: $wrapParentSelector,
+                            $unify: $unifyParentSelector,
+                        );
+
+                        $selectors_contrast: selector.merge(
+                            $selectorA: $selectors_parentOrBody,
+                            $selectorB: $selectors_contrast,
+
+                            $nestAinB: $nestParentSelector,
+                            $nestBinA: $wrapParentSelector,
+                            $unify: $unifyParentSelector,
+                        );
+
+                        $selectors_merged: selector.merge(
+                            $selectorA: $selectors_parentOrBody,
+                            $selectorB: $selectors_merged,
+
+                            $nestAinB: $nestParentSelector,
+                            $nestBinA: $wrapParentSelector,
+                            $unify: $unifyParentSelector,
+                        );
+                    }
+
+                    // first we may have to adjust the selectors
+                    @if $includeDefault {
+                        @if $brightnessIsDefault and $contrastIsDefault {
+                            // = the body element is part of the selectors here
+
+                            $selectors_merged: (
+                                $selectors_parentOrBody,
+                                $selectors_brightness,
+                                $selectors_contrast,
+                                $selectors_merged
+                            );
+                        } @else if
+                            $brightnessIsDefault and not
+                            $contrastIsDefault
+                        {
+                            // = the body element needs to be "merged" with the contrast selectors
+
+                            $selectors_merged: (
+                                // $selectors_contrast,
+                                if(
+                                        $parentSelectorExists,
+                                        selector.unify(
+                                            '#{$selectors_parentOrBody}',
+                                            '#{$selectors_contrast}'
+                                        ),
+                                        $selectors_contrast
+                                    ),
+                                $selectors_merged
+                            );
+                        } @else if not
+                            $brightnessIsDefault and
+                            $contrastIsDefault
+                        {
+                            // = the body element needs to be "merged" with the brightness selectors
+
+                            $selectors_merged: (
+                                // $selectors_brightness,
+                                if(
+                                        $parentSelectorExists,
+                                        selector.unify(
+                                            '#{$selectors_parentOrBody}',
+                                            '#{$selectors_brightness}'
+                                        ),
+                                        $selectors_brightness
+                                    ),
+                                $selectors_merged
+                            );
+                        }
+                    }
+
+                    // includes default selector(s) as applicable
+                    // /* merged selectors */
+                    #{$selectors_merged} {
+                        @content ( $brightness, $contrast );
+                    }
+
+                    @if $includeQuery {
+                        @if list.length($queries_contrast) > 0 {
+                            $_sel: if(
+                                $brightnessIsDefault and $includeDefault,
+                                (
+                                    $selectors_parentOrBody,
+                                    $selectors_brightness
+                                ),
+                                $selectors_brightness
+                            );
+
+                            // /* #{$contrast} contrast queries + #{$brightness} mode selectors */
+                            @media #{$queries_contrast} {
+                                #{$_sel} {
+                                    @content ( $brightness, $contrast );
+                                }
+                            }
+                        }
+
+                        @if list.length($queries_brightness) > 0 {
+                            $_sel: if(
+                                $contrastIsDefault and $includeDefault,
+                                ($selectors_parentOrBody, $selectors_contrast),
+                                $selectors_contrast
+                            );
+
+                            // /* #{$brightness} mode queries + #{$contrast} contrast selectors */
+                            @media #{$queries_brightness} {
+                                #{$_sel} {
+                                    @content ( $brightness, $contrast );
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @if $includeQuery {
+                    // builds a list of queries to apply at once
+                    $queries: ();
+
+                    // if the selectors aren't included, then we have to combine the
+                    // parent selector here, and potentially include default
+                    @if not $includeSelectors {
+                        @if $brightnessIsDefault and $contrastIsDefault {
+                            // we need to include the defaults anyway
+                            /* default values */
+                            #{$selectors_parentOrBody} {
+                                @content ( $brightness, $contrast );
+                            }
+                        }
+
+                        @if $brightnessIsDefault {
+                            // brightness selector + contrast queries
+                            $queries: list.append(
+                                $queries,
+                                $queries_contrast,
+                                $separator: 'comma'
+                            );
+                        }
+
+                        @if $contrastIsDefault {
+                            // contrast selector + brightness queries
+                            $queries: list.append(
+                                $queries,
+                                $queries_brightness,
+                                $separator: 'comma'
+                            );
+                        }
+                    }
+
+                    // adding the merged queries together, one-by-one
+                    @each $bright_query in $queries_brightness {
+                        @each $con_query in $queries_contrast {
+                            $queries: list.append(
+                                $queries,
+                                string.unquote(
+                                    '(#{$bright_query} and #{$con_query})'
+                                ),
+                                $separator: 'comma'
+                            );
+                        }
+                    }
+
+                    // if queries exist, print them with content
+                    @if list.length($queries) > 0 {
+                        // /* merged queries */
+                        @media #{$queries} {
+                            #{$selectors_parentOrBody} {
+                                @content ( $brightness, $contrast );
+                            }
+                        }
+                    }
+                }
+
+                @if $includeRegions {
+                    /*#endregion #{$brightness} —— contrast #{$contrast} */
+                }
+            }
+        }
+    }
+}

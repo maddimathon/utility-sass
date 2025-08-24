@@ -1,0 +1,123 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+@use 'sass:string';
+
+@use '../../config';
+
+@use '../../modules/list';
+@use '../../modules/math';
+@use '../../modules/meta';
+
+// @use '01-02-accessibility' as *;
+
+/// # TYPOGRAPHY FUNCTIONS
+/// ======================================================================== ///
+
+///
+/// Returns a clamp value for given font size (uses svw).
+///
+/// @param {number}     $size  Rem/em value.
+/// @param {"em"|"rem"} $unit  Whether font should be in rem or em.
+///
+/// @returns {calc}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function clamp-font-size($size, $unit: 'rem') {
+    @if meta.type-of($size) != number {
+        @warn "$size should be a number";
+        @return #{$size}#{$unit};
+    }
+
+    $multi_min: config.$fn_clamp_font_size_multiplier_min;
+    $multi_svw: config.$fn_clamp_font_size_multiplier_svw;
+    $multi_max: config.$fn_clamp_font_size_multiplier_max;
+    $svw_rem: config.$fn_clamp_font_size_svw_rem;
+
+    @return clamp(
+        #{math.round-to-pixel($size * $multi_min)}#{$unit},
+        #{math.round-to-pixel($size * $multi_svw)}svw + #{$svw_rem}#{$unit},
+        #{math.round-to-pixel($size * $multi_max)}#{$unit}
+    );
+}
+
+///
+/// Quotes font names as needed for valid output.
+///
+/// @param {string[]} $fonts  Font names to include.
+///
+/// @returns {list}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function font-list($fonts) {
+    $list: ();
+
+    @if meta.type-of($fonts) != list {
+        @warn "$fonts should be a list";
+        $fonts: ();
+    }
+
+    @each $font in $fonts {
+        $str: string.unquote(#{$font});
+
+        @if string.index($str, ' ') != null {
+            $str: string.unquote('"#{$str}"');
+        }
+
+        $list: list.append($list, $str, $separator: comma);
+    }
+
+    @return $list;
+}
+
+///
+/// Returns a css-friendly font-family value for a monospace system font stack.
+///
+/// @see {@link font-list()}  Used to format the font list before return.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function font-family-monospace-ui() {
+    @return font-list(
+        (
+            ui-monospace,
+            SFMono-Regular,
+            Consolas,
+            Liberation Mono,
+            Menlo,
+            monospace
+        )
+    );
+}
+
+///
+/// Returns a css-friendly font-family value for a system font stack.
+///
+/// @see {font-list}  Used to format the font list before return.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function font-family-system-ui() {
+    @return font-list(
+        (
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            Segoe UI,
+            Roboto,
+            Oxygen-Sans,
+            Ubuntu,
+            Cantarell,
+            Helvetica Neue,
+            Helvetica,
+            Arial,
+            sans-serif,
+            Apple Color Emoji,
+            Segoe UI Emoji,
+            Segoe UI Symbol
+        )
+    );
+}

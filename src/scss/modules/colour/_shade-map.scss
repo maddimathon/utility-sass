@@ -1,0 +1,141 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:math';
+@use 'sass:meta';
+
+@use '../map';
+
+@use 'to-hsl' as *;
+@use 'mix-oklch' as *;
+
+///
+/// Returns a map of colours with the keys '100' to '900'.
+///
+/// @param {map} $map  Partial colour map.
+///
+/// @since ___PKG_VERSION___
+///
+@function shade-map($map) {
+    $c100: if(map.has-key($map, '100'), map.get($map, '100'), null);
+    $c200: if(map.has-key($map, '200'), map.get($map, '200'), null);
+    $c300: if(map.has-key($map, '300'), map.get($map, '300'), null);
+    $c400: if(map.has-key($map, '400'), map.get($map, '400'), null);
+    $c500: if(map.has-key($map, '500'), map.get($map, '500'), null);
+    $c600: if(map.has-key($map, '600'), map.get($map, '600'), null);
+    $c700: if(map.has-key($map, '700'), map.get($map, '700'), null);
+    $c800: if(map.has-key($map, '800'), map.get($map, '800'), null);
+    $c900: if(map.has-key($map, '900'), map.get($map, '900'), null);
+
+    @if meta.type-of($c100) != 'color' {
+        $c100: hsl(0, 0%, 98%);
+    }
+    @if meta.type-of($c900) != 'color' {
+        $c900: hsl(0, 0%, 2%);
+    }
+
+    @if meta.type-of($c500) != 'color' {
+        $c500: mix-oklch($c100, $c900);
+    }
+
+    @if meta.type-of($c300) != 'color' {
+        $c300: mix-oklch($c100, $c500);
+    }
+    @if meta.type-of($c700) != 'color' {
+        $c700: mix-oklch($c500, $c900);
+    }
+
+    @if meta.type-of($c200) != 'color' {
+        $c200: mix-oklch($c100, $c300);
+    }
+    @if meta.type-of($c400) != 'color' {
+        $c400: mix-oklch($c300, $c500);
+    }
+
+    @if meta.type-of($c600) != 'color' {
+        $c600: mix-oklch($c500, $c700);
+    }
+    @if meta.type-of($c800) != 'color' {
+        $c800: mix-oklch($c700, $c900);
+    }
+
+    $fullMap: (
+        '100': to-hsl($c100),
+        '200': to-hsl($c200),
+        '300': to-hsl($c300),
+        '400': to-hsl($c400),
+        '500': to-hsl($c500),
+        '600': to-hsl($c600),
+        '700': to-hsl($c700),
+        '800': to-hsl($c800),
+        '900': to-hsl($c900),
+    );
+
+    // now testing to fill in-between steps
+    // (adding in pairs for light-dark reversability)
+
+    @if map.has-key($map, '150') or map.has-key($map, '850') {
+        $c150: if(map.has-key($map, '150'), map.get($map, '150'), null);
+        $c850: if(map.has-key($map, '850'), map.get($map, '850'), null);
+
+        @if meta.type-of($c150) != 'color' {
+            $c150: mix-oklch($c100, $c200);
+        }
+        @if meta.type-of($c850) != 'color' {
+            $c850: mix-oklch($c800, $c900);
+        }
+
+        $fullMap: map.set($fullMap, '150', to-hsl($c150));
+        $fullMap: map.set($fullMap, '850', to-hsl($c850));
+    }
+
+    @if map.has-key($map, '250') or map.has-key($map, '750') {
+        $c250: if(map.has-key($map, '250'), map.get($map, '250'), null);
+        $c750: if(map.has-key($map, '750'), map.get($map, '750'), null);
+
+        @if meta.type-of($c250) != 'color' {
+            $c250: mix-oklch($c200, $c300);
+        }
+        @if meta.type-of($c750) != 'color' {
+            $c750: mix-oklch($c700, $c800);
+        }
+
+        $fullMap: map.set($fullMap, '250', to-hsl($c250));
+        $fullMap: map.set($fullMap, '750', to-hsl($c750));
+    }
+
+    @if map.has-key($map, '350') or map.has-key($map, '650') {
+        $c350: if(map.has-key($map, '350'), map.get($map, '350'), null);
+        $c650: if(map.has-key($map, '650'), map.get($map, '650'), null);
+
+        @if meta.type-of($c350) != 'color' {
+            $c350: mix-oklch($c300, $c400);
+        }
+        @if meta.type-of($c650) != 'color' {
+            $c650: mix-oklch($c600, $c700);
+        }
+
+        $fullMap: map.set($fullMap, '350', to-hsl($c350));
+        $fullMap: map.set($fullMap, '650', to-hsl($c650));
+    }
+
+    @if map.has-key($map, '450') or map.has-key($map, '550') {
+        $c450: if(map.has-key($map, '450'), map.get($map, '450'), null);
+        $c550: if(map.has-key($map, '550'), map.get($map, '550'), null);
+
+        @if meta.type-of($c450) != 'color' {
+            $c450: mix-oklch($c400, $c500);
+        }
+        @if meta.type-of($c550) != 'color' {
+            $c550: mix-oklch($c500, $c600);
+        }
+
+        $fullMap: map.set($fullMap, '450', to-hsl($c450));
+        $fullMap: map.set($fullMap, '550', to-hsl($c550));
+    }
+
+    @return map.ksort($fullMap);
+}

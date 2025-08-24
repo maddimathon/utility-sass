@@ -1,0 +1,19 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use '../../config';
+
+@use 'parent-exists' as *;
+
+///
+/// Returns the current parent selector, or if none exists, the root selector.
+///
+/// @return {selector}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function parent-or-root() {
+    @return if(parent-exists(), &, config.$selector_root);
+}

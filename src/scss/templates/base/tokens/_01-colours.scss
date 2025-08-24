@@ -2,20 +2,16 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-// @use 'sass:color';
-// @use 'sass:list';
-@use 'sass:map';
-// @use 'sass:math';
-// @use 'sass:meta';
-// @use 'sass:selector';
 // @use 'sass:string';
 
 @use '../config';
-@use '../../../01-functions/01-07-colours' as utils;
+
+@use '../../../modules/colour';
+@use '../../../modules/map';
 
 @use 'functions' as *;
 
-/// # TOKENS - CUSTOM
+/// # TOKENS - COLOURS
 /// ======================================================================== ///
 
 $_defaultClrMap: (
@@ -50,7 +46,9 @@ $_defaultClrMap: (
 ///
 $colours: () !default;
 
-$colours: config.config-merge-args($_defaultClrMap, $colours, $recursive: true);
+@if config.$include_clr {
+    $colours: map.merge($_defaultClrMap, $colours, $recursive: true);
+}
 
 @each $slug, $map in $colours {
     $map: tokens-valid-base-clr-map(
@@ -64,8 +62,8 @@ $colours: config.config-merge-args($_defaultClrMap, $colours, $recursive: true);
         $recursive: false
     );
 
-    @if config.$tokens_expandClrMaps {
-        $map: utils.colour-stepper($map);
+    @if config.$tokens_expandClrMaps and config.$include_clr {
+        $map: colour.shade-map($map);
     }
 
     $colours: map.set($colours, $slug, $map);

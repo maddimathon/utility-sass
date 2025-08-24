@@ -1,0 +1,81 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+@use 'sass:selector';
+@use 'sass:string';
+
+@use '../../config';
+
+@use '../../modules/list';
+@use '../../modules/map';
+@use '../../modules/meta';
+@use '../../modules/selector' as sel;
+
+/// # SELECTOR FUNCTIONS
+/// ======================================================================== ///
+
+///
+/// Checks if the parent selector (if any) is a *simple* body element selector.
+///
+/// This DOES NOT work for compound selectors.
+///
+/// @return {bool}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function selector-parent-is-body() {
+    // returns
+    @if not parent-exists() {
+        @return false;
+    }
+
+    $parentSelector: #{&};
+
+    // returns
+    @if $parentSelector == body {
+        @return true;
+    }
+
+    // returns
+    @if $parentSelector == #{config.$selector_body} {
+        @return true;
+    }
+
+    @return false;
+}
+
+///
+/// Checks if the parent selector (if any) is a *simple* root element selector.
+///
+/// This DOES NOT work for compound selectors.
+///
+/// @return {bool}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function selectors-parent-is-root() {
+    // returns
+    @if not sel.parent-exists() {
+        @return false;
+    }
+
+    $parentSelector: #{&};
+
+    // returns
+    @if $parentSelector == html {
+        @return true;
+    }
+
+    // returns
+    @if $parentSelector == ':root' {
+        @return true;
+    }
+
+    // returns
+    @if $parentSelector == #{config.$selector_root} {
+        @return true;
+    }
+
+    @return false;
+}

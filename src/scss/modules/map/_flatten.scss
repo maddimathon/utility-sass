@@ -1,0 +1,101 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+
+@function _flat-key-valid-and-add-prefix($key, $prefix, $allowRootValues) {
+    $str_key: '#{$key}';
+    $str_prefix: '#{$prefix}';
+
+    $includeKeyName: if(
+        (string.length($str_key) < 1 or ($key == '$' and $allowRootValues)),
+        false,
+        true
+    );
+
+    $includePrefix: if(
+        ($prefix and string.length($str_prefix) > 0),
+        true,
+        false
+    );
+
+    // returns
+    @if not $includeKeyName {
+        @return if($includePrefix, $str_prefix, '');
+    }
+
+    @return if($includePrefix, '#{$prefix}-#{$key}', $str_key);
+}
+
+@function _flat-key-add-suffix($key, $suffix) {
+    $str_key: '#{$key}';
+    $str_suffix: '#{$suffix}';
+
+    $includeSuffix: if(
+        ($suffix and string.length($str_suffix) > 0),
+        true,
+        false
+    );
+
+    // returns
+    @if string.length($str_key) < 1 {
+        @return if($includeSuffix, $str_suffix, '');
+    }
+
+    @return if($includeSuffix, '#{$key}-#{$suffix}', $str_key);
+}
+
+///
+/// Returns a single-level map with kebab case keys based on nested map keys.
+///
+/// @param {map}     $map     The map to flatten.
+/// @param {?string} $prefix  A prefix to add to all map keys. Default null.
+/// @param {?string} $suffix  A suffix to add to all map keys. Default null.
+/// @param {boolean} $allowRootValues  Whether '$' keys should be considered the 'root' value for that map when flattened.
+///
+/// @return {map}
+///
+/// @since ___PKG_VERSION___
+///
+@function flatten($map, $prefix: null, $suffix: null, $allowRootValues: true) {
+    $return: ();
+
+    @each $_key, $_value in $map {
+        $_key: _flat-key-valid-and-add-prefix($_key, $prefix, $allowRootValues);
+
+        @if meta.type-of($_value) != map {
+            // just set the value plainly
+            $return: map.set(
+                $return,
+                _flat-key-add-suffix($_key, $suffix),
+                $_value
+            );
+        } @else {
+            // if value is a map, then we recurse and iterate through the
+            // flattened results
+
+            // recursed map
+            $_value_flat: flatten(
+                $_value,
+                $prefix: $_key,
+                $suffix: $suffix,
+                $allowRootValues: $allowRootValues
+            );
+
+            // and set those keys in the return
+            @each $_flat_childKey, $_flat_childValue in $_value_flat {
+                // now we can set it plainly
+                $return: map.set(
+                    $return,
+                    '#{$_flat_childKey}',
+                    $_flat_childValue
+                );
+            }
+        }
+    }
+
+    @return $return;
+}

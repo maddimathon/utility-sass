@@ -2,15 +2,12 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-// @use 'sass:color';
-// @use 'sass:list';
-@use 'sass:map';
-// @use 'sass:math';
-// @use 'sass:meta';
-// @use 'sass:selector';
 // @use 'sass:string';
 
-@use '../config';
+// @use '../config';
+
+@use '../modules/map';
+
 // @use 'functions' as *;
 
 /// # TOKENS - MISC
@@ -26,7 +23,7 @@
 ///
 $z_indices: () !default;
 
-$z_indices: config.config-merge-args(
+$z_indices: map.merge(
     (
         'nav': 1000,
         'settings': 9999,

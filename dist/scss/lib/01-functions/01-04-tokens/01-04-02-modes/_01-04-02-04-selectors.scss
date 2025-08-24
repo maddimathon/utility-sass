@@ -1,0 +1,340 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+@use 'sass:string';
+
+@use '../../../../config';
+// @use '../../../../tokens';
+
+@use '../../../../modules/list';
+@use '../../../../modules/map';
+@use '../../../../modules/meta';
+@use '../../../../modules/selector';
+
+// @use '../../01-01-selectors' as *;
+// @use '../../01-02-accessibility' as *;
+// @use '../../01-03-typography' as *;
+
+// @use '../01-04-01-spacing' as *;
+
+@use '01-04-02-01-meta' as *;
+// @use '01-04-02-02-utils' as *;
+@use '01-04-02-03-args' as *;
+
+/// # MODE TOKEN FUNCTIONS - SELECTORS
+/// ======================================================================== ///
+
+///
+/// Returns the selectors for the given colour modes.
+///
+/// @param {bool} $modeArgs  Optional. Whether the token-mode-validate-args() function has already been applied to the args. Default false.
+/// @param {bool} $args...   Remaining args. See {@link token-mode-validate-args()} for details.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function media-queries-token-mode($modeArgs: false, $args...) {
+    @if not $modeArgs {
+        $args: token-mode-validate-args($args...);
+    } @else {
+        $args: meta.keywords($args);
+    }
+
+    $modes: map.get($args, 'modes');
+    $includeDefault: map.get($args, 'includeDefault');
+    $includeSelectors: map.get($args, 'includeSelectors');
+
+    $nestParentSelector: map.get($args, 'nestParentSelector');
+    $unifyParentSelector: map.get($args, 'unifyParentSelector');
+    $wrapParentSelector: map.get($args, 'wrapParentSelector');
+
+    $ignoreParentSelector: map.get($args, 'ignoreParentSelector');
+    $parentSelector: map.get($args, 'parentSelector');
+    $parentSelectorExists: map.get($args, 'parentSelectorExists');
+
+    $debug: map.get($args, 'debug');
+
+    @if $debug {
+        @debug '';
+        @debug '=  =  =';
+        @debug 'media-queries-token-mode()';
+        @debug '';
+        @debug '$modes = #{meta.var-dump($modes)}';
+        @debug '$includeDefault = #{meta.var-dump($includeDefault)}';
+        @debug '';
+        @debug '$nestParentSelector = #{meta.var-dump($nestParentSelector)}';
+        @debug '$unifyParentSelector = #{meta.var-dump($unifyParentSelector)}';
+        @debug '$wrapParentSelector = #{meta.var-dump($wrapParentSelector)}';
+        @debug '';
+        @debug '$ignoreParentSelector = #{meta.var-dump($ignoreParentSelector)}';
+        @debug '$parentSelector = #{meta.var-dump($parentSelector)}';
+        @debug '$parentSelectorExists = #{meta.var-dump($parentSelectorExists)}';
+    }
+
+    $queries: ();
+
+    @each $mode in $modes {
+        $isClrModeDefault: false;
+        $isClrModeDefaultOnly: is-token-mode-type-default-only($mode);
+
+        @if is-token-mode-default($mode) {
+            $isClrModeDefault: true;
+        }
+        @if $debug {
+            @debug '';
+            @debug '$mode = #{meta.var-dump($mode)}';
+            @debug '$isClrModeDefault = #{meta.var-dump($isClrModeDefault)}';
+            @debug '$isClrModeDefaultOnly = #{meta.var-dump($isClrModeDefaultOnly)}';
+        }
+
+        @if $isClrModeDefaultOnly {
+            @if $debug {
+                @debug 'skipping queries';
+            }
+        } @else {
+            @if $mode == light or $mode == dark {
+                @if not
+                    $isClrModeDefault or not
+                    $includeDefault or not
+                    $includeSelectors
+                {
+                    @if $debug {
+                        @debug 'adding #{$mode} query';
+                    }
+
+                    @if $isClrModeDefault and
+                        config.$include_noPreferenceMediaQueries
+                    {
+                        $queries: list.append(
+                            $queries,
+                            '( prefers-color-scheme: no-preference )',
+                            $separator: comma
+                        );
+                    }
+                    $queries: list.append(
+                        $queries,
+                        '( prefers-color-scheme: #{$mode} )',
+                        $separator: comma
+                    );
+                } @else if $debug {
+                    @debug 'skipping #{$mode} query';
+                }
+            } @else if $mode == forced-colors {
+                @if $debug {
+                    @debug 'adding #{$mode} query';
+                }
+                $queries: list.append(
+                    $queries,
+                    '( forced-colors: active )',
+                    $separator: comma
+                );
+                $queries: list.append(
+                    $queries,
+                    '( prefers-contrast: custom )',
+                    $separator: comma
+                );
+            } @else if $mode == low {
+                @if $debug {
+                    @debug 'adding #{$mode} query';
+                }
+                $queries: list.append(
+                    $queries,
+                    '( prefers-contrast: less )',
+                    $separator: comma
+                );
+            } @else if $mode == average {
+                @if not
+                    $isClrModeDefault or not
+                    $includeDefault or not
+                    $includeSelectors
+                {
+                    @if $debug {
+                        @debug 'adding #{$mode} query';
+                    }
+
+                    @if config.$include_noPreferenceMediaQueries {
+                        $queries: list.append(
+                            $queries,
+                            '( prefers-contrast: no-preference )',
+                            $separator: comma
+                        );
+                    }
+                } @else if $debug {
+                    @debug 'skipping #{$mode} query';
+                }
+            } @else if $mode == high {
+                @if $debug {
+                    @debug 'adding #{$mode} query';
+                }
+                $queries: list.append(
+                    $queries,
+                    '( prefers-contrast: more )',
+                    $separator: comma
+                );
+            } @else {
+                @if $debug {
+                    @debug "no queries for mode '#{$mode}'";
+                }
+            }
+        }
+    }
+
+    @if $debug {
+        @debug '';
+        @debug '$queries = #{meta.var-dump($queries)}';
+        @debug '=  =  =';
+        @debug '';
+    }
+    @return $queries;
+}
+
+///
+/// Returns the selectors for the given colour modes.
+///
+/// @param {bool} $modeArgs  Optional. Whether the token-mode-validate-args() function has already been applied to the args. Default false.
+/// @param {bool} $args...   Remaining args. See {@link token-mode-validate-args()} for details.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function selectors-token-mode($modeArgs: false, $args...) {
+    @if not $modeArgs {
+        $args: token-mode-validate-args($args...);
+    } @else {
+        $args: meta.keywords($args);
+    }
+
+    $modes: map.get($args, 'modes');
+    $includeDefault: map.get($args, 'includeDefault');
+
+    $nestParentSelector: map.get($args, 'nestParentSelector');
+    $unifyParentSelector: map.get($args, 'unifyParentSelector');
+    $wrapParentSelector: map.get($args, 'wrapParentSelector');
+
+    $parentIsRoot: map.get($args, 'parentIsRoot');
+
+    $ignoreParentSelector: map.get($args, 'ignoreParentSelector');
+    $parentSelector: map.get($args, 'parentSelector');
+    $parentSelectorExists: map.get($args, 'parentSelectorExists');
+
+    $debug: map.get($args, 'debug');
+
+    @if $debug {
+        @debug '';
+        @debug '=  =  =';
+        @debug 'selectors-token-mode()';
+        @debug '';
+        @debug 'config.$selectorType_mode = #{meta.var-dump(config.$selectorType_mode)}';
+        @debug '';
+        @debug '$modes = #{meta.var-dump($modes)}';
+        @debug '$includeDefault = #{meta.var-dump($includeDefault)}';
+        @debug '';
+        @debug '$nestParentSelector = #{meta.var-dump($nestParentSelector)}';
+        @debug '$unifyParentSelector = #{meta.var-dump($unifyParentSelector)}';
+        @debug '$wrapParentSelector = #{meta.var-dump($wrapParentSelector)}';
+        @debug '';
+        @debug '$ignoreParentSelector = #{meta.var-dump($ignoreParentSelector)}';
+        @debug '$parentSelector = #{meta.var-dump($parentSelector)}';
+        @debug '$parentSelectorExists = #{meta.var-dump($parentSelectorExists)}';
+    }
+
+    $prependParentSelector: false;
+    $selectorsList: ();
+
+    @each $mode in $modes {
+        $isDefaultOnly: is-token-mode-type-default-only($mode);
+        $isDefault: is-token-mode-default($mode);
+
+        @if $debug {
+            @debug '';
+            @debug '$mode = #{meta.var-dump($mode)}';
+            @debug '$isDefaultOnly = #{meta.var-dump($isDefaultOnly)}';
+            @debug '$isDefault = #{meta.var-dump($isDefault)}';
+        }
+
+        @if $includeDefault and $isDefault {
+            $prependParentSelector: true;
+        }
+
+        @if not $isDefaultOnly or $isDefault {
+            $modeType: get-token-mode-type($mode);
+
+            $selector: ();
+
+            @if config.$selectorType_mode == 'attribute' {
+                $selector: (
+                    string.unquote('[data-#{$modeType}-mode=#{$mode}]')
+                );
+            }
+
+            @if config.$selectorType_mode == 'class' {
+                $selector: (
+                    string.unquote('.theme-#{$modeType}-mode-#{$mode}')
+                );
+            }
+
+            @if $debug {
+                @debug '$selector = #{meta.var-dump($selector)}';
+            }
+
+            @if list.length($selector) > 0 {
+                $mergedSelectors: ();
+
+                @if $parentSelectorExists and not $parentIsRoot {
+                    $mergedSelectors: selector.merge(
+                        $selectorA: $parentSelector,
+                        $selectorB: $selector,
+
+                        $nestAinB: $nestParentSelector,
+                        $nestBinA: $wrapParentSelector,
+                        $unify: $unifyParentSelector,
+
+                        $debug: $debug,
+                    );
+                } @else {
+                    $mergedSelectors: $selector;
+                }
+                @if $debug {
+                    @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
+                }
+
+                $selectorsList: list.append(
+                    $selectorsList,
+                    $mergedSelectors,
+                    $separator: comma
+                );
+            }
+        } @else if $debug {
+            @debug 'no selectors added';
+        }
+    }
+
+    @if $debug {
+        @debug '';
+        @debug '$prependParentSelector = #{meta.var-dump($prependParentSelector)}';
+    }
+
+    @if $prependParentSelector {
+        $selectorsList: list.join(
+            $parentSelector,
+            $selectorsList,
+            $separator: comma
+        );
+    }
+
+    @if $debug {
+        @debug '';
+        @debug '$selectorsList = #{meta.var-dump($selectorsList)}';
+        @debug '=  =  =';
+        @debug '';
+    }
+    @if list.length($selectorsList) < 1 {
+        @return config.$selector_null;
+    }
+    @if $parentIsRoot and $parentSelectorExists {
+        @return selector.unify(
+            $parentSelector,
+            (string.unquote(':has( #{$selectorsList} )'))
+        );
+    }
+    @return $selectorsList;
+}

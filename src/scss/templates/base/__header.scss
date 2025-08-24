@@ -2,17 +2,11 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-// @use 'sass:color';
-// @use 'sass:list';
-// @use 'sass:map';
-// @use 'sass:math';
-// @use 'sass:meta';
-// @use 'sass:selector';
 // @use 'sass:string';
 
 @use 'config';
-// @use 'utils' as *;
-@use '../../index' as *;
+
+@use '../../lib' as *;
 
 /*!
  * Utility Sass Templates — Base
@@ -26,10 +20,3 @@
 @if config.$include_normalize {
     @include normalize;
 }
-
-// TODO: remove testing
-// // testing PostCSS
-// .post-css {
-//     margin-block: 1px 10px;
-//     text-align: start;
-// }

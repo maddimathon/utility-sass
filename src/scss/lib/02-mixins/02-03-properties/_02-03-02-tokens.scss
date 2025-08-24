@@ -1,0 +1,172 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../../../config';
+@use '../../../tokens';
+
+@use '../../../modules/selector';
+
+@use '../../01-functions' as *;
+
+// @use '../02-01-utilities' as *;
+// @use '../02-02-theming' as *;
+
+// @use '02-03-01-utilities' as *;
+
+/// # PROPERTY MIXINS - Tokens
+/// ======================================================================== ///
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-border-radius {
+    /* #region Tokens - Border Radius */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$border_radii {
+            --border-radius-#{$slug}: #{border-radius-value($slug)}rem;
+        }
+    }
+    /* #endregion Tokens - Border Radius */
+}
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-border-width {
+    /* #region Tokens - Border Width */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$border_widths {
+            --border-width-#{$slug}: #{border-width-value($slug)}rem;
+        }
+    }
+    /* #endregion Tokens - Border Width */
+}
+
+///
+/// Prints out the font size custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-font-size {
+    /* #region Tokens - Font Size */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$font_sizes {
+            @each $value in fs-value($slug) {
+                --fs-#{$slug}: #{$value};
+            }
+        }
+    }
+    /* #endregion Tokens - Font Size */
+}
+
+///
+/// Prints out the line height custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-line-height {
+    /* #region Tokens - Line Heights */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$line_heights {
+            --line-height-#{$slug}: #{line-height-value($slug)};
+        }
+    }
+    /* #endregion Tokens - Line Heights */
+}
+
+///
+/// Prints out the margin custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-margins {
+    $selector: selector.parent-or-root();
+
+    /* #region Tokens - Margin */
+    #{$selector} {
+        @each $level, $_value in tokens.$margins {
+            --mrg-firm-#{$level}: #{mrg-value-firm($level)}rem;
+        }
+    }
+
+    #{$selector} {
+        @each $level, $_value in tokens.$margins {
+            --mrg-soft-#{$level}: #{mrg-value-soft($level)}rem;
+        }
+    }
+
+    #{$selector} {
+        @each $level, $_value in tokens.$margins {
+            --mrg-half-#{$level}: #{mrg-value-half($level)}rem;
+        }
+    }
+    /* #endregion Tokens - Margin */
+}
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-stroke-relative {
+    /* #region Tokens - Stroke Relative */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$strokes_relative {
+            --stroke-relative-#{$slug}: #{stroke-relative-value($slug)}em;
+        }
+    }
+    /* #endregion Tokens - Stroke Relative */
+}
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-tr-time {
+    /* #region Tokens - Transition Time */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$transition_times {
+            --tr-time-#{$slug}: #{transition-time-value($slug)};
+        }
+    }
+    /* #endregion Tokens - Transition Time */
+}
+
+///
+/// Prints out the width custom property tokens based on breakpoints config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-widths {
+    /* #region Tokens - Width */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in config.$widths {
+            @each $value in width-value($slug) {
+                --width-#{$slug}: #{$value};
+            }
+        }
+    }
+    /* #endregion Tokens - Width */
+}
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-z-index {
+    /* #region Tokens - Z Index */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$z_indices {
+            --z-index-#{$slug}: #{z-index-value($slug)};
+        }
+    }
+    /* #endregion Tokens - Z Index */
+}

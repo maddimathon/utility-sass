@@ -2,23 +2,20 @@
 /// @package @maddimathon/utility-sass@0.1.0-alpha.draft
 /// @since 0.1.0-alpha.draft
 ///
-// @use 'sass:color';
-// @use 'sass:list';
-@use 'sass:map';
-// @use 'sass:math';
-@use 'sass:meta';
-// @use 'sass:selector';
-// @use 'sass:string';
 
 @use '../../config';
 @use '../../tokens';
 
-@use '../../../../index' as *;
+@use '../../../../modules/colour';
+@use '../../../../modules/map';
+@use '../../../../modules/meta';
+
+@use '../../../../lib' as *;
 
 /// # FUNCTIONS - Tokens
 /// ======================================================================== ///
 
-$_flattenedColours: map-flatten(tokens.$colours);
+$_flattenedColours: map.flatten(tokens.$colours);
 
 ///
 /// Returns the appropriate var (with fallback)
@@ -41,15 +38,14 @@ $_flattenedColours: map-flatten(tokens.$colours);
         @return var(--clr-#{$slug}-#{$level});
     }
 
+    $dark_level: colour.shade-map-reverse-key(
+        $level,
+        $slugMap,
+        $sort: if(config.$tokens_expandClrMaps, false, true)
+    );
+
     @return var(
         --clr-#{$slug}-#{$level},
-        #{map.get(
-                $slugMap,
-                if(
-                    $mode == dark,
-                    '#{clr-get-dark-lvl($level, $slugMap)}',
-                    '#{$level}'
-                )
-            )}
+        #{map.get($slugMap, if($mode == dark, '#{$dark_level}', '#{$level}'))}
     );
 }

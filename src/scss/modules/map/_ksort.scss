@@ -1,0 +1,21 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:map';
+
+@use '../list';
+
+@function ksort($map, $sortAs: 'string') {
+    // sorts the keys
+    $ordered_keys: list.sort(map.keys($map), $sortAs: $sortAs);
+
+    $ordered_map: ();
+
+    @each $key in $ordered_keys {
+        $ordered_map: map.set($ordered_map, $key, map.get($map, $key));
+    }
+
+    @return $ordered_map;
+}

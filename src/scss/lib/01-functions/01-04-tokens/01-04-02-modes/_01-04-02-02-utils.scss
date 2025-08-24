@@ -1,0 +1,70 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:string';
+
+// @use '../../../../config';
+// @use '../../../../tokens';
+
+@use '../../../../modules/list';
+@use '../../../../modules/meta';
+
+// @use '../../01-02-accessibility' as *;
+// @use '../../01-03-typography' as *;
+
+// @use '../01-04-01-spacing' as *;
+
+@use '01-04-02-01-meta' as *;
+
+/// # MODE TOKEN FUNCTIONS - UTILITIES
+/// ======================================================================== ///
+
+///
+/// Filters a list of modes to include only those that are valid and active.
+///
+/// @param {string[]} $modes  Mode list to filter.
+///
+/// @since ___PKG_VERSION___
+///
+@function filter-token-modes-active-only($modes: (), $debug: false) {
+    @if $debug {
+        @debug '';
+        @debug '-  -  -';
+        @debug 'filter-token-modes-active-only()';
+        @debug '';
+        @debug '$modes = #{meta.var-dump($modes)}';
+        @debug '$debug = #{meta.var-dump($debug)}';
+    }
+
+    @if meta.type-of($modes) != list {
+        @if $modes == null {
+            $modes: ();
+        } @else if meta.type-of($modes) == string {
+            $modes: ($modes);
+        }
+    }
+
+    $filtered: ();
+
+    @each $mode in $modes {
+        @if is-token-mode-included($mode) {
+            $filtered: list.append($filtered, $mode);
+            @if $debug {
+                @debug 'mode active: #{$mode}';
+            }
+        } @else {
+            @if $debug {
+                @debug 'mode not included: #{$mode}';
+            }
+        }
+    }
+
+    @if $debug {
+        @debug '';
+        @debug 'filtered modes: #{meta.var-dump($filtered)}';
+        @debug '-  -  -';
+        @debug '';
+    }
+    @return $filtered;
+}

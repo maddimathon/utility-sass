@@ -1,0 +1,44 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../../../config' as *;
+
+///
+/// Whether to include ouput only suited for websites.
+///
+/// @since ___PKG_VERSION___
+///
+$include_clr: true !default;
+$include_clr: config-valid-bool($include_clr, 'include_clr');
+
+///
+/// Whether to include ouput only suited for websites.
+///
+/// @since ___PKG_VERSION___
+///
+$include_html: false !default;
+$include_html: config-valid-bool($include_html, 'include_html');
+
+///
+/// Whether to include the normalize mixin in the output.
+///
+/// @since ___PKG_VERSION___
+///
+$include_normalize: $include_html !default;
+$include_normalize: config-valid-bool($include_normalize, 'include_normalize');
+
+///
+/// Whether the colour tokens should be made into full colour maps based on the
+/// partial maps passed.
+///
+/// This is also the only way to format-/type-check the colour tokens.
+///
+/// @since ___PKG_VERSION___
+///
+$tokens_expandClrMaps: true !default;
+$tokens_expandClrMaps: config-valid-bool(
+    $tokens_expandClrMaps,
+    'tokens_expandClrMaps'
+);

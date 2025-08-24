@@ -1,0 +1,75 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+@use 'sass:string';
+
+@use '../../config';
+
+@use '../../modules/list';
+@use '../../modules/meta';
+@use '../../modules/selector';
+
+@use '01-01-selectors' as *;
+
+/// # FUNCTIONS - ACCESSIBILITY
+/// ======================================================================== ///
+
+///
+/// Returns the motion setting selector.
+///
+/// @param {bool} $bool         Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
+/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default set based on parent selector type.
+/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default set based on parent selector type.
+///
+/// @since ___PKG_VERSION___
+///
+@function motion-selector($bool, $nestParent: null, $unifyParent: null) {
+    $mode: if($bool, 'no-preference', 'less');
+
+    @if not selector.parent-exists() {
+        $nestParent: false;
+        $unifyParent: false;
+    } @else if $nestParent == null or $unifyParent == null {
+        $parentSelectorString: #{&};
+
+        @if selector-parent-is-body() {
+            $nestParent: if($nestParent == null, false, $nestParent);
+        } @else if selectors-parent-is-root() {
+            $nestParent: if($nestParent == null, false, $nestParent);
+            $nestParent: if($unifyParent == null, false, $unifyParent);
+        }
+    }
+
+    $selector: null;
+
+    @if config.$selectorType_motion == 'attribute' {
+        $selector: (string.unquote('[data-motion=#{$mode}]'));
+    }
+
+    @if config.$selectorType_motion == 'class' {
+        $selector: (string.unquote('.motion-preference-#{$mode}'));
+    }
+
+    @if $selector == null {
+        @return config.$selector_null;
+    }
+
+    $selectorsList: ($selector);
+
+    @if $nestParent or $unifyParent {
+        $selectorsList: selector.merge(
+            $selectorsList,
+            &,
+            $nestAinB: false,
+            $nestBinA: $nestParent,
+            $unify: $unifyParent
+        );
+    }
+
+    @if list.length($selectorsList) > 0 {
+        @return $selectorsList;
+    }
+
+    @return config.$selector_null;
+}

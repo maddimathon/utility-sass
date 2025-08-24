@@ -1,0 +1,53 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:string';
+
+///
+/// Makes a list of unique strings, based on their interpolated values.
+///
+/// @param {list}    $list       To flatten.
+/// @param {?string} $separator  Optional. List separator. Default is determine via list.separator().
+/// @param {?bool}   $bracketed  Optional. Whether list is bracketed. Default is determine via list.is-bracketed().
+///
+/// @return {list}
+///
+/// @since ___PKG_VERSION___
+///
+@function unique($list, $separator: null, $bracketed: null) {
+    // returns
+    @if meta.type-of($list) != list {
+        @return $list;
+    }
+
+    // returns
+    @if list.length($list) <= 1 {
+        @return $list;
+    }
+
+    @if $separator == null {
+        $separator: list.separator($list);
+    }
+
+    @if $bracketed == null {
+        $bracketed: list.is-bracketed($list);
+    }
+
+    $test: ();
+    $return: list.join((), (), $separator: $separator, $bracketed: $bracketed);
+
+    @each $value in $list {
+        @if string.length('#{$value}') and
+            list.index($test, '#{$value}') ==
+            null
+        {
+            $return: list.append($return, $value, $separator: $separator);
+            $test: list.append($test, '#{$value}');
+        }
+    }
+
+    @return $return;
+}

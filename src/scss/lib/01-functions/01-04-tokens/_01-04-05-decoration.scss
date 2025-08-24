@@ -1,0 +1,162 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+// @use 'sass:string';
+
+@use '../../../config';
+@use '../../../tokens';
+
+@use '../../../modules/list';
+@use '../../../modules/map';
+
+// @use '../01-02-accessibility' as *;
+// @use '../01-03-typography' as *;
+
+// @use '01-04-01-spacing' as *;
+// @use '01-11-02-theming' as *;
+// @use '01-11-03-colours' as *;
+// @use '01-04-04-typography' as *;
+
+/// # DECORATION TOKEN FUNCTIONS
+/// ======================================================================== ///
+
+///
+/// Uses the border radius tokens to prepare the appropriate numerical value (rem).
+///
+/// @since ___PKG_VERSION___
+///
+@function border-radius-value($level) {
+    $value: map.get(tokens.$border_radii, '200');
+
+    @if not map.has-key(tokens.$border_radii, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$border_radii";
+    } @else {
+        $value: map.get(tokens.$border_radii, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the border width tokens to prepare the appropriate numerical value (rem).
+///
+/// @since ___PKG_VERSION___
+///
+@function border-width-value($level) {
+    $value: map.get(tokens.$border_widths, '200');
+
+    @if not map.has-key(tokens.$border_widths, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$border_widths";
+    } @else {
+        $value: map.get(tokens.$border_widths, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the stroke relative tokens to prepare the appropriate numerical value (rem).
+///
+/// @since ___PKG_VERSION___
+///
+@function stroke-relative-value($level) {
+    $value: map.get(tokens.$strokes_relative, '200');
+
+    @if not map.has-key(tokens.$strokes_relative, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$strokes_relative";
+    } @else {
+        $value: map.get(tokens.$strokes_relative, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the transition time tokens to prepare the appropriate numerical value
+/// (rem).
+///
+/// @since ___PKG_VERSION___
+///
+@function transition-time-value($level) {
+    $value: map.get(tokens.$transition_times, '200');
+
+    @if not map.has-key(tokens.$transition_times, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$transition_times";
+    } @else {
+        $value: map.get(tokens.$transition_times, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the transition time tokens to prepare the appropriate numerical value
+/// (rem).
+///
+/// @since ___PKG_VERSION___
+///
+@function z-index-value($level) {
+    // returns
+    @if not map.has-key(tokens.$z_indices, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$z_indices";
+        @return $level;
+    }
+
+    @return map.get(tokens.$z_indices, '#{$level}');
+}
+
+/// ## VARIABLES ==================================== ///
+
+///
+/// Uses the border-radius config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function var-border-radius($level) {
+    @return var(--border-radius-#{$level}, #{border-radius-value($level)}rem);
+}
+
+///
+/// Uses the border-width config tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function var-border-width($level) {
+    @return var(--border-width-#{$level}, #{border-width-value($level)}rem);
+}
+
+///
+/// Uses the stroke-relative tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function var-stroke-relative($level) {
+    @return var(
+        --stroke-relative-#{$level},
+        #{stroke-relative-value($level)}em
+    );
+}
+
+///
+/// Uses the transition time tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function var-tr-time($level) {
+    @return var(--tr-time-#{$level}, #{transition-time-value($level)});
+}
+
+///
+/// Uses the border radius config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function var-z-index($level) {
+    @return var(--z-index-#{$level}, #{z-index-value($level)});
+}

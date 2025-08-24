@@ -1,0 +1,59 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:string';
+
+@use '../config';
+
+// @use '../../../modules/colour';
+@use '../../../modules/map';
+
+@use '../../../tokens';
+
+@use 'functions' as *;
+
+/// # TOKENS - THEMES
+/// ======================================================================== ///
+
+///
+/// Takes some optional params to build a consistent theme compatible with this
+/// template.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function tokens-base-build-theme($bgLevel, $fgLevel) {
+    @return (text: ());
+}
+
+$_defaultTheme: ();
+
+///
+/// Themes used in the base styles.
+///
+/// @since 0.1.0-alpha.draft
+///
+$themes: () !default;
+
+@if config.$include_clr {
+    $themes: map.merge($_defaultTheme, $themes, $recursive: true);
+}
+
+// @each $slug, $map in $themes {
+//     $map: tokens-valid-base-clr-map(
+//         $map,
+//         'colours.#{$slug}',
+//         if(
+//             map.has-key($_defaultTheme, $slug),
+//             map.get($_defaultTheme, $slug),
+//             map.get($_defaultTheme, 'base')
+//         ),
+//         $recursive: false
+//     );
+
+//     @if config.$tokens_expandClrMaps and config.$include_clr {
+//         $map: colour.shade-map($map);
+//     }
+
+//     $themes: map.set($themes, $slug, $map);
+// }

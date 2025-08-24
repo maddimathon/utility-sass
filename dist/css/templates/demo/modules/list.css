@@ -1,0 +1,33 @@
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * 
+ * Author: Maddi Mathon (www.maddimathon.com)
+ * License: MIT
+ */
+/* # MODULES - LIST
+ * ======================================================================== */
+test > list.flatten {
+    /*
+      list: <()> ( <S> one, <S> two, <S> two, <S> one, <()> ( <S> A, <S> B, <S> C, <()> ( <S> yet <S> another <S> list ), <S> B ) );
+   */
+    /*
+      list.flatten: <()> ( <S> one, <S> two, <S> two, <S> one, <S> A, <S> B, <S> C, <S> yet, <S> another, <S> list, <S> B );
+   */
+}
+test > list.sort {
+    /*
+      list: <()> ( <S> one, <S> two, <S> two, <S> one, <S> A, <S> B, <S> C, <S> yet, <S> another, <S> list, <S> B );
+   */
+    /*
+      list.sort: <()> ( <S> A, <S> another, <S> B, <S> B, <S> C, <S> list, <S> one, <S> one, <S> two, <S> two, <S> yet );
+   */
+}
+test > list.unique {
+    /*
+      list: <()> ( <S> one, <S> two, <S> two, <S> one, <S> A, <S> B, <S> C, <S> yet, <S> another, <S> list, <S> B );
+   */
+    /*
+      list.unique: <()> ( <S> one, <S> two, <S> A, <S> B, <S> C, <S> yet, <S> another, <S> list );
+   */
+}

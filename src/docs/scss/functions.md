@@ -1,5 +1,0 @@
----
-title: Functions
----
-
-# Sass Functions

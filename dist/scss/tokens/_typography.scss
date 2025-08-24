@@ -2,15 +2,12 @@
 /// @package @maddimathon/utility-sass@0.1.0-alpha.draft
 /// @since 0.1.0-alpha.draft
 ///
-// @use 'sass:color';
-// @use 'sass:list';
-@use 'sass:map';
-@use 'sass:math';
-// @use 'sass:meta';
-// @use 'sass:selector';
-// @use 'sass:string';
 
 @use '../config';
+
+@use '../modules/map';
+@use '../modules/math';
+
 // @use 'functions' as *;
 
 /// # TOKENS - TYPOGRAPHY
@@ -26,42 +23,52 @@
 ///
 $font_sizes: () !default;
 
-$font_sizes: config.config-merge-args(
-    (
-        title: 7,
-        'heading-1': 6,
-        'heading-2': 5,
-        'heading-3': 4,
-        'heading-4': 3.5,
-        'heading-5': 2,
-        'heading-6': 1,
+$font_sizes: map.merge(
+    map.flatten(
+        (
+            title: 7,
 
-        // 'smaller-5': -3.0,
-        // 'smaller-4': -2.5,
-        // 'smaller-3': -2.0,
-        'smaller-2': -1.25,
-        'smaller-1': -0.5,
+            'heading': (
+                '1': 6,
+                '2': 5,
+                '3': 4,
+                '4': 3.5,
+                '5': 2,
+                '6': 1,
+            ),
 
-        normal: 0,
+            'smaller': (
+                // '5': -3.0,
+                // '4': -2.5,
+                // '3': -2.0,
+                '2': -1.25,
+                '1': -0.5,
+            ),
 
-        'bigger-1': 1,
-        'bigger-2': 2,
-        'bigger-3': 3,
-        'bigger-4': 4,
-        'bigger-5': 5,
-        'bigger-6': 6,
-        // 'bigger-7': 7,
-        // 'bigger-8': 8,
-         // 'bigger-9': 9,
+            normal: 0,
+
+            'bigger': (
+                '1': 1,
+                '2': 2,
+                '3': 3,
+                '4': 4,
+                '5': 5,
+                '6': 6,
+                // '7': 7,
+                // '8': 8,
+                 // '9': 9,
+            ),
+        )
     ),
-    $font_sizes
+    map.flatten($font_sizes),
+    $recursive: true
 );
 
 @each $key, $value in $font_sizes {
     $rem: math.pow(config.$scale_multiplier, $value);
     $rem: calc(math.round($rem * 16) / 16);
 
-    $font_sizes: map.set($font_sizes, $key, config.config-round-to-pixel($rem));
+    $font_sizes: map.set($font_sizes, $key, math.round-to-pixel($rem));
 }
 
 /// ## Line Heights ==================================== ///
@@ -81,7 +88,7 @@ $line_height_base: 1.6875 !default;
 ///
 $line_heights: () !default;
 
-$line_heights: config.config-merge-args(
+$line_heights: map.merge(
     (
         '100': -2.75,
         '200': -2,
@@ -96,9 +103,5 @@ $line_heights: config.config-merge-args(
 @each $key, $value in $line_heights {
     $lh: math.pow(config.$scale_multiplier, $value * 0.875) * $line_height_base;
 
-    $line_heights: map.set(
-        $line_heights,
-        $key,
-        config.config-round-to-pixel($lh, 32)
-    );
+    $line_heights: map.set($line_heights, $key, math.round-to-pixel($lh, 32));
 }

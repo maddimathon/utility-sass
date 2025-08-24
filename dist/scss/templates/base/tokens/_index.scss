@@ -10,18 +10,16 @@
 @forward 'functions';
 
 @forward '01-colours';
-// @forward '02-themes';
+@forward '02-themes';
 
-// @use 'sass:color';
-// @use 'sass:list';
-@use 'sass:map';
-// @use 'sass:math';
-// @use 'sass:meta';
-// @use 'sass:selector';
-// @use 'sass:string';
+@use '../config';
 
 @use '../../../tokens' as *;
 
+@use '../../../modules/map';
+
 @use '01-colours' as *;
 
-$customTokens: map.set($customTokens, clr, $colours);
+@if config.$include_clr {
+    $customTokens: map.set($customTokens, clr, $colours);
+}

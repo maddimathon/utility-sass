@@ -1,0 +1,45 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+@use 'sass:list';
+@use 'sass:meta';
+// @use 'sass:string';
+
+///
+/// Returns a single-level list.
+///
+/// @param {list}    $list       To flatten.
+/// @param {?string} $separator  Optional. List separator. Default is determine via list.separator().
+/// @param {?bool}   $bracketed  Optional. Whether list is bracketed. Default is determine via list.is-bracketed().
+///
+/// @return {list}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function flatten($list, $separator: null, $bracketed: null) {
+    @if meta.type-of($list) != list {
+        @return $list;
+    }
+
+    @if $bracketed == null {
+        $bracketed: list.is-bracketed($list);
+    }
+
+    @if $separator == null {
+        $separator: list.separator($list);
+    }
+
+    $return: list.join((), (), $separator: $separator, $bracketed: $bracketed);
+
+    @each $_child in $list {
+        @if meta.type-of($_child) == list {
+            $_child: flatten($_child);
+        } @else {
+            $_child: ($_child);
+        }
+        $return: list.join($return, $_child, $separator: $separator);
+    }
+
+    @return $return;
+}

@@ -1,0 +1,148 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use 'sass:list';
+@use 'sass:string';
+
+@use 'replace' as *;
+
+///
+/// Convert a string to a slug.
+/// @param {string} $string
+/// @return {string}
+///
+@function slugify($string) {
+    $string: string.to-lower-case($string);
+
+    // #region $alphaReplace
+    $alphaReplace: (
+        a: (
+            'à',
+            'á',
+            'â',
+            'ä',
+            'ã',
+            'æ',
+            'å',
+            'ā',
+        ),
+        e: (
+            'è',
+            'é',
+            'ê',
+            'ë',
+            'ē',
+            'ė',
+            'ę',
+        ),
+        i: (
+            'î',
+            'ï',
+            'í',
+            'ī',
+            'į',
+            'ì',
+        ),
+        o: (
+            'ô',
+            'ö',
+            'ò',
+            'ó',
+            'œ',
+            'ø',
+            'ō',
+            'õ',
+        ),
+        u: (
+            'û',
+            'ü',
+            'ù',
+            'ú',
+            'ū',
+        ),
+        n: (
+            'ñ',
+            'ń',
+        ),
+        and: (
+            '&',
+        ),
+        plus: (
+            '+',
+        ),
+    );
+    // #endregion $alphaReplace
+
+    @each $replace, $list in $alphaReplace {
+        @each $find in $list {
+            $string: replace($string, $find, $replace);
+        }
+    }
+
+    $remove: (',', '?', '!', ';', ':');
+
+    // #region $allowed
+    $allowed: (
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z',
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '-',
+        '_'
+    );
+    // #endregion $allowed
+
+    $final: '';
+    @each $char in string.split($string, $separator: '') {
+        @if list.index($allowed, $char) != null {
+            // char is allowed and unchanged
+        } @else if list.index($remove, $char) != null {
+            // char is to be removed
+            $char: '';
+        } @else {
+            // char is not allowed and converted to a dash
+            $char: '-';
+        }
+
+        $final: '#{$final}#{$char}';
+
+        // double-dashes get removed every step
+        $final: replace($final, '--', '-');
+    }
+
+    @return $final;
+}

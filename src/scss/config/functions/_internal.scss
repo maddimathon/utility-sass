@@ -1,32 +1,23 @@
-/// 
+///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
-/// 
-// @use 'sass:color';
-// @use 'sass:list';
-// @use 'sass:map';
-// @use 'sass:math';
+///
 @use 'sass:meta';
-// @use 'sass:selector';
 // @use 'sass:string';
 
 ///
 /// Checks to see if this global variable exists and if so, returns its value,
 /// other wise it returns the default value.
 ///
-@function config-internal-set(
-    $varName,
-    $defaultValue,
-) {
-
+@function config-internal-set($varName, $defaultValue) {
     // returns
-    @if meta.global-variable-exists( $varName ) {
-        @debug #{ "meta.global-variable-exists( #{$varName} ) = true" };
-        @debug #{ "meta.module-variables() = " + meta.module-variables() };
+    @if meta.global-variable-exists($varName) {
+        @debug #{'meta.global-variable-exists( #{$varName} ) = true'};
+        @debug #{'meta.module-variables() = ' + meta.module-variables()};
         @return $defaultValue;
     }
-        
-    @debug #{ "meta.global-variable-exists( #{$varName} ) = false" };
-    @debug #{ "to set default value" };
+
+    @debug #{'meta.global-variable-exists( #{$varName} ) = false'};
+    @debug #{'to set default value'};
     @return $defaultValue;
 }

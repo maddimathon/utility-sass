@@ -1,0 +1,111 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:string';
+
+// @use '../../../../config';
+@use '../../../../tokens';
+
+@use '../../../../modules/list';
+
+// @use '../../01-02-accessibility' as *;
+// @use '../../01-03-typography' as *;
+
+// @use '../01-04-01-spacing' as *;
+
+/// # MODE TOKEN FUNCTIONS - META
+/// ======================================================================== ///
+
+///
+/// Returns the type of brightness/contrast mode, or null if none.
+///
+/// @param {string} $mode  Mode slug to test.
+///
+/// @returns {"brightness"|"contrast"|null}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function get-token-mode-type($mode) {
+    @if list.index(tokens.$brightnessMode_all, $mode) != null {
+        @return 'brightness';
+    }
+
+    @if list.index(tokens.$contrastMode_all, $mode) != null {
+        @return 'contrast';
+    }
+
+    @return null;
+}
+
+///
+/// Tests if this is the current default for its respective mode type.
+///
+/// @param {string} $mode  Mode slug to test.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function is-token-mode-default($mode) {
+    $modeType: get-token-mode-type($mode);
+
+    // returns
+    @if $modeType == 'brightness' and $mode == tokens.$brightnessMode_default {
+        @return true;
+    }
+
+    // returns
+    @if $modeType == 'contrast' and $mode == tokens.$contrastMode_default {
+        @return true;
+    }
+
+    @return false;
+}
+
+///
+/// Mode type for given $mode (regardless of value) is set to default only
+/// (i.e., has one or fewer items).
+///
+/// @param {string} $mode  Mode slug to test.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function is-token-mode-type-default-only($mode) {
+    $modeType: get-token-mode-type($mode);
+
+    @if $modeType ==
+        'brightness' and
+        list.length(tokens.$brightnessMode_all) <=
+        1
+    {
+        @return true;
+    }
+
+    @if $modeType == 'contrast' and list.length(tokens.$contrastMode_all) <= 1 {
+        @return true;
+    }
+
+    @return false;
+}
+
+///
+/// This colour mode is included in the current stylesheet.
+///
+/// @param {string} $mode  Mode slug to test.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function is-token-mode-included($mode) {
+    $modeType: get-token-mode-type($mode);
+
+    @if $modeType == null {
+        @return false;
+    }
+
+    @if is-token-mode-type-default-only($mode) and not
+        is-token-mode-default($mode)
+    {
+        @return false;
+    }
+
+    @return true;
+}

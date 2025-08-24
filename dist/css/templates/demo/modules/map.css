@@ -1,0 +1,64 @@
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * 
+ * Author: Maddi Mathon (www.maddimathon.com)
+ * License: MIT
+ */
+/* # MODULES - MAP
+ * ======================================================================== */
+test > map.merge {
+    /*
+      $_defaults: <:> ( "option1": <S> A, "option2": <S> B, "option3": <S> C, "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ), "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) );
+      $_inputs: <:> ( "option3": <S> OVERRIDE, "optionList": <S> OVERRIDE, "optionSet": <:> ( "option2": <S> OVERRIDE ) );
+   */
+    /*
+      map.merge( $recursive: false ): <:> ( "option1": <S> A, "option2": <S> B, "option3": <S> OVERRIDE, "optionList": <S> OVERRIDE, "optionSet": <:> ( "option2": <S> OVERRIDE ) );
+   */
+    /*
+      map.merge( $recursive: true ): <:> ( "option1": <S> A, "option2": <S> B, "option3": <S> OVERRIDE, "optionList": <S> OVERRIDE, "optionSet": <:> ( "option1": <S> S-A, "option2": <S> OVERRIDE, "option3": <S> S-C ) );
+   */
+}
+test > map.flatten {
+    /*
+      map: <:> ( "$": <S> default, "one": <:> ( "$": <S> default, "A": <S> value, "B": <:> ( "$": <S> default, 1: <S> value ) ), "two": <:> ( "A": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ), "B": <:> ( "$": <S> default, 1: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) ) ) );
+   */
+    /* : <S> default */
+    /* one: <S> default */
+    /* one-A: <S> value */
+    /* one-B: <S> default */
+    /* one-B-1: <S> value */
+    /* two-A: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+    /* two-B: <S> default */
+    /* two-B-1: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+}
+test > map.flatten > with-prefix {
+    /* pre: <S> default */
+    /* pre-one: <S> default */
+    /* pre-one-A: <S> value */
+    /* pre-one-B: <S> default */
+    /* pre-one-B-1: <S> value */
+    /* pre-two-A: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+    /* pre-two-B: <S> default */
+    /* pre-two-B-1: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+}
+test > map.flatten > with-suffix {
+    /* suf: <S> default */
+    /* one-suf: <S> default */
+    /* one-A-suf: <S> value */
+    /* one-B-suf: <S> default */
+    /* one-B-1-suf: <S> value */
+    /* two-A-suf: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+    /* two-B-suf: <S> default */
+    /* two-B-1-suf: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+}
+test > map.flatten > with-both {
+    /* pre-suf: <S> default */
+    /* pre-one-suf: <S> default */
+    /* pre-one-A-suf: <S> value */
+    /* pre-one-B-suf: <S> default */
+    /* pre-one-B-1-suf: <S> value */
+    /* pre-two-A-suf: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+    /* pre-two-B-suf: <S> default */
+    /* pre-two-B-1-suf: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+}

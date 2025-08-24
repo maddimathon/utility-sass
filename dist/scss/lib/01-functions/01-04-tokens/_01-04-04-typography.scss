@@ -1,0 +1,155 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+// @use 'sass:string';
+
+@use '../../../config';
+@use '../../../tokens';
+
+@use '../../../modules/list';
+@use '../../../modules/map';
+@use '../../../modules/math';
+
+// @use '../01-02-accessibility' as *;
+@use '../01-03-typography' as *;
+
+// @use '01-04-01-spacing' as *;
+// @use '01-11-02-theming' as *;
+// @use '01-11-03-colours' as *;
+
+/// # TYPOGRAPHY TOKEN FUNCTIONS
+/// ======================================================================== ///
+
+///
+/// Uses the widths config to prepare the appropriate numerical value (rem).
+/// Returns a list of values since some are calculations that may require
+/// fallbacks.
+///
+/// @return {number}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function fs-value($slug, $fontScale: 1, $clampFontSize: null) {
+    // returns
+    @if not map.has-key(tokens.$font_sizes, $slug) {
+        @warn "$slug did not match any of the font family tokens";
+        @return ();
+    }
+
+    $size: map.get(tokens.$font_sizes, $slug);
+
+    @if $clampFontSize == null {
+        $clampFontSize: false;
+
+        // returns - clamped value
+        @if $slug == 'title' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'h1' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'h2' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'h3' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'h4' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'h5' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'h6' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'heading-1' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'heading-2' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'heading-3' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'heading-4' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'heading-5' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'heading-6' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'bigger-7' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'bigger-8' {
+            $clampFontSize: true;
+        }
+        @if $slug == 'bigger-9' {
+            $clampFontSize: true;
+        }
+    }
+
+    @if $clampFontSize {
+        @return (
+            #{math.round-to-pixel($size * $fontScale)}rem,
+            clamp-font-size($size * $fontScale, $unit: 'rem')
+        );
+    }
+
+    @return (#{math.round-to-pixel($size * $fontScale)}rem);
+}
+
+///
+/// Uses the widths config to prepare the appropriate numerical value (rem).
+/// Returns a list of values since some are calculations that may require
+/// fallbacks.
+///
+/// @return {number}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function line-height-value($level) {
+    $value: map.get(tokens.$line_heights, '400');
+
+    @if not map.has-key(tokens.$line_heights, '#{$level}') {
+        @warn "$level was not a key in tokens.$line_heights";
+    } @else {
+        $value: map.get(tokens.$line_heights, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the line height config tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-line-height($slug) {
+    @return var(--line-height-#{$slug}, #{line-height-value($slug)});
+}
+
+/// ## VARIABLES ==================================== ///
+
+///
+/// Uses the font size config tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-fs($slug) {
+    $fallback: fs-value($slug);
+
+    @if list.length($fallback) < 1 {
+        @return var(--fs-#{$slug});
+    }
+
+    $fallback: list.nth($fallback, 1);
+
+    @return var(--fs-#{$slug}, #{$fallback});
+}

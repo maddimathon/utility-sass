@@ -1,0 +1,39 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:meta';
+
+///
+/// Converts given colour to an hsl css function.
+///
+/// @param {color} $clr
+///
+/// @return {color}
+///
+/// @since ___PKG_VERSION___
+///
+@function to-hsl($clr) {
+    @if meta.type-of($clr) != 'color' {
+        @warn "$clr should be a colour (was #{meta.type-of( $clr )})";
+        @return $clr;
+    }
+
+    $clr: color.to-space($clr, hsl);
+
+    @return hsl(
+        math.round(color.channel($clr, 'hue', $space: hsl)),
+        math.clamp(
+            0%,
+            math.round(color.channel($clr, 'saturation', $space: hsl)),
+            100%
+        ),
+        math.clamp(
+            0%,
+            math.round(color.channel($clr, 'lightness', $space: hsl)),
+            100%
+        )
+    );
+}

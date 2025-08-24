@@ -9,3 +9,4 @@
  */
 
 export * from './FeatureCheck.js';
+export * from './JsonToScss.js';

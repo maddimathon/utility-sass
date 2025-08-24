@@ -1,0 +1,64 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../../config';
+@use '../../tokens';
+
+@use '../../../../modules/colour';
+@use '../../../../modules/list';
+@use '../../../../modules/map';
+
+@use '../00-01-functions' as *;
+// @use '../00-02-mixins' as *;
+
+@use '../../../../lib' as *;
+
+/* # TOKENS & PROPERTIES
+ * ======================================================================== */
+
+@include tokens-all($custom: false);
+
+$_customTokensToPrint: ();
+
+@each $slug, $value in tokens.$customTokens {
+    // these do nothing except else
+    @if $slug == clr {
+    } @else {
+        $_customTokensToPrint: map.set($_customTokensToPrint, $slug, $value);
+    }
+}
+
+@include tokens-custom(map.flatten($_customTokensToPrint));
+
+@if list.length(map.keys(tokens.$colours)) > 0 {
+    /* ## TOKENS - COLOURS ==================================== */
+
+    /* #region Tokens - Colours */
+    @each $mode in tokens.$brightnessMode_all {
+        @include colour-mode($mode, $includeDefault: true) {
+            @each $slug, $map in tokens.$colours {
+                @each $level, $clr in $map {
+                    --clr-#{$slug}-#{$level}: #{if(
+                            $mode== dark,
+                            map.get(
+                                $map,
+                                colour.shade-map-reverse-key(
+                                    $level,
+                                    $map,
+                                    $sort: if(
+                                            config.$tokens_expandClrMaps,
+                                            false,
+                                            true
+                                        )
+                                )
+                            ),
+                            $clr
+                        )};
+                }
+            }
+        }
+    }
+    /* #endregion Tokens - Colours */
+}

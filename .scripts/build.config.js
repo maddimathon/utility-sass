@@ -12,6 +12,7 @@ import {
 
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
+import { Document } from './classes/Document.js';
 
 const _defaults = {
     build: BuildStage.prototype.ARGS_DEFAULT,
@@ -55,7 +56,7 @@ const config = {
 
         compile: Compile,
 
-        document: {
+        document: [ Document, {
 
             entryPoints: [
                 'src/ts/index.ts',
@@ -68,10 +69,14 @@ const config = {
 
                 projectDocuments: [
                     'README.md',
-                    'src/docs/*.md',
+                    'src/scss/index.docs.md',
+                    // 'src/scss/**/*.docs.md',
+                    // 'src/docs/*.md',
                 ],
+
+                router: 'structure',
             },
-        },
+        } ],
 
         test: false,
     },

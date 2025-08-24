@@ -1,0 +1,23 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+@use 'sass:color';
+
+///
+/// Mixes two given colours in the oklch colourspace.
+///
+/// @param {color}   $low
+/// @param {color}   $high
+/// @param {percent} $weight  Optional.
+///
+/// @return {color}
+///
+@function mix-oklch($low, $high, $weight: 50%) {
+    @return color.mix(
+        color.to-space($low, oklch),
+        color.to-space($high, oklch),
+        $weight: $weight,
+        $method: oklch shorter hue
+    );
+}

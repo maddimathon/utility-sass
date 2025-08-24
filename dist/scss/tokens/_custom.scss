@@ -2,15 +2,12 @@
 /// @package @maddimathon/utility-sass@0.1.0-alpha.draft
 /// @since 0.1.0-alpha.draft
 ///
-// @use 'sass:color';
-// @use 'sass:list';
-// @use 'sass:map';
-// @use 'sass:math';
-// @use 'sass:meta';
-// @use 'sass:selector';
 // @use 'sass:string';
 
-@use '../config';
+// @use '../config';
+
+@use '../modules/map';
+
 // @use 'functions' as *;
 
 /// # TOKENS - CUSTOM
@@ -18,4 +15,4 @@
 
 $customTokens: () !default;
 
-$customTokens: config.config-merge-args((), $customTokens, $recursive: true);
+$customTokens: map.merge((), $customTokens, $recursive: true);
