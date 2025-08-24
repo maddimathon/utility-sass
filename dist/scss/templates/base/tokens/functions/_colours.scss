@@ -2,15 +2,14 @@
 /// @package @maddimathon/utility-sass@0.1.0-alpha.draft
 /// @since 0.1.0-alpha.draft
 ///
-// @use 'sass:string';
 
-@use '../config';
+@use '../../config';
 
-@use '../../../modules/list';
-@use '../../../modules/map';
-@use '../../../modules/meta';
+@use '../../../../modules/list';
+@use '../../../../modules/map';
+@use '../../../../modules/meta';
 
-/// # TOKENS - FUNCTIONS
+/// # TOKENS - FUNCTIONS - Colours
 /// ======================================================================== ///
 
 ///
@@ -18,7 +17,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function tokens-valid-base-clr-map(
+@function tokens-validate-shade-map(
     $value,
     $name,
     $default,
@@ -45,7 +44,7 @@
             @warn "[base][config] $#{$name} must be a map with string keys (there was a #{$_keyType} '#{$_key}')";
         } @else if $_valueType == map and $recursive {
             // = recursive
-            $_validValue: tokens-valid-base-clr-map(
+            $_validValue: tokens-validate-shade-map(
                 $_value,
                 '$#{$name}.#{$_key}',
                 ()

@@ -7,7 +7,9 @@
 @use 'config';
 // @use 'tokens';
 
-@use '../../lib' as *;
+@use 'lib' as *;
+
+@use '00-abstracts' as *;
 
 /* # FORMS
  * ======================================================================== */
@@ -24,10 +26,6 @@ fieldset {
 
 %_input-base {
     @include snippet-input;
-
-    @include focus-visible-or-within {
-        outline-color: ActiveText;
-    }
 
     /// BLOCK ///
 
@@ -59,10 +57,6 @@ input[type='button'],
 input[type='submit'],
 %button {
     @include snippet-button;
-
-    @include focus-visible-or-within {
-        outline-color: ActiveText;
-    }
 }
 
 input[type='reset'],

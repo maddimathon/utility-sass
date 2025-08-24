@@ -13,6 +13,18 @@
 /// # TOKENS - CUSTOM
 /// ======================================================================== ///
 
+$internal_customTokensDefault: () !default;
+
+$internal_customTokensDefault: map.merge(
+    (),
+    map.flatten($internal_customTokensDefault),
+    $recursive: true
+);
+
 $customTokens: () !default;
 
-$customTokens: map.merge((), $customTokens, $recursive: true);
+$customTokens: map.merge(
+    map.flatten($internal_customTokensDefault),
+    map.flatten($customTokens),
+    $recursive: true
+);

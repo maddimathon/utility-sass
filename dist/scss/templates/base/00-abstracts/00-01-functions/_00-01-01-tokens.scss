@@ -7,22 +7,64 @@
 @use '../../tokens';
 
 @use '../../../../modules/colour';
+@use '../../../../modules/list';
 @use '../../../../modules/map';
 @use '../../../../modules/meta';
+@use '../../../../modules/string';
 
-@use '../../../../lib' as *;
+@use '../../lib' as *;
 
 /// # FUNCTIONS - Tokens
 /// ======================================================================== ///
 
-$_flattenedColours: map.flatten(tokens.$colours);
+$_flattenedThemes: map.flatten(tokens.$themes);
 
 ///
-/// Returns the appropriate var (with fallback)
+/// Gets the value for the given token slug.
 ///
-/// @param {string} $slugLevel  The sluge and level combined into a string 'slug-###'.
+/// @since 0.1.0-alpha.draft
 ///
-@function var-clr($slug, $level, $mode: config.$brightnessMode_default) {
+@function theme-token-value($slug, $brightness, $contrast) {
+    // returns
+    @if $contrast == forced-colors {
+        @if not map.has-key($_flattenedThemes, '#{$contrast}-#{$slug}') {
+            @warn "$slug '#{$slug}' was not a key in flattened tokens.$themes";
+            @debug #{meta.var-dump($_flattenedThemes)};
+            @return ();
+        }
+
+        @return map.get($_flattenedThemes, '#{$contrast}-#{$slug}');
+    }
+
+    // returns - no fallback
+    @if not map.has-key(tokens.$themes, $brightness) {
+        @warn "$brightness '#{$brightness}' was not a key in tokens.$themes";
+        @return ();
+    }
+
+    // returns - no fallback
+    @if not map.has-key(map.get(tokens.$themes, $brightness), $contrast) {
+        @warn "$contrast '#{$contrast}' was not a key in tokens.$themes.#{$brightness}";
+        @return ();
+    }
+
+    // returns - no fallback
+    @if not
+        map.has-key($_flattenedThemes, '#{$brightness}-#{$contrast}-#{$slug}')
+    {
+        @warn "$slug '#{$slug}' was not a key in flattened tokens.$themes";
+        @return ();
+    }
+
+    @return map.get($_flattenedThemes, '#{$brightness}-#{$contrast}-#{$slug}');
+}
+
+///
+/// Returns the appropriate var (with fallback).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-clr($slug, $level, $mode: tokens.$brightnessMode_default) {
     // returns
     @if not map.has-key(tokens.$colours, '#{$slug}') {
         @warn "$slug '#{$slug}' was not a key in tokens.$colours";
@@ -48,4 +90,96 @@ $_flattenedColours: map.flatten(tokens.$colours);
         --clr-#{$slug}-#{$level},
         #{map.get($slugMap, if($mode == dark, '#{$dark_level}', '#{$level}'))}
     );
+}
+
+///
+/// Returns the appropriate var (with fallback).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-theme(
+    $slug,
+    $brightness: tokens.$brightnessMode_default,
+    $contrast: tokens.$contrastMode_default
+) {
+    @if not config.$include_clr {
+        $contrast: forced-colors;
+    }
+
+    $clrSlug: theme-token-value($slug, $brightness, $contrast);
+
+    // returns
+    @if list.length($clrSlug) < 1 {
+        @return var(--theme-#{$slug});
+    }
+
+    // returns
+    @if $contrast == forced-colors {
+        @return $clrSlug;
+    }
+
+    @return var(
+        --theme-#{$slug},
+        #{var-clr(
+                string.slice($clrSlug, 1, -5),
+                string.slice($clrSlug, -3, -1),
+                $brightness
+            )}
+    );
+}
+
+/// ## CUSTOM TOKENS ==================================== ///
+
+$_flattened_customTokens: map.flatten(
+    map.merge(
+        (
+            clr: tokens.$colours,
+            theme: tokens.$themes,
+        ),
+        tokens.$customTokens,
+        $recursive: true
+    )
+);
+
+///
+/// Gets the value of a custom token.
+///
+/// @param {string} $slug  Flattened key for the token to fetch.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function token-value($slug) {
+    // returns
+    @if not map.has-key($_flattened_customTokens, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in the flattened tokens.$customTokens";
+        @return $slug;
+    }
+
+    @return map.get($_flattened_customTokens, '#{$slug}');
+}
+
+///
+/// Returns the flattened custom tokens map.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function custom-token-map() {
+    @return $_flattened_customTokens;
+}
+
+///
+/// Uses the custom tokens to print the appropriate var(...) with a fallback.
+///
+/// @param {string} $slug  Flattened key for the token to fetch.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-token($slug) {
+    // returns
+    @if not map.has-key($_flattened_customTokens, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in the flattened tokens.$customTokens";
+        @return var(--#{$slug});
+    }
+
+    @return var(--#{$slug}, #{map.get($_flattened_customTokens, '#{$slug}')});
 }

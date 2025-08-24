@@ -9,11 +9,12 @@
 @use '../../../../modules/colour';
 @use '../../../../modules/list';
 @use '../../../../modules/map';
+@use '../../../../modules/string';
+
+@use '../../lib' as *;
 
 @use '../00-01-functions' as *;
 // @use '../00-02-mixins' as *;
-
-@use '../../../../lib' as *;
 
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
@@ -24,7 +25,7 @@ $_customTokensToPrint: ();
 
 @each $slug, $value in tokens.$customTokens {
     // these do nothing except else
-    @if $slug == clr {
+    @if $slug == clr or $slug == themes {
     } @else {
         $_customTokensToPrint: map.set($_customTokensToPrint, $slug, $value);
     }
@@ -61,4 +62,39 @@ $_customTokensToPrint: ();
         }
     }
     /* #endregion Tokens - Colours */
+}
+
+@if config.$include_clr {
+    /* ## TOKENS - THEMES ==================================== */
+
+    @include token-mode-each using ($brightness, $contrast) {
+        @if $contrast != forced-colors {
+            @if map.has-key(tokens.$themes, $brightness) {
+                @if map.has-key(map.get(tokens.$themes, $brightness), $contrast)
+                {
+                    $flattened: map.flatten(
+                        map.get(tokens.$themes, $brightness, $contrast)
+                    );
+
+                    @each $prop, $value in $flattened {
+                        --theme-#{$prop}: #{var-clr(
+                                string.slice($value, 1, -5),
+                                string.slice($value, -3, -1),
+                                $brightness
+                            )};
+                    }
+                }
+            }
+        }
+    }
+
+    /*#region contrast forced-colors */
+    @include forced-colors {
+        @each $prop,
+            $value in map.flatten(map.get(tokens.$themes, forced-colors))
+        {
+            --theme-#{$prop}: #{$value} !important;
+        }
+    }
+    /*#endregion contrast forced-colors */
 }

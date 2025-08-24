@@ -1,0 +1,105 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use '../../config';
+
+@use '../../../../modules/meta';
+
+/// # TOKENS - FUNCTIONS - Themes
+/// ======================================================================== ///
+
+///
+/// Takes some optional params to build a consistent theme compatible with this
+/// template.
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-build-theme(
+    $base_background: '100',
+
+    $text_accent_fore: '700',
+    $text_base_fore: '800',
+
+    $ui_accent_fore: '700',
+    $ui_base_fore: '800'
+) {
+    @return (
+        background: 'base-#{$base_background}',
+
+        text: (
+            '$': 'base-#{$text_base_fore}',
+            'primary': 'primary-#{$text_accent_fore}',
+            'secondary': 'secondary-#{$text_accent_fore}',
+            'active': 'active-#{$text_accent_fore}',
+        ),
+
+        ui: (
+            '$': 'base-#{$ui_base_fore}',
+            'primary': 'primary-#{$ui_accent_fore}',
+            'secondary': 'secondary-#{$ui_accent_fore}',
+            'active': 'active-#{$ui_accent_fore}',
+        ),
+
+        selection: (
+            'bg': 'primary-#{$ui_accent_fore}',
+            'text': 'primary-#{$base_background}',
+        ),
+
+        link: (
+            '$': 'primary-#{$text_accent_fore}',
+            'hover': 'secondary-#{$text_accent_fore}',
+            'active': 'active-#{$text_accent_fore}',
+        ),
+
+        button: (
+            bg: (
+                '$': 'primary-#{$text_accent_fore}',
+                'hover': 'secondary-#{$text_accent_fore}',
+                'active': 'active-#{$text_accent_fore}',
+            ),
+            border: (
+                '$': 'primary-#{$text_accent_fore}',
+                'hover': 'secondary-#{$text_accent_fore}',
+                'active': 'active-#{$text_accent_fore}',
+            ),
+            text: (
+                '$': 'base-#{$base_background}',
+                'hover': 'base-#{$base_background}',
+                'active': 'base-#{$base_background}',
+            ),
+        ),
+
+        input: (
+            bg: (
+                '$': 'base-#{$base_background}',
+                'hover': 'base-#{$base_background}',
+                'active': 'base-#{$base_background}',
+            ),
+            border: (
+                '$': 'primary-#{$ui_accent_fore}',
+                'hover': 'secondary-#{$ui_accent_fore}',
+                'active': 'active-#{$ui_accent_fore}',
+            ),
+            text: (
+                '$': 'base-#{$text_base_fore}',
+                'hover': 'base-#{$text_base_fore}',
+                'active': 'base-#{$text_base_fore}',
+            ),
+
+            placeholder: 'base-#{$text_base_fore}',
+        )
+    );
+}
+
+///
+/// Calls the tokens-build-theme function with slightly different defaults
+/// better for dark modes.
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-build-theme-dark($args...) {
+    $args: meta.keywords($args);
+    @return tokens-build-theme($args...);
+}

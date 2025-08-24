@@ -2,10 +2,13 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-@use 'sass:string';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
+
+@use '../../modules/math';
+@use '../../modules/meta';
+@use '../../modules/string';
 
 // @use '03-00-abstracts' as *;
 // @use '03-01-accessibility' as *;
@@ -22,62 +25,63 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-button(
+    $accentClr: ActiveText,
+    $accentClr_active: ActiveText,
+    $accentClr_hover: ActiveText,
+
     $borderClr: ButtonBorder,
-    $borderWidth: '100',
-    $display: block,
+    $borderClr_hover: ButtonBorder,
+    $borderClr_active: ButtonBorder,
+
+    $background: ButtonFace,
+    $background_hover: ButtonFace,
+    $background_active: ButtonFace,
+
+    $color: ButtonText,
+    $color_hover: ButtonText,
+    $color_active: ButtonText,
+
     $lh: '100',
-    $margin: #{var-mrg-firm('400')} 0 #{var-mrg-half('400')},
-    $padding: #{var-mrg-soft('200')} #{var-mrg-firm('300')},
+    $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
+    $opacity_hover: 0.875,
+    $padding: var-mrg-soft('200') var-mrg-firm('300'),
     $width: fit-content,
 
-    $includeClrs: true
+    $args...
 ) {
+    $args: meta.keywords($args);
+
     @include snippet-input(
+        $accentClr: $accentClr,
+        $accentClr_active: $accentClr_active,
+        $accentClr_hover: $accentClr_hover,
+
         $borderClr: $borderClr,
-        $borderWidth: $borderWidth,
-        $display: $display,
+        $borderClr_hover: $borderClr_hover,
+        $borderClr_active: $borderClr_active,
+
+        $background: $background,
+        $background_hover: $background_hover,
+        $background_active: $background_active,
+
+        $color: $color,
+        $color_hover: $color_hover,
+        $color_active: $color_active,
+
         $lh: $lh,
         $margin: $margin,
+        $opacity_hover: $opacity_hover,
         $padding: $padding,
         $width: $width,
 
-        $includeClrs: false
+        $args...,
+        $includePlaceholder: false
     );
 
     & {
         appearance: button;
         text-decoration: none;
         cursor: pointer;
-
-        @if $includeClrs {
-            background-color: ButtonFace;
-            color: ButtonText;
-        }
-    }
-
-    /// STATES ///
-
-    @include hover-focus-visible-or-within {
-        @if $includeClrs {
-            accent-color: ActiveText;
-            background-color: SelectedItem;
-            border-color: initial;
-            color: SelectedItemText;
-        }
-        opacity: 0.875;
-
-        @include colour-mode((high, forced-colors)) {
-            opacity: 1;
-        }
-    }
-
-    &:active {
-        @if $includeClrs {
-            accent-color: ActiveText;
-            background-color: ButtonFace;
-            border-color: ButtonBorder;
-            color: ButtonText;
-        }
     }
 }
 
@@ -87,15 +91,34 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-input(
-    $borderClr: currentColor,
+    $accentClr: ActiveText,
+    $accentClr_active: ActiveText,
+    $accentClr_hover: ActiveText,
+
+    $background: Field,
+    $background_active: Field,
+    $background_hover: Field,
+
+    $borderClr: FieldText,
+    $borderClr_active: FieldText,
+    $borderClr_hover: FieldText,
+
+    $color: FieldText,
+    $color_active: FieldText,
+    $color_hover: FieldText,
+
+    $color_placeholder: currentColor,
+
     $borderWidth: '100',
     $display: block,
     $lh: '200',
+    $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
+    $opacity_hover: 1,
+    $padding: var-mrg-soft('200') var-mrg-firm('200'),
     $width: 100%,
-    $margin: #{var-mrg-firm('400')} 0 #{var-mrg-half('400')},
-    $padding: #{var-mrg-soft('200')} #{var-mrg-firm('200')},
 
-    $includeClrs: true
+    $includeClrs: true,
+    $includePlaceholder: true
 ) {
     display: #{$display};
     margin: #{$margin};
@@ -109,33 +132,63 @@
     border-radius: 0;
 
     @if $includeClrs {
-        // accent-color: SelectedItem;
-        background-color: Field;
-        color: FieldText;
+        background-color: #{$background};
+        color: #{$color};
+        accent-color: #{$accentClr};
     }
 
     /// STATES ///
 
-    @if $includeClrs {
-        @include hover-focus-visible-or-within((string.unquote('&:active'))) {
-            accent-color: ActiveText;
+    @include hover-focus-visible-or-within {
+        @if $includeClrs {
+            background-color: #{$background_hover};
+            border-color: #{$borderClr_hover};
+            color: #{$color_hover};
+            accent-color: #{$accentClr_hover};
+        }
+
+        $_opacityIsLessThanOne: if(
+            math.unit($opacity_hover) == '%',
+            $opacity_hover < 100%,
+            $opacity_hover < 1
+        );
+
+        @if $_opacityIsLessThanOne {
+            opacity: #{$opacity_hover};
+
+            @include colour-mode((high, forced-colors)) {
+                opacity: 1;
+            }
+        }
+    }
+
+    &:active {
+        @if $includeClrs {
+            background-color: #{$background_active};
+            border-color: #{$borderClr_active};
+            color: #{$color_active};
+            accent-color: #{$accentClr_active};
         }
     }
 
     /// BLOCK ///
 
-    &::placeholder {
-        opacity: 1;
+    @if $includePlaceholder {
+        $_clr: if($includeClrs, $color_placeholder, currentColor);
 
-        color: currentColor;
-        color: color-mix(in srgb, currentColor 62.5%, transparent);
+        &::placeholder {
+            opacity: 1;
 
-        @include high-contrast {
-            color: color-mix(in srgb, currentColor 87.5%, transparent);
-        }
+            color: #{$_clr};
+            color: color-mix(in srgb, #{$_clr} 62.5%, transparent);
 
-        @include forced-colors {
-            color: currentColor;
+            @include high-contrast {
+                color: color-mix(in srgb, #{$_clr} 87.5%, transparent);
+            }
+
+            @include forced-colors {
+                color: #{$_clr};
+            }
         }
     }
 }
@@ -145,7 +198,14 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-input-types($includeBase: true) {
+@mixin snippet-input-types(
+    $accentClr: ActiveText,
+    $accentClr_active: ActiveText,
+    $accentClr_hover: ActiveText,
+    $includeBase: true,
+
+    $includeClrs: true
+) {
     @if $includeBase {
         @include snippet-input;
     }
@@ -184,10 +244,16 @@
         padding: 0;
         width: auto;
 
-        accent-color: SelectedItem;
+        @if $includeClrs {
+            accent-color: #{$accentClr};
 
-        @include hover-focus-visible-or-within((string.unquote('&:active'))) {
-            accent-color: ActiveText;
+            @include hover-focus-visible-or-within {
+                accent-color: #{$accentClr_hover};
+            }
+
+            &:active {
+                accent-color: #{$accentClr_active};
+            }
         }
     }
 
@@ -222,16 +288,25 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-label(
+    $color: CanvasText,
+    $color_checkradio: CanvasText,
+    //
     $gap: var-mrg-soft('300'),
     $lh_checkradio: var-line-height('400'),
     $lh: var-line-height('200'),
     $marginBlock_innercheckradio: var-mrg-firm('200'),
-    $marginBlock: var-mrg-firm('400')
+    $marginBlock: var-mrg-firm('400'),
+    //
+    $includeClrs: true
 ) {
     display: block;
     margin: #{$marginBlock} 0 0;
     font-weight: 600;
     line-height: #{$lh};
+
+    @if $includeClrs {
+        color: #{$color};
+    }
 
     &:has(> input[type='checkbox'], > input[type='radio']) {
         display: grid;
@@ -243,6 +318,10 @@
         font-weight: 400;
         line-height: #{$lh_checkradio};
         text-wrap: balance;
+
+        @if $includeClrs {
+            color: #{$color_checkradio};
+        }
 
         cursor: pointer;
 

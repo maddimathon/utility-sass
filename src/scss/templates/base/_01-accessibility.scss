@@ -7,12 +7,15 @@
 // @use 'config';
 // @use 'tokens';
 
-@use '../../lib' as *;
+@use 'lib' as *;
+
+@use '00-abstracts' as *;
 
 /* # ACCESSIBILITY
  * ======================================================================== */
 
 @include focus-visible {
-    outline: #{var-stroke-relative('400')} dashed currentColor;
-    outline-offset: #{var-border-width('200')};
+    outline: #{var-token('focus-ring-outline-width')} dashed
+        #{var-token('focus-ring-outline-color')};
+    outline-offset: #{var-token('focus-ring-outline-offset')};
 }

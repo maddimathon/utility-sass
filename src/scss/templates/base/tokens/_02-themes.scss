@@ -2,11 +2,9 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-// @use 'sass:string';
 
 @use '../config';
 
-// @use '../../../modules/colour';
 @use '../../../modules/map';
 
 @use '../../../tokens';
@@ -16,17 +14,96 @@
 /// # TOKENS - THEMES
 /// ======================================================================== ///
 
-///
-/// Takes some optional params to build a consistent theme compatible with this
-/// template.
-///
-/// @since ___PKG_VERSION___
-///
-@function tokens-base-build-theme($bgLevel, $fgLevel) {
-    @return (text: ());
-}
+// #region $_defaultTheme
+$_defaultTheme: (
+    forced-colors: (
+        background: Canvas,
 
-$_defaultTheme: ();
+        text: (
+            '$': CanvasText,
+            'primary': CanvasText,
+            'secondary': CanvasText,
+            'active': CanvasText,
+        ),
+
+        ui: (
+            '$': CanvasText,
+            'primary': CanvasText,
+            'secondary': CanvasText,
+            'active': CanvasText,
+        ),
+
+        selection: (
+            'bg': Highlight,
+            'text': HighlightText,
+        ),
+
+        link: (
+            '$': LinkText,
+            'hover': ActiveText,
+            'active': ActiveText,
+        ),
+
+        button: (
+            background: (
+                '$': ButtonFace,
+                'hover': SelectedItem,
+                'active': ButtonFace,
+            ),
+            border: (
+                '$': ButtonBorder,
+                'hover': SelectedItem,
+                'active': ButtonBorder,
+            ),
+            text: (
+                '$': ButtonText,
+                'hover': SelectedItemText,
+                'active': ButtonText,
+            ),
+        ),
+
+        input: (
+            background: (
+                '$': Field,
+                'hover': SelectedItem,
+                'active': Field,
+            ),
+            border: (
+                '$': FieldText,
+                'hover': SelectedItem,
+                'active': FieldText,
+            ),
+            text: (
+                '$': FieldText,
+                'hover': SelectedItemText,
+                'active': FieldText,
+            ),
+        ),
+    ),
+);
+// #endregion $_defaultTheme
+
+@each $brightness in tokens.$brightnessMode_all {
+    $_defaultTheme: map.set($_defaultTheme, $brightness, ());
+
+    @each $contrast in tokens.$contrastMode_all {
+        @if $contrast != forced-colors {
+            // conditional defaults
+            $_theme: if(
+                $brightness == dark,
+                tokens-build-theme-dark(),
+                tokens-build-theme()
+            );
+
+            $_defaultTheme: map.set(
+                $_defaultTheme,
+                $brightness,
+                $contrast,
+                $_theme
+            );
+        }
+    }
+}
 
 ///
 /// Themes used in the base styles.
@@ -37,23 +114,8 @@ $themes: () !default;
 
 @if config.$include_clr {
     $themes: map.merge($_defaultTheme, $themes, $recursive: true);
+} @else {
+    $themes: (
+        forced-colors: map.get($_defaultTheme, forced-colors),
+    );
 }
-
-// @each $slug, $map in $themes {
-//     $map: tokens-valid-base-clr-map(
-//         $map,
-//         'colours.#{$slug}',
-//         if(
-//             map.has-key($_defaultTheme, $slug),
-//             map.get($_defaultTheme, $slug),
-//             map.get($_defaultTheme, 'base')
-//         ),
-//         $recursive: false
-//     );
-
-//     @if config.$tokens_expandClrMaps and config.$include_clr {
-//         $map: colour.shade-map($map);
-//     }
-
-//     $themes: map.set($themes, $slug, $map);
-// }

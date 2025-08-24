@@ -7,10 +7,20 @@
 @use 'config';
 @use 'tokens';
 
-@use '../../lib' as *;
+@use 'lib' as *;
+
+@use '00-abstracts' as *;
 
 /* # TYPOGRAPHY
  * ======================================================================== */
+
+#{config.$selector_root},
+#{config.$selector_body} {
+    @if config.$include_clr {
+        background-color: #{var-theme(background)};
+        color: #{var-theme(text)};
+    }
+}
 
 #{config.$selector_root} {
     line-height: #{var-line-height('400')};
@@ -20,8 +30,8 @@
 }
 
 ::selection {
-    background-color: Highlight;
-    color: HighlightText;
+    background-color: #{var-theme(selection-bg)};
+    color: #{var-theme(selection-text)};
 }
 
 /* ## Typography - Inline ==================================== */
@@ -56,18 +66,19 @@ a {
     display: inline;
     border: none;
     text-decoration: underline #{var-stroke-relative('200')};
-    color: LinkText;
+    color: #{var-theme(link)};
 
     /// STATES ///
 
-    @include hover-focus-visible((string.unquote('&:active'))) {
-        outline-color: ActiveText;
-        color: ActiveText;
-        opacity: 0.75;
+    @include hover-focus-visible() {
+        --focus-ring-outline-color: #{var-theme(link-hover)};
+        color: #{var-theme(link-hover)};
+        text-decoration-color: transparent;
+    }
 
-        @include colour-mode((high, forced-colors)) {
-            opacity: 1;
-        }
+    &:active {
+        --focus-ring-outline-color: #{var-theme(link-active)};
+        color: #{var-theme(link-active)};
     }
 
     /// EXCEPTIONS ///
@@ -106,6 +117,7 @@ blockquote {
 
 pre,
 code {
+    --focus-ring-outline-color: #{var-theme(text-secondary)};
     position: relative;
 }
 

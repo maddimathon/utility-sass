@@ -52,6 +52,16 @@ export class Compile extends CompileStage {
         }
 
         await this.runCustomDirCopySubStage( 'scss' );
+
+
+        this.console.verbose( 'tidying up copied files...', 2 );
+        this.try(
+            this.fs.delete,
+            ( this.params.verbose ? 3 : 2 ),
+            [ [
+                'dist/scss/templates/@template'
+            ], ( this.params.verbose ? 3 : 2 ) ]
+        );
     }
 
     /**
@@ -65,6 +75,16 @@ export class Compile extends CompileStage {
             {
                 postCSS: true,
             },
+        );
+
+        this.console.verbose( 'tidying up compiled files...', 2 );
+        this.try(
+            this.fs.delete,
+            ( this.params.verbose ? 3 : 2 ),
+            [ [
+                'dist/css/templates/@template.css',
+                'dist/css/templates/@template.css.map'
+            ], ( this.params.verbose ? 3 : 2 ) ]
         );
     }
 }

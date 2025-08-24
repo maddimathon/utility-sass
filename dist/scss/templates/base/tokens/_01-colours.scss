@@ -22,7 +22,7 @@ $_defaultClrMap: (
 
     'primary': (
         '100': hsl(281, 81%, 97%),
-        '500': hsl(281, 35%, 53%),
+        '500': hsl(281, 50%, 53%),
         '900': hsl(281, 85%, 2%),
     ),
 
@@ -33,9 +33,9 @@ $_defaultClrMap: (
     ),
 
     'active': (
-        '100': hsl(359, 83%, 97%),
-        '500': hsl(359, 49%, 54%),
-        '900': hsl(351, 100%, 2%),
+        '100': hsl(350, 83%, 97%),
+        '500': hsl(350, 49%, 54%),
+        '900': hsl(357, 100%, 2%),
     ),
 );
 
@@ -51,7 +51,7 @@ $colours: () !default;
 }
 
 @each $slug, $map in $colours {
-    $map: tokens-valid-base-clr-map(
+    $map: tokens-validate-shade-map(
         $map,
         'colours.#{$slug}',
         if(

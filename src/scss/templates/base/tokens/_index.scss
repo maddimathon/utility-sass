@@ -3,8 +3,17 @@
 /// @since ___PKG_VERSION___
 ///
 
+@use '../../../modules/map';
+
 @forward '../../../tokens' with (
-    $customTokens: () !default
+    $internal_customTokensDefault: (
+        'focus-ring': (
+            'outline-width': '400',
+            'outline-offset': '200',
+            'outline-color': currentColor,
+        ),
+    )
+    !default
 );
 
 @forward 'functions';
@@ -16,10 +25,37 @@
 
 @use '../../../tokens' as *;
 
-@use '../../../modules/map';
-
 @use '01-colours' as *;
+@use '02-themes' as *;
+
+@use '../../../lib';
 
 @if config.$include_clr {
     $customTokens: map.set($customTokens, clr, $colours);
+    $customTokens: map.set($customTokens, themes, $themes);
 }
+
+/// changing placeholders to vars
+
+$customTokens: map.set(
+    $customTokens,
+    'focus-ring-outline-width',
+    clamp(
+        lib.var-border-width('200'),
+        lib.var-stroke-relative(
+            map.get($customTokens, 'focus-ring-outline-width')
+        ),
+        lib.var-border-width('400')
+    )
+);
+
+$customTokens: map.set(
+    $customTokens,
+    'focus-ring-outline-offset',
+    min(
+        lib.var-border-width(
+            map.get($customTokens, 'focus-ring-outline-offset')
+        ),
+        lib.var-stroke-relative('400')
+    )
+);

@@ -1,7 +1,9 @@
 ---
 title: Templates
 children:
-  - ./base/index.docs.md
+  - ./design-tokens/index.docs.md
+  - ./global/index.docs.md
+  - ./html/index.docs.md
 ---
 
 # Sass (scss) Template Stylesheets
@@ -11,15 +13,16 @@ These are template stylesheets that use the [tokens](../tokens/index.docs.md),
 package.
 
 
-## [Base Template](./base/index.docs.md)
+## 1. [Design Tokens Template](./design-tokens/index.docs.md)
 
-```scss
-@forward 'pkg:@maddimathon/utility-sass/templates/base';
-```
+{@include ./design-tokens/desc.docs.md}
 
 
-## Tokens Template
+## 2. [Global Template](./global/index.docs.md)
 
-```scss
-@forward 'pkg:@maddimathon/utility-sass/templates/tokens';
-```
+{@include ./global/desc.docs.md}
+
+
+## 2. [HTML Template](./html/index.docs.md)
+
+{@include ./html/desc.docs.md}
