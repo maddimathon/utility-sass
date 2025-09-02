@@ -19,36 +19,6 @@
 /// ======================================================================== ///
 
 ///
-/// Prints out the border width custom property tokens based on config.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin tokens-border-radius {
-    /* #region Tokens - Border Radius */
-    #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$border_radii {
-            --border-radius-#{$slug}: #{border-radius-value($slug)}rem;
-        }
-    }
-    /* #endregion Tokens - Border Radius */
-}
-
-///
-/// Prints out the border width custom property tokens based on config.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin tokens-border-width {
-    /* #region Tokens - Border Width */
-    #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$border_widths {
-            --border-width-#{$slug}: #{border-width-value($slug)}rem;
-        }
-    }
-    /* #endregion Tokens - Border Width */
-}
-
-///
 /// Prints out the font size custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha.draft
@@ -85,7 +55,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin tokens-margins {
+@mixin tokens-margin {
     $selector: selector.parent-or-root();
 
     /* #region Tokens - Margin */
@@ -110,36 +80,6 @@
 }
 
 ///
-/// Prints out the border width custom property tokens based on config.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin tokens-stroke-relative {
-    /* #region Tokens - Stroke Relative */
-    #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$strokes_relative {
-            --stroke-relative-#{$slug}: #{stroke-relative-value($slug)}em;
-        }
-    }
-    /* #endregion Tokens - Stroke Relative */
-}
-
-///
-/// Prints out the border width custom property tokens based on config.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin tokens-tr-time {
-    /* #region Tokens - Transition Time */
-    #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$transition_times {
-            --tr-time-#{$slug}: #{transition-time-value($slug)};
-        }
-    }
-    /* #endregion Tokens - Transition Time */
-}
-
-///
 /// Prints out the width custom property tokens based on breakpoints config.
 ///
 /// @since 0.1.0-alpha.draft
@@ -154,19 +94,4 @@
         }
     }
     /* #endregion Tokens - Width */
-}
-
-///
-/// Prints out the border width custom property tokens based on config.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin tokens-z-index {
-    /* #region Tokens - Z Index */
-    #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$z_indices {
-            --z-index-#{$slug}: #{z-index-value($slug)};
-        }
-    }
-    /* #endregion Tokens - Z Index */
 }

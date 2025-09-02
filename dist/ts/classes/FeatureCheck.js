@@ -7,7 +7,6 @@
  * @maddimathon/utility-sass@0.1.0-alpha.draft
  * @license MIT
  */
-import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 /**
  * Utility class that uses client-side JS to test for JS and CSS feature
  * compaibility. Updates root element class names accordingly.
@@ -81,9 +80,9 @@ export class FeatureCheck {
      * Custom checks to include in the class list.
      */
     customChecks) {
-        const keys = arrayUnique(Object.keys(FeatureCheck.DEFAULT_OPTS)
-            .concat(...(customChecks ?? [])
-            .map(_check => _check.slug)));
+        const keys = Object.keys(FeatureCheck.DEFAULT_OPTS)
+            .concat((customChecks ?? []).map(_check => _check.slug))
+            .filter((v, i, a) => a.indexOf(v) === i);
         return (''
             + 'no-js '
             + keys.map(_key => FeatureCheck.getClassName(_key, false)).join(' '));

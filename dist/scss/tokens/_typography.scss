@@ -8,7 +8,7 @@
 @use '../modules/map';
 @use '../modules/math';
 
-// @use 'functions' as *;
+@use 'margins';
 
 /// # TOKENS - TYPOGRAPHY
 /// ======================================================================== ///
@@ -26,7 +26,7 @@ $font_sizes: () !default;
 $font_sizes: map.merge(
     map.flatten(
         (
-            title: 7,
+            'title': 7,
 
             'heading': (
                 '1': 6,
@@ -45,7 +45,7 @@ $font_sizes: map.merge(
                 '1': -0.5,
             ),
 
-            normal: 0,
+            'normal': 0,
 
             'bigger': (
                 '1': 1,
@@ -65,10 +65,11 @@ $font_sizes: map.merge(
 );
 
 @each $key, $value in $font_sizes {
-    $rem: math.pow(config.$scale_multiplier, $value);
-    $rem: calc(math.round($rem * 16) / 16);
-
-    $font_sizes: map.set($font_sizes, $key, math.round-to-pixel($rem));
+    $font_sizes: map.set(
+        $font_sizes,
+        $key,
+        math.round-to-pixel(math.pow(margins.$scale_multiplier, $value))
+    );
 }
 
 /// ## Line Heights ==================================== ///
@@ -101,7 +102,9 @@ $line_heights: map.merge(
 );
 
 @each $key, $value in $line_heights {
-    $lh: math.pow(config.$scale_multiplier, $value * 0.875) * $line_height_base;
+    $lh: (
+        math.pow(margins.$scale_multiplier, $value * 0.875) * $line_height_base
+    );
 
     $line_heights: map.set($line_heights, $key, math.round-to-pixel($lh, 32));
 }

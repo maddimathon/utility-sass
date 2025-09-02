@@ -74,8 +74,8 @@
         $padding: $padding,
         $width: $width,
 
-        $args...,
-        $includePlaceholder: false
+        $includePlaceholder: false,
+        $args...
     );
 
     & {
@@ -109,7 +109,6 @@
 
     $color_placeholder: currentColor,
 
-    $borderWidth: '100',
     $display: block,
     $lh: '200',
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
@@ -128,7 +127,8 @@
     font: inherit;
     line-height: #{var-line-height($lh)};
 
-    border: #{var-border-width($borderWidth)} solid #{$borderClr};
+    border-style: solid;
+    border-color: #{$borderClr};
     border-radius: 0;
 
     @if $includeClrs {

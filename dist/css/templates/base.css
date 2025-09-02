@@ -86,68 +86,10 @@
 }
 
 /* #endregion Tokens - Line Heights */
-/* #region Tokens - Border Radius */
-:root {
-    --border-radius-100: 0.25rem;
-    --border-radius-200: 0.375rem;
-    --border-radius-400: 0.625rem;
-}
-
-/* #endregion Tokens - Border Radius */
-/* #region Tokens - Border Width */
-:root {
-    --border-width-100: 0.0625rem;
-    --border-width-200: 0.125rem;
-    --border-width-300: 0.1875rem;
-    --border-width-400: 0.25rem;
-}
-
-/* #endregion Tokens - Border Width */
-/* #region Tokens - Stroke Relative */
-:root {
-    --stroke-relative-100: 0.03125em;
-    --stroke-relative-200: 0.0625em;
-    --stroke-relative-400: 0.125em;
-    --stroke-relative-600: 0.1875em;
-    --stroke-relative-800: 0.25em;
-    --stroke-relative-900: 0.375em;
-}
-
-/* #endregion Tokens - Stroke Relative */
-/* #region Tokens - Transition Time */
-:root {
-    --tr-time-fast: 250ms;
-    --tr-time-normal: 500ms;
-    --tr-time-slow: 750ms;
-}
-
-/* #endregion Tokens - Transition Time */
-/* #region Tokens - Z Index */
-:root {
-    --z-index-nav: 1000;
-    --z-index-settings: 9999;
-    --z-index-skip-link: 99999;
-}
-
-/* #endregion Tokens - Z Index */
 /* #region Tokens - Misc. */
 :root {
-    --focus-ring-outline-width: max(
-        var(--border-width-200, 0.125rem),
-        min(
-            var(--stroke-relative-400, 0.125em),
-            var(--border-width-400, 0.25rem)
-        )
-    );
-    --focus-ring-outline-width: clamp(
-        var(--border-width-200, 0.125rem),
-        var(--stroke-relative-400, 0.125em),
-        var(--border-width-400, 0.25rem)
-    );
-    --focus-ring-outline-offset: min(
-        var(--border-width-200, 0.125rem),
-        var(--stroke-relative-400, 0.125em)
-    );
+    --focus-ring-outline-width: 0.25rem;
+    --focus-ring-outline-offset: 0.25rem;
     --focus-ring-outline-color: currentColor;
 }
 
@@ -712,38 +654,11 @@ body {
 /* # ACCESSIBILITY
  * ======================================================================== */
 :focus {
-    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
-    outline: clamp(0.125rem, 0.125em, 0.25rem) dashed currentColor;
-    outline: var(
-            --focus-ring-outline-width,
-            max(
-                var(--border-width-200, 0.125rem),
-                min(
-                    var(--stroke-relative-400, 0.125em),
-                    var(--border-width-400, 0.25rem)
-                )
-            )
-        )
-        dashed var(--focus-ring-outline-color, currentColor);
-    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
-    outline: clamp(0.125rem, 0.125em, 0.25rem) dashed currentColor;
-    outline: var(
-            --focus-ring-outline-width,
-            clamp(
-                var(--border-width-200, 0.125rem),
-                var(--stroke-relative-400, 0.125em),
-                var(--border-width-400, 0.25rem)
-            )
-        )
-        dashed var(--focus-ring-outline-color, currentColor);
-    outline-offset: min(0.125rem, 0.125em);
-    outline-offset: var(
-        --focus-ring-outline-offset,
-        min(
-            var(--border-width-200, 0.125rem),
-            var(--stroke-relative-400, 0.125em)
-        )
-    );
+    outline: 0.25rem dashed currentColor;
+    outline: var(--focus-ring-outline-width, 0.25rem) dashed
+        var(--focus-ring-outline-color, currentColor);
+    outline-offset: 0.25rem;
+    outline-offset: var(--focus-ring-outline-offset, 0.25rem);
 }
 
 /* # OBJECTS
@@ -835,10 +750,7 @@ i em em {
 a {
     display: inline;
     border: none;
-    -webkit-text-decoration: underline 0.0625em;
-    text-decoration: underline 0.0625em;
-    -webkit-text-decoration: underline var(--stroke-relative-200, 0.0625em);
-    text-decoration: underline var(--stroke-relative-200, 0.0625em);
+    text-decoration: underline;
     color: hsl(284, 51%, 24%);
     color: var(--theme-link, var(--clr-primary-700, hsl(284, 51%, 24%)));
 }
@@ -887,11 +799,8 @@ a[aria-disabled="true"] {
 }
 
 abbr[title] {
-    -webkit-text-decoration: dotted underline 0.125em;
-    text-decoration: dotted underline 0.125em;
-    -webkit-text-decoration: dotted underline
-        var(--stroke-relative-400, 0.125em);
-    text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
+    -webkit-text-decoration: dotted underline;
+    text-decoration: dotted underline;
     cursor: help;
 }
 
@@ -1164,9 +1073,12 @@ input {
     font: inherit;
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
-    border: 0.0625rem solid hsl(284, 51%, 24%);
-    border: var(--border-width-100, 0.0625rem) solid
-        var(--theme-input-border, var(--clr-primary-700, hsl(284, 51%, 24%)));
+    border-style: solid;
+    border-color: hsl(284, 51%, 24%);
+    border-color: var(
+        --theme-input-border,
+        var(--clr-primary-700, hsl(284, 51%, 24%))
+    );
     border-radius: 0;
     background-color: hsl(0, 0%, 98%);
     background-color: var(
@@ -1495,7 +1407,6 @@ a.button-secondary,
         --theme-button-border-hover,
         var(--clr-secondary-700, hsl(169, 100%, 12%))
     );
-    --focus-ring-outline-offset: var(--border-width-200, 0.125rem);
     display: block;
     margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
@@ -1506,9 +1417,12 @@ a.button-secondary,
     font: inherit;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
-    border: 0.0625rem solid hsl(284, 51%, 24%);
-    border: var(--border-width-100, 0.0625rem) solid
-        var(--theme-button-border, var(--clr-primary-700, hsl(284, 51%, 24%)));
+    border-style: solid;
+    border-color: hsl(284, 51%, 24%);
+    border-color: var(
+        --theme-button-border,
+        var(--clr-primary-700, hsl(284, 51%, 24%))
+    );
     border-radius: 0;
     background-color: hsl(284, 51%, 24%);
     background-color: var(

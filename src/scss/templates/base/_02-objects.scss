@@ -5,7 +5,7 @@
 // @use 'sass:string';
 
 @use 'config';
-// @use 'tokens';
+@use 'tokens';
 
 @use 'lib' as *;
 
@@ -28,7 +28,7 @@
 
             margin-block: #{clamp(
                     var-mrg-soft('200'),
-                    #{$_vw_margin} * config.$margin_softener,
+                    #{$_vw_margin} * tokens.$margin_softener,
                     var-mrg-soft('800')
                 )};
 

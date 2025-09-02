@@ -1,12 +1,13 @@
 ---
-title: Global Template
+title: Global
 ---
 
 # Global Template
 
 {@include ./desc.docs.md}
 
-Forwards the package's [design tokens template](../design-tokens/index.docs.md).
+Forwards the package's [config](../../config/index.docs.md),
+[tokens](../../tokens/index.docs.md), and [library](../../lib/index.docs.md).
 
 
 ## General Use
@@ -41,8 +42,8 @@ In your main stylesheet, `index.scss`:
 In your partials, `*/*.scss`:
 
 ```scss
-@use 'config'; // if applicable
-@use 'tokens'; // if applicable
+@use '../config'; // if applicable
+@use '../tokens'; // if applicable
 
 @use 'pkg:@maddimathon/utility-sass/colour'; // replaces 'sass:color'
 @use 'pkg:@maddimathon/utility-sass/list'; // replaces 'sass:list'

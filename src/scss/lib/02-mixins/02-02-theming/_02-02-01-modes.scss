@@ -39,7 +39,10 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
     $args...
 ) {
     @if not $modeArgs {
-        $args: token-mode-validate-args($args..., $modes: $modes);
+        $args: token-mode-validate-args(
+            $modes: $modes,
+            $args...,
+        );
     } @else {
         $args: meta.keywords($args);
     }
@@ -167,8 +170,8 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
     @each $brightness in $_brightnessModes {
         // local args
         $brightness_args: token-mode-validate-args(
+            $modes: $brightness,
             $args...,
-            $modes: $brightness
         );
 
         $brightnessIsDefault: is-token-mode-default($brightness);
@@ -179,8 +182,8 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
         @each $contrast in $_contrastModes {
             // local args
             $contrast_args: token-mode-validate-args(
+                $modes: $contrast,
                 $args...,
-                $modes: $contrast
             );
 
             $contrastIsDefault: is-token-mode-default($contrast);
