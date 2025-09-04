@@ -1,0 +1,64 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use '../../../modules/colour';
+// @use '../../../modules/list';
+// @use '../../../modules/map';
+// @use '../../../modules/math';
+// @use '../../../modules/meta';
+// @use '../../../modules/selector';
+// @use '../../../modules/string';
+
+@use '../config';
+@use '../tokens';
+
+@use '../lib' as *;
+
+/* # OBJECTS
+ * ======================================================================== */
+
+#{config.$selector_root} {
+}
+
+#{config.$selector_body} {
+    @include config.incl-html {
+        $_vw_margin: 2.5vw;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+
+        margin-block: #{clamp(
+                var-mrg-soft('200'),
+                #{$_vw_margin} * tokens.$margin_softener,
+                var-mrg-soft('800')
+            )};
+
+        margin-inline: #{clamp(
+                var-mrg-firm('200'),
+                #{$_vw_margin},
+                var-mrg-firm('800')
+            )};
+
+        :where(& > *) {
+            width: min(#{var-width(page)}, 100%);
+        }
+    }
+}
+
+hr {
+    @include centre-callout-block(config.$include_html);
+    width: 100%;
+
+    @include config.incl-html {
+        margin-block-start: calc(
+            #{var-mrg-soft('400')} + #{var-mrg-firm('600')}
+        );
+    }
+    margin-block: #{var-mrg-firm('600')};
+    border: none;
+    border-block-end: currentColor solid 2px;
+}

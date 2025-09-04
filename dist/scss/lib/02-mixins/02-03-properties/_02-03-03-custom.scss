@@ -27,7 +27,7 @@
 ///
 @mixin tokens-custom($tokens: null) {
     //
-    $tokens: if($tokens == null, custom-token-map(), $tokens);
+    $tokens: map.flatten(if($tokens == null, token-map(), $tokens));
 
     @if list.length(map.keys($tokens)) >0 {
         /* #region Tokens - Misc. */

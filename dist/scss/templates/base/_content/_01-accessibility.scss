@@ -1,0 +1,26 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use '../../../modules/colour';
+// @use '../../../modules/list';
+// @use '../../../modules/map';
+// @use '../../../modules/math';
+// @use '../../../modules/meta';
+// @use '../../../modules/selector';
+// @use '../../../modules/string';
+
+// @use '../config';
+// @use '../tokens';
+
+@use '../lib' as *;
+
+/* # ACCESSIBILITY
+ * ======================================================================== */
+
+@include focus-visible {
+    outline: #{var-token('focus-ring-outline-width')} dashed
+        #{var-token('focus-ring-outline-color')};
+    outline-offset: #{var-token('focus-ring-outline-offset')};
+}

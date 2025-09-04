@@ -1,0 +1,27 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use '../../../modules/colour';
+// @use '../../../modules/list';
+@use '../../../modules/map';
+// @use '../../../modules/math';
+// @use '../../../modules/meta';
+// @use '../../../modules/selector';
+// @use '../../../modules/string';
+
+// @use '../config';
+
+$internal_customTokensDefault: () !default;
+
+$internal_customTokensDefault: map.merge(
+    (
+        'focus-ring': (
+            'outline-width': '200',
+            'outline-offset': '400',
+            'outline-color': AccentColor,
+        ),
+    ),
+    map.flatten($internal_customTokensDefault)
+);

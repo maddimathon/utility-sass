@@ -3,12 +3,12 @@
 /// @since ___PKG_VERSION___
 ///
 
-@use '../01-functions' as *;
-@use '../02-mixins' as *;
-
 @use '../../modules/math';
 @use '../../modules/meta';
 @use '../../modules/string';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
 
 // @use '03-00-abstracts' as *;
 // @use '03-01-accessibility' as *;
@@ -25,22 +25,23 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-button(
-    $accentClr: ActiveText,
+    $accentClr: ButtonText,
     $accentClr_active: ActiveText,
-    $accentClr_hover: ActiveText,
+    $accentClr_hover: ButtonText,
 
     $borderClr: ButtonBorder,
-    $borderClr_hover: ButtonBorder,
+    $borderClr_hover: SelectedItem,
     $borderClr_active: ButtonBorder,
 
     $background: ButtonFace,
-    $background_hover: ButtonFace,
+    $background_hover: SelectedItem,
     $background_active: ButtonFace,
 
     $color: ButtonText,
-    $color_hover: ButtonText,
+    $color_hover: SelectedItemText,
     $color_active: ButtonText,
 
+    $borderWidth: 0.125rem,
     $lh: '100',
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
     $opacity_hover: 0.875,
@@ -68,6 +69,7 @@
         $color_hover: $color_hover,
         $color_active: $color_active,
 
+        $borderWidth: $borderWidth,
         $lh: $lh,
         $margin: $margin,
         $opacity_hover: $opacity_hover,
@@ -91,9 +93,9 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-input(
-    $accentClr: ActiveText,
+    $accentClr: FieldText,
     $accentClr_active: ActiveText,
-    $accentClr_hover: ActiveText,
+    $accentClr_hover: FieldText,
 
     $background: Field,
     $background_active: Field,
@@ -111,6 +113,7 @@
 
     $display: block,
     $lh: '200',
+    $borderWidth: 0.0625rem,
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
     $opacity_hover: 1,
     $padding: var-mrg-soft('200') var-mrg-firm('200'),
@@ -127,8 +130,7 @@
     font: inherit;
     line-height: #{var-line-height($lh)};
 
-    border-style: solid;
-    border-color: #{$borderClr};
+    border: #{$borderWidth} solid #{$borderClr};
     border-radius: 0;
 
     @if $includeClrs {
@@ -199,9 +201,10 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-input-types(
-    $accentClr: ActiveText,
+    $accentClr: FieldText,
     $accentClr_active: ActiveText,
-    $accentClr_hover: ActiveText,
+    $accentClr_hover: FieldText,
+
     $includeBase: true,
 
     $includeClrs: true

@@ -18,6 +18,6 @@ export declare namespace JsonToScss {
      *
      * Quasi-sanitizes output by converting to JSON and back before interpreting.
      */
-    function convert(json: any, _indent?: string): string | undefined;
+    function convert<T_Type extends unknown>(json: T_Type, _indent?: string): string | undefined;
 }
 //# sourceMappingURL=JsonToScss.d.ts.map

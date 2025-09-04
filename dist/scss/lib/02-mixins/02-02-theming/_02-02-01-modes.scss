@@ -152,6 +152,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
 
     $includeDefault: true,
     $includeRegions: true,
+    $includeRegions_heading: '',
 
     $args...
 ) {
@@ -210,7 +211,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
 
             @at-root {
                 @if $includeRegions {
-                    /*#region #{$brightness} —— contrast #{$contrast} */
+                    /*#region #{$includeRegions_heading}#{$brightness} mode + #{$contrast} contrast */
                 }
 
                 @if $includeSelectors {
@@ -409,7 +410,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                 }
 
                 @if $includeRegions {
-                    /*#endregion #{$brightness} —— contrast #{$contrast} */
+                    /*#endregion #{$includeRegions_heading}#{$brightness} mode + #{$contrast} contrast */
                 }
             }
         }

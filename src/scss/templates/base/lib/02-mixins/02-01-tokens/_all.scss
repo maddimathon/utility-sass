@@ -1,0 +1,46 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use '../../../../../modules/colour';
+// @use '../../../../../modules/list';
+// @use '../../../../../modules/map';
+// @use '../../../../../modules/math';
+@use '../../../../../modules/meta';
+// @use '../../../../../modules/selector';
+// @use '../../../../../modules/string';
+
+// @use '../../../config';
+@use '../../../tokens';
+
+@use '../../../../../lib';
+
+@use '../../01-functions' as *;
+
+@use 'borders' as *;
+@use 'custom' as *;
+
+@mixin tokens-all(
+    $borderWidth: true,
+    $strokeRelative: true,
+    $custom: true,
+    $args...
+) {
+    $args: meta.keywords($args);
+
+    @include lib.tokens-all($custom: false, $args...);
+
+    // decoration
+    @if $borderWidth {
+        @include tokens-border-width;
+    }
+    @if $strokeRelative {
+        @include tokens-stroke-relative;
+    }
+
+    // custom
+    @if $custom {
+        @include tokens-custom;
+    }
+}

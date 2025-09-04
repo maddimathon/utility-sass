@@ -20,10 +20,8 @@ export var JsonToScss;
      * Quasi-sanitizes output by converting to JSON and back before interpreting.
      */
     function convert(json, _indent = '') {
-        json = JSON.parse(JSON.stringify(json));
-        const type = typeof json;
         let scss;
-        switch (type) {
+        switch (typeof json) {
             case 'boolean':
             case 'bigint':
             case 'number':
@@ -33,11 +31,18 @@ export var JsonToScss;
                 scss = convert_string(json);
                 break;
             case 'object':
+                // returns
+                if (!json) {
+                    return undefined;
+                }
+                json = JSON.parse(JSON.stringify(json));
                 scss = convert_object(json);
                 break;
+            case 'undefined':
+                return undefined;
         }
         // returns
-        if (!scss || !_indent.length) {
+        if (!scss?.length || !_indent.length) {
             return scss;
         }
         return scss.split(/\n/g).map(_line => _indent + _line).join('\n');
@@ -80,6 +85,13 @@ export var JsonToScss;
      * Converts a string for proper scss output.
      */
     function convert_string(input) {
+        // returns - if it is a colour string, it gets no quotes
+        if (input.match(/^#[0-9|A-H]{3,6}$/i)
+            || input.match(/^hsl\(\s*[\d\.]+\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+%?\s*\)$/i)
+            || input.match(/^(ok)?l(ch|ab)\(\s*[\d\.]+%?\s+\s*[\d\.]+\s+\s*[\d\.]+(deg)?\s*\)$/i)
+            || input.match(/^rgb\(\s*[\d\.]+\s*,\s*[\d\.]+\s*,\s*[\d\.]+\s*\)$/i)) {
+            return `${input}`;
+        }
         const hasSingleQuote = input.match(/'/) !== null;
         const hasDoubleQuote = input.match(/"/) !== null;
         // returns

@@ -15,7 +15,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function to-hsl($clr) {
+@function to-hsl($clr, $round: true) {
     @if meta.type-of($clr) != 'color' {
         @warn "$clr should be a colour (was #{meta.type-of( $clr )})";
         @return $clr;
@@ -23,16 +23,35 @@
 
     $clr: color.to-space($clr, hsl);
 
+    $rounding_factor: if($round, 1, 100);
+
     @return hsl(
-        math.round(color.channel($clr, 'hue', $space: hsl)),
+        calc(
+            math.round(
+                    color.channel($clr, 'hue', $space: hsl) * $rounding_factor
+                ) /
+                $rounding_factor
+        ),
         math.clamp(
             0%,
-            math.round(color.channel($clr, 'saturation', $space: hsl)),
+            calc(
+                math.round(
+                        color.channel($clr, 'saturation', $space: hsl) *
+                            $rounding_factor
+                    ) /
+                    $rounding_factor
+            ),
             100%
         ),
         math.clamp(
             0%,
-            math.round(color.channel($clr, 'lightness', $space: hsl)),
+            calc(
+                math.round(
+                        color.channel($clr, 'lightness', $space: hsl) *
+                            $rounding_factor
+                    ) /
+                    $rounding_factor
+            ),
             100%
         )
     );

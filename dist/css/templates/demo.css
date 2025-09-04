@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * Utility Sass Templates — Demo
+ * Utility Sass Template — Demo
  *
  * This stylesheet (and its partials) demonstrate a few of the core mixins.
  * Extend the scss to play with the config, or see the defaults in the css
@@ -203,7 +203,7 @@ body {
 }
 /* #endregion token-mode-all */
 /* ## token-mode-each ==================================== */
-/*#region light —— contrast average */
+/*#region light mode + average contrast */
 body {
     --token-mode-each-brightness: light;
     --token-mode-each-contrast: average;
@@ -215,8 +215,8 @@ body {
         --token-mode-each-contrast: average;
     }
 }
-/*#endregion light —— contrast average */
-/*#region light —— contrast low */
+/*#endregion light mode + average contrast */
+/*#region light mode + low contrast */
 @media (prefers-contrast: less) {
     body {
         --token-mode-each-brightness: light;
@@ -229,8 +229,8 @@ body {
         --token-mode-each-contrast: low;
     }
 }
-/*#endregion light —— contrast low */
-/*#region light —— contrast high */
+/*#endregion light mode + low contrast */
+/*#region light mode + high contrast */
 @media (prefers-contrast: more) {
     body {
         --token-mode-each-brightness: light;
@@ -243,8 +243,8 @@ body {
         --token-mode-each-contrast: high;
     }
 }
-/*#endregion light —— contrast high */
-/*#region light —— contrast forced-colors */
+/*#endregion light mode + high contrast */
+/*#region light mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     body {
         --token-mode-each-brightness: light;
@@ -258,32 +258,32 @@ body {
         --token-mode-each-contrast: forced-colors;
     }
 }
-/*#endregion light —— contrast forced-colors */
-/*#region dark —— contrast average */
+/*#endregion light mode + forced-colors contrast */
+/*#region dark mode + average contrast */
 @media (prefers-color-scheme: dark) {
     body {
         --token-mode-each-brightness: dark;
         --token-mode-each-contrast: average;
     }
 }
-/*#endregion dark —— contrast average */
-/*#region dark —— contrast low */
+/*#endregion dark mode + average contrast */
+/*#region dark mode + low contrast */
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
     body {
         --token-mode-each-brightness: dark;
         --token-mode-each-contrast: low;
     }
 }
-/*#endregion dark —— contrast low */
-/*#region dark —— contrast high */
+/*#endregion dark mode + low contrast */
+/*#region dark mode + high contrast */
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
     body {
         --token-mode-each-brightness: dark;
         --token-mode-each-contrast: high;
     }
 }
-/*#endregion dark —— contrast high */
-/*#region dark —— contrast forced-colors */
+/*#endregion dark mode + high contrast */
+/*#region dark mode + forced-colors contrast */
 @media (( prefers-color-scheme: dark ) and ( forced-colors: active )),
     (( prefers-color-scheme: dark ) and ( prefers-contrast: custom )) {
     body {
@@ -291,5 +291,5 @@ body {
         --token-mode-each-contrast: forced-colors;
     }
 }
-/*#endregion dark —— contrast forced-colors */
+/*#endregion dark mode + forced-colors contrast */
 /*! end of @maddimathon/utility-sass demo */

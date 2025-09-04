@@ -3,24 +3,7 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-@forward '../../../config' with (
-    $internal_supressCredit: true,
-
-    $selectorType_mode: 'null-selector' !default,
-    $selectorType_motion: 'null-selector' !default
-);
+@forward '_lib' hide $internal_supressCredit;
 
 @forward 'include';
-
-@use 'include';
-
-///
-/// Uses $include_html to conditionally include CSS suited for websites.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin incl-html {
-    @if include.$include_html {
-        @content;
-    }
-}
+@forward 'internal';

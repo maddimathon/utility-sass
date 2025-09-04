@@ -2,21 +2,14 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-// @use 'sass:string';
 
 @use 'config';
 
-@use 'lib' as *;
-
-/*!
- * Utility Sass Templates — Base
- * 
- * @maddimathon/utility-sass@___CURRENT_VERSION___
- * 
- * Author: Maddi Mathon (www.maddimathon.com)
- * License: MIT
- */
-
-@if config.$include_normalize {
-    @include normalize;
+@if not config.$internal_supressCredit {
+    /*!
+     * Utility Sass Template — Global
+     * 
+     * @maddimathon/utility-sass@___CURRENT_VERSION___
+     * License: MIT
+     */
 }

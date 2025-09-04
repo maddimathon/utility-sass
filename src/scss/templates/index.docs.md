@@ -1,7 +1,7 @@
 ---
 title: Templates
 children:
-  - ./global/index.docs.md
+  - ./base/index.docs.md
 ---
 
 # Sass (scss) Template Stylesheets
@@ -11,6 +11,6 @@ These are template stylesheets that use the [tokens](../tokens/index.docs.md),
 package.
 
 
-## [Global Template](./global/index.docs.md)
+## [Base Template](./base/index.docs.md)
 
-{@include ./global/desc.docs.md}
+{@include ./base/desc.docs.md}

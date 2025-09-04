@@ -1,0 +1,214 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use '../../../modules/colour';
+// @use '../../../modules/list';
+// @use '../../../modules/map';
+// @use '../../../modules/math';
+// @use '../../../modules/meta';
+// @use '../../../modules/selector';
+// @use '../../../modules/string';
+
+@use '../config';
+// @use '../tokens';
+
+@use '../lib' as *;
+
+/* # TYPOGRAPHY
+ * ======================================================================== */
+
+#{config.$selector_root} {
+    line-height: #{var-line-height('400')};
+}
+
+#{config.$selector_body} {
+}
+
+/* ## Typography - Inline ==================================== */
+
+strong,
+b {
+    font-weight: 700;
+
+    strong {
+        font-weight: 800;
+
+        strong {
+            font-weight: 900;
+        }
+    }
+}
+
+em,
+i {
+    font-style: italic;
+
+    em {
+        font-style: normal;
+
+        em {
+            font-style: italic;
+        }
+    }
+}
+
+a {
+    display: inline;
+    border: none;
+    text-decoration: underline #{var-stroke-relative('200')};
+    text-underline-offset: #{var-stroke-relative('600')};
+    color: LinkText;
+
+    /// STATES ///
+
+    &:visited {
+        color: VisitedText;
+    }
+
+    @include hover-focus-visible() {
+        text-decoration-color: transparent;
+        color: ActiveText;
+    }
+
+    &:active {
+        color: ActiveText;
+    }
+
+    /// EXCEPTIONS ///
+
+    &.no-style {
+        text-decoration: none;
+        font-weight: inherit;
+        color: inherit;
+    }
+
+    &[aria-disabled='true'] {
+        opacity: 0.875;
+        cursor: not-allowed;
+
+        @include colour-mode((high, forced-colors)) {
+            text-decoration-line: line-through;
+            opacity: 1;
+        }
+    }
+}
+
+abbr[title] {
+    text-decoration: dotted underline #{var-stroke-relative('400')};
+    cursor: help;
+}
+
+/* ## Typography - Block ==================================== */
+
+p {
+    margin-block: #{var-mrg-soft('400')} 0;
+
+    hr + & {
+        margin-block-start: 0;
+    }
+}
+
+blockquote {
+    @include centre-callout-block(config.$include_html);
+    margin-block: #{var-mrg-soft('400')} 0;
+    margin-block: #{var-mrg-soft('600')}
+        calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
+
+    > p {
+        &:first-child {
+            margin-block-start: 0;
+        }
+    }
+
+    > cite {
+        display: block;
+        margin-block: #{var-mrg-soft('400')} 0;
+        text-align: end;
+
+        &::before {
+            content: '— ';
+            color: currentColor;
+        }
+
+        color: color-mix(in srgb, currentColor 75%, transparent);
+
+        @include high-contrast {
+            color: color-mix(in srgb, currentColor 87.5%, transparent);
+        }
+
+        @include forced-colors {
+            color: currentColor;
+        }
+    }
+}
+
+pre {
+    @include centre-callout-block(config.$include_html);
+
+    margin-block: #{var-mrg-soft('400')} 0;
+    margin-block: #{var-mrg-soft('600')}
+        calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
+
+    width: fit-content;
+    max-width: min(80ch, 100%);
+    overflow: visible; /* otherwise the code block's focus ring is hidden (on scroll) */
+    font-size: #{var-fs(smaller-1)};
+
+    > code {
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: none;
+
+        width: fit-content;
+        max-width: 100%;
+        overflow: auto;
+    }
+}
+
+/* ## Typography - Headings ==================================== */
+
+.heading,
+%heading {
+    @include heading;
+}
+
+h1,
+.h1,
+%h1,
+%title {
+    @include heading('title');
+    // @include heading('1');
+}
+
+h2,
+.h2,
+%h2 {
+    @include heading('2');
+}
+
+h3,
+.h3,
+%h3 {
+    @include heading('3');
+}
+
+h4,
+.h4,
+%h4 {
+    @include heading('4');
+}
+
+h5,
+.h5,
+%h5 {
+    @include heading('5');
+}
+
+h6,
+.h6,
+%h6 {
+    @include heading('6');
+}

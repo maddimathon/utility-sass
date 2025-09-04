@@ -1,0 +1,76 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use '../../../../../modules/colour';
+// @use '../../../../../modules/list';
+@use '../../../../../modules/map';
+// @use '../../../../../modules/math';
+// @use '../../../../../modules/meta';
+// @use '../../../../../modules/selector';
+// @use '../../../../../modules/string';
+
+// @use '../../../config';
+@use '../../../tokens';
+
+@use '../../../../../lib';
+
+@use 'borders';
+
+$_flattened_customTokens: map.flatten(tokens.$customTokens);
+
+///
+/// Gets the value of a custom token.
+///
+/// @param {string} $slug  Flattened key for the token to fetch.
+///
+/// @since ___PKG_VERSION___
+///
+@function token-value($slug) {
+    // returns
+    @if not map.has-key($_flattened_customTokens, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in the flattened tokens.$customTokens";
+        @return $slug;
+    }
+
+    $value: map.get($_flattened_customTokens, '#{$slug}');
+
+    // returns
+    @if $slug == focus-ring-outline-width {
+        @return borders.border-width-value($value);
+    }
+
+    @if $slug == focus-ring-outline-offset {
+        @return borders.stroke-relative-value($value);
+    }
+
+    @return $value;
+}
+
+///
+/// Returns the flattened custom tokens map.
+///
+/// @since ___PKG_VERSION___
+///
+@function token-map() {
+    @return $_flattened_customTokens;
+}
+
+///
+/// Uses the custom tokens to print the appropriate var(...) with a fallback.
+///
+/// @param {string} $slug  Flattened key for the token to fetch.
+///
+/// @since ___PKG_VERSION___
+///
+@function var-token($slug) {
+    $fallback: token-value($slug);
+
+    // returns
+    @if #{$fallback} == #{$slug} {
+        @return var(--#{$slug});
+    }
+
+    @return var(--#{$slug}, #{$fallback});
+}

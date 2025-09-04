@@ -330,10 +330,12 @@
     @if list.length($selectorsList) < 1 {
         @return config.$selector_null;
     }
+
+    // TODO - consider moving this attr to the root element
     @if $parentIsRoot and $parentSelectorExists {
         @return selector.unify(
             $parentSelector,
-            (string.unquote(':has( #{$selectorsList} )'))
+            (string.unquote(':has( #{selector.nest(" > ", $selectorsList)} )'))
         );
     }
     @return $selectorsList;

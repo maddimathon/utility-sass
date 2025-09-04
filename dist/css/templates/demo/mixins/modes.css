@@ -1,9 +1,7 @@
-@charset "UTF-8";
 /*!
  * This stylesheet includes css generated using 
  * @maddimathon/utility-sass@0.1.0-alpha.draft
  * 
- * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
  */
 /* # MIXINS - MODES
@@ -94,7 +92,7 @@ body,
 }
 /* #endregion token-mode-all */
 /* ## token-mode-each ==================================== */
-/*#region light —— contrast average */
+/*#region light mode + average contrast */
 body,
 [data-brightness-mode="light"],
 [data-contrast-mode="average"],
@@ -110,8 +108,8 @@ body,
         --token-mode-each-contrast: average;
     }
 }
-/*#endregion light —— contrast average */
-/*#region light —— contrast low */
+/*#endregion light mode + average contrast */
+/*#region light mode + low contrast */
 [data-contrast-mode="low"],
 [data-brightness-mode="light"][data-contrast-mode="low"] {
     --token-mode-each-brightness: light;
@@ -137,8 +135,8 @@ body,
         --token-mode-each-contrast: low;
     }
 }
-/*#endregion light —— contrast low */
-/*#region light —— contrast high */
+/*#endregion light mode + low contrast */
+/*#region light mode + high contrast */
 [data-contrast-mode="high"],
 [data-brightness-mode="light"][data-contrast-mode="high"] {
     --token-mode-each-brightness: light;
@@ -164,8 +162,8 @@ body,
         --token-mode-each-contrast: high;
     }
 }
-/*#endregion light —— contrast high */
-/*#region light —— contrast forced-colors */
+/*#endregion light mode + high contrast */
+/*#region light mode + forced-colors contrast */
 [data-contrast-mode="forced-colors"],
 [data-brightness-mode="light"][data-contrast-mode="forced-colors"] {
     --token-mode-each-brightness: light;
@@ -192,8 +190,8 @@ body,
         --token-mode-each-contrast: forced-colors;
     }
 }
-/*#endregion light —— contrast forced-colors */
-/*#region dark —— contrast average */
+/*#endregion light mode + forced-colors contrast */
+/*#region dark mode + average contrast */
 [data-brightness-mode="dark"],
 [data-brightness-mode="dark"][data-contrast-mode="average"] {
     --token-mode-each-brightness: dark;
@@ -207,8 +205,8 @@ body,
         --token-mode-each-contrast: average;
     }
 }
-/*#endregion dark —— contrast average */
-/*#region dark —— contrast low */
+/*#endregion dark mode + average contrast */
+/*#region dark mode + low contrast */
 [data-brightness-mode="dark"][data-contrast-mode="low"] {
     --token-mode-each-brightness: dark;
     --token-mode-each-contrast: low;
@@ -232,8 +230,8 @@ body,
         --token-mode-each-contrast: low;
     }
 }
-/*#endregion dark —— contrast low */
-/*#region dark —— contrast high */
+/*#endregion dark mode + low contrast */
+/*#region dark mode + high contrast */
 [data-brightness-mode="dark"][data-contrast-mode="high"] {
     --token-mode-each-brightness: dark;
     --token-mode-each-contrast: high;
@@ -257,8 +255,8 @@ body,
         --token-mode-each-contrast: high;
     }
 }
-/*#endregion dark —— contrast high */
-/*#region dark —— contrast forced-colors */
+/*#endregion dark mode + high contrast */
+/*#region dark mode + forced-colors contrast */
 [data-brightness-mode="dark"][data-contrast-mode="forced-colors"] {
     --token-mode-each-brightness: dark;
     --token-mode-each-contrast: forced-colors;
@@ -283,4 +281,4 @@ body,
         --token-mode-each-contrast: forced-colors;
     }
 }
-/*#endregion dark —— contrast forced-colors */
+/*#endregion dark mode + forced-colors contrast */

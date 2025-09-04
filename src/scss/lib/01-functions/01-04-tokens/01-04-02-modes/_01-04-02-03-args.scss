@@ -106,22 +106,39 @@
             @debug '[determining if parent is root/body]';
         }
 
-        $simpleSelectors: ();
+        $simpleSels: ();
 
-        @each $sel in list.flatten($parentSelector) {
-            @each $s in string.split('#{$sel}', ' ') {
-                $simpleSelectors: list.join(
-                    $simpleSelectors,
-                    selector.simple-selectors($s),
-                    $separator: comma
+        @each $sel in selector.parse(#{$parentSelector}) {
+            //
+            @each $_s in string.split('#{$sel}', ' ') {
+                //
+                $_isACombinator: if(
+                    (
+                        string.index(#{$_s}, '>') or
+                            string.index(#{$_s}, '+') or
+                            string.index(#{$_s}, '~') or
+                            (string.length(#{$_s}) < 1)
+                    ),
+                    true,
+                    false
+                );
+
+                $simpleSels: list.join(
+                    $simpleSels,
+                    if(
+                        $_isACombinator,
+                        (#{$_s}),
+                        selector.simple-selectors($_s)
+                    ),
+                    comma
                 );
             }
         }
         @if $debug {
-            @debug '$simpleSelectors = #{meta.var-dump($simpleSelectors)}';
+            @debug '$simpleSels = #{meta.var-dump($simpleSels)}';
         }
 
-        @each $sel in $simpleSelectors {
+        @each $sel in $simpleSels {
             @if $debug {
                 @debug '  ~  ';
                 @debug '$sel = #{meta.var-dump($sel)}';

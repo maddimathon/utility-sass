@@ -3,55 +3,7 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-@use '../../../modules/map';
+@forward 'custom';
+@forward '_lib' hide $internal_customTokensDefault;
 
-@forward '../../../tokens' with (
-    $internal_customTokensDefault: (
-        'focus-ring': (
-            'outline-width': '400',
-            'outline-offset': '200',
-            'outline-color': currentColor,
-        ),
-    )
-    !default
-);
-
-@forward 'functions';
-
-@forward '01-colours';
-@forward '02-themes';
-
-@use '../config';
-
-@use '../../../tokens' as *;
-
-@use '01-colours' as *;
-@use '02-themes' as *;
-
-@use '../../../lib';
-
-@if config.$include_clr {
-    $customTokens: map.set($customTokens, clr, $colours);
-    $customTokens: map.set($customTokens, themes, $themes);
-}
-
-/// changing placeholders to vars
-
-// TODO - transfer to design-system-utilities
-$customTokens: map.set($customTokens, 'focus-ring-outline-width', 0.25rem);
-// clamp(
-//     lib.var-border-width('200'),
-//     lib.var-stroke-relative(
-//         map.get($customTokens, 'focus-ring-outline-width')
-//     ),
-//     lib.var-border-width('400')
-// )
-
-// TODO - transfer to design-system-utilities
-$customTokens: map.set($customTokens, 'focus-ring-outline-offset', 0.25rem);
-// min(
-//     lib.var-border-width(
-//         map.get($customTokens, 'focus-ring-outline-offset')
-//     ),
-//     lib.var-stroke-relative('400')
-// )
+@forward 'borders';

@@ -29,7 +29,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function custom-token-value($slug) {
+@function token-value($slug) {
     // returns
     @if not map.has-key($_flattened_customTokens, '#{$slug}') {
         @warn "$slug '#{$slug}' was not a key in the flattened tokens.$customTokens";
@@ -44,7 +44,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function custom-token-map() {
+@function token-map() {
     @return $_flattened_customTokens;
 }
 
@@ -55,12 +55,13 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function var-custom-token($slug) {
+@function var-token($slug) {
+    $fallback: token-value($slug);
+
     // returns
-    @if not map.has-key($_flattened_customTokens, '#{$slug}') {
-        @warn "$slug '#{$slug}' was not a key in the flattened tokens.$customTokens";
+    @if #{$fallback} == #{$slug} {
         @return var(--#{$slug});
     }
 
-    @return var(--#{$slug}, #{map.get($_flattened_customTokens, '#{$slug}')});
+    @return var(--#{$slug}, #{$fallback});
 }

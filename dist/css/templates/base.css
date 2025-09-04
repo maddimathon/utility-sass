@@ -1,12 +1,263 @@
 @charset "UTF-8";
 /*!
- * Utility Sass Templates — Base
+ * Utility Sass Template — Global
  * 
  * @maddimathon/utility-sass@0.1.0-alpha.draft
- * 
- * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
  */
+/* #region Normalize */
+/*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
+/*
+Document
+========
+*/
+/**
+Use a better box model (opinionated).
+*/
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+:root {
+    /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+    /* font-family:
+      system-ui,
+      'Segoe UI',
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji'; */
+    line-height: 1.15; /* 1. Correct the line height in all browsers. */
+    -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
+}
+
+/*
+Sections
+========
+*/
+body {
+    margin: 0; /* Remove the margin in all browsers. */
+}
+
+/*
+Text-level semantics
+====================
+*/
+/**
+Add the correct font weight in Chrome and Safari.
+*/
+b,
+strong {
+    font-weight: bolder;
+}
+
+/**
+1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+2. Correct the odd 'em' font sizing in all browsers.
+*/
+code,
+kbd,
+samp,
+pre {
+    /* font-family:
+      ui-monospace,
+      SFMono-Regular,
+      Consolas,
+      'Liberation Mono',
+      Menlo,
+      monospace; */ /* 1 */
+    font-size: 1em; /* 2 */
+}
+
+/**
+Add the correct font size in all browsers.
+*/
+small {
+    font-size: 80%;
+}
+
+/**
+Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
+*/
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+/*
+Tabular data
+============
+*/
+/**
+Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016)
+*/
+table {
+    border-color: currentcolor;
+}
+
+/*
+Forms
+=====
+*/
+/**
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+*/
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 1 */
+    line-height: 1.15; /* 1 */
+    margin: 0; /* 2 */
+}
+
+/**
+Correct the inability to style clickable types in iOS and Safari.
+*/
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+}
+
+/**
+Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
+*/
+legend {
+    padding: 0;
+}
+
+/**
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+progress {
+    vertical-align: baseline;
+}
+
+/**
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    height: auto;
+}
+
+/**
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+[type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    outline-offset: -2px; /* 2 */
+}
+
+/**
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/**
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to 'inherit' in Safari.
+*/
+::-webkit-file-upload-button {
+    -webkit-appearance: button; /* 1 */
+    font: inherit; /* 2 */
+}
+
+/*
+Interactive
+===========
+*/
+/*
+Add the correct display in Chrome and Safari.
+*/
+summary {
+    display: list-item;
+}
+
+/*! end of modern-normalize */
+:root {
+    color-scheme: light, dark;
+}
+:root:has(> [data-brightness-mode="light"]) {
+    color-scheme: light;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+    }
+}
+:root:has(> [data-brightness-mode="dark"]) {
+    color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+}
+
+:root {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    font-size: 115%;
+}
+@media (min-width: 50em) {
+    :root {
+        font-size: 105%;
+    }
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+        monospace;
+}
+
+/* #endregion Normalize */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
 /* #region Tokens - Width */
@@ -86,579 +337,42 @@
 }
 
 /* #endregion Tokens - Line Heights */
+/* #region Tokens - Border Width */
+:root {
+    --border-width-100: 0.0625rem;
+    --border-width-200: 0.125rem;
+    --border-width-300: 0.1875rem;
+    --border-width-400: 0.25rem;
+}
+
+/* #endregion Tokens - Border Width */
+/* #region Tokens - Stroke Relative */
+:root {
+    --stroke-relative-100: 0.03125em;
+    --stroke-relative-200: 0.0625em;
+    --stroke-relative-400: 0.125em;
+    --stroke-relative-600: 0.1875em;
+    --stroke-relative-800: 0.25em;
+    --stroke-relative-900: 0.375em;
+}
+
+/* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Misc. */
 :root {
-    --focus-ring-outline-width: 0.25rem;
-    --focus-ring-outline-offset: 0.25rem;
-    --focus-ring-outline-color: currentColor;
+    --focus-ring-outline-width: 0.125rem;
+    --focus-ring-outline-offset: 0.125em;
+    --focus-ring-outline-color: AccentColor;
 }
 
 /* #endregion Tokens - Misc. */
-/* ## TOKENS - COLOURS ==================================== */
-/* #region Tokens - Colours */
-body {
-    --clr-base-100: hsl(0, 0%, 98%);
-    --clr-base-200: hsl(0, 0%, 84%);
-    --clr-base-300: hsl(0, 0%, 70%);
-    --clr-base-400: hsl(0, 0%, 57%);
-    --clr-base-500: hsl(0, 0%, 44%);
-    --clr-base-600: hsl(0, 0%, 32%);
-    --clr-base-700: hsl(0, 0%, 21%);
-    --clr-base-800: hsl(0, 0%, 11%);
-    --clr-base-900: hsl(0, 0%, 2%);
-    --clr-primary-100: hsl(281, 81%, 97%);
-    --clr-primary-200: hsl(281, 57%, 86%);
-    --clr-primary-300: hsl(280, 53%, 76%);
-    --clr-primary-400: hsl(280, 51%, 65%);
-    --clr-primary-500: hsl(281, 50%, 53%);
-    --clr-primary-600: hsl(283, 46%, 38%);
-    --clr-primary-700: hsl(284, 51%, 24%);
-    --clr-primary-800: hsl(286, 63%, 11%);
-    --clr-primary-900: hsl(281, 85%, 2%);
-    --clr-secondary-100: hsl(146, 72%, 95%);
-    --clr-secondary-200: hsl(150, 36%, 80%);
-    --clr-secondary-300: hsl(154, 32%, 66%);
-    --clr-secondary-400: hsl(158, 31%, 50%);
-    --clr-secondary-500: hsl(166, 90%, 29%);
-    --clr-secondary-600: hsl(168, 100%, 19%);
-    --clr-secondary-700: hsl(169, 100%, 12%);
-    --clr-secondary-800: hsl(169, 100%, 6%);
-    --clr-secondary-900: hsl(166, 100%, 1%);
-    --clr-active-100: hsl(350, 83%, 97%);
-    --clr-active-200: hsl(351, 62%, 87%);
-    --clr-active-300: hsl(351, 56%, 76%);
-    --clr-active-400: hsl(351, 52%, 66%);
-    --clr-active-500: hsl(350, 49%, 54%);
-    --clr-active-600: hsl(352, 45%, 39%);
-    --clr-active-700: hsl(353, 51%, 25%);
-    --clr-active-800: hsl(354, 68%, 12%);
-    --clr-active-900: hsl(357, 100%, 2%);
-}
-
-@media (prefers-color-scheme: light) {
-    body {
-        --clr-base-100: hsl(0, 0%, 98%);
-        --clr-base-200: hsl(0, 0%, 84%);
-        --clr-base-300: hsl(0, 0%, 70%);
-        --clr-base-400: hsl(0, 0%, 57%);
-        --clr-base-500: hsl(0, 0%, 44%);
-        --clr-base-600: hsl(0, 0%, 32%);
-        --clr-base-700: hsl(0, 0%, 21%);
-        --clr-base-800: hsl(0, 0%, 11%);
-        --clr-base-900: hsl(0, 0%, 2%);
-        --clr-primary-100: hsl(281, 81%, 97%);
-        --clr-primary-200: hsl(281, 57%, 86%);
-        --clr-primary-300: hsl(280, 53%, 76%);
-        --clr-primary-400: hsl(280, 51%, 65%);
-        --clr-primary-500: hsl(281, 50%, 53%);
-        --clr-primary-600: hsl(283, 46%, 38%);
-        --clr-primary-700: hsl(284, 51%, 24%);
-        --clr-primary-800: hsl(286, 63%, 11%);
-        --clr-primary-900: hsl(281, 85%, 2%);
-        --clr-secondary-100: hsl(146, 72%, 95%);
-        --clr-secondary-200: hsl(150, 36%, 80%);
-        --clr-secondary-300: hsl(154, 32%, 66%);
-        --clr-secondary-400: hsl(158, 31%, 50%);
-        --clr-secondary-500: hsl(166, 90%, 29%);
-        --clr-secondary-600: hsl(168, 100%, 19%);
-        --clr-secondary-700: hsl(169, 100%, 12%);
-        --clr-secondary-800: hsl(169, 100%, 6%);
-        --clr-secondary-900: hsl(166, 100%, 1%);
-        --clr-active-100: hsl(350, 83%, 97%);
-        --clr-active-200: hsl(351, 62%, 87%);
-        --clr-active-300: hsl(351, 56%, 76%);
-        --clr-active-400: hsl(351, 52%, 66%);
-        --clr-active-500: hsl(350, 49%, 54%);
-        --clr-active-600: hsl(352, 45%, 39%);
-        --clr-active-700: hsl(353, 51%, 25%);
-        --clr-active-800: hsl(354, 68%, 12%);
-        --clr-active-900: hsl(357, 100%, 2%);
-    }
-}
-@media (prefers-color-scheme: dark) {
-    body {
-        --clr-base-100: hsl(0, 0%, 2%);
-        --clr-base-200: hsl(0, 0%, 11%);
-        --clr-base-300: hsl(0, 0%, 21%);
-        --clr-base-400: hsl(0, 0%, 32%);
-        --clr-base-500: hsl(0, 0%, 44%);
-        --clr-base-600: hsl(0, 0%, 57%);
-        --clr-base-700: hsl(0, 0%, 70%);
-        --clr-base-800: hsl(0, 0%, 84%);
-        --clr-base-900: hsl(0, 0%, 98%);
-        --clr-primary-100: hsl(281, 85%, 2%);
-        --clr-primary-200: hsl(286, 63%, 11%);
-        --clr-primary-300: hsl(284, 51%, 24%);
-        --clr-primary-400: hsl(283, 46%, 38%);
-        --clr-primary-500: hsl(281, 50%, 53%);
-        --clr-primary-600: hsl(280, 51%, 65%);
-        --clr-primary-700: hsl(280, 53%, 76%);
-        --clr-primary-800: hsl(281, 57%, 86%);
-        --clr-primary-900: hsl(281, 81%, 97%);
-        --clr-secondary-100: hsl(166, 100%, 1%);
-        --clr-secondary-200: hsl(169, 100%, 6%);
-        --clr-secondary-300: hsl(169, 100%, 12%);
-        --clr-secondary-400: hsl(168, 100%, 19%);
-        --clr-secondary-500: hsl(166, 90%, 29%);
-        --clr-secondary-600: hsl(158, 31%, 50%);
-        --clr-secondary-700: hsl(154, 32%, 66%);
-        --clr-secondary-800: hsl(150, 36%, 80%);
-        --clr-secondary-900: hsl(146, 72%, 95%);
-        --clr-active-100: hsl(357, 100%, 2%);
-        --clr-active-200: hsl(354, 68%, 12%);
-        --clr-active-300: hsl(353, 51%, 25%);
-        --clr-active-400: hsl(352, 45%, 39%);
-        --clr-active-500: hsl(350, 49%, 54%);
-        --clr-active-600: hsl(351, 52%, 66%);
-        --clr-active-700: hsl(351, 56%, 76%);
-        --clr-active-800: hsl(351, 62%, 87%);
-        --clr-active-900: hsl(350, 83%, 97%);
-    }
-}
-/* #endregion Tokens - Colours */
-/* ## TOKENS - THEMES ==================================== */
-/*#region light —— contrast average */
-body {
-    --theme-background: var(--clr-base-100, hsl(0, 0%, 98%));
-    --theme-text: var(--clr-base-800, hsl(0, 0%, 11%));
-    --theme-text-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-    --theme-text-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-    --theme-text-active: var(--clr-active-700, hsl(353, 51%, 25%));
-    --theme-ui: var(--clr-base-800, hsl(0, 0%, 11%));
-    --theme-ui-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-    --theme-ui-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-    --theme-ui-active: var(--clr-active-700, hsl(353, 51%, 25%));
-    --theme-selection-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-    --theme-selection-text: var(--clr-primary-100, hsl(281, 81%, 97%));
-    --theme-link: var(--clr-primary-700, hsl(284, 51%, 24%));
-    --theme-link-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-    --theme-link-active: var(--clr-active-700, hsl(353, 51%, 25%));
-    --theme-button-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-    --theme-button-bg-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-    --theme-button-bg-active: var(--clr-active-700, hsl(353, 51%, 25%));
-    --theme-button-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-    --theme-button-border-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-    --theme-button-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-    --theme-button-text: var(--clr-base-100, hsl(0, 0%, 98%));
-    --theme-button-text-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-    --theme-button-text-active: var(--clr-base-100, hsl(0, 0%, 98%));
-    --theme-input-bg: var(--clr-base-100, hsl(0, 0%, 98%));
-    --theme-input-bg-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-    --theme-input-bg-active: var(--clr-base-100, hsl(0, 0%, 98%));
-    --theme-input-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-    --theme-input-border-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-    --theme-input-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-    --theme-input-text: var(--clr-base-800, hsl(0, 0%, 11%));
-    --theme-input-text-hover: var(--clr-base-800, hsl(0, 0%, 11%));
-    --theme-input-text-active: var(--clr-base-800, hsl(0, 0%, 11%));
-    --theme-input-placeholder: var(--clr-base-800, hsl(0, 0%, 11%));
-}
-
-@media (prefers-color-scheme: light) {
-    body {
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-text-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-text-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-text-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-ui-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-selection-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-selection-text: var(--clr-primary-100, hsl(281, 81%, 97%));
-        --theme-link: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-link-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-link-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-bg-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-button-bg-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-button-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-text: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-input-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-input-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-input-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-hover: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-active: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-placeholder: var(--clr-base-800, hsl(0, 0%, 11%));
-    }
-}
-/*#endregion light —— contrast average */
-/*#region light —— contrast low */
-@media (prefers-contrast: less) {
-    body {
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-text-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-text-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-text-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-ui-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-selection-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-selection-text: var(--clr-primary-100, hsl(281, 81%, 97%));
-        --theme-link: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-link-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-link-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-bg-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-button-bg-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-button-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-text: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-input-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-input-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-input-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-hover: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-active: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-placeholder: var(--clr-base-800, hsl(0, 0%, 11%));
-    }
-}
-@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
-    body {
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-text-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-text-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-text-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-ui-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-selection-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-selection-text: var(--clr-primary-100, hsl(281, 81%, 97%));
-        --theme-link: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-link-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-link-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-bg-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-button-bg-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-button-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-text: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-input-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-input-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-input-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-hover: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-active: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-placeholder: var(--clr-base-800, hsl(0, 0%, 11%));
-    }
-}
-/*#endregion light —— contrast low */
-/*#region light —— contrast high */
-@media (prefers-contrast: more) {
-    body {
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-text-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-text-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-text-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-ui-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-selection-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-selection-text: var(--clr-primary-100, hsl(281, 81%, 97%));
-        --theme-link: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-link-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-link-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-bg-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-button-bg-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-button-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-text: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-input-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-input-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-input-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-hover: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-active: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-placeholder: var(--clr-base-800, hsl(0, 0%, 11%));
-    }
-}
-@media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
-    body {
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-text-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-text-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-text-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-ui-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-selection-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-selection-text: var(--clr-primary-100, hsl(281, 81%, 97%));
-        --theme-link: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-link-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-link-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-bg: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-bg-hover: var(--clr-secondary-700, hsl(169, 100%, 12%));
-        --theme-button-bg-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-button-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-button-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-button-text: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-button-text-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-hover: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-bg-active: var(--clr-base-100, hsl(0, 0%, 98%));
-        --theme-input-border: var(--clr-primary-700, hsl(284, 51%, 24%));
-        --theme-input-border-hover: var(
-            --clr-secondary-700,
-            hsl(169, 100%, 12%)
-        );
-        --theme-input-border-active: var(--clr-active-700, hsl(353, 51%, 25%));
-        --theme-input-text: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-hover: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-text-active: var(--clr-base-800, hsl(0, 0%, 11%));
-        --theme-input-placeholder: var(--clr-base-800, hsl(0, 0%, 11%));
-    }
-}
-/*#endregion light —— contrast high */
-/*#region light —— contrast forced-colors */
-/*#endregion light —— contrast forced-colors */
-/*#region dark —— contrast average */
-@media (prefers-color-scheme: dark) {
-    body {
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-text: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-text-primary: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-text-secondary: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-text-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-ui-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-selection-bg: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-selection-text: var(--clr-primary-100, hsl(281, 85%, 2%));
-        --theme-link: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-link-hover: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-link-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-button-bg: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-button-bg-hover: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-button-bg-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-button-border: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-button-border-hover: var(
-            --clr-secondary-700,
-            hsl(154, 32%, 66%)
-        );
-        --theme-button-border-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-button-text: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-button-text-hover: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-button-text-active: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-bg: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-bg-hover: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-bg-active: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-border: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-input-border-hover: var(
-            --clr-secondary-700,
-            hsl(154, 32%, 66%)
-        );
-        --theme-input-border-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-input-text: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-input-text-hover: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-input-text-active: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-input-placeholder: var(--clr-base-800, hsl(0, 0%, 84%));
-    }
-}
-/*#endregion dark —— contrast average */
-/*#region dark —— contrast low */
-@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
-    body {
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-text: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-text-primary: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-text-secondary: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-text-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-ui-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-selection-bg: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-selection-text: var(--clr-primary-100, hsl(281, 85%, 2%));
-        --theme-link: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-link-hover: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-link-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-button-bg: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-button-bg-hover: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-button-bg-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-button-border: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-button-border-hover: var(
-            --clr-secondary-700,
-            hsl(154, 32%, 66%)
-        );
-        --theme-button-border-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-button-text: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-button-text-hover: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-button-text-active: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-bg: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-bg-hover: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-bg-active: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-border: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-input-border-hover: var(
-            --clr-secondary-700,
-            hsl(154, 32%, 66%)
-        );
-        --theme-input-border-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-input-text: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-input-text-hover: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-input-text-active: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-input-placeholder: var(--clr-base-800, hsl(0, 0%, 84%));
-    }
-}
-/*#endregion dark —— contrast low */
-/*#region dark —— contrast high */
-@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
-    body {
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-text: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-text-primary: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-text-secondary: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-text-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-ui-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-selection-bg: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-selection-text: var(--clr-primary-100, hsl(281, 85%, 2%));
-        --theme-link: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-link-hover: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-link-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-button-bg: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-button-bg-hover: var(--clr-secondary-700, hsl(154, 32%, 66%));
-        --theme-button-bg-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-button-border: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-button-border-hover: var(
-            --clr-secondary-700,
-            hsl(154, 32%, 66%)
-        );
-        --theme-button-border-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-button-text: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-button-text-hover: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-button-text-active: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-bg: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-bg-hover: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-bg-active: var(--clr-base-100, hsl(0, 0%, 2%));
-        --theme-input-border: var(--clr-primary-700, hsl(280, 53%, 76%));
-        --theme-input-border-hover: var(
-            --clr-secondary-700,
-            hsl(154, 32%, 66%)
-        );
-        --theme-input-border-active: var(--clr-active-700, hsl(351, 56%, 76%));
-        --theme-input-text: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-input-text-hover: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-input-text-active: var(--clr-base-800, hsl(0, 0%, 84%));
-        --theme-input-placeholder: var(--clr-base-800, hsl(0, 0%, 84%));
-    }
-}
-/*#endregion dark —— contrast high */
-/*#region dark —— contrast forced-colors */
-/*#endregion dark —— contrast forced-colors */
-/*#region contrast forced-colors */
-@media (forced-colors: active), (prefers-contrast: custom) {
-    body {
-        --theme-background: Canvas !important;
-        --theme-text: CanvasText !important;
-        --theme-text-primary: CanvasText !important;
-        --theme-text-secondary: CanvasText !important;
-        --theme-text-active: CanvasText !important;
-        --theme-ui: CanvasText !important;
-        --theme-ui-primary: CanvasText !important;
-        --theme-ui-secondary: CanvasText !important;
-        --theme-ui-active: CanvasText !important;
-        --theme-selection-bg: Highlight !important;
-        --theme-selection-text: HighlightText !important;
-        --theme-link: LinkText !important;
-        --theme-link-hover: ActiveText !important;
-        --theme-link-active: ActiveText !important;
-        --theme-button-background: ButtonFace !important;
-        --theme-button-background-hover: SelectedItem !important;
-        --theme-button-background-active: ButtonFace !important;
-        --theme-button-border: ButtonBorder !important;
-        --theme-button-border-hover: SelectedItem !important;
-        --theme-button-border-active: ButtonBorder !important;
-        --theme-button-text: ButtonText !important;
-        --theme-button-text-hover: SelectedItemText !important;
-        --theme-button-text-active: ButtonText !important;
-        --theme-input-background: Field !important;
-        --theme-input-background-hover: SelectedItem !important;
-        --theme-input-background-active: Field !important;
-        --theme-input-border: FieldText !important;
-        --theme-input-border-hover: SelectedItem !important;
-        --theme-input-border-active: FieldText !important;
-        --theme-input-text: FieldText !important;
-        --theme-input-text-hover: SelectedItemText !important;
-        --theme-input-text-active: FieldText !important;
-    }
-}
-/*#endregion contrast forced-colors */
 /* # ACCESSIBILITY
  * ======================================================================== */
 :focus {
-    outline: 0.25rem dashed currentColor;
-    outline: var(--focus-ring-outline-width, 0.25rem) dashed
-        var(--focus-ring-outline-color, currentColor);
-    outline-offset: 0.25rem;
-    outline-offset: var(--focus-ring-outline-offset, 0.25rem);
+    outline: 0.125rem dashed AccentColor;
+    outline: var(--focus-ring-outline-width, 0.125rem) dashed
+        var(--focus-ring-outline-color, AccentColor);
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
 
 /* # OBJECTS
@@ -678,46 +392,9 @@ hr {
 
 /* # TYPOGRAPHY
  * ======================================================================== */
-:root,
-body {
-    background-color: hsl(0, 0%, 98%);
-    background-color: var(
-        --theme-background,
-        var(--clr-base-100, hsl(0, 0%, 98%))
-    );
-    color: hsl(0, 0%, 11%);
-    color: var(--theme-text, var(--clr-base-800, hsl(0, 0%, 11%)));
-}
-
 :root {
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
-}
-
-::-moz-selection {
-    background-color: hsl(284, 51%, 24%);
-    background-color: var(
-        --theme-selection-bg,
-        var(--clr-primary-700, hsl(284, 51%, 24%))
-    );
-    color: hsl(281, 81%, 97%);
-    color: var(
-        --theme-selection-text,
-        var(--clr-primary-100, hsl(281, 81%, 97%))
-    );
-}
-
-::selection {
-    background-color: hsl(284, 51%, 24%);
-    background-color: var(
-        --theme-selection-bg,
-        var(--clr-primary-700, hsl(284, 51%, 24%))
-    );
-    color: hsl(281, 81%, 97%);
-    color: var(
-        --theme-selection-text,
-        var(--clr-primary-100, hsl(281, 81%, 97%))
-    );
 }
 
 /* ## Typography - Inline ==================================== */
@@ -750,43 +427,29 @@ i em em {
 a {
     display: inline;
     border: none;
-    text-decoration: underline;
-    color: hsl(284, 51%, 24%);
-    color: var(--theme-link, var(--clr-primary-700, hsl(284, 51%, 24%)));
+    -webkit-text-decoration: underline 0.0625em;
+    text-decoration: underline 0.0625em;
+    -webkit-text-decoration: underline var(--stroke-relative-200, 0.0625em);
+    text-decoration: underline var(--stroke-relative-200, 0.0625em);
+    text-underline-offset: 0.1875em;
+    text-underline-offset: var(--stroke-relative-600, 0.1875em);
+    color: LinkText;
+}
+a:visited {
+    color: VisitedText;
 }
 a:focus {
-    --focus-ring-outline-color: var(
-        --theme-link-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    color: hsl(169, 100%, 12%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
     text-decoration-color: transparent;
+    color: ActiveText;
 }
 
 a:hover {
-    --focus-ring-outline-color: var(
-        --theme-link-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    color: hsl(169, 100%, 12%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
     text-decoration-color: transparent;
+    color: ActiveText;
 }
 
 a:active {
-    --focus-ring-outline-color: var(
-        --theme-link-active,
-        var(--clr-active-700, hsl(353, 51%, 25%))
-    );
-    color: hsl(353, 51%, 25%);
-    color: var(--theme-link-active, var(--clr-active-700, hsl(353, 51%, 25%)));
+    color: ActiveText;
 }
 a.no-style {
     text-decoration: none;
@@ -797,10 +460,27 @@ a[aria-disabled="true"] {
     opacity: 0.875;
     cursor: not-allowed;
 }
+[data-contrast-mode="high"] a[aria-disabled="true"],
+[data-contrast-mode="forced-colors"] a[aria-disabled="true"] {
+    text-decoration-line: line-through;
+    opacity: 1;
+}
+
+@media (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    a[aria-disabled="true"] {
+        text-decoration-line: line-through;
+        opacity: 1;
+    }
+}
 
 abbr[title] {
-    -webkit-text-decoration: dotted underline;
-    text-decoration: dotted underline;
+    -webkit-text-decoration: dotted underline 0.125em;
+    text-decoration: dotted underline 0.125em;
+    -webkit-text-decoration: dotted underline
+        var(--stroke-relative-400, 0.125em);
+    text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
     cursor: help;
 }
 
@@ -821,15 +501,45 @@ blockquote {
     margin-top: 0.8125rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
     margin-bottom: 0;
+    margin-top: 1.4375rem;
+    margin-bottom: calc(1.4375rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.4375rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.4375rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+}
+blockquote > p:first-child {
+    margin-top: 0;
+}
+blockquote > cite {
+    display: block;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    text-align: right;
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+blockquote > cite::before {
+    content: "— ";
+    color: currentColor;
+}
+[data-contrast-mode="high"] blockquote > cite {
+    color: color-mix(in srgb, currentColor 87.5%, transparent);
 }
 
-pre,
-code {
-    --focus-ring-outline-color: var(
-        --theme-text-secondary,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    position: relative;
+@media (prefers-contrast: more) {
+    blockquote > cite {
+        color: color-mix(in srgb, currentColor 87.5%, transparent);
+    }
+}
+[data-contrast-mode="forced-colors"] blockquote > cite {
+    color: currentColor;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    blockquote > cite {
+        color: currentColor;
+    }
 }
 
 pre {
@@ -839,10 +549,16 @@ pre {
     margin-top: 0.8125rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
     margin-bottom: 0;
+    margin-top: 1.4375rem;
+    margin-bottom: calc(1.4375rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.4375rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.4375rem) - var(--mrg-soft-400, 0.8125rem)
+    );
     width: -moz-fit-content;
     width: fit-content;
     max-width: min(80ch, 100%);
-    overflow: visible; /* otherwise the code block's focus ring is hidden */
+    overflow: visible; /* otherwise the code block's focus ring is hidden (on scroll) */
     font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
@@ -973,8 +689,6 @@ ul ol ol,
 ul ol ul,
 ul ul ol,
 ul ul ul {
-    line-height: 1.90625;
-    line-height: var(--line-height-500, 1.90625);
     font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
@@ -1060,10 +774,6 @@ fieldset legend {
 textarea,
 select,
 input {
-    --focus-ring-outline-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
     display: block;
     margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
@@ -1073,210 +783,105 @@ input {
     font: inherit;
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
-    border-style: solid;
-    border-color: hsl(284, 51%, 24%);
-    border-color: var(
-        --theme-input-border,
-        var(--clr-primary-700, hsl(284, 51%, 24%))
-    );
+    border: 0.0625rem solid FieldText;
     border-radius: 0;
-    background-color: hsl(0, 0%, 98%);
-    background-color: var(
-        --theme-input-bg,
-        var(--clr-base-100, hsl(0, 0%, 98%))
-    );
-    color: hsl(0, 0%, 11%);
-    color: var(--theme-input-text, var(--clr-base-800, hsl(0, 0%, 11%)));
-    accent-color: hsl(284, 51%, 24%);
-    accent-color: var(
-        --theme-input-border,
-        var(--clr-primary-700, hsl(284, 51%, 24%))
-    );
+    background-color: Field;
+    color: FieldText;
+    accent-color: FieldText;
 }
 textarea:focus,
 select:focus,
 input:focus {
-    background-color: hsl(0, 0%, 98%);
-    background-color: var(
-        --theme-input-bg-hover,
-        var(--clr-base-100, hsl(0, 0%, 98%))
-    );
-    border-color: hsl(169, 100%, 12%);
-    border-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    color: hsl(0, 0%, 11%);
-    color: var(--theme-input-text-hover, var(--clr-base-800, hsl(0, 0%, 11%)));
-    accent-color: hsl(169, 100%, 12%);
-    accent-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: FieldText;
 }
 
 textarea:hover,
 select:hover,
 input:hover {
-    background-color: hsl(0, 0%, 98%);
-    background-color: var(
-        --theme-input-bg-hover,
-        var(--clr-base-100, hsl(0, 0%, 98%))
-    );
-    border-color: hsl(169, 100%, 12%);
-    border-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    color: hsl(0, 0%, 11%);
-    color: var(--theme-input-text-hover, var(--clr-base-800, hsl(0, 0%, 11%)));
-    accent-color: hsl(169, 100%, 12%);
-    accent-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: FieldText;
 }
 
 textarea:focus-within,
 select:focus-within,
 input:focus-within {
-    background-color: hsl(0, 0%, 98%);
-    background-color: var(
-        --theme-input-bg-hover,
-        var(--clr-base-100, hsl(0, 0%, 98%))
-    );
-    border-color: hsl(169, 100%, 12%);
-    border-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    color: hsl(0, 0%, 11%);
-    color: var(--theme-input-text-hover, var(--clr-base-800, hsl(0, 0%, 11%)));
-    accent-color: hsl(169, 100%, 12%);
-    accent-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: FieldText;
 }
 
 textarea:active,
 select:active,
 input:active {
-    background-color: hsl(0, 0%, 98%);
-    background-color: var(
-        --theme-input-bg-active,
-        var(--clr-base-100, hsl(0, 0%, 98%))
-    );
-    border-color: hsl(353, 51%, 25%);
-    border-color: var(
-        --theme-input-border-active,
-        var(--clr-active-700, hsl(353, 51%, 25%))
-    );
-    color: hsl(0, 0%, 11%);
-    color: var(--theme-input-text-active, var(--clr-base-800, hsl(0, 0%, 11%)));
-    accent-color: hsl(353, 51%, 25%);
-    accent-color: var(
-        --theme-input-border-active,
-        var(--clr-active-700, hsl(353, 51%, 25%))
-    );
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: ActiveText;
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
 input::-moz-placeholder {
     opacity: 1;
-    color: hsl(0, 0%, 11%);
-    color: var(--theme-input-placeholder, var(--clr-base-800, hsl(0, 0%, 11%)));
-    color: color-mix(in srgb, hsl(0, 0%, 11%) 62.5%, transparent);
+    color: currentColor;
+    color: color-mix(in srgb, currentColor 62.5%, transparent);
 }
 textarea::placeholder,
 select::placeholder,
 input::placeholder {
     opacity: 1;
-    color: hsl(0, 0%, 11%);
-    color: var(--theme-input-placeholder, var(--clr-base-800, hsl(0, 0%, 11%)));
-    color: color-mix(in srgb, hsl(0, 0%, 11%) 62.5%, transparent);
+    color: currentColor;
+    color: color-mix(in srgb, currentColor 62.5%, transparent);
 }
-@supports (color: color-mix(in lch, red, blue)) {
-    textarea::-moz-placeholder,
-    select::-moz-placeholder,
-    input::-moz-placeholder {
-        color: color-mix(
-            in srgb,
-            var(--theme-input-placeholder, var(--clr-base-800, hsl(0, 0%, 11%)))
-                62.5%,
-            transparent
-        );
-    }
-    textarea::placeholder,
-    select::placeholder,
-    input::placeholder {
-        color: color-mix(
-            in srgb,
-            var(--theme-input-placeholder, var(--clr-base-800, hsl(0, 0%, 11%)))
-                62.5%,
-            transparent
-        );
-    }
+[data-contrast-mode="high"] textarea::-moz-placeholder,
+[data-contrast-mode="high"] select::-moz-placeholder,
+[data-contrast-mode="high"] input::-moz-placeholder {
+    color: color-mix(in srgb, currentColor 87.5%, transparent);
 }
+[data-contrast-mode="high"] textarea::placeholder,
+[data-contrast-mode="high"] select::placeholder,
+[data-contrast-mode="high"] input::placeholder {
+    color: color-mix(in srgb, currentColor 87.5%, transparent);
+}
+
 @media (prefers-contrast: more) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,
     input::-moz-placeholder {
-        color: color-mix(in srgb, hsl(0, 0%, 11%) 87.5%, transparent);
+        color: color-mix(in srgb, currentColor 87.5%, transparent);
     }
     textarea::placeholder,
     select::placeholder,
     input::placeholder {
-        color: color-mix(in srgb, hsl(0, 0%, 11%) 87.5%, transparent);
-    }
-
-    @supports (color: color-mix(in lch, red, blue)) {
-        textarea::-moz-placeholder,
-        select::-moz-placeholder,
-        input::-moz-placeholder {
-            color: color-mix(
-                in srgb,
-                var(
-                        --theme-input-placeholder,
-                        var(--clr-base-800, hsl(0, 0%, 11%))
-                    )
-                    87.5%,
-                transparent
-            );
-        }
-        textarea::placeholder,
-        select::placeholder,
-        input::placeholder {
-            color: color-mix(
-                in srgb,
-                var(
-                        --theme-input-placeholder,
-                        var(--clr-base-800, hsl(0, 0%, 11%))
-                    )
-                    87.5%,
-                transparent
-            );
-        }
+        color: color-mix(in srgb, currentColor 87.5%, transparent);
     }
 }
+[data-contrast-mode="forced-colors"] textarea::-moz-placeholder,
+[data-contrast-mode="forced-colors"] select::-moz-placeholder,
+[data-contrast-mode="forced-colors"] input::-moz-placeholder {
+    color: currentColor;
+}
+[data-contrast-mode="forced-colors"] textarea::placeholder,
+[data-contrast-mode="forced-colors"] select::placeholder,
+[data-contrast-mode="forced-colors"] input::placeholder {
+    color: currentColor;
+}
+
 @media (forced-colors: active), (prefers-contrast: custom) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,
     input::-moz-placeholder {
-        color: hsl(0, 0%, 11%);
-        color: var(
-            --theme-input-placeholder,
-            var(--clr-base-800, hsl(0, 0%, 11%))
-        );
+        color: currentColor;
     }
     textarea::placeholder,
     select::placeholder,
     input::placeholder {
-        color: hsl(0, 0%, 11%);
-        color: var(
-            --theme-input-placeholder,
-            var(--clr-base-800, hsl(0, 0%, 11%))
-        );
+        color: currentColor;
     }
 }
 label + textarea,
@@ -1320,46 +925,26 @@ input[type="radio"] {
     display: inline-block;
     padding: 0;
     width: auto;
-    accent-color: hsl(284, 51%, 24%);
-    accent-color: var(
-        --theme-input-border,
-        var(--clr-primary-700, hsl(284, 51%, 24%))
-    );
+    accent-color: FieldText;
 }
 input[type="checkbox"]:focus,
 input[type="radio"]:focus {
-    accent-color: hsl(169, 100%, 12%);
-    accent-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
+    accent-color: FieldText;
 }
 
 input[type="checkbox"]:hover,
 input[type="radio"]:hover {
-    accent-color: hsl(169, 100%, 12%);
-    accent-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
+    accent-color: FieldText;
 }
 
 input[type="checkbox"]:focus-within,
 input[type="radio"]:focus-within {
-    accent-color: hsl(169, 100%, 12%);
-    accent-color: var(
-        --theme-input-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
+    accent-color: FieldText;
 }
 
 input[type="checkbox"]:active,
 input[type="radio"]:active {
-    accent-color: hsl(353, 51%, 25%);
-    accent-color: var(
-        --theme-input-border-active,
-        var(--clr-active-700, hsl(353, 51%, 25%))
-    );
+    accent-color: ActiveText;
 }
 input[type="color"] {
     padding: 0;
@@ -1403,10 +988,6 @@ input[type="reset"],
 a.button-secondary,
 .button-secondary,
 ::file-selector-button {
-    --focus-ring-outline-color: var(
-        --theme-button-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
     display: block;
     margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
@@ -1417,25 +998,11 @@ a.button-secondary,
     font: inherit;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
-    border-style: solid;
-    border-color: hsl(284, 51%, 24%);
-    border-color: var(
-        --theme-button-border,
-        var(--clr-primary-700, hsl(284, 51%, 24%))
-    );
+    border: 0.125rem solid ButtonBorder;
     border-radius: 0;
-    background-color: hsl(284, 51%, 24%);
-    background-color: var(
-        --theme-button-bg,
-        var(--clr-primary-700, hsl(284, 51%, 24%))
-    );
-    color: hsl(0, 0%, 98%);
-    color: var(--theme-button-text, var(--clr-base-100, hsl(0, 0%, 98%)));
-    accent-color: hsl(284, 51%, 24%);
-    accent-color: var(
-        --theme-button-border,
-        var(--clr-primary-700, hsl(284, 51%, 24%))
-    );
+    background-color: ButtonFace;
+    color: ButtonText;
+    accent-color: ButtonText;
 }
 a.button:focus,
 button:focus,
@@ -1445,25 +1012,31 @@ input[type="submit"]:focus,
 input[type="reset"]:focus,
 .button-secondary:focus,
 :focus::file-selector-button {
-    background-color: hsl(169, 100%, 12%);
-    background-color: var(
-        --theme-button-bg-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    border-color: hsl(169, 100%, 12%);
-    border-color: var(
-        --theme-button-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    color: hsl(0, 0%, 98%);
-    color: var(--theme-button-text-hover, var(--clr-base-100, hsl(0, 0%, 98%)));
-    accent-color: hsl(169, 100%, 12%);
-    accent-color: var(
-        --theme-button-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+    color: SelectedItemText;
+    accent-color: ButtonText;
     opacity: 0.875;
 }
+[data-contrast-mode="high"] a.button:focus,
+[data-contrast-mode="high"] button:focus,
+[data-contrast-mode="high"] [role="button"]:focus,
+[data-contrast-mode="high"] input[type="button"]:focus,
+[data-contrast-mode="high"] input[type="submit"]:focus,
+[data-contrast-mode="high"] input[type="reset"]:focus,
+[data-contrast-mode="high"] .button-secondary:focus,
+[data-contrast-mode="high"] :focus::file-selector-button,
+[data-contrast-mode="forced-colors"] a.button:focus,
+[data-contrast-mode="forced-colors"] button:focus,
+[data-contrast-mode="forced-colors"] [role="button"]:focus,
+[data-contrast-mode="forced-colors"] input[type="button"]:focus,
+[data-contrast-mode="forced-colors"] input[type="submit"]:focus,
+[data-contrast-mode="forced-colors"] input[type="reset"]:focus,
+[data-contrast-mode="forced-colors"] .button-secondary:focus,
+[data-contrast-mode="forced-colors"] :focus::file-selector-button {
+    opacity: 1;
+}
+
 @media (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
@@ -1487,25 +1060,31 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 .button-secondary:hover,
 :hover::file-selector-button {
-    background-color: hsl(169, 100%, 12%);
-    background-color: var(
-        --theme-button-bg-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    border-color: hsl(169, 100%, 12%);
-    border-color: var(
-        --theme-button-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    color: hsl(0, 0%, 98%);
-    color: var(--theme-button-text-hover, var(--clr-base-100, hsl(0, 0%, 98%)));
-    accent-color: hsl(169, 100%, 12%);
-    accent-color: var(
-        --theme-button-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+    color: SelectedItemText;
+    accent-color: ButtonText;
     opacity: 0.875;
 }
+[data-contrast-mode="high"] a.button:hover,
+[data-contrast-mode="high"] button:hover,
+[data-contrast-mode="high"] [role="button"]:hover,
+[data-contrast-mode="high"] input[type="button"]:hover,
+[data-contrast-mode="high"] input[type="submit"]:hover,
+[data-contrast-mode="high"] input[type="reset"]:hover,
+[data-contrast-mode="high"] .button-secondary:hover,
+[data-contrast-mode="high"] :hover::file-selector-button,
+[data-contrast-mode="forced-colors"] a.button:hover,
+[data-contrast-mode="forced-colors"] button:hover,
+[data-contrast-mode="forced-colors"] [role="button"]:hover,
+[data-contrast-mode="forced-colors"] input[type="button"]:hover,
+[data-contrast-mode="forced-colors"] input[type="submit"]:hover,
+[data-contrast-mode="forced-colors"] input[type="reset"]:hover,
+[data-contrast-mode="forced-colors"] .button-secondary:hover,
+[data-contrast-mode="forced-colors"] :hover::file-selector-button {
+    opacity: 1;
+}
+
 @media (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
@@ -1529,25 +1108,31 @@ input[type="submit"]:focus-within,
 input[type="reset"]:focus-within,
 .button-secondary:focus-within,
 :focus-within::file-selector-button {
-    background-color: hsl(169, 100%, 12%);
-    background-color: var(
-        --theme-button-bg-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    border-color: hsl(169, 100%, 12%);
-    border-color: var(
-        --theme-button-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
-    color: hsl(0, 0%, 98%);
-    color: var(--theme-button-text-hover, var(--clr-base-100, hsl(0, 0%, 98%)));
-    accent-color: hsl(169, 100%, 12%);
-    accent-color: var(
-        --theme-button-border-hover,
-        var(--clr-secondary-700, hsl(169, 100%, 12%))
-    );
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+    color: SelectedItemText;
+    accent-color: ButtonText;
     opacity: 0.875;
 }
+[data-contrast-mode="high"] a.button:focus-within,
+[data-contrast-mode="high"] button:focus-within,
+[data-contrast-mode="high"] [role="button"]:focus-within,
+[data-contrast-mode="high"] input[type="button"]:focus-within,
+[data-contrast-mode="high"] input[type="submit"]:focus-within,
+[data-contrast-mode="high"] input[type="reset"]:focus-within,
+[data-contrast-mode="high"] .button-secondary:focus-within,
+[data-contrast-mode="high"] :focus-within::file-selector-button,
+[data-contrast-mode="forced-colors"] a.button:focus-within,
+[data-contrast-mode="forced-colors"] button:focus-within,
+[data-contrast-mode="forced-colors"] [role="button"]:focus-within,
+[data-contrast-mode="forced-colors"] input[type="button"]:focus-within,
+[data-contrast-mode="forced-colors"] input[type="submit"]:focus-within,
+[data-contrast-mode="forced-colors"] input[type="reset"]:focus-within,
+[data-contrast-mode="forced-colors"] .button-secondary:focus-within,
+[data-contrast-mode="forced-colors"] :focus-within::file-selector-button {
+    opacity: 1;
+}
+
 @media (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
@@ -1571,26 +1156,10 @@ input[type="submit"]:active,
 input[type="reset"]:active,
 .button-secondary:active,
 :active::file-selector-button {
-    background-color: hsl(353, 51%, 25%);
-    background-color: var(
-        --theme-button-bg-active,
-        var(--clr-active-700, hsl(353, 51%, 25%))
-    );
-    border-color: hsl(353, 51%, 25%);
-    border-color: var(
-        --theme-button-border-active,
-        var(--clr-active-700, hsl(353, 51%, 25%))
-    );
-    color: hsl(0, 0%, 98%);
-    color: var(
-        --theme-button-text-active,
-        var(--clr-base-100, hsl(0, 0%, 98%))
-    );
-    accent-color: hsl(353, 51%, 25%);
-    accent-color: var(
-        --theme-button-border-active,
-        var(--clr-active-700, hsl(353, 51%, 25%))
-    );
+    background-color: ButtonFace;
+    border-color: ButtonBorder;
+    color: ButtonText;
+    accent-color: ActiveText;
 }
 a.button,
 button,
@@ -1626,11 +1195,7 @@ label {
     font-weight: 600;
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
-    color: hsl(284, 51%, 24%);
-    color: var(
-        --theme-text-primary,
-        var(--clr-primary-700, hsl(284, 51%, 24%))
-    );
+    color: CanvasText;
 }
 label:has(> input[type="checkbox"], > input[type="radio"]) {
     display: grid;
@@ -1645,8 +1210,7 @@ label:has(> input[type="checkbox"], > input[type="radio"]) {
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
     text-wrap: balance;
-    color: hsl(0, 0%, 11%);
-    color: var(--theme-text, var(--clr-base-800, hsl(0, 0%, 11%)));
+    color: CanvasText;
     cursor: pointer;
 }
 label:has(> input[type="checkbox"], > input[type="radio"])
@@ -1668,4 +1232,4 @@ label > input[type="radio"] {
 
 /* # TABLES
  * ======================================================================== */
-/*! end of @maddimathon/utility-sass template */
+/*! end of @maddimathon/utility-sass/templates/base */
