@@ -11,20 +11,24 @@
 // @use '../../../modules/selector';
 // @use '../../../modules/string';
 
-// @use '../config';
+@use '../config';
 // @use '../tokens';
 
 @use '../lib' as *;
 
-/* # FORMS
- * ======================================================================== */
+@include config.print-headings {
+    /* # FORMS
+     * ======================================================================== */
+}
 
-fieldset {
+%fieldset {
     margin: 0;
     padding: 0;
     border: none;
+}
 
-    legend {
+%legend {
+    fieldset & {
         font-weight: 600;
     }
 }
@@ -40,39 +44,34 @@ fieldset {
     }
 }
 
-input {
+%input {
     @extend %_input-base;
     @include snippet-input-types($includeBase: false);
 }
 
-select {
+%select {
     @extend %_input-base;
     cursor: pointer;
 }
 
-textarea {
+%textarea {
     @extend %_input-base;
     cursor: text;
 }
 
-a.button,
-button,
-[role='button'],
-input[type='button'],
-input[type='submit'],
+@include config.print-headings {
+    /* ## Forms - Buttons ==================================== */
+}
+
 %button {
     @include snippet-button;
 }
 
-input[type='reset'],
-a.button-secondary,
-.button-secondary,
-::file-selector-button,
 %button-secondary {
     @extend %button;
 }
 
-::file-selector-button {
+%file-selector-button {
     display: initial;
     margin: #{var-mrg-firm('200')} 0;
     margin-inline-end: #{var-mrg-firm('300')};
@@ -81,6 +80,6 @@ a.button-secondary,
     font-size: #{var-fs(normal)};
 }
 
-label {
+%label {
     @include snippet-label;
 }

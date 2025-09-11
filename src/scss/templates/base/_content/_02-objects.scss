@@ -16,13 +16,15 @@
 
 @use '../lib' as *;
 
-/* # OBJECTS
- * ======================================================================== */
-
-#{config.$selector_root} {
+@include config.print-headings {
+    /* # OBJECTS
+     * ======================================================================== */
 }
 
-#{config.$selector_body} {
+%root {
+}
+
+%body {
     @include config.incl-html {
         $_vw_margin: 2.5vw;
 
@@ -49,7 +51,7 @@
     }
 }
 
-hr {
+%hr {
     @include centre-callout-block(config.$include_html);
     width: 100%;
 

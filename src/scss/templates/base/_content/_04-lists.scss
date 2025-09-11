@@ -16,13 +16,15 @@
 
 @use '../lib' as *;
 
-/* # LISTS
- * ======================================================================== */
+@include config.print-headings {
+    /* # LISTS
+     * ======================================================================== */
+}
 
 $_list_indent: clamp(var-mrg-soft('400'), 10%, var-mrg-soft('800'));
 
-ol,
-ul {
+%ol,
+%ul {
     margin: 0;
 
     padding: 0;
@@ -44,7 +46,7 @@ ul {
     }
 }
 
-ol {
+%ol {
     /* level 1 - ol */
     list-style-type: decimal;
 
@@ -71,7 +73,7 @@ ol {
     }
 }
 
-ul {
+%ul {
     /* level 1 - ul */
     list-style-type: disc;
 
@@ -97,7 +99,7 @@ ul {
     }
 }
 
-li {
+%li {
     margin: 0;
     margin-block-start: #{var-mrg-soft('300')};
     padding: 0;

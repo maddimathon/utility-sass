@@ -11,15 +11,17 @@
 // @use '../../../modules/selector';
 // @use '../../../modules/string';
 
-// @use '../config';
+@use '../config';
 // @use '../tokens';
 
 @use '../lib' as *;
 
-/* # ACCESSIBILITY
- * ======================================================================== */
+@include config.print-headings {
+    /* # ACCESSIBILITY
+     * ======================================================================== */
+}
 
-@include focus-visible {
+%focus-ring {
     outline: #{var-token('focus-ring-outline-width')} dashed
         #{var-token('focus-ring-outline-color')};
     outline-offset: #{var-token('focus-ring-outline-offset')};

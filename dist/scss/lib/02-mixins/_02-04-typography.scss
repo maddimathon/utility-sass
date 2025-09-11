@@ -17,12 +17,13 @@
 
 @mixin centre-callout-block($incl_html: true) {
     display: block;
-    margin-inline: 10%;
 
     @if $incl_html {
         margin-inline: auto;
         width: fit-content;
         max-width: min(#{var-width('callout')}, 100%);
+    } @else {
+        margin-inline: 10%;
     }
 }
 

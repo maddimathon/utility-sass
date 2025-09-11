@@ -3,7 +3,7 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-@use '../../../config';
+@use '../../../config/functions' as config;
 
 ///
 /// Whether to include ouput only suited for websites.
@@ -25,20 +25,90 @@ $include_html: config.config-valid-bool($include_html, 'include_html');
 }
 
 ///
+/// Whether to include the global selectors in the output. Otherwise, all
+/// selectors are pseudo selectors.
+///
+/// @since 0.1.0-alpha.draft
+///
+$print_globals: true !default;
+$print_globals: config.config-valid-bool($print_globals, 'print_globals');
+
+///
+/// Uses $print_globals to conditionally include global selectors.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin print-globals {
+    @if $print_globals {
+        @content;
+    }
+}
+
+///
 /// Whether to include the normalize mixin in the output.
 ///
 /// @since 0.1.0-alpha.draft
 ///
-$include_normalize: true !default;
-$include_normalize: config.config-valid-bool(
-    $include_normalize,
-    'include_normalize'
-);
+$print_normalize: $include_html !default;
+$print_normalize: config.config-valid-bool($print_normalize, 'print_normalize');
 
 ///
-/// Whether to output the tokens as custom property rules.
+/// Whether to include the custom property definitions in the output.
 ///
 /// @since 0.1.0-alpha.draft
 ///
 $print_tokens: true !default;
 $print_tokens: config.config-valid-bool($print_tokens, 'print_tokens');
+
+///
+/// Uses $print_tokens to conditionally include custom property definitions.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin print-tokens {
+    @if $print_tokens {
+        @content;
+    }
+}
+
+///
+/// Uses $print_headings to conditionally include custom property definitions.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin print-headings {
+    @if $print_headings {
+        @content;
+    }
+}
+
+///
+/// Whether to include the utility class selectors in the output.
+///
+/// @since 0.1.0-alpha.draft
+///
+$print_utils: $include_html !default;
+$print_utils: config.config-valid-bool($print_utils, 'print_utils');
+
+///
+/// Uses $print_utils to conditionally include utility class selectors.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin print-utils {
+    @if $print_utils {
+        @content;
+    }
+}
+
+///
+/// Whether to include the css headings in the output.
+///
+/// @since 0.1.0-alpha.draft
+///
+$print_headings: if(
+    $print_globals or $print_normalize or $print_tokens or $print_utils,
+    true,
+    false
+) !default;
+$print_headings: config.config-valid-bool($print_headings, 'print_headings');

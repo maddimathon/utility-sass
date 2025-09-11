@@ -16,13 +16,15 @@
 
 @use '../lib' as *;
 
-@if config.$include_normalize {
+@if config.$print_normalize {
     @include normalize;
 }
 
-@if config.$print_tokens {
-    /* # TOKENS & PROPERTIES
-     * ======================================================================== */
+@include config.print-tokens {
+    @include config.print-headings {
+        /* # TOKENS & PROPERTIES
+         * ======================================================================== */
+    }
 
     @include tokens-all;
 }

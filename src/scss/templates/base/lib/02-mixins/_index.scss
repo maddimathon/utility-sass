@@ -1,0 +1,164 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '02-01-tokens';
+
+/// # EXTENDING SELECTORS
+/// ======================================================================== ///
+
+// @use '../../../../modules/colour';
+@use '../../../../modules/list';
+// @use '../../../../modules/map';
+// @use '../../../../modules/math';
+@use '../../../../modules/meta';
+// @use '../../../../modules/selector';
+@use '../../../../modules/string';
+
+@use '../../../../lib';
+
+@use '../../config';
+// @use '../../tokens';
+
+@mixin _extend-selectors($selectors, $selector_prefix: '') {
+    @each $pair in $selectors {
+        $pairType: meta.type-of($pair);
+
+        @if $pairType == string {
+            #{$selector_prefix}#{$pair} {
+                @extend %#{$pair};
+            }
+        } @else if $pairType == list {
+            @if list.length($pair) >= 2 {
+                #{$selector_prefix}#{list.nth($pair, 1)} {
+                    @extend %#{list.nth($pair, 2)};
+                }
+            } @else {
+                #{$selector_prefix}#{$pair} {
+                    @extend %#{$pair};
+                }
+            }
+        }
+    }
+}
+
+@mixin extend-selector-globals {
+    $_global_selectors: (
+        // ( globals, pseudo? ),
+        //
+        /// ## Objects ==================================== ///
+        (config.$selector_root, root),
+        (config.$selector_body, body),
+        hr,
+        //
+        /// ## Typography ==================================== ///
+        ((strong, b), strong),
+        ((em, i), em),
+        a,
+        abbr,
+        p,
+        blockquote,
+        pre,
+        code,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        //
+        /// ## Lists ==================================== ///
+        ol,
+        ul,
+        li,
+        //
+        /// ## Forms ==================================== ///
+        label,
+        fieldset,
+        legend,
+        input,
+        select,
+        textarea,
+        (string.unquote('::file-selector-button'), file-selector-button),
+        (
+            (
+                button,
+                string.unquote("[role='button']"),
+                string.unquote("input[type='button']"),
+                string.unquote("input[type='submit']")
+            ),
+            button
+        ),
+        (
+            (
+                string.unquote("input[type='reset']"),
+                string.unquote('::file-selector-button')
+            ),
+            button-secondary
+        )
+    );
+
+    @include lib.focus-visible {
+        @extend %focus-ring;
+    }
+
+    @include _extend-selectors($_global_selectors);
+}
+
+@mixin extend-selector-utils {
+    $_utils_selectors: (
+        // ( globals, pseudo? ),
+        //
+        /// ## Objects ==================================== ///
+        //
+        /// ## Typography ==================================== ///
+        heading,
+        (page-title, title),
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        //
+        /// ## Forms ==================================== ///
+        button-secondary
+    );
+
+    .page-title,
+    .h1 {
+        @extend h1;
+    }
+    .h2 {
+        @extend h2;
+    }
+    .h3 {
+        @extend h3;
+    }
+    .h4 {
+        @extend h4;
+    }
+    .h5 {
+        @extend h5;
+    }
+    .h6 {
+        @extend h6;
+    }
+
+    @include _extend-selectors($_utils_selectors, $selector_prefix: '.');
+
+    @include _extend-selectors(
+        (
+            // ( globals, pseudo? ),
+            //
+            /// ## Objects ==================================== ///
+            //
+            /// ## Typography ==================================== ///
+            //
+            /// ## Forms ==================================== ///
+            // (string.unquote('a.button'), button),
+             // (string.unquote('a.button-secondary'), button-secondary)
+        )
+    );
+}

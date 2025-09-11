@@ -10,3 +10,18 @@
 @forward '04-lists';
 @forward '05-forms';
 @forward '06-tables';
+
+/// # EXTENDING SELECTORS
+/// ======================================================================== ///
+
+@use '../config';
+
+@use '../lib' as *;
+
+@include config.print-globals {
+    @include extend-selector-globals;
+}
+
+@include config.print-utils {
+    @include extend-selector-utils;
+}

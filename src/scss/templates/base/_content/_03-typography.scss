@@ -16,20 +16,23 @@
 
 @use '../lib' as *;
 
-/* # TYPOGRAPHY
- * ======================================================================== */
+@include config.print-headings {
+    /* # TYPOGRAPHY
+     * ======================================================================== */
+}
 
-#{config.$selector_root} {
+%root {
     line-height: #{var-line-height('400')};
 }
 
-#{config.$selector_body} {
+%body {
 }
 
-/* ## Typography - Inline ==================================== */
+@include config.print-headings {
+    /* ## Typography - Inline ==================================== */
+}
 
-strong,
-b {
+%strong {
     font-weight: 700;
 
     strong {
@@ -41,8 +44,7 @@ b {
     }
 }
 
-em,
-i {
+%em {
     font-style: italic;
 
     em {
@@ -54,7 +56,7 @@ i {
     }
 }
 
-a {
+%a {
     display: inline;
     border: none;
     text-decoration: underline #{var-stroke-relative('200')};
@@ -95,14 +97,18 @@ a {
     }
 }
 
-abbr[title] {
-    text-decoration: dotted underline #{var-stroke-relative('400')};
-    cursor: help;
+%abbr {
+    &[title] {
+        text-decoration: dotted underline #{var-stroke-relative('400')};
+        cursor: help;
+    }
 }
 
-/* ## Typography - Block ==================================== */
+@include config.print-headings {
+    /* ## Typography - Block ==================================== */
+}
 
-p {
+%p {
     margin-block: #{var-mrg-soft('400')} 0;
 
     hr + & {
@@ -110,7 +116,7 @@ p {
     }
 }
 
-blockquote {
+%blockquote {
     @include centre-callout-block(config.$include_html);
     margin-block: #{var-mrg-soft('400')} 0;
     margin-block: #{var-mrg-soft('600')}
@@ -144,7 +150,11 @@ blockquote {
     }
 }
 
-pre {
+%pre,
+%code {
+}
+
+%pre {
     @include centre-callout-block(config.$include_html);
 
     margin-block: #{var-mrg-soft('400')} 0;
@@ -168,47 +178,36 @@ pre {
     }
 }
 
-/* ## Typography - Headings ==================================== */
+@include config.print-headings {
+    /* ## Typography - Headings ==================================== */
+}
 
-.heading,
 %heading {
     @include heading;
 }
 
-h1,
-.h1,
 %h1,
 %title {
     @include heading('title');
     // @include heading('1');
 }
 
-h2,
-.h2,
 %h2 {
     @include heading('2');
 }
 
-h3,
-.h3,
 %h3 {
     @include heading('3');
 }
 
-h4,
-.h4,
 %h4 {
     @include heading('4');
 }
 
-h5,
-.h5,
 %h5 {
     @include heading('5');
 }
 
-h6,
-.h6,
 %h6 {
     @include heading('6');
 }
