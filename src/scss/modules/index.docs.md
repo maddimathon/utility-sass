@@ -22,6 +22,7 @@ For example:
 @use '@utility-sass/list'; // adds extras to 'sass:list'
 
 list.flatten(...); // added
+
 list.index(...); // built-in
 list.nth(...); // built-in
 ```
