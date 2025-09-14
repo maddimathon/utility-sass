@@ -1,0 +1,121 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@forward '../config';
+@forward '../header';
+
+@use '../../../modules/map';
+@use '../../../modules/meta';
+
+@use '../../../lib';
+@use '../utils';
+
+/* # MODULES - MAP
+ * ======================================================================== */
+
+// #region $_map
+$_map: (
+    '$': default,
+
+    one: (
+        '$': default,
+        A: value,
+        B: (
+            '$': default,
+            1: value,
+        ),
+    ),
+
+    two: (
+        A: (
+            value is a list,
+        ),
+        B: (
+            '$': default,
+            1: (
+                value is a list,
+            ),
+        ),
+    ),
+);
+// #endregion $_map
+
+// #region $_defaults
+$_defaults: (
+    optionSet: (
+        option1: S-A,
+        option2: S-B,
+        option3: S-C,
+    ),
+
+    optionList: (
+        1,
+        2,
+        3,
+        4,
+        5,
+    ),
+
+    option1: A,
+    option3: C,
+    option2: B,
+);
+// #endregion $_defaults
+
+// #region $_inputs
+$_inputs: (
+    option3: OVERRIDE,
+    optionList: OVERRIDE,
+
+    optionSet: (
+        option2: OVERRIDE,
+    ),
+);
+// #endregion $_inputs
+
+map.flatten {
+    @include utils.var-dump('map', $_map);
+
+    @include utils.var-dump('map.flatten', map.flatten($_map));
+
+    > with-prefix {
+        @include utils.var-dump(
+            'map.flatten',
+            map.flatten($_map, $prefix: 'pre')
+        );
+    }
+
+    > with-suffix {
+        @include utils.var-dump(
+            'map.flatten',
+            map.flatten($_map, $suffix: 'suf')
+        );
+    }
+
+    > with-both {
+        @include utils.var-dump(
+            'map.flatten',
+            map.flatten($_map, $prefix: 'pre', $suffix: 'suf')
+        );
+    }
+}
+
+map.ksort {
+    @include utils.var-dump('map', $_defaults);
+    @include utils.var-dump('map.ksort()', map.ksort($_defaults));
+}
+
+map.merge {
+    @include utils.var-dump('$_defaults', $_defaults);
+    @include utils.var-dump('$_inputs', $_inputs);
+    @include utils.var-dump(
+        'map.merge( $recursive: false )',
+        map.merge($_defaults, $_inputs)
+    );
+    @include utils.var-dump(
+        'map.merge( $recursive: true )',
+        map.merge($_defaults, $_inputs, true)
+    );
+}

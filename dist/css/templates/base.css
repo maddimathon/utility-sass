@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * Utility Sass Template — Base
+ * Utility Sass Template - Base
  * 
  * @maddimathon/utility-sass@0.1.0-alpha.draft
  * License: MIT
@@ -264,11 +264,13 @@ blockquote > cite {
     margin-top: var(--mrg-soft-400, 0.8125rem);
     margin-bottom: 0;
     text-align: right;
-    color: color-mix(in srgb, currentColor 75%, transparent);
 }
 blockquote > cite::before {
     content: "— ";
     color: currentColor;
+}
+blockquote > cite {
+    color: color-mix(in srgb, currentColor 75%, transparent);
 }
 [data-contrast-mode="high"] blockquote > cite {
     color: color-mix(in srgb, currentColor 87.5%, transparent);
@@ -494,13 +496,62 @@ li li li li em {
 /* # FORMS
  * ======================================================================== */
 fieldset {
-    margin: 0;
-    padding: 0;
-    border: none;
+    display: block;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.5rem 1.25rem 0.8125rem;
+    padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
+        var(--mrg-firm-300, 0.8125rem);
+    border: 0.0625rem solid AccentColor;
+    border-radius: 0;
+    background-color: Canvas;
+    color: CanvasText;
+}
+fieldset:focus {
+    border-color: ActiveText;
+}
+
+fieldset:focus-within {
+    border-color: ActiveText;
+}
+
+fieldset:active {
+    border-color: AccentColor;
+}
+fieldset legend {
+    display: block;
+}
+fieldset > :first-child {
+    margin-top: 0;
+    margin-top: calc(0.8125rem - 0.3125rem);
+    margin-top: calc(
+        var(--mrg-soft-400, 0.8125rem) - var(--mrg-soft-200, 0.3125rem)
+    );
+}
+fieldset > legend + * {
+    margin-top: 0;
 }
 
 fieldset legend {
+    margin-top: 1.4375rem;
+    margin-top: var(--mrg-soft-600, 1.4375rem);
+    margin-bottom: 0;
     font-weight: 600;
+    font-size: 1.1875rem;
+    font-size: var(--fs-bigger-1, 1.1875rem);
+    text-wrap: balance;
+    margin: 0;
+    margin-left: calc(0.5rem * -1);
+    margin-right: calc(0.5rem * -1);
+    margin-left: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-right: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-bottom: 0.5rem;
+    margin-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--mrg-soft-300, 0.5rem);
+    padding-right: var(--mrg-soft-300, 0.5rem);
+    font-style: italic;
 }
 
 textarea,
@@ -933,4 +984,52 @@ label > input[type="radio"] {
 
 /* # TABLES
  * ======================================================================== */
+table {
+    position: relative;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.4375rem;
+    margin-bottom: calc(1.4375rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.4375rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.4375rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+    background: AccentColor;
+}
+
+table {
+    border-spacing: 0.125rem;
+    border-spacing: var(--border-width-200, 0.125rem);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+
+th,
+td {
+    padding: 0.3125rem 0.8125rem;
+    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
+    min-width: 10em;
+    background: Canvas;
+    vertical-align: top;
+    text-align: left;
+}
+th > :first-child,
+td > :first-child {
+    margin-top: 0;
+}
+th > :last-child,
+td > :last-child {
+    margin-bottom: 0;
+}
+
+th {
+    padding-top: 0.3125rem;
+    padding-top: var(--mrg-soft-200, 0.3125rem);
+    padding-bottom: 0.3125rem;
+    padding-bottom: var(--mrg-soft-200, 0.3125rem);
+    background: AccentColor;
+    color: AccentColorText;
+}
+
 /*! end of @maddimathon/utility-sass/templates/base */

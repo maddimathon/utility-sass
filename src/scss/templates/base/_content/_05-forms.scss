@@ -22,14 +22,30 @@
 }
 
 %fieldset {
-    margin: 0;
-    padding: 0;
-    border: none;
+    @include snippet-fieldset;
+
+    > :first-child {
+        margin-block-start: 0;
+        margin-block-start: calc(
+            #{var-mrg-soft('400')} - #{var-mrg-soft('200')}
+        );
+    }
+
+    > legend + * {
+        margin-block-start: 0;
+    }
 }
 
 %legend {
-    fieldset & {
-        font-weight: 600;
+    fieldset &,
+    fieldset &:first-child {
+        @include heading;
+        margin: 0;
+        margin-inline: calc(#{var-mrg-soft('300')} * -1);
+        margin-block-end: #{var-mrg-soft('300')};
+        padding-inline: #{var-mrg-soft('300')};
+
+        font-style: italic;
     }
 }
 

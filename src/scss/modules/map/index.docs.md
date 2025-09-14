@@ -1,5 +1,7 @@
 ---
 title: Map
+children:
+  - ./demo.docs.md
 ---
 
 # Map Module

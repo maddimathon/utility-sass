@@ -1,0 +1,45 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward 'config';
+
+@use '../../modules/meta';
+@use '../../modules/string';
+
+@mixin var-dump($name, $value) {
+    $typeof: meta.type-of($value);
+
+    @if $typeof != list and $typeof != map {
+        /* 
+            #{$name}: #{meta.var-dump($value)}
+         */
+    } @else {
+        /* 
+            #{$name} is a #{$typeof}:
+         */
+
+        @if $typeof == map {
+            @each $_key, $_val in $value {
+                $_keyType: meta.type-of($_key);
+
+                $_keyDisplay: if(
+                    $_keyType == string,
+                    '"#{string.unquote(#{$_key})}"',
+                    string.unquote(#{$_key})
+                );
+
+                /* #{$_keyDisplay}: #{meta.var-dump($_val)} */
+            }
+        } @else {
+            $i: 1;
+
+            @each $_val in $value {
+                /* #{$i}: #{meta.var-dump($_val)} */
+
+                $i: $i + 1;
+            }
+        }
+    }
+}

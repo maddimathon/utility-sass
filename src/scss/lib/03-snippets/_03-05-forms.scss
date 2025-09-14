@@ -88,6 +88,56 @@
 }
 
 ///
+/// Base styles for a fieldset element.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-fieldset(
+    $background: Canvas,
+
+    $borderClr: AccentColor,
+    $borderClr_hover: ActiveText,
+    $borderClr_active: AccentColor,
+
+    $color: CanvasText,
+
+    $borderWidth: 0.0625rem,
+    $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
+    $padding: var-mrg-soft('300') var-mrg-firm('400') var-mrg-firm('300'),
+    $includeClrs: true
+) {
+    display: block;
+    margin: #{$margin};
+    padding: #{$padding};
+
+    border: #{$borderWidth} solid #{$borderClr};
+    border-radius: 0;
+
+    @if $includeClrs {
+        background-color: #{$background};
+        color: #{$color};
+    }
+
+    /// STATES ///
+
+    @if $includeClrs {
+        @include focus-visible-or-within {
+            border-color: #{$borderClr_hover};
+        }
+
+        &:active {
+            border-color: #{$borderClr_active};
+        }
+    }
+
+    /// BLOCK ///
+
+    legend {
+        display: block;
+    }
+}
+
+///
 /// Base styles for an input element.
 ///
 /// @since ___PKG_VERSION___

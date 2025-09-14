@@ -1,0 +1,124 @@
+/*!
+ * Utility Sass Template - Demo
+ *
+ * This stylesheet (and its partials) demonstrate a few of the core mixins.
+ * Extend the scss to play with the config, or see the defaults in the css
+ * included in the pacakge.
+ *
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ *
+ * Author: Maddi Mathon (www.maddimathon.com)
+ * License: MIT
+ */
+/* # MODULES - MAP
+ * ======================================================================== */
+map.flatten {
+    /* 
+      map is a map:
+   */
+    /* "$": <S> default */
+    /* "one": <:> ( "$": <S> default, "A": <S> value, "B": <:> ( "$": <S> default, 1: <S> value ) ) */
+    /* "two": <:> ( "A": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ), "B": <:> ( "$": <S> default, 1: <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) ) ) */
+    /* 
+      map.flatten is a map:
+   */
+    /* "": <S> default */
+    /* "one": <S> default */
+    /* "one-A": <S> value */
+    /* "one-B": <S> default */
+    /* "one-B-1": <S> value */
+    /* "two-A": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+    /* "two-B": <S> default */
+    /* "two-B-1": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+}
+map.flatten > with-prefix {
+    /* 
+      map.flatten is a map:
+   */
+    /* "pre": <S> default */
+    /* "pre-one": <S> default */
+    /* "pre-one-A": <S> value */
+    /* "pre-one-B": <S> default */
+    /* "pre-one-B-1": <S> value */
+    /* "pre-two-A": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+    /* "pre-two-B": <S> default */
+    /* "pre-two-B-1": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+}
+map.flatten > with-suffix {
+    /* 
+      map.flatten is a map:
+   */
+    /* "suf": <S> default */
+    /* "one-suf": <S> default */
+    /* "one-A-suf": <S> value */
+    /* "one-B-suf": <S> default */
+    /* "one-B-1-suf": <S> value */
+    /* "two-A-suf": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+    /* "two-B-suf": <S> default */
+    /* "two-B-1-suf": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+}
+map.flatten > with-both {
+    /* 
+      map.flatten is a map:
+   */
+    /* "pre-suf": <S> default */
+    /* "pre-one-suf": <S> default */
+    /* "pre-one-A-suf": <S> value */
+    /* "pre-one-B-suf": <S> default */
+    /* "pre-one-B-1-suf": <S> value */
+    /* "pre-two-A-suf": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+    /* "pre-two-B-suf": <S> default */
+    /* "pre-two-B-1-suf": <()> ( <()> ( <S> value <S> is <S> a <S> list ) ) */
+}
+
+map.ksort {
+    /* 
+      map is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+    /* "option1": <S> A */
+    /* "option3": <S> C */
+    /* "option2": <S> B */
+    /* 
+      map.ksort() is a map:
+   */
+    /* "option1": <S> A */
+    /* "option2": <S> B */
+    /* "option3": <S> C */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+}
+
+map.merge {
+    /* 
+      $_defaults is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+    /* "option1": <S> A */
+    /* "option3": <S> C */
+    /* "option2": <S> B */
+    /* 
+      $_inputs is a map:
+   */
+    /* "option3": <S> OVERRIDE */
+    /* "optionList": <S> OVERRIDE */
+    /* "optionSet": <:> ( "option2": <S> OVERRIDE ) */
+    /* 
+      map.merge( $recursive: false ) is a map:
+   */
+    /* "optionSet": <:> ( "option2": <S> OVERRIDE ) */
+    /* "optionList": <S> OVERRIDE */
+    /* "option1": <S> A */
+    /* "option3": <S> OVERRIDE */
+    /* "option2": <S> B */
+    /* 
+      map.merge( $recursive: true ) is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> OVERRIDE, "option3": <S> S-C ) */
+    /* "optionList": <S> OVERRIDE */
+    /* "option1": <S> A */
+    /* "option3": <S> OVERRIDE */
+    /* "option2": <S> B */
+}

@@ -56,92 +56,61 @@
             "default": "./dist/ts/index.js"
         },
 
-        "./config": {
-            "sass": "./src/scss/config/index.scss"
-        },
-        "./config.scss": {
-            "sass": "./src/scss/config/index.scss"
-        },
+        "./config.scss": "./dist/scss/config/index.scss",
         "./config/*.scss": [
             "./dist/scss/config/*.scss",
             "./dist/scss/config/_*.scss",
             "./dist/scss/config/*/index.scss",
-            "./dist/scss/config/*/_index.scss",
-            "./dist/scss/config/_*/index.scss",
-            "./dist/scss/config/_*/_index.scss"
+            "./dist/scss/config/*/_index.scss"
         ],
 
-        "./notice": {
-            "sass": "./src/scss/_notice.scss"
-        },
-        "./notice.scss": {
-            "sass": "./src/scss/_notice.scss"
-        },
+        "./notice.scss": "./dist/scss/_notice.scss",
         
         "./templates/*.scss": [
             "./dist/scss/templates/*.scss",
             "./dist/scss/templates/_*.scss",
             "./dist/scss/templates/*/index.scss",
-            "./dist/scss/templates/*/_index.scss",
-            "./dist/scss/templates/_*/index.scss",
-            "./dist/scss/templates/_*/_index.scss"
+            "./dist/scss/templates/*/_index.scss"
         ],
 
-        "./tokens": {
-            "sass": "./src/scss/tokens/index.scss"
-        },
-        "./tokens.scss": {
-            "sass": "./src/scss/tokens/index.scss"
-        },
+        "./tokens.scss": "./dist/scss/tokens/index.scss",
         "./tokens/*.scss": [
             "./dist/scss/tokens/*.scss",
             "./dist/scss/tokens/_*.scss",
             "./dist/scss/tokens/*/index.scss",
-            "./dist/scss/tokens/*/_index.scss",
-            "./dist/scss/tokens/_*/index.scss",
-            "./dist/scss/tokens/_*/_index.scss"
+            "./dist/scss/tokens/*/_index.scss"
         ],
 
         "./*.scss": [
             "./dist/scss/modules/*/index.scss",
-            "./dist/scss/modules/*/_index.scss",
             "./dist/scss/lib/*.scss",
             "./dist/scss/lib/_*.scss",
             "./dist/scss/lib/*/index.scss",
-            "./dist/scss/lib/*/_index.scss",
-            "./dist/scss/lib/_*/index.scss",
-            "./dist/scss/lib/_*/_index.scss"
+            "./dist/scss/lib/*/_index.scss"
         ],
 
         "./*": {
 
             "sass": [
                 "./dist/scss/modules/*/index.scss",
-                "./dist/scss/modules/*/_index.scss",
                 "./dist/scss/lib/*.scss",
                 "./dist/scss/lib/_*.scss",
                 "./dist/scss/lib/*/index.scss",
                 "./dist/scss/lib/*/_index.scss",
-                "./dist/scss/lib/_*/index.scss",
-                "./dist/scss/lib/_*/_index.scss"
+                "./dist/scss/lib/*",
+                "./dist/scss/lib/_*"
             ],
 
             "types": [
                 "./dist/ts/*.d.ts",
-                "./dist/ts/_*.d.ts",
                 "./dist/ts/*/index.d.ts",
-                "./dist/ts/*/_index.d.ts",
-                "./dist/ts/_*/index.d.ts",
-                "./dist/ts/_*/_index.d.ts"
+                "./dist/ts/*"
             ],
 
             "default": [
                 "./dist/ts/*.js",
-                "./dist/ts/_*.js",
                 "./dist/ts/*/index.js",
-                "./dist/ts/*/_index.js",
-                "./dist/ts/_*/index.js",
-                "./dist/ts/_*/_index.js"
+                "./dist/ts/*"
             ]
         }
     },
@@ -181,7 +150,7 @@
     
     "dependencies": {
         "minimist": "^1.2.8",
-        "sass": "^1.91.0"
+        "sass": "^1.92.1"
     },
     "devDependencies": {
         "@maddimathon/build-utilities": "0.2.0-alpha.4",
@@ -189,13 +158,13 @@
         "@types/minimist": "1.2.5",
         "@types/node": "22.15.30",
         "npm-run-all": "4.1.5",
-        "typedoc": "0.28.11",
+        "typedoc": "0.28.12",
         "typescript": "5.9.2",
         "watch-cli": "0.2.3"
     },
 
     "peerDependencies": {
-        "sass": "^1.91.0"
+        "sass": "^1.92.1"
     },
     
     "browserslist": [

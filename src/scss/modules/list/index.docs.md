@@ -1,5 +1,7 @@
 ---
 title: List
+children:
+  - ./demo.docs.md
 ---
 
 # List Module

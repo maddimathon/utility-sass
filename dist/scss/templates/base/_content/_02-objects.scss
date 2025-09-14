@@ -21,23 +21,32 @@
      * ======================================================================== */
 }
 
+$_vw_margin: 2.5vw;
+
+$_marginBlockBody: clamp(
+    var-mrg-soft('200'),
+    #{$_vw_margin} * tokens.$margin_softener,
+    var-mrg-soft('800')
+);
+
+%root,
+%body {
+    @include config.incl-html {
+        scroll-padding-block-start: #{$_marginBlockBody};
+    }
+}
+
 %root {
 }
 
 %body {
     @include config.incl-html {
-        $_vw_margin: 2.5vw;
-
         display: flex;
         flex-direction: column;
         justify-content: start;
         align-items: center;
 
-        margin-block: #{clamp(
-                var-mrg-soft('200'),
-                #{$_vw_margin} * tokens.$margin_softener,
-                var-mrg-soft('800')
-            )};
+        margin-block: #{$_marginBlockBody};
 
         margin-inline: #{clamp(
                 var-mrg-firm('200'),

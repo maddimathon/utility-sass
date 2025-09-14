@@ -14,7 +14,8 @@ children:
 
 These scss "modules" are meant as replacements for the built-in sass modules.
 
-**Generally, do not `@forward` these modules**, unless you would also forward the built-in module it is meant to replace (which is generally not recommended).
+**Generally, do not `@forward` these modules**, unless you would also forward
+the built-in module it is meant to replace (which is generally not recommended).
 
 For example:
 ```scss
@@ -25,7 +26,7 @@ list.index(...); // built-in
 list.nth(...); // built-in
 ```
 
-Modules:
+**Modules:**
 - [colour](./colour/index.docs.md)
 - [list](./list/index.docs.md)
 - [map](./map/index.docs.md)

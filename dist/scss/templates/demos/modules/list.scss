@@ -1,0 +1,35 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@forward '../config';
+@forward '../header';
+
+@use '../../../modules/list';
+@use '../../../modules/meta';
+
+// @use '../../../lib';
+@use '../utils';
+
+/* # MODULES - LIST
+ * ======================================================================== */
+
+$_list: (one, two, two, one, (A, B, C, (yet another list), B));
+
+$_list_flat: list.flatten($_list);
+
+list.flatten {
+    @include utils.var-dump('list', $_list);
+    @include utils.var-dump('list.flatten', $_list_flat);
+}
+
+list.sort {
+    @include utils.var-dump('list', $_list_flat);
+    @include utils.var-dump('list.sort', list.sort($_list_flat));
+}
+
+list.unique {
+    @include utils.var-dump('list', $_list_flat);
+    @include utils.var-dump('list.unique', list.unique($_list_flat));
+}

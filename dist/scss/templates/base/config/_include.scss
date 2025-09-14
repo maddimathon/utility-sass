@@ -72,17 +72,6 @@ $print_tokens: config.config-valid-bool($print_tokens, 'print_tokens');
 }
 
 ///
-/// Uses $print_headings to conditionally include custom property definitions.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin print-headings {
-    @if $print_headings {
-        @content;
-    }
-}
-
-///
 /// Whether to include the utility class selectors in the output.
 ///
 /// @since 0.1.0-alpha.draft
@@ -112,3 +101,14 @@ $print_headings: if(
     false
 ) !default;
 $print_headings: config.config-valid-bool($print_headings, 'print_headings');
+
+///
+/// Uses $print_headings to conditionally include custom property definitions.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin print-headings {
+    @if $print_headings {
+        @content;
+    }
+}
