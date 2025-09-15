@@ -207,12 +207,6 @@ a[aria-disabled="true"] {
     opacity: 0.875;
     cursor: not-allowed;
 }
-[data-contrast-mode="high"] a[aria-disabled="true"],
-[data-contrast-mode="forced-colors"] a[aria-disabled="true"] {
-    text-decoration-line: line-through;
-    opacity: 1;
-}
-
 @media (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
@@ -272,19 +266,11 @@ blockquote > cite::before {
 blockquote > cite {
     color: color-mix(in srgb, currentColor 75%, transparent);
 }
-[data-contrast-mode="high"] blockquote > cite {
-    color: color-mix(in srgb, currentColor 87.5%, transparent);
-}
-
 @media (prefers-contrast: more) {
     blockquote > cite {
         color: color-mix(in srgb, currentColor 87.5%, transparent);
     }
 }
-[data-contrast-mode="forced-colors"] blockquote > cite {
-    color: currentColor;
-}
-
 @media (forced-colors: active), (prefers-contrast: custom) {
     blockquote > cite {
         color: currentColor;
@@ -621,17 +607,6 @@ input::placeholder {
     color: currentColor;
     color: color-mix(in srgb, currentColor 62.5%, transparent);
 }
-[data-contrast-mode="high"] textarea::-moz-placeholder,
-[data-contrast-mode="high"] select::-moz-placeholder,
-[data-contrast-mode="high"] input::-moz-placeholder {
-    color: color-mix(in srgb, currentColor 87.5%, transparent);
-}
-[data-contrast-mode="high"] textarea::placeholder,
-[data-contrast-mode="high"] select::placeholder,
-[data-contrast-mode="high"] input::placeholder {
-    color: color-mix(in srgb, currentColor 87.5%, transparent);
-}
-
 @media (prefers-contrast: more) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,
@@ -644,17 +619,6 @@ input::placeholder {
         color: color-mix(in srgb, currentColor 87.5%, transparent);
     }
 }
-[data-contrast-mode="forced-colors"] textarea::-moz-placeholder,
-[data-contrast-mode="forced-colors"] select::-moz-placeholder,
-[data-contrast-mode="forced-colors"] input::-moz-placeholder {
-    color: currentColor;
-}
-[data-contrast-mode="forced-colors"] textarea::placeholder,
-[data-contrast-mode="forced-colors"] select::placeholder,
-[data-contrast-mode="forced-colors"] input::placeholder {
-    color: currentColor;
-}
-
 @media (forced-colors: active), (prefers-contrast: custom) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,
@@ -797,33 +761,6 @@ input[type="reset"]:focus,
     accent-color: ButtonText;
     opacity: 0.875;
 }
-[data-contrast-mode="high"] button:focus,
-[data-contrast-mode="high"] [role="button"]:focus,
-[data-contrast-mode="high"] input[type="button"]:focus,
-[data-contrast-mode="high"] input[type="submit"]:focus,
-[data-contrast-mode="high"] input[type="reset"]:focus,
-[data-contrast-mode="high"] :focus::file-selector-button,
-[data-contrast-mode="forced-colors"] button:focus,
-[data-contrast-mode="forced-colors"] [role="button"]:focus,
-[data-contrast-mode="forced-colors"] input[type="button"]:focus,
-[data-contrast-mode="forced-colors"] input[type="submit"]:focus,
-[data-contrast-mode="forced-colors"] input[type="reset"]:focus,
-[data-contrast-mode="forced-colors"] :focus::file-selector-button {
-    opacity: 1;
-}
-
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    button:focus,
-    [role="button"]:focus,
-    input[type="button"]:focus,
-    input[type="submit"]:focus,
-    input[type="reset"]:focus,
-    :focus::file-selector-button {
-        opacity: 1;
-    }
-}
 
 button:hover,
 [role="button"]:hover,
@@ -836,33 +773,6 @@ input[type="reset"]:hover,
     color: SelectedItemText;
     accent-color: ButtonText;
     opacity: 0.875;
-}
-[data-contrast-mode="high"] button:hover,
-[data-contrast-mode="high"] [role="button"]:hover,
-[data-contrast-mode="high"] input[type="button"]:hover,
-[data-contrast-mode="high"] input[type="submit"]:hover,
-[data-contrast-mode="high"] input[type="reset"]:hover,
-[data-contrast-mode="high"] :hover::file-selector-button,
-[data-contrast-mode="forced-colors"] button:hover,
-[data-contrast-mode="forced-colors"] [role="button"]:hover,
-[data-contrast-mode="forced-colors"] input[type="button"]:hover,
-[data-contrast-mode="forced-colors"] input[type="submit"]:hover,
-[data-contrast-mode="forced-colors"] input[type="reset"]:hover,
-[data-contrast-mode="forced-colors"] :hover::file-selector-button {
-    opacity: 1;
-}
-
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    button:hover,
-    [role="button"]:hover,
-    input[type="button"]:hover,
-    input[type="submit"]:hover,
-    input[type="reset"]:hover,
-    :hover::file-selector-button {
-        opacity: 1;
-    }
 }
 
 button:focus-within,
@@ -877,20 +787,6 @@ input[type="reset"]:focus-within,
     accent-color: ButtonText;
     opacity: 0.875;
 }
-[data-contrast-mode="high"] button:focus-within,
-[data-contrast-mode="high"] [role="button"]:focus-within,
-[data-contrast-mode="high"] input[type="button"]:focus-within,
-[data-contrast-mode="high"] input[type="submit"]:focus-within,
-[data-contrast-mode="high"] input[type="reset"]:focus-within,
-[data-contrast-mode="high"] :focus-within::file-selector-button,
-[data-contrast-mode="forced-colors"] button:focus-within,
-[data-contrast-mode="forced-colors"] [role="button"]:focus-within,
-[data-contrast-mode="forced-colors"] input[type="button"]:focus-within,
-[data-contrast-mode="forced-colors"] input[type="submit"]:focus-within,
-[data-contrast-mode="forced-colors"] input[type="reset"]:focus-within,
-[data-contrast-mode="forced-colors"] :focus-within::file-selector-button {
-    opacity: 1;
-}
 
 @media (prefers-contrast: more),
     (forced-colors: active),
@@ -903,8 +799,21 @@ input[type="reset"]:focus-within,
     :focus-within::file-selector-button {
         opacity: 1;
     }
+    button:focus,
+    [role="button"]:focus,
+    input[type="button"]:focus,
+    input[type="submit"]:focus,
+    input[type="reset"]:focus,
+    :focus::file-selector-button,
+    button:hover,
+    [role="button"]:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover,
+    input[type="reset"]:hover,
+    :hover::file-selector-button {
+        opacity: 1;
+    }
 }
-
 button:active,
 [role="button"]:active,
 input[type="button"]:active,

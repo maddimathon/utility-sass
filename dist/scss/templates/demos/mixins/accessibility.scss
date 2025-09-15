@@ -1,0 +1,55 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@forward '../config';
+@forward '../header';
+
+@use '../config';
+@use '../../../lib';
+
+/* # MIXINS - ACCESSIBILITY
+ * ======================================================================== */
+
+/* #region - at root */
+@include lib.motion {
+    --mixin: 'motion';
+}
+@include lib.no-motion {
+    --mixin: 'no-motion';
+}
+/* #endregion - at root */
+
+/* #region - in root parent */
+#{config.$replaceRootSelector} {
+    @include lib.motion {
+        --mixin: 'motion';
+    }
+    @include lib.no-motion {
+        --mixin: 'no-motion';
+    }
+}
+/* #endregion - in root parent */
+
+/* #region - in body parent */
+#{config.$selector_body} {
+    @include lib.motion {
+        --mixin: 'motion';
+    }
+    @include lib.no-motion {
+        --mixin: 'no-motion';
+    }
+}
+/* #endregion - in body parent */
+
+/* #region - in random parent */
+parent {
+    @include lib.motion {
+        --mixin: 'motion';
+    }
+    @include lib.no-motion {
+        --mixin: 'no-motion';
+    }
+}
+/* #endregion - in random parent */

@@ -6,10 +6,35 @@
 @forward '../config';
 @forward '../header';
 
+@use '../config';
 @use '../../../lib';
 
 /* # MIXINS - MODES
  * ======================================================================== */
+
+/* #region - in root parent */
+#{config.$replaceRootSelector} {
+    @include lib.light {
+        --mode-mixin: 'light';
+    }
+}
+/* #endregion - in root parent */
+
+/* #region - in body parent */
+#{config.$selector_body} {
+    @include lib.light {
+        --mode-mixin: 'light';
+    }
+}
+/* #endregion - in body parent */
+
+/* #region - in random parent */
+parent {
+    @include lib.light {
+        --mode-mixin: 'light';
+    }
+}
+/* #endregion - in random parent */
 
 /* #region light */
 @include lib.light {

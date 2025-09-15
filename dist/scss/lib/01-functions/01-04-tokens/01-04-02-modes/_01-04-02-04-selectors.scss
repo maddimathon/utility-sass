@@ -331,12 +331,8 @@
         @return config.$selector_null;
     }
 
-    // TODO - consider moving this attr to the root element
     @if $parentIsRoot and $parentSelectorExists {
-        @return selector.unify(
-            $parentSelector,
-            (string.unquote(':has( #{selector.nest(" > ", $selectorsList)} )'))
-        );
+        @return selector.unify($parentSelector, $selectorsList);
     }
     @return $selectorsList;
 }

@@ -92,11 +92,11 @@
 
     @if $parentSelector == null {
         @if $parentSelectorExists {
-            $parentSelector: selector.parent-or-body();
+            $parentSelector: selector.parent-or-root();
         } @else {
-            $parentSelector: config.$selector_body;
-            $parentIsRoot: false;
-            $parentIsBody: true;
+            $parentSelector: config.$replaceRootSelector;
+            $parentIsRoot: true;
+            $parentIsBody: false;
         }
     }
 
@@ -164,8 +164,7 @@
                 @if $debug {
                     @debug '$parentIsBody is truthy';
                 }
-            }
-            @if string.index($sel, 'body') == 1 {
+            } @else if string.index($sel, 'body') == 1 {
                 @if $debug {
                     @debug "matched 'body'";
                 }
@@ -203,23 +202,20 @@
 
     @if $nestParentSelector == null {
         $nestParentSelector: true;
-        @if $parentIsRoot or $parentIsBody {
+        @if $parentIsRoot {
             $nestParentSelector: false;
         }
     }
 
     @if $unifyParentSelector == null {
         $unifyParentSelector: false;
-        @if $parentIsBody {
+        @if $parentIsRoot {
             $unifyParentSelector: true;
         }
     }
 
     @if $wrapParentSelector == null {
         $wrapParentSelector: false;
-        @if $parentIsRoot {
-            $wrapParentSelector: true;
-        }
     }
 
     @if $debug {

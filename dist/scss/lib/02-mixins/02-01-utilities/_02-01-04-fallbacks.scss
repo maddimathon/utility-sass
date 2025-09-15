@@ -21,6 +21,24 @@
 
 /// ## Focus & Hover ==================================== ///
 
+@function _interactive-additional-selectors-parse(
+    $addSelectors: (),
+    $replaceRootSelector: null,
+    $args...
+) {
+    $args: meta.keywords($args);
+
+    @if list.length(list.flatten($addSelectors)) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return if(
+        $replaceRootSelector != null and $replaceRootSelector,
+        selector.nest((#{$replaceRootSelector}), (#{$addSelectors})),
+        $addSelectors
+    );
+}
+
 ///
 /// To be nested IN the target element to add a fallback for `focus-visible` (and
 /// `focus-visible`, plus any additional selectors).
@@ -31,8 +49,11 @@
     $addSelectors: (),
     $includeFallbacks: config.$mx_interactive_states_include_fallbacks,
     $fallbacksOnly: config.$mx_interactive_states_include_fallbacks_only,
-    $includeParentSelector: true
+    $includeParentSelector: true,
+    $args...
 ) {
+    $args: meta.keywords($args);
+
     // force fallbacks only when applicable
     @if not config.$include_featureCheck {
         $fallbacksOnly: true;
@@ -49,20 +70,20 @@
     @at-root {
         @if $includeFallbacks {
             #{$focus} {
-                @include js-no-support('focus-visible') {
+                @include js-no-support('focusVisible', $args...) {
                     @content;
                 }
             }
         }
 
         @if list.length(list.flatten($addSelectors)) > 0 {
-            #{$addSelectors} {
+            #{_interactive-additional-selectors-parse($addSelectors, $args...)} {
                 @content;
             }
         }
 
         @if not $fallbacksOnly {
-            #{$focusVisible} {
+            #{_interactive-additional-selectors-parse($focusVisible, $args...)} {
                 @content;
             }
         }
@@ -80,8 +101,11 @@
     $addSelectors: (),
     $includeFallbacks: config.$mx_interactive_states_include_fallbacks,
     $fallbacksOnly: config.$mx_interactive_states_include_fallbacks_only,
-    $includeParentSelector: true
+    $includeParentSelector: true,
+    $args...
 ) {
+    $args: meta.keywords($args);
+
     // force fallbacks only when applicable
     @if not config.$include_featureCheck {
         $fallbacksOnly: true;
@@ -91,7 +115,8 @@
         $addSelectors: $addSelectors,
         $includeFallbacks: $includeFallbacks,
         $fallbacksOnly: $fallbacksOnly,
-        $includeParentSelector: $includeParentSelector
+        $includeParentSelector: $includeParentSelector,
+        $args...
     ) {
         @content;
     }
@@ -105,14 +130,14 @@
     @at-root {
         @if $includeFallbacks and $fallbacksOnly {
             #{$focusWithin} {
-                @include js-no-support('focus-visible') {
+                @include js-no-support('focusVisible', $args...) {
                     @content;
                 }
             }
         }
 
         @if not $fallbacksOnly {
-            #{$focusWithin} {
+            #{_interactive-additional-selectors-parse($focusWithin, $args...)} {
                 @content;
             }
         }
@@ -128,8 +153,11 @@
     $addSelectors: (),
     $includeFallbacks: config.$mx_interactive_states_include_fallbacks,
     $fallbacksOnly: config.$mx_interactive_states_include_fallbacks_only,
-    $includeParentSelector: true
+    $includeParentSelector: true,
+    $args...
 ) {
+    $args: meta.keywords($args);
+
     // force fallbacks only when applicable
     @if not config.$include_featureCheck {
         $fallbacksOnly: true;
@@ -144,7 +172,8 @@
     @include focus-visible(
         list.join($hover, $addSelectors, $separator: comma),
         $includeFallbacks: $includeFallbacks,
-        $fallbacksOnly: $fallbacksOnly
+        $fallbacksOnly: $fallbacksOnly,
+        $args...
     ) {
         @content;
     }
@@ -159,8 +188,11 @@
     $addSelectors: (),
     $includeFallbacks: config.$mx_interactive_states_include_fallbacks,
     $fallbacksOnly: config.$mx_interactive_states_include_fallbacks_only,
-    $includeParentSelector: true
+    $includeParentSelector: true,
+    $args...
 ) {
+    $args: meta.keywords($args);
+
     // force fallbacks only when applicable
     @if not config.$include_featureCheck {
         $fallbacksOnly: true;
@@ -175,78 +207,55 @@
     @include focus-visible-or-within(
         list.join(($hover), $addSelectors, $separator: comma),
         $includeFallbacks: $includeFallbacks,
-        $fallbacksOnly: $fallbacksOnly
+        $fallbacksOnly: $fallbacksOnly,
+        $args...
     ) {
         @content;
     }
 }
 
-@mixin _hover(
-    $addSelectors: (),
-    $includeFallbacks: config.$mx_interactive_states_include_fallbacks,
-    $fallbacksOnly: config.$mx_interactive_states_include_fallbacks_only,
-    $includeParentSelector: true
-) {
-    @if $includeParentSelector and selector.parent-exists() {
-        &:hover {
-            @content;
-        }
-    } @else {
-        :hover {
-            @content;
-        }
+@mixin _hover($includeParentSelector: true, $args...) {
+    $args: meta.keywords($args);
+
+    $selector: if(
+        $includeParentSelector and selector.parent-exists(),
+        (string.unquote('&:hover')),
+        (string.unquote(':hover'))
+    );
+
+    @at-root #{_interactive-additional-selectors-parse($selector, $args...)} {
+        @content;
     }
 }
-@mixin _hover-focus-within(
-    $addSelectors: (),
-    $includeFallbacks: config.$mx_interactive_states_include_fallbacks,
-    $fallbacksOnly: config.$mx_interactive_states_include_fallbacks_only,
-    $includeParentSelector: true
-) {
-    @if $includeParentSelector and selector.parent-exists() {
-        &:hover {
-            @content;
-        }
-        &:focus-within {
-            @content;
-        }
-    } @else {
-        :hover {
-            @content;
-        }
-        :focus-within {
-            @content;
-        }
+@mixin _hover-focus-within($includeParentSelector: true, $args...) {
+    $args: meta.keywords($args);
+
+    $selector: if(
+        $includeParentSelector and selector.parent-exists(),
+        (string.unquote('&:hover'), string.unquote('&:focus-within')),
+        (string.unquote(':hover'), string.unquote(':focus-within'))
+    );
+
+    @at-root #{_interactive-additional-selectors-parse($selector, $args...)} {
+        @content;
     }
 }
-@mixin _focus-within(
-    $addSelectors: (),
-    $includeFallbacks: config.$mx_interactive_states_include_fallbacks,
-    $fallbacksOnly: config.$mx_interactive_states_include_fallbacks_only,
-    $includeParentSelector: true
-) {
-    @if $includeParentSelector and selector.parent-exists() {
-        &:hover {
-            @content;
-        }
-        &:focus-within {
-            @content;
-        }
-    } @else {
-        :hover {
-            @content;
-        }
-        :focus-within {
-            @content;
-        }
+@mixin _focus-within($includeParentSelector: true, $args...) {
+    $args: meta.keywords($args);
+
+    $selector: if(
+        $includeParentSelector and selector.parent-exists(),
+        (string.unquote('&:focus-within')),
+        (string.unquote(':focus-within'))
+    );
+
+    @at-root #{_interactive-additional-selectors-parse($selector, $args...)} {
+        @content;
     }
 }
-@mixin _nothing(
-    $addSelectors: (),
-    $includeFallbacks: config.$mx_interactive_states_include_fallbacks,
-    $fallbacksOnly: config.$mx_interactive_states_include_fallbacks_only,
-    $includeParentSelector: true
-) {
+@mixin _nothing($args...) {
+    $args: meta.keywords($args);
+
     #{config.$selector_null} {
         @content;
     }

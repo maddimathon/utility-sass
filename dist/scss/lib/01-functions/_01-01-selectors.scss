@@ -54,7 +54,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function selectors-parent-is-root() {
+@function selector-parent-is-root() {
     // returns
     @if not sel.parent-exists() {
         @return false;
@@ -73,7 +73,7 @@
     }
 
     // returns
-    @if $parentSelector == #{config.$selector_root} {
+    @if $parentSelector == #{config.$replaceRootSelector} {
         @return true;
     }
 

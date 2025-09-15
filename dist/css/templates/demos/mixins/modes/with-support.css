@@ -1,0 +1,119 @@
+/*!
+ * Utility Sass Template - Demo
+ *
+ * This stylesheet (and its partials) demonstrate a few of the core mixins.
+ * Extend the scss to play with the config, or see the defaults in the css
+ * included in the pacakge.
+ *
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ *
+ * Author: Maddi Mathon (www.maddimathon.com)
+ * License: MIT
+ */
+/* # COLOUR MODE + JS SUPPORT
+ * ======================================================================== */
+/* ## HAS Support ==================================== */
+/* colour-mode-js-support */
+/* ### Average, High - whereSelector ------------------ */
+/* ### Average ------------------ */
+/* ### High ------------------ */
+/* ### Forced Colors ------------------ */
+/* ### Dark ------------------ */
+/* ## NO Support ==================================== */
+/* colour-mode-js-no-support */
+/* ### Average, High - whereSelector ------------------ */
+test-no__high {
+    /* @include colour-mode-js-no-support((average, high), 'whereSelector'); */
+}
+@media (prefers-contrast: more) {
+    test-no__high {
+        /* @include colour-mode-js-no-support((average, high), 'whereSelector'); */
+    }
+}
+
+/* ### Average ------------------ */
+test-no__average {
+    /* @include colour-mode-js-no-support(average, 'support-key'); */
+}
+
+/* ### Low ------------------ */
+@media (prefers-contrast: less) {
+    test-no__low {
+        /* @include colour-mode-js-no-support(low, 'support-key'); */
+    }
+}
+
+/* ### Forced Colors ------------------ */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    test-no__forced-colors {
+        /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+    }
+}
+
+/* ### Dark ------------------ */
+@media (prefers-color-scheme: dark) {
+    test-no__dark {
+        /* @include colour-mode-js-no-support(dark, 'support-key'); */
+    }
+}
+
+/* # COLOUR MODE + INTERACTIVE
+ * ======================================================================== */
+/* colour-mode-interactive-mixin */
+/* ## hover ==================================== */
+/* ### Average ------------------ */
+test-hover__average:hover {
+    /* @include colour-mode-interactive-mixin(average, $hover: true); */
+}
+
+/* ### Low ------------------ */
+@media (prefers-contrast: less) {
+    test-hover__low:hover {
+        /* @include colour-mode-interactive-mixin(low, $hover: true); */
+    }
+}
+
+/* ### Forced-Colors ------------------ */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    test-hover__forced-colors:hover {
+        /* @include colour-mode-interactive-mixin(forced-colors, $hover: true); */
+    }
+}
+
+/* ### Dark ------------------ */
+@media (prefers-color-scheme: dark) {
+    test-hover__dark:hover {
+        /* @include colour-mode-interactive-mixin(dark, $hover: true); */
+    }
+}
+
+/* ## focus-visible and hover ==================================== */
+/* ### Average ------------------ */
+test-focus-and-hover__average:focus,
+test-focus-and-hover__average:hover {
+    /* @include colour-mode-interactive-mixin(average, $focus: true, $hover: true); */
+}
+
+/* ### Low ------------------ */
+@media (prefers-contrast: less) {
+    test-focus-and-hover__low:focus,
+    test-focus-and-hover__low:hover {
+        /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
+    }
+}
+
+/* ### Forced-Colors ------------------ */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    test-focus-and-hover__forced-colors:focus,
+    test-focus-and-hover__forced-colors:hover {
+        /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
+    }
+}
+
+/* ### Dark ------------------ */
+@media (prefers-color-scheme: dark) {
+    test-focus-and-hover__dark:focus,
+    test-focus-and-hover__dark:hover {
+        /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
+    }
+}

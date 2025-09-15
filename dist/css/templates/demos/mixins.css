@@ -10,6 +10,56 @@
  * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
  */
+/* # MIXINS - ACCESSIBILITY
+ * ======================================================================== */
+/* #region - at root */
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        --mixin: "motion";
+    }
+}
+@media (prefers-reduced-motion: less) {
+    :root {
+        --mixin: "no-motion";
+    }
+}
+/* #endregion - at root */
+/* #region - in root parent */
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        --mixin: "motion";
+    }
+}
+@media (prefers-reduced-motion: less) {
+    :root {
+        --mixin: "no-motion";
+    }
+}
+/* #endregion - in root parent */
+/* #region - in body parent */
+@media (prefers-reduced-motion: no-preference) {
+    body {
+        --mixin: "motion";
+    }
+}
+@media (prefers-reduced-motion: less) {
+    body {
+        --mixin: "no-motion";
+    }
+}
+/* #endregion - in body parent */
+/* #region - in random parent */
+@media (prefers-reduced-motion: no-preference) {
+    parent {
+        --mixin: "motion";
+    }
+}
+@media (prefers-reduced-motion: less) {
+    parent {
+        --mixin: "no-motion";
+    }
+}
+/* #endregion - in random parent */
 /* # MIXINS - BREAKPOINTS
  * ======================================================================== */
 @media (min-width: 25em) {
@@ -55,9 +105,20 @@
 
 /* # MIXINS - MODES
  * ======================================================================== */
-/* #region light */
-body,
-[data-brightness-mode="light"] {
+/* #region - in root parent */
+:root {
+    --mode-mixin: "light";
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --mode-mixin: "light";
+    }
+}
+
+/* #endregion - in root parent */
+/* #region - in body parent */
+body {
     --mode-mixin: "light";
 }
 
@@ -66,66 +127,67 @@ body,
         --mode-mixin: "light";
     }
 }
-/* #endregion light */
-/* #region dark */
-[data-brightness-mode="dark"] {
-    --mode-mixin: "dark";
+
+/* #endregion - in body parent */
+/* #region - in random parent */
+parent {
+    --mode-mixin: "light";
 }
 
+@media (prefers-color-scheme: light) {
+    parent {
+        --mode-mixin: "light";
+    }
+}
+
+/* #endregion - in random parent */
+/* #region light */
+:root {
+    --mode-mixin: "light";
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --mode-mixin: "light";
+    }
+}
+/* #endregion light */
+/* #region dark */
 @media (prefers-color-scheme: dark) {
-    body {
+    :root {
         --mode-mixin: "dark";
     }
 }
 /* #endregion dark */
 /* #region low-contrast */
-[data-contrast-mode="low"] {
-    --mode-mixin: "low-contrast";
-}
-
 @media (prefers-contrast: less) {
-    body {
+    :root {
         --mode-mixin: "low-contrast";
     }
 }
 /* #endregion low-contrast */
 /* #region average-contrast */
-body,
-[data-contrast-mode="average"] {
+:root {
     --mode-mixin: "average-contrast";
 }
 
 /* #endregion average-contrast */
 /* #region high-contrast */
-[data-contrast-mode="high"] {
-    --mode-mixin: "high-contrast";
-}
-
 @media (prefers-contrast: more) {
-    body {
+    :root {
         --mode-mixin: "high-contrast";
     }
 }
 /* #endregion high-contrast */
 /* #region forced-colors */
-[data-contrast-mode="forced-colors"] {
-    --mode-mixin: "forced-colors";
-}
-
 @media (forced-colors: active), (prefers-contrast: custom) {
-    body {
+    :root {
         --mode-mixin: "forced-colors";
     }
 }
 /* #endregion forced-colors */
 /* #region token-mode-all */
-body,
-[data-brightness-mode="light"],
-[data-brightness-mode="dark"],
-[data-contrast-mode="average"],
-[data-contrast-mode="low"],
-[data-contrast-mode="high"],
-[data-contrast-mode="forced-colors"] {
+:root {
     --mode-mixin: "token-mode-all";
 }
 
@@ -135,7 +197,7 @@ body,
     (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
-    body {
+    :root {
         --mode-mixin: "token-mode-all";
     }
 }
@@ -143,190 +205,89 @@ body,
 /* ## token-mode-each ==================================== */
 /* e.g. - `@include lib.token-mode-each using ($brightness, $contrast) {}` */
 /*#region light mode + average contrast */
-body,
-[data-brightness-mode="light"],
-[data-contrast-mode="average"],
-[data-brightness-mode="light"][data-contrast-mode="average"] {
+:root {
     --token-mode-each-brightness: light;
     --token-mode-each-contrast: average;
 }
 
 @media (prefers-color-scheme: light) {
-    body,
-    [data-contrast-mode="average"] {
+    :root {
         --token-mode-each-brightness: light;
         --token-mode-each-contrast: average;
     }
 }
 /*#endregion light mode + average contrast */
 /*#region light mode + low contrast */
-[data-contrast-mode="low"],
-[data-brightness-mode="light"][data-contrast-mode="low"] {
-    --token-mode-each-brightness: light;
-    --token-mode-each-contrast: low;
-}
-
 @media (prefers-contrast: less) {
-    body,
-    [data-brightness-mode="light"] {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: low;
-    }
-}
-@media (prefers-color-scheme: light) {
-    [data-contrast-mode="low"] {
+    :root {
         --token-mode-each-brightness: light;
         --token-mode-each-contrast: low;
     }
 }
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
-    body {
+    :root {
         --token-mode-each-brightness: light;
         --token-mode-each-contrast: low;
     }
 }
 /*#endregion light mode + low contrast */
 /*#region light mode + high contrast */
-[data-contrast-mode="high"],
-[data-brightness-mode="light"][data-contrast-mode="high"] {
-    --token-mode-each-brightness: light;
-    --token-mode-each-contrast: high;
-}
-
 @media (prefers-contrast: more) {
-    body,
-    [data-brightness-mode="light"] {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: high;
-    }
-}
-@media (prefers-color-scheme: light) {
-    [data-contrast-mode="high"] {
+    :root {
         --token-mode-each-brightness: light;
         --token-mode-each-contrast: high;
     }
 }
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
-    body {
+    :root {
         --token-mode-each-brightness: light;
         --token-mode-each-contrast: high;
     }
 }
 /*#endregion light mode + high contrast */
 /*#region light mode + forced-colors contrast */
-[data-contrast-mode="forced-colors"],
-[data-brightness-mode="light"][data-contrast-mode="forced-colors"] {
-    --token-mode-each-brightness: light;
-    --token-mode-each-contrast: forced-colors;
-}
-
 @media (forced-colors: active), (prefers-contrast: custom) {
-    body,
-    [data-brightness-mode="light"] {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: forced-colors;
-    }
-}
-@media (prefers-color-scheme: light) {
-    [data-contrast-mode="forced-colors"] {
+    :root {
         --token-mode-each-brightness: light;
         --token-mode-each-contrast: forced-colors;
     }
 }
 @media (( prefers-color-scheme: light ) and ( forced-colors: active )),
     (( prefers-color-scheme: light ) and ( prefers-contrast: custom )) {
-    body {
+    :root {
         --token-mode-each-brightness: light;
         --token-mode-each-contrast: forced-colors;
     }
 }
 /*#endregion light mode + forced-colors contrast */
 /*#region dark mode + average contrast */
-[data-brightness-mode="dark"],
-[data-brightness-mode="dark"][data-contrast-mode="average"] {
-    --token-mode-each-brightness: dark;
-    --token-mode-each-contrast: average;
-}
-
 @media (prefers-color-scheme: dark) {
-    body,
-    [data-contrast-mode="average"] {
+    :root {
         --token-mode-each-brightness: dark;
         --token-mode-each-contrast: average;
     }
 }
 /*#endregion dark mode + average contrast */
 /*#region dark mode + low contrast */
-[data-brightness-mode="dark"][data-contrast-mode="low"] {
-    --token-mode-each-brightness: dark;
-    --token-mode-each-contrast: low;
-}
-
-@media (prefers-contrast: less) {
-    [data-brightness-mode="dark"] {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: low;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    [data-contrast-mode="low"] {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: low;
-    }
-}
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
-    body {
+    :root {
         --token-mode-each-brightness: dark;
         --token-mode-each-contrast: low;
     }
 }
 /*#endregion dark mode + low contrast */
 /*#region dark mode + high contrast */
-[data-brightness-mode="dark"][data-contrast-mode="high"] {
-    --token-mode-each-brightness: dark;
-    --token-mode-each-contrast: high;
-}
-
-@media (prefers-contrast: more) {
-    [data-brightness-mode="dark"] {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: high;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    [data-contrast-mode="high"] {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: high;
-    }
-}
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
-    body {
+    :root {
         --token-mode-each-brightness: dark;
         --token-mode-each-contrast: high;
     }
 }
 /*#endregion dark mode + high contrast */
 /*#region dark mode + forced-colors contrast */
-[data-brightness-mode="dark"][data-contrast-mode="forced-colors"] {
-    --token-mode-each-brightness: dark;
-    --token-mode-each-contrast: forced-colors;
-}
-
-@media (forced-colors: active), (prefers-contrast: custom) {
-    [data-brightness-mode="dark"] {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: forced-colors;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    [data-contrast-mode="forced-colors"] {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: forced-colors;
-    }
-}
 @media (( prefers-color-scheme: dark ) and ( forced-colors: active )),
     (( prefers-color-scheme: dark ) and ( prefers-contrast: custom )) {
-    body {
+    :root {
         --token-mode-each-brightness: dark;
         --token-mode-each-contrast: forced-colors;
     }

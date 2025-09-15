@@ -14,7 +14,7 @@
 
 @use '../../01-functions' as *;
 
-// @use '../02-01-utilities' as *;
+@use '../02-01-utilities' as *;
 // @use '../02-02-theming' as *;
 
 /// # THEMING MIXINS - Modes
@@ -158,7 +158,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
 ) {
     $args: meta.keywords($args);
 
-    $selectors_parentOrBody: selector.parent-or-body();
+    $selectors_parentOrRoot: selector.parent-or-root();
     $parentSelectorExists: selector.parent-exists();
 
     $args: map.set($args, 'includeQuery', $includeQuery);
@@ -232,7 +232,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                     // now we can do unifying, etc. as appropriate
                     @if selector.parent-exists() {
                         $selectors_brightness: selector.merge(
-                            $selectorA: $selectors_parentOrBody,
+                            $selectorA: $selectors_parentOrRoot,
                             $selectorB: $selectors_brightness,
 
                             $nestAinB: $nestParentSelector,
@@ -241,7 +241,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                         );
 
                         $selectors_contrast: selector.merge(
-                            $selectorA: $selectors_parentOrBody,
+                            $selectorA: $selectors_parentOrRoot,
                             $selectorB: $selectors_contrast,
 
                             $nestAinB: $nestParentSelector,
@@ -250,7 +250,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                         );
 
                         $selectors_merged: selector.merge(
-                            $selectorA: $selectors_parentOrBody,
+                            $selectorA: $selectors_parentOrRoot,
                             $selectorB: $selectors_merged,
 
                             $nestAinB: $nestParentSelector,
@@ -265,7 +265,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                             // = the body element is part of the selectors here
 
                             $selectors_merged: (
-                                $selectors_parentOrBody,
+                                $selectors_parentOrRoot,
                                 $selectors_brightness,
                                 $selectors_contrast,
                                 $selectors_merged
@@ -281,7 +281,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                                 if(
                                         $parentSelectorExists,
                                         selector.unify(
-                                            '#{$selectors_parentOrBody}',
+                                            '#{$selectors_parentOrRoot}',
                                             '#{$selectors_contrast}'
                                         ),
                                         $selectors_contrast
@@ -299,7 +299,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                                 if(
                                         $parentSelectorExists,
                                         selector.unify(
-                                            '#{$selectors_parentOrBody}',
+                                            '#{$selectors_parentOrRoot}',
                                             '#{$selectors_brightness}'
                                         ),
                                         $selectors_brightness
@@ -320,7 +320,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                             $_sel: if(
                                 $brightnessIsDefault and $includeDefault,
                                 (
-                                    $selectors_parentOrBody,
+                                    $selectors_parentOrRoot,
                                     $selectors_brightness
                                 ),
                                 $selectors_brightness
@@ -337,7 +337,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                         @if list.length($queries_brightness) > 0 {
                             $_sel: if(
                                 $contrastIsDefault and $includeDefault,
-                                ($selectors_parentOrBody, $selectors_contrast),
+                                ($selectors_parentOrRoot, $selectors_contrast),
                                 $selectors_contrast
                             );
 
@@ -361,7 +361,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                         @if $brightnessIsDefault and $contrastIsDefault {
                             // we need to include the defaults anyway
                             /* default values */
-                            #{$selectors_parentOrBody} {
+                            #{$selectors_parentOrRoot} {
                                 @content ( $brightness, $contrast );
                             }
                         }
@@ -402,7 +402,7 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                     @if list.length($queries) > 0 {
                         // /* merged queries */
                         @media #{$queries} {
-                            #{$selectors_parentOrBody} {
+                            #{$selectors_parentOrRoot} {
                                 @content ( $brightness, $contrast );
                             }
                         }
@@ -412,6 +412,168 @@ $_contrastModes: filter-token-modes-active-only(tokens.$contrastMode_all);
                 @if $includeRegions {
                     /*#endregion #{$includeRegions_heading}#{$brightness} mode + #{$contrast} contrast */
                 }
+            }
+        }
+    }
+}
+
+/// ## Colour Mode - with JS Support ==================================== ///
+
+@mixin _colour-mode-js-any-support($modes, $key, $bool, $args...) {
+    $selector: #{&};
+
+    $args: meta.keywords($args);
+
+    $mixin: if(
+        $bool,
+        meta.get-mixin('js-support'),
+        meta.get-mixin('js-no-support')
+    );
+
+    $hasDefaultMode: false;
+
+    @each $mode in $modes {
+        @if is-token-mode-default($mode) {
+            $hasDefaultMode: true;
+        }
+    }
+
+    @if config.$selectorType_mode != 'null-selector' or $hasDefaultMode {
+        $addSelectors: if(
+            $hasDefaultMode,
+            (
+                selector-feature-check(
+                    $key: $key,
+                    $bool: $bool,
+                    $args...,
+                )
+            ),
+            ()
+        );
+
+        $addSelectors_noJS: if(
+            (
+                config.$include_featureCheck and
+                    $hasDefaultMode and not
+                    $bool and
+                    $key !=
+                    whereSelector
+            ),
+            (
+                selector-feature-check(
+                    $key: null,
+                    $bool: $bool,
+                    $args...,
+                )
+            ),
+            ()
+        );
+
+        @include meta.apply(
+            $mixin: $mixin,
+            $key: $key,
+            $replaceRootSelector: selectors-token-mode(
+                    $modes: $modes,
+                    $ignoreParentSelector: true,
+                    $includeDefault: false,
+                    $args...
+                ),
+            $addSelectors: $addSelectors,
+            $addSelectors_noJS: $addSelectors_noJS,
+            $args...
+        ) {
+            @content;
+        }
+    }
+
+    @at-root {
+        @include colour-mode(
+            $modes: $modes,
+            $includeSelectors: false,
+            $parentSelector: (
+                $selector,
+            ),
+            $args...
+        ) {
+            @include meta.apply($mixin: $mixin, $key: $key, $args...) {
+                @content;
+            }
+        }
+    }
+}
+
+@mixin colour-mode-js-support($modes, $key, $args...) {
+    $args: meta.keywords($args);
+
+    @include _colour-mode-js-any-support(
+        $modes: $modes,
+        $key: $key,
+        $bool: true,
+        $args...
+    ) {
+        @content;
+    }
+}
+
+@mixin colour-mode-js-no-support($modes, $key, $args...) {
+    $args: meta.keywords($args);
+
+    @include _colour-mode-js-any-support(
+        $modes: $modes,
+        $key: $key,
+        $bool: false,
+        $args...
+    ) {
+        @content;
+    }
+}
+
+/// ## Colour Mode - with Interactivity ==================================== ///
+
+@mixin colour-mode-interactive-mixin(
+    $modes,
+    $active: false,
+    $focus: false,
+    $focusWithin: false,
+    $hover: false,
+    $visited: false,
+    $args...
+) {
+    @if config.$include_featureCheck and $focus {
+        @include colour-mode-js-no-support(
+            $modes: $modes,
+            $key: 'focusVisible',
+            $args...
+        ) {
+            @if $focus {
+                &:focus {
+                    @content;
+                }
+            }
+        }
+    }
+
+    @include colour-mode($modes: $modes, $args...) {
+        @if $focus and config.$include_featureCheck {
+            &:focus-visible {
+                @content;
+            }
+        }
+
+        @if $focusWithin {
+            &:focus-within {
+                @content;
+            }
+        }
+
+        @if $hover or $active or $visited {
+            #{(
+                if($focus and not config.$include_featureCheck, '&:focus', config.$selector_null),
+                if($hover, '&:hover', config.$selector_null),
+                if($active, '&:active', config.$selector_null),
+                if($visited, '&:visited', config.$selector_null),
+            )} {
+                @content;
             }
         }
     }

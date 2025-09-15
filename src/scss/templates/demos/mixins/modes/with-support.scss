@@ -1,0 +1,250 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../../config';
+@forward '../../header';
+
+@use '../../config';
+@use '../../../../lib' as *;
+
+/* # COLOUR MODE + JS SUPPORT
+ * ======================================================================== */
+
+/* ## HAS Support ==================================== */
+/* colour-mode-js-support */
+
+test-yes {
+    @at-root {
+        /* ### Average, High - whereSelector ------------------ */
+
+        &__high {
+            @include colour-mode-js-support((average, high), 'whereSelector') {
+                /* @include colour-mode-js-support((average, high), 'whereSelector'); */
+            }
+        }
+
+        /* ### Average ------------------ */
+
+        &__average {
+            @include colour-mode-js-support(average, 'support-key') {
+                /* @include colour-mode-js-support(average, 'support-key'); */
+            }
+        }
+
+        /* ### High ------------------ */
+
+        &__low {
+            @include colour-mode-js-support(low, 'support-key') {
+                /* @include colour-mode-js-support(low, 'support-key'); */
+            }
+        }
+
+        /* ### Forced Colors ------------------ */
+
+        &__forced-colors {
+            @include colour-mode-js-support(forced-colors, 'support-key') {
+                /* @include colour-mode-js-support(forced-colors, 'support-key'); */
+            }
+        }
+
+        /* ### Dark ------------------ */
+
+        &__dark {
+            @include colour-mode-js-support(dark, 'support-key') {
+                /* @include colour-mode-js-support(dark, 'support-key'); */
+            }
+        }
+    }
+}
+
+/* ## NO Support ==================================== */
+/* colour-mode-js-no-support */
+
+test-no {
+    @at-root {
+        /* ### Average, High - whereSelector ------------------ */
+
+        &__high {
+            @include colour-mode-js-no-support(
+                (average, high),
+                'whereSelector'
+            ) {
+                /* @include colour-mode-js-no-support((average, high), 'whereSelector'); */
+            }
+        }
+
+        /* ### Average ------------------ */
+
+        &__average {
+            @include colour-mode-js-no-support(average, 'support-key') {
+                /* @include colour-mode-js-no-support(average, 'support-key'); */
+            }
+        }
+
+        /* ### Low ------------------ */
+
+        &__low {
+            @include colour-mode-js-no-support(low, 'support-key') {
+                /* @include colour-mode-js-no-support(low, 'support-key'); */
+            }
+        }
+
+        /* ### Forced Colors ------------------ */
+
+        &__forced-colors {
+            @include colour-mode-js-no-support(forced-colors, 'support-key') {
+                /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+            }
+        }
+
+        /* ### Dark ------------------ */
+
+        &__dark {
+            @include colour-mode-js-no-support(dark, 'support-key') {
+                /* @include colour-mode-js-no-support(dark, 'support-key'); */
+            }
+        }
+    }
+}
+
+/* # COLOUR MODE + INTERACTIVE
+ * ======================================================================== */
+/* colour-mode-interactive-mixin */
+
+/* ## hover ==================================== */
+
+test-hover {
+    @at-root {
+        /* ### Average ------------------ */
+
+        &__average {
+            @include colour-mode-interactive-mixin(average, $hover: true) {
+                /* @include colour-mode-interactive-mixin(average, $hover: true); */
+            }
+        }
+
+        /* ### Low ------------------ */
+
+        &__low {
+            @include colour-mode-interactive-mixin(low, $hover: true) {
+                /* @include colour-mode-interactive-mixin(low, $hover: true); */
+            }
+        }
+
+        /* ### Forced-Colors ------------------ */
+
+        &__forced-colors {
+            @include colour-mode-interactive-mixin(
+                forced-colors,
+                $hover: true
+            ) {
+                /* @include colour-mode-interactive-mixin(forced-colors, $hover: true); */
+            }
+        }
+
+        /* ### Dark ------------------ */
+
+        &__dark {
+            @include colour-mode-interactive-mixin(dark, $hover: true) {
+                /* @include colour-mode-interactive-mixin(dark, $hover: true); */
+            }
+        }
+    }
+}
+
+// /* ## focus-visible ==================================== */
+
+// test-focus {
+//     @at-root {
+//         /* ### Average ------------------ */
+
+//         &__average {
+//             @include colour-mode-interactive-mixin(average, $focus: true) {
+//                 /* @include colour-mode-interactive-mixin(average, $focus: true); */
+//             }
+//         }
+
+//         /* ### Low ------------------ */
+
+//         &__low {
+//             @include colour-mode-interactive-mixin(low, $focus: true) {
+//                 /* @include colour-mode-interactive-mixin(low, $focus: true); */
+//             }
+//         }
+
+//         /* ### Forced-Colors ------------------ */
+
+//         &__forced-colors {
+//             @include colour-mode-interactive-mixin(
+//                 forced-colors,
+//                 $focus: true
+//             ) {
+//                 /* @include colour-mode-interactive-mixin(forced-colors, $focus: true); */
+//             }
+//         }
+
+//         /* ### Dark ------------------ */
+
+//         &__dark {
+//             @include colour-mode-interactive-mixin(dark, $focus: true) {
+//                 /* @include colour-mode-interactive-mixin(dark, $focus: true); */
+//             }
+//         }
+//     }
+// }
+
+/* ## focus-visible and hover ==================================== */
+
+test-focus-and-hover {
+    @at-root {
+        /* ### Average ------------------ */
+
+        &__average {
+            @include colour-mode-interactive-mixin(
+                average,
+                $focus: true,
+                $hover: true
+            ) {
+                /* @include colour-mode-interactive-mixin(average, $focus: true, $hover: true); */
+            }
+        }
+
+        /* ### Low ------------------ */
+
+        &__low {
+            @include colour-mode-interactive-mixin(
+                low,
+                $focus: true,
+                $hover: true
+            ) {
+                /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
+            }
+        }
+
+        /* ### Forced-Colors ------------------ */
+
+        &__forced-colors {
+            @include colour-mode-interactive-mixin(
+                forced-colors,
+                $focus: true,
+                $hover: true
+            ) {
+                /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
+            }
+        }
+
+        /* ### Dark ------------------ */
+
+        &__dark {
+            @include colour-mode-interactive-mixin(
+                dark,
+                $focus: true,
+                $hover: true
+            ) {
+                /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
+            }
+        }
+    }
+}

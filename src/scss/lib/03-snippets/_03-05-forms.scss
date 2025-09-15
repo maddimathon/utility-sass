@@ -170,7 +170,8 @@
     $width: 100%,
 
     $includeClrs: true,
-    $includePlaceholder: true
+    $includePlaceholder: true,
+    $selector: #{&}
 ) {
     display: #{$display};
     margin: #{$margin};
@@ -191,6 +192,12 @@
 
     /// STATES ///
 
+    $_opacityIsLessThanOne: if(
+        math.unit($opacity_hover) == '%',
+        $opacity_hover < 100%,
+        $opacity_hover < 1
+    );
+
     @include hover-focus-visible-or-within {
         @if $includeClrs {
             background-color: #{$background_hover};
@@ -199,18 +206,34 @@
             accent-color: #{$accentClr_hover};
         }
 
-        $_opacityIsLessThanOne: if(
-            math.unit($opacity_hover) == '%',
-            $opacity_hover < 100%,
-            $opacity_hover < 1
-        );
-
         @if $_opacityIsLessThanOne {
             opacity: #{$opacity_hover};
+        }
+    }
 
-            @include colour-mode((high, forced-colors)) {
-                opacity: 1;
-            }
+    @if $_opacityIsLessThanOne {
+        // TODO - un comment
+        // @include colour-mode-js-support(
+        //     $modes: (
+        //         high,
+        //         forced-colors,
+        //     ),
+        //     $key: 'focusVisible'
+        // ) {
+        //     &:focus-visible {
+        //         opacity: 1;
+        //     }
+        // }
+        @include colour-mode-interactive-mixin(
+            $modes: (
+                high,
+                forced-colors,
+            ),
+            $hover: true,
+            $focus: true,
+            $focusWithin: true
+        ) {
+            opacity: 1;
         }
     }
 

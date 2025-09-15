@@ -1,0 +1,62 @@
+/*!
+ * Utility Sass Template - Demo
+ *
+ * This stylesheet (and its partials) demonstrate a few of the core mixins.
+ * Extend the scss to play with the config, or see the defaults in the css
+ * included in the pacakge.
+ *
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ *
+ * Author: Maddi Mathon (www.maddimathon.com)
+ * License: MIT
+ */
+/* # MIXINS - ACCESSIBILITY
+ * ======================================================================== */
+/* #region - at root */
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        --mixin: "motion";
+    }
+}
+@media (prefers-reduced-motion: less) {
+    :root {
+        --mixin: "no-motion";
+    }
+}
+/* #endregion - at root */
+/* #region - in root parent */
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        --mixin: "motion";
+    }
+}
+@media (prefers-reduced-motion: less) {
+    :root {
+        --mixin: "no-motion";
+    }
+}
+/* #endregion - in root parent */
+/* #region - in body parent */
+@media (prefers-reduced-motion: no-preference) {
+    body {
+        --mixin: "motion";
+    }
+}
+@media (prefers-reduced-motion: less) {
+    body {
+        --mixin: "no-motion";
+    }
+}
+/* #endregion - in body parent */
+/* #region - in random parent */
+@media (prefers-reduced-motion: no-preference) {
+    parent {
+        --mixin: "motion";
+    }
+}
+@media (prefers-reduced-motion: less) {
+    parent {
+        --mixin: "no-motion";
+    }
+}
+/* #endregion - in random parent */

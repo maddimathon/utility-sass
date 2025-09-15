@@ -5,6 +5,7 @@
 
 // @use '../../../config';
 
+@use '../../../modules/meta';
 @use '../../../modules/selector';
 
 @use '../../01-functions' as *;
@@ -23,13 +24,55 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin _any-motion($bool, $nestParent: true, $unifyParent: false) {
-    @media ( prefers-reduced-motion: #{if( $bool, 'no-preference', 'less' )} ) {
-        @at-root #{selector.parent-or-body()} {
+@mixin _any-motion(
+    $bool,
+    $nestParent: null,
+    $unifyParent: null,
+
+    $includeQuery: true,
+    $includeSelectors: true,
+
+    $parentSelectorExists: selector.parent-exists(),
+    $args...
+) {
+    $args: meta.keywords($args);
+
+    @if $includeQuery {
+        @media ( prefers-reduced-motion: #{if( $bool, 'no-preference', 'less' )} ) {
+            @if $parentSelectorExists {
+                @content;
+            } @else {
+                @at-root #{selector.parent-or-root()} {
+                    @content;
+                }
+            }
+        }
+    }
+
+    @if $includeSelectors {
+        @at-root #{selector-motion( 
+            $bool, 
+            $nestParent: $nestParent,
+            $unifyParent: $unifyParent, 
+            $args... 
+        )} {
             @content;
         }
     }
-    @at-root #{motion-selector( $bool, $nestParent: $nestParent, $unifyParent: $unifyParent )} {
+}
+
+///
+/// Nests the content in both a media query and selectors (if appropriate).
+///
+/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
+/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin motion($args...) {
+    $args: meta.keywords($args);
+
+    @include _any-motion(true, $args...) {
         @content;
     }
 }
@@ -42,30 +85,10 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin motion($nestParent: true, $unifyParent: false) {
-    @include _any-motion(
-        true,
-        $nestParent: $nestParent,
-        $unifyParent: $unifyParent
-    ) {
-        @content;
-    }
-}
+@mixin no-motion($args...) {
+    $args: meta.keywords($args);
 
-///
-/// Nests the content in both a media query and selectors (if appropriate).
-///
-/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
-/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin no-motion($nestParent: true, $unifyParent: false) {
-    @include _any-motion(
-        false,
-        $nestParent: $nestParent,
-        $unifyParent: $unifyParent
-    ) {
+    @include _any-motion(false, $args...) {
         @content;
     }
 }

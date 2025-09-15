@@ -32,9 +32,9 @@ $selector_body: config-valid-selector(
 ///
 /// @since ___PKG_VERSION___
 ///
-$selector_root: null !default;
-$selector_root: config-valid-selector(
-    $selector_root,
+$replaceRootSelector: null !default;
+$replaceRootSelector: config-valid-selector(
+    $replaceRootSelector,
     'selector_root',
     (string.unquote(':root'))
 );
@@ -50,7 +50,7 @@ $selectorType_mode: null !default;
 $selectorType_mode: config-valid-selector-type(
     $selectorType_mode,
     'selectorType_mode',
-    'attribute'
+    'null-selector'
 );
 
 ///
@@ -64,5 +64,5 @@ $selectorType_motion: null !default;
 $selectorType_motion: config-valid-selector-type(
     $selectorType_motion,
     'selectorType_motion',
-    'attribute'
+    'null-selector'
 );
