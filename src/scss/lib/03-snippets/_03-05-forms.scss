@@ -384,7 +384,7 @@
         color: #{$color};
     }
 
-    &:has(> input[type='checkbox'], > input[type='radio']) {
+    &:has(> :where(input[type='checkbox'], input[type='radio'])) {
         display: grid;
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;

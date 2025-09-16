@@ -21,34 +21,49 @@
 @use '../../config';
 // @use '../../tokens';
 
-@mixin _extend-selectors($selectors, $selector_prefix: '') {
+@mixin _extend-selectors($selectors, $selector_prefix: '', $optional: false) {
     @each $pair in $selectors {
         $pairType: meta.type-of($pair);
 
         @if $pairType == string {
             #{$selector_prefix}#{$pair} {
-                @extend %#{$pair};
+                //
+                @if $optional {
+                    @extend %#{$pair} !optional;
+                } @else {
+                    @extend %#{$pair};
+                }
             }
         } @else if $pairType == list {
             @if list.length($pair) >= 2 {
                 #{$selector_prefix}#{list.nth($pair, 1)} {
-                    @extend %#{list.nth($pair, 2)};
+                    //
+                    @if $optional {
+                        @extend %#{list.nth($pair, 2)} !optional;
+                    } @else {
+                        @extend %#{list.nth($pair, 2)};
+                    }
                 }
             } @else {
                 #{$selector_prefix}#{$pair} {
-                    @extend %#{$pair};
+                    //
+                    @if $optional {
+                        @extend %#{$pair} !optional;
+                    } @else {
+                        @extend %#{$pair};
+                    }
                 }
             }
         }
     }
 }
 
-@mixin extend-selector-globals {
+@mixin extend-selector-globals($additional: (), $optional: null) {
     $_global_selectors: (
         // ( globals, pseudo? ),
         //
         /// ## Objects ==================================== ///
-        (config.$replaceRootSelector, root),
+        (config.$selector_root, root),
         (config.$selector_body, body),
         hr,
         //
@@ -105,16 +120,50 @@
         td
     );
 
-    @include lib.focus-visible {
-        @extend %focus-ring;
+    // universal focus ring
+    @at-root {
+        :focus {
+            @include lib.no-js {
+                @if $optional {
+                    @extend %focus-ring !optional;
+                } @else {
+                    @extend %focus-ring;
+                }
+            }
+        }
+
+        :focus {
+            @at-root #{lib.selector-feature-check( 'focusVisible', false )} {
+                @if $optional {
+                    @extend %focus-ring--where !optional;
+                } @else {
+                    @extend %focus-ring--where;
+                }
+            }
+        }
+
+        :focus-visible {
+            @if $optional {
+                @extend %focus-ring--visible !optional;
+            } @else {
+                @extend %focus-ring--visible;
+            }
+        }
     }
 
-    @include _extend-selectors($_global_selectors);
+    @include _extend-selectors($_global_selectors, $optional: $optional);
+
+    @if list.length($additional) {
+        @include _extend-selectors($additional, $optional: $optional);
+    }
 }
 
-@mixin extend-selector-utils {
+@mixin extend-selector-utils($additional: (), $optional: null) {
     $_utils_selectors: (
         // ( globals, pseudo? ),
+        //
+        /// ## Objects ==================================== ///
+        screen-reader-text,
         //
         /// ## Objects ==================================== ///
         //
@@ -135,27 +184,11 @@
         table-wrapper
     );
 
-    .page-title,
-    .h1 {
-        @extend h1;
-    }
-    .h2 {
-        @extend h2;
-    }
-    .h3 {
-        @extend h3;
-    }
-    .h4 {
-        @extend h4;
-    }
-    .h5 {
-        @extend h5;
-    }
-    .h6 {
-        @extend h6;
-    }
-
-    @include _extend-selectors($_utils_selectors, $selector_prefix: '.');
+    @include _extend-selectors(
+        $_utils_selectors,
+        $selector_prefix: '.',
+        $optional: $optional
+    );
 
     @include _extend-selectors(
         (
@@ -168,6 +201,11 @@
             /// ## Forms ==================================== ///
             // (string.unquote('a.button'), button),
              // (string.unquote('a.button-secondary'), button-secondary)
-        )
+        ),
+        $optional: $optional
     );
+
+    @if list.length($additional) {
+        @include _extend-selectors($additional, $optional: $optional);
+    }
 }

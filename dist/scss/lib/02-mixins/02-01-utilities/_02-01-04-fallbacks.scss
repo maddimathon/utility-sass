@@ -68,9 +68,13 @@
     }
 
     @at-root {
-        @if $includeFallbacks {
+        @if $includeFallbacks or $fallbacksOnly {
             #{$focus} {
-                @include js-no-support('focusVisible', $args...) {
+                @include js-no-support(
+                    'focusVisible',
+                    $addSelectors: (),
+                    $args...
+                ) {
                     @content;
                 }
             }
