@@ -3,6 +3,8 @@
 /// @since 0.1.0-alpha.draft
 ///
 
+@forward '../../../../lib/02-mixins' hide tokens-all;
+
 @forward '02-01-tokens';
 
 /// # EXTENDING SELECTORS
@@ -16,7 +18,7 @@
 // @use '../../../../modules/selector';
 @use '../../../../modules/string';
 
-@use '../../../../lib';
+@use '../../../../lib/02-mixins' as lib;
 
 @use '../../config';
 // @use '../../tokens';
@@ -178,6 +180,7 @@
         h6,
         //
         /// ## Forms ==================================== ///
+        button,
         button-secondary,
         //
         /// ## Tables ==================================== ///

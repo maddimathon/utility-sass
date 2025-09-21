@@ -17,6 +17,10 @@
 $_breakpoint_mobile: 25;
 $_breakpoint_tablet: 50;
 
+$_width_content: map.get($widths, 'content');
+$_width_page: map.get($widths, 'page');
+$_width_sidebar: map.get($widths, 'sidebar');
+
 ///
 /// A map (merged with the defaults) of breakpoints used with the breakpoint
 /// mixins and --width-X properties.
@@ -30,9 +34,12 @@ $breakpoints: () !default;
 
 $breakpoints: map.deep-merge(
     (
-        'content': map.get($widths, 'content'),
+        'content': $_width_content,
         'mobile': $_breakpoint_mobile,
-        'page': map.get($widths, 'page'),
+        'page': $_width_page,
+        'sidebar': calc(
+                (($_width_page - $_width_sidebar) + ($_width_sidebar * 3 / 4))
+            ),
         'tablet': $_breakpoint_tablet,
 
         'indent': if(

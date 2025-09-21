@@ -29,7 +29,7 @@
     }
 
     @if meta.type-of($point) != number {
-        @warn "$num should be a key of config.$breakpoints or a number but it was a: #{meta.typeof( $num )} (#{$num})";
+        @warn "$point should be a key of config.$breakpoints or a number but it was a: #{meta.type-of( $point )} (#{$point})";
     } @else {
         @if not math.is-unitless($point) {
             @error 'Breakpoint #{$point} should not have a unit. An em unit will be added by the mixin.';

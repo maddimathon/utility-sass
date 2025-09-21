@@ -14,22 +14,29 @@
 // @use '../../../config';
 @use '../../../tokens';
 
-@use '../../../../../lib';
+@use '../../../../../lib/02-mixins' as lib;
 
 @use '../../01-functions' as *;
 
 @use 'borders' as *;
 @use 'custom' as *;
+@use 'spacing' as *;
 
 @mixin tokens-all(
     $borderWidth: true,
-    $strokeRelative: true,
+    $gap: true,
     $custom: true,
+    $strokeRelative: true,
     $args...
 ) {
     $args: meta.keywords($args);
 
     @include lib.tokens-all($custom: false, $args...);
+
+    // spacing
+    @if $gap {
+        @include tokens-gap;
+    }
 
     // decoration
     @if $borderWidth {

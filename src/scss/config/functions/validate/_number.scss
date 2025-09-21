@@ -1,0 +1,44 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+@use 'sass:list';
+@use 'sass:meta';
+// @use 'sass:string';
+
+///
+/// Validates the value of a config variable that should be a string.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}    $value  The variable's value.
+/// @param {number} $name   The variable's name.
+///
+/// @param {number}  $default  Default value to return if $value is invalid.
+/// @param {?number} $min      Optional. Minimum allowed number. Default null.
+/// @param {?number} $max      Optional. Maximum allowed number. Default null.
+///
+/// @returns {string}  If $options is a list, the string is one of those values.
+///
+@function config-valid-number($value, $name, $default, $min: null, $max: null) {
+    // returns - value is to be default
+    @if $value == null {
+        @return $default;
+    }
+
+    // returns - value is not a number
+    @if meta.type-of($value) != 'number' {
+        @warn "[config] $#{$name} must be a number (not the #{meta.type-of( $value )} '#{$value}')";
+        @return $default;
+    }
+
+    @if meta.type-of($min) == number {
+        $value: math.max($min, $value);
+    }
+
+    @if meta.type-of($max) == number {
+        $value: math.min($max, $value);
+    }
+
+    @return $value;
+}

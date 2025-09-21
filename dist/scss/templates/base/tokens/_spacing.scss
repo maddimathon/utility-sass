@@ -1,0 +1,63 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use '../../../modules/colour';
+// @use '../../../modules/list';
+@use '../../../modules/map';
+// @use '../../../modules/math';
+// @use '../../../modules/meta';
+// @use '../../../modules/selector';
+// @use '../../../modules/string';
+
+@use '_lib' as lib;
+
+@use '../config';
+
+$_layoutVW_default: 8;
+
+///
+/// @since 0.1.0-alpha.draft
+///
+$layoutVW: null !default;
+$layoutVW: config.config-valid-number(
+    $layoutVW,
+    'layoutVW',
+    $default: $_layoutVW_default,
+    $min: 2
+);
+
+$_gap_tab: config.config-round-to-pixel(
+    calc($layoutVW * (1.5 / $_layoutVW_default)),
+    8
+);
+
+$_gap_indent: config.config-round-to-pixel(
+    calc($layoutVW * (4 / $_layoutVW_default)),
+    8
+);
+
+$_gap_block_layout: config.config-round-to-pixel(
+    calc($layoutVW * (5 / $_layoutVW_default)),
+    8
+);
+
+///
+/// Gaps are responsive margins to be used at the page layout level.
+///
+/// @since 0.1.0-alpha.draft
+///
+$gaps: (
+    block: (
+        'layout': $_gap_block_layout,
+        'layout-half': calc($_gap_block_layout / 2),
+    ),
+
+    inline: (
+        'indent': $_gap_indent,
+        'layout': $layoutVW,
+        'layout-half': calc($layoutVW/2),
+        'tab': $_gap_tab,
+    ),
+);

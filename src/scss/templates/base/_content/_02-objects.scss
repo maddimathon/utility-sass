@@ -21,18 +21,10 @@
      * ======================================================================== */
 }
 
-$_vw_margin: 2.5vw;
-
-$_marginBlockBody: clamp(
-    var-mrg-soft('200'),
-    #{$_vw_margin} * tokens.$margin_softener,
-    var-mrg-soft('800')
-);
-
 %root,
 %body {
     @include config.incl-html {
-        scroll-padding-block-start: #{$_marginBlockBody};
+        scroll-padding-top: #{var-gap-block(layout)};
     }
 }
 
@@ -46,13 +38,10 @@ $_marginBlockBody: clamp(
         justify-content: start;
         align-items: center;
 
-        margin-block: #{$_marginBlockBody};
+        gap: #{var-gap-block(layout)} #{var-gap-inline(layout)};
 
-        margin-inline: #{clamp(
-                var-mrg-firm('200'),
-                #{$_vw_margin},
-                var-mrg-firm('800')
-            )};
+        margin-block: #{var-gap-block(layout)};
+        margin-inline: #{var-gap-inline(layout)};
 
         :where(& > *) {
             width: min(#{var-width(page)}, 100%);
@@ -61,15 +50,18 @@ $_marginBlockBody: clamp(
 }
 
 %hr {
-    @include centre-callout-block(config.$include_html);
-    width: 100%;
+    @include centre-callout-block;
 
-    @include config.incl-html {
-        margin-block-start: calc(
-            #{var-mrg-soft('400')} + #{var-mrg-firm('600')}
-        );
+    & {
+        width: 100%;
+
+        @include config.incl-html {
+            margin-block-start: calc(
+                #{var-mrg-soft('400')} + #{var-mrg-firm('600')}
+            );
+        }
+        margin-block: #{var-mrg-firm('600')};
+        border: none;
+        border-block-end: currentColor solid 2px;
     }
-    margin-block: #{var-mrg-firm('600')};
-    border: none;
-    border-block-end: currentColor solid 2px;
 }

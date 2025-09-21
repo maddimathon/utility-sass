@@ -87,12 +87,12 @@
     }
 
     &[aria-disabled='true'] {
-        opacity: 0.875;
+        text-decoration-line: line-through;
+        opacity: 1;
         cursor: not-allowed;
 
-        @include colour-mode((high, forced-colors)) {
-            text-decoration-line: line-through;
-            opacity: 1;
+        @include colour-mode((low, average)) {
+            opacity: 0.875;
         }
     }
 }
@@ -117,10 +117,13 @@
 }
 
 %blockquote {
-    @include centre-callout-block(config.$include_html);
-    margin-block: #{var-mrg-soft('400')} 0;
-    margin-block: #{var-mrg-soft('600')}
-        calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
+    @include centre-callout-block($maxWidth: false);
+
+    & {
+        margin-block: #{var-mrg-soft('400')} 0;
+        margin-block: #{var-mrg-soft('600')}
+            calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
+    }
 
     > p {
         &:first-child {
@@ -155,16 +158,22 @@
 }
 
 %pre {
-    @include centre-callout-block(config.$include_html);
+    @include centre-callout-block($maxWidth: false);
 
-    margin-block: #{var-mrg-soft('400')} 0;
-    margin-block: #{var-mrg-soft('600')}
-        calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
+    & {
+        position: relative;
+        margin-inline: 0;
+        margin-block: #{var-mrg-soft('400')} 0;
+        margin-block: #{var-mrg-soft('600')}
+            calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
 
-    width: fit-content;
-    max-width: min(80ch, 100%);
-    overflow: visible; /* otherwise the code block's focus ring is hidden (on scroll) */
-    font-size: #{var-fs(smaller-1)};
+        padding: 0;
+
+        max-width: min(120ch, 100%);
+
+        overflow: auto;
+        font-size: #{var-fs(smaller-1)};
+    }
 
     > code {
         display: block;
@@ -172,9 +181,22 @@
         padding: 0;
         border: none;
 
-        width: fit-content;
+        width: auto;
         max-width: 100%;
-        overflow: auto;
+
+        white-space: normal;
+        text-wrap: auto;
+    }
+
+    &:where(:has(> code)) {
+        white-space: normal;
+        text-wrap: auto;
+
+        > %code {
+            white-space: pre;
+            text-wrap: nowrap;
+            overflow: visible;
+        }
     }
 }
 

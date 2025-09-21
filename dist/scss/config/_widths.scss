@@ -11,7 +11,7 @@
 /// ======================================================================== ///
 
 $_widths_content: 36;
-$_widths_sidebar: 17;
+$_widths_sidebar: 16;
 
 ///
 /// A map (merged with the defaults) of widths used throughout.
@@ -43,7 +43,7 @@ $widths: map.deep-merge(
 $widths: map.set(
     $widths,
     'page',
-    calc(map.get($widths, 'content') + map.get($widths, 'sidebar'))
+    calc(map.get($widths, 'content') + map.get($widths, 'sidebar') + 6)
 );
 
 @each $key, $value in $widths {

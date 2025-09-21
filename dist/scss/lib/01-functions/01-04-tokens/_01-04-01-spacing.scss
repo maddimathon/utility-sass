@@ -10,6 +10,7 @@
 @use '../../../modules/list';
 @use '../../../modules/map';
 @use '../../../modules/math';
+@use '../../../modules/meta';
 
 // @use '../01-02-accessibility' as *;
 // @use '../01-03-typography' as *;
@@ -43,14 +44,37 @@
     @return calc(mrg-value-firm($level) - mrg-value-soft($level));
 }
 
+$_mrgValFirm_400: mrg-value-firm('400');
+$_mrgValFirm_400_softened: mrg-value-firm('400');
+
 ///
 /// Uses the margin config to prepare the appropriate numerical value (rem).
 ///
 /// @since 0.1.0-alpha.draft
 ///
 @function mrg-value-soft($level) {
+    $value: mrg-value-firm($level);
+
+    // returns
+    @if math.num-val($level) <= 400 {
+        @return math.round-to-pixel($value * tokens.$margin_softener);
+    }
+
+    $percentToSoftenFully: calc($_mrgValFirm_400 / $value);
+    $percentToSoftenPartially: calc(1 - $percentToSoftenFully);
+
     @return math.round-to-pixel(
-        mrg-value-firm($level) * tokens.$margin_softener
+        (($value * $percentToSoftenFully) * tokens.$margin_softener) +
+            (
+                ($value * $percentToSoftenPartially) *
+                    (
+                        tokens.$margin_softener +
+                            calc(
+                                (1 - tokens.$margin_softener) *
+                                    tokens.$margin_softener
+                            )
+                    )
+            )
     );
 }
 
@@ -63,30 +87,28 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function width-value($slug) {
+@function width-value($slug, $returnAsNumber: false) {
     // returns
     @if not map.has-key(config.$widths, '#{$slug}') {
         @warn "$slug was not a key in config.$widths";
         @return ();
     }
 
-    $value: map.get(config.$widths, '#{$slug}');
+    $num: map.get(config.$widths, '#{$slug}');
 
-    // @if $slug == 'page' {
-    //     @return (
-    //         #{$value}rem,
-    //         calc(#{$value}rem + var(--gap-inline--layout, #{$value}vw))
-    //         // calc( #{$value}rem + var(--gap-inline--layout, #{config.$margin_layoutVW}vw) ),
-    //     );
-    // }
+    @if meta.type-of($num) == 'number' {
+        $num: $num * 1rem;
+    } @else {
+        $num: #{$num}rem;
+    }
 
-    @return (#{$value}rem);
+    @return if($returnAsNumber, $num, ($num));
 }
 
 /// ## VARIABLES ==================================== ///
 
 ///
-/// Uses the margin config tokens to print the appropriate var(...) with a
+/// Uses the margin config to print the appropriate var(...) with a
 /// fallback.
 ///
 /// @since 0.1.0-alpha.draft
@@ -96,7 +118,7 @@
 }
 
 ///
-/// Uses the margin config tokens to print the appropriate var(...) with a
+/// Uses the margin config to print the appropriate var(...) with a
 /// fallback.
 ///
 /// @since 0.1.0-alpha.draft
@@ -116,7 +138,7 @@
 }
 
 ///
-/// Uses the width config tokens to print the appropriate var(...) with a
+/// Uses the width config to print the appropriate var(...) with a
 /// fallback.
 ///
 /// @since 0.1.0-alpha.draft
@@ -128,7 +150,5 @@
         @return var(--width-#{$slug});
     }
 
-    $fallback: list.nth($fallback, 1);
-
-    @return var(--width-#{$slug}, #{$fallback});
+    @return var(--width-#{$slug}, #{list.nth($fallback, 1)});
 }

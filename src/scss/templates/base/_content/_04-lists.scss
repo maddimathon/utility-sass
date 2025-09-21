@@ -21,17 +21,16 @@
      * ======================================================================== */
 }
 
-$_list_indent: clamp(var-mrg-soft('400'), 10%, var-mrg-soft('800'));
-
 %ol,
 %ul {
     margin: 0;
+    margin-inline-start: 20%;
 
     padding: 0;
-    padding-inline-start: 20%;
+    padding-inline-start: 1em;
 
     @include config.incl-html {
-        padding-inline-start: #{$_list_indent};
+        margin-inline-start: #{var-gap-inline(tab)};
     }
 
     line-height: #{var-line-height('400')};

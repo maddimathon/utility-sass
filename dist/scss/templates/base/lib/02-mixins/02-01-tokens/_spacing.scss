@@ -4,7 +4,7 @@
 ///
 
 // @use '../../../../../modules/colour';
-@use '../../../../../modules/list';
+// @use '../../../../../modules/list';
 @use '../../../../../modules/map';
 // @use '../../../../../modules/math';
 // @use '../../../../../modules/meta';
@@ -12,9 +12,9 @@
 // @use '../../../../../modules/string';
 
 // @use '../../../config';
-// @use '../../../tokens';
+@use '../../../tokens';
 
-@use '../../../../../lib/02-mixins' as lib;
+// @use '../../../../../lib/02-mixins' as lib;
 
 @use '../../01-functions' as *;
 
@@ -23,17 +23,19 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin tokens-custom($tokens: null) {
-    //
-    $tokens: if($tokens == null, token-map(), map.flatten($tokens));
-
-    @if list.length(map.keys($tokens)) >0 {
-        /* #region Tokens - Misc. */
-        #{selector.parent-or-root()} {
-            @each $slug, $_value in $tokens {
-                --#{$slug}: #{token-value($slug)};
+@mixin tokens-gap {
+    /* #region Tokens - Gap */
+    #{selector.parent-or-root()} {
+        //
+        @each $dir, $dirMap in tokens.$gaps {
+            //
+            @each $slug, $_list in $dirMap {
+                //
+                @each $value in gap-value($dir, $slug) {
+                    --gap-#{$dir}-#{$slug}: #{$value};
+                }
             }
         }
-        /* #endregion Tokens - Misc. */
     }
+    /* #endregion Tokens - Gap */
 }

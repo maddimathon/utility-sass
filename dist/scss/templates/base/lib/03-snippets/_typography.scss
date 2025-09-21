@@ -1,0 +1,40 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use '../../../../modules/colour';
+// @use '../../../../modules/list';
+// @use '../../../../modules/map';
+// @use '../../../../modules/math';
+// @use '../../../../modules/meta';
+// @use '../../../../modules/selector';
+// @use '../../../../modules/string';
+
+@use '../../config';
+// @use '../../tokens';
+
+// @use '../../../../lib/02-mixins' as lib;
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin centre-callout-block($maxWidth: true) {
+    display: block;
+    margin-inline: auto;
+    width: auto;
+
+    @include config.incl-html {
+        margin-inline: #{var-gap-inline(indent)};
+
+        @if $maxWidth {
+            @include min-width(indent) {
+                margin-inline: auto;
+                max-width: min(#{var-width('callout')}, 100%);
+            }
+        }
+    }
+}

@@ -1,0 +1,139 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use '../../../../../modules/colour';
+@use '../../../../../modules/list';
+@use '../../../../../modules/map';
+@use '../../../../../modules/math';
+// @use '../../../../../modules/meta';
+// @use '../../../../../modules/selector';
+// @use '../../../../../modules/string';
+
+// @use '../../../config';
+@use '../../../tokens';
+
+@use '../../../../../lib/01-functions' as lib;
+
+$_gaps_block: map.get(tokens.$gaps, block);
+$_gaps_inline: map.get(tokens.$gaps, inline);
+
+///
+/// @since ___PKG_VERSION___
+///
+@function gap-value($dir, $slug) {
+    $dir: #{$dir};
+
+    @if $dir != block and $dir != inline {
+        @warn "$dir must be either 'block' or 'inline' (was #{$dir})";
+    }
+
+    $map: if($dir == block, $_gaps_block, $_gaps_inline);
+
+    // returns
+    @if not map.has-key($map, $slug) {
+        @warn "$slug '#{$slug}' was not a key in the gaps map";
+        @return ('gap-value(#{$dir}, #{$slug})');
+    }
+
+    $num: map.get($map, $slug);
+
+    // returns
+    @if $dir == block {
+        //
+        @if $slug == layout or $slug == layout-half {
+            @return (
+                #{$num}vw,
+                clamp(
+                    calc(
+                        1rem * lib.mrg-value-soft('600') /
+                            if($slug == layout, 1, 2)
+                    ),
+                    #{$num}svw,
+                    calc(
+                        1rem * lib.mrg-value-soft('900') /
+                            if($slug == layout, 1, 2)
+                    )
+                )
+            );
+        }
+    } @else if $dir == inline {
+        //
+        @if $slug == indent {
+            //
+            @return (
+                #{$num}vw,
+                clamp(
+                    #{lib.var-mrg-firm('200')},
+                    #{$num}svw,
+                    #{lib.var-mrg-firm('600')}
+                )
+            );
+        } @else if $slug == layout or $slug == layout-half {
+            //
+
+            @return (
+                #{$num}vw,
+                clamp(
+                    calc(
+                        1rem * lib.mrg-value-firm('400') /
+                            if($slug == layout, 1, 2)
+                    ),
+                    #{$num}svw,
+                    calc(
+                        1rem * lib.mrg-value-firm('900') /
+                            if($slug == layout, 1, 2)
+                    )
+                )
+            );
+        } @else if $slug == tab {
+            //
+            @return (
+                #{$num}vw,
+                clamp(
+                    #{lib.var-mrg-firm('100')},
+                    #{$num}svw,
+                    #{lib.var-mrg-firm('600')}
+                )
+            );
+        }
+    }
+
+    @return ($num);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function gap-block-value($slug) {
+    @return gap-value(block, $slug);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function gap-inline-value($slug) {
+    @return gap-value(inline, $slug);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function var-gap($dir, $slug) {
+    @return var(--gap-#{$dir}-#{$slug}, #{list.nth(gap-value($dir, $slug), 1)});
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function var-gap-block($slug) {
+    @return var-gap(block, $slug);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function var-gap-inline($slug) {
+    @return var-gap(inline, $slug);
+}

@@ -8,24 +8,12 @@
 
 @use '../01-functions' as *;
 
-// @use '02-01-utilities' as *;
+@use '02-01-utilities' as *;
 // @use '02-02-theming' as *;
 // @use '02-03-properties' as *;
 
 /// # TYPOGRAPHY MIXINS
 /// ======================================================================== ///
-
-@mixin centre-callout-block($incl_html: true) {
-    display: block;
-
-    @if $incl_html {
-        margin-inline: auto;
-        width: fit-content;
-        max-width: min(#{var-width('callout')}, 100%);
-    } @else {
-        margin-inline: 10%;
-    }
-}
 
 ///
 /// Adds basic rules for the given heading using tokens in the system.
