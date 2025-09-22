@@ -7,6 +7,67 @@
  */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
+/* #region Tokens - System Colours */
+:where(:root) {
+    --sys-clr-accent-bg: CanvasText;
+    --sys-clr-accent-bg: AccentColor;
+    --sys-clr-accent-text: Canvas;
+    --sys-clr-accent-text: AccentColorText;
+    --sys-clr-active-text: ActiveText;
+    --sys-clr-background: Canvas;
+    --sys-clr-button-bg: ButtonFace;
+    --sys-clr-button-border: ButtonFace;
+    --sys-clr-button-border: ButtonBorder;
+    --sys-clr-button-text: ButtonText;
+    --sys-clr-grey-text: GrayText;
+    --sys-clr-input-bg: Field;
+    --sys-clr-input-text: FieldText;
+    --sys-clr-link-text: LinkText;
+    --sys-clr-link-visited: VisitedText;
+    --sys-clr-mark-bg: CanvasText;
+    --sys-clr-mark-bg: AccentColor;
+    --sys-clr-mark-bg: Mark;
+    --sys-clr-mark-text: Canvas;
+    --sys-clr-mark-text: AccentColorText;
+    --sys-clr-mark-text: MarkText;
+    --sys-clr-selected-bg: SelectedItem;
+    --sys-clr-selected-text: SelectedItemText;
+    --sys-clr-selection-bg: Highlight;
+    --sys-clr-selection-text: HighlightText;
+    --sys-clr-text: CanvasText;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root {
+        --sys-clr-accent-bg: CanvasText !important;
+        --sys-clr-accent-bg: AccentColor !important;
+        --sys-clr-accent-text: Canvas !important;
+        --sys-clr-accent-text: AccentColorText !important;
+        --sys-clr-active-text: ActiveText !important;
+        --sys-clr-background: Canvas !important;
+        --sys-clr-button-bg: ButtonFace !important;
+        --sys-clr-button-border: ButtonFace !important;
+        --sys-clr-button-border: ButtonBorder !important;
+        --sys-clr-button-text: ButtonText !important;
+        --sys-clr-grey-text: GrayText !important;
+        --sys-clr-input-bg: Field !important;
+        --sys-clr-input-text: FieldText !important;
+        --sys-clr-link-text: LinkText !important;
+        --sys-clr-link-visited: VisitedText !important;
+        --sys-clr-mark-bg: CanvasText !important;
+        --sys-clr-mark-bg: AccentColor !important;
+        --sys-clr-mark-bg: Mark !important;
+        --sys-clr-mark-text: Canvas !important;
+        --sys-clr-mark-text: AccentColorText !important;
+        --sys-clr-mark-text: MarkText !important;
+        --sys-clr-selected-bg: SelectedItem !important;
+        --sys-clr-selected-text: SelectedItemText !important;
+        --sys-clr-selection-bg: Highlight !important;
+        --sys-clr-selection-text: HighlightText !important;
+        --sys-clr-text: CanvasText !important;
+    }
+}
+/* #endregion Tokens - System Colours */
 /* #region Tokens - Width */
 :root {
     --width-content: 36rem;
@@ -136,7 +197,7 @@
 :root {
     --focus-ring-outline-width: 0.1875rem;
     --focus-ring-outline-offset: 0.125em;
-    --focus-ring-outline-color: AccentColor;
+    --focus-ring-outline-color: var(--sys-clr-accent-bg, CanvasText);
 }
 
 /* #endregion Tokens - Misc. */
@@ -146,7 +207,7 @@
     /* %focus-ring */
     outline: 0.1875rem dashed AccentColor;
     outline: var(--focus-ring-outline-width, 0.1875rem) dashed
-        var(--focus-ring-outline-color, AccentColor);
+        var(--focus-ring-outline-color, var(--sys-clr-accent-bg, CanvasText));
     outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
@@ -155,7 +216,7 @@
     /* %focus-ring--where */
     outline: 0.1875rem dashed AccentColor;
     outline: var(--focus-ring-outline-width, 0.1875rem) dashed
-        var(--focus-ring-outline-color, AccentColor);
+        var(--focus-ring-outline-color, var(--sys-clr-accent-bg, CanvasText));
     outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
@@ -164,7 +225,7 @@
     /* %focus-ring--visible */
     outline: 0.1875rem dashed AccentColor;
     outline: var(--focus-ring-outline-width, 0.1875rem) dashed
-        var(--focus-ring-outline-color, AccentColor);
+        var(--focus-ring-outline-color, var(--sys-clr-accent-bg, CanvasText));
     outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
@@ -189,9 +250,26 @@ hr {
 
 /* # TYPOGRAPHY
  * ======================================================================== */
+::-moz-selection {
+    background-color: Highlight;
+    background-color: var(--sys-clr-selection-bg, Highlight);
+    color: HighlightText;
+    color: var(--sys-clr-selection-text, HighlightText);
+}
+::selection {
+    background-color: Highlight;
+    background-color: var(--sys-clr-selection-bg, Highlight);
+    color: HighlightText;
+    color: var(--sys-clr-selection-text, HighlightText);
+}
+
 :root {
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
+    background: Canvas;
+    background: var(--sys-clr-background, Canvas);
+    color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
 }
 
 /* ## Typography - Inline ==================================== */
@@ -231,22 +309,27 @@ a {
     text-underline-offset: 0.1875em;
     text-underline-offset: var(--stroke-relative-600, 0.1875em);
     color: LinkText;
+    color: var(--sys-clr-link-text, LinkText);
 }
 a:visited {
     color: VisitedText;
+    color: var(--sys-clr-link-visited, VisitedText);
 }
 a:focus {
     text-decoration-color: transparent;
     color: ActiveText;
+    color: var(--sys-clr-active-text, ActiveText);
 }
 
 a:hover {
     text-decoration-color: transparent;
     color: ActiveText;
+    color: var(--sys-clr-active-text, ActiveText);
 }
 
 a:active {
     color: ActiveText;
+    color: var(--sys-clr-active-text, ActiveText);
 }
 a.no-style {
     text-decoration: none;
@@ -257,15 +340,8 @@ a[aria-disabled="true"] {
     text-decoration-line: line-through;
     opacity: 1;
     cursor: not-allowed;
-}
-a[aria-disabled="true"] {
-    opacity: 0.875;
-}
-
-@media (prefers-contrast: less) {
-    a[aria-disabled="true"] {
-        opacity: 0.875;
-    }
+    color: GrayText;
+    color: var(--sys-clr-grey-text, GrayText);
 }
 
 abbr[title] {
@@ -318,17 +394,14 @@ blockquote > cite::before {
     content: "— ";
     color: currentColor;
 }
-blockquote > cite {
-    color: color-mix(in srgb, currentColor 75%, transparent);
+@media (prefers-contrast: less) {
+    blockquote > cite {
+        color: color-mix(in srgb, currentColor 75%, transparent);
+    }
 }
 @media (prefers-contrast: more) {
     blockquote > cite {
         color: color-mix(in srgb, currentColor 87.5%, transparent);
-    }
-}
-@media (forced-colors: active), (prefers-contrast: custom) {
-    blockquote > cite {
-        color: currentColor;
     }
 }
 
@@ -559,20 +632,26 @@ fieldset {
     padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
         var(--mrg-firm-300, 0.8125rem);
     border: 0.0625rem solid AccentColor;
+    border: 0.0625rem solid var(--sys-clr-accent-bg, CanvasText);
     border-radius: 0;
     background-color: Canvas;
+    background-color: var(--sys-clr-background, Canvas);
     color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
 }
 fieldset:focus {
     border-color: ActiveText;
+    border-color: var(--sys-clr-active-text, ActiveText);
 }
 
 fieldset:focus-within {
     border-color: ActiveText;
+    border-color: var(--sys-clr-active-text, ActiveText);
 }
 
 fieldset:active {
     border-color: AccentColor;
+    border-color: var(--sys-clr-accent-bg, CanvasText);
 }
 fieldset legend {
     display: block;
@@ -623,59 +702,89 @@ input {
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     border: 0.0625rem solid FieldText;
+    border: 0.0625rem solid var(--sys-clr-input-text, FieldText);
     border-radius: 0;
     background-color: Field;
+    background-color: var(--sys-clr-input-bg, Field);
     color: FieldText;
+    color: var(--sys-clr-input-text, FieldText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 textarea:focus,
 select:focus,
 input:focus {
     background-color: Field;
+    background-color: var(--sys-clr-input-bg, Field);
     border-color: FieldText;
+    border-color: var(--sys-clr-input-text, FieldText);
     color: FieldText;
+    color: var(--sys-clr-input-text, FieldText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 textarea:hover,
 select:hover,
 input:hover {
     background-color: Field;
+    background-color: var(--sys-clr-input-bg, Field);
     border-color: FieldText;
+    border-color: var(--sys-clr-input-text, FieldText);
     color: FieldText;
+    color: var(--sys-clr-input-text, FieldText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 textarea:focus-within,
 select:focus-within,
 input:focus-within {
     background-color: Field;
+    background-color: var(--sys-clr-input-bg, Field);
     border-color: FieldText;
+    border-color: var(--sys-clr-input-text, FieldText);
     color: FieldText;
+    color: var(--sys-clr-input-text, FieldText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 textarea:active,
 select:active,
 input:active {
     background-color: Field;
+    background-color: var(--sys-clr-input-bg, Field);
     border-color: FieldText;
+    border-color: var(--sys-clr-input-text, FieldText);
     color: FieldText;
+    color: var(--sys-clr-input-text, FieldText);
     accent-color: ActiveText;
+    accent-color: var(--sys-clr-active-text, ActiveText);
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
 input::-moz-placeholder {
     opacity: 1;
     color: currentColor;
-    color: color-mix(in srgb, currentColor 62.5%, transparent);
 }
 textarea::placeholder,
 select::placeholder,
 input::placeholder {
     opacity: 1;
     color: currentColor;
-    color: color-mix(in srgb, currentColor 62.5%, transparent);
+}
+@media (prefers-contrast: less) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        color: color-mix(in srgb, currentColor 62.5%, transparent);
+    }
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        color: color-mix(in srgb, currentColor 62.5%, transparent);
+    }
 }
 @media (prefers-contrast: more) {
     textarea::-moz-placeholder,
@@ -687,18 +796,6 @@ input::placeholder {
     select::placeholder,
     input::placeholder {
         color: color-mix(in srgb, currentColor 87.5%, transparent);
-    }
-}
-@media (forced-colors: active), (prefers-contrast: custom) {
-    textarea::-moz-placeholder,
-    select::-moz-placeholder,
-    input::-moz-placeholder {
-        color: currentColor;
-    }
-    textarea::placeholder,
-    select::placeholder,
-    input::placeholder {
-        color: currentColor;
     }
 }
 label + textarea,
@@ -743,25 +840,30 @@ input[type="radio"] {
     padding: 0;
     width: auto;
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 input[type="checkbox"]:focus,
 input[type="radio"]:focus {
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:hover,
 input[type="radio"]:hover {
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:focus-within,
 input[type="radio"]:focus-within {
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:active,
 input[type="radio"]:active {
     accent-color: ActiveText;
+    accent-color: var(--sys-clr-active-text, ActiveText);
 }
 input[type="color"] {
     padding: 0;
@@ -818,10 +920,14 @@ input[type="reset"],
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
     border: 0.125rem solid ButtonBorder;
+    border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
     background-color: ButtonFace;
+    background-color: var(--sys-clr-button-bg, ButtonFace);
     color: ButtonText;
+    color: var(--sys-clr-button-text, ButtonText);
     accent-color: ButtonText;
+    accent-color: var(--sys-clr-button-text, ButtonText);
 }
 button:focus,
 [role="button"]:focus,
@@ -830,10 +936,48 @@ input[type="submit"]:focus,
 input[type="reset"]:focus,
 :focus::file-selector-button {
     background-color: SelectedItem;
+    background-color: var(--sys-clr-selected-bg, SelectedItem);
     border-color: SelectedItem;
+    border-color: var(--sys-clr-selected-bg, SelectedItem);
     color: SelectedItemText;
+    color: var(--sys-clr-selected-text, SelectedItemText);
     accent-color: ButtonText;
+    accent-color: var(--sys-clr-button-text, ButtonText);
+}
+button:focus:focus-within,
+[role="button"]:focus:focus-within,
+input[type="button"]:focus:focus-within,
+input[type="submit"]:focus:focus-within,
+input[type="reset"]:focus:focus-within,
+:focus:focus-within::file-selector-button {
     opacity: 0.875;
+}
+button:focus:focus,
+[role="button"]:focus:focus,
+input[type="button"]:focus:focus,
+input[type="submit"]:focus:focus,
+input[type="reset"]:focus:focus,
+:focus:focus::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    button:focus:focus-within,
+    [role="button"]:focus:focus-within,
+    input[type="button"]:focus:focus-within,
+    input[type="submit"]:focus:focus-within,
+    input[type="reset"]:focus:focus-within,
+    :focus:focus-within::file-selector-button {
+        opacity: 0.875;
+    }
+    button:focus:focus,
+    [role="button"]:focus:focus,
+    input[type="button"]:focus:focus,
+    input[type="submit"]:focus:focus,
+    input[type="reset"]:focus:focus,
+    :focus:focus::file-selector-button {
+        opacity: 0.875;
+    }
 }
 
 button:hover,
@@ -843,10 +987,48 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 :hover::file-selector-button {
     background-color: SelectedItem;
+    background-color: var(--sys-clr-selected-bg, SelectedItem);
     border-color: SelectedItem;
+    border-color: var(--sys-clr-selected-bg, SelectedItem);
     color: SelectedItemText;
+    color: var(--sys-clr-selected-text, SelectedItemText);
     accent-color: ButtonText;
+    accent-color: var(--sys-clr-button-text, ButtonText);
+}
+button:hover:focus-within,
+[role="button"]:hover:focus-within,
+input[type="button"]:hover:focus-within,
+input[type="submit"]:hover:focus-within,
+input[type="reset"]:hover:focus-within,
+:hover:focus-within::file-selector-button {
     opacity: 0.875;
+}
+button:hover:hover,
+[role="button"]:hover:hover,
+input[type="button"]:hover:hover,
+input[type="submit"]:hover:hover,
+input[type="reset"]:hover:hover,
+:hover:hover::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    button:hover:focus-within,
+    [role="button"]:hover:focus-within,
+    input[type="button"]:hover:focus-within,
+    input[type="submit"]:hover:focus-within,
+    input[type="reset"]:hover:focus-within,
+    :hover:focus-within::file-selector-button {
+        opacity: 0.875;
+    }
+    button:hover:hover,
+    [role="button"]:hover:hover,
+    input[type="button"]:hover:hover,
+    input[type="submit"]:hover:hover,
+    input[type="reset"]:hover:hover,
+    :hover:hover::file-selector-button {
+        opacity: 0.875;
+    }
 }
 
 button:focus-within,
@@ -856,38 +1038,62 @@ input[type="submit"]:focus-within,
 input[type="reset"]:focus-within,
 :focus-within::file-selector-button {
     background-color: SelectedItem;
+    background-color: var(--sys-clr-selected-bg, SelectedItem);
     border-color: SelectedItem;
+    border-color: var(--sys-clr-selected-bg, SelectedItem);
     color: SelectedItemText;
+    color: var(--sys-clr-selected-text, SelectedItemText);
     accent-color: ButtonText;
+    accent-color: var(--sys-clr-button-text, ButtonText);
+}
+button:focus-within:focus-within,
+[role="button"]:focus-within:focus-within,
+input[type="button"]:focus-within:focus-within,
+input[type="submit"]:focus-within:focus-within,
+input[type="reset"]:focus-within:focus-within,
+:focus-within:focus-within::file-selector-button {
+    opacity: 0.875;
+}
+button:focus-within:focus,
+[role="button"]:focus-within:focus,
+input[type="button"]:focus-within:focus,
+input[type="submit"]:focus-within:focus,
+input[type="reset"]:focus-within:focus,
+:focus-within:focus::file-selector-button,
+button:focus-within:hover,
+[role="button"]:focus-within:hover,
+input[type="button"]:focus-within:hover,
+input[type="submit"]:focus-within:hover,
+input[type="reset"]:focus-within:hover,
+:focus-within:hover::file-selector-button {
     opacity: 0.875;
 }
 
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    button:focus-within,
-    [role="button"]:focus-within,
-    input[type="button"]:focus-within,
-    input[type="submit"]:focus-within,
-    input[type="reset"]:focus-within,
-    :focus-within::file-selector-button {
-        opacity: 1;
+@media (prefers-contrast: less) {
+    button:focus-within:focus-within,
+    [role="button"]:focus-within:focus-within,
+    input[type="button"]:focus-within:focus-within,
+    input[type="submit"]:focus-within:focus-within,
+    input[type="reset"]:focus-within:focus-within,
+    :focus-within:focus-within::file-selector-button {
+        opacity: 0.875;
     }
-    button:focus,
-    [role="button"]:focus,
-    input[type="button"]:focus,
-    input[type="submit"]:focus,
-    input[type="reset"]:focus,
-    :focus::file-selector-button,
-    button:hover,
-    [role="button"]:hover,
-    input[type="button"]:hover,
-    input[type="submit"]:hover,
-    input[type="reset"]:hover,
-    :hover::file-selector-button {
-        opacity: 1;
+    button:focus-within:focus,
+    [role="button"]:focus-within:focus,
+    input[type="button"]:focus-within:focus,
+    input[type="submit"]:focus-within:focus,
+    input[type="reset"]:focus-within:focus,
+    :focus-within:focus::file-selector-button,
+    button:focus-within:hover,
+    [role="button"]:focus-within:hover,
+    input[type="button"]:focus-within:hover,
+    input[type="submit"]:focus-within:hover,
+    input[type="reset"]:focus-within:hover,
+    :focus-within:hover::file-selector-button {
+        opacity: 0.875;
     }
 }
+
 button:active,
 [role="button"]:active,
 input[type="button"]:active,
@@ -895,9 +1101,13 @@ input[type="submit"]:active,
 input[type="reset"]:active,
 :active::file-selector-button {
     background-color: ButtonFace;
+    background-color: var(--sys-clr-button-bg, ButtonFace);
     border-color: ButtonBorder;
+    border-color: var(--sys-clr-button-border, ButtonFace);
     color: ButtonText;
+    color: var(--sys-clr-button-text, ButtonText);
     accent-color: ActiveText;
+    accent-color: var(--sys-clr-active-text, ActiveText);
 }
 button,
 [role="button"],
@@ -929,6 +1139,7 @@ label {
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     display: grid;
@@ -944,6 +1155,7 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     line-height: var(--line-height-400, 1.6875);
     text-wrap: balance;
     color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
     cursor: pointer;
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"]))
@@ -977,6 +1189,7 @@ table {
         var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
     );
     background: AccentColor;
+    background: var(--sys-clr-accent-bg, CanvasText);
 }
 
 table {
@@ -992,6 +1205,7 @@ td {
     padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
     min-width: 10em;
     background: Canvas;
+    background: var(--sys-clr-background, Canvas);
     vertical-align: top;
     text-align: left;
 }
@@ -1010,7 +1224,9 @@ th {
     padding-bottom: 0.3125rem;
     padding-bottom: var(--mrg-soft-200, 0.3125rem);
     background: AccentColor;
+    background: var(--sys-clr-accent-bg, CanvasText);
     color: AccentColorText;
+    color: var(--sys-clr-accent-text, Canvas);
 }
 
 /*! end of @maddimathon/utility-sass/templates/base */

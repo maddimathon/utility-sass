@@ -101,19 +101,14 @@
         (
             (
                 button,
-                string.unquote("[role='button']"),
-                string.unquote("input[type='button']"),
-                string.unquote("input[type='submit']")
+                "[role='button']",
+                "input[type='button']",
+                "input[type='submit']"
             ),
             button
         ),
-        (
-            (
-                string.unquote("input[type='reset']"),
-                string.unquote('::file-selector-button')
-            ),
-            button-secondary
-        ),
+        (("input[type='reset']", '::file-selector-button'), button-secondary),
+        ('::selection', selection),
         //
         /// ## Tables ==================================== ///
         table,

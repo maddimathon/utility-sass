@@ -25,22 +25,22 @@
 /// @since 0.1.0-alpha.draft
 ///
 @mixin snippet-button(
-    $accentClr: ButtonText,
-    $accentClr_active: ActiveText,
-    $accentClr_hover: ButtonText,
-
-    $borderClr: ButtonBorder,
-    $borderClr_hover: SelectedItem,
-    $borderClr_active: ButtonBorder,
-
-    $background: ButtonFace,
-    $background_hover: SelectedItem,
-    $background_active: ButtonFace,
-
-    $color: ButtonText,
-    $color_hover: SelectedItemText,
-    $color_active: ButtonText,
-
+    //
+    $accentClr: var-sys-colour(button-text),
+    $background: var-sys-colour(button-bg),
+    $borderClr: var-sys-colour(button-border),
+    $color: var-sys-colour(button-text),
+    //
+    $accentClr_active: var-sys-colour(active-text),
+    $background_active: var-sys-colour(button-bg),
+    $borderClr_active: var-sys-colour(button-border),
+    $color_active: var-sys-colour(button-text),
+    //
+    $accentClr_hover: var-sys-colour(button-text),
+    $background_hover: var-sys-colour(selected-bg),
+    $borderClr_hover: var-sys-colour(selected-bg),
+    $color_hover: var-sys-colour(selected-text),
+    //
     $borderWidth: 0.125rem,
     $lh: '100',
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
@@ -93,14 +93,11 @@
 /// @since 0.1.0-alpha.draft
 ///
 @mixin snippet-fieldset(
-    $background: Canvas,
-
-    $borderClr: AccentColor,
-    $borderClr_hover: ActiveText,
-    $borderClr_active: AccentColor,
-
-    $color: CanvasText,
-
+    $background: var-sys-colour(background),
+    $borderClr: var-sys-colour(accent-bg),
+    $borderClr_hover: var-sys-colour(active-text),
+    $borderClr_active: var-sys-colour(accent-bg),
+    $color: var-sys-colour(text),
     $borderWidth: 0.0625rem,
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
     $padding: var-mrg-soft('300') var-mrg-firm('400') var-mrg-firm('300'),
@@ -143,24 +140,23 @@
 /// @since 0.1.0-alpha.draft
 ///
 @mixin snippet-input(
-    $accentClr: FieldText,
-    $accentClr_active: ActiveText,
-    $accentClr_hover: FieldText,
-
-    $background: Field,
-    $background_active: Field,
-    $background_hover: Field,
-
-    $borderClr: FieldText,
-    $borderClr_active: FieldText,
-    $borderClr_hover: FieldText,
-
-    $color: FieldText,
-    $color_active: FieldText,
-    $color_hover: FieldText,
-
+    $accentClr: var-sys-colour(input-text),
+    $accentClr_active: var-sys-colour(active-text),
+    $accentClr_hover: var-sys-colour(input-text),
+    //
+    $background: var-sys-colour(input-bg),
+    $background_active: var-sys-colour(input-bg),
+    $background_hover: var-sys-colour(input-bg),
+    //
+    $borderClr: var-sys-colour(input-text),
+    $borderClr_active: var-sys-colour(input-text),
+    $borderClr_hover: var-sys-colour(input-text),
+    //
+    $color: var-sys-colour(input-text),
+    $color_active: var-sys-colour(input-text),
+    $color_hover: var-sys-colour(input-text),
     $color_placeholder: currentColor,
-
+    //
     $display: block,
     $lh: '200',
     $borderWidth: 0.0625rem,
@@ -168,7 +164,7 @@
     $opacity_hover: 1,
     $padding: var-mrg-soft('200') var-mrg-firm('200'),
     $width: 100%,
-
+    //
     $includeClrs: true,
     $includePlaceholder: true,
     $selector: #{&}
@@ -207,33 +203,17 @@
         }
 
         @if $_opacityIsLessThanOne {
-            opacity: #{$opacity_hover};
-        }
-    }
-
-    @if $_opacityIsLessThanOne {
-        // TODO - un comment
-        // @include colour-mode-js-support(
-        //     $modes: (
-        //         high,
-        //         forced-colors,
-        //     ),
-        //     $key: 'focusVisible'
-        // ) {
-        //     &:focus-visible {
-        //         opacity: 1;
-        //     }
-        // }
-        @include colour-mode-interactive-mixin(
-            $modes: (
-                high,
-                forced-colors,
-            ),
-            $hover: true,
-            $focus: true,
-            $focusWithin: true
-        ) {
-            opacity: 1;
+            @include colour-mode-interactive-mixin(
+                $modes: (
+                    low,
+                    average,
+                ),
+                $hover: true,
+                $focus: true,
+                $focusWithin: true
+            ) {
+                opacity: #{$opacity_hover};
+            }
         }
     }
 
@@ -255,14 +235,13 @@
             opacity: 1;
 
             color: #{$_clr};
-            color: color-mix(in srgb, #{$_clr} 62.5%, transparent);
+
+            @include colour-mode(low, average) {
+                color: color-mix(in srgb, #{$_clr} 62.5%, transparent);
+            }
 
             @include high-contrast {
                 color: color-mix(in srgb, #{$_clr} 87.5%, transparent);
-            }
-
-            @include forced-colors {
-                color: #{$_clr};
             }
         }
     }
@@ -274,10 +253,9 @@
 /// @since 0.1.0-alpha.draft
 ///
 @mixin snippet-input-types(
-    $accentClr: FieldText,
-    $accentClr_active: ActiveText,
-    $accentClr_hover: FieldText,
-
+    $accentClr: var-sys-colour(input-text),
+    $accentClr_active: var-sys-colour(active-text),
+    $accentClr_hover: var-sys-colour(input-text),
     $includeBase: true,
 
     $includeClrs: true
@@ -365,8 +343,8 @@
 /// @since 0.1.0-alpha.draft
 ///
 @mixin snippet-label(
-    $color: CanvasText,
-    $color_checkradio: CanvasText,
+    $color: #{var-sys-colour(text)},
+    $color_checkradio: #{var-sys-colour(text)},
     //
     $gap: var-mrg-soft('300'),
     $lh_checkradio: var-line-height('400'),

@@ -21,8 +21,15 @@
      * ======================================================================== */
 }
 
+%selection {
+    background-color: #{var-sys-colour(selection-bg)};
+    color: #{var-sys-colour(selection-text)};
+}
+
 %root {
     line-height: #{var-line-height('400')};
+    background: #{var-sys-colour(background)};
+    color: #{var-sys-colour(text)};
 }
 
 %body {
@@ -61,21 +68,21 @@
     border: none;
     text-decoration: underline #{var-stroke-relative('200')};
     text-underline-offset: #{var-stroke-relative('600')};
-    color: LinkText;
+    color: #{var-sys-colour(link-text)};
 
     /// STATES ///
 
     &:visited {
-        color: VisitedText;
+        color: #{var-sys-colour(link-visited)};
     }
 
     @include hover-focus-visible() {
         text-decoration-color: transparent;
-        color: ActiveText;
+        color: #{var-sys-colour(active-text)};
     }
 
     &:active {
-        color: ActiveText;
+        color: #{var-sys-colour(active-text)};
     }
 
     /// EXCEPTIONS ///
@@ -90,10 +97,7 @@
         text-decoration-line: line-through;
         opacity: 1;
         cursor: not-allowed;
-
-        @include colour-mode((low, average)) {
-            opacity: 0.875;
-        }
+        color: var-sys-colour(grey-text);
     }
 }
 
@@ -141,14 +145,12 @@
             color: currentColor;
         }
 
-        color: color-mix(in srgb, currentColor 75%, transparent);
+        @include colour-mode(low, average) {
+            color: color-mix(in srgb, currentColor 75%, transparent);
+        }
 
         @include high-contrast {
             color: color-mix(in srgb, currentColor 87.5%, transparent);
-        }
-
-        @include forced-colors {
-            color: currentColor;
         }
     }
 }

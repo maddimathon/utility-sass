@@ -28,8 +28,14 @@
     $fontSize: true,
     $lineHeight: true,
     $margin: true,
+    $sysColours: true,
     $width: true
 ) {
+    // colours
+    @if $sysColours {
+        @include tokens-sys-colours;
+    }
+
     // spacing
     @if $width {
         @include tokens-width;

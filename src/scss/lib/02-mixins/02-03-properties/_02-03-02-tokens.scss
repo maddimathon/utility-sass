@@ -6,12 +6,13 @@
 @use '../../../config';
 @use '../../../tokens';
 
+@use '../../../modules/map';
 @use '../../../modules/selector';
 
 @use '../../01-functions' as *;
 
 // @use '../02-01-utilities' as *;
-// @use '../02-02-theming' as *;
+@use '../02-02-theming' as *;
 
 // @use '02-03-01-utilities' as *;
 
@@ -77,6 +78,37 @@
         }
     }
     /* #endregion Tokens - Margin */
+}
+
+$_systemColors: get-sys-colours();
+
+///
+/// Prints out the line height custom property default values based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-sys-colours($clrOverrides: (), $includeForcedColours: true) {
+    $map: map.merge($_systemColors, $clrOverrides);
+
+    /* #region Tokens - System Colours */
+    :where(#{selector.parent-or-root()}) {
+        @each $slug, $list in $map {
+            @each $value in $list {
+                --sys-clr-#{$slug}: #{$value};
+            }
+        }
+    }
+
+    @if $includeForcedColours {
+        @include forced-colors {
+            @each $slug, $list in $map {
+                @each $value in $list {
+                    --sys-clr-#{$slug}: #{$value} !important;
+                }
+            }
+        }
+    }
+    /* #endregion Tokens - System Colours */
 }
 
 ///

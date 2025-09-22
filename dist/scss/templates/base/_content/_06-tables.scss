@@ -28,7 +28,7 @@
     margin-block: #{var-mrg-soft('600')}
         calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
 
-    background: AccentColor;
+    background: #{var-sys-colour(accent-bg)};
 
     @include config.incl-html {
         width: min(var(--width-page, 53rem), 100%);
@@ -62,7 +62,7 @@
 %td {
     padding: #{var-mrg-soft('200')} #{var-mrg-firm('300')};
     min-width: 10em;
-    background: Canvas;
+    background: #{var-sys-colour(background)};
 
     vertical-align: top;
     text-align: left;
@@ -78,14 +78,11 @@
 }
 
 %th {
-    // @include heading;
     padding-top: #{var-mrg-soft('200')};
     padding-bottom: #{var-mrg-soft('200')};
 
-    background: AccentColor;
-    color: AccentColorText;
-    // font-weight: 700;
-    // line-height: #{line-height('200')};
+    background: #{var-sys-colour(accent-bg)};
+    color: #{var-sys-colour(accent-text)};
 }
 
 %td {

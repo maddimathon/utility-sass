@@ -1,0 +1,72 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use '../../../modules/list';
+@use '../../../modules/map';
+@use '../../../modules/meta';
+
+$_systemColors: (
+    accent-bg: (
+        CanvasText,
+        AccentColor,
+    ),
+    accent-text: (
+        Canvas,
+        AccentColorText,
+    ),
+    active-text: ActiveText,
+    background: Canvas,
+    button-bg: ButtonFace,
+    button-border: (
+        ButtonFace,
+        ButtonBorder,
+    ),
+    button-text: ButtonText,
+    grey-text: GrayText,
+    input-bg: Field,
+    input-text: FieldText,
+    link-text: LinkText,
+    link-visited: VisitedText,
+    mark-bg: (
+        CanvasText,
+        AccentColor,
+        Mark,
+    ),
+    mark-text: (
+        Canvas,
+        AccentColorText,
+        MarkText,
+    ),
+    selected-bg: SelectedItem,
+    selected-text: SelectedItemText,
+    selection-bg: Highlight,
+    selection-text: HighlightText,
+    text: CanvasText,
+);
+
+///
+/// @since 0.1.0-alpha.draft
+///
+@function get-sys-colours() {
+    @return $_systemColors;
+}
+
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-sys-colour($slug) {
+    @if not map.has-key($_systemColors, $slug) {
+        @warn "$slug '#{$slug}' was not a key in the system colors";
+        @return var(--sys-clr-#{$slug});
+    }
+
+    $fallback: map.get($_systemColors, $slug);
+
+    @if meta.type-of($fallback) == list and list.length($fallback) > 1 {
+        $fallback: list.nth($fallback, 1);
+    }
+
+    @return var(--sys-clr-#{$slug}, #{$fallback});
+}
