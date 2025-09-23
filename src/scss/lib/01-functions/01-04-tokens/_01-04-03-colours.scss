@@ -8,27 +8,18 @@
 @use '../../../modules/meta';
 
 $_systemColors: (
+    background: Canvas,
+    text: CanvasText,
+
+    // SETS
     accent-bg: (
-        CanvasText,
-        AccentColor,
-    ),
+            CanvasText,
+            AccentColor,
+        ),
     accent-text: (
         Canvas,
         AccentColorText,
     ),
-    active-text: ActiveText,
-    background: Canvas,
-    button-bg: ButtonFace,
-    button-border: (
-        ButtonFace,
-        ButtonBorder,
-    ),
-    button-text: ButtonText,
-    grey-text: GrayText,
-    input-bg: Field,
-    input-text: FieldText,
-    link-text: LinkText,
-    link-visited: VisitedText,
     mark-bg: (
         CanvasText,
         AccentColor,
@@ -43,7 +34,44 @@ $_systemColors: (
     selected-text: SelectedItemText,
     selection-bg: Highlight,
     selection-text: HighlightText,
-    text: CanvasText,
+
+    // TEXT
+    text-active: ActiveText,
+    text-disabled: GrayText,
+
+    // BUTTONS
+    button-bg: ButtonFace,
+    button-bg-active: ButtonFace,
+    button-bg-hover: SelectedItem,
+    button-border: (
+        ButtonFace,
+        ButtonBorder,
+    ),
+    button-border-active: (
+        ButtonFace,
+        ButtonBorder,
+    ),
+    button-border-hover: SelectedItem,
+    button-text: ButtonText,
+    button-text-active: ButtonText,
+    button-text-hover: SelectedItemText,
+
+    // FORMS
+    input-bg: Field,
+    input-bg-hover: SelectedItem,
+    input-bg-active: Field,
+    input-border: FieldText,
+    input-border-hover: SelectedItem,
+    input-border-active: FieldText,
+    input-text: FieldText,
+    input-text-hover: SelectedItemText,
+    input-text-active: FieldText,
+
+    // LINKS
+    link: LinkText,
+    link-active: ActiveText,
+    link-hover: ActiveText,
+    link-visited: VisitedText,
 );
 
 ///

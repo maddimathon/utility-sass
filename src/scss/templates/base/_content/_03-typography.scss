@@ -64,11 +64,12 @@
 }
 
 %a {
+    --focus-ring-outline-color: currentColor;
     display: inline;
     border: none;
     text-decoration: underline #{var-stroke-relative('200')};
     text-underline-offset: #{var-stroke-relative('600')};
-    color: #{var-sys-colour(link-text)};
+    color: #{var-sys-colour(link)};
 
     /// STATES ///
 
@@ -78,11 +79,11 @@
 
     @include hover-focus-visible() {
         text-decoration-color: transparent;
-        color: #{var-sys-colour(active-text)};
+        color: #{var-sys-colour(link-hover)};
     }
 
     &:active {
-        color: #{var-sys-colour(active-text)};
+        color: #{var-sys-colour(link-active)};
     }
 
     /// EXCEPTIONS ///
@@ -97,7 +98,7 @@
         text-decoration-line: line-through;
         opacity: 1;
         cursor: not-allowed;
-        color: var-sys-colour(grey-text);
+        color: var-sys-colour(text-disabled);
     }
 }
 

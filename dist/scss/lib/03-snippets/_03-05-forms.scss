@@ -31,15 +31,15 @@
     $borderClr: var-sys-colour(button-border),
     $color: var-sys-colour(button-text),
     //
-    $accentClr_active: var-sys-colour(active-text),
-    $background_active: var-sys-colour(button-bg),
-    $borderClr_active: var-sys-colour(button-border),
-    $color_active: var-sys-colour(button-text),
+    $accentClr_active: var-sys-colour(button-text-active),
+    $background_active: var-sys-colour(button-bg-active),
+    $borderClr_active: var-sys-colour(button-border-active),
+    $color_active: var-sys-colour(button-text-active),
     //
-    $accentClr_hover: var-sys-colour(button-text),
-    $background_hover: var-sys-colour(selected-bg),
-    $borderClr_hover: var-sys-colour(selected-bg),
-    $color_hover: var-sys-colour(selected-text),
+    $accentClr_hover: var-sys-colour(button-text-hover),
+    $background_hover: var-sys-colour(button-bg-hover),
+    $borderClr_hover: var-sys-colour(button-border-hover),
+    $color_hover: var-sys-colour(button-text-hover),
     //
     $borderWidth: 0.125rem,
     $lh: '100',
@@ -95,7 +95,7 @@
 @mixin snippet-fieldset(
     $background: var-sys-colour(background),
     $borderClr: var-sys-colour(accent-bg),
-    $borderClr_hover: var-sys-colour(active-text),
+    $borderClr_hover: var-sys-colour(text-active),
     $borderClr_active: var-sys-colour(accent-bg),
     $color: var-sys-colour(text),
     $borderWidth: 0.0625rem,
@@ -141,20 +141,20 @@
 ///
 @mixin snippet-input(
     $accentClr: var-sys-colour(input-text),
-    $accentClr_active: var-sys-colour(active-text),
+    $accentClr_active: var-sys-colour(text-active),
     $accentClr_hover: var-sys-colour(input-text),
     //
     $background: var-sys-colour(input-bg),
-    $background_active: var-sys-colour(input-bg),
-    $background_hover: var-sys-colour(input-bg),
+    $background_active: var-sys-colour(input-bg-active),
+    $background_hover: var-sys-colour(input-bg-hover),
     //
-    $borderClr: var-sys-colour(input-text),
-    $borderClr_active: var-sys-colour(input-text),
-    $borderClr_hover: var-sys-colour(input-text),
+    $borderClr: var-sys-colour(input-border),
+    $borderClr_active: var-sys-colour(input-border-active),
+    $borderClr_hover: var-sys-colour(input-border-hover),
     //
     $color: var-sys-colour(input-text),
-    $color_active: var-sys-colour(input-text),
-    $color_hover: var-sys-colour(input-text),
+    $color_active: var-sys-colour(input-text-active),
+    $color_hover: var-sys-colour(input-text-hover),
     $color_placeholder: currentColor,
     //
     $display: block,
@@ -181,6 +181,7 @@
     border-radius: 0;
 
     @if $includeClrs {
+        --focus-ring-outline-color: #{$accentClr};
         background-color: #{$background};
         color: #{$color};
         accent-color: #{$accentClr};
@@ -196,6 +197,7 @@
 
     @include hover-focus-visible-or-within {
         @if $includeClrs {
+            --focus-ring-outline-color: #{$accentClr_hover};
             background-color: #{$background_hover};
             border-color: #{$borderClr_hover};
             color: #{$color_hover};
@@ -219,6 +221,7 @@
 
     &:active {
         @if $includeClrs {
+            --focus-ring-outline-color: #{$accentClr_active};
             background-color: #{$background_active};
             border-color: #{$borderClr_active};
             color: #{$color_active};
@@ -254,7 +257,7 @@
 ///
 @mixin snippet-input-types(
     $accentClr: var-sys-colour(input-text),
-    $accentClr_active: var-sys-colour(active-text),
+    $accentClr_active: var-sys-colour(text-active),
     $accentClr_hover: var-sys-colour(input-text),
     $includeBase: true,
 
