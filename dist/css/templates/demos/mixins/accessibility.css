@@ -18,11 +18,19 @@
         --mixin: "motion";
     }
 }
+[data-motion="no-preference"] {
+    --mixin: "motion";
+}
+
 @media (prefers-reduced-motion: less) {
     :root {
         --mixin: "no-motion";
     }
 }
+[data-motion="less"] {
+    --mixin: "no-motion";
+}
+
 /* #endregion - at root */
 /* #region - in root parent */
 @media (prefers-reduced-motion: no-preference) {
@@ -30,11 +38,19 @@
         --mixin: "motion";
     }
 }
+[data-motion="no-preference"]:root {
+    --mixin: "motion";
+}
+
 @media (prefers-reduced-motion: less) {
     :root {
         --mixin: "no-motion";
     }
 }
+[data-motion="less"]:root {
+    --mixin: "no-motion";
+}
+
 /* #endregion - in root parent */
 /* #region - in body parent */
 @media (prefers-reduced-motion: no-preference) {
@@ -42,11 +58,19 @@
         --mixin: "motion";
     }
 }
+[data-motion="no-preference"] body {
+    --mixin: "motion";
+}
+
 @media (prefers-reduced-motion: less) {
     body {
         --mixin: "no-motion";
     }
 }
+[data-motion="less"] body {
+    --mixin: "no-motion";
+}
+
 /* #endregion - in body parent */
 /* #region - in random parent */
 @media (prefers-reduced-motion: no-preference) {
@@ -54,9 +78,17 @@
         --mixin: "motion";
     }
 }
+[data-motion="no-preference"] parent {
+    --mixin: "motion";
+}
+
 @media (prefers-reduced-motion: less) {
     parent {
         --mixin: "no-motion";
     }
 }
+[data-motion="less"] parent {
+    --mixin: "no-motion";
+}
+
 /* #endregion - in random parent */

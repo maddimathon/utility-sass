@@ -2,15 +2,15 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-@use 'sass:map';
-@use 'sass:string';
 
 @use '../../../../config';
 @use '../../../../tokens';
 
 @use '../../../../modules/list';
+@use '../../../../modules/map';
 @use '../../../../modules/meta';
 @use '../../../../modules/selector';
+@use '../../../../modules/string';
 
 // @use '../../01-01-selectors' as *;
 // @use '../../01-02-accessibility' as *;
@@ -30,7 +30,7 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function token-mode-validate-args(
+@function colour-mode-validate-args(
     $modes: (),
     $includeDefault: true,
     $ignoreParentSelector: false,
@@ -50,10 +50,10 @@
     $optionalArgs...
 ) {
     @if $debug {
-        @warn 'debugging token-mode-validate-args()';
+        @warn 'debugging colour-mode-validate-args()';
         // @debug "";
         @debug '-  -  -';
-        @debug 'token-mode-validate-args()';
+        @debug 'colour-mode-validate-args()';
         @debug '';
         @debug '& = #{meta.var-dump( & )}';
         @debug '';
@@ -74,7 +74,7 @@
         @debug '$optionalArgs = #{meta.var-dump($optionalArgs)}';
     }
 
-    $modes: filter-token-modes-active-only(
+    $modes: filter-colour-modes-active-only(
         $modes: $modes,
         $debug: $debug,
     );
@@ -228,7 +228,7 @@
     $isClrModeDefault: false;
 
     @each $mode in $modes {
-        @if is-token-mode-default($mode) {
+        @if is-colour-mode-default($mode) {
             $isClrModeDefault: true;
         }
     }

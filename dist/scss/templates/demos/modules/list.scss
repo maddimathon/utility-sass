@@ -20,16 +20,32 @@ $_list: (one, two, two, one, (A, B, C, (yet another list), B));
 $_list_flat: list.flatten($_list);
 
 list.flatten {
-    @include utils.var-dump('list', $_list);
-    @include utils.var-dump('list.flatten', $_list_flat);
+    @include utils.var-dump('$list', $_list);
+    @include utils.var-dump('list.flatten( $list )', $_list_flat);
+}
+
+list.except {
+    @include utils.var-dump('$list', $_list_flat);
+    @include utils.var-dump(
+        'list.except( $list, one )',
+        list.except($_list_flat, one)
+    );
+}
+
+list.only {
+    @include utils.var-dump('$list', $_list_flat);
+    @include utils.var-dump(
+        'list.only( $list, one )',
+        list.only($_list_flat, one)
+    );
 }
 
 list.sort {
-    @include utils.var-dump('list', $_list_flat);
-    @include utils.var-dump('list.sort', list.sort($_list_flat));
+    @include utils.var-dump('$list', $_list_flat);
+    @include utils.var-dump('list.sort( $list )', list.sort($_list_flat));
 }
 
 list.unique {
-    @include utils.var-dump('list', $_list_flat);
-    @include utils.var-dump('list.unique', list.unique($_list_flat));
+    @include utils.var-dump('$list', $_list_flat);
+    @include utils.var-dump('list.unique( $list )', list.unique($_list_flat));
 }

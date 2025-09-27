@@ -14,7 +14,7 @@
  * ======================================================================== */
 list.flatten {
     /* 
-      list is a list:
+      $list is a list:
    */
     /* 1: <S> one */
     /* 2: <S> two */
@@ -22,7 +22,7 @@ list.flatten {
     /* 4: <S> one */
     /* 5: <()> ( <S> A, <S> B, <S> C, <()> ( <S> yet <S> another <S> list ), <S> B ) */
     /* 
-      list.flatten is a list:
+      list.flatten( $list ) is a list:
    */
     /* 1: <S> one */
     /* 2: <S> two */
@@ -37,9 +37,9 @@ list.flatten {
     /* 11: <S> B */
 }
 
-list.sort {
+list.except {
     /* 
-      list is a list:
+      $list is a list:
    */
     /* 1: <S> one */
     /* 2: <S> two */
@@ -53,7 +53,58 @@ list.sort {
     /* 10: <S> list */
     /* 11: <S> B */
     /* 
-      list.sort is a list:
+      list.except( $list, one ) is a list:
+   */
+    /* 1: <S> two */
+    /* 2: <S> two */
+    /* 3: <S> A */
+    /* 4: <S> B */
+    /* 5: <S> C */
+    /* 6: <S> yet */
+    /* 7: <S> another */
+    /* 8: <S> list */
+    /* 9: <S> B */
+}
+
+list.only {
+    /* 
+      $list is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> two */
+    /* 3: <S> two */
+    /* 4: <S> one */
+    /* 5: <S> A */
+    /* 6: <S> B */
+    /* 7: <S> C */
+    /* 8: <S> yet */
+    /* 9: <S> another */
+    /* 10: <S> list */
+    /* 11: <S> B */
+    /* 
+      list.only( $list, one ) is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> one */
+}
+
+list.sort {
+    /* 
+      $list is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> two */
+    /* 3: <S> two */
+    /* 4: <S> one */
+    /* 5: <S> A */
+    /* 6: <S> B */
+    /* 7: <S> C */
+    /* 8: <S> yet */
+    /* 9: <S> another */
+    /* 10: <S> list */
+    /* 11: <S> B */
+    /* 
+      list.sort( $list ) is a list:
    */
     /* 1: <S> A */
     /* 2: <S> another */
@@ -70,7 +121,7 @@ list.sort {
 
 list.unique {
     /* 
-      list is a list:
+      $list is a list:
    */
     /* 1: <S> one */
     /* 2: <S> two */
@@ -84,7 +135,7 @@ list.unique {
     /* 10: <S> list */
     /* 11: <S> B */
     /* 
-      list.unique is a list:
+      list.unique( $list ) is a list:
    */
     /* 1: <S> one */
     /* 2: <S> two */

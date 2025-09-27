@@ -18,11 +18,19 @@
         --mixin: "motion";
     }
 }
+[data-motion="no-preference"] {
+    --mixin: "motion";
+}
+
 @media (prefers-reduced-motion: less) {
     :root {
         --mixin: "no-motion";
     }
 }
+[data-motion="less"] {
+    --mixin: "no-motion";
+}
+
 /* #endregion - at root */
 /* #region - in root parent */
 @media (prefers-reduced-motion: no-preference) {
@@ -30,11 +38,19 @@
         --mixin: "motion";
     }
 }
+[data-motion="no-preference"]:root {
+    --mixin: "motion";
+}
+
 @media (prefers-reduced-motion: less) {
     :root {
         --mixin: "no-motion";
     }
 }
+[data-motion="less"]:root {
+    --mixin: "no-motion";
+}
+
 /* #endregion - in root parent */
 /* #region - in body parent */
 @media (prefers-reduced-motion: no-preference) {
@@ -42,11 +58,19 @@
         --mixin: "motion";
     }
 }
+[data-motion="no-preference"] body {
+    --mixin: "motion";
+}
+
 @media (prefers-reduced-motion: less) {
     body {
         --mixin: "no-motion";
     }
 }
+[data-motion="less"] body {
+    --mixin: "no-motion";
+}
+
 /* #endregion - in body parent */
 /* #region - in random parent */
 @media (prefers-reduced-motion: no-preference) {
@@ -54,11 +78,19 @@
         --mixin: "motion";
     }
 }
+[data-motion="no-preference"] parent {
+    --mixin: "motion";
+}
+
 @media (prefers-reduced-motion: less) {
     parent {
         --mixin: "no-motion";
     }
 }
+[data-motion="less"] parent {
+    --mixin: "no-motion";
+}
+
 /* #endregion - in random parent */
 /* # MIXINS - BREAKPOINTS
  * ======================================================================== */
@@ -106,7 +138,8 @@
 /* # MIXINS - MODES
  * ======================================================================== */
 /* #region - in root parent */
-:root {
+:root,
+[data-brightness-mode="light"]:root {
     --mode-mixin: "light";
 }
 
@@ -118,7 +151,8 @@
 
 /* #endregion - in root parent */
 /* #region - in body parent */
-body {
+body,
+[data-brightness-mode="light"] body {
     --mode-mixin: "light";
 }
 
@@ -130,7 +164,8 @@ body {
 
 /* #endregion - in body parent */
 /* #region - in random parent */
-parent {
+parent,
+[data-brightness-mode="light"] parent {
     --mode-mixin: "light";
 }
 
@@ -142,7 +177,8 @@ parent {
 
 /* #endregion - in random parent */
 /* #region light */
-:root {
+:root,
+[data-brightness-mode="light"] {
     --mode-mixin: "light";
 }
 
@@ -153,6 +189,10 @@ parent {
 }
 /* #endregion light */
 /* #region dark */
+[data-brightness-mode="dark"] {
+    --mode-mixin: "dark";
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --mode-mixin: "dark";
@@ -160,6 +200,10 @@ parent {
 }
 /* #endregion dark */
 /* #region low-contrast */
+[data-contrast-mode="low"] {
+    --mode-mixin: "low-contrast";
+}
+
 @media (prefers-contrast: less) {
     :root {
         --mode-mixin: "low-contrast";
@@ -167,12 +211,17 @@ parent {
 }
 /* #endregion low-contrast */
 /* #region average-contrast */
-:root {
+:root,
+[data-contrast-mode="average"] {
     --mode-mixin: "average-contrast";
 }
 
 /* #endregion average-contrast */
 /* #region high-contrast */
+[data-contrast-mode="high"] {
+    --mode-mixin: "high-contrast";
+}
+
 @media (prefers-contrast: more) {
     :root {
         --mode-mixin: "high-contrast";
@@ -186,9 +235,14 @@ parent {
     }
 }
 /* #endregion forced-colors */
-/* #region token-mode-all */
-:root {
-    --mode-mixin: "token-mode-all";
+/* #region colour-mode-all */
+:root,
+[data-brightness-mode="light"],
+[data-brightness-mode="dark"],
+[data-contrast-mode="average"],
+[data-contrast-mode="low"],
+[data-contrast-mode="high"] {
+    --mode-mixin: "colour-mode-all";
 }
 
 @media (prefers-color-scheme: light),
@@ -198,98 +252,165 @@ parent {
     (forced-colors: active),
     (prefers-contrast: custom) {
     :root {
-        --mode-mixin: "token-mode-all";
+        --mode-mixin: "colour-mode-all";
     }
 }
-/* #endregion token-mode-all */
-/* ## token-mode-each ==================================== */
-/* e.g. - `@include lib.token-mode-each using ($brightness, $contrast) {}` */
-/*#region light mode + average contrast */
-:root {
-    --token-mode-each-brightness: light;
-    --token-mode-each-contrast: average;
+/* #endregion colour-mode-all */
+/* ## colour-mode-each ==================================== */
+/* e.g. - `@include lib.colour-mode-each($nestModeSelectors: true) using ($brightness, $contrast) {}` */
+/* #region light mode + average contrast */
+:root,
+[data-brightness-mode="light"],
+[data-contrast-mode="average"],
+[data-brightness-mode="light"][data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="light"],
+[data-brightness-mode="light"] [data-contrast-mode="average"] {
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
 }
 
 @media (prefers-color-scheme: light) {
-    :root {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: average;
+    :root,
+    [data-contrast-mode="average"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
     }
 }
-/*#endregion light mode + average contrast */
-/*#region light mode + low contrast */
+/* #endregion light mode + average contrast */
+/* #region light mode + low contrast */
+[data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="light"],
+[data-brightness-mode="light"] [data-contrast-mode="low"] {
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: low;
+}
+
 @media (prefers-contrast: less) {
-    :root {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: low;
+    :root,
+    [data-brightness-mode="light"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: light) {
+    [data-contrast-mode="low"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
     }
 }
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
     :root {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: low;
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
     }
 }
-/*#endregion light mode + low contrast */
-/*#region light mode + high contrast */
+/* #endregion light mode + low contrast */
+/* #region light mode + high contrast */
+[data-contrast-mode="high"],
+[data-brightness-mode="light"][data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="light"],
+[data-brightness-mode="light"] [data-contrast-mode="high"] {
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: high;
+}
+
 @media (prefers-contrast: more) {
-    :root {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: high;
+    :root,
+    [data-brightness-mode="light"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: light) {
+    [data-contrast-mode="high"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
     }
 }
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
     :root {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: high;
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
     }
 }
-/*#endregion light mode + high contrast */
-/*#region light mode + forced-colors contrast */
-@media (forced-colors: active), (prefers-contrast: custom) {
-    :root {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: forced-colors;
-    }
+/* #endregion light mode + high contrast */
+/* #region dark mode + average contrast */
+[data-brightness-mode="dark"],
+[data-brightness-mode="dark"][data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="dark"],
+[data-brightness-mode="dark"] [data-contrast-mode="average"] {
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: average;
 }
-@media (( prefers-color-scheme: light ) and ( forced-colors: active )),
-    (( prefers-color-scheme: light ) and ( prefers-contrast: custom )) {
-    :root {
-        --token-mode-each-brightness: light;
-        --token-mode-each-contrast: forced-colors;
-    }
-}
-/*#endregion light mode + forced-colors contrast */
-/*#region dark mode + average contrast */
+
 @media (prefers-color-scheme: dark) {
-    :root {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: average;
+    :root,
+    [data-contrast-mode="average"] {
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
     }
 }
-/*#endregion dark mode + average contrast */
-/*#region dark mode + low contrast */
+/* #endregion dark mode + average contrast */
+/* #region dark mode + low contrast */
+[data-brightness-mode="dark"][data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="dark"],
+[data-brightness-mode="dark"] [data-contrast-mode="low"] {
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: low;
+}
+
+@media (prefers-contrast: less) {
+    [data-brightness-mode="dark"] {
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="low"] {
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
     :root {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: low;
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
     }
 }
-/*#endregion dark mode + low contrast */
-/*#region dark mode + high contrast */
+/* #endregion dark mode + low contrast */
+/* #region dark mode + high contrast */
+[data-brightness-mode="dark"][data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="dark"],
+[data-brightness-mode="dark"] [data-contrast-mode="high"] {
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: high;
+}
+
+@media (prefers-contrast: more) {
+    [data-brightness-mode="dark"] {
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="high"] {
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
     :root {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: high;
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
     }
 }
-/*#endregion dark mode + high contrast */
-/*#region dark mode + forced-colors contrast */
-@media (( prefers-color-scheme: dark ) and ( forced-colors: active )),
-    (( prefers-color-scheme: dark ) and ( prefers-contrast: custom )) {
+/* #endregion dark mode + high contrast */
+/* #region forced-colors */
+@media (forced-colors: active), (prefers-contrast: custom) {
     :root {
-        --token-mode-each-brightness: dark;
-        --token-mode-each-contrast: forced-colors;
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: forced-colors;
     }
 }
-/*#endregion dark mode + forced-colors contrast */
+/* #endregion forced-colors */

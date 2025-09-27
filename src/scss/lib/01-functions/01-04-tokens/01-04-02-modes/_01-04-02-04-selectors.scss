@@ -2,7 +2,6 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-@use 'sass:string';
 
 @use '../../../../config';
 // @use '../../../../tokens';
@@ -11,6 +10,7 @@
 @use '../../../../modules/map';
 @use '../../../../modules/meta';
 @use '../../../../modules/selector';
+@use '../../../../modules/string';
 
 // @use '../../01-01-selectors' as *;
 // @use '../../01-02-accessibility' as *;
@@ -28,14 +28,14 @@
 ///
 /// Returns the selectors for the given colour modes.
 ///
-/// @param {bool} $modeArgs  Optional. Whether the token-mode-validate-args() function has already been applied to the args. Default false.
-/// @param {bool} $args...   Remaining args. See {@link token-mode-validate-args()} for details.
+/// @param {bool} $modeArgs  Optional. Whether the colour-mode-validate-args() function has already been applied to the args. Default false.
+/// @param {bool} $args...   Remaining args. See {@link colour-mode-validate-args()} for details.
 ///
 /// @since ___PKG_VERSION___
 ///
-@function media-queries-token-mode($modeArgs: false, $args...) {
+@function media-queries-colour-mode($modeArgs: false, $args...) {
     @if not $modeArgs {
-        $args: token-mode-validate-args($args...);
+        $args: colour-mode-validate-args($args...);
     } @else {
         $args: meta.keywords($args);
     }
@@ -57,7 +57,7 @@
     @if $debug {
         @debug '';
         @debug '=  =  =';
-        @debug 'media-queries-token-mode()';
+        @debug 'media-queries-colour-mode()';
         @debug '';
         @debug '$modes = #{meta.var-dump($modes)}';
         @debug '$includeDefault = #{meta.var-dump($includeDefault)}';
@@ -75,9 +75,9 @@
 
     @each $mode in $modes {
         $isClrModeDefault: false;
-        $isClrModeDefaultOnly: is-token-mode-type-default-only($mode);
+        $isClrModeDefaultOnly: is-colour-mode-type-default-only($mode);
 
-        @if is-token-mode-default($mode) {
+        @if is-colour-mode-default($mode) {
             $isClrModeDefault: true;
         }
         @if $debug {
@@ -191,14 +191,14 @@
 ///
 /// Returns the selectors for the given colour modes.
 ///
-/// @param {bool} $modeArgs  Optional. Whether the token-mode-validate-args() function has already been applied to the args. Default false.
-/// @param {bool} $args...   Remaining args. See {@link token-mode-validate-args()} for details.
+/// @param {bool} $modeArgs  Optional. Whether the colour-mode-validate-args() function has already been applied to the args. Default false.
+/// @param {bool} $args...   Remaining args. See {@link colour-mode-validate-args()} for details.
 ///
 /// @since ___PKG_VERSION___
 ///
-@function selectors-token-mode($modeArgs: false, $args...) {
+@function selectors-colour-mode($modeArgs: false, $args...) {
     @if not $modeArgs {
-        $args: token-mode-validate-args($args...);
+        $args: colour-mode-validate-args($args...);
     } @else {
         $args: meta.keywords($args);
     }
@@ -221,7 +221,7 @@
     @if $debug {
         @debug '';
         @debug '=  =  =';
-        @debug 'selectors-token-mode()';
+        @debug 'selectors-colour-mode()';
         @debug '';
         @debug 'config.$selectorType_mode = #{meta.var-dump(config.$selectorType_mode)}';
         @debug '';
@@ -241,70 +241,72 @@
     $selectorsList: ();
 
     @each $mode in $modes {
-        $isDefaultOnly: is-token-mode-type-default-only($mode);
-        $isDefault: is-token-mode-default($mode);
-
-        @if $debug {
-            @debug '';
-            @debug '$mode = #{meta.var-dump($mode)}';
-            @debug '$isDefaultOnly = #{meta.var-dump($isDefaultOnly)}';
-            @debug '$isDefault = #{meta.var-dump($isDefault)}';
-        }
-
-        @if $includeDefault and $isDefault {
-            $prependParentSelector: true;
-        }
-
-        @if not $isDefaultOnly or $isDefault {
-            $modeType: get-token-mode-type($mode);
-
-            $selector: ();
-
-            @if config.$selectorType_mode == 'attribute' {
-                $selector: (
-                    string.unquote('[data-#{$modeType}-mode=#{$mode}]')
-                );
-            }
-
-            @if config.$selectorType_mode == 'class' {
-                $selector: (
-                    string.unquote('.theme-#{$modeType}-mode-#{$mode}')
-                );
-            }
+        @if $mode != forced-colors {
+            $isDefaultOnly: is-colour-mode-type-default-only($mode);
+            $isDefault: is-colour-mode-default($mode);
 
             @if $debug {
-                @debug '$selector = #{meta.var-dump($selector)}';
+                @debug '';
+                @debug '$mode = #{meta.var-dump($mode)}';
+                @debug '$isDefaultOnly = #{meta.var-dump($isDefaultOnly)}';
+                @debug '$isDefault = #{meta.var-dump($isDefault)}';
             }
 
-            @if list.length($selector) > 0 {
-                $mergedSelectors: ();
+            @if $includeDefault and $isDefault {
+                $prependParentSelector: true;
+            }
 
-                @if $parentSelectorExists and not $parentIsRoot {
-                    $mergedSelectors: selector.merge(
-                        $selectorA: $parentSelector,
-                        $selectorB: $selector,
+            @if not $isDefaultOnly or $isDefault {
+                $modeType: get-colour-mode-type($mode);
 
-                        $nestAinB: $nestParentSelector,
-                        $nestBinA: $wrapParentSelector,
-                        $unify: $unifyParentSelector,
+                $selector: ();
 
-                        $debug: $debug,
+                @if config.$selectorType_mode == 'attribute' {
+                    $selector: (
+                        string.unquote('[data-#{$modeType}-mode=#{$mode}]')
                     );
-                } @else {
-                    $mergedSelectors: $selector;
-                }
-                @if $debug {
-                    @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
                 }
 
-                $selectorsList: list.append(
-                    $selectorsList,
-                    $mergedSelectors,
-                    $separator: comma
-                );
+                @if config.$selectorType_mode == 'class' {
+                    $selector: (
+                        string.unquote('.theme-#{$modeType}-mode-#{$mode}')
+                    );
+                }
+
+                @if $debug {
+                    @debug '$selector = #{meta.var-dump($selector)}';
+                }
+
+                @if list.length($selector) > 0 {
+                    $mergedSelectors: ();
+
+                    @if $parentSelectorExists and not $parentIsRoot {
+                        $mergedSelectors: selector.merge(
+                            $selectorA: $parentSelector,
+                            $selectorB: $selector,
+
+                            $nestAinB: $nestParentSelector,
+                            $nestBinA: $wrapParentSelector,
+                            $unify: $unifyParentSelector,
+
+                            $debug: $debug,
+                        );
+                    } @else {
+                        $mergedSelectors: $selector;
+                    }
+                    @if $debug {
+                        @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
+                    }
+
+                    $selectorsList: list.append(
+                        $selectorsList,
+                        $mergedSelectors,
+                        $separator: comma
+                    );
+                }
+            } @else if $debug {
+                @debug 'no selectors added';
             }
-        } @else if $debug {
-            @debug 'no selectors added';
         }
     }
 

@@ -2,7 +2,6 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-// @use 'sass:string';
 
 // @use '../../../../config';
 // @use '../../../../tokens';
@@ -27,11 +26,11 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function filter-token-modes-active-only($modes: (), $debug: false) {
+@function filter-colour-modes-active-only($modes: (), $debug: false) {
     @if $debug {
         @debug '';
         @debug '-  -  -';
-        @debug 'filter-token-modes-active-only()';
+        @debug 'filter-colour-modes-active-only()';
         @debug '';
         @debug '$modes = #{meta.var-dump($modes)}';
         @debug '$debug = #{meta.var-dump($debug)}';
@@ -48,7 +47,7 @@
     $filtered: ();
 
     @each $mode in $modes {
-        @if is-token-mode-included($mode) {
+        @if is-colour-mode-included($mode) {
             $filtered: list.append($filtered, $mode);
             @if $debug {
                 @debug 'mode active: #{$mode}';

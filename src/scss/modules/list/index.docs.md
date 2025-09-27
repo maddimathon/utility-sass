@@ -11,6 +11,7 @@ This scss "module" is meant as a replacement for the built-in `sass:list` module
 ```scss
 @use '@utility-sass/list'; // adds extras to 'sass:list'
 
+list.except(...); // added
 list.flatten(...); // added
 list.sort(...); // added
 list.unique(...); // added

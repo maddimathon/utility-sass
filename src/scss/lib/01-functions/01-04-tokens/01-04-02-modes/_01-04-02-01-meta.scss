@@ -2,7 +2,6 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
-// @use 'sass:string';
 
 // @use '../../../../config';
 @use '../../../../tokens';
@@ -26,7 +25,7 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function get-token-mode-type($mode) {
+@function get-colour-mode-type($mode) {
     @if list.index(tokens.$brightnessMode_all, $mode) != null {
         @return 'brightness';
     }
@@ -45,8 +44,8 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function is-token-mode-default($mode) {
-    $modeType: get-token-mode-type($mode);
+@function is-colour-mode-default($mode) {
+    $modeType: get-colour-mode-type($mode);
 
     // returns
     @if $modeType == 'brightness' and $mode == tokens.$brightnessMode_default {
@@ -69,8 +68,8 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function is-token-mode-type-default-only($mode) {
-    $modeType: get-token-mode-type($mode);
+@function is-colour-mode-type-default-only($mode) {
+    $modeType: get-colour-mode-type($mode);
 
     @if $modeType ==
         'brightness' and
@@ -94,15 +93,15 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function is-token-mode-included($mode) {
-    $modeType: get-token-mode-type($mode);
+@function is-colour-mode-included($mode) {
+    $modeType: get-colour-mode-type($mode);
 
     @if $modeType == null {
         @return false;
     }
 
-    @if is-token-mode-type-default-only($mode) and not
-        is-token-mode-default($mode)
+    @if is-colour-mode-type-default-only($mode) and not
+        is-colour-mode-default($mode)
     {
         @return false;
     }

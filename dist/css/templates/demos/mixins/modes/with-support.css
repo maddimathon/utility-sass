@@ -37,6 +37,9 @@ test-no__average {
 }
 
 /* ### Low ------------------ */
+test-no__low {
+    /* @include colour-mode-js-no-support(low, 'support-key'); */
+}
 @media (prefers-contrast: less) {
     test-no__low {
         /* @include colour-mode-js-no-support(low, 'support-key'); */
@@ -44,6 +47,9 @@ test-no__average {
 }
 
 /* ### Forced Colors ------------------ */
+test-no__forced-colors {
+    /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+}
 @media (forced-colors: active), (prefers-contrast: custom) {
     test-no__forced-colors {
         /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
@@ -51,6 +57,9 @@ test-no__average {
 }
 
 /* ### Dark ------------------ */
+test-no__dark {
+    /* @include colour-mode-js-no-support(dark, 'support-key'); */
+}
 @media (prefers-color-scheme: dark) {
     test-no__dark {
         /* @include colour-mode-js-no-support(dark, 'support-key'); */
@@ -62,11 +71,16 @@ test-no__average {
 /* colour-mode-interactive-mixin */
 /* ## hover ==================================== */
 /* ### Average ------------------ */
-test-hover__average:hover {
+test-hover__average:hover,
+[data-contrast-mode="average"] test-hover__average:hover {
     /* @include colour-mode-interactive-mixin(average, $hover: true); */
 }
 
 /* ### Low ------------------ */
+[data-contrast-mode="low"] test-hover__low:hover {
+    /* @include colour-mode-interactive-mixin(low, $hover: true); */
+}
+
 @media (prefers-contrast: less) {
     test-hover__low:hover {
         /* @include colour-mode-interactive-mixin(low, $hover: true); */
@@ -81,6 +95,10 @@ test-hover__average:hover {
 }
 
 /* ### Dark ------------------ */
+[data-brightness-mode="dark"] test-hover__dark:hover {
+    /* @include colour-mode-interactive-mixin(dark, $hover: true); */
+}
+
 @media (prefers-color-scheme: dark) {
     test-hover__dark:hover {
         /* @include colour-mode-interactive-mixin(dark, $hover: true); */
@@ -90,11 +108,18 @@ test-hover__average:hover {
 /* ## focus-visible and hover ==================================== */
 /* ### Average ------------------ */
 test-focus-and-hover__average:focus,
-test-focus-and-hover__average:hover {
+test-focus-and-hover__average:hover,
+[data-contrast-mode="average"] test-focus-and-hover__average:focus,
+[data-contrast-mode="average"] test-focus-and-hover__average:hover {
     /* @include colour-mode-interactive-mixin(average, $focus: true, $hover: true); */
 }
 
 /* ### Low ------------------ */
+[data-contrast-mode="low"] test-focus-and-hover__low:focus,
+[data-contrast-mode="low"] test-focus-and-hover__low:hover {
+    /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
+}
+
 @media (prefers-contrast: less) {
     test-focus-and-hover__low:focus,
     test-focus-and-hover__low:hover {
@@ -111,6 +136,11 @@ test-focus-and-hover__average:hover {
 }
 
 /* ### Dark ------------------ */
+[data-brightness-mode="dark"] test-focus-and-hover__dark:focus,
+[data-brightness-mode="dark"] test-focus-and-hover__dark:hover {
+    /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
+}
+
 @media (prefers-color-scheme: dark) {
     test-focus-and-hover__dark:focus,
     test-focus-and-hover__dark:hover {

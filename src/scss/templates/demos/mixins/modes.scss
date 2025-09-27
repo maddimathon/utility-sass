@@ -72,16 +72,17 @@ parent {
 }
 /* #endregion forced-colors */
 
-/* #region token-mode-all */
-@include lib.token-mode-all {
-    --mode-mixin: 'token-mode-all';
+/* #region colour-mode-all */
+@include lib.colour-mode-all {
+    --mode-mixin: 'colour-mode-all';
 }
-/* #endregion token-mode-all */
+/* #endregion colour-mode-all */
 
-/* ## token-mode-each ==================================== */
-/* e.g. - `@include lib.token-mode-each using ($brightness, $contrast) {}` */
+/* ## colour-mode-each ==================================== */
+/* e.g. - `@include lib.colour-mode-each($nestModeSelectors: true) using ($brightness, $contrast) {}` */
 
-@include lib.token-mode-each using ($brightness, $contrast) {
-    --token-mode-each-brightness: #{$brightness};
-    --token-mode-each-contrast: #{$contrast};
+@include lib.colour-mode-each($nestModeSelectors: true) using
+    ($brightness, $contrast) {
+    --colour-mode-each-brightness: #{$brightness};
+    --colour-mode-each-contrast: #{$contrast};
 }

@@ -4,12 +4,13 @@
 ///
 @use 'sass:list';
 @use 'sass:meta';
-// @use 'sass:string';
 
 ///
-/// Returns a single-level list.
+/// Compares items of a list and returns only those that don't match with
+/// $except (as strings).
 ///
-/// @param {list}    $list       To flatten.
+/// @param {list}    $list       To test.
+/// @param {string}  $except     Value to exclude from the list.
 /// @param {?string} $separator  Optional. List separator. Default is determine via list.separator().
 /// @param {?bool}   $bracketed  Optional. Whether list is bracketed. Default is determine via list.is-bracketed().
 ///
@@ -17,7 +18,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function flatten($list, $separator: null, $bracketed: null) {
+@function except($list, $except, $separator: null, $bracketed: null) {
     // returns
     @if meta.type-of($list) != list {
         @return $list;
@@ -31,16 +32,24 @@
         $separator: list.separator($list);
     }
 
-    $return: list.join((), (), $separator: $separator, $bracketed: $bracketed);
+    $filteredList: list.join(
+        (),
+        (),
+        $separator: $separator,
+        $bracketed: $bracketed
+    );
 
-    @each $_child in $list {
-        @if meta.type-of($_child) == list {
-            $_child: flatten($_child);
-        } @else {
-            $_child: ($_child);
+    @each $item in $list {
+        //
+        @if '#{$item}' != '#{$except}' {
+            //
+            $filteredList: list.append(
+                $filteredList,
+                $item,
+                $separator: $separator
+            );
         }
-        $return: list.join($return, $_child, $separator: $separator);
     }
 
-    @return $return;
+    @return $filteredList;
 }
