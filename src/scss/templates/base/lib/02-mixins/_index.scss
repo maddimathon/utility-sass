@@ -21,7 +21,9 @@
 @use '../../../../lib/02-mixins' as lib;
 
 @use '../../config';
-// @use '../../tokens';
+@use '../../tokens';
+
+@use '../01-functions' as *;
 
 @mixin _extend-selectors($selectors, $selector_prefix: '', $optional: false) {
     @each $pair in $selectors {
@@ -60,7 +62,11 @@
     }
 }
 
-@mixin extend-selector-globals($additional: (), $optional: null) {
+@mixin extend-selector-globals(
+    $additional: (),
+    $optional: null,
+    $allHeadingLevels: token-all-heading-levels()
+) {
     $_global_selectors: (
         // ( globals, pseudo? ),
         //
@@ -117,6 +123,22 @@
         td
     );
 
+    /// Headings - where
+    @if config.$mx_extendHeadingsByRole {
+        $_maximumHeading: list.nth(
+            $allHeadingLevels,
+            list.length($allHeadingLevels)
+        );
+
+        // for all levels
+        @each $headingLevel in $allHeadingLevels {
+            //
+            @at-root :where([role='heading'][aria-level='#{$headingLevel}']) {
+                @extend %h#{$headingLevel}--where;
+            }
+        }
+    }
+
     // universal focus ring
     @at-root {
         :focus {
@@ -155,7 +177,11 @@
     }
 }
 
-@mixin extend-selector-utils($additional: (), $optional: null) {
+@mixin extend-selector-utils(
+    $additional: (),
+    $optional: null,
+    $allHeadingLevels: token-all-heading-levels()
+) {
     $_utils_selectors: (
         // ( globals, pseudo? ),
         //
@@ -165,22 +191,23 @@
         /// ## Objects ==================================== ///
         //
         /// ## Typography ==================================== ///
-        heading,
         (page-title, title),
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
         //
         /// ## Forms ==================================== ///
-        button,
-        button-secondary,
         //
         /// ## Tables ==================================== ///
         table-wrapper
     );
+
+    /// Headings
+    @each $headingLevel in $allHeadingLevels {
+        $_utils_selectors: list.append($_utils_selectors, 'h#{$headingLevel}');
+    }
+
+    // font size utilities
+    @each $slug, $_value in tokens.$font_sizes {
+        $_utils_selectors: list.append($_utils_selectors, 'font-size-#{$slug}');
+    }
 
     @include _extend-selectors(
         $_utils_selectors,
@@ -191,14 +218,8 @@
     @include _extend-selectors(
         (
             // ( globals, pseudo? ),
-            //
-            /// ## Objects ==================================== ///
-            //
-            /// ## Typography ==================================== ///
-            //
-            /// ## Forms ==================================== ///
-            // (string.unquote('a.button'), button),
-             // (string.unquote('a.button-secondary'), button-secondary)
+            ('a.button', button),
+            ('a.button-secondary', button-secondary)
         ),
         $optional: $optional
     );

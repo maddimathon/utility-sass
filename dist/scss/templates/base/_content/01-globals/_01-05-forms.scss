@@ -1,23 +1,23 @@
 ///
-/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
 ///
 
-// @use '../../../modules/colour';
-// @use '../../../modules/list';
-// @use '../../../modules/map';
-// @use '../../../modules/math';
-// @use '../../../modules/meta';
-// @use '../../../modules/selector';
-// @use '../../../modules/string';
+// @use '../../../../modules/colour';
+// @use '../../../../modules/list';
+// @use '../../../../modules/map';
+// @use '../../../../modules/math';
+// @use '../../../../modules/meta';
+@use '../../../../modules/selector';
+// @use '../../../../modules/string';
 
-@use '../config';
-// @use '../tokens';
+@use '../../config';
+// @use '../../tokens';
 
-@use '../lib' as *;
+@use '../../lib' as *;
 
 @include config.print-headings {
-    /* # FORMS
+    /* # GLOBALS - Forms
      * ======================================================================== */
 }
 
@@ -39,7 +39,7 @@
 %legend {
     fieldset &,
     fieldset &:first-child {
-        @include heading;
+        @include heading(7);
 
         margin-inline: calc(#{var-mrg-soft('300')} * -1);
         margin-block: 0 #{var-mrg-soft('300')};
@@ -86,6 +86,9 @@
 
 %button-secondary {
     @extend %button;
+}
+%button-secondary,
+#{selector.unify('%button', '.button-secondary')} {
 }
 
 %file-selector-button {

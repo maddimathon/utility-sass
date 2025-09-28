@@ -9,6 +9,7 @@
 @use '../../../modules/list';
 @use '../../../modules/map';
 @use '../../../modules/math';
+@use '../../../modules/string';
 
 // @use '../01-02-accessibility' as *;
 @use '../01-03-typography' as *;
@@ -32,7 +33,7 @@
 @function fs-value($slug, $fontScale: 1, $clampFontSize: null) {
     // returns
     @if not map.has-key(tokens.$font_sizes, $slug) {
-        @warn "$slug did not match any of the font family tokens";
+        @warn "$slug did not match any of the font size tokens";
         @return ();
     }
 
@@ -45,53 +46,13 @@
         @if $slug == 'title' {
             $clampFontSize: true;
         }
-        @if $slug == 'h1' {
+        @if string.index($slug, 'heading-') == 1 {
             $clampFontSize: true;
         }
-        @if $slug == 'h2' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'h3' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'h4' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'h5' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'h6' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'heading-1' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'heading-2' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'heading-3' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'heading-4' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'heading-5' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'heading-6' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'heading-7' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'bigger-7' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'bigger-8' {
-            $clampFontSize: true;
-        }
-        @if $slug == 'bigger-9' {
-            $clampFontSize: true;
+        @if string.index($slug, 'bigger-') == 1 {
+            @if math.num-val(string.slice($slug, 8)) > 6 {
+                $clampFontSize: true;
+            }
         }
     }
 
@@ -144,14 +105,20 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function var-fs($slug) {
-    $fallback: fs-value($slug);
+@function var-fs($slug, $fallback: null) {
+    //
+    // if theres's no fallback set, then we use the fs-value function to find one
+    // returns if no fallback
+    @if $fallback == null {
+        $fallback: fs-value($slug);
 
-    @if list.length($fallback) < 1 {
-        @return var(--fs-#{$slug});
+        // returns
+        @if list.length($fallback) < 1 {
+            @return var(--fs-#{$slug});
+        }
+
+        $fallback: list.nth($fallback, 1);
     }
-
-    $fallback: list.nth($fallback, 1);
 
     @return var(--fs-#{$slug}, #{$fallback});
 }

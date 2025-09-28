@@ -1,23 +1,23 @@
 ///
-/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
 ///
 
-// @use '../../../modules/colour';
-// @use '../../../modules/list';
-// @use '../../../modules/map';
-// @use '../../../modules/math';
-// @use '../../../modules/meta';
-// @use '../../../modules/selector';
-// @use '../../../modules/string';
+// @use '../../../../modules/colour';
+// @use '../../../../modules/list';
+// @use '../../../../modules/map';
+// @use '../../../../modules/math';
+// @use '../../../../modules/meta';
+// @use '../../../../modules/selector';
+// @use '../../../../modules/string';
 
-@use '../config';
-// @use '../tokens';
+@use '../../config';
+// @use '../../tokens';
 
-@use '../lib' as *;
+@use '../../lib' as *;
 
 @include config.print-headings {
-    /* # TYPOGRAPHY
+    /* # GLOBALS - Typography
      * ======================================================================== */
 }
 
@@ -54,10 +54,12 @@
 %em {
     font-style: italic;
 
-    em {
+    em,
+    i {
         font-style: normal;
 
-        em {
+        em,
+        i {
             font-style: italic;
         }
     }
@@ -207,32 +209,25 @@
     /* ## Typography - Headings ==================================== */
 }
 
-%heading {
-    @include heading('7');
-}
+@each $num in token-all-heading-levels() {
+    //
+    #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
+        @include heading($num);
 
-%h1,
-%title {
-    @include heading('title');
-    // @include heading('1');
-}
+        %button {
+            font: inherit;
+            letter-spacing: inherit;
+            text-transform: inherit;
+        }
+    }
 
-%h2 {
-    @include heading('2');
-}
+    %h#{$num}--where {
+        @include heading($num);
 
-%h3 {
-    @include heading('3');
-}
-
-%h4 {
-    @include heading('4');
-}
-
-%h5 {
-    @include heading('5');
-}
-
-%h6 {
-    @include heading('6');
+        :where(%button) {
+            font: inherit;
+            letter-spacing: inherit;
+            text-transform: inherit;
+        }
+    }
 }

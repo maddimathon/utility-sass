@@ -5,6 +5,9 @@
 
 @use '../../config';
 
+@use '../../modules/math';
+@use '../../modules/meta';
+
 @use '../01-functions' as *;
 
 @use '02-01-utilities' as *;
@@ -20,19 +23,38 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin heading($slug: '7') {
+    $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
+    $slug: #{$slug};
+    $heading9orAbove: false;
     //
     $fontWeight: 600;
     $fontStyle: null;
+    $letterSpacing: null;
     $lineHeight: null;
     $marginBlockStart: #{var-mrg-soft('600')};
     $size: var-fs(bigger-1);
+    $textTransform: null;
 
     @if $slug == title {
+        //
         $fontWeight: 900;
         $lineHeight: var-line-height('100');
         $size: var-fs($slug);
-    } @else if $slug != null {
-        $size: var-fs(heading-#{$slug});
+        //
+    } @else if $slug {
+        //
+        $slugAsNumber: if(
+            $slugAsNumber == null,
+            math.num-val($slug),
+            $slugAsNumber
+        );
+
+        @if $slugAsNumber > 8 {
+            $heading9orAbove: true;
+            $size: var-fs(heading-#{$slug}, $fallback: var-fs(heading-8));
+        } @else {
+            $size: var-fs(heading-#{$slug});
+        }
     }
 
     @if $slug == '1' {
@@ -71,12 +93,26 @@
         $lineHeight: var-line-height('300');
     }
 
+    @if $slug == '7' or $slug == '8' or $heading9orAbove {
+        $fontWeight: 600;
+        $fontStyle: italic;
+        $lineHeight: var-line-height('400');
+        $marginBlockStart: var-mrg-soft('400');
+
+        $letterSpacing: 0.0625em;
+        $textTransform: uppercase;
+    }
+
+    @if $slug == '8' or $heading9orAbove {
+        $fontWeight: 400;
+    }
+
+    @if $heading9orAbove {
+        $lineHeight: var-line-height('500');
+    }
+
     margin-block: #{$marginBlockStart} 0;
     font-weight: #{$fontWeight};
-
-    @if $fontStyle {
-        font-style: #{$fontStyle};
-    }
 
     font-size: #{$size};
 
@@ -84,5 +120,29 @@
         line-height: #{$lineHeight};
     }
 
+    @if $letterSpacing {
+        letter-spacing: #{$letterSpacing};
+    }
+
+    @if $textTransform {
+        text-transform: #{$textTransform};
+    }
+
     text-wrap: balance;
+
+    @if $fontStyle {
+        font-style: #{$fontStyle};
+
+        @if $fontStyle == italic {
+            em,
+            i {
+                font-style: normal;
+
+                em,
+                i {
+                    font-style: italic;
+                }
+            }
+        }
+    }
 }

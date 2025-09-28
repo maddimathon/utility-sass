@@ -4,15 +4,70 @@
 ///
 
 @use '../../config';
+@use '../../tokens';
 
 @use '../../modules/list';
 @use '../../modules/map';
+@use '../../modules/math';
 @use '../../modules/meta';
 @use '../../modules/selector';
 @use '../../modules/string';
 
 /// # SELECTOR FUNCTIONS
 /// ======================================================================== ///
+
+$_allHeadingLevels: ();
+@each $key in map.keys(tokens.$font_sizes) {
+    //
+    @if string.index($key, 'heading-') == 1 {
+        //
+        $_allHeadingLevels: list.append(
+            $_allHeadingLevels,
+            math.num-val(string.slice($key, 9)),
+            $separator: comma
+        );
+    }
+}
+$_allHeadingLevels: list.sort($_allHeadingLevels);
+
+///
+/// Gets the numerical levels for all headings (by heading size tokens).
+///
+/// @return {list<number>}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function token-all-heading-levels() {
+    @return $_allHeadingLevels;
+}
+
+///
+/// Gets the pseudo selectors for all headings (by heading size tokens).
+///
+/// @return {list<selector>}
+///
+/// @since 0.1.0-alpha.draft
+///
+@function selector-all-headings($globalsOnly: false) {
+    //
+    $list: (if($globalsOnly, '.title', 'title'));
+
+    @each $num in token-all-heading-levels() {
+        //
+        @if $globalsOnly {
+            $num: math.num-val($num);
+            $list: list.append(
+                $list,
+                if($num > 0 and $num < 7, 'h#{$num}', '%h#{$num}'),
+                $separator: comma
+            );
+        } @else {
+            $list: list.append($list, '%h#{$num}', $separator: comma);
+        }
+    }
+
+    @return $list;
+}
 
 ///
 /// Checks if the parent selector (if any) is a *simple* body element selector.
