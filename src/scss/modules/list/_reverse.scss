@@ -1,0 +1,45 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+@use 'sass:list';
+@use 'sass:math';
+@use 'sass:meta';
+
+///
+/// Reverses the order of a list.
+///
+/// @param {list}    $list       To reverse.
+/// @param {?string} $recursive  Optional. Whether to reverse child lists as well. Default false.
+///
+/// @return {list}
+///
+/// @since ___PKG_VERSION___
+///
+@function reverse($list, $recursive: false) {
+    //
+    @if meta.type-of($list) != list {
+        @return $list;
+    }
+
+    $reversed: ();
+
+    @for $i from list.length($list) * -1 through -1 {
+        $_currentItem: list.nth($list, math.abs($i));
+
+        @if $recursive and meta.type-of($_currentItem) == list {
+            //
+            $reversed: list.append(
+                $reversed,
+                reverse(
+                    $list: $_currentItem,
+                    $recursive: $recursive,
+                )
+            );
+        } @else {
+            $reversed: list.append($reversed, $_currentItem);
+        }
+    }
+
+    @return $reversed;
+}

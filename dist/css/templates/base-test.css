@@ -417,12 +417,12 @@ pre {
     --fs-smaller-2: 0.8125rem;
     --fs-smaller-1: 0.9375rem;
     --fs-normal: 1rem;
-    --fs-bigger-1: 1.1875rem;
-    --fs-bigger-2: 1.3125rem;
-    --fs-bigger-3: 1.5625rem;
-    --fs-bigger-4: 1.8125rem;
-    --fs-bigger-5: 2.0625rem;
-    --fs-bigger-6: 2.375rem;
+    --fs-bigger-7: 2.75rem;
+    --fs-bigger-7: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
+    --fs-bigger-8: 3.1875rem;
+    --fs-bigger-8: clamp(2.375rem, 4.1875svw + 1rem, 3.5625rem);
+    --fs-bigger-9: 3.6875rem;
+    --fs-bigger-9: clamp(2.75rem, 4.8125svw + 1rem, 4.125rem);
 }
 
 /* #endregion Tokens - Font Size */
@@ -3017,34 +3017,19 @@ th {
     font-size: var(--fs-normal, 1rem);
 }
 
-.font-size-bigger-1 {
-    font-size: 1.1875rem;
-    font-size: var(--fs-bigger-1, 1.1875rem);
+.font-size-bigger-7 {
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
+    font-size: var(--fs-bigger-7, 2.75rem);
 }
 
-.font-size-bigger-2 {
-    font-size: 1.3125rem;
-    font-size: var(--fs-bigger-2, 1.3125rem);
+.font-size-bigger-8 {
+    font-size: clamp(2.375rem, 4.1875svw + 1rem, 3.5625rem);
+    font-size: var(--fs-bigger-8, 3.1875rem);
 }
 
-.font-size-bigger-3 {
-    font-size: 1.5625rem;
-    font-size: var(--fs-bigger-3, 1.5625rem);
-}
-
-.font-size-bigger-4 {
-    font-size: 1.8125rem;
-    font-size: var(--fs-bigger-4, 1.8125rem);
-}
-
-.font-size-bigger-5 {
-    font-size: 2.0625rem;
-    font-size: var(--fs-bigger-5, 2.0625rem);
-}
-
-.font-size-bigger-6 {
-    font-size: 2.375rem;
-    font-size: var(--fs-bigger-6, 2.375rem);
+.font-size-bigger-9 {
+    font-size: clamp(2.75rem, 4.8125svw + 1rem, 4.125rem);
+    font-size: var(--fs-bigger-9, 3.6875rem);
 }
 
 /*! end of @maddimathon/utility-sass/templates/base */

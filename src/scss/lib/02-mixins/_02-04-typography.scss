@@ -32,7 +32,7 @@
     $letterSpacing: null;
     $lineHeight: null;
     $marginBlockStart: #{var-mrg-soft('600')};
-    $size: var-fs(bigger-1);
+    $size: null;
     $textTransform: null;
 
     @if $slug == title {
@@ -114,7 +114,9 @@
     margin-block: #{$marginBlockStart} 0;
     font-weight: #{$fontWeight};
 
-    font-size: #{$size};
+    @if $size {
+        font-size: #{$size};
+    }
 
     @if $lineHeight {
         line-height: #{$lineHeight};

@@ -50,15 +50,16 @@
             $clampFontSize: true;
         }
         @if string.index($slug, 'bigger-') == 1 {
-            @if math.num-val(string.slice($slug, 8)) > 6 {
-                $clampFontSize: true;
-            }
+            $clampFontSize: true;
         }
     }
 
     @if $clampFontSize {
         @return (
-            #{math.round-to-pixel($size * $fontScale)}rem,
+            #{math.round-to-pixel(
+                    $size * $fontScale,
+                    $factor: config.$fn_fontRoundToPixelFactor
+                )}rem,
             clamp-font-size($size * $fontScale, $unit: 'rem')
         );
     }

@@ -5,8 +5,10 @@
 
 @use '../config';
 
+@use '../modules/list';
 @use '../modules/map';
 @use '../modules/math';
+@use '../modules/meta';
 
 @use 'margins';
 
@@ -24,53 +26,88 @@
 $font_sizes: () !default;
 
 $font_sizes: map.merge(
-    map.flatten(
-        (
-            'title': 7,
+    (
+        'title': 7,
 
-            'heading': (
-                '1': 6,
-                '2': 5,
-                '3': 4,
-                '4': 3,
-                '5': 2,
-                '6': 1,
-                '7': -0.625,
-                '8': -1.5,
-            ),
+        'heading': (
+            '1': 6,
+            '2': 5,
+            '3': 4,
+            '4': 3,
+            '5': 2,
+            '6': 1,
+            '7': -0.625,
+            '8': -1.5,
+        ),
 
-            'smaller': (
-                // '5': -3.0,
-                // '4': -2.5,
-                // '3': -2.0,
-                '2': -1.25,
-                '1': -0.5,
-            ),
+        'smaller': (
+            // '5': -3.0,
+            // '4': -2.5,
+            // '3': -2.0,
+            '2': -1.25,
+            '1': -0.5,
+        ),
 
-            'normal': 0,
+        'normal': 0,
 
-            'bigger': (
-                '1': 1,
-                '2': 2,
-                '3': 3,
-                '4': 4,
-                '5': 5,
-                '6': 6,
-                // '7': 7,
-                // '8': 8,
-                 // '9': 9,
-            ),
-        )
+        'bigger': (
+            '7': 7,
+            '8': 8,
+            '9': 9,
+        ),
     ),
-    map.flatten($font_sizes),
+    $font_sizes,
     $recursive: true
 );
 
+@function _ksort_sizes($map, $_isFirstLevel: true) {
+    // sorts the keys
+    $ordered_keys: if(
+        $_isFirstLevel,
+        map.keys($map),
+        list.sort(
+            list.sort(map.keys($map), $sortAs: 'string'),
+            $sortAs: 'number'
+        )
+    );
+
+    $ordered_map: ();
+
+    @each $key in $ordered_keys {
+        $value: map.get($map, $key);
+
+        @if meta.type-of($value) == map {
+            $value: _ksort_sizes($value, $_isFirstLevel: false);
+        }
+
+        $ordered_map: map.set($ordered_map, $key, $value);
+    }
+
+    @return $ordered_map;
+}
+
+// sort recursively
+$font_sizes: _ksort_sizes($font_sizes);
+
+// reverse the smaller sizes
+$font_sizes: map.set(
+    $font_sizes,
+    smaller,
+    map.ksort(map.get($font_sizes, smaller), $sortAs: 'number', $reverse: true)
+);
+
+// flatten the map
+$font_sizes: map.flatten($font_sizes);
+
+// now rounding
 @each $key, $value in $font_sizes {
     $font_sizes: map.set(
         $font_sizes,
         $key,
-        math.round-to-pixel(math.pow(margins.$scale_multiplier, $value))
+        math.round-to-pixel(
+            math.pow(margins.$scale_multiplier, $value),
+            $factor: config.$fn_fontRoundToPixelFactor
+        )
     );
 }
 

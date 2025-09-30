@@ -5,34 +5,13 @@
 
 @use 'sass:list';
 @use 'sass:math';
+@use 'sass:meta';
 
+@use '../math/num-val';
 @use '../string';
 
-// #region $sortOrder
-$sortOrder: (
-    ' ',
-    '-',
-    _,
-    0,
-    '0',
-    1,
-    '1',
-    2,
-    '2',
-    3,
-    '3',
-    4,
-    '4',
-    5,
-    '5',
-    6,
-    '6',
-    7,
-    '7',
-    8,
-    '8',
-    9,
-    '9',
+// #region $lettersLowerCase
+$lettersLowerCase: (
     a,
     b,
     c,
@@ -59,6 +38,37 @@ $sortOrder: (
     x,
     y,
     z
+);
+// #endregion $lettersLowerCase
+
+// #region $sortOrder
+$sortOrder: list.join(
+    (
+        ' ',
+        '-',
+        _,
+        0,
+        '0',
+        1,
+        '1',
+        2,
+        '2',
+        3,
+        '3',
+        4,
+        '4',
+        5,
+        '5',
+        6,
+        '6',
+        7,
+        '7',
+        8,
+        '8',
+        9,
+        '9'
+    ),
+    $lettersLowerCase
 );
 // #endregion $sortOrder
 
@@ -130,11 +140,36 @@ $sortOrder: (
                 $str_a: list.nth($list, $index_a);
                 $str_b: list.nth($list, $index_b);
 
-                $swap: if(
-                    $sortAs == 'number',
-                    if($str_a < $str_b, true, false),
-                    _compare($str_a, $str_b)
-                );
+                $swap: false;
+
+                @if $sortAs == 'number' {
+                    $_a_isNum: meta.type-of($str_a) == number;
+                    $_b_isNum: meta.type-of($str_b) == number;
+
+                    @if not
+                        $_a_isNum and
+                        list.index($lettersLowerCase, $str_a) ==
+                        null
+                    {
+                        $str_a: num-val.num-val($str_a);
+                        $_a_isNum: true;
+                    }
+
+                    @if not
+                        $_b_isNum and
+                        list.index($lettersLowerCase, $str_b) ==
+                        null
+                    {
+                        $str_b: num-val.num-val($str_b);
+                        $_b_isNum: true;
+                    }
+
+                    @if $_a_isNum and $_b_isNum {
+                        $swap: if($str_a < $str_b, true, false);
+                    }
+                } @else {
+                    $swap: _compare($str_a, $str_b);
+                }
 
                 @if $swap {
                     $list: _swap($list, $index_a, $index_b);
