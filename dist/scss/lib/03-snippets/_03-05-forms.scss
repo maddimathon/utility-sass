@@ -26,17 +26,17 @@
 ///
 @mixin snippet-button(
     //
-    $accentClr: var-sys-colour(button-text),
+    $accentClr: var-sys-colour(button-bg),
     $background: var-sys-colour(button-bg),
     $borderClr: var-sys-colour(button-border),
     $color: var-sys-colour(button-text),
     //
-    $accentClr_active: var-sys-colour(button-text-active),
+    $accentClr_active: var-sys-colour(button-bg-active),
     $background_active: var-sys-colour(button-bg-active),
     $borderClr_active: var-sys-colour(button-border-active),
     $color_active: var-sys-colour(button-text-active),
     //
-    $accentClr_hover: var-sys-colour(button-text-hover),
+    $accentClr_hover: var-sys-colour(button-bg-hover),
     $background_hover: var-sys-colour(button-bg-hover),
     $borderClr_hover: var-sys-colour(button-border-hover),
     $color_hover: var-sys-colour(button-text-hover),
@@ -203,19 +203,20 @@
             color: #{$color_hover};
             accent-color: #{$accentClr_hover};
         }
+    }
 
-        @if $_opacityIsLessThanOne {
-            @include colour-mode-interactive-mixin(
-                $modes: (
-                    low,
-                    average,
-                ),
-                $hover: true,
-                $focus: true,
-                $focusWithin: true
-            ) {
-                opacity: #{$opacity_hover};
-            }
+    @if $_opacityIsLessThanOne {
+        @include colour-mode-interactive-mixin(
+            $modes: (
+                low,
+                average,
+            ),
+            $hover: true,
+            $focus: true,
+            $focusWithin: true,
+            $includeDefault: false
+        ) {
+            opacity: #{$opacity_hover};
         }
     }
 
@@ -237,14 +238,14 @@
         &::placeholder {
             opacity: 1;
 
-            color: #{$_clr};
+            color: currentColor;
 
-            @include colour-mode(low, average) {
-                color: color-mix(in srgb, #{$_clr} 62.5%, transparent);
+            @include colour-mode(('low', 'average')) {
+                color: color-mix(in srgb, currentColor 75%, transparent);
             }
 
             @include high-contrast {
-                color: color-mix(in srgb, #{$_clr} 87.5%, transparent);
+                color: color-mix(in srgb, currentColor 90%, transparent);
             }
         }
     }

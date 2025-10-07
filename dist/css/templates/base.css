@@ -229,7 +229,7 @@
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Misc. */
 :root {
-    --focus-ring-outline-width: 0.1875rem;
+    --focus-ring-outline-width: max(0.0625rem, min(0.125em, 0.1875rem));
     --focus-ring-outline-offset: 0.125em;
     --focus-ring-outline-color: var(--sys-clr-accent-bg, CanvasText);
 }
@@ -239,27 +239,54 @@
  * ======================================================================== */
 :focus {
     /* %focus-ring */
-    outline: 0.1875rem dashed AccentColor;
-    outline: var(--focus-ring-outline-width, 0.1875rem) dashed
-        var(--focus-ring-outline-color, var(--sys-clr-accent-bg, CanvasText));
+    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: var(
+            --focus-ring-outline-width,
+            max(0.0625rem, min(0.125em, 0.1875rem))
+        )
+        dashed currentColor;
+    outline-color: AccentColor;
+    outline-color: var(
+        --focus-ring-outline-color,
+        var(--sys-clr-accent-bg, CanvasText)
+    );
     outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
-    outline: 0.1875rem dashed AccentColor;
-    outline: var(--focus-ring-outline-width, 0.1875rem) dashed
-        var(--focus-ring-outline-color, var(--sys-clr-accent-bg, CanvasText));
+    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: var(
+            --focus-ring-outline-width,
+            max(0.0625rem, min(0.125em, 0.1875rem))
+        )
+        dashed currentColor;
+    outline-color: AccentColor;
+    outline-color: var(
+        --focus-ring-outline-color,
+        var(--sys-clr-accent-bg, CanvasText)
+    );
     outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
 
 :focus-visible {
     /* %focus-ring--visible */
-    outline: 0.1875rem dashed AccentColor;
-    outline: var(--focus-ring-outline-width, 0.1875rem) dashed
-        var(--focus-ring-outline-color, var(--sys-clr-accent-bg, CanvasText));
+    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: var(
+            --focus-ring-outline-width,
+            max(0.0625rem, min(0.125em, 0.1875rem))
+        )
+        dashed currentColor;
+    outline-color: AccentColor;
+    outline-color: var(
+        --focus-ring-outline-color,
+        var(--sys-clr-accent-bg, CanvasText)
+    );
     outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
@@ -1160,28 +1187,39 @@ input::placeholder {
     opacity: 1;
     color: currentColor;
 }
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
 @media (prefers-contrast: less) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,
     input::-moz-placeholder {
-        color: color-mix(in srgb, currentColor 62.5%, transparent);
+        color: color-mix(in srgb, currentColor 75%, transparent);
     }
     textarea::placeholder,
     select::placeholder,
     input::placeholder {
-        color: color-mix(in srgb, currentColor 62.5%, transparent);
+        color: color-mix(in srgb, currentColor 75%, transparent);
     }
 }
 @media (prefers-contrast: more) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,
     input::-moz-placeholder {
-        color: color-mix(in srgb, currentColor 87.5%, transparent);
+        color: color-mix(in srgb, currentColor 90%, transparent);
     }
     textarea::placeholder,
     select::placeholder,
     input::placeholder {
-        color: color-mix(in srgb, currentColor 87.5%, transparent);
+        color: color-mix(in srgb, currentColor 90%, transparent);
     }
 }
 label + textarea,
@@ -1308,13 +1346,13 @@ input[type="reset"],
     border: 0.125rem solid ButtonBorder;
     border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
-    --focus-ring-outline-color: var(--sys-clr-button-text, ButtonText);
+    --focus-ring-outline-color: var(--sys-clr-button-bg, ButtonFace);
     background-color: ButtonFace;
     background-color: var(--sys-clr-button-bg, ButtonFace);
     color: ButtonText;
     color: var(--sys-clr-button-text, ButtonText);
-    accent-color: ButtonText;
-    accent-color: var(--sys-clr-button-text, ButtonText);
+    accent-color: ButtonFace;
+    accent-color: var(--sys-clr-button-bg, ButtonFace);
 }
 button:focus,
 [role="button"]:focus,
@@ -1322,53 +1360,15 @@ input[type="button"]:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 :focus::file-selector-button {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-text-hover,
-        SelectedItemText
-    );
+    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
     background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
-    accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
-}
-button:focus:focus-within,
-[role="button"]:focus:focus-within,
-input[type="button"]:focus:focus-within,
-input[type="submit"]:focus:focus-within,
-input[type="reset"]:focus:focus-within,
-:focus:focus-within::file-selector-button {
-    opacity: 0.875;
-}
-button:focus:focus,
-[role="button"]:focus:focus,
-input[type="button"]:focus:focus,
-input[type="submit"]:focus:focus,
-input[type="reset"]:focus:focus,
-:focus:focus::file-selector-button {
-    opacity: 0.875;
-}
-
-@media (prefers-contrast: less) {
-    button:focus:focus-within,
-    [role="button"]:focus:focus-within,
-    input[type="button"]:focus:focus-within,
-    input[type="submit"]:focus:focus-within,
-    input[type="reset"]:focus:focus-within,
-    :focus:focus-within::file-selector-button {
-        opacity: 0.875;
-    }
-    button:focus:focus,
-    [role="button"]:focus:focus,
-    input[type="button"]:focus:focus,
-    input[type="submit"]:focus:focus,
-    input[type="reset"]:focus:focus,
-    :focus:focus::file-selector-button {
-        opacity: 0.875;
-    }
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
 }
 
 button:hover,
@@ -1377,53 +1377,15 @@ input[type="button"]:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover,
 :hover::file-selector-button {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-text-hover,
-        SelectedItemText
-    );
+    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
     background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
-    accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
-}
-button:hover:focus-within,
-[role="button"]:hover:focus-within,
-input[type="button"]:hover:focus-within,
-input[type="submit"]:hover:focus-within,
-input[type="reset"]:hover:focus-within,
-:hover:focus-within::file-selector-button {
-    opacity: 0.875;
-}
-button:hover:hover,
-[role="button"]:hover:hover,
-input[type="button"]:hover:hover,
-input[type="submit"]:hover:hover,
-input[type="reset"]:hover:hover,
-:hover:hover::file-selector-button {
-    opacity: 0.875;
-}
-
-@media (prefers-contrast: less) {
-    button:hover:focus-within,
-    [role="button"]:hover:focus-within,
-    input[type="button"]:hover:focus-within,
-    input[type="submit"]:hover:focus-within,
-    input[type="reset"]:hover:focus-within,
-    :hover:focus-within::file-selector-button {
-        opacity: 0.875;
-    }
-    button:hover:hover,
-    [role="button"]:hover:hover,
-    input[type="button"]:hover:hover,
-    input[type="submit"]:hover:hover,
-    input[type="reset"]:hover:hover,
-    :hover:hover::file-selector-button {
-        opacity: 0.875;
-    }
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
 }
 
 button:focus-within,
@@ -1432,82 +1394,56 @@ input[type="button"]:focus-within,
 input[type="submit"]:focus-within,
 input[type="reset"]:focus-within,
 :focus-within::file-selector-button {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-text-hover,
-        SelectedItemText
-    );
+    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
     background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
-    accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
-}
-button:focus-within:focus-within,
-[role="button"]:focus-within:focus-within,
-input[type="button"]:focus-within:focus-within,
-input[type="submit"]:focus-within:focus-within,
-input[type="reset"]:focus-within:focus-within,
-:focus-within:focus-within::file-selector-button {
-    opacity: 0.875;
-}
-button:focus-within:focus,
-[role="button"]:focus-within:focus,
-input[type="button"]:focus-within:focus,
-input[type="submit"]:focus-within:focus,
-input[type="reset"]:focus-within:focus,
-:focus-within:focus::file-selector-button,
-button:focus-within:hover,
-[role="button"]:focus-within:hover,
-input[type="button"]:focus-within:hover,
-input[type="submit"]:focus-within:hover,
-input[type="reset"]:focus-within:hover,
-:focus-within:hover::file-selector-button {
-    opacity: 0.875;
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
 }
 
 @media (prefers-contrast: less) {
-    button:focus-within:focus-within,
-    [role="button"]:focus-within:focus-within,
-    input[type="button"]:focus-within:focus-within,
-    input[type="submit"]:focus-within:focus-within,
-    input[type="reset"]:focus-within:focus-within,
-    :focus-within:focus-within::file-selector-button {
+    button:focus-within,
+    [role="button"]:focus-within,
+    input[type="button"]:focus-within,
+    input[type="submit"]:focus-within,
+    input[type="reset"]:focus-within,
+    :focus-within::file-selector-button {
         opacity: 0.875;
     }
-    button:focus-within:focus,
-    [role="button"]:focus-within:focus,
-    input[type="button"]:focus-within:focus,
-    input[type="submit"]:focus-within:focus,
-    input[type="reset"]:focus-within:focus,
-    :focus-within:focus::file-selector-button,
-    button:focus-within:hover,
-    [role="button"]:focus-within:hover,
-    input[type="button"]:focus-within:hover,
-    input[type="submit"]:focus-within:hover,
-    input[type="reset"]:focus-within:hover,
-    :focus-within:hover::file-selector-button {
+    button:focus,
+    [role="button"]:focus,
+    input[type="button"]:focus,
+    input[type="submit"]:focus,
+    button:hover,
+    [role="button"]:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover,
+    input[type="reset"]:focus,
+    :focus::file-selector-button,
+    input[type="reset"]:hover,
+    :hover::file-selector-button {
         opacity: 0.875;
     }
 }
-
 button:active,
 [role="button"]:active,
 input[type="button"]:active,
 input[type="submit"]:active,
 input[type="reset"]:active,
 :active::file-selector-button {
-    --focus-ring-outline-color: var(--sys-clr-button-text-active, ButtonText);
+    --focus-ring-outline-color: var(--sys-clr-button-bg-active, ButtonFace);
     background-color: ButtonFace;
     background-color: var(--sys-clr-button-bg-active, ButtonFace);
     border-color: ButtonBorder;
     border-color: var(--sys-clr-button-border-active, ButtonFace);
     color: ButtonText;
     color: var(--sys-clr-button-text-active, ButtonText);
-    accent-color: ButtonText;
-    accent-color: var(--sys-clr-button-text-active, ButtonText);
+    accent-color: ButtonFace;
+    accent-color: var(--sys-clr-button-bg-active, ButtonFace);
 }
 button,
 [role="button"],

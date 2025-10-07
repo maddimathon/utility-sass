@@ -21,7 +21,7 @@
 /// ======================================================================== ///
 
 ///
-/// Prints out the border width custom property tokens based on config.
+/// Prints out the custom tokens based on config.
 ///
 /// @since ___PKG_VERSION___
 ///
@@ -33,7 +33,7 @@
         /* #region Tokens - Misc. */
         #{selector.parent-or-root()} {
             @each $slug, $_value in $tokens {
-                --#{$slug}: #{$_value};
+                --#{$slug}: #{token-value($slug)};
             }
         }
         /* #endregion Tokens - Misc. */

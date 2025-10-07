@@ -4,7 +4,7 @@
 ///
 
 // @use '../../../../../modules/colour';
-// @use '../../../../../modules/list';
+@use '../../../../../modules/list';
 @use '../../../../../modules/map';
 // @use '../../../../../modules/math';
 // @use '../../../../../modules/meta';
@@ -38,7 +38,26 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
     // returns
     @if $slug == focus-ring-outline-width {
-        @return borders.border-width-value($value);
+        $sorted_border_tokenKeys: list.sort(map.keys(tokens.$border_widths));
+
+        $border_min: list.nth($sorted_border_tokenKeys, 1);
+
+        $border_max: list.nth(
+            $sorted_border_tokenKeys,
+            list.length($sorted_border_tokenKeys)
+        );
+
+        @each $level in $sorted_border_tokenKeys {
+            @if map.get(tokens.$border_widths, $level) < 0.25 {
+                $border_max: $level;
+            }
+        }
+
+        @return clamp(
+            borders.border-width-value($border_min),
+            borders.stroke-relative-value($value),
+            borders.border-width-value($border_max)
+        );
     }
 
     @if $slug == focus-ring-outline-offset {
