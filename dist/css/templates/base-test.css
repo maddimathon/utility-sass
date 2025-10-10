@@ -368,6 +368,7 @@ pre {
     --mrg-firm-200: 0.5rem;
     --mrg-firm-300: 0.8125rem;
     --mrg-firm-400: 1.25rem;
+    --mrg-firm-500: 1.6875rem;
     --mrg-firm-600: 2.25rem;
     --mrg-firm-800: 4rem;
     --mrg-firm-900: 7.125rem;
@@ -378,6 +379,7 @@ pre {
     --mrg-soft-200: 0.3125rem;
     --mrg-soft-300: 0.5rem;
     --mrg-soft-400: 0.8125rem;
+    --mrg-soft-500: 1.1875rem;
     --mrg-soft-600: 1.625rem;
     --mrg-soft-800: 3.125rem;
     --mrg-soft-900: 5.8125rem;
@@ -388,6 +390,7 @@ pre {
     --mrg-half-200: 0.1875rem;
     --mrg-half-300: 0.3125rem;
     --mrg-half-400: 0.4375rem;
+    --mrg-half-500: 0.5rem;
     --mrg-half-600: 0.625rem;
     --mrg-half-800: 0.875rem;
     --mrg-half-900: 1.3125rem;
@@ -396,10 +399,8 @@ pre {
 /* #endregion Tokens - Margin */
 /* #region Tokens - Font Size */
 :root {
-    --fs-title: 2.75rem;
-    --fs-title: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
-    --fs-heading-1: 2.375rem;
-    --fs-heading-1: clamp(1.8125rem, 3.125svw + 1rem, 2.6875rem);
+    --fs-heading-1: 2.75rem;
+    --fs-heading-1: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
     --fs-heading-2: 2.0625rem;
     --fs-heading-2: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
     --fs-heading-3: 1.8125rem;
@@ -482,7 +483,7 @@ pre {
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Misc. */
 :root {
-    --focus-ring-outline-width: max(0.0625rem, min(0.125em, 0.1875rem));
+    --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.1875rem));
     --focus-ring-outline-offset: 0.125em;
     --focus-ring-outline-color: var(--sys-clr-accent-bg, CanvasText);
 }
@@ -493,11 +494,11 @@ pre {
 .no-js :focus,
 .js__no-where-selector :focus {
     /* %focus-ring */
-    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
-    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
     outline: var(
             --focus-ring-outline-width,
-            max(0.0625rem, min(0.125em, 0.1875rem))
+            max(0.125rem, min(0.125em, 0.1875rem))
         )
         dashed currentColor;
     outline-color: AccentColor;
@@ -511,11 +512,11 @@ pre {
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
-    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
-    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
     outline: var(
             --focus-ring-outline-width,
-            max(0.0625rem, min(0.125em, 0.1875rem))
+            max(0.125rem, min(0.125em, 0.1875rem))
         )
         dashed currentColor;
     outline-color: AccentColor;
@@ -529,11 +530,11 @@ pre {
 
 :focus-visible {
     /* %focus-ring--visible */
-    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
-    outline: max(0.0625rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
     outline: var(
             --focus-ring-outline-width,
-            max(0.0625rem, min(0.125em, 0.1875rem))
+            max(0.125rem, min(0.125em, 0.1875rem))
         )
         dashed currentColor;
     outline-color: AccentColor;
@@ -683,14 +684,15 @@ i i i {
 
 a {
     --focus-ring-outline-color: currentColor;
+    --focus-ring-outline-offset: var(--stroke-relative-200, 0.0625em);
     display: inline;
     border: none;
     -webkit-text-decoration: underline 0.0625em;
     text-decoration: underline 0.0625em;
     -webkit-text-decoration: underline var(--stroke-relative-200, 0.0625em);
     text-decoration: underline var(--stroke-relative-200, 0.0625em);
-    text-underline-offset: 0.1875em;
-    text-underline-offset: var(--stroke-relative-600, 0.1875em);
+    text-underline-offset: 0.25em;
+    text-underline-offset: var(--stroke-relative-800, 0.25em);
     color: LinkText;
     color: var(--sys-clr-link, LinkText);
 }
@@ -871,11 +873,12 @@ h1,
 .h1,
 .page-title {
     margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 900;
-    font-size: clamp(1.8125rem, 3.125svw + 1rem, 2.6875rem);
-    font-size: var(--fs-heading-1, 2.375rem);
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
+    font-size: var(--fs-heading-1, 2.75rem);
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
@@ -902,11 +905,12 @@ h1 a.button,
 
 :where([role="heading"][aria-level="1"]) {
     margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 900;
-    font-size: clamp(1.8125rem, 3.125svw + 1rem, 2.6875rem);
-    font-size: var(--fs-heading-1, 2.375rem);
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
+    font-size: var(--fs-heading-1, 2.75rem);
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
@@ -927,8 +931,9 @@ h1 a.button,
 h2,
 .h2 {
     margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 800;
     font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
     font-size: var(--fs-heading-2, 2.0625rem);
@@ -953,8 +958,9 @@ h2 a.button,
 
 :where([role="heading"][aria-level="2"]) {
     margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 800;
     font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
     font-size: var(--fs-heading-2, 2.0625rem);
@@ -978,8 +984,9 @@ h2 a.button,
 h3,
 .h3 {
     margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
     font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
     font-size: var(--fs-heading-3, 1.8125rem);
@@ -1004,8 +1011,9 @@ h3 a.button,
 
 :where([role="heading"][aria-level="3"]) {
     margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
     font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
     font-size: var(--fs-heading-3, 1.8125rem);
@@ -1029,8 +1037,9 @@ h3 a.button,
 h4,
 .h4 {
     margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
     font-size: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
     font-size: var(--fs-heading-4, 1.5625rem);
@@ -1072,8 +1081,9 @@ h4 a.button,
 
 :where([role="heading"][aria-level="4"]) {
     margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
     font-size: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
     font-size: var(--fs-heading-4, 1.5625rem);
@@ -1108,8 +1118,9 @@ h4 a.button,
 h5,
 .h5 {
     margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 600;
     font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
     font-size: var(--fs-heading-5, 1.3125rem);
@@ -1151,8 +1162,9 @@ h5 a.button,
 
 :where([role="heading"][aria-level="5"]) {
     margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 600;
     font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
     font-size: var(--fs-heading-5, 1.3125rem);
@@ -1187,8 +1199,9 @@ h5 a.button,
 h6,
 .h6 {
     margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
     font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
     font-size: var(--fs-heading-6, 1.1875rem);
@@ -1230,8 +1243,9 @@ h6 a.button,
 
 :where([role="heading"][aria-level="6"]) {
     margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: 0;
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
     font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
     font-size: var(--fs-heading-6, 1.1875rem);
@@ -1264,10 +1278,11 @@ h6 a.button,
 }
 
 .h7 {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    font-weight: 600;
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
     font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
     font-size: var(--fs-heading-7, 0.9375rem);
     line-height: 1.6875;
@@ -1275,17 +1290,7 @@ h6 a.button,
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
-    font-style: italic;
-}
-.h7 em,
-.h7 i {
     font-style: normal;
-}
-.h7 em em,
-.h7 em i,
-.h7 i em,
-.h7 i i {
-    font-style: italic;
 }
 .h7 button,
 .h7 [role="button"],
@@ -1298,10 +1303,11 @@ h6 a.button,
 }
 
 :where([role="heading"][aria-level="7"]) {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    font-weight: 600;
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
     font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
     font-size: var(--fs-heading-7, 0.9375rem);
     line-height: 1.6875;
@@ -1309,17 +1315,7 @@ h6 a.button,
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
-    font-style: italic;
-}
-:where([role="heading"][aria-level="7"]) em,
-:where([role="heading"][aria-level="7"]) i {
     font-style: normal;
-}
-:where([role="heading"][aria-level="7"]) em em,
-:where([role="heading"][aria-level="7"]) em i,
-:where([role="heading"][aria-level="7"]) i em,
-:where([role="heading"][aria-level="7"]) i i {
-    font-style: italic;
 }
 :where([role="heading"][aria-level="7"])
     :where(
@@ -1335,10 +1331,11 @@ h6 a.button,
 }
 
 .h8 {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    font-weight: 400;
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
     font-size: clamp(0.625rem, 1.0625svw + 1rem, 0.9375rem);
     font-size: var(--fs-heading-8, 0.8125rem);
     line-height: 1.6875;
@@ -1369,10 +1366,11 @@ h6 a.button,
 }
 
 :where([role="heading"][aria-level="8"]) {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    font-weight: 400;
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
     font-size: clamp(0.625rem, 1.0625svw + 1rem, 0.9375rem);
     font-size: var(--fs-heading-8, 0.8125rem);
     line-height: 1.6875;
@@ -1561,10 +1559,11 @@ fieldset > legend + * {
 }
 
 fieldset legend {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    font-weight: 600;
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
     font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
     font-size: var(--fs-heading-7, 0.9375rem);
     line-height: 1.6875;
@@ -1572,19 +1571,7 @@ fieldset legend {
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
-    font-style: italic;
-}
-fieldset legend em,
-fieldset legend i {
     font-style: normal;
-}
-fieldset legend em em,
-fieldset legend em i,
-fieldset legend i em,
-fieldset legend i i {
-    font-style: italic;
-}
-fieldset legend {
     margin-left: calc(0.5rem * -1);
     margin-right: calc(0.5rem * -1);
     margin-left: calc(var(--mrg-soft-300, 0.5rem) * -1);
@@ -2321,14 +2308,9 @@ th {
 /* # UTILITIES - Typography
  * ======================================================================== */
 /* ## Font Sizes ==================================== */
-.font-size-title {
-    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
-    font-size: var(--fs-title, 2.75rem);
-}
-
 .font-size-heading-1 {
-    font-size: clamp(1.8125rem, 3.125svw + 1rem, 2.6875rem);
-    font-size: var(--fs-heading-1, 2.375rem);
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
+    font-size: var(--fs-heading-1, 2.75rem);
 }
 
 .font-size-heading-2 {

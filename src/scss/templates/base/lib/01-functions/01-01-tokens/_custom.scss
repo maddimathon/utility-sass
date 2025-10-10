@@ -53,6 +53,12 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
             }
         }
 
+        @each $level in list.reverse($sorted_border_tokenKeys) {
+            @if map.get(tokens.$border_widths, $level) > 0.0625 {
+                $border_min: $level;
+            }
+        }
+
         @return clamp(
             borders.border-width-value($border_min),
             borders.stroke-relative-value($value),

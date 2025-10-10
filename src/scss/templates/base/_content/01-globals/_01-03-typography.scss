@@ -67,10 +67,11 @@
 
 %a {
     --focus-ring-outline-color: currentColor;
+    --focus-ring-outline-offset: #{var-stroke-relative('200')};
     display: inline;
     border: none;
     text-decoration: underline #{var-stroke-relative('200')};
-    text-underline-offset: #{var-stroke-relative('600')};
+    text-underline-offset: #{var-stroke-relative('800')};
     color: #{var-sys-colour(link)};
 
     /// STATES ///
@@ -212,7 +213,7 @@
 @each $num in token-all-heading-levels() {
     //
     #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
-        @include heading($num);
+        @include snippet-heading($num);
 
         %button {
             font: inherit;
@@ -222,7 +223,7 @@
     }
 
     %h#{$num}--where {
-        @include heading($num);
+        @include snippet-heading($num);
 
         :where(%button) {
             font: inherit;

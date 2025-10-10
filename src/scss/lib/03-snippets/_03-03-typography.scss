@@ -3,5 +3,147 @@
 /// @since ___PKG_VERSION___
 ///
 
+@use '../../config';
+
+@use '../../modules/math';
+@use '../../modules/meta';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+
 /// # SNIPPETS - TYPOGRAPHY
 /// ======================================================================== ///
+
+///
+/// Adds basic properties for the given heading level.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-heading($slug: '7') {
+    $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
+    $slug: #{$slug};
+    $heading9orAbove: false;
+    //
+    $fontWeight: 600;
+    $fontStyle: null;
+    $letterSpacing: null;
+    $lineHeight: null;
+    $marginBlockStart: #{var-mrg-soft('600')};
+    $marginBlockEnd: #{var-mrg-half('400')};
+    $size: null;
+    $textTransform: null;
+
+    @if $slug == title {
+        //
+        $fontWeight: 900;
+        $lineHeight: var-line-height('100');
+        $size: var-fs(heading-1);
+        //
+    } @else if $slug {
+        //
+        $slugAsNumber: if(
+            $slugAsNumber == null,
+            math.num-val($slug),
+            $slugAsNumber
+        );
+
+        @if $slugAsNumber > 8 {
+            $heading9orAbove: true;
+            $size: var-fs(heading-#{$slug}, $fallback: var-fs(heading-8));
+        } @else {
+            $size: var-fs(heading-#{$slug});
+        }
+    }
+
+    @if $slug == title or $slug == '1' {
+        $fontWeight: 900;
+        $lineHeight: var-line-height('200');
+        $marginBlockStart: #{var-mrg-soft('800')};
+    }
+
+    @if $slug == '2' {
+        $fontWeight: 800;
+        $lineHeight: var-line-height('200');
+        $marginBlockStart: #{var-mrg-soft('800')};
+    }
+
+    @if $slug == '3' {
+        $fontWeight: 700;
+        $lineHeight: var-line-height('200');
+        $marginBlockStart: #{var-mrg-soft('800')};
+    }
+
+    @if $slug == '4' {
+        $fontWeight: 700;
+        $fontStyle: italic;
+        $lineHeight: var-line-height('300');
+    }
+
+    @if $slug == '5' {
+        $fontWeight: 600;
+        $fontStyle: italic;
+        $lineHeight: var-line-height('300');
+    }
+
+    @if $slug == '6' {
+        $fontWeight: 500;
+        $fontStyle: italic;
+        $lineHeight: var-line-height('300');
+    }
+
+    @if $slug == '7' or $slug == '8' or $heading9orAbove {
+        $fontWeight: 500;
+        $fontStyle: normal;
+        $lineHeight: var-line-height('400');
+
+        $letterSpacing: 0.0625em;
+        $textTransform: uppercase;
+    }
+
+    @if $slug == '8' or $heading9orAbove {
+        $fontWeight: 500;
+        $fontStyle: italic;
+    }
+
+    @if $heading9orAbove {
+        $marginBlockStart: var-mrg-soft('500');
+        $lineHeight: var-line-height('500');
+    }
+
+    margin-block: #{$marginBlockStart} #{$marginBlockEnd};
+    font-weight: #{$fontWeight};
+
+    @if $size {
+        font-size: #{$size};
+    }
+
+    @if $lineHeight {
+        line-height: #{$lineHeight};
+    }
+
+    @if $letterSpacing {
+        letter-spacing: #{$letterSpacing};
+    }
+
+    @if $textTransform {
+        text-transform: #{$textTransform};
+    }
+
+    text-wrap: balance;
+
+    @if $fontStyle {
+        font-style: #{$fontStyle};
+
+        @if $fontStyle == italic {
+            em,
+            i {
+                font-style: normal;
+
+                em,
+                i {
+                    font-style: italic;
+                }
+            }
+        }
+    }
+}
