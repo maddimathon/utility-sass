@@ -114,15 +114,19 @@
 
             &::marker {
                 font-size: #{var-fs(smaller-2)};
-                // opacity: 0.8;
-                // @include colour-mode( ( 'high', 'forced-colors' ) ) { opacity: 1; }
             }
 
             li {
                 font-style: italic;
 
-                em {
+                em,
+                i {
                     font-style: normal;
+
+                    em,
+                    i {
+                        font-style: italic;
+                    }
                 }
             }
         }

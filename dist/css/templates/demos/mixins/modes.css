@@ -51,6 +51,17 @@ parent,
 }
 
 /* #endregion - in random parent */
+/* #region NOT light */
+:not(:root):not([data-brightness-mode="light"]) {
+    --mode-mixin: "not light";
+}
+
+@media not (( prefers-color-scheme: light )) {
+    :root {
+        --mode-mixin: "not light";
+    }
+}
+/* #endregion NOT light */
 /* #region light */
 :root,
 [data-brightness-mode="light"] {
@@ -103,6 +114,8 @@ parent,
     }
 }
 /* #endregion high-contrast */
+/* #region max-contrast */
+/* #endregion max-contrast */
 /* #region forced-colors */
 @media (forced-colors: active), (prefers-contrast: custom) {
     :root {

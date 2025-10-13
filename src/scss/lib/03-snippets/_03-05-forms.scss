@@ -26,22 +26,23 @@
 ///
 @mixin snippet-button(
     //
-    $accentClr: var-sys-colour(button-bg),
+    $accentClr: var-sys-colour(button-border),
     $background: var-sys-colour(button-bg),
     $borderClr: var-sys-colour(button-border),
     $color: var-sys-colour(button-text),
     //
-    $accentClr_active: var-sys-colour(button-bg-active),
+    $accentClr_active: var-sys-colour(button-border-active),
     $background_active: var-sys-colour(button-bg-active),
     $borderClr_active: var-sys-colour(button-border-active),
     $color_active: var-sys-colour(button-text-active),
     //
-    $accentClr_hover: var-sys-colour(button-bg-hover),
+    $accentClr_hover: var-sys-colour(button-border-hover),
     $background_hover: var-sys-colour(button-bg-hover),
     $borderClr_hover: var-sys-colour(button-border-hover),
     $color_hover: var-sys-colour(button-text-hover),
     //
     $borderWidth: 0.125rem,
+    $focusOffset: 0.125rem,
     $lh: '100',
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
     $opacity_hover: 0.875,
@@ -70,6 +71,7 @@
         $color_active: $color_active,
 
         $borderWidth: $borderWidth,
+        $focusOffset: $focusOffset,
         $lh: $lh,
         $margin: $margin,
         $opacity_hover: $opacity_hover,
@@ -84,6 +86,10 @@
         appearance: button;
         text-decoration: none;
         cursor: pointer;
+    }
+
+    &[aria-disabled='true'] {
+        cursor: not-allowed;
     }
 }
 
@@ -160,6 +166,7 @@
     $display: block,
     $lh: '200',
     $borderWidth: 0.0625rem,
+    $focusOffset: 0.125rem,
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
     $opacity_hover: 1,
     $padding: var-mrg-soft('200') var-mrg-firm('200'),
@@ -169,6 +176,7 @@
     $includePlaceholder: true,
     $selector: #{&}
 ) {
+    --focus-ring-outline-offset: #{$focusOffset};
     display: #{$display};
     margin: #{$margin};
     padding: #{$padding};
@@ -368,6 +376,7 @@
     }
 
     &:has(> :where(input[type='checkbox'], input[type='radio'])) {
+        --display: grid;
         display: grid;
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;

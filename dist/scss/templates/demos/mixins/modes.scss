@@ -36,6 +36,12 @@ parent {
 }
 /* #endregion - in random parent */
 
+/* #region NOT light */
+@include lib.colour-mode-not(light) {
+    --mode-mixin: 'not light';
+}
+/* #endregion NOT light */
+
 /* #region light */
 @include lib.light {
     --mode-mixin: 'light';
@@ -65,6 +71,12 @@ parent {
     --mode-mixin: 'high-contrast';
 }
 /* #endregion high-contrast */
+
+/* #region max-contrast */
+@include lib.max-contrast {
+    --mode-mixin: 'max-contrast';
+}
+/* #endregion max-contrast */
 
 /* #region forced-colors */
 @include lib.forced-colors {

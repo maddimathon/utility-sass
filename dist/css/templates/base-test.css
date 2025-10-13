@@ -292,13 +292,13 @@ pre {
     --sys-clr-button-text-active: ButtonText;
     --sys-clr-button-text-hover: SelectedItemText;
     --sys-clr-input-bg: Field;
-    --sys-clr-input-bg-hover: SelectedItem;
+    --sys-clr-input-bg-hover: Field;
     --sys-clr-input-bg-active: Field;
     --sys-clr-input-border: FieldText;
-    --sys-clr-input-border-hover: SelectedItem;
+    --sys-clr-input-border-hover: FieldText;
     --sys-clr-input-border-active: FieldText;
     --sys-clr-input-text: FieldText;
-    --sys-clr-input-text-hover: SelectedItemText;
+    --sys-clr-input-text-hover: FieldText;
     --sys-clr-input-text-active: FieldText;
     --sys-clr-link: LinkText;
     --sys-clr-link-active: ActiveText;
@@ -328,23 +328,24 @@ pre {
         --sys-clr-text-disabled: GrayText !important;
         --sys-clr-button-bg: ButtonFace !important;
         --sys-clr-button-bg-active: ButtonFace !important;
-        --sys-clr-button-bg-hover: SelectedItem !important;
+        --sys-clr-button-bg-hover: ButtonFace !important;
         --sys-clr-button-border: ButtonFace !important;
         --sys-clr-button-border: ButtonBorder !important;
         --sys-clr-button-border-active: ButtonFace !important;
         --sys-clr-button-border-active: ButtonBorder !important;
-        --sys-clr-button-border-hover: SelectedItem !important;
+        --sys-clr-button-border-hover: ButtonFace !important;
+        --sys-clr-button-border-hover: ButtonBorder !important;
         --sys-clr-button-text: ButtonText !important;
         --sys-clr-button-text-active: ButtonText !important;
-        --sys-clr-button-text-hover: SelectedItemText !important;
+        --sys-clr-button-text-hover: ButtonText !important;
         --sys-clr-input-bg: Field !important;
-        --sys-clr-input-bg-hover: SelectedItem !important;
+        --sys-clr-input-bg-hover: Field !important;
         --sys-clr-input-bg-active: Field !important;
         --sys-clr-input-border: FieldText !important;
-        --sys-clr-input-border-hover: SelectedItem !important;
+        --sys-clr-input-border-hover: FieldText !important;
         --sys-clr-input-border-active: FieldText !important;
         --sys-clr-input-text: FieldText !important;
-        --sys-clr-input-text-hover: SelectedItemText !important;
+        --sys-clr-input-text-hover: FieldText !important;
         --sys-clr-input-text-active: FieldText !important;
         --sys-clr-link: LinkText !important;
         --sys-clr-link-active: ActiveText !important;
@@ -483,9 +484,9 @@ pre {
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Misc. */
 :root {
-    --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.1875rem));
+    --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.25rem));
     --focus-ring-outline-offset: 0.125em;
-    --focus-ring-outline-color: var(--sys-clr-accent-bg, CanvasText);
+    --focus-ring-outline-color: var(--sys-clr-link, LinkText);
 }
 
 /* #endregion Tokens - Misc. */
@@ -494,17 +495,17 @@ pre {
 .no-js :focus,
 .js__no-where-selector :focus {
     /* %focus-ring */
-    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
-    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
     outline: var(
             --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.1875rem))
+            max(0.125rem, min(0.125em, 0.25rem))
         )
         dashed currentColor;
-    outline-color: AccentColor;
+    outline-color: LinkText;
     outline-color: var(
         --focus-ring-outline-color,
-        var(--sys-clr-accent-bg, CanvasText)
+        var(--sys-clr-link, LinkText)
     );
     outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
@@ -512,17 +513,17 @@ pre {
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
-    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
-    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
     outline: var(
             --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.1875rem))
+            max(0.125rem, min(0.125em, 0.25rem))
         )
         dashed currentColor;
-    outline-color: AccentColor;
+    outline-color: LinkText;
     outline-color: var(
         --focus-ring-outline-color,
-        var(--sys-clr-accent-bg, CanvasText)
+        var(--sys-clr-link, LinkText)
     );
     outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
@@ -530,17 +531,17 @@ pre {
 
 :focus-visible {
     /* %focus-ring--visible */
-    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
-    outline: max(0.125rem, min(0.125em, 0.1875rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
     outline: var(
             --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.1875rem))
+            max(0.125rem, min(0.125em, 0.25rem))
         )
         dashed currentColor;
-    outline-color: AccentColor;
+    outline-color: LinkText;
     outline-color: var(
         --focus-ring-outline-color,
-        var(--sys-clr-accent-bg, CanvasText)
+        var(--sys-clr-link, LinkText)
     );
     outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
@@ -736,10 +737,10 @@ a.no-style {
 }
 a[aria-disabled="true"] {
     text-decoration-line: line-through;
-    opacity: 1;
-    cursor: not-allowed;
     color: GrayText;
     color: var(--sys-clr-text-disabled, GrayText);
+    opacity: 1;
+    cursor: not-allowed;
 }
 
 abbr[title] {
@@ -783,6 +784,20 @@ blockquote {
     margin-bottom: calc(
         var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
     );
+    padding-left: 0.8125rem;
+    padding-left: var(--mrg-firm-300, 0.8125rem);
+    border-left: 0.125rem solid currentColor;
+    border-left: var(--border-width-200, 0.125rem) solid currentColor;
+}
+@media (min-width: 36em) {
+    blockquote {
+        margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
+        margin-right: max(0.3125rem, min(1.5svw, 2.25rem));
+        margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
+        margin-left: var(--gap-inline-tab, 1.5vw);
+        margin-right: max(0.3125rem, min(1.5svw, 2.25rem));
+        margin-right: var(--gap-inline-tab, 1.5vw);
+    }
 }
 blockquote > p:first-child {
     margin-top: 0;
@@ -796,9 +811,10 @@ blockquote > cite {
 }
 blockquote > cite::before {
     content: "— ";
+    content: "— "/"";
     color: currentColor;
 }
-[data-contrast-mode="low"] blockquote > cite {
+blockquote > cite {
     color: color-mix(in srgb, currentColor 75%, transparent);
 }
 
@@ -815,6 +831,13 @@ blockquote > cite::before {
     blockquote > cite {
         color: color-mix(in srgb, currentColor 87.5%, transparent);
     }
+}
+
+code,
+kbd,
+pre,
+samp {
+    position: relative;
 }
 
 pre {
@@ -842,7 +865,10 @@ pre {
     margin-bottom: calc(
         var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
     );
-    padding: 0;
+    padding: 0.5rem 0.8125rem;
+    padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-300, 0.8125rem);
+    border: 0.0625rem solid currentColor;
+    border: var(--border-width-100, 0.0625rem) solid currentColor;
     max-width: min(120ch, 100%);
     overflow: auto;
     font-size: 0.9375rem;
@@ -1498,8 +1524,15 @@ li li li::marker {
 li li li li {
     font-style: italic;
 }
-li li li li em {
+li li li li em,
+li li li li i {
     font-style: normal;
+}
+li li li li em em,
+li li li li em i,
+li li li li i em,
+li li li li i i {
+    font-style: italic;
 }
 
 /* # GLOBALS - Forms
@@ -1589,6 +1622,7 @@ fieldset legend {
 textarea,
 select,
 input {
+    --focus-ring-outline-offset: 0.125rem;
     display: block;
     margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
@@ -1616,12 +1650,12 @@ input {
 .js__no-where-selector select:focus,
 .js__no-where-selector input:focus {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: SelectedItem;
-    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--sys-clr-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    background-color: Field;
+    background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
+    border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
+    color: var(--sys-clr-input-text-hover, FieldText);
     accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
@@ -1630,12 +1664,12 @@ input {
 :where(.js__no-focusVisible) select:focus,
 :where(.js__no-focusVisible) input:focus {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: SelectedItem;
-    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--sys-clr-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    background-color: Field;
+    background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
+    border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
+    color: var(--sys-clr-input-text-hover, FieldText);
     accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
@@ -1644,12 +1678,12 @@ textarea:hover,
 select:hover,
 input:hover {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: SelectedItem;
-    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--sys-clr-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    background-color: Field;
+    background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
+    border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
+    color: var(--sys-clr-input-text-hover, FieldText);
     accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
@@ -1658,12 +1692,12 @@ textarea:focus-visible,
 select:focus-visible,
 input:focus-visible {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: SelectedItem;
-    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--sys-clr-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    background-color: Field;
+    background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
+    border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
+    color: var(--sys-clr-input-text-hover, FieldText);
     accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
@@ -1672,12 +1706,12 @@ textarea:focus-within,
 select:focus-within,
 input:focus-within {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: SelectedItem;
-    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--sys-clr-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    background-color: Field;
+    background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
+    border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
+    color: var(--sys-clr-input-text-hover, FieldText);
     accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
@@ -1880,6 +1914,7 @@ a.button,
 input[type="reset"],
 ::file-selector-button,
 a.button-secondary {
+    --focus-ring-outline-offset: 0.125rem;
     display: block;
     margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
@@ -1893,13 +1928,13 @@ a.button-secondary {
     border: 0.125rem solid ButtonBorder;
     border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
-    --focus-ring-outline-color: var(--sys-clr-button-bg, ButtonFace);
+    --focus-ring-outline-color: var(--sys-clr-button-border, ButtonFace);
     background-color: ButtonFace;
     background-color: var(--sys-clr-button-bg, ButtonFace);
     color: ButtonText;
     color: var(--sys-clr-button-text, ButtonText);
-    accent-color: ButtonFace;
-    accent-color: var(--sys-clr-button-bg, ButtonFace);
+    accent-color: ButtonBorder;
+    accent-color: var(--sys-clr-button-border, ButtonFace);
 }
 .no-js button:focus,
 .no-js [role="button"]:focus,
@@ -1917,7 +1952,10 @@ a.button-secondary {
 .js__no-where-selector input[type="reset"]:focus,
 .js__no-where-selector :focus::file-selector-button,
 .js__no-where-selector a.button-secondary:focus {
-    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        SelectedItem
+    );
     background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
@@ -1925,7 +1963,7 @@ a.button-secondary {
     color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
     accent-color: SelectedItem;
-    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
 :where(.js__no-focusVisible) button:focus,
@@ -1936,7 +1974,10 @@ a.button-secondary {
 :where(.js__no-focusVisible) input[type="reset"]:focus,
 :where(.js__no-focusVisible) :focus::file-selector-button,
 :where(.js__no-focusVisible) a.button-secondary:focus {
-    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        SelectedItem
+    );
     background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
@@ -1944,7 +1985,7 @@ a.button-secondary {
     color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
     accent-color: SelectedItem;
-    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
 button:hover,
@@ -1955,7 +1996,10 @@ a.button:hover,
 input[type="reset"]:hover,
 :hover::file-selector-button,
 a.button-secondary:hover {
-    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        SelectedItem
+    );
     background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
@@ -1963,7 +2007,7 @@ a.button-secondary:hover {
     color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
     accent-color: SelectedItem;
-    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
 button:focus-visible,
@@ -1974,7 +2018,10 @@ a.button:focus-visible,
 input[type="reset"]:focus-visible,
 :focus-visible::file-selector-button,
 a.button-secondary:focus-visible {
-    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        SelectedItem
+    );
     background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
@@ -1982,7 +2029,7 @@ a.button-secondary:focus-visible {
     color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
     accent-color: SelectedItem;
-    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
 button:focus-within,
@@ -1993,7 +2040,10 @@ a.button:focus-within,
 input[type="reset"]:focus-within,
 :focus-within::file-selector-button,
 a.button-secondary:focus-within {
-    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        SelectedItem
+    );
     background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
@@ -2001,7 +2051,7 @@ a.button-secondary:focus-within {
     color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
     accent-color: SelectedItem;
-    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
 .no-js button:focus,
@@ -2159,15 +2209,15 @@ a.button:active,
 input[type="reset"]:active,
 :active::file-selector-button,
 a.button-secondary:active {
-    --focus-ring-outline-color: var(--sys-clr-button-bg-active, ButtonFace);
+    --focus-ring-outline-color: var(--sys-clr-button-border-active, ButtonFace);
     background-color: ButtonFace;
     background-color: var(--sys-clr-button-bg-active, ButtonFace);
     border-color: ButtonBorder;
     border-color: var(--sys-clr-button-border-active, ButtonFace);
     color: ButtonText;
     color: var(--sys-clr-button-text-active, ButtonText);
-    accent-color: ButtonFace;
-    accent-color: var(--sys-clr-button-bg-active, ButtonFace);
+    accent-color: ButtonBorder;
+    accent-color: var(--sys-clr-button-border-active, ButtonFace);
 }
 button,
 [role="button"],
@@ -2182,6 +2232,16 @@ a.button-secondary {
     appearance: button;
     text-decoration: none;
     cursor: pointer;
+}
+button[aria-disabled="true"],
+[aria-disabled="true"][role="button"],
+input[aria-disabled="true"][type="button"],
+input[aria-disabled="true"][type="submit"],
+a[aria-disabled="true"].button,
+input[aria-disabled="true"][type="reset"],
+[aria-disabled="true"]::file-selector-button,
+a[aria-disabled="true"].button-secondary {
+    cursor: not-allowed;
 }
 
 ::file-selector-button {
@@ -2204,6 +2264,7 @@ label {
     color: var(--sys-clr-text, CanvasText);
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"])) {
+    --display: grid;
     display: grid;
     grid-template-columns: fit-content(0) 1fr;
     justify-content: end;
@@ -2242,12 +2303,12 @@ label > input[type="radio"] {
 .table-wrapper,
 table {
     position: relative;
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
     margin-bottom: 0;
-    margin-top: 1.625rem;
+    margin-top: 2.25rem;
     margin-bottom: calc(1.625rem - 0.8125rem);
-    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-top: var(--mrg-firm-600, 2.25rem);
     margin-bottom: calc(
         var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
     );

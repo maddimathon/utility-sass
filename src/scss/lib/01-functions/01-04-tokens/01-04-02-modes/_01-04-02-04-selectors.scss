@@ -241,7 +241,10 @@
     $selectorsList: ();
 
     @each $mode in $modes {
-        @if $mode != forced-colors {
+        @if $mode !=
+            forced-colors or
+            config.$fn_selectors_colour_mode_include_forced_colors
+        {
             $isDefaultOnly: is-colour-mode-type-default-only($mode);
             $isDefault: is-colour-mode-default($mode);
 

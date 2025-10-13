@@ -19,7 +19,7 @@ test-yes {
     @at-root {
         /* ### Average, High - whereSelector ------------------ */
 
-        &__high {
+        &__average_high {
             @include colour-mode-js-support((average, high), 'whereSelector') {
                 /* @include colour-mode-js-support((average, high), 'whereSelector'); */
             }
@@ -33,7 +33,15 @@ test-yes {
             }
         }
 
-        /* ### High ------------------ */
+        /* ### Maximum ------------------ */
+
+        &__max {
+            @include colour-mode-js-support(max, 'support-key') {
+                /* @include colour-mode-js-support(max, 'support-key'); */
+            }
+        }
+
+        /* ### Low ------------------ */
 
         &__low {
             @include colour-mode-js-support(low, 'support-key') {

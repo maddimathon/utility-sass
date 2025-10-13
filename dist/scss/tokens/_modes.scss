@@ -12,7 +12,7 @@
 /// ======================================================================== ///
 
 $_brightnessMode_options: ('light', 'dark');
-$_contrastMode_options: ('average', 'low', 'high', 'forced-colors');
+$_contrastMode_options: ('average', 'low', 'high', 'max', 'forced-colors');
 
 ///
 /// All brightness modes to include in the output stylesheet.
@@ -37,7 +37,7 @@ $brightnessMode_all: config.config-valid-list-strings(
 ///
 /// @since 0.1.0-alpha.draft
 ///
-$contrastMode_all: $_contrastMode_options !default;
+$contrastMode_all: list.except($_contrastMode_options, 'max') !default;
 $contrastMode_all: config.config-valid-list-strings(
     $contrastMode_all,
     'contrastMode_all',

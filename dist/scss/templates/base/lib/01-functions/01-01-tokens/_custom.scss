@@ -48,7 +48,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
         );
 
         @each $level in $sorted_border_tokenKeys {
-            @if map.get(tokens.$border_widths, $level) < 0.25 {
+            @if map.get(tokens.$border_widths, $level) <= 0.25 {
                 $border_max: $level;
             }
         }
