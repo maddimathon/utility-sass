@@ -16,10 +16,10 @@
 
 @use '../lib' as *;
 
-@include config.print-globals {
+@if config.$print_globals {
     @include extend-selector-globals;
 }
 
-@include config.print-utils {
+@if config.$print_utils {
     @include extend-selector-utils;
 }

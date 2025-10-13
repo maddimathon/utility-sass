@@ -16,7 +16,7 @@
 
 @use '../../lib' as *;
 
-@include config.print-headings {
+@if config.$print_headings {
     /* # GLOBALS - Lists
      * ======================================================================== */
 }
@@ -29,7 +29,7 @@
     padding: 0;
     padding-inline-start: 1em;
 
-    @include config.incl-html {
+    @if config.$include_html {
         margin-inline-start: #{var-gap-inline(tab)};
     }
 

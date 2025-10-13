@@ -27,7 +27,7 @@
     margin-inline: auto;
     width: auto;
 
-    @include config.incl-html {
+    @if config.$include_html {
         margin-inline: #{var-gap-inline(indent)};
 
         @if $maxWidth {

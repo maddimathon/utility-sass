@@ -16,7 +16,7 @@
 
 @use '../../lib' as *;
 
-@include config.print-headings {
+@if config.$print_headings {
     /* # GLOBALS - Tables
      * ======================================================================== */
 }
@@ -30,7 +30,7 @@
 
     background: #{var-sys-colour(accent-bg)};
 
-    @include config.incl-html {
+    @if config.$include_html {
         width: min(var(--width-page, 53rem), 100%);
     }
 }

@@ -16,14 +16,14 @@
 
 @use '../../lib' as *;
 
-@include config.print-headings {
+@if config.$print_headings {
     /* # GLOBALS - Objects
      * ======================================================================== */
 }
 
 %root,
 %body {
-    @include config.incl-html {
+    @if config.$include_html {
         scroll-padding-top: #{var-gap-block(layout)};
     }
 }
@@ -32,7 +32,7 @@
 }
 
 %body {
-    @include config.incl-html {
+    @if config.$include_html {
         display: flex;
         flex-direction: column;
         justify-content: start;
@@ -55,7 +55,7 @@
     & {
         width: 100%;
 
-        @include config.incl-html {
+        @if config.$include_html {
             margin-block-start: calc(
                 #{var-mrg-soft('400')} + #{var-mrg-firm('600')}
             );

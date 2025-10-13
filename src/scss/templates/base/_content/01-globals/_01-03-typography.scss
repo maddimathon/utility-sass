@@ -16,7 +16,7 @@
 
 @use '../../lib' as *;
 
-@include config.print-headings {
+@if config.$print_headings {
     /* # GLOBALS - Typography
      * ======================================================================== */
 }
@@ -35,7 +35,7 @@
 %body {
 }
 
-@include config.print-headings {
+@if config.$print_headings {
     /* ## Typography - Inline ==================================== */
 }
 
@@ -113,7 +113,7 @@
     }
 }
 
-@include config.print-headings {
+@if config.$print_headings {
     /* ## Typography - Block ==================================== */
 }
 
@@ -130,8 +130,9 @@
 
     & {
         margin-block: #{var-mrg-soft('400')} 0;
-        margin-block: #{var-mrg-soft('600')}
-            calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
+        margin-block: #{var-mrg-soft('600')} calc(#{var-mrg-soft('600')} - #{var-mrg-soft(
+                        '400'
+                    )});
 
         padding-inline-start: #{var-mrg-firm('300')};
 
@@ -182,8 +183,9 @@
         position: relative;
         margin-inline: 0;
         margin-block: #{var-mrg-soft('400')} 0;
-        margin-block: #{var-mrg-soft('600')}
-            calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
+        margin-block: #{var-mrg-soft('600')} calc(#{var-mrg-soft('600')} - #{var-mrg-soft(
+                        '400'
+                    )});
 
         padding: #{var-mrg-soft('300')} #{var-mrg-firm('300')};
 
@@ -220,7 +222,7 @@
     }
 }
 
-@include config.print-headings {
+@if config.$print_headings {
     /* ## Typography - Headings ==================================== */
 }
 
