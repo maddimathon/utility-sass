@@ -9,6 +9,17 @@
 /// ======================================================================== ///
 
 ///
+/// Whether the library is being called from a stylesheet template.
+///
+/// @since 0.1.0-alpha.draft
+///
+$internal_isTemplate: false !default;
+$internal_isTemplate: config-valid-bool(
+    $internal_isTemplate,
+    'internal_isTemplate'
+);
+
+///
 /// Removes the 'theses styles include utility-sass' comment (for use by the
 /// scss templates).
 ///

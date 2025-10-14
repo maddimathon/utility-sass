@@ -10,7 +10,7 @@
 @use '../modules/math';
 @use '../modules/meta';
 
-@use 'margins';
+@use 'spacing';
 
 /// # TOKENS - TYPOGRAPHY
 /// ======================================================================== ///
@@ -103,7 +103,7 @@ $font_sizes: map.flatten($font_sizes);
         $font_sizes,
         $key,
         math.round-to-pixel(
-            math.pow(margins.$scale_multiplier, $value),
+            math.pow(spacing.$scale_multiplier, $value),
             $factor: config.$fn_fontRoundToPixelFactor
         )
     );
@@ -140,7 +140,7 @@ $line_heights: map.merge(
 
 @each $key, $value in $line_heights {
     $lh: (
-        math.pow(margins.$scale_multiplier, $value * 0.875) * $line_height_base
+        math.pow(spacing.$scale_multiplier, $value * 0.875) * $line_height_base
     );
 
     $line_heights: map.set($line_heights, $key, math.round-to-pixel($lh, 32));

@@ -147,3 +147,23 @@
         }
     }
 }
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-centre-callout-block($maxWidth: true) {
+    display: block;
+    margin-inline: auto;
+    width: auto;
+
+    @if config.$include_html {
+        margin-inline: #{var-gap-inline(indent)};
+
+        @if $maxWidth {
+            @include min-width(indent) {
+                margin-inline: auto;
+                max-width: min(#{var-width('callout')}, 100%);
+            }
+        }
+    }
+}

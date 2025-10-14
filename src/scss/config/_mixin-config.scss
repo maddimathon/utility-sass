@@ -1,0 +1,22 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward 'templates';
+
+@use 'functions' as *;
+
+@use 'templates';
+
+///
+/// Whether the extend-selectors-global mixin should [role=heading] selectors as
+/// well.
+///
+/// @since ___PKG_VERSION___
+///
+$mx_extendHeadingsByRole: templates.$print_globals !default;
+$mx_extendHeadingsByRole: config-valid-bool(
+    $mx_extendHeadingsByRole,
+    'mx_extendHeadingsByRole'
+);

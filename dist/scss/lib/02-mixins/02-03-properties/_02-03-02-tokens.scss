@@ -21,6 +21,36 @@
 /// ======================================================================== ///
 
 ///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-border-width {
+    /* #region Tokens - Border Width */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$border_widths {
+            --border-width-#{$slug}: #{border-width-value($slug)};
+        }
+    }
+    /* #endregion Tokens - Border Width */
+}
+
+///
+/// Prints out the relative strokes custom property tokens based on config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-stroke-relative {
+    /* #region Tokens - Stroke Relative */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$strokes_relative {
+            --stroke-relative-#{$slug}: #{stroke-relative-value($slug)};
+        }
+    }
+    /* #endregion Tokens - Stroke Relative */
+}
+
+///
 /// Prints out the font size custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha.draft
@@ -81,6 +111,45 @@
     /* #endregion Tokens - Margin */
 }
 
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-gap {
+    /* #region Tokens - Gap */
+    #{selector.parent-or-root()} {
+        //
+        @each $dir, $dirMap in tokens.$gaps {
+            //
+            @each $slug, $_list in $dirMap {
+                //
+                @each $value in gap-value($dir, $slug) {
+                    --gap-#{$dir}-#{$slug}: #{$value};
+                }
+            }
+        }
+    }
+    /* #endregion Tokens - Gap */
+}
+
+///
+/// Prints out the width custom property tokens based on breakpoints config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-width {
+    /* #region Tokens - Width */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in config.$widths {
+            @each $value in width-value($slug) {
+                --width-#{$slug}: #{$value};
+            }
+        }
+    }
+    /* #endregion Tokens - Width */
+}
+
 $_systemColors: get-sys-colours();
 
 ///
@@ -120,21 +189,4 @@ $_systemColors: get-sys-colours();
         }
     }
     /* #endregion Tokens - System Colours */
-}
-
-///
-/// Prints out the width custom property tokens based on breakpoints config.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin tokens-width {
-    /* #region Tokens - Width */
-    #{selector.parent-or-root()} {
-        @each $slug, $_value in config.$widths {
-            @each $value in width-value($slug) {
-                --width-#{$slug}: #{$value};
-            }
-        }
-    }
-    /* #endregion Tokens - Width */
 }

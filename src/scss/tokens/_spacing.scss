@@ -1,0 +1,104 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../modules/map';
+@use '../modules/math';
+
+@use '../config';
+// @use 'functions' as *;
+
+/// # TOKENS - MARGINS
+/// ======================================================================== ///
+
+$margin_softener: 0.625 !default;
+
+///
+/// Used for scaling various size sets relative to each other - e.g., margins,
+/// font sizes, line heights.
+///
+/// @since ___PKG_VERSION___
+///
+$scale_multiplier: 1.15625 !default;
+
+///
+/// A map (merged with the defaults) of margin levels used as tokens throught
+/// the system.
+///
+/// Default keys are '100', '200', '300', '400', '600', and '800'. After
+/// merging, values are rounded with math.round-to-pixel().
+///
+/// @since ___PKG_VERSION___
+///
+$margins: () !default;
+
+$margins: map.merge(
+    (
+        '100': -9,
+        '200': -6,
+        '300': -3,
+        '400': 0,
+        '500': 2,
+        '600': 4,
+        '800': 8,
+        '900': 12,
+    ),
+    $margins
+);
+
+// TODO - add config option for the 1.25 multiplier - $margin_base
+@each $key, $size in $margins {
+    $margins: map.set(
+        $margins,
+        $key,
+        math.round-to-pixel(math.pow($scale_multiplier, $size) * 1.25)
+    );
+}
+
+$_layoutVW_default: 8;
+
+///
+/// @since ___PKG_VERSION___
+///
+$layoutVW: null !default;
+$layoutVW: config.config-valid-number(
+    $layoutVW,
+    'layoutVW',
+    $default: $_layoutVW_default,
+    $min: 2
+);
+
+$_gap_tab: config.config-round-to-pixel(
+    calc($layoutVW * (1.5 / $_layoutVW_default)),
+    8
+);
+
+$_gap_indent: config.config-round-to-pixel(
+    calc($layoutVW * (4 / $_layoutVW_default)),
+    8
+);
+
+$_gap_block_layout: config.config-round-to-pixel(
+    calc($layoutVW * (5 / $_layoutVW_default)),
+    8
+);
+
+///
+/// Gaps are responsive margins to be used at the page layout level.
+///
+/// @since ___PKG_VERSION___
+///
+$gaps: (
+    block: (
+        'layout': $_gap_block_layout,
+        'layout-half': calc($_gap_block_layout / 2),
+    ),
+
+    inline: (
+        'indent': $_gap_indent,
+        'layout': $layoutVW,
+        'layout-half': calc($layoutVW/2),
+        'tab': $_gap_tab,
+    ),
+);

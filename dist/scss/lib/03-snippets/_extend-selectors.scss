@@ -1,0 +1,258 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use '../../modules/colour';
+@use '../../modules/list';
+// @use '../../modules/map';
+// @use '../../modules/math';
+@use '../../modules/meta';
+// @use '../../modules/selector';
+@use '../../modules/string';
+
+@use '../../lib/02-mixins' as lib;
+
+@use '../../config';
+@use '../../tokens';
+
+@use '../01-functions' as *;
+
+$_optionalDefault: if(config.$internal_isTemplate, false, true);
+
+@mixin _extend-selectors(
+    $selectors,
+    $selector_prefix: '',
+    $optional: $_optionalDefault
+) {
+    @each $pair in $selectors {
+        $pairType: meta.type-of($pair);
+
+        @if $pairType == string {
+            #{$selector_prefix}#{$pair} {
+                //
+                @if $optional {
+                    @extend %#{$pair} !optional;
+                } @else {
+                    @extend %#{$pair};
+                }
+            }
+        } @else if $pairType == list {
+            @if list.length($pair) >= 2 {
+                #{$selector_prefix}#{list.nth($pair, 1)} {
+                    //
+                    @if $optional {
+                        @extend %#{list.nth($pair, 2)} !optional;
+                    } @else {
+                        @extend %#{list.nth($pair, 2)};
+                    }
+                }
+            } @else {
+                #{$selector_prefix}#{$pair} {
+                    //
+                    @if $optional {
+                        @extend %#{$pair} !optional;
+                    } @else {
+                        @extend %#{$pair};
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin extend-selectors-globals(
+    $additional: (),
+    $optional: $_optionalDefault,
+    $allHeadingLevels: token-all-heading-levels()
+) {
+    $_global_selectors: (
+        // ( globals, pseudo? ),
+        //
+        /// ## Objects ==================================== ///
+        (config.$selector_root, root),
+        (config.$selector_body, body),
+        hr,
+        //
+        /// ## Typography ==================================== ///
+        ('.screen-reader-text', screen-reader-text),
+        ((strong, b), strong),
+        ((em, i), em),
+        a,
+        abbr,
+        blockquote,
+        code,
+        kbd,
+        p,
+        pre,
+        samp,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        //
+        /// ## Lists ==================================== ///
+        ol,
+        ul,
+        li,
+        //
+        /// ## Forms ==================================== ///
+        label,
+        fieldset,
+        legend,
+        input,
+        select,
+        textarea,
+        (string.unquote('::file-selector-button'), file-selector-button),
+        (
+            (
+                button,
+                "[role='button']",
+                "input[type='button']",
+                "input[type='submit']"
+            ),
+            button
+        ),
+        (("input[type='reset']", '::file-selector-button'), button-secondary),
+        ('::selection', selection),
+        //
+        /// ## Tables ==================================== ///
+        table,
+        tr,
+        th,
+        td
+    );
+
+    /// Headings - where
+    @if config.$mx_extendHeadingsByRole {
+        $_maximumHeading: list.nth(
+            $allHeadingLevels,
+            list.length($allHeadingLevels)
+        );
+
+        // for all levels
+        @each $headingLevel in $allHeadingLevels {
+            //
+            @at-root :where([role='heading'][aria-level='#{$headingLevel}']) {
+                @if $optional {
+                    @extend %h#{$headingLevel}--where !optional;
+                } @else {
+                    @extend %h#{$headingLevel}--where;
+                }
+            }
+        }
+    }
+
+    // universal focus ring
+    @at-root {
+        :focus {
+            @include lib.no-js {
+                @if $optional {
+                    @extend %focus-ring !optional;
+                } @else {
+                    @extend %focus-ring;
+                }
+            }
+        }
+
+        :focus {
+            @at-root #{lib.selector-feature-check( 'focusVisible', false )} {
+                @if $optional {
+                    @extend %focus-ring--where !optional;
+                } @else {
+                    @extend %focus-ring--where;
+                }
+            }
+        }
+
+        :focus-visible {
+            @if $optional {
+                @extend %focus-ring--visible !optional;
+            } @else {
+                @extend %focus-ring--visible;
+            }
+        }
+    }
+
+    @include _extend-selectors($_global_selectors, $optional: $optional);
+
+    @if list.length($additional) {
+        @include _extend-selectors($additional, $optional: $optional);
+    }
+}
+
+@mixin extend-selectors-utils(
+    $additional: (),
+    $optional: $_optionalDefault,
+    $allHeadingLevels: token-all-heading-levels()
+) {
+    $_utils_selectors: (
+        // ( globals, pseudo? ),
+        //
+        /// ## Objects ==================================== ///
+        //
+        /// ## Objects ==================================== ///
+        //
+        /// ## Typography ==================================== ///
+        (page-title, title),
+        //
+        /// ## Forms ==================================== ///
+        //
+        /// ## Tables ==================================== ///
+        table-wrapper
+    );
+
+    /// Headings
+    @each $headingLevel in $allHeadingLevels {
+        $_utils_selectors: list.append($_utils_selectors, 'h#{$headingLevel}');
+    }
+
+    // font size utilities
+    @each $slug, $_value in tokens.$font_sizes {
+        $_utils_selectors: list.append($_utils_selectors, 'font-size-#{$slug}');
+    }
+
+    @include _extend-selectors(
+        $_utils_selectors,
+        $selector_prefix: '.',
+        $optional: $optional
+    );
+
+    @include _extend-selectors(
+        (
+            // ( globals, pseudo? ),
+            ('a.button', button),
+            ('a.button-secondary', button-secondary)
+        ),
+        $optional: $optional
+    );
+
+    @if list.length($additional) {
+        @include _extend-selectors($additional, $optional: $optional);
+    }
+}
+
+@mixin extend-selectors(
+    $optional: $_optionalDefault,
+    $additional_globals: (),
+    $additional_utils: (),
+    $allHeadingLevels: token-all-heading-levels()
+) {
+    @if config.$print_globals {
+        @include extend-selectors-globals(
+            $additional: $additional_globals,
+            $optional: $optional,
+            $allHeadingLevels: $allHeadingLevels
+        );
+    }
+
+    @if config.$print_utils {
+        @include extend-selectors-utils(
+            $additional: $additional_utils,
+            $optional: $optional,
+            $allHeadingLevels: $allHeadingLevels
+        );
+    }
+}

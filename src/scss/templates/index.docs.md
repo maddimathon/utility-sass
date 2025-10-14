@@ -11,6 +11,11 @@ These are template stylesheets that use the [tokens](../tokens/index.docs.md),
 package.
 
 
+## [Default Template](./default/index.docs.md)
+
+{@include ./default/desc.docs.md}
+
+
 ## [Base Template](./base/index.docs.md)
 
 {@include ./base/desc.docs.md}

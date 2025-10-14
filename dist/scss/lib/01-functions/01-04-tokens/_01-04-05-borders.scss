@@ -1,0 +1,63 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use '../../../modules/map';
+
+// @use '../../../config';
+@use '../../../tokens';
+
+///
+/// Uses the border width tokens to prepare the appropriate numerical value (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function border-width-value($level) {
+    $value: map.get(tokens.$border_widths, '200');
+
+    @if not map.has-key(tokens.$border_widths, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$border_widths";
+    } @else {
+        $value: map.get(tokens.$border_widths, '#{$level}');
+    }
+
+    @return #{$value}rem;
+}
+
+///
+/// Uses the border-width config tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-border-width($level) {
+    @return var(--border-width-#{$level}, #{border-width-value($level)});
+}
+
+///
+/// Uses the stroke relative tokens to prepare the appropriate numerical value (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function stroke-relative-value($level) {
+    $value: map.get(tokens.$strokes_relative, '200');
+
+    @if not map.has-key(tokens.$strokes_relative, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$strokes_relative";
+    } @else {
+        $value: map.get(tokens.$strokes_relative, '#{$level}');
+    }
+
+    @return #{$value}em;
+}
+
+///
+/// Uses the stroke-relative tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-stroke-relative($level) {
+    @return var(--stroke-relative-#{$level}, #{stroke-relative-value($level)});
+}

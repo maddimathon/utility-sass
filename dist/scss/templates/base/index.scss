@@ -10,6 +10,23 @@
 
 @forward 'lib';
 
-@forward '_content';
+// @forward '_content';
+@forward '../_content';
 
 @forward '_footer';
+
+/// # EXTENDING SELECTORS
+/// ======================================================================== ///
+
+@use 'config';
+
+@use '../../lib' as *;
+@use '../_content' as *;
+
+@if config.$print_globals {
+    @include extend-selectors-globals($optional: true);
+}
+
+@if config.$print_utils {
+    @include extend-selectors-utils($optional: true);
+}

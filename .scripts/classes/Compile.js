@@ -73,7 +73,7 @@ export class Compile extends CompileStage {
             'scss/templates',
             this.getDistDir( undefined, 'css/templates' ),
             {
-                postCSS: true,
+                postCSS: this.params.packaging,
             },
         );
 

@@ -3,7 +3,11 @@
 /// @since 0.1.0-alpha.draft
 ///
 
+@forward 'templates';
+
 @use 'functions' as *;
+
+@use 'templates';
 
 /// # CONFIG - INCLUDE
 /// ======================================================================== ///
@@ -17,7 +21,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-$include_featureCheck: false !default;
+$include_featureCheck: templates.$include_html !default;
 $include_featureCheck: config-valid-bool(
     $include_featureCheck,
     'include_featureCheck'

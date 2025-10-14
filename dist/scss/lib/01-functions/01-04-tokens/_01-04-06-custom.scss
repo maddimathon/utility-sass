@@ -3,21 +3,13 @@
 /// @since 0.1.0-alpha.draft
 ///
 
+@use '../../../modules/list';
+@use '../../../modules/map';
+
 // @use '../../../config';
 @use '../../../tokens';
 
-@use '../../../modules/map';
-
-// @use '../01-02-accessibility' as *;
-// @use '../01-03-typography' as *;
-
-// @use '01-04-01-spacing' as *;
-// @use '01-11-02-theming' as *;
-// @use '01-11-03-colours' as *;
-// @use '01-04-04-typography' as *;
-
-/// # CUSTOM TOKEN FUNCTIONS
-/// ======================================================================== ///
+@use '01-04-05-borders' as *;
 
 $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
@@ -35,7 +27,43 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
         @return $slug;
     }
 
-    @return map.get($_flattened_customTokens, '#{$slug}');
+    $value: map.get($_flattened_customTokens, '#{$slug}');
+
+    // returns
+    @if $slug == focus-ring-outline-width {
+        $sorted_border_tokenKeys: list.sort(map.keys(tokens.$border_widths));
+
+        $border_min: list.nth($sorted_border_tokenKeys, 1);
+
+        $border_max: list.nth(
+            $sorted_border_tokenKeys,
+            list.length($sorted_border_tokenKeys)
+        );
+
+        @each $level in $sorted_border_tokenKeys {
+            @if map.get(tokens.$border_widths, $level) <= 0.25 {
+                $border_max: $level;
+            }
+        }
+
+        @each $level in list.reverse($sorted_border_tokenKeys) {
+            @if map.get(tokens.$border_widths, $level) > 0.0625 {
+                $border_min: $level;
+            }
+        }
+
+        @return clamp(
+            border-width-value($border_min),
+            stroke-relative-value($value),
+            border-width-value($border_max)
+        );
+    }
+
+    @if $slug == focus-ring-outline-offset {
+        @return stroke-relative-value($value);
+    }
+
+    @return $value;
 }
 
 ///
@@ -64,3 +92,49 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
     @return var(--#{$slug}, #{$fallback});
 }
+
+// $_flattened_customTokens: map.flatten(tokens.$customTokens);
+
+// ///
+// /// Gets the value of a custom token.
+// ///
+// /// @param {string} $slug  Flattened key for the token to fetch.
+// ///
+// /// @since 0.1.0-alpha.draft
+// ///
+// @function token-value($slug) {
+//     // returns
+//     @if not map.has-key($_flattened_customTokens, '#{$slug}') {
+//         @warn "$slug '#{$slug}' was not a key in the flattened tokens.$customTokens";
+//         @return $slug;
+//     }
+
+//     @return map.get($_flattened_customTokens, '#{$slug}');
+// }
+
+// ///
+// /// Returns the flattened custom tokens map.
+// ///
+// /// @since 0.1.0-alpha.draft
+// ///
+// @function token-map() {
+//     @return $_flattened_customTokens;
+// }
+
+// ///
+// /// Uses the custom tokens to print the appropriate var(...) with a fallback.
+// ///
+// /// @param {string} $slug  Flattened key for the token to fetch.
+// ///
+// /// @since 0.1.0-alpha.draft
+// ///
+// @function var-token($slug) {
+//     $fallback: token-value($slug);
+
+//     // returns
+//     @if #{$fallback} == #{$slug} {
+//         @return var(--#{$slug});
+//     }
+
+//     @return var(--#{$slug}, #{$fallback});
+// }

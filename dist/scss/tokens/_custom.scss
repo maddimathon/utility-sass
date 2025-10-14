@@ -9,13 +9,16 @@
 
 // @use 'functions' as *;
 
-/// # TOKENS - CUSTOM
-/// ======================================================================== ///
-
 $internal_customTokensDefault: () !default;
 
 $internal_customTokensDefault: map.merge(
-    (),
+    (
+        focus-ring: (
+            outline-width: '400',
+            outline-offset: '400',
+            outline-color: var(--sys-clr-link, LinkText),
+        ),
+    ),
     map.flatten($internal_customTokensDefault),
     $recursive: true
 );
