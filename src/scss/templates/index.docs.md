@@ -1,7 +1,7 @@
 ---
 title: Templates
 children:
-  - ./base/index.docs.md
+  - ./default/index.docs.md
 ---
 
 # Sass (scss) Template Stylesheets
@@ -14,8 +14,3 @@ package.
 ## [Default Template](./default/index.docs.md)
 
 {@include ./default/desc.docs.md}
-
-
-## [Base Template](./base/index.docs.md)
-
-{@include ./base/desc.docs.md}

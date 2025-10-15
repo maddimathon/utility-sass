@@ -33,6 +33,8 @@ Use a better box model (opinionated).
       'Segoe UI Emoji'; */
     line-height: 1.15; /* 1. Correct the line height in all browsers. */
     -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
     tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
 }
 
@@ -432,24 +434,22 @@ pre {
 /* #region Tokens - Gap */
 :root {
     --gap-block-layout: 5vw;
-    --gap-block-layout: clamp(1.625rem, 5svw, 5.8125rem);
+    --gap-block-layout: max(1.625rem, min(5svw, 5.8125rem));
     --gap-block-layout-half: 2.5vw;
-    --gap-block-layout-half: clamp(0.8125rem, 2.5svw, 2.90625rem);
+    --gap-block-layout-half: max(0.8125rem, min(2.5svw, 2.90625rem));
     --gap-inline-indent: 4vw;
-    --gap-inline-indent: clamp(
+    --gap-inline-indent: max(
         var(--mrg-firm-200, 0.5rem),
-        4svw,
-        var(--mrg-firm-600, 2.25rem)
+        min(4svw, var(--mrg-firm-600, 2.25rem))
     );
     --gap-inline-layout: 8vw;
-    --gap-inline-layout: clamp(1.25rem, 8svw, 7.125rem);
+    --gap-inline-layout: max(1.25rem, min(8svw, 7.125rem));
     --gap-inline-layout-half: 4vw;
-    --gap-inline-layout-half: clamp(0.625rem, 4svw, 3.5625rem);
+    --gap-inline-layout-half: max(0.625rem, min(4svw, 3.5625rem));
     --gap-inline-tab: 1.5vw;
-    --gap-inline-tab: clamp(
+    --gap-inline-tab: max(
         var(--mrg-firm-100, 0.3125rem),
-        1.5svw,
-        var(--mrg-firm-600, 2.25rem)
+        min(1.5svw, var(--mrg-firm-600, 2.25rem))
     );
 }
 
@@ -476,7 +476,7 @@ pre {
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Misc. */
 :root {
-    --focus-ring-outline-width: clamp(0.125rem, 0.125em, 0.25rem);
+    --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.25rem));
     --focus-ring-outline-offset: 0.125em;
     --focus-ring-outline-color: var(--sys-clr-link, LinkText);
 }
@@ -487,34 +487,55 @@ pre {
 .no-js :focus,
 .js__no-where-selector :focus {
     /* %focus-ring */
-    outline: var(--focus-ring-outline-width, clamp(0.125rem, 0.125em, 0.25rem))
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
+    outline: var(
+            --focus-ring-outline-width,
+            max(0.125rem, min(0.125em, 0.25rem))
+        )
         dashed currentColor;
+    outline-color: LinkText;
     outline-color: var(
         --focus-ring-outline-color,
         var(--sys-clr-link, LinkText)
     );
+    outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
-    outline: var(--focus-ring-outline-width, clamp(0.125rem, 0.125em, 0.25rem))
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
+    outline: var(
+            --focus-ring-outline-width,
+            max(0.125rem, min(0.125em, 0.25rem))
+        )
         dashed currentColor;
+    outline-color: LinkText;
     outline-color: var(
         --focus-ring-outline-color,
         var(--sys-clr-link, LinkText)
     );
+    outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
 
 :focus-visible {
     /* %focus-ring--visible */
-    outline: var(--focus-ring-outline-width, clamp(0.125rem, 0.125em, 0.25rem))
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
+    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
+    outline: var(
+            --focus-ring-outline-width,
+            max(0.125rem, min(0.125em, 0.25rem))
+        )
         dashed currentColor;
+    outline-color: LinkText;
     outline-color: var(
         --focus-ring-outline-color,
         var(--sys-clr-link, LinkText)
     );
+    outline-offset: 0.125em;
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
 
@@ -532,6 +553,7 @@ pre {
  * ======================================================================== */
 :root,
 body {
+    scroll-padding-top: max(1.625rem, min(5svw, 5.8125rem));
     scroll-padding-top: var(--gap-block-layout, 5vw);
 }
 
@@ -540,46 +562,81 @@ body {
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    gap: max(1.625rem, min(5svw, 5.8125rem)) max(1.25rem, min(8svw, 7.125rem));
     gap: var(--gap-block-layout, 5vw) var(--gap-inline-layout, 8vw);
-    margin-block: var(--gap-block-layout, 5vw);
-    margin-inline: var(--gap-inline-layout, 8vw);
+    margin-top: max(1.625rem, min(5svw, 5.8125rem));
+    margin-bottom: max(1.625rem, min(5svw, 5.8125rem));
+    margin-top: max(1.625rem, min(5svw, 5.8125rem));
+    margin-top: var(--gap-block-layout, 5vw);
+    margin-bottom: max(1.625rem, min(5svw, 5.8125rem));
+    margin-bottom: var(--gap-block-layout, 5vw);
+    margin-left: max(1.25rem, min(8svw, 7.125rem));
+    margin-right: max(1.25rem, min(8svw, 7.125rem));
+    margin-left: max(1.25rem, min(8svw, 7.125rem));
+    margin-left: var(--gap-inline-layout, 8vw);
+    margin-right: max(1.25rem, min(8svw, 7.125rem));
+    margin-right: var(--gap-inline-layout, 8vw);
 }
 :where(body > *) {
+    width: min(58rem, 100%);
     width: min(var(--width-page, 58rem), 100%);
 }
 
 hr {
     display: block;
-    margin-inline: auto;
+    margin-left: auto;
+    margin-right: auto;
     width: auto;
-    margin-inline: var(--gap-inline-indent, 4vw);
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: var(--gap-inline-indent, 4vw);
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: var(--gap-inline-indent, 4vw);
 }
 @media (min-width: 25em) {
     hr {
-        margin-inline: auto;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: min(29.25rem, 100%);
         max-width: min(var(--width-callout, 29.25rem), 100%);
     }
 }
 hr {
     width: 100%;
-    margin-block-start: calc(
+    margin-top: calc(0.8125rem + 2.25rem);
+    margin-top: calc(
         var(--mrg-soft-400, 0.8125rem) + var(--mrg-firm-600, 2.25rem)
     );
-    margin-block: var(--mrg-firm-600, 2.25rem);
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+    margin-top: var(--mrg-firm-600, 2.25rem);
+    margin-bottom: var(--mrg-firm-600, 2.25rem);
     border: none;
-    border-block-end: currentColor solid 2px;
+    border-bottom: currentColor solid 2px;
 }
 
 /* # GLOBALS - Typography
  * ======================================================================== */
-::selection {
+::-moz-selection {
+    background-color: Highlight;
     background-color: var(--sys-clr-selection-bg, Highlight);
+    color: HighlightText;
+    color: var(--sys-clr-selection-text, HighlightText);
+}
+::selection {
+    background-color: Highlight;
+    background-color: var(--sys-clr-selection-bg, Highlight);
+    color: HighlightText;
     color: var(--sys-clr-selection-text, HighlightText);
 }
 
 :root {
+    line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
+    background: Canvas;
     background: var(--sys-clr-background, Canvas);
+    color: CanvasText;
     color: var(--sys-clr-text, CanvasText);
 }
 
@@ -623,35 +680,46 @@ a {
     --focus-ring-outline-offset: var(--stroke-relative-200, 0.0625em);
     display: inline;
     border: none;
+    -webkit-text-decoration: underline 0.0625em;
+    text-decoration: underline 0.0625em;
+    -webkit-text-decoration: underline var(--stroke-relative-200, 0.0625em);
     text-decoration: underline var(--stroke-relative-200, 0.0625em);
+    text-underline-offset: 0.25em;
     text-underline-offset: var(--stroke-relative-800, 0.25em);
+    color: LinkText;
     color: var(--sys-clr-link, LinkText);
 }
 a:visited {
+    color: VisitedText;
     color: var(--sys-clr-link-visited, VisitedText);
 }
 .no-js a:focus,
 .js__no-where-selector a:focus {
     text-decoration-color: transparent;
+    color: ActiveText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) a:focus {
     text-decoration-color: transparent;
+    color: ActiveText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:hover {
     text-decoration-color: transparent;
+    color: ActiveText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:focus-visible {
     text-decoration-color: transparent;
+    color: ActiveText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:active {
+    color: ActiveText;
     color: var(--sys-clr-link-active, ActiveText);
 }
 a.no-style {
@@ -661,51 +729,80 @@ a.no-style {
 }
 a[aria-disabled="true"] {
     text-decoration-line: line-through;
+    color: GrayText;
     color: var(--sys-clr-text-disabled, GrayText);
     opacity: 1;
     cursor: not-allowed;
 }
 
 abbr[title] {
+    -webkit-text-decoration: dotted underline 0.125em;
+    text-decoration: dotted underline 0.125em;
+    -webkit-text-decoration: dotted underline
+        var(--stroke-relative-400, 0.125em);
     text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
     cursor: help;
 }
 
 /* ## Typography - Block ==================================== */
 p {
-    margin-block: var(--mrg-soft-400, 0.8125rem) 0;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
 }
 hr + p {
-    margin-block-start: 0;
+    margin-top: 0;
 }
 
 blockquote {
     display: block;
-    margin-inline: auto;
+    margin-left: auto;
+    margin-right: auto;
     width: auto;
-    margin-inline: var(--gap-inline-indent, 4vw);
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: var(--gap-inline-indent, 4vw);
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: var(--gap-inline-indent, 4vw);
 }
 blockquote {
-    margin-block: var(--mrg-soft-400, 0.8125rem) 0;
-    margin-block: var(--mrg-soft-600, 1.625rem)
-        calc(var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem));
-    padding-inline-start: var(--mrg-firm-300, 0.8125rem);
-    border-inline-start: var(--border-width-200, 0.125rem) solid currentColor;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.625rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+    padding-left: 0.8125rem;
+    padding-left: var(--mrg-firm-300, 0.8125rem);
+    border-left: 0.125rem solid currentColor;
+    border-left: var(--border-width-200, 0.125rem) solid currentColor;
 }
 @media (min-width: 36em) {
     blockquote {
-        margin-inline: var(--gap-inline-tab, 1.5vw);
+        margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
+        margin-right: max(0.3125rem, min(1.5svw, 2.25rem));
+        margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
+        margin-left: var(--gap-inline-tab, 1.5vw);
+        margin-right: max(0.3125rem, min(1.5svw, 2.25rem));
+        margin-right: var(--gap-inline-tab, 1.5vw);
     }
 }
 blockquote > p:first-child {
-    margin-block-start: 0;
+    margin-top: 0;
 }
 blockquote > cite {
     display: block;
-    margin-block: var(--mrg-soft-400, 0.8125rem) 0;
-    text-align: end;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    text-align: right;
 }
 blockquote > cite::before {
+    content: "— ";
     content: "— "/"";
     color: currentColor;
 }
@@ -733,20 +830,36 @@ samp {
 
 pre {
     display: block;
-    margin-inline: auto;
+    margin-left: auto;
+    margin-right: auto;
     width: auto;
-    margin-inline: var(--gap-inline-indent, 4vw);
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: var(--gap-inline-indent, 4vw);
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: var(--gap-inline-indent, 4vw);
 }
 pre {
     position: relative;
-    margin-inline: 0;
-    margin-block: var(--mrg-soft-400, 0.8125rem) 0;
-    margin-block: var(--mrg-soft-600, 1.625rem)
-        calc(var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem));
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.625rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+    padding: 0.5rem 0.8125rem;
     padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-300, 0.8125rem);
+    border: 0.0625rem solid currentColor;
     border: var(--border-width-100, 0.0625rem) solid currentColor;
     max-width: min(120ch, 100%);
     overflow: auto;
+    font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
 pre > code {
@@ -773,9 +886,14 @@ pre:where(:has(> code)) > code {
 h1,
 .h1,
 .page-title {
-    margin-block: var(--mrg-soft-800, 3.125rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 900;
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
     font-size: var(--fs-heading-1, 2.75rem);
+    line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
 }
@@ -800,9 +918,14 @@ h1 a.button,
 }
 
 :where([role="heading"][aria-level="1"]) {
-    margin-block: var(--mrg-soft-800, 3.125rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 900;
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
     font-size: var(--fs-heading-1, 2.75rem);
+    line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
 }
@@ -821,9 +944,14 @@ h1 a.button,
 
 h2,
 .h2 {
-    margin-block: var(--mrg-soft-800, 3.125rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 800;
+    font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
     font-size: var(--fs-heading-2, 2.0625rem);
+    line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
 }
@@ -843,9 +971,14 @@ h2 a.button,
 }
 
 :where([role="heading"][aria-level="2"]) {
-    margin-block: var(--mrg-soft-800, 3.125rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 800;
+    font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
     font-size: var(--fs-heading-2, 2.0625rem);
+    line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
 }
@@ -864,9 +997,14 @@ h2 a.button,
 
 h3,
 .h3 {
-    margin-block: var(--mrg-soft-800, 3.125rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
+    font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
     font-size: var(--fs-heading-3, 1.8125rem);
+    line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
 }
@@ -886,9 +1024,14 @@ h3 a.button,
 }
 
 :where([role="heading"][aria-level="3"]) {
-    margin-block: var(--mrg-soft-800, 3.125rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
+    font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
     font-size: var(--fs-heading-3, 1.8125rem);
+    line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     text-wrap: balance;
 }
@@ -907,9 +1050,14 @@ h3 a.button,
 
 h4,
 .h4 {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
+    font-size: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
     font-size: var(--fs-heading-4, 1.5625rem);
+    line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
     text-wrap: balance;
     font-style: italic;
@@ -946,9 +1094,14 @@ h4 a.button,
 }
 
 :where([role="heading"][aria-level="4"]) {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
+    font-size: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
     font-size: var(--fs-heading-4, 1.5625rem);
+    line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
     text-wrap: balance;
     font-style: italic;
@@ -978,9 +1131,14 @@ h4 a.button,
 
 h5,
 .h5 {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 600;
+    font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
     font-size: var(--fs-heading-5, 1.3125rem);
+    line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
     text-wrap: balance;
     font-style: italic;
@@ -1017,9 +1175,14 @@ h5 a.button,
 }
 
 :where([role="heading"][aria-level="5"]) {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 600;
+    font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
     font-size: var(--fs-heading-5, 1.3125rem);
+    line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
     text-wrap: balance;
     font-style: italic;
@@ -1049,9 +1212,14 @@ h5 a.button,
 
 h6,
 .h6 {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
+    font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
     font-size: var(--fs-heading-6, 1.1875rem);
+    line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
     text-wrap: balance;
     font-style: italic;
@@ -1088,9 +1256,14 @@ h6 a.button,
 }
 
 :where([role="heading"][aria-level="6"]) {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
+    font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
     font-size: var(--fs-heading-6, 1.1875rem);
+    line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
     text-wrap: balance;
     font-style: italic;
@@ -1119,9 +1292,14 @@ h6 a.button,
 }
 
 .h7 {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
+    font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
     font-size: var(--fs-heading-7, 0.9375rem);
+    line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
@@ -1139,9 +1317,14 @@ h6 a.button,
 }
 
 :where([role="heading"][aria-level="7"]) {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
+    font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
     font-size: var(--fs-heading-7, 0.9375rem);
+    line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
@@ -1162,9 +1345,14 @@ h6 a.button,
 }
 
 .h8 {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
+    font-size: clamp(0.625rem, 1.0625svw + 1rem, 0.9375rem);
     font-size: var(--fs-heading-8, 0.8125rem);
+    line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
@@ -1192,9 +1380,14 @@ h6 a.button,
 }
 
 :where([role="heading"][aria-level="8"]) {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
+    font-size: clamp(0.625rem, 1.0625svw + 1rem, 0.9375rem);
     font-size: var(--fs-heading-8, 0.8125rem);
+    line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
@@ -1229,17 +1422,20 @@ h6 a.button,
 ol,
 ul {
     margin: 0;
-    margin-inline-start: 20%;
+    margin-left: 20%;
     padding: 0;
-    padding-inline-start: 1em;
-    margin-inline-start: var(--gap-inline-tab, 1.5vw);
+    padding-left: 1em;
+    margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
+    margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
+    margin-left: var(--gap-inline-tab, 1.5vw);
+    line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
 }
 ol ol,
 ol ul,
 ul ol,
 ul ul {
-    margin-block-start: 0;
+    margin-top: 0;
 }
 ol ol ol,
 ol ol ul,
@@ -1249,6 +1445,7 @@ ul ol ol,
 ul ol ul,
 ul ul ol,
 ul ul ul {
+    font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
 
@@ -1295,17 +1492,21 @@ ul ul ul ul {
 
 li {
     margin: 0;
-    margin-block-start: var(--mrg-soft-300, 0.5rem);
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-soft-300, 0.5rem);
     padding: 0;
 }
 li::marker {
     font-weight: 500;
+    font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
 li li li {
-    margin-block-start: var(--mrg-soft-200, 0.3125rem);
+    margin-top: 0.3125rem;
+    margin-top: var(--mrg-soft-200, 0.3125rem);
 }
 li li li::marker {
+    font-size: 0.8125rem;
     font-size: var(--fs-smaller-2, 0.8125rem);
 }
 li li li li {
@@ -1326,59 +1527,83 @@ li li li li i i {
  * ======================================================================== */
 fieldset {
     display: block;
+    margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.5rem 1.25rem 0.8125rem;
     padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
         var(--mrg-firm-300, 0.8125rem);
+    border: 0.0625rem solid AccentColor;
     border: 0.0625rem solid var(--sys-clr-accent-bg, CanvasText);
     border-radius: 0;
+    background-color: Canvas;
     background-color: var(--sys-clr-background, Canvas);
+    color: CanvasText;
     color: var(--sys-clr-text, CanvasText);
 }
 .no-js fieldset:focus,
 .js__no-where-selector fieldset:focus {
+    border-color: ActiveText;
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 :where(.js__no-focusVisible) fieldset:focus {
+    border-color: ActiveText;
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:focus-visible {
+    border-color: ActiveText;
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:focus-within {
+    border-color: ActiveText;
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:active {
+    border-color: AccentColor;
     border-color: var(--sys-clr-accent-bg, CanvasText);
 }
 fieldset legend {
     display: block;
 }
 fieldset > :first-child {
-    margin-block-start: 0;
-    margin-block-start: calc(
+    margin-top: 0;
+    margin-top: calc(0.8125rem - 0.3125rem);
+    margin-top: calc(
         var(--mrg-soft-400, 0.8125rem) - var(--mrg-soft-200, 0.3125rem)
     );
 }
 fieldset > legend + * {
-    margin-block-start: 0;
+    margin-top: 0;
 }
 
 fieldset legend {
-    margin-block: var(--mrg-soft-600, 1.625rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
+    font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
     font-size: var(--fs-heading-7, 0.9375rem);
+    line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
     font-style: normal;
-    margin-inline: calc(var(--mrg-soft-300, 0.5rem) * -1);
-    margin-block: 0 var(--mrg-soft-300, 0.5rem);
-    padding-inline: var(--mrg-soft-300, 0.5rem);
+    margin-left: calc(0.5rem * -1);
+    margin-right: calc(0.5rem * -1);
+    margin-left: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-right: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    margin-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--mrg-soft-300, 0.5rem);
+    padding-right: var(--mrg-soft-300, 0.5rem);
     font-style: italic;
 }
 
@@ -1387,16 +1612,23 @@ select,
 input {
     --focus-ring-outline-offset: 0.125rem;
     display: block;
+    margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.3125rem 0.5rem;
     padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-200, 0.5rem);
     width: 100%;
     font: inherit;
+    line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
+    border: 0.0625rem solid FieldText;
     border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: Field;
     background-color: var(--sys-clr-input-bg, Field);
+    color: FieldText;
     color: var(--sys-clr-input-text, FieldText);
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 .no-js textarea:focus,
@@ -1406,9 +1638,13 @@ input {
 .js__no-where-selector select:focus,
 .js__no-where-selector input:focus {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: Field;
     background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
     border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
     color: var(--sys-clr-input-text-hover, FieldText);
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
@@ -1416,9 +1652,13 @@ input {
 :where(.js__no-focusVisible) select:focus,
 :where(.js__no-focusVisible) input:focus {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: Field;
     background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
     border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
     color: var(--sys-clr-input-text-hover, FieldText);
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
@@ -1426,9 +1666,13 @@ textarea:hover,
 select:hover,
 input:hover {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: Field;
     background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
     border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
     color: var(--sys-clr-input-text-hover, FieldText);
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
@@ -1436,9 +1680,13 @@ textarea:focus-visible,
 select:focus-visible,
 input:focus-visible {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: Field;
     background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
     border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
     color: var(--sys-clr-input-text-hover, FieldText);
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
@@ -1446,9 +1694,13 @@ textarea:focus-within,
 select:focus-within,
 input:focus-within {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: Field;
     background-color: var(--sys-clr-input-bg-hover, Field);
+    border-color: FieldText;
     border-color: var(--sys-clr-input-border-hover, FieldText);
+    color: FieldText;
     color: var(--sys-clr-input-text-hover, FieldText);
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
@@ -1456,16 +1708,31 @@ textarea:active,
 select:active,
 input:active {
     --focus-ring-outline-color: var(--sys-clr-text-active, ActiveText);
+    background-color: Field;
     background-color: var(--sys-clr-input-bg-active, Field);
+    border-color: FieldText;
     border-color: var(--sys-clr-input-border-active, FieldText);
+    color: FieldText;
     color: var(--sys-clr-input-text-active, FieldText);
+    accent-color: ActiveText;
     accent-color: var(--sys-clr-text-active, ActiveText);
+}
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    opacity: 1;
+    color: currentColor;
 }
 textarea::placeholder,
 select::placeholder,
 input::placeholder {
     opacity: 1;
     color: currentColor;
+}
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    color: color-mix(in srgb, currentColor 75%, transparent);
 }
 textarea::placeholder,
 select::placeholder,
@@ -1474,6 +1741,11 @@ input::placeholder {
 }
 
 @media (prefers-contrast: less) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        color: color-mix(in srgb, currentColor 75%, transparent);
+    }
     textarea::placeholder,
     select::placeholder,
     input::placeholder {
@@ -1481,6 +1753,11 @@ input::placeholder {
     }
 }
 @media (prefers-contrast: more) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        color: color-mix(in srgb, currentColor 90%, transparent);
+    }
     textarea::placeholder,
     select::placeholder,
     input::placeholder {
@@ -1493,7 +1770,8 @@ label + input,
 label > textarea,
 label > select,
 label > input {
-    margin-block-start: var(--mrg-firm-200, 0.5rem);
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-firm-200, 0.5rem);
 }
 
 input[type="button"],
@@ -1527,37 +1805,44 @@ input[type="radio"] {
     display: inline-block;
     padding: 0;
     width: auto;
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 .no-js input[type="checkbox"]:focus,
 .no-js input[type="radio"]:focus,
 .js__no-where-selector input[type="checkbox"]:focus,
 .js__no-where-selector input[type="radio"]:focus {
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 :where(.js__no-focusVisible) input[type="checkbox"]:focus,
 :where(.js__no-focusVisible) input[type="radio"]:focus {
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:hover,
 input[type="radio"]:hover {
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:focus-visible,
 input[type="radio"]:focus-visible {
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:focus-within,
 input[type="radio"]:focus-within {
+    accent-color: FieldText;
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:active,
 input[type="radio"]:active {
+    accent-color: ActiveText;
     accent-color: var(--sys-clr-text-active, ActiveText);
 }
 input[type="color"] {
@@ -1574,8 +1859,15 @@ input[type="week"] {
     width: auto;
 }
 input[type="file"] {
-    padding-block: var(--mrg-soft-300, 0.5rem);
-    padding-inline: var(--mrg-firm-300, 0.8125rem);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--mrg-soft-300, 0.5rem);
+    padding-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    padding-left: var(--mrg-firm-300, 0.8125rem);
+    padding-right: var(--mrg-firm-300, 0.8125rem);
+    font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
 input[type="range"] {
@@ -1601,16 +1893,24 @@ input[type="reset"],
 a.button-secondary {
     --focus-ring-outline-offset: 0.125rem;
     display: block;
+    margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.3125rem 0.8125rem;
     padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
+    width: -moz-fit-content;
     width: fit-content;
     font: inherit;
+    line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
+    border: 0.125rem solid ButtonBorder;
     border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-button-border, ButtonFace);
+    background-color: ButtonFace;
     background-color: var(--sys-clr-button-bg, ButtonFace);
+    color: ButtonText;
     color: var(--sys-clr-button-text, ButtonText);
+    accent-color: ButtonBorder;
     accent-color: var(--sys-clr-button-border, ButtonFace);
 }
 .no-js button:focus,
@@ -1633,9 +1933,13 @@ a.button-secondary {
         --sys-clr-button-border-hover,
         SelectedItem
     );
+    background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
     accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
@@ -1651,9 +1955,13 @@ a.button-secondary {
         --sys-clr-button-border-hover,
         SelectedItem
     );
+    background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
     accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
@@ -1669,9 +1977,13 @@ a.button-secondary:hover {
         --sys-clr-button-border-hover,
         SelectedItem
     );
+    background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
     accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
@@ -1687,9 +1999,13 @@ a.button-secondary:focus-visible {
         --sys-clr-button-border-hover,
         SelectedItem
     );
+    background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
     accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
@@ -1705,9 +2021,13 @@ a.button-secondary:focus-within {
         --sys-clr-button-border-hover,
         SelectedItem
     );
+    background-color: SelectedItem;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
     accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
@@ -1812,9 +2132,13 @@ input[type="reset"]:active,
 :active::file-selector-button,
 a.button-secondary:active {
     --focus-ring-outline-color: var(--sys-clr-button-border-active, ButtonFace);
+    background-color: ButtonFace;
     background-color: var(--sys-clr-button-bg-active, ButtonFace);
+    border-color: ButtonBorder;
     border-color: var(--sys-clr-button-border-active, ButtonFace);
+    color: ButtonText;
     color: var(--sys-clr-button-text-active, ButtonText);
+    accent-color: ButtonBorder;
     accent-color: var(--sys-clr-button-border-active, ButtonFace);
 }
 button,
@@ -1825,6 +2149,8 @@ a.button,
 input[type="reset"],
 ::file-selector-button,
 a.button-secondary {
+    -webkit-appearance: button;
+    -moz-appearance: button;
     appearance: button;
     text-decoration: none;
     cursor: pointer;
@@ -1843,15 +2169,20 @@ a[aria-disabled="true"].button-secondary {
 ::file-selector-button {
     display: initial;
     margin: 0;
-    margin-inline-end: var(--mrg-firm-300, 0.8125rem);
+    margin-right: 0.8125rem;
+    margin-right: var(--mrg-firm-300, 0.8125rem);
+    font-size: 1rem;
     font-size: var(--fs-normal, 1rem);
 }
 
 label {
     display: block;
+    margin: 1.25rem 0 0;
     margin: var(--mrg-firm-400, 1.25rem) 0 0;
     font-weight: 600;
+    line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
+    color: CanvasText;
     color: var(--sys-clr-text, CanvasText);
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"])) {
@@ -1860,25 +2191,33 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     grid-template-columns: fit-content(0) 1fr;
     justify-content: end;
     align-items: baseline;
+    grid-gap: 0.5rem;
+    grid-gap: var(--mrg-soft-300, 0.5rem);
+    gap: 0.5rem;
     gap: var(--mrg-soft-300, 0.5rem);
     font-weight: 400;
+    line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
     text-wrap: balance;
+    color: CanvasText;
     color: var(--sys-clr-text, CanvasText);
     cursor: pointer;
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"]))
     + label:has(> :where(input[type="checkbox"], input[type="radio"])) {
-    margin-block-start: var(--mrg-firm-200, 0.5rem);
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-firm-200, 0.5rem);
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
-    margin-block-start: var(--mrg-firm-400, 1.25rem);
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
 }
 label > input[type="checkbox"],
 label > input[type="radio"] {
-    margin-block: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* # GLOBALS - Tables
@@ -1886,15 +2225,25 @@ label > input[type="radio"] {
 .table-wrapper,
 table {
     position: relative;
-    margin-block: var(--mrg-firm-400, 1.25rem) 0;
-    margin-block: var(--mrg-firm-600, 2.25rem)
-        calc(var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem));
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
+    margin-bottom: 0;
+    margin-top: 2.25rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-firm-600, 2.25rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+    background: AccentColor;
     background: var(--sys-clr-accent-bg, CanvasText);
+    width: min(58rem, 100%);
     width: min(var(--width-page, 53rem), 100%);
 }
 
 table {
+    border-spacing: 0.125rem;
     border-spacing: var(--border-width-200, 0.125rem);
+    font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
 
@@ -1911,8 +2260,10 @@ table {
 
 th,
 td {
+    padding: 0.3125rem 0.8125rem;
     padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
     min-width: 10em;
+    background: Canvas;
     background: var(--sys-clr-background, Canvas);
     vertical-align: top;
     text-align: left;
@@ -1927,9 +2278,13 @@ td > :last-child {
 }
 
 th {
+    padding-top: 0.3125rem;
     padding-top: var(--mrg-soft-200, 0.3125rem);
+    padding-bottom: 0.3125rem;
     padding-bottom: var(--mrg-soft-200, 0.3125rem);
+    background: AccentColor;
     background: var(--sys-clr-accent-bg, CanvasText);
+    color: AccentColorText;
     color: var(--sys-clr-accent-text, Canvas);
 }
 
@@ -1937,58 +2292,72 @@ th {
  * ======================================================================== */
 /* ## Font Sizes ==================================== */
 .font-size-heading-1 {
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
     font-size: var(--fs-heading-1, 2.75rem);
 }
 
 .font-size-heading-2 {
+    font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
     font-size: var(--fs-heading-2, 2.0625rem);
 }
 
 .font-size-heading-3 {
+    font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
     font-size: var(--fs-heading-3, 1.8125rem);
 }
 
 .font-size-heading-4 {
+    font-size: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
     font-size: var(--fs-heading-4, 1.5625rem);
 }
 
 .font-size-heading-5 {
+    font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
     font-size: var(--fs-heading-5, 1.3125rem);
 }
 
 .font-size-heading-6 {
+    font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
     font-size: var(--fs-heading-6, 1.1875rem);
 }
 
 .font-size-heading-7 {
+    font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
     font-size: var(--fs-heading-7, 0.9375rem);
 }
 
 .font-size-heading-8 {
+    font-size: clamp(0.625rem, 1.0625svw + 1rem, 0.9375rem);
     font-size: var(--fs-heading-8, 0.8125rem);
 }
 
 .font-size-smaller-2 {
+    font-size: 0.8125rem;
     font-size: var(--fs-smaller-2, 0.8125rem);
 }
 
 .font-size-smaller-1 {
+    font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
 
 .font-size-normal {
+    font-size: 1rem;
     font-size: var(--fs-normal, 1rem);
 }
 
 .font-size-bigger-7 {
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
     font-size: var(--fs-bigger-7, 2.75rem);
 }
 
 .font-size-bigger-8 {
+    font-size: clamp(2.375rem, 4.1875svw + 1rem, 3.5625rem);
     font-size: var(--fs-bigger-8, 3.1875rem);
 }
 
 .font-size-bigger-9 {
+    font-size: clamp(2.75rem, 4.8125svw + 1rem, 4.125rem);
     font-size: var(--fs-bigger-9, 3.6875rem);
 }
 
