@@ -1,0 +1,26 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@forward 'config';
+
+@use 'sass:string';
+
+@use 'config';
+
+@if string.to-lower-case(config.$templateName) == default {
+    /*!
+     * Utility Sass Template
+     * 
+     * @maddimathon/utility-sass@0.1.0-alpha.draft
+     * License: MIT
+     */
+} @else {
+    /*!
+     * Utility Sass Template - #{config.$templateName}
+     * 
+     * @maddimathon/utility-sass@0.1.0-alpha.draft
+     * License: MIT
+     */
+}
