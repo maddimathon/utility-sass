@@ -4,7 +4,7 @@ children:
   - ./config/index.docs.md
   - ./lib/index.docs.md
   - ./modules/index.docs.md
-  - ./templates/index.docs.md
+  - ./template/index.docs.md
   - ./tokens/index.docs.md
 ---
 
@@ -17,7 +17,7 @@ well-documented and a better reference.
 **Check out the:**
 - [configuration](./config/index.docs.md)
 - [modules](./modules/index.docs.md)
-- [templates](./templates/index.docs.md)
+- [templates](./template/index.docs.md)
 
 ## General Use
 

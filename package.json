@@ -44,10 +44,6 @@
 
     "main": "./dist/scss/index.scss",
 
-    "bin": {
-        "utility-sass": "./dist/ts/bin/index.js"
-    },
-
     "exports": {
 
         ".": {
@@ -66,20 +62,15 @@
 
         "./notice.scss": "./dist/scss/_notice.scss",
         
-        "./template.scss": "./dist/scss/templates/default/index.scss",
-        "./template/content.scss": "./dist/scss/templates/_content/_index.scss",
+        "./template.scss": "./dist/scss/template/default/index.scss",
+        "./template/content.scss": "./dist/scss/template/_content/_index.scss",
+        "./template/content/notice.scss": "./dist/scss/template/_content/_header/_notice.scss",
         
         "./template/*.scss": [
-            "./dist/scss/templates/*.scss",
-            "./dist/scss/templates/_*.scss",
-            "./dist/scss/templates/*/index.scss",
-            "./dist/scss/templates/*/_index.scss"
-        ],
-        "./templates/*.scss": [
-            "./dist/scss/templates/*.scss",
-            "./dist/scss/templates/_*.scss",
-            "./dist/scss/templates/*/index.scss",
-            "./dist/scss/templates/*/_index.scss"
+            "./dist/scss/template/*.scss",
+            "./dist/scss/template/_*.scss",
+            "./dist/scss/template/*/index.scss",
+            "./dist/scss/template/*/_index.scss"
         ],
 
         "./tokens.scss": "./dist/scss/tokens/index.scss",
@@ -92,22 +83,34 @@
 
         "./*.scss": [
             "./dist/scss/modules/*/index.scss",
+            "./dist/scss/modules/*.scss",
             "./dist/scss/lib/*.scss",
             "./dist/scss/lib/_*.scss",
             "./dist/scss/lib/*/index.scss",
-            "./dist/scss/lib/*/_index.scss"
+            "./dist/scss/lib/*/_index.scss",
+            "./dist/scss/*/index.scss",
+            "./dist/scss/*/_index.scss",
+            "./dist/scss/*.scss",
+            "./dist/scss/_*.scss"
         ],
 
         "./*": {
 
             "sass": [
                 "./dist/scss/modules/*/index.scss",
+                "./dist/scss/modules/*.scss",
                 "./dist/scss/lib/*.scss",
                 "./dist/scss/lib/_*.scss",
                 "./dist/scss/lib/*/index.scss",
                 "./dist/scss/lib/*/_index.scss",
+                "./dist/scss/modules/*",
+                "./dist/scss/modules/_*",
+                "./dist/scss/*/index.scss",
+                "./dist/scss/*/_index.scss",
                 "./dist/scss/lib/*",
-                "./dist/scss/lib/_*"
+                "./dist/scss/lib/_*",
+                "./dist/scss/*",
+                "./dist/scss/_*"
             ],
 
             "types": [
@@ -125,7 +128,6 @@
     },
 
     "scripts": {
-        "test-bin": "node ./dist/ts/bin/index.js compile-tokens --out src/scss/templates/design-tokens/tokens/__default.scss --tokensAsDefault",
 
         "commit": "sh .scripts/commit.sh",
 

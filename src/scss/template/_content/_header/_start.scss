@@ -1,0 +1,14 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:string';
+
+@use '../config';
+
+@if config.$template_isDefault {
+    /*! START of @maddimathon/utility-sass/template */
+} @else {
+    /*! START of @maddimathon/utility-sass/template/#{string.to-lower-case(config.$template_name)} */
+}

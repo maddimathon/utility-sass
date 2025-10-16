@@ -44,9 +44,9 @@ export class Compile extends CompileStage {
         // runs templates sub-stage and returns
         if (
             this.params.watchedFilename
-            && this.params.watchedFilename.match( /(^|\/)src\/scss\/templates/gi )
+            && this.params.watchedFilename.match( /(^|\/)src\/scss\/template/gi )
         ) {
-            await this.runCustomDirCopySubStage( 'scss/templates' );
+            await this.runCustomDirCopySubStage( 'scss/template' );
             await this.templates();
             return;
         }
@@ -59,7 +59,7 @@ export class Compile extends CompileStage {
             this.fs.delete,
             ( this.params.verbose ? 3 : 2 ),
             [ [
-                'dist/scss/templates/@template'
+                'dist/scss/template/@template'
             ], ( this.params.verbose ? 3 : 2 ) ]
         );
     }
@@ -70,10 +70,10 @@ export class Compile extends CompileStage {
     async templates() {
 
         await this.runCustomScssDirSubStage(
-            'scss/templates',
-            this.getDistDir( undefined, 'css/templates' ),
+            'scss/template',
+            this.getDistDir( undefined, 'css/template' ),
             {
-                postCSS:  true,
+                postCSS: true,
             },
         );
 
@@ -82,8 +82,8 @@ export class Compile extends CompileStage {
             this.fs.delete,
             ( this.params.verbose ? 3 : 2 ),
             [ [
-                'dist/css/templates/@template.css',
-                'dist/css/templates/@template.css.map'
+                'dist/css/template/@template.css',
+                'dist/css/template/@template.css.map'
             ], ( this.params.verbose ? 3 : 2 ) ]
         );
     }

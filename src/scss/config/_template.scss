@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
-/// @since 0.1.0-alpha.draft
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
 ///
 
 @forward 'internal';
@@ -14,7 +14,7 @@
 ///
 /// Whether to include ouput only suited for websites.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
 $include_html: false !default;
 $include_html: config-valid-bool($include_html, 'include_html');
@@ -23,15 +23,15 @@ $include_html: config-valid-bool($include_html, 'include_html');
 /// Whether to include the global selectors in the output. Otherwise, all
 /// selectors are pseudo selectors.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
-$print_globals: internal.$internal_isTemplate !default;
+$print_globals: false !default;
 $print_globals: config-valid-bool($print_globals, 'print_globals');
 
 ///
 /// Whether to include the normalize mixin in the output.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
 $print_normalize: $include_html and internal.$internal_isTemplate !default;
 $print_normalize: config-valid-bool($print_normalize, 'print_normalize');
@@ -39,23 +39,23 @@ $print_normalize: config-valid-bool($print_normalize, 'print_normalize');
 ///
 /// Whether to include the custom property definitions in the output.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
-$print_tokens: true !default;
+$print_tokens: $print_globals !default;
 $print_tokens: config-valid-bool($print_tokens, 'print_tokens');
 
 ///
 /// Whether to include the utility class selectors in the output.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
-$print_utils: $include_html !default;
+$print_utils: $include_html and $print_globals !default;
 $print_utils: config-valid-bool($print_utils, 'print_utils');
 
 ///
 /// Whether to include the css headings in the output.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
 $print_headings: (
         $print_globals or $print_normalize or $print_tokens or $print_utils

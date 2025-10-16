@@ -3,11 +3,11 @@
 /// @since ___PKG_VERSION___
 ///
 
-@forward 'templates';
+@forward 'template';
 
 @use 'functions' as *;
 
-@use 'templates';
+@use 'template';
 
 ///
 /// Whether the extend-selectors-global mixin should [role=heading] selectors as
@@ -15,7 +15,7 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_extendHeadingsByRole: templates.$print_globals !default;
+$mx_extendHeadingsByRole: template.$print_globals !default;
 $mx_extendHeadingsByRole: config-valid-bool(
     $mx_extendHeadingsByRole,
     'mx_extendHeadingsByRole'

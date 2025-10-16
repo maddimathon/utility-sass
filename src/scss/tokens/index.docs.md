@@ -6,7 +6,7 @@ title: Tokens
 
 This is the tokens entry point and includes variables (and generation/validation
 functions) used to configure design tokens used in the
-[library](../lib/index.docs.md) and [templates](../templates/index.docs.md).
+[library](../lib/index.docs.md) and [templates](../template/index.docs.md).
 
 ## Use
 
