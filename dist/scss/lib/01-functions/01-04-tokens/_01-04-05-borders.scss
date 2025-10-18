@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
-/// @since 0.1.0-alpha.draft
+/// @package @maddimathon/utility-sass@0.1.0-pre.0
+/// @since 0.1.0-pre.0
 ///
 
 @use '../../../modules/map';
@@ -11,7 +11,7 @@
 ///
 /// Uses the border width tokens to prepare the appropriate numerical value (rem).
 ///
-/// @since 0.1.0-alpha.draft
+/// @since 0.1.0-pre.0
 ///
 @function border-width-value($level) {
     $value: map.get(tokens.$border_widths, '200');
@@ -29,7 +29,7 @@
 /// Uses the border-width config tokens to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since 0.1.0-pre.0
 ///
 @function var-border-width($level) {
     @return var(--border-width-#{$level}, #{border-width-value($level)});
@@ -38,7 +38,7 @@
 ///
 /// Uses the stroke relative tokens to prepare the appropriate numerical value (rem).
 ///
-/// @since 0.1.0-alpha.draft
+/// @since 0.1.0-pre.0
 ///
 @function stroke-relative-value($level) {
     $value: map.get(tokens.$strokes_relative, '200');
@@ -56,7 +56,7 @@
 /// Uses the stroke-relative tokens to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since 0.1.0-pre.0
 ///
 @function var-stroke-relative($level) {
     @return var(--stroke-relative-#{$level}, #{stroke-relative-value($level)});

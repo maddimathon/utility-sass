@@ -1,16 +1,20 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
-
-@forward 'template';
 
 @use 'functions' as *;
 
-@use 'template';
-
 /// # CONFIG - INCLUDE
 /// ======================================================================== ///
+
+///
+/// Whether to include ouput only suited for websites.
+///
+/// @since 0.1.0-pre.0
+///
+$include_html: false !default;
+$include_html: config-valid-bool($include_html, 'include_html');
 
 ///
 /// Whether to include css for the FeatureCheck utility class.
@@ -19,9 +23,9 @@
 /// i.e., no-js and js-no-support prints content un altered, while js and
 /// js-support output nothing.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
-$include_featureCheck: template.$include_html !default;
+$include_featureCheck: $include_html !default;
 $include_featureCheck: config-valid-bool(
     $include_featureCheck,
     'include_featureCheck'
@@ -31,7 +35,7 @@ $include_featureCheck: config-valid-bool(
 /// Whether to include 'no-preference' media queries. Most relevant to
 /// brightness and contrast modes.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 $include_noPreferenceMediaQueries: false !default;
 $include_noPreferenceMediaQueries: config-valid-bool(

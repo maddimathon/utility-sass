@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-pre.0
  * 
  * @packageDocumentation
  */
@@ -30,7 +30,7 @@
  * as never available and add on custom feature checks:
  * {@includeCode ./FeatureCheck.example.ts#Custom}
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-pre.0
  */
 export class FeatureCheck<
     T_CustomCheckerSlug extends string | never = string,
@@ -411,7 +411,7 @@ export class FeatureCheck<
 /**
  * Utilties for the {@link FeatureCheck} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-pre.0
  */
 export namespace FeatureCheck {
 

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-pre.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * @maddimathon/utility-sass@0.1.0-pre.0
  * @license MIT
  */
 export * from './FeatureCheck.js';

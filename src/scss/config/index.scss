@@ -2,23 +2,24 @@
 /// Import in any config (!default) variables to this file.
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 
 @forward 'functions';
 
-@forward 'breakpoints';
+// no deps on other configs
+@forward 'fn-config';
 @forward 'include';
 @forward 'internal';
-@forward 'mixin-config';
 @forward 'paths';
 @forward 'selectors';
-@forward 'template';
-@forward 'typography';
 @forward 'widths';
 
-/// ## Function Config ==================================== ///
+// deps on internal & include
+@forward 'template';
 
-$fn_fontRoundToPixelFactor: 16 !default;
+// deps on template
+@forward 'mixin-config';
 
-$fn_selectors_colour_mode_include_forced_colors: false !default;
+// deps on widths
+@forward 'breakpoints';

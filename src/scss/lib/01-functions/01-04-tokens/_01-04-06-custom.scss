@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 
 @use '../../../modules/list';
@@ -18,7 +18,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 ///
 /// @param {string} $slug  Flattened key for the token to fetch.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function token-value($slug) {
     // returns
@@ -69,7 +69,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 ///
 /// Returns the flattened custom tokens map.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function token-map() {
     @return $_flattened_customTokens;
@@ -80,7 +80,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 ///
 /// @param {string} $slug  Flattened key for the token to fetch.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function var-token($slug, $fallback: null) {
     $fallback: if($fallback == null, token-value($slug), $fallback);
@@ -100,7 +100,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 // ///
 // /// @param {string} $slug  Flattened key for the token to fetch.
 // ///
-// /// @since ___PKG_VERSION___
+// /// @since 0.1.0-pre.0
 // ///
 // @function token-value($slug) {
 //     // returns
@@ -115,7 +115,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 // ///
 // /// Returns the flattened custom tokens map.
 // ///
-// /// @since ___PKG_VERSION___
+// /// @since 0.1.0-pre.0
 // ///
 // @function token-map() {
 //     @return $_flattened_customTokens;
@@ -126,7 +126,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 // ///
 // /// @param {string} $slug  Flattened key for the token to fetch.
 // ///
-// /// @since ___PKG_VERSION___
+// /// @since 0.1.0-pre.0
 // ///
 // @function var-token($slug) {
 //     $fallback: token-value($slug);

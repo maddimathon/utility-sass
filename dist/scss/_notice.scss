@@ -2,12 +2,13 @@
 /// This allows modules to forward this header without repeating it all over the
 /// output stylesheet.
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
-/// @since 0.1.0-alpha.draft
+/// @package @maddimathon/utility-sass@0.1.0-pre.0
+/// @since 0.1.0-pre.0
 ///
 
-@use 'config/internal' as config;
+@forward 'config/internal';
 
+@use 'config/internal' as config;
 @use 'lib/noticeMx' as *;
 
 @if not config.$internal_supressCredit and not config.$internal_isTemplate {

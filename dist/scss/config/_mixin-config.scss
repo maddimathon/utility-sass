@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
-/// @since 0.1.0-alpha.draft
+/// @package @maddimathon/utility-sass@0.1.0-pre.0
+/// @since 0.1.0-pre.0
 ///
 
 @forward 'template';
@@ -9,14 +9,21 @@
 
 @use 'template';
 
+/// # CONFIG - MIXINS
+/// ======================================================================== ///
+
 ///
 /// Whether the extend-selectors-global mixin should [role=heading] selectors as
 /// well.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since 0.1.0-pre.0
 ///
 $mx_extendHeadingsByRole: template.$print_globals !default;
 $mx_extendHeadingsByRole: config-valid-bool(
     $mx_extendHeadingsByRole,
     'mx_extendHeadingsByRole'
 );
+
+// unlikely to want to use these, but here just in case
+$mx_interactive_states_include_fallbacks: true !default;
+$mx_interactive_states_include_fallbacks_only: false !default;

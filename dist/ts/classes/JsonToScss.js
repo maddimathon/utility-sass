@@ -1,16 +1,16 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-pre.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * @maddimathon/utility-sass@0.1.0-pre.0
  * @license MIT
  */
 /**
  * Converts a JSON object to a scss list or map.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-pre.0
  */
 export var JsonToScss;
 (function (JsonToScss) {

@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 
 @use '../../../../modules/list';
@@ -15,7 +15,7 @@
 ///
 /// @returns {"brightness"|"contrast"|null}
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function get-colour-mode-type($mode) {
     @if list.index(tokens.$brightnessMode_all, $mode) != null {
@@ -34,7 +34,7 @@
 ///
 /// @param {string} $mode  Mode slug to test.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function is-colour-mode-default($mode) {
     $modeType: get-colour-mode-type($mode);
@@ -58,7 +58,7 @@
 ///
 /// @param {string} $mode  Mode slug to test.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function is-colour-mode-type-default-only($mode) {
     $modeType: get-colour-mode-type($mode);
@@ -83,7 +83,7 @@
 ///
 /// @param {string} $mode  Mode slug to test.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function is-colour-mode-included($mode) {
     $modeType: get-colour-mode-type($mode);

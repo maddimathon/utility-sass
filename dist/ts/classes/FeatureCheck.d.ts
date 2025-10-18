@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-pre.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * @maddimathon/utility-sass@0.1.0-pre.0
  * @license MIT
  */
 /**
@@ -29,7 +29,7 @@
  * as never available and add on custom feature checks:
  * {@includeCode ./FeatureCheck.example.ts#Custom}
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-pre.0
  */
 export declare class FeatureCheck<T_CustomCheckerSlug extends string | never = string, T_CustomChecker extends FeatureCheck.CustomChecker<T_CustomCheckerSlug> = FeatureCheck.CustomChecker<T_CustomCheckerSlug>> {
     /**
@@ -220,7 +220,7 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string | never = s
 /**
  * Utilties for the {@link FeatureCheck} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-pre.0
  */
 export declare namespace FeatureCheck {
     /**

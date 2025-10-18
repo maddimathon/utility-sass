@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 
 @use '../../../modules/list';
@@ -14,7 +14,7 @@
 ///
 /// Uses the margin config to prepare the appropriate numerical value (rem).
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function mrg-value-firm($level) {
     $value: map.get(tokens.$margins, '400');
@@ -31,7 +31,7 @@
 ///
 /// Uses the margin config to prepare the appropriate numerical value (rem).
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function mrg-value-half($level) {
     @return calc(mrg-value-firm($level) - mrg-value-soft($level));
@@ -43,7 +43,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// Uses the margin config to prepare the appropriate numerical value (rem).
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function mrg-value-soft($level) {
     $value: mrg-value-firm($level);
@@ -78,7 +78,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @return {list}
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function width-value($slug, $returnAsNumber: false) {
     // returns
@@ -104,7 +104,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// Uses the margin config to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function var-mrg-firm($level) {
     @return var(--mrg-firm-#{$level}, #{mrg-value-firm($level)}rem);
@@ -114,7 +114,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// Uses the margin config to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function var-mrg-half($level) {
     @return var(--mrg-half-#{$level}, #{mrg-value-half($level)}rem);
@@ -124,7 +124,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// Uses the margin config tokens to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function var-mrg-soft($level) {
     @return var(--mrg-soft-#{$level}, #{mrg-value-soft($level)}rem);
@@ -134,7 +134,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// Uses the width config to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function var-width($slug) {
     $fallback: width-value($slug);
@@ -152,7 +152,7 @@ $_gaps_block: map.get(tokens.$gaps, block);
 $_gaps_inline: map.get(tokens.$gaps, inline);
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function gap-value($dir, $slug) {
     $dir: #{$dir};
@@ -232,35 +232,35 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function gap-block-value($slug) {
     @return gap-value(block, $slug);
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function gap-inline-value($slug) {
     @return gap-value(inline, $slug);
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function var-gap($dir, $slug) {
     @return var(--gap-#{$dir}-#{$slug}, #{list.nth(gap-value($dir, $slug), 1)});
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function var-gap-block($slug) {
     @return var-gap(block, $slug);
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-pre.0
 ///
 @function var-gap-inline($slug) {
     @return var-gap(inline, $slug);
