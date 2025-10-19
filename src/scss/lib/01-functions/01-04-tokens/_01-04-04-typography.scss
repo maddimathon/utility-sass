@@ -22,7 +22,11 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@function fs-value($slug, $fontScale: 1, $clampFontSize: null) {
+@function fs-value(
+    $slug,
+    $fontScale: config.$fn_fs_value_default_scale,
+    $clampFontSize: null
+) {
     // returns
     @if not map.has-key(tokens.$font_sizes, $slug) {
         @warn "$slug '#{$slug}' did not match any of the font size tokens";
