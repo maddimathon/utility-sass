@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.1
+/// @package @maddimathon/utility-sass@0.1.0-pre.2
 /// @since 0.1.0-pre.0
 ///
 
@@ -19,12 +19,18 @@
 }
 
 %root {
-    line-height: #{var-line-height('400')};
-    background: #{var-sys-colour(background)};
-    color: #{var-sys-colour(text)};
+    @if config.$include_html {
+        font-weight: 400;
+        line-height: #{var-line-height('400')};
+        background: #{var-sys-colour(background)};
+        color: #{var-sys-colour(text)};
+    }
 }
 
 %body {
+    @if config.$include_html {
+        font-size: #{var-fs(normal)};
+    }
 }
 
 @if config.$print_headings {
@@ -226,15 +232,15 @@
             letter-spacing: inherit;
             text-transform: inherit;
         }
-    }
 
-    %h#{$num}--where {
-        @include snippet-heading($num);
+        &--where {
+            @include snippet-heading($num);
 
-        :where(%button) {
-            font: inherit;
-            letter-spacing: inherit;
-            text-transform: inherit;
+            :where(%button) {
+                font: inherit;
+                letter-spacing: inherit;
+                text-transform: inherit;
+            }
         }
     }
 }

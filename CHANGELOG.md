@@ -19,6 +19,12 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-pre.2** — 2025-10-21
+
+Switched token values that were string-ified numbers with units to return actual
+numbers.
+
+
 ## **0.1.0-pre.1** — 2025-10-19
 
 Added $fn_fs_value_default_scale config for fs-value() function default

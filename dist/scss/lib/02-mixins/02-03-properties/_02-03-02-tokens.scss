@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.1
+/// @package @maddimathon/utility-sass@0.1.0-pre.2
 /// @since 0.1.0-pre.0
 ///
 
@@ -7,6 +7,7 @@
 @use '../../../tokens';
 
 @use '../../../modules/map';
+@use '../../../modules/meta';
 @use '../../../modules/selector';
 @use '../../../modules/string';
 
@@ -142,7 +143,7 @@
     /* #region Tokens - Width */
     #{selector.parent-or-root()} {
         @each $slug, $_value in config.$widths {
-            @each $value in width-value($slug) {
+            @each $value in width-value($slug, $returnAsNumber: false) {
                 --width-#{$slug}: #{$value};
             }
         }

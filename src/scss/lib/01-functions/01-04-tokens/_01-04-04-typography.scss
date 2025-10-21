@@ -52,15 +52,18 @@
 
     @if $clampFontSize {
         @return (
-            #{math.round-to-pixel(
-                    $size * $fontScale,
-                    $factor: config.$fn_fontRoundToPixelFactor
-                )}rem,
-            clamp-font-size($size * $fontScale, $unit: 'rem')
+            calc(
+                1rem *
+                    math.round-to-pixel(
+                        $size * $fontScale,
+                        $factor: config.$fn_fontRoundToPixelFactor
+                    )
+            ),
+            clamp-font-size($size * $fontScale, $unit: 1rem)
         );
     }
 
-    @return (#{math.round-to-pixel($size * $fontScale)}rem);
+    @return calc(1rem * math.round-to-pixel($size * $fontScale));
 }
 
 ///

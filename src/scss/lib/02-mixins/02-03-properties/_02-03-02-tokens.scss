@@ -7,6 +7,7 @@
 @use '../../../tokens';
 
 @use '../../../modules/map';
+@use '../../../modules/meta';
 @use '../../../modules/selector';
 @use '../../../modules/string';
 
@@ -142,7 +143,7 @@
     /* #region Tokens - Width */
     #{selector.parent-or-root()} {
         @each $slug, $_value in config.$widths {
-            @each $value in width-value($slug) {
+            @each $value in width-value($slug, $returnAsNumber: false) {
                 --width-#{$slug}: #{$value};
             }
         }

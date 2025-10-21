@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.1
+/// @package @maddimathon/utility-sass@0.1.0-pre.2
 /// @since 0.1.0-pre.0
 ///
 
@@ -80,7 +80,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @since 0.1.0-pre.0
 ///
-@function width-value($slug, $returnAsNumber: false) {
+@function width-value($slug, $returnAsNumber: true) {
     // returns
     @if not map.has-key(config.$widths, '#{$slug}') {
         @warn "$slug was not a key in config.$widths";
@@ -107,7 +107,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 ///
 @function var-mrg-firm($level) {
-    @return var(--mrg-firm-#{$level}, #{mrg-value-firm($level)}rem);
+    @return var(--mrg-firm-#{$level}, calc(1rem * mrg-value-firm($level)));
 }
 
 ///
@@ -117,7 +117,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 ///
 @function var-mrg-half($level) {
-    @return var(--mrg-half-#{$level}, #{mrg-value-half($level)}rem);
+    @return var(--mrg-half-#{$level}, calc(1rem * mrg-value-half($level)));
 }
 
 ///
@@ -127,7 +127,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 ///
 @function var-mrg-soft($level) {
-    @return var(--mrg-soft-#{$level}, #{mrg-value-soft($level)}rem);
+    @return var(--mrg-soft-#{$level}, calc(1rem * mrg-value-soft($level)));
 }
 
 ///
@@ -137,13 +137,13 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 ///
 @function var-width($slug) {
-    $fallback: width-value($slug);
+    $fallback: width-value($slug, $returnAsNumber: true);
 
-    @if list.length($fallback) < 1 {
+    @if meta.type-of($fallback) == list and list.length($fallback) < 1 {
         @return var(--width-#{$slug});
     }
 
-    @return var(--width-#{$slug}, #{list.nth($fallback, 1)});
+    @return var(--width-#{$slug}, $fallback);
 }
 
 /// ## GAPS ==================================== ///
@@ -176,12 +176,12 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
         //
         @if $slug == layout or $slug == layout-half {
             @return (
-                #{$num}vw,
+                calc(1vw * $num),
                 clamp(
                     calc(
                         1rem * mrg-value-soft('600') / if($slug == layout, 1, 2)
                     ),
-                    #{$num}svw,
+                    calc(1svw * $num),
                     calc(
                         1rem * mrg-value-soft('900') / if($slug == layout, 1, 2)
                     )
@@ -193,23 +193,23 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
         @if $slug == indent {
             //
             @return (
-                #{$num}vw,
+                calc(1vw * $num),
                 clamp(
-                    #{var-mrg-firm('200')},
-                    #{$num}svw,
-                    #{var-mrg-firm('600')}
+                    var-mrg-firm('200'),
+                    calc(1svw * $num),
+                    var-mrg-firm('600')
                 )
             );
         } @else if $slug == layout or $slug == layout-half {
             //
 
             @return (
-                #{$num}vw,
+                calc(1vw * $num),
                 clamp(
                     calc(
                         1rem * mrg-value-firm('400') / if($slug == layout, 1, 2)
                     ),
-                    #{$num}svw,
+                    calc(1svw * $num),
                     calc(
                         1rem * mrg-value-firm('900') / if($slug == layout, 1, 2)
                     )
@@ -218,11 +218,11 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
         } @else if $slug == tab {
             //
             @return (
-                #{$num}vw,
+                calc(1vw * $num),
                 clamp(
-                    #{var-mrg-firm('100')},
-                    #{$num}svw,
-                    #{var-mrg-firm('600')}
+                    var-mrg-firm('100'),
+                    calc(1svw * $num),
+                    var-mrg-firm('600')
                 )
             );
         }
@@ -249,7 +249,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 /// @since 0.1.0-pre.0
 ///
 @function var-gap($dir, $slug) {
-    @return var(--gap-#{$dir}-#{$slug}, #{list.nth(gap-value($dir, $slug), 1)});
+    @return var(--gap-#{$dir}-#{$slug}, list.nth(gap-value($dir, $slug), 1));
 }
 
 ///

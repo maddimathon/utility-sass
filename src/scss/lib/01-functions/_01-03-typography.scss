@@ -10,6 +10,20 @@
 
 @use '../../config';
 
+@function _clamp-font-size_unit-adder($num, $unit) {
+    @if meta.type-of($num) ==
+        number and
+        meta.type-of($unit) ==
+        number and
+        math.deunit($unit) ==
+        1
+    {
+        @return calc($num * $unit);
+    } @else {
+        @return #{$num}#{$unit};
+    }
+}
+
 ///
 /// Returns a clamp value for given font size (uses svw).
 ///
@@ -32,9 +46,20 @@
     $svw_rem: config.$fn_clamp_font_size_svw_rem;
 
     @return clamp(
-        #{math.round-to-pixel($size * $multi_min)}#{$unit},
-        #{math.round-to-pixel($size * $multi_svw)}svw + #{$svw_rem}#{$unit},
-        #{math.round-to-pixel($size * $multi_max)}#{$unit}
+        _clamp-font-size_unit-adder(
+            math.round-to-pixel($size * $multi_min),
+            $unit
+        ),
+        calc(
+            _clamp-font-size_unit-adder(
+                    math.round-to-pixel($size * $multi_svw),
+                    1svw
+                ) + _clamp-font-size_unit-adder($svw_rem, $unit)
+        ),
+        _clamp-font-size_unit-adder(
+            math.round-to-pixel($size * $multi_max),
+            $unit
+        )
     );
 }
 

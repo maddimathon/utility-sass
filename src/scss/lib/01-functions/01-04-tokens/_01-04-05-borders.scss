@@ -22,7 +22,7 @@
         $value: map.get(tokens.$border_widths, '#{$level}');
     }
 
-    @return #{$value}rem;
+    @return calc($value * 1rem);
 }
 
 ///
@@ -32,7 +32,7 @@
 /// @since 0.1.0-pre.0
 ///
 @function var-border-width($level) {
-    @return var(--border-width-#{$level}, #{border-width-value($level)});
+    @return var(--border-width-#{$level}, border-width-value($level));
 }
 
 ///
@@ -49,7 +49,7 @@
         $value: map.get(tokens.$strokes_relative, '#{$level}');
     }
 
-    @return #{$value}em;
+    @return calc($value * 1em);
 }
 
 ///
@@ -59,5 +59,5 @@
 /// @since 0.1.0-pre.0
 ///
 @function var-stroke-relative($level) {
-    @return var(--stroke-relative-#{$level}, #{stroke-relative-value($level)});
+    @return var(--stroke-relative-#{$level}, stroke-relative-value($level));
 }
