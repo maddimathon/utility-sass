@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-pre.2
+ * @maddimathon/utility-sass@0.1.0-pre.3
  * @license MIT
  */
 /**

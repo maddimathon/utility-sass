@@ -90,12 +90,15 @@
 }
 
 %file-selector-button {
-    display: initial;
-    margin: 0;
-    margin-inline-end: #{var-mrg-firm('300')};
-    // border: none;
+    @include snippet-button;
 
-    font-size: #{var-fs(normal)};
+    & {
+        display: initial;
+        margin: 0;
+        margin-inline-end: #{var-mrg-firm('300')};
+
+        font-size: #{var-fs(normal)};
+    }
 }
 
 %label {

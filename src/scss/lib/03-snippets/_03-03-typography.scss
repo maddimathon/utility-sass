@@ -162,7 +162,12 @@
         @if $maxWidth {
             @include min-width(indent) {
                 margin-inline: auto;
-                max-width: min(#{var-width('callout')}, 100%);
+
+                @if meta.type-of($maxWidth) == number {
+                    max-width: min(#{var-width('callout')}, #{$maxWidth});
+                } @else {
+                    max-width: min(#{var-width('callout')}, 100%);
+                }
             }
         }
     }

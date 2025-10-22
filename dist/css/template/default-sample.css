@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-pre.2
+ * @maddimathon/utility-sass@0.1.0-pre.3
  * 
  * License: MIT
  */
@@ -1394,7 +1394,6 @@ input[type="button"],
 input[type="submit"],
 a.button,
 input[type="reset"],
-::file-selector-button,
 a.button-secondary {
     --focus-ring-outline-offset: 0.125rem;
     display: block;
@@ -1424,7 +1423,6 @@ input[type="button"]:focus,
 input[type="submit"]:focus,
 a.button:focus,
 input[type="reset"]:focus,
-:focus::file-selector-button,
 a.button-secondary:focus {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
@@ -1446,7 +1444,6 @@ input[type="button"]:hover,
 input[type="submit"]:hover,
 a.button:hover,
 input[type="reset"]:hover,
-:hover::file-selector-button,
 a.button-secondary:hover {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
@@ -1468,7 +1465,6 @@ input[type="button"]:focus-within,
 input[type="submit"]:focus-within,
 a.button:focus-within,
 input[type="reset"]:focus-within,
-:focus-within::file-selector-button,
 a.button-secondary:focus-within {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
@@ -1491,7 +1487,6 @@ a.button-secondary:focus-within {
     input[type="submit"]:focus-within,
     a.button:focus-within,
     input[type="reset"]:focus-within,
-    :focus-within::file-selector-button,
     a.button-secondary:focus-within {
         opacity: 0.875;
     }
@@ -1506,10 +1501,8 @@ a.button-secondary:focus-within {
     input[type="submit"]:hover,
     a.button:hover,
     input[type="reset"]:focus,
-    :focus::file-selector-button,
     a.button-secondary:focus,
     input[type="reset"]:hover,
-    :hover::file-selector-button,
     a.button-secondary:hover {
         opacity: 0.875;
     }
@@ -1520,7 +1513,6 @@ input[type="button"]:active,
 input[type="submit"]:active,
 a.button:active,
 input[type="reset"]:active,
-:active::file-selector-button,
 a.button-secondary:active {
     --focus-ring-outline-color: var(--sys-clr-button-border-active, ButtonFace);
     background-color: ButtonFace;
@@ -1538,8 +1530,17 @@ input[type="button"],
 input[type="submit"],
 a.button,
 input[type="reset"],
-::file-selector-button,
 a.button-secondary {
+    --display: flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-content: start;
+    align-items: start;
+    gap: 0.5rem 0.3125rem;
+    gap: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-100, 0.3125rem);
+    text-align: left;
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
@@ -1552,11 +1553,118 @@ input[aria-disabled="true"][type="button"],
 input[aria-disabled="true"][type="submit"],
 a[aria-disabled="true"].button,
 input[aria-disabled="true"][type="reset"],
-[aria-disabled="true"]::file-selector-button,
 a[aria-disabled="true"].button-secondary {
     cursor: not-allowed;
 }
 
+::file-selector-button {
+    --focus-ring-outline-offset: 0.125rem;
+    display: block;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.3125rem 0.8125rem;
+    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
+    width: -moz-fit-content;
+    width: fit-content;
+    font: inherit;
+    line-height: 1.1875;
+    line-height: var(--line-height-100, 1.1875);
+    border: 0.125rem solid ButtonFace;
+    border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
+    border-radius: 0;
+    --focus-ring-outline-color: var(--sys-clr-button-border, ButtonFace);
+    background-color: ButtonFace;
+    background-color: var(--sys-clr-button-bg, ButtonFace);
+    color: ButtonText;
+    color: var(--sys-clr-button-text, ButtonText);
+    accent-color: ButtonFace;
+    accent-color: var(--sys-clr-button-border, ButtonFace);
+}
+:focus::file-selector-button {
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        SelectedItem
+    );
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+}
+
+:hover::file-selector-button {
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        SelectedItem
+    );
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+}
+
+:focus-within::file-selector-button {
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        SelectedItem
+    );
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+}
+
+@media (prefers-contrast: less) {
+    :focus-within::file-selector-button {
+        opacity: 0.875;
+    }
+    :focus::file-selector-button,
+    :hover::file-selector-button {
+        opacity: 0.875;
+    }
+}
+:active::file-selector-button {
+    --focus-ring-outline-color: var(--sys-clr-button-border-active, ButtonFace);
+    background-color: ButtonFace;
+    background-color: var(--sys-clr-button-bg-active, ButtonFace);
+    border-color: ButtonFace;
+    border-color: var(--sys-clr-button-border-active, ButtonFace);
+    color: ButtonText;
+    color: var(--sys-clr-button-text-active, ButtonText);
+    accent-color: ButtonFace;
+    accent-color: var(--sys-clr-button-border-active, ButtonFace);
+}
+::file-selector-button {
+    --display: flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-content: start;
+    align-items: start;
+    gap: 0.5rem 0.3125rem;
+    gap: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-100, 0.3125rem);
+    text-align: left;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    cursor: pointer;
+}
+[aria-disabled="true"]::file-selector-button {
+    cursor: not-allowed;
+}
 ::file-selector-button {
     display: initial;
     margin: 0;

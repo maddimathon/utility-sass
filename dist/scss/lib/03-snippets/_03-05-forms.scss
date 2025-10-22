@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.2
+/// @package @maddimathon/utility-sass@0.1.0-pre.3
 /// @since 0.1.0-pre.0
 ///
 
@@ -44,6 +44,7 @@
     $borderWidth: 0.125rem,
     $focusOffset: 0.125rem,
     $lh: '100',
+    $gap: var-mrg-soft('300') var-mrg-firm('100'),
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
     $opacity_hover: 0.875,
     $padding: var-mrg-soft('200') var-mrg-firm('300'),
@@ -83,6 +84,20 @@
     );
 
     & {
+        --display: flex;
+        display: flex;
+
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        justify-content: start;
+        align-content: start;
+        align-items: start;
+
+        gap: #{$gap};
+
+        text-align: start;
+
         appearance: button;
         text-decoration: none;
         cursor: pointer;
