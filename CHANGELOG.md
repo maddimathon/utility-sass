@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-pre.4** — 2025-10-22
+
+Fixed heading style inheritance issue
+
+
 ## **0.1.0-pre.3** — 2025-10-22
 
 - Button style improvements (specifically for icon pseudo elements in design-system-utilities)
