@@ -28,7 +28,7 @@
     $args...
 ) {
     $args: meta.keywords($args);
-    $mode: if($bool, 'no-preference', 'less');
+    $mode: if($bool, 'no-preference', 'reduce');
 
     @if not selector.parent-exists() {
         $nestParent: false;
@@ -46,14 +46,6 @@
             if(selector-parent-is-root(), true, false),
             $unifyParent
         );
-
-        //     @if selector-parent-is-body() {
-        //         $nestParent: if($nestParent == null, false, $nestParent);
-        //         $unifyParent: if($unifyParent == null, false, $unifyParent);
-        //     } @else if selector-parent-is-root() {
-        //         $nestParent: if($nestParent == null, false, $nestParent);
-        //         $unifyParent: if($unifyParent == null, false, $unifyParent);
-        //     }
     }
 
     $selector: null;

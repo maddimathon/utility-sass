@@ -5,7 +5,7 @@
  * Extend the scss to play with the config, or see the defaults in the css
  * included in the pacakge.
  *
- * @maddimathon/utility-sass@0.1.0-pre.4
+ * @maddimathon/utility-sass@0.1.0-pre.5
  *
  * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
@@ -22,12 +22,12 @@
     --mixin: "motion";
 }
 
-@media (prefers-reduced-motion: less) {
+@media (prefers-reduced-motion: reduce) {
     :root {
         --mixin: "no-motion";
     }
 }
-[data-motion="less"] {
+[data-motion="reduce"] {
     --mixin: "no-motion";
 }
 
@@ -42,12 +42,12 @@
     --mixin: "motion";
 }
 
-@media (prefers-reduced-motion: less) {
+@media (prefers-reduced-motion: reduce) {
     :root {
         --mixin: "no-motion";
     }
 }
-[data-motion="less"]:root {
+[data-motion="reduce"]:root {
     --mixin: "no-motion";
 }
 
@@ -62,12 +62,12 @@
     --mixin: "motion";
 }
 
-@media (prefers-reduced-motion: less) {
+@media (prefers-reduced-motion: reduce) {
     body {
         --mixin: "no-motion";
     }
 }
-[data-motion="less"] body {
+[data-motion="reduce"] body {
     --mixin: "no-motion";
 }
 
@@ -82,12 +82,12 @@
     --mixin: "motion";
 }
 
-@media (prefers-reduced-motion: less) {
+@media (prefers-reduced-motion: reduce) {
     parent {
         --mixin: "no-motion";
     }
 }
-[data-motion="less"] parent {
+[data-motion="reduce"] parent {
     --mixin: "no-motion";
 }
 

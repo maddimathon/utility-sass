@@ -19,6 +19,12 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-pre.5** — 2025-10-22
+
+Fixed issue in no-motion selectors and queries causing reduced-motion to never
+be respected.
+
+
 ## **0.1.0-pre.4** — 2025-10-22
 
 Fixed heading style inheritance issue
