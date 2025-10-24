@@ -78,14 +78,13 @@ test-hover__average:hover,
 }
 
 /* ### Low ------------------ */
-[data-contrast-mode="low"] test-hover__low:hover {
-    /* @include colour-mode-interactive-mixin(low, $hover: true); */
-}
-
 @media (prefers-contrast: less) {
     test-hover__low:hover {
         /* @include colour-mode-interactive-mixin(low, $hover: true); */
     }
+}
+[data-contrast-mode="low"] test-hover__low:hover {
+    /* @include colour-mode-interactive-mixin(low, $hover: true); */
 }
 
 /* ### Forced-Colors ------------------ */
@@ -94,16 +93,14 @@ test-hover__average:hover,
         /* @include colour-mode-interactive-mixin(forced-colors, $hover: true); */
     }
 }
-
 /* ### Dark ------------------ */
-[data-brightness-mode="dark"] test-hover__dark:hover {
-    /* @include colour-mode-interactive-mixin(dark, $hover: true); */
-}
-
 @media (prefers-color-scheme: dark) {
     test-hover__dark:hover {
         /* @include colour-mode-interactive-mixin(dark, $hover: true); */
     }
+}
+[data-brightness-mode="dark"] test-hover__dark:hover {
+    /* @include colour-mode-interactive-mixin(dark, $hover: true); */
 }
 
 /* ## focus-visible and hover ==================================== */
@@ -116,16 +113,15 @@ test-focus-and-hover__average:hover,
 }
 
 /* ### Low ------------------ */
-[data-contrast-mode="low"] test-focus-and-hover__low:focus,
-[data-contrast-mode="low"] test-focus-and-hover__low:hover {
-    /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
-}
-
 @media (prefers-contrast: less) {
     test-focus-and-hover__low:focus,
     test-focus-and-hover__low:hover {
         /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
     }
+}
+[data-contrast-mode="low"] test-focus-and-hover__low:focus,
+[data-contrast-mode="low"] test-focus-and-hover__low:hover {
+    /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
 }
 
 /* ### Forced-Colors ------------------ */
@@ -135,16 +131,14 @@ test-focus-and-hover__average:hover,
         /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
     }
 }
-
 /* ### Dark ------------------ */
-[data-brightness-mode="dark"] test-focus-and-hover__dark:focus,
-[data-brightness-mode="dark"] test-focus-and-hover__dark:hover {
-    /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
-}
-
 @media (prefers-color-scheme: dark) {
     test-focus-and-hover__dark:focus,
     test-focus-and-hover__dark:hover {
         /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
     }
+}
+[data-brightness-mode="dark"] test-focus-and-hover__dark:focus,
+[data-brightness-mode="dark"] test-focus-and-hover__dark:hover {
+    /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
 }

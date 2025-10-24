@@ -32,8 +32,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 ///
 @mixin colour-mode(
     $modes,
-    $includeQuery: true,
-    $includeSelectors: true,
+    $includeQuery: config.$mx_colourMode_includeQuery_default,
+    $includeSelectors: config.$mx_colourMode_includeSelectors_default,
 
     $modeArgs: false,
     $args...
@@ -61,20 +61,6 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
     $debug: map.get($args, 'debug');
 
-    /// Setting using selectors
-    @if $includeSelectors {
-        $selectors: selectors-colour-mode(
-            $modes: $modes,
-            $args...,
-        );
-
-        @if list.length($selectors) > 0 {
-            @at-root #{$selectors} {
-                @content;
-            }
-        }
-    }
-
     /// Setting using media queries
     @if $includeQuery {
         $queries: media-queries-colour-mode(
@@ -92,6 +78,20 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             }
         }
     }
+
+    /// Setting using selectors
+    @if $includeSelectors {
+        $selectors: selectors-colour-mode(
+            $modes: $modes,
+            $args...,
+        );
+
+        @if list.length($selectors) > 0 {
+            @at-root #{$selectors} {
+                @content;
+            }
+        }
+    }
 }
 
 ///
@@ -103,8 +103,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 ///
 @mixin colour-mode-not(
     $modes,
-    $includeQuery: true,
-    $includeSelectors: true,
+    $includeQuery: config.$mx_colourMode_includeQuery_default,
+    $includeSelectors: config.$mx_colourMode_includeSelectors_default,
 
     $modeArgs: false,
     $args...
@@ -224,8 +224,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 /// @since 0.1.0-pre.0
 ///
 @mixin colour-mode-each(
-    $includeQuery: true,
-    $includeSelectors: true,
+    $includeQuery: config.$mx_colourMode_includeQuery_default,
+    $includeSelectors: config.$mx_colourMode_includeSelectors_default,
 
     $includeForcedColors: true,
     $nestModeSelectors: false,

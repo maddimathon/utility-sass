@@ -384,21 +384,20 @@ blockquote > cite::before {
     content: "— "/"";
     color: currentColor;
 }
-blockquote > cite {
-    color: color-mix(in srgb, currentColor 75%, transparent);
-}
-
 @media (prefers-contrast: less) {
     blockquote > cite {
         color: color-mix(in srgb, currentColor 75%, transparent);
     }
 }
+blockquote > cite {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
 @media (prefers-contrast: more) {
     blockquote > cite {
         color: color-mix(in srgb, currentColor 87.5%, transparent);
     }
 }
-
 code,
 kbd,
 pre,
@@ -1278,17 +1277,6 @@ input::placeholder {
     opacity: 1;
     color: currentColor;
 }
-textarea::-moz-placeholder,
-select::-moz-placeholder,
-input::-moz-placeholder {
-    color: color-mix(in srgb, currentColor 75%, transparent);
-}
-textarea::placeholder,
-select::placeholder,
-input::placeholder {
-    color: color-mix(in srgb, currentColor 75%, transparent);
-}
-
 @media (prefers-contrast: less) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,
@@ -1301,6 +1289,17 @@ input::placeholder {
         color: color-mix(in srgb, currentColor 75%, transparent);
     }
 }
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
 @media (prefers-contrast: more) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,

@@ -13,41 +13,38 @@
 /* # MIXINS - MODES
  * ======================================================================== */
 /* #region - in root parent */
-:root,
-[data-brightness-mode="light"]:root {
-    --mode-mixin: "light";
-}
-
 @media (prefers-color-scheme: light) {
     :root {
         --mode-mixin: "light";
     }
 }
-
-/* #endregion - in root parent */
-/* #region - in body parent */
-body,
-[data-brightness-mode="light"] body {
+:root,
+[data-brightness-mode="light"]:root {
     --mode-mixin: "light";
 }
 
+/* #endregion - in root parent */
+/* #region - in body parent */
 @media (prefers-color-scheme: light) {
     body {
         --mode-mixin: "light";
     }
 }
-
-/* #endregion - in body parent */
-/* #region - in random parent */
-parent,
-[data-brightness-mode="light"] parent {
+body,
+[data-brightness-mode="light"] body {
     --mode-mixin: "light";
 }
 
+/* #endregion - in body parent */
+/* #region - in random parent */
 @media (prefers-color-scheme: light) {
     parent {
         --mode-mixin: "light";
     }
+}
+parent,
+[data-brightness-mode="light"] parent {
+    --mode-mixin: "light";
 }
 
 /* #endregion - in random parent */
@@ -63,38 +60,38 @@ parent,
 }
 /* #endregion NOT light */
 /* #region light */
-:root,
-[data-brightness-mode="light"] {
-    --mode-mixin: "light";
-}
-
 @media (prefers-color-scheme: light) {
     :root {
         --mode-mixin: "light";
     }
 }
-/* #endregion light */
-/* #region dark */
-[data-brightness-mode="dark"] {
-    --mode-mixin: "dark";
+:root,
+[data-brightness-mode="light"] {
+    --mode-mixin: "light";
 }
 
+/* #endregion light */
+/* #region dark */
 @media (prefers-color-scheme: dark) {
     :root {
         --mode-mixin: "dark";
     }
 }
-/* #endregion dark */
-/* #region low-contrast */
-[data-contrast-mode="low"] {
-    --mode-mixin: "low-contrast";
+[data-brightness-mode="dark"] {
+    --mode-mixin: "dark";
 }
 
+/* #endregion dark */
+/* #region low-contrast */
 @media (prefers-contrast: less) {
     :root {
         --mode-mixin: "low-contrast";
     }
 }
+[data-contrast-mode="low"] {
+    --mode-mixin: "low-contrast";
+}
+
 /* #endregion low-contrast */
 /* #region average-contrast */
 :root,
@@ -104,15 +101,15 @@ parent,
 
 /* #endregion average-contrast */
 /* #region high-contrast */
-[data-contrast-mode="high"] {
-    --mode-mixin: "high-contrast";
-}
-
 @media (prefers-contrast: more) {
     :root {
         --mode-mixin: "high-contrast";
     }
 }
+[data-contrast-mode="high"] {
+    --mode-mixin: "high-contrast";
+}
+
 /* #endregion high-contrast */
 /* #region max-contrast */
 /* #endregion max-contrast */
@@ -124,15 +121,6 @@ parent,
 }
 /* #endregion forced-colors */
 /* #region colour-mode-all */
-:root,
-[data-brightness-mode="light"],
-[data-brightness-mode="dark"],
-[data-contrast-mode="average"],
-[data-contrast-mode="low"],
-[data-contrast-mode="high"] {
-    --mode-mixin: "colour-mode-all";
-}
-
 @media (prefers-color-scheme: light),
     (prefers-color-scheme: dark),
     (prefers-contrast: less),
@@ -143,6 +131,15 @@ parent,
         --mode-mixin: "colour-mode-all";
     }
 }
+:root,
+[data-brightness-mode="light"],
+[data-brightness-mode="dark"],
+[data-contrast-mode="average"],
+[data-contrast-mode="low"],
+[data-contrast-mode="high"] {
+    --mode-mixin: "colour-mode-all";
+}
+
 /* #endregion colour-mode-all */
 /* ## colour-mode-each ==================================== */
 /* e.g. - `@include lib.colour-mode-each($nestModeSelectors: true) using ($brightness, $contrast) {}` */
