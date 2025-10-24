@@ -101,11 +101,14 @@
                             $separator: comma
                         );
                     }
-                    $queries: list.append(
-                        $queries,
-                        '( prefers-color-scheme: #{$mode} )',
-                        $separator: comma
-                    );
+
+                    @if $mode != light or config.$include_defaultMediaQueries {
+                        $queries: list.append(
+                            $queries,
+                            '( prefers-color-scheme: #{$mode} )',
+                            $separator: comma
+                        );
+                    }
                 } @else if $debug {
                     @debug 'skipping #{$mode} query';
                 }
@@ -135,7 +138,8 @@
             } @else if $mode == average {
                 @if not
                     $isClrModeDefault or not
-                    $includeDefault or not
+                    $includeDefault or
+                    config.$include_defaultMediaQueries or not
                     $includeSelectors
                 {
                     @if $debug {
@@ -231,75 +235,70 @@
     $selectorsList: ();
 
     @each $mode in $modes {
-        @if $mode !=
-            forced-colors or
-            config.$fn_selectors_colour_mode_include_forced_colors
-        {
-            $isDefaultOnly: is-colour-mode-type-default-only($mode);
-            $isDefault: is-colour-mode-default($mode);
+        $isDefaultOnly: is-colour-mode-type-default-only($mode);
+        $isDefault: is-colour-mode-default($mode);
+
+        @if $debug {
+            @debug '';
+            @debug '$mode = #{meta.var-dump($mode)}';
+            @debug '$isDefaultOnly = #{meta.var-dump($isDefaultOnly)}';
+            @debug '$isDefault = #{meta.var-dump($isDefault)}';
+        }
+
+        @if $includeDefault and $isDefault {
+            $prependParentSelector: true;
+        }
+
+        @if not $isDefaultOnly or $isDefault {
+            $modeType: get-colour-mode-type($mode);
+
+            $selector: ();
+
+            @if config.$selectorType_mode == 'attribute' {
+                $selector: (
+                    string.unquote('[data-#{$modeType}-mode=#{$mode}]')
+                );
+            }
+
+            @if config.$selectorType_mode == 'class' {
+                $selector: (
+                    string.unquote('.theme-#{$modeType}-mode-#{$mode}')
+                );
+            }
 
             @if $debug {
-                @debug '';
-                @debug '$mode = #{meta.var-dump($mode)}';
-                @debug '$isDefaultOnly = #{meta.var-dump($isDefaultOnly)}';
-                @debug '$isDefault = #{meta.var-dump($isDefault)}';
+                @debug '$selector = #{meta.var-dump($selector)}';
             }
 
-            @if $includeDefault and $isDefault {
-                $prependParentSelector: true;
-            }
+            @if list.length($selector) > 0 {
+                $mergedSelectors: ();
 
-            @if not $isDefaultOnly or $isDefault {
-                $modeType: get-colour-mode-type($mode);
+                @if $parentSelectorExists and not $parentIsRoot {
+                    $mergedSelectors: selector.merge(
+                        $selectorA: $parentSelector,
+                        $selectorB: $selector,
 
-                $selector: ();
+                        $nestAinB: $nestParentSelector,
+                        $nestBinA: $wrapParentSelector,
+                        $unify: $unifyParentSelector,
 
-                @if config.$selectorType_mode == 'attribute' {
-                    $selector: (
-                        string.unquote('[data-#{$modeType}-mode=#{$mode}]')
+                        $debug: $debug,
                     );
+                } @else {
+                    $mergedSelectors: $selector;
                 }
-
-                @if config.$selectorType_mode == 'class' {
-                    $selector: (
-                        string.unquote('.theme-#{$modeType}-mode-#{$mode}')
-                    );
-                }
-
                 @if $debug {
-                    @debug '$selector = #{meta.var-dump($selector)}';
+                    @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
                 }
 
-                @if list.length($selector) > 0 {
-                    $mergedSelectors: ();
-
-                    @if $parentSelectorExists and not $parentIsRoot {
-                        $mergedSelectors: selector.merge(
-                            $selectorA: $parentSelector,
-                            $selectorB: $selector,
-
-                            $nestAinB: $nestParentSelector,
-                            $nestBinA: $wrapParentSelector,
-                            $unify: $unifyParentSelector,
-
-                            $debug: $debug,
-                        );
-                    } @else {
-                        $mergedSelectors: $selector;
-                    }
-                    @if $debug {
-                        @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
-                    }
-
-                    $selectorsList: list.append(
-                        $selectorsList,
-                        $mergedSelectors,
-                        $separator: comma
-                    );
-                }
-            } @else if $debug {
-                @debug 'no selectors added';
+                $selectorsList: list.append(
+                    $selectorsList,
+                    $mergedSelectors,
+                    $separator: comma
+                );
             }
+        } @else if $debug {
+            @debug 'no selectors added';
         }
     }
 

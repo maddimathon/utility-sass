@@ -93,6 +93,10 @@ test-hover__average:hover,
         /* @include colour-mode-interactive-mixin(forced-colors, $hover: true); */
     }
 }
+[data-contrast-mode="forced-colors"] test-hover__forced-colors:hover {
+    /* @include colour-mode-interactive-mixin(forced-colors, $hover: true); */
+}
+
 /* ### Dark ------------------ */
 @media (prefers-color-scheme: dark) {
     test-hover__dark:hover {
@@ -131,6 +135,11 @@ test-focus-and-hover__average:hover,
         /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
     }
 }
+[data-contrast-mode="forced-colors"] test-focus-and-hover__forced-colors:focus,
+[data-contrast-mode="forced-colors"] test-focus-and-hover__forced-colors:hover {
+    /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
+}
+
 /* ### Dark ------------------ */
 @media (prefers-color-scheme: dark) {
     test-focus-and-hover__dark:focus,

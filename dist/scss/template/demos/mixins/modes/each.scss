@@ -1,0 +1,89 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
+/// @since 0.1.0-pre.5.draft
+///
+
+@forward '../../config';
+@forward '../../header';
+
+// @use '../../config';
+@use '../../../../lib';
+
+/* # MIXINS - MODES - colour-mode-each
+ * ======================================================================== */
+
+/**
+ * @include lib.colour-mode-each($includeQuery: false)
+ */
+@include lib.colour-mode-each($includeQuery: false) using
+    ($brightness, $contrast) {
+    /* $includeQuery: false */
+    --colour-mode-each-brightness: #{$brightness};
+    --colour-mode-each-contrast: #{$contrast};
+}
+
+/**
+ * @include lib.colour-mode-each($includeSelectors: false)
+ */
+@include lib.colour-mode-each($includeSelectors: false) using
+    ($brightness, $contrast) {
+    /* $includeSelectors: false */
+    --colour-mode-each-brightness: #{$brightness};
+    --colour-mode-each-contrast: #{$contrast};
+}
+
+/**
+ * @include lib.colour-mode-each()
+ */
+@include lib.colour-mode-each() using ($brightness, $contrast) {
+    /* default params */
+    --colour-mode-each-brightness: #{$brightness};
+    --colour-mode-each-contrast: #{$contrast};
+}
+
+/**
+ * @include lib.colour-mode-each($nestModeSelectors: true)
+ */
+@include lib.colour-mode-each($nestModeSelectors: true) using
+    ($brightness, $contrast) {
+    /* $nestModeSelectors: true */
+    --colour-mode-each-brightness: #{$brightness};
+    --colour-mode-each-contrast: #{$contrast};
+}
+
+/**
+ * @include lib.colour-mode-each(
+ *     $includeForcedColors: true,
+ *     $nestModeSelectors: true
+ * )
+ */
+@include lib.colour-mode-each(
+        $includeForcedColors: true,
+        $nestModeSelectors: true
+    )
+    using ($brightness, $contrast) {
+    /* $includeForcedColors: true */
+    /* $nestModeSelectors: true */
+    --colour-mode-each-brightness: #{$brightness};
+    --colour-mode-each-contrast: #{$contrast};
+}
+
+/**
+ * @include lib.colour-mode-each(
+ *     $includeForcedColors: true,
+ *     $iterateForcedColors: true,
+ *     $nestModeSelectors: true
+ * )
+ */
+@include lib.colour-mode-each(
+        $includeForcedColors: true,
+        $iterateForcedColors: true,
+        $nestModeSelectors: true
+    )
+    using ($brightness, $contrast) {
+    /* $includeForcedColors: true */
+    /* $iterateForcedColors: true */
+    /* $nestModeSelectors: true */
+    --colour-mode-each-brightness: #{$brightness};
+    --colour-mode-each-contrast: #{$contrast};
+}

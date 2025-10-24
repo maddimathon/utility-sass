@@ -4,6 +4,7 @@
 ///
 
 @use '../../../../modules/list';
+@use '../../../../modules/meta';
 
 // @use '../../../../config';
 @use '../../../../tokens';
@@ -32,21 +33,33 @@
 ///
 /// Tests if this is the current default for its respective mode type.
 ///
-/// @param {string} $mode  Mode slug to test.
+/// @param {string|list<string>} $modes  Mode slug(s) to test.
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Now accepts mode lists.
 ///
-@function is-colour-mode-default($mode) {
-    $modeType: get-colour-mode-type($mode);
-
+@function is-colour-mode-default($modes) {
     // returns
-    @if $modeType == 'brightness' and $mode == tokens.$brightnessMode_default {
-        @return true;
+    @if meta.type-of($modes) != list and meta.type-of($modes) != string {
+        @return false;
     }
 
-    // returns
-    @if $modeType == 'contrast' and $mode == tokens.$contrastMode_default {
-        @return true;
+    @each $mode in $modes {
+        $modeType: get-colour-mode-type($mode);
+
+        // returns
+        @if $modeType ==
+            'brightness' and
+            $mode ==
+            tokens.$brightnessMode_default
+        {
+            @return true;
+        }
+
+        // returns
+        @if $modeType == 'contrast' and $mode == tokens.$contrastMode_default {
+            @return true;
+        }
     }
 
     @return false;
