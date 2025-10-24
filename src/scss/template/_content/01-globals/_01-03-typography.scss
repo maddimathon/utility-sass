@@ -8,6 +8,8 @@
 
 @use '../../../lib' as *;
 
+@use '../config' as tplConfig;
+
 @if config.$print_headings {
     /* # GLOBALS - Typography
      * ======================================================================== */
@@ -220,28 +222,30 @@
     }
 }
 
-@if config.$print_headings {
-    /* ## Typography - Headings ==================================== */
-}
+@if tplConfig.$template_include_headings {
+    @if config.$print_headings {
+        /* ## Typography - Headings ==================================== */
+    }
 
-@each $num in token-all-heading-levels() {
-    //
-    #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
-        @include snippet-heading($num);
-
-        %button {
-            font: inherit;
-            letter-spacing: inherit;
-            text-transform: inherit;
-        }
-
-        &--where {
+    @each $num in token-all-heading-levels() {
+        //
+        #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
             @include snippet-heading($num);
 
-            :where(%button) {
+            %button {
                 font: inherit;
                 letter-spacing: inherit;
                 text-transform: inherit;
+            }
+
+            &--where {
+                @include snippet-heading($num);
+
+                :where(%button) {
+                    font: inherit;
+                    letter-spacing: inherit;
+                    text-transform: inherit;
+                }
             }
         }
     }

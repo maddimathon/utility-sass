@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.5
+/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -23,7 +23,8 @@
     $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
     $slug: #{$slug};
     $heading9orAbove: false;
-    //
+
+    // default prop values
     $fontWeight: 600;
     $fontStyle: normal;
     $letterSpacing: normal;
@@ -35,9 +36,8 @@
 
     @if $slug == title {
         //
-        $fontWeight: 900;
-        $lineHeight: var-line-height('100');
-        $size: var-fs(heading-1);
+        $slug: '1';
+        $slugAsNumber: 1;
         //
     } @else if $slug {
         //
@@ -55,7 +55,7 @@
         }
     }
 
-    @if $slug == title or $slug == '1' {
+    @if $slug == '1' {
         $fontWeight: 900;
         $lineHeight: var-line-height('200');
         $marginBlockStart: #{var-mrg-soft('800')};
@@ -101,7 +101,6 @@
     }
 
     @if $slug == '8' or $heading9orAbove {
-        $fontWeight: 500;
         $fontStyle: italic;
     }
 
