@@ -129,7 +129,6 @@ parent,
 [data-brightness-mode="light"][data-contrast-mode="average"],
 [data-contrast-mode="average"] [data-brightness-mode="light"],
 [data-brightness-mode="light"] [data-contrast-mode="average"] {
-    /* FIVE */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
 }
@@ -139,7 +138,6 @@ parent,
 @media (prefers-contrast: less) {
     :root,
     [data-brightness-mode="light"] {
-        /* THREE */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: low;
     }
@@ -148,7 +146,6 @@ parent,
 [data-brightness-mode="light"][data-contrast-mode="low"],
 [data-contrast-mode="low"] [data-brightness-mode="light"],
 [data-brightness-mode="light"] [data-contrast-mode="low"] {
-    /* FIVE */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
 }
@@ -158,7 +155,6 @@ parent,
 @media (prefers-contrast: more) {
     :root,
     [data-brightness-mode="light"] {
-        /* THREE */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: high;
     }
@@ -167,7 +163,6 @@ parent,
 [data-brightness-mode="light"][data-contrast-mode="high"],
 [data-contrast-mode="high"] [data-brightness-mode="light"],
 [data-brightness-mode="light"] [data-contrast-mode="high"] {
-    /* FIVE */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
 }
@@ -177,7 +172,6 @@ parent,
 @media (prefers-color-scheme: dark) {
     :root,
     [data-contrast-mode="average"] {
-        /* FOUR */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: average;
     }
@@ -186,7 +180,6 @@ parent,
 [data-brightness-mode="dark"][data-contrast-mode="average"],
 [data-contrast-mode="average"] [data-brightness-mode="dark"],
 [data-brightness-mode="dark"] [data-contrast-mode="average"] {
-    /* FIVE */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
 }
@@ -195,21 +188,18 @@ parent,
 /* #region dark mode + low contrast */
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
     :root {
-        /* TWO */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-contrast: less) {
     [data-brightness-mode="dark"] {
-        /* THREE */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-color-scheme: dark) {
     [data-contrast-mode="low"] {
-        /* FOUR */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
@@ -217,7 +207,6 @@ parent,
 [data-brightness-mode="dark"][data-contrast-mode="low"],
 [data-contrast-mode="low"] [data-brightness-mode="dark"],
 [data-brightness-mode="dark"] [data-contrast-mode="low"] {
-    /* FIVE */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
 }
@@ -226,21 +215,18 @@ parent,
 /* #region dark mode + high contrast */
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
     :root {
-        /* TWO */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-contrast: more) {
     [data-brightness-mode="dark"] {
-        /* THREE */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-color-scheme: dark) {
     [data-contrast-mode="high"] {
-        /* FOUR */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
@@ -248,7 +234,6 @@ parent,
 [data-brightness-mode="dark"][data-contrast-mode="high"],
 [data-contrast-mode="high"] [data-brightness-mode="dark"],
 [data-brightness-mode="dark"] [data-contrast-mode="high"] {
-    /* FIVE */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
 }
@@ -259,7 +244,6 @@ parent,
     :root,
     [data-brightness-mode="light"],
     [data-brightness-mode="dark"] {
-        /* TWO */
         --colour-mode-each-brightness: light, dark;
         --colour-mode-each-contrast: forced-colors;
     }
@@ -271,7 +255,6 @@ parent,
 [data-contrast-mode="forced-colors"] [data-brightness-mode="dark"],
 [data-brightness-mode="light"] [data-contrast-mode="forced-colors"],
 [data-brightness-mode="dark"] [data-contrast-mode="forced-colors"] {
-    /* FIVE */
     --colour-mode-each-brightness: light, dark;
     --colour-mode-each-contrast: forced-colors;
 }

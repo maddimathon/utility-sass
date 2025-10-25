@@ -273,7 +273,6 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                 @if $brightnessIsDefault and $contrastIsDefault {
                     // we need to include the defaults anyway
                     #{$_selectors_parentOrRoot} {
-                        /* ONE */
                         @content;
                     }
                 }
@@ -386,7 +385,6 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                 // /* merged queries */
                 @media #{$_queries} {
                     #{$_selectors_parentOrRoot} {
-                        /* TWO */
                         @content;
                     }
                 }
@@ -514,7 +512,6 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                     // /* #{$contrast} contrast queries + #{$brightness} mode selectors */
                     @media #{$queries_contrast} {
                         #{$_sel} {
-                            /* THREE */
                             @content;
                         }
                     }
@@ -537,7 +534,6 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                     // /* #{$brightness} mode queries + #{$contrast} contrast selectors */
                     @media #{$queries_brightness} {
                         #{$_sel} {
-                            /* FOUR */
                             @content;
                         }
                     }
@@ -551,7 +547,6 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                     config.$mx_colour_mode_each_include_selectors_forced_colors
             ) {
                 #{$selectors_merged} {
-                    /* FIVE */
                     @content;
                 }
             }
