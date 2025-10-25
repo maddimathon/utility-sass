@@ -14,6 +14,8 @@
 @use '../../../config';
 // @use '../../../tokens';
 
+@use '../config' as tplConfig;
+
 @use '../../../lib' as *;
 
 @if config.$print_headings {
@@ -76,31 +78,33 @@
     cursor: text;
 }
 
-@if config.$print_headings {
-    /* ## Forms - Buttons ==================================== */
-}
-
-%button,
-%button-secondary {
-    @include snippet-button;
-}
-
-%button-secondary,
-#{selector.unify('%button', '.button-secondary')} {
-}
-
-%file-selector-button {
-    @include snippet-button;
-
-    & {
-        display: initial;
-        margin: 0;
-        margin-inline-end: #{var-mrg-firm('300')};
-
-        font-size: #{var-fs(normal)};
-    }
-}
-
 %label {
     @include snippet-label;
+}
+
+@if tplConfig.$template_include_buttons {
+    @if config.$print_headings {
+        /* ## Forms - Buttons ==================================== */
+    }
+
+    %button,
+    %button-secondary {
+        @include snippet-button;
+    }
+
+    %button-secondary,
+    #{selector.unify('%button', '.button-secondary')} {
+    }
+
+    %file-selector-button {
+        @include snippet-button;
+
+        & {
+            display: initial;
+            margin: 0;
+            margin-inline-end: #{var-mrg-firm('300')};
+
+            font-size: #{var-fs(normal)};
+        }
+    }
 }
