@@ -26,15 +26,21 @@ const config = {
     title: 'Utility Sass',
     launchYear: '2025',
 
-    // compiler: {
-    //     postCSS: {
-    //         presetEnv: {
-    //             features: {
-    //                 "custom-properties": false,
-    //             },
-    //         },
-    //     },
-    // },
+    compiler: {
+
+        postCSS: {
+            presetEnv: {
+                features: {
+                    "custom-properties": false,
+                },
+            },
+        },
+
+        sass: {
+            benchmarkCompileTime: true,
+            // compileViaCLI: true,
+        },
+    },
 
     stages: {
 

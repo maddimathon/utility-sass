@@ -8,7 +8,7 @@
 // @use '../../modules/map';
 // @use '../../modules/math';
 @use '../../modules/meta';
-// @use '../../modules/selector';
+@use '../../modules/selector';
 @use '../../modules/string';
 
 @use '../../lib/02-mixins' as lib;
@@ -223,8 +223,22 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
     @include _extend-selectors(
         (
             // ( globals, pseudo? ),
-            ('a.button', button),
-            ('a.button-secondary', button-secondary)
+            (('a.button', 'a.button-secondary'), button),
+            (
+                (
+                    selector.unify(
+                        (
+                            a,
+                            button,
+                            "[role='button']",
+                            "input[type='button']",
+                            "input[type='submit']"
+                        ),
+                        '.button-secondary'
+                    )
+                ),
+                button-secondary
+            )
         ),
         $optional: $optional
     );
