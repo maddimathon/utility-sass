@@ -1,0 +1,52 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
+/// @since 0.1.0-pre.5.draft
+///
+
+@use 'sass:selector';
+
+@use '../../config';
+
+///
+/// Checks if the given selector is a known root element selector.
+///
+/// @return {bool}
+///
+/// @since 0.1.0-pre.5.draft — Moved to selector module.
+///
+@function is-root($sel) {
+    // returns
+    @if $sel == html or $sel == ':root' or $sel == #{config.$selector_root} {
+        @return true;
+    }
+
+    // returns
+    @if selector.is-superselector(html, $sel) or
+        selector.is-superselector(':root', $sel)
+    {
+        @return true;
+    }
+
+    // returns
+    @if selector.is-superselector(#{config.$selector_root}, $sel) {
+        @return true;
+    }
+
+    @return false;
+}
+
+///
+/// Checks if the parent selector (if any) is a known root selector.
+///
+/// @return {bool}
+///
+/// @since 0.1.0-pre.5.draft — Moved to selector module.
+///
+@function parent-is-root() {
+    // returns
+    @if not parent-exists() {
+        @return false;
+    }
+
+    @return is-root(#{&});
+}

@@ -1,0 +1,50 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:selector';
+
+@use '../../config';
+
+///
+/// Checks if the given selector is a known body element selector.
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___ — Moved to selector module.
+///
+@function is-body($sel) {
+    // returns
+    @if $sel == body or $sel == #{config.$selector_body} {
+        @return true;
+    }
+
+    // returns
+    @if selector.is-superselector(body, $sel) {
+        @return true;
+    }
+
+    // returns
+    @if selector.is-superselector(#{config.$selector_body}, $sel) {
+        @return true;
+    }
+
+    @return false;
+}
+
+///
+/// Checks if the parent selector (if any) is a known body selector.
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___ — Moved to selector module.
+///
+@function parent-is-body() {
+    // returns
+    @if not parent-exists() {
+        @return false;
+    }
+
+    @return is-body(#{&});
+}

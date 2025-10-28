@@ -69,7 +69,7 @@ $selector_null: (string.unquote('%null')) !default;
     @return $value;
 }
 
-$_selectorTypes: ('attribute', 'class', 'null-selector');
+$_selectorTypes: ('attribute', 'class', 'null');
 
 ///
 /// Validates the value of a config variable that should be a selector type (
@@ -78,7 +78,7 @@ $_selectorTypes: ('attribute', 'class', 'null-selector');
 /// @param {string}  $name     The variable's name.
 /// @param {?string} $default  Default value to return if $value is invalid.
 ///
-@function config-valid-selector-type($value, $name, $default: 'null-selector') {
+@function config-valid-selector-type($value, $name, $default: 'null') {
     // returns - value is to be default
     @if $value == null {
         @return $default;

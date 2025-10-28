@@ -1,0 +1,88 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
+/// @since 0.1.0-pre.5.draft
+///
+
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:string';
+
+@use '../selector';
+
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre.5.draft — Moved from library to own module.
+///
+@function _get-selector-nesting(
+    $selector,
+    $parentIsBody: null,
+    $parentIsRoot: null,
+    $replaceRootSelector: null,
+    $args...
+) {
+    $args: meta.keywords($args);
+
+    @if $replaceRootSelector != null and $replaceRootSelector {
+        $selector: selector.unify(#{$replaceRootSelector}, $selector);
+    }
+
+    // returns
+    @if not selector.parent-exists() {
+        @return $selector;
+    }
+
+    $unifyWithRoot: if(
+        selector.parent-is-root() or $parentIsRoot == true and not
+            $replaceRootSelector,
+        true,
+        false
+    );
+
+    // returns
+    @if $unifyWithRoot {
+        @return selector.unify(
+            #{if($replaceRootSelector != null, $replaceRootSelector, &)},
+            $selector
+        );
+    }
+
+    @return selector.nest($selector, &);
+}
+
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre.5.draft — Moved from library to own module.
+///
+@function get-selector($key, $bool, $addSelectors: (), $args...) {
+    $args: meta.keywords($args);
+
+    $sels: if(
+        $key == null or $key == whereSelector,
+        if(
+            $bool,
+            (string.unquote(':where( .js )')),
+            (string.unquote('.no-js'), string.unquote('.js__no-whereSelector'))
+        ),
+        (string.unquote(':where( .js__#{if( $bool, '', 'no-' )}#{$key} )'))
+    );
+
+    $sels: _get-selector-nesting($sels, $args...);
+
+    $addSelsType: meta.type-of($addSelectors);
+
+    $hasAddSels: if(
+        (
+            ($addSelsType == list and list.length($addSelectors) > 0) or
+                ($addSelsType == string and string.length($addSelectors) > 0)
+        ),
+        true,
+        false
+    );
+
+    // returns
+    @if $hasAddSels {
+        @return list.join(($addSelectors), ($sels), $separator: comma);
+    }
+
+    @return $sels;
+}

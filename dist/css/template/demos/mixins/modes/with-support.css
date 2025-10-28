@@ -15,54 +15,149 @@
 /* ## HAS Support ==================================== */
 /* colour-mode-js-support */
 /* ### Average, High - whereSelector ------------------ */
+:where(.js) test-yes__average_high,
+[data-contrast-mode="average"]:where(.js) test-yes__average_high,
+[data-contrast-mode="high"]:where(.js) test-yes__average_high {
+    /* @include colour-mode-js-support((average, high), 'whereSelector'); */
+}
+
+@media (prefers-contrast: more) {
+    :where(.js) test-yes__average_high {
+        /* @include colour-mode-js-support((average, high), 'whereSelector'); */
+    }
+}
+
 /* ### Average ------------------ */
+:where(.js__support-key) test-yes__average,
+[data-contrast-mode="average"]:where(.js__support-key) test-yes__average {
+    /* @include colour-mode-js-support(average, 'support-key'); */
+}
+
 /* ### Maximum ------------------ */
 /* ### Low ------------------ */
+[data-contrast-mode="low"]:where(.js__support-key) test-yes__low {
+    /* @include colour-mode-js-support(low, 'support-key'); */
+}
+
+@media (prefers-contrast: less) {
+    :where(.js__support-key) test-yes__low {
+        /* @include colour-mode-js-support(low, 'support-key'); */
+    }
+}
+
 /* ### Forced Colors ------------------ */
+[data-contrast-mode="forced-colors"]:where(.js__support-key)
+    test-yes__forced-colors {
+    /* @include colour-mode-js-support(forced-colors, 'support-key'); */
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :where(.js__support-key) test-yes__forced-colors {
+        /* @include colour-mode-js-support(forced-colors, 'support-key'); */
+    }
+}
+
 /* ### Dark ------------------ */
+[data-brightness-mode="dark"]:where(.js__support-key) test-yes__dark {
+    /* @include colour-mode-js-support(dark, 'support-key'); */
+}
+
+@media (prefers-color-scheme: dark) {
+    :where(.js__support-key) test-yes__dark {
+        /* @include colour-mode-js-support(dark, 'support-key'); */
+    }
+}
+
 /* ## NO Support ==================================== */
 /* colour-mode-js-no-support */
 /* ### Average, High - whereSelector ------------------ */
-test-no__high {
+.no-js test-no__high,
+.js__no-whereSelector test-no__high,
+[data-contrast-mode="average"].no-js test-no__high,
+[data-contrast-mode="average"].js__no-whereSelector test-no__high,
+[data-contrast-mode="high"].no-js test-no__high,
+[data-contrast-mode="high"].js__no-whereSelector test-no__high {
     /* @include colour-mode-js-no-support((average, high), 'whereSelector'); */
 }
+
 @media (prefers-contrast: more) {
-    test-no__high {
+    .no-js test-no__high,
+    .js__no-whereSelector test-no__high {
         /* @include colour-mode-js-no-support((average, high), 'whereSelector'); */
     }
 }
 
 /* ### Average ------------------ */
-test-no__average {
+.no-js test-no__average,
+.js__no-whereSelector test-no__average,
+[data-contrast-mode="average"].no-js test-no__average,
+[data-contrast-mode="average"].js__no-whereSelector test-no__average {
+    /* @include colour-mode-js-no-support(average, 'support-key'); */
+}
+
+:where(.js__no-support-key) test-no__average,
+[data-contrast-mode="average"]:where(.js__no-support-key) test-no__average {
     /* @include colour-mode-js-no-support(average, 'support-key'); */
 }
 
 /* ### Low ------------------ */
-test-no__low {
+[data-contrast-mode="low"].no-js test-no__low,
+[data-contrast-mode="low"].js__no-whereSelector test-no__low {
     /* @include colour-mode-js-no-support(low, 'support-key'); */
 }
+
+[data-contrast-mode="low"]:where(.js__no-support-key) test-no__low {
+    /* @include colour-mode-js-no-support(low, 'support-key'); */
+}
+
 @media (prefers-contrast: less) {
-    test-no__low {
+    .no-js test-no__low,
+    .js__no-whereSelector test-no__low {
+        /* @include colour-mode-js-no-support(low, 'support-key'); */
+    }
+    :where(.js__no-support-key) test-no__low {
         /* @include colour-mode-js-no-support(low, 'support-key'); */
     }
 }
 
 /* ### Forced Colors ------------------ */
-test-no__forced-colors {
+[data-contrast-mode="forced-colors"].no-js test-no__forced-colors,
+[data-contrast-mode="forced-colors"].js__no-whereSelector
+    test-no__forced-colors {
     /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
 }
-@media (forced-colors: active), (prefers-contrast: custom) {
+
+[data-contrast-mode="forced-colors"]:where(.js__no-support-key)
     test-no__forced-colors {
+    /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    .no-js test-no__forced-colors,
+    .js__no-whereSelector test-no__forced-colors {
+        /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+    }
+    :where(.js__no-support-key) test-no__forced-colors {
         /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
     }
 }
 
 /* ### Dark ------------------ */
-test-no__dark {
+[data-brightness-mode="dark"].no-js test-no__dark,
+[data-brightness-mode="dark"].js__no-whereSelector test-no__dark {
     /* @include colour-mode-js-no-support(dark, 'support-key'); */
 }
+
+[data-brightness-mode="dark"]:where(.js__no-support-key) test-no__dark {
+    /* @include colour-mode-js-no-support(dark, 'support-key'); */
+}
+
 @media (prefers-color-scheme: dark) {
-    test-no__dark {
+    .no-js test-no__dark,
+    .js__no-whereSelector test-no__dark {
+        /* @include colour-mode-js-no-support(dark, 'support-key'); */
+    }
+    :where(.js__no-support-key) test-no__dark {
         /* @include colour-mode-js-no-support(dark, 'support-key'); */
     }
 }
@@ -109,45 +204,135 @@ test-hover__average:hover,
 
 /* ## focus-visible and hover ==================================== */
 /* ### Average ------------------ */
-test-focus-and-hover__average:focus,
+.no-js test-focus-and-hover__average:focus,
+.js__no-whereSelector test-focus-and-hover__average:focus,
+[data-contrast-mode="average"].no-js test-focus-and-hover__average:focus,
+[data-contrast-mode="average"].js__no-whereSelector
+    test-focus-and-hover__average:focus {
+    /* @include colour-mode-interactive-mixin(average, $focus: true, $hover: true); */
+}
+
+:where(.js__no-focusVisible) test-focus-and-hover__average:focus,
+[data-contrast-mode="average"]:where(.js__no-focusVisible)
+    test-focus-and-hover__average:focus {
+    /* @include colour-mode-interactive-mixin(average, $focus: true, $hover: true); */
+}
+
+test-focus-and-hover__average:focus-visible,
+[data-contrast-mode="average"] test-focus-and-hover__average:focus-visible {
+    /* @include colour-mode-interactive-mixin(average, $focus: true, $hover: true); */
+}
 test-focus-and-hover__average:hover,
-[data-contrast-mode="average"] test-focus-and-hover__average:focus,
 [data-contrast-mode="average"] test-focus-and-hover__average:hover {
     /* @include colour-mode-interactive-mixin(average, $focus: true, $hover: true); */
 }
 
 /* ### Low ------------------ */
+[data-contrast-mode="low"].no-js test-focus-and-hover__low:focus,
+[data-contrast-mode="low"].js__no-whereSelector
+    test-focus-and-hover__low:focus {
+    /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
+}
+
+[data-contrast-mode="low"]:where(.js__no-focusVisible)
+    test-focus-and-hover__low:focus {
+    /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
+}
+
 @media (prefers-contrast: less) {
-    test-focus-and-hover__low:focus,
+    .no-js test-focus-and-hover__low:focus,
+    .js__no-whereSelector test-focus-and-hover__low:focus {
+        /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
+    }
+    :where(.js__no-focusVisible) test-focus-and-hover__low:focus {
+        /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
+    }
+}
+@media (prefers-contrast: less) {
+    test-focus-and-hover__low:focus-visible {
+        /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
+    }
     test-focus-and-hover__low:hover {
         /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
     }
 }
-[data-contrast-mode="low"] test-focus-and-hover__low:focus,
+[data-contrast-mode="low"] test-focus-and-hover__low:focus-visible {
+    /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
+}
 [data-contrast-mode="low"] test-focus-and-hover__low:hover {
     /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
 }
 
 /* ### Forced-Colors ------------------ */
-@media (forced-colors: active), (prefers-contrast: custom) {
+[data-contrast-mode="forced-colors"].no-js
     test-focus-and-hover__forced-colors:focus,
+[data-contrast-mode="forced-colors"].js__no-whereSelector
+    test-focus-and-hover__forced-colors:focus {
+    /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
+}
+
+[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
+    test-focus-and-hover__forced-colors:focus {
+    /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    .no-js test-focus-and-hover__forced-colors:focus,
+    .js__no-whereSelector test-focus-and-hover__forced-colors:focus {
+        /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
+    }
+    :where(.js__no-focusVisible) test-focus-and-hover__forced-colors:focus {
+        /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
+    }
+}
+@media (forced-colors: active), (prefers-contrast: custom) {
+    test-focus-and-hover__forced-colors:focus-visible {
+        /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
+    }
     test-focus-and-hover__forced-colors:hover {
         /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
     }
 }
-[data-contrast-mode="forced-colors"] test-focus-and-hover__forced-colors:focus,
+[data-contrast-mode="forced-colors"]
+    test-focus-and-hover__forced-colors:focus-visible {
+    /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
+}
 [data-contrast-mode="forced-colors"] test-focus-and-hover__forced-colors:hover {
     /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
 }
 
 /* ### Dark ------------------ */
+[data-brightness-mode="dark"].no-js test-focus-and-hover__dark:focus,
+[data-brightness-mode="dark"].js__no-whereSelector
+    test-focus-and-hover__dark:focus {
+    /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
+}
+
+[data-brightness-mode="dark"]:where(.js__no-focusVisible)
+    test-focus-and-hover__dark:focus {
+    /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
+}
+
 @media (prefers-color-scheme: dark) {
-    test-focus-and-hover__dark:focus,
+    .no-js test-focus-and-hover__dark:focus,
+    .js__no-whereSelector test-focus-and-hover__dark:focus {
+        /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
+    }
+    :where(.js__no-focusVisible) test-focus-and-hover__dark:focus {
+        /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
+    }
+}
+@media (prefers-color-scheme: dark) {
+    test-focus-and-hover__dark:focus-visible {
+        /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
+    }
     test-focus-and-hover__dark:hover {
         /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
     }
 }
-[data-brightness-mode="dark"] test-focus-and-hover__dark:focus,
+[data-brightness-mode="dark"] test-focus-and-hover__dark:focus-visible {
+    /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
+}
 [data-brightness-mode="dark"] test-focus-and-hover__dark:hover {
     /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
 }

@@ -4,6 +4,7 @@
 ///
 
 // @use '../../modules/colour';
+@use '../../modules/feature-check';
 @use '../../modules/list';
 // @use '../../modules/map';
 // @use '../../modules/math';
@@ -148,7 +149,7 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
     // universal focus ring
     @at-root {
         :focus {
-            @include lib.no-js {
+            @include feature-check.no-js {
                 @if $optional {
                     @extend %focus-ring !optional;
                 } @else {
@@ -158,7 +159,7 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
         }
 
         :focus {
-            @at-root #{lib.selector-feature-check( 'focusVisible', false )} {
+            @at-root #{feature-check.get-selector( 'focusVisible', false )} {
                 @if $optional {
                     @extend %focus-ring--where !optional;
                 } @else {

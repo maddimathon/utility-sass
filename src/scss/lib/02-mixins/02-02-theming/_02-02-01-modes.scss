@@ -6,6 +6,7 @@
 @use '../../../config';
 @use '../../../tokens';
 
+@use '../../../modules/feature-check';
 @use '../../../modules/list';
 @use '../../../modules/map';
 @use '../../../modules/meta';
@@ -700,8 +701,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
     $mixin: if(
         $bool,
-        meta.get-mixin('js-support'),
-        meta.get-mixin('js-no-support')
+        meta.get-mixin('js-support', $module: feature-check),
+        meta.get-mixin('js-no-support', $module: feature-check)
     );
 
     $hasDefaultMode: false;
@@ -712,11 +713,11 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
         }
     }
 
-    @if config.$selectorType_mode != 'null-selector' or $hasDefaultMode {
+    @if config.$selectorType_mode != 'null' or $hasDefaultMode {
         $addSelectors: if(
             $hasDefaultMode,
             (
-                selector-feature-check(
+                feature-check.get-selector(
                     $key: $key,
                     $bool: $bool,
                     $args...,
@@ -734,7 +735,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                     whereSelector
             ),
             (
-                selector-feature-check(
+                feature-check.get-selector(
                     $key: null,
                     $bool: $bool,
                     $args...,

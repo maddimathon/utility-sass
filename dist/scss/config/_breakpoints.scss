@@ -34,14 +34,14 @@ $breakpoints: () !default;
 
 $breakpoints: map.deep-merge(
     (
-        'content': $_width_content,
         'mobile': $_breakpoint_mobile,
+        'tablet': $_breakpoint_tablet,
+
+        'content': $_width_content,
         'page': $_width_page,
         'sidebar': calc(
                 (($_width_page - $_width_sidebar) + ($_width_sidebar * 3 / 4))
             ),
-        'tablet': $_breakpoint_tablet,
-
         'indent': if(
                 map.has-key($breakpoints, 'mobile'),
                 map.get($breakpoints, 'mobile'),

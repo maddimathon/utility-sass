@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since 0.1.0-pre.0
 ///
 @use 'sass:color';
@@ -9,8 +9,32 @@
 
 @use '../map';
 
-@use 'to-hsl' as *;
-@use 'mix-oklch' as *;
+@use 'converting' as *;
+@use 'mixing' as *;
+
+///
+/// Get the reverse shade level based on given map (flipped).
+///
+/// @param {string} $light_lvl
+/// @param {map}    $map
+///
+/// @return {string}
+///
+/// @since 0.1.0-pre.0
+///
+@function shade-map-reverse-key($light_lvl, $map, $sort: true) {
+    @if $sort {
+        $map: map.ksort($map);
+    }
+
+    $light_lvl_list: map.keys($map);
+
+    $count_lvls: list.length($light_lvl_list);
+
+    $dark_lvl_index: $count_lvls - list.index($light_lvl_list, $light_lvl) + 1;
+
+    @return list.nth($light_lvl_list, $dark_lvl_index);
+}
 
 ///
 /// Returns a map of colours with the keys '100' to '900'.

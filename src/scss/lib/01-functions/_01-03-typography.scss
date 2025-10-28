@@ -64,44 +64,14 @@
 }
 
 ///
-/// Quotes font names as needed for valid output.
-///
-/// @param {string[]} $fonts  Font names to include.
-///
-/// @returns {list}
-///
-/// @since 0.1.0-pre.0
-///
-@function font-list($fonts) {
-    $list: ();
-
-    @if meta.type-of($fonts) != list {
-        @warn "$fonts should be a list";
-        $fonts: ();
-    }
-
-    @each $font in $fonts {
-        $str: string.unquote(#{$font});
-
-        @if string.index($str, ' ') != null {
-            $str: string.unquote('"#{$str}"');
-        }
-
-        $list: list.append($list, $str, $separator: comma);
-    }
-
-    @return $list;
-}
-
-///
 /// Returns a css-friendly font-family value for a monospace system font stack.
 ///
-/// @see {@link font-list()}  Used to format the font list before return.
+/// @see {@link list.font-list}  Used to format the font list before return.
 ///
 /// @since 0.1.0-pre.0
 ///
-@function font-family-monospace-ui() {
-    @return font-list(
+@function font-family-system-monospace() {
+    @return list.font-list(
         (
             ui-monospace,
             SFMono-Regular,
@@ -121,7 +91,7 @@
 /// @since 0.1.0-pre.0
 ///
 @function font-family-system-ui() {
-    @return font-list(
+    @return list.font-list(
         (
             system-ui,
             -apple-system,

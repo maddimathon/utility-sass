@@ -70,11 +70,14 @@ export class Compile extends CompileStage {
     async templates() {
 
         await this.runCustomScssDirSubStage(
-            'scss/template',
-            this.getDistDir( undefined, 'css/template' ),
+            'template',
+            'dist/css',
             {
+                maxConcurrent: 15,
                 postCSS: true,
+                srcDir: 'src/scss',
             },
+            1,
         );
 
         this.console.verbose( 'tidying up compiled files...', 2 );

@@ -1,0 +1,99 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:meta';
+
+@use '../../config';
+
+@use 'get-selector' as *;
+
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Moved from library to own module.
+///
+@mixin js($args...) {
+    $args: meta.keywords($args);
+
+    @if config.$include_featureCheck {
+        @at-root #{get-selector(
+            $key: null,
+            $bool: true,
+            $args...,
+        )} {
+            @content;
+        }
+    }
+}
+
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Moved from library to own module.
+///
+@mixin no-js($args...) {
+    $args: meta.keywords($args);
+
+    @if config.$include_featureCheck {
+        @at-root #{get-selector(
+            $key: null,
+            $bool: false,
+            $args...,
+        )} {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Moved from library to own module.
+///
+@mixin js-support($key, $args...) {
+    $args: meta.keywords($args);
+
+    @if config.$include_featureCheck {
+        @if $key == whereSelector {
+            @include js($args...) {
+                @content;
+            }
+        } @else {
+            @at-root #{get-selector( $key, true, $args... )} {
+                @content;
+            }
+        }
+    }
+}
+
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Moved from library to own module.
+///
+@mixin js-no-support(
+    $key,
+    $addSelectors: (),
+    $addSelectors_noJS: (),
+    $args...
+) {
+    $args: meta.keywords($args);
+
+    @if config.$include_featureCheck {
+        @include no-js(
+            $addSelectors:
+                if($key == whereSelector, $addSelectors, $addSelectors_noJS),
+            $args...
+        ) {
+            @content;
+        }
+
+        @if $key != whereSelector {
+            @at-root #{get-selector( $key, false, $addSelectors: $addSelectors, $args... )} {
+                @content;
+            }
+        }
+    } @else {
+        @content;
+    }
+}

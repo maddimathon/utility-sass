@@ -5,6 +5,7 @@
 
 @use '../../../config';
 
+@use '../../../modules/feature-check';
 @use '../../../modules/list';
 @use '../../../modules/meta';
 @use '../../../modules/selector';
@@ -14,7 +15,6 @@
 
 // @use '02-01-01-accessibility' as *;
 // @use '02-01-02-breakpoints' as *;
-@use '02-01-03-feature-check' as *;
 
 /// # UTILITY MIXINS - Fallbacks
 /// ======================================================================== ///
@@ -70,7 +70,7 @@
     @at-root {
         @if $includeFallbacks or $fallbacksOnly {
             #{$focus} {
-                @include js-no-support(
+                @include feature-check.js-no-support(
                     'focusVisible',
                     $addSelectors: (),
                     $args...
@@ -134,7 +134,7 @@
     @at-root {
         @if $includeFallbacks and $fallbacksOnly {
             #{$focusWithin} {
-                @include js-no-support('focusVisible', $args...) {
+                @include feature-check.js-no-support('focusVisible', $args...) {
                     @content;
                 }
             }

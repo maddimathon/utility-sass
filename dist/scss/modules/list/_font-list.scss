@@ -1,0 +1,40 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
+/// @since 0.1.0-pre.5.draft
+///
+
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:string';
+
+///
+/// Quotes font names as needed for valid output.
+///
+/// @param {list<string>} $fonts  Font names to include.
+///
+/// @returns {list<string>}
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre.5.draft — Moved from library to list module.
+///
+@function font-list($fonts) {
+    $list: ();
+
+    // returns
+    @if meta.type-of($fonts) != list {
+        @warn "$fonts should be a list";
+        @return $fonts;
+    }
+
+    @each $font in $fonts {
+        $str: string.unquote(#{$font});
+
+        @if string.index($str, ' ') != null {
+            $str: string.unquote('"#{$str}"');
+        }
+
+        $list: list.append($list, $str, $separator: comma);
+    }
+
+    @return $list;
+}

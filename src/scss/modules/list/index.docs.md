@@ -13,6 +13,7 @@ This scss "module" is meant as a replacement for the built-in `sass:list` module
 
 list.except(...); // added
 list.flatten(...); // added
+list.font-list(...); // added
 list.only(...); // added
 list.reverse(...); // added
 list.sort(...); // added
