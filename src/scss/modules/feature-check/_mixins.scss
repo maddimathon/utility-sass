@@ -16,14 +16,12 @@
 @mixin js($args...) {
     $args: meta.keywords($args);
 
-    @if config.$include_featureCheck {
-        @at-root #{get-selector(
-            $key: null,
-            $bool: true,
-            $args...,
-        )} {
-            @content;
-        }
+    @at-root #{get-selector(
+        $key: null,
+        $bool: true,
+        $args...,
+    )} {
+        @content;
     }
 }
 
@@ -34,15 +32,11 @@
 @mixin no-js($args...) {
     $args: meta.keywords($args);
 
-    @if config.$include_featureCheck {
-        @at-root #{get-selector(
-            $key: null,
-            $bool: false,
-            $args...,
-        )} {
-            @content;
-        }
-    } @else {
+    @at-root #{get-selector(
+        $key: null,
+        $bool: false,
+        $args...,
+    )} {
         @content;
     }
 }
@@ -54,15 +48,13 @@
 @mixin js-support($key, $args...) {
     $args: meta.keywords($args);
 
-    @if config.$include_featureCheck {
-        @if $key == whereSelector {
-            @include js($args...) {
-                @content;
-            }
-        } @else {
-            @at-root #{get-selector( $key, true, $args... )} {
-                @content;
-            }
+    @if $key == whereSelector {
+        @include js($args...) {
+            @content;
+        }
+    } @else {
+        @at-root #{get-selector( $key, true, $args... )} {
+            @content;
         }
     }
 }
@@ -79,21 +71,17 @@
 ) {
     $args: meta.keywords($args);
 
-    @if config.$include_featureCheck {
-        @include no-js(
-            $addSelectors:
-                if($key == whereSelector, $addSelectors, $addSelectors_noJS),
-            $args...
-        ) {
+    @include no-js(
+        $addSelectors:
+            if($key == whereSelector, $addSelectors, $addSelectors_noJS),
+        $args...
+    ) {
+        @content;
+    }
+
+    @if $key != whereSelector {
+        @at-root #{get-selector( $key, false, $addSelectors: $addSelectors, $args... )} {
             @content;
         }
-
-        @if $key != whereSelector {
-            @at-root #{get-selector( $key, false, $addSelectors: $addSelectors, $args... )} {
-                @content;
-            }
-        }
-    } @else {
-        @content;
     }
 }

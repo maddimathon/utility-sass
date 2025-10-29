@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-pre.5.draft
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
  * @license MIT
  */
 /**
@@ -79,6 +79,7 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string | never = s
         readonly atProperty: true;
         readonly backgroundFixed: true;
         readonly displayContents: true;
+        readonly focusWithin: true;
         readonly focusVisible: true;
         readonly hasSelector: true;
         readonly subgrid: true;
@@ -189,6 +190,13 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string | never = s
      */
     protected displayContents(): void;
     /**
+     * Checks for `:focus-within` css selector support.
+     *
+     * @experimental
+     * @source
+     */
+    protected focusWithin(): void;
+    /**
      * Checks for `:focus-visible` css selector support.
      *
      * @experimental
@@ -226,7 +234,7 @@ export declare namespace FeatureCheck {
     /**
      * Built-in feature-check methods.
      */
-    type Checker = "aspectRatio" | "atProperty" | "backgroundFixed" | "displayContents" | "focusVisible" | "hasSelector" | "subgrid" | "whereSelector";
+    type Checker = "aspectRatio" | "atProperty" | "backgroundFixed" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid" | "whereSelector";
     /**
      * An options object to allow (or disallow) built-in feature checkers.
      *

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-pre.5.draft
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
  * @license MIT
  */
 /**
@@ -96,6 +96,7 @@ export class FeatureCheck {
             atProperty: true,
             backgroundFixed: true,
             displayContents: true,
+            focusWithin: true,
             focusVisible: true,
             hasSelector: true,
             subgrid: true,
@@ -260,6 +261,15 @@ export class FeatureCheck {
      */
     displayContents() {
         this.setFeature('displayContents', FeatureCheck.supportsCSS('display: contents'));
+    }
+    /**
+     * Checks for `:focus-within` css selector support.
+     *
+     * @experimental
+     * @source
+     */
+    focusWithin() {
+        this.setFeature('focusWithin', FeatureCheck.supportsCSS('selector( a:focus-within )'));
     }
     /**
      * Checks for `:focus-visible` css selector support.

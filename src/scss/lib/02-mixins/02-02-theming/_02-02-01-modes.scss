@@ -3,15 +3,15 @@
 /// @since 0.1.0-pre.0
 ///
 
-@use '../../../config';
-@use '../../../tokens';
-
 @use '../../../modules/feature-check';
 @use '../../../modules/list';
 @use '../../../modules/map';
 @use '../../../modules/meta';
 @use '../../../modules/selector';
 @use '../../../modules/string';
+
+@use '../../../config';
+@use '../../../tokens';
 
 @use '../../01-functions' as *;
 
@@ -523,7 +523,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                     (
                         #{$contrast} !=
                             forced-colors or
-                            config.$mx_colour_mode_each_include_selectors_forced_colors
+                            config.$mx_colourModeEach_includeSelectors_forcedColors
                     )
                 {
                     $_sel: if(
@@ -545,7 +545,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             @if (
                 #{$contrast} !=
                     forced-colors or
-                    config.$mx_colour_mode_each_include_selectors_forced_colors
+                    config.$mx_colourModeEach_includeSelectors_forcedColors
             ) {
                 #{$selectors_merged} {
                     @content;
@@ -806,51 +806,51 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
 /// ## Colour Mode - with Interactivity ==================================== ///
 
-@mixin colour-mode-interactive-mixin(
-    $modes,
-    $active: false,
-    $focus: false,
-    $focusWithin: false,
-    $hover: false,
-    $visited: false,
-    $args...
-) {
-    @if config.$include_featureCheck and $focus {
-        @include colour-mode-js-no-support(
-            $modes: $modes,
-            $key: 'focusVisible',
-            $args...
-        ) {
-            @if $focus {
-                &:focus {
-                    @content;
-                }
-            }
-        }
-    }
+// @mixin colour-mode-interactive-mixin(
+//     $modes,
+//     $active: false,
+//     $focus: false,
+//     $focusWithin: false,
+//     $hover: false,
+//     $visited: false,
+//     $args...
+// ) {
+//     @if config.$include_featureCheck and $focus {
+//         @include colour-mode-js-no-support(
+//             $modes: $modes,
+//             $key: 'focusVisible',
+//             $args...
+//         ) {
+//             @if $focus {
+//                 &:focus {
+//                     @content;
+//                 }
+//             }
+//         }
+//     }
 
-    @include colour-mode($modes: $modes, $args...) {
-        @if $focus and config.$include_featureCheck {
-            &:focus-visible {
-                @content;
-            }
-        }
+//     @include colour-mode($modes: $modes, $args...) {
+//         @if $focus and config.$include_featureCheck {
+//             &:focus-visible {
+//                 @content;
+//             }
+//         }
 
-        @if $focusWithin {
-            &:focus-within {
-                @content;
-            }
-        }
+//         @if $focusWithin {
+//             &:focus-within {
+//                 @content;
+//             }
+//         }
 
-        @if $hover or $active or $visited {
-            #{(
-                if($focus and not config.$include_featureCheck, '&:focus', config.$selector_null),
-                if($hover, '&:hover', config.$selector_null),
-                if($active, '&:active', config.$selector_null),
-                if($visited, '&:visited', config.$selector_null),
-            )} {
-                @content;
-            }
-        }
-    }
-}
+//         @if $hover or $active or $visited {
+//             #{(
+//                 if($focus and not config.$include_featureCheck, '&:focus', config.$selector_null),
+//                 if($hover, '&:hover', config.$selector_null),
+//                 if($active, '&:active', config.$selector_null),
+//                 if($visited, '&:visited', config.$selector_null),
+//             )} {
+//                 @content;
+//             }
+//         }
+//     }
+// }

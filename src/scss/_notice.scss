@@ -6,13 +6,13 @@
 /// @since 0.1.0-pre.0
 ///
 
-// @forward 'config/internal';
+@forward 'config/internal';
 
-// @use 'config/internal' as config;
-// @use 'lib/noticeMx' as *;
+@use 'config/internal' as config;
+@use 'lib/noticeMx' as *;
 
-// @if not config.$internal_supressCredit and not config.$internal_isTemplate {
-//     @at-root {
-//         @include notice;
-//     }
-// }
+@if not config.$internal_supressCredit {
+    @at-root {
+        @include notice;
+    }
+}

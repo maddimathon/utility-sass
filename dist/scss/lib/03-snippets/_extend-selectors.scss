@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -128,11 +128,6 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
 
     /// Headings - where
     @if config.$mx_extendHeadingsByRole {
-        $_maximumHeading: list.nth(
-            $allHeadingLevels,
-            list.length($allHeadingLevels)
-        );
-
         // for all levels
         @each $headingLevel in $allHeadingLevels {
             //

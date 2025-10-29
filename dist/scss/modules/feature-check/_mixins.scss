@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
-/// @since 0.1.0-pre.5.draft
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
 ///
 
 @use 'sass:meta';
@@ -11,65 +11,57 @@
 
 ///
 /// @since 0.1.0-pre.0
-/// @since 0.1.0-pre.5.draft — Moved from library to own module.
+/// @since 0.1.0-alpha.draft — Moved from library to own module.
 ///
 @mixin js($args...) {
     $args: meta.keywords($args);
 
-    @if config.$include_featureCheck {
-        @at-root #{get-selector(
-            $key: null,
-            $bool: true,
-            $args...,
-        )} {
-            @content;
-        }
-    }
-}
-
-///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-pre.5.draft — Moved from library to own module.
-///
-@mixin no-js($args...) {
-    $args: meta.keywords($args);
-
-    @if config.$include_featureCheck {
-        @at-root #{get-selector(
-            $key: null,
-            $bool: false,
-            $args...,
-        )} {
-            @content;
-        }
-    } @else {
+    @at-root #{get-selector(
+        $key: null,
+        $bool: true,
+        $args...,
+    )} {
         @content;
     }
 }
 
 ///
 /// @since 0.1.0-pre.0
-/// @since 0.1.0-pre.5.draft — Moved from library to own module.
+/// @since 0.1.0-alpha.draft — Moved from library to own module.
+///
+@mixin no-js($args...) {
+    $args: meta.keywords($args);
+
+    @at-root #{get-selector(
+        $key: null,
+        $bool: false,
+        $args...,
+    )} {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.draft — Moved from library to own module.
 ///
 @mixin js-support($key, $args...) {
     $args: meta.keywords($args);
 
-    @if config.$include_featureCheck {
-        @if $key == whereSelector {
-            @include js($args...) {
-                @content;
-            }
-        } @else {
-            @at-root #{get-selector( $key, true, $args... )} {
-                @content;
-            }
+    @if $key == whereSelector {
+        @include js($args...) {
+            @content;
+        }
+    } @else {
+        @at-root #{get-selector( $key, true, $args... )} {
+            @content;
         }
     }
 }
 
 ///
 /// @since 0.1.0-pre.0
-/// @since 0.1.0-pre.5.draft — Moved from library to own module.
+/// @since 0.1.0-alpha.draft — Moved from library to own module.
 ///
 @mixin js-no-support(
     $key,
@@ -79,24 +71,20 @@
 ) {
     $args: meta.keywords($args);
 
-    @if config.$include_featureCheck {
-        @include no-js(
-            $addSelectors: if(
-                    $key == whereSelector,
-                    $addSelectors,
-                    $addSelectors_noJS
-                ),
-            $args...
-        ) {
+    @include no-js(
+        $addSelectors: if(
+                $key == whereSelector,
+                $addSelectors,
+                $addSelectors_noJS
+            ),
+        $args...
+    ) {
+        @content;
+    }
+
+    @if $key != whereSelector {
+        @at-root #{get-selector( $key, false, $addSelectors: $addSelectors, $args... )} {
             @content;
         }
-
-        @if $key != whereSelector {
-            @at-root #{get-selector( $key, false, $addSelectors: $addSelectors, $args... )} {
-                @content;
-            }
-        }
-    } @else {
-        @content;
     }
 }

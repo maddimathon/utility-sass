@@ -128,11 +128,6 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
 
     /// Headings - where
     @if config.$mx_extendHeadingsByRole {
-        $_maximumHeading: list.nth(
-            $allHeadingLevels,
-            list.length($allHeadingLevels)
-        );
-
         // for all levels
         @each $headingLevel in $allHeadingLevels {
             //

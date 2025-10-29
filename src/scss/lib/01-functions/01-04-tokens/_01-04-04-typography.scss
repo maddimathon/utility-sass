@@ -24,7 +24,7 @@
 ///
 @function fs-value(
     $slug,
-    $fontScale: config.$fn_fs_value_default_scale,
+    $fontScale: config.$fn_fontSizeValue_defaultFontScale,
     $clampFontSize: null
 ) {
     // returns
@@ -56,7 +56,7 @@
                 1rem *
                     math.round-to-pixel(
                         $size * $fontScale,
-                        $factor: config.$fn_fontRoundToPixelFactor
+                        $factor: config.$fn_fontSizeValue_roundToPixelFactor
                     )
             ),
             clamp-font-size($size * $fontScale, $unit: 1rem)

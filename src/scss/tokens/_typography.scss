@@ -103,8 +103,8 @@ $font_sizes: map.flatten($font_sizes);
         $font_sizes,
         $key,
         math.round-to-pixel(
-            math.pow(spacing.$scale_multiplier, $value),
-            $factor: config.$fn_fontRoundToPixelFactor
+            math.pow(spacing.$scaleMultiplier, $value),
+            $factor: config.$fn_fontSizeValue_roundToPixelFactor
         )
     );
 }
@@ -116,7 +116,7 @@ $font_sizes: map.flatten($font_sizes);
 ///
 /// @since 0.1.0-pre.0
 ///
-$line_height_base: 1.6875 !default;
+$lineHeight_base: 1.6875 !default;
 
 ///
 /// A map (merged with the defaults) of line height multipliers (0 = base lh)
@@ -140,7 +140,7 @@ $line_heights: map.merge(
 
 @each $key, $value in $line_heights {
     $lh: (
-        math.pow(spacing.$scale_multiplier, $value * 0.875) * $line_height_base
+        math.pow(spacing.$scaleMultiplier, $value * 0.875) * $lineHeight_base
     );
 
     $line_heights: map.set($line_heights, $key, math.round-to-pixel($lh, 32));

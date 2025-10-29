@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -20,7 +20,7 @@ $margin_softener: 0.625 !default;
 ///
 /// @since 0.1.0-pre.0
 ///
-$scale_multiplier: 1.15625 !default;
+$scaleMultiplier: 1.15625 !default;
 
 ///
 /// A map (merged with the defaults) of margin levels used as tokens throught
@@ -52,7 +52,7 @@ $margins: map.merge(
     $margins: map.set(
         $margins,
         $key,
-        math.round-to-pixel(math.pow($scale_multiplier, $size) * 1.25)
+        math.round-to-pixel(math.pow($scaleMultiplier, $size) * 1.25)
     );
 }
 

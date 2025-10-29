@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-pre.5.draft
+/// @package @maddimathon/utility-sass@0.1.0-alpha.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -21,24 +21,6 @@
 
 /// ## Focus & Hover ==================================== ///
 
-@function _interactive-additional-selectors-parse(
-    $addSelectors: (),
-    $replaceRootSelector: null,
-    $args...
-) {
-    $args: meta.keywords($args);
-
-    @if list.length(list.flatten($addSelectors)) < 1 {
-        @return config.$selector_null;
-    }
-
-    @return if(
-        $replaceRootSelector != null and $replaceRootSelector,
-        selector.nest((#{$replaceRootSelector}), (#{$addSelectors})),
-        $addSelectors
-    );
-}
-
 ///
 /// To be nested IN the target element to add a fallback for `focus-visible` (and
 /// `focus-visible`, plus any additional selectors).
@@ -59,17 +41,23 @@
         $fallbacksOnly: true;
     }
 
-    $focus: (string.unquote(':focus'));
-    $focusVisible: (string.unquote(':focus-visible'));
+    $sel_focus: (string.unquote(':focus'));
+    $sel_focusVisible: (string.unquote(':focus-visible'));
 
     @if $includeParentSelector and selector.parent-exists() {
-        $focus: selector.unify(&, $focus);
-        $focusVisible: selector.unify(&, $focusVisible);
+        $sel_focus: selector.unify(&, $sel_focus);
+        $sel_focusVisible: selector.unify(&, $sel_focusVisible);
     }
+
+    $sel_additional: if(
+        list.length($addSelectors) > 0,
+        $addSelectors,
+        config.$selector_null
+    );
 
     @at-root {
         @if $includeFallbacks or $fallbacksOnly {
-            #{$focus} {
+            #{$sel_focus} {
                 @include feature-check.js-no-support(
                     'focusVisible',
                     $addSelectors: (),
@@ -80,14 +68,12 @@
             }
         }
 
-        @if list.length(list.flatten($addSelectors)) > 0 {
-            #{_interactive-additional-selectors-parse($addSelectors, $args...)} {
-                @content;
-            }
+        #{$sel_additional} {
+            @content;
         }
 
         @if not $fallbacksOnly {
-            #{_interactive-additional-selectors-parse($focusVisible, $args...)} {
+            #{$sel_focusVisible} {
                 @content;
             }
         }
@@ -125,15 +111,15 @@
         @content;
     }
 
-    $focusWithin: (string.unquote(':focus-within'));
+    $sel_focusWithin: (string.unquote(':focus-within'));
 
     @if $includeParentSelector and selector.parent-exists() {
-        $focusWithin: selector.unify(&, $focusWithin);
+        $sel_focusWithin: selector.unify(&, $sel_focusWithin);
     }
 
     @at-root {
         @if $includeFallbacks and $fallbacksOnly {
-            #{$focusWithin} {
+            #{$sel_focusWithin} {
                 @include feature-check.js-no-support('focusVisible', $args...) {
                     @content;
                 }
@@ -141,7 +127,7 @@
         }
 
         @if not $fallbacksOnly {
-            #{_interactive-additional-selectors-parse($focusWithin, $args...)} {
+            #{$sel_focusWithin} {
                 @content;
             }
         }
@@ -167,14 +153,14 @@
         $fallbacksOnly: true;
     }
 
-    $hover: (string.unquote(':hover'));
+    $sel_hover: (string.unquote(':hover'));
 
     @if $includeParentSelector and selector.parent-exists() {
-        $hover: selector.unify(&, $hover);
+        $sel_hover: selector.unify(&, $sel_hover);
     }
 
     @include focus-visible(
-        list.join($hover, $addSelectors, $separator: comma),
+        list.join($sel_hover, $addSelectors, $separator: comma),
         $includeFallbacks: $includeFallbacks,
         $fallbacksOnly: $fallbacksOnly,
         $args...
@@ -202,14 +188,14 @@
         $fallbacksOnly: true;
     }
 
-    $hover: (string.unquote(':hover'));
+    $sel_hover: (string.unquote(':hover'));
 
     @if $includeParentSelector and selector.parent-exists() {
-        $hover: selector.unify(&, $hover);
+        $sel_hover: selector.unify(&, $sel_hover);
     }
 
     @include focus-visible-or-within(
-        list.join(($hover), $addSelectors, $separator: comma),
+        list.join(($sel_hover), $addSelectors, $separator: comma),
         $includeFallbacks: $includeFallbacks,
         $fallbacksOnly: $fallbacksOnly,
         $args...
@@ -227,7 +213,7 @@
         (string.unquote(':hover'))
     );
 
-    @at-root #{_interactive-additional-selectors-parse($selector, $args...)} {
+    @at-root #{$selector} {
         @content;
     }
 }
@@ -240,7 +226,7 @@
         (string.unquote(':hover'), string.unquote(':focus-within'))
     );
 
-    @at-root #{_interactive-additional-selectors-parse($selector, $args...)} {
+    @at-root #{$selector} {
         @content;
     }
 }
@@ -253,7 +239,7 @@
         (string.unquote(':focus-within'))
     );
 
-    @at-root #{_interactive-additional-selectors-parse($selector, $args...)} {
+    @at-root #{$selector} {
         @content;
     }
 }

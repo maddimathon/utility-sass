@@ -127,6 +127,7 @@ export class FeatureCheck<
             atProperty: true,
             backgroundFixed: true,
             displayContents: true,
+            focusWithin: true,
             focusVisible: true,
             hasSelector: true,
             subgrid: true,
@@ -352,6 +353,20 @@ export class FeatureCheck<
     }
 
     /**
+     * Checks for `:focus-within` css selector support.
+     * 
+     * @experimental
+     * @source
+     */
+    protected focusWithin() {
+
+        this.setFeature(
+            'focusWithin',
+            FeatureCheck.supportsCSS( 'selector( a:focus-within )' ),
+        );
+    }
+
+    /**
      * Checks for `:focus-visible` css selector support.
      * 
      * @experimental
@@ -423,6 +438,7 @@ export namespace FeatureCheck {
         | "atProperty"
         | "backgroundFixed"
         | "displayContents"
+        | "focusWithin"
         | "focusVisible"
         | "hasSelector"
         | "subgrid"
