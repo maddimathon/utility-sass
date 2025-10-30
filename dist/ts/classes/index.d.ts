@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha
+ * @maddimathon/utility-sass@0.1.0-alpha.1
  * @license MIT
  */
 export * from './FeatureCheck.js';
