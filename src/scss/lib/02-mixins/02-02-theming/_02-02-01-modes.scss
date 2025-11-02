@@ -251,10 +251,18 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
         meta.type-of($contrast) == list and $contrastIsDefault
     );
 
+    $includeRegionsOrComments: true;
+
+    @if not $includeQuery and not $includeSelectors {
+        $includeRegionsOrComments: false;
+    } @else if not $includeSelectors and $contrast == max {
+        $includeRegionsOrComments: false;
+    }
+
     @at-root {
         @if $includeRegions {
             /* #region #{$includeRegions_heading}#{$brightness} mode + #{$contrast} contrast */
-        } @else {
+        } @else if $includeRegionsOrComments {
             /* #{$includeRegions_heading}#{$brightness} mode + #{$contrast} contrast */
         }
 
@@ -407,8 +415,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                         $selectors_brightness,
                         $selectors_contrast,
                         //
-                        $nestAinB:
-                            true,
+                        $nestAinB: true,
                         $nestBinA: true,
                         $unify: false
                     ),
@@ -623,8 +630,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                     $contrast_args: $contrast_args,
                     $contrastIsDefault: is-colour-mode-default($contrast),
                     $includeDefault: $includeDefault,
-                    $includeQuery:
-                        if(
+                    $includeQuery: if(
                             (
                                 map.get($brightness_args, 'includeQuery') and
                                     map.get($contrast_args, 'includeQuery')
@@ -634,8 +640,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                         ),
                     $includeRegions_heading: $includeRegions_heading,
                     $includeRegions: $includeRegions,
-                    $includeSelectors:
-                        if(
+                    $includeSelectors: if(
                             (
                                 map.get($brightness_args, 'includeSelectors')
                                     and
@@ -747,8 +752,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
         @include meta.apply(
             $mixin: $mixin,
             $key: $key,
-            $replaceRootSelector:
-                selectors-colour-mode(
+            $replaceRootSelector: selectors-colour-mode(
                     $modes: $modes,
                     $ignoreParentSelector: true,
                     $includeDefault: false,

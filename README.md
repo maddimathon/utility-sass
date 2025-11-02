@@ -6,7 +6,7 @@ children:
 ---
 
 <!--README_HEADER-->
-# Utility Sass @ 0.1.0-alpha.1
+# Utility Sass @ 0.1.0-alpha.2
 <!--/README_HEADER-->
 
 <!--README_DESC-->
@@ -28,8 +28,8 @@ or
 
 <!--README_INSTALL-->
 ```bash
-npm i -D @maddimathon/utility-sass@0.1.0-alpha.1
-npm i -D github:maddimathon/utility-sass#0.1.0-alpha.1
+npm i -D @maddimathon/utility-sass@0.1.0-alpha.2
+npm i -D github:maddimathon/utility-sass#0.1.0-alpha.2
 ```
 <!--/README_INSTALL-->
 
