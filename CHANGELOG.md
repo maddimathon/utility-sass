@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.3** — 2025-11-02
+
+Added config var: $mx_colourModeEach_nestModeSelectors
+
+
 ## **0.1.0-alpha.2** — 2025-11-02
 
 Super minor change to region comments in colour-mode-each.

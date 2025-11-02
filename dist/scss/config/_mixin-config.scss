@@ -1,12 +1,14 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.2
+/// @package @maddimathon/utility-sass@0.1.0-alpha.3
 /// @since 0.1.0-pre.0
 ///
 
+@forward 'selectors';
 @forward 'template';
 
 @use 'functions' as *;
 
+@use 'selectors';
 @use 'template';
 
 /// # CONFIG - MIXINS
@@ -30,3 +32,7 @@ $mx_interactive_states_include_fallbacks_only: false !default;
 
 $mx_colourMode_includeQuery_default: true !default;
 $mx_colourMode_includeSelectors_default: true !default;
+
+$mx_colourModeEach_includeSelectors_forcedColors: false !default;
+
+$mx_colourModeEach_nestModeSelectors: false !default;
