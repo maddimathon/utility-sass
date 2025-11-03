@@ -5,6 +5,109 @@
 /*! START of @maddimathon/utility-sass/template */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
+/* #region Tokens - System Colours */
+:where(:root) {
+    --sys-clr-background: Canvas;
+    --sys-clr-text: CanvasText;
+    --sys-clr-accent-bg: CanvasText;
+    --sys-clr-accent-bg: AccentColor;
+    --sys-clr-accent-text: Canvas;
+    --sys-clr-accent-text: AccentColorText;
+    --sys-clr-mark-bg: CanvasText;
+    --sys-clr-mark-bg: AccentColor;
+    --sys-clr-mark-bg: Mark;
+    --sys-clr-mark-text: Canvas;
+    --sys-clr-mark-text: AccentColorText;
+    --sys-clr-mark-text: MarkText;
+    --sys-clr-selected-bg: SelectedItem;
+    --sys-clr-selected-text: SelectedItemText;
+    --sys-clr-selection-bg: Highlight;
+    --sys-clr-selection-text: HighlightText;
+    --sys-clr-text-active: ActiveText;
+    --sys-clr-text-disabled: GrayText;
+    --sys-clr-button-bg: ButtonFace;
+    --sys-clr-button-bg-active: ButtonFace;
+    --sys-clr-button-bg-hover: SelectedItem;
+    --sys-clr-button-border: ButtonFace;
+    --sys-clr-button-border: ButtonBorder;
+    --sys-clr-button-border-active: ButtonFace;
+    --sys-clr-button-border-active: ButtonBorder;
+    --sys-clr-button-border-hover: SelectedItem;
+    --sys-clr-button-text: ButtonText;
+    --sys-clr-button-text-active: ButtonText;
+    --sys-clr-button-text-hover: SelectedItemText;
+    --sys-clr-input-bg: Field;
+    --sys-clr-input-bg-hover: Field;
+    --sys-clr-input-bg-active: Field;
+    --sys-clr-input-border: FieldText;
+    --sys-clr-input-border-hover: FieldText;
+    --sys-clr-input-border-active: FieldText;
+    --sys-clr-input-text: FieldText;
+    --sys-clr-input-text-hover: FieldText;
+    --sys-clr-input-text-active: FieldText;
+    --sys-clr-link: LinkText;
+    --sys-clr-link-active: ActiveText;
+    --sys-clr-link-hover: ActiveText;
+    --sys-clr-link-visited: VisitedText;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root {
+        --sys-clr-background: Canvas !important;
+        --sys-clr-text: CanvasText !important;
+        --sys-clr-accent-bg: CanvasText !important;
+        --sys-clr-accent-bg: AccentColor !important;
+        --sys-clr-accent-text: Canvas !important;
+        --sys-clr-accent-text: AccentColorText !important;
+        --sys-clr-mark-bg: CanvasText !important;
+        --sys-clr-mark-bg: AccentColor !important;
+        --sys-clr-mark-bg: Mark !important;
+        --sys-clr-mark-text: Canvas !important;
+        --sys-clr-mark-text: AccentColorText !important;
+        --sys-clr-mark-text: MarkText !important;
+        --sys-clr-selected-bg: SelectedItem !important;
+        --sys-clr-selected-text: SelectedItemText !important;
+        --sys-clr-selection-bg: Highlight !important;
+        --sys-clr-selection-text: HighlightText !important;
+        --sys-clr-text-active: ActiveText !important;
+        --sys-clr-text-disabled: GrayText !important;
+        --sys-clr-button-bg: ButtonFace !important;
+        --sys-clr-button-bg-active: ButtonFace !important;
+        --sys-clr-button-bg-hover: ButtonFace !important;
+        --sys-clr-button-border: ButtonFace !important;
+        --sys-clr-button-border: ButtonBorder !important;
+        --sys-clr-button-border-active: ButtonFace !important;
+        --sys-clr-button-border-active: ButtonBorder !important;
+        --sys-clr-button-border-hover: ButtonFace !important;
+        --sys-clr-button-border-hover: ButtonBorder !important;
+        --sys-clr-button-text: ButtonText !important;
+        --sys-clr-button-text-active: ButtonText !important;
+        --sys-clr-button-text-hover: ButtonText !important;
+        --sys-clr-input-bg: Field !important;
+        --sys-clr-input-bg-hover: Field !important;
+        --sys-clr-input-bg-active: Field !important;
+        --sys-clr-input-border: FieldText !important;
+        --sys-clr-input-border-hover: FieldText !important;
+        --sys-clr-input-border-active: FieldText !important;
+        --sys-clr-input-text: FieldText !important;
+        --sys-clr-input-text-hover: FieldText !important;
+        --sys-clr-input-text-active: FieldText !important;
+        --sys-clr-link: LinkText !important;
+        --sys-clr-link-active: ActiveText !important;
+        --sys-clr-link-hover: ActiveText !important;
+        --sys-clr-link-visited: VisitedText !important;
+    }
+}
+/* #endregion Tokens - System Colours */
+/* #region Tokens - Width */
+:root {
+    --width-content: 36rem;
+    --width-sidebar: 16rem;
+    --width-callout: 29.25rem;
+    --width-page: 58rem;
+}
+
+/* #endregion Tokens - Width */
 /* #region Tokens - Margin */
 :root {
     --mrg-firm-100: 0.3125rem;
@@ -189,14 +292,46 @@
 
 /* # GLOBALS - Objects
  * ======================================================================== */
+:root,
+body {
+    scroll-padding-top: var(--gap-block-layout, 5vw);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: var(--gap-block-layout, 5vw) var(--gap-inline-layout, 8vw);
+    margin-top: var(--gap-block-layout, 5vw);
+    margin-bottom: var(--gap-block-layout, 5vw);
+    margin-left: var(--gap-inline-layout, 8vw);
+    margin-right: var(--gap-inline-layout, 8vw);
+}
+:where(body > *) {
+    width: min(var(--width-page, 58rem), 100%);
+}
+
 hr {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: auto;
+    margin-left: var(--gap-inline-indent, 4vw);
+    margin-right: var(--gap-inline-indent, 4vw);
+}
+@media (min-width: 25em) {
+    hr {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: min(var(--width-callout, 29.25rem), 80%);
+    }
 }
 hr {
     width: 100%;
+    margin-top: calc(
+        var(--mrg-soft-400, 0.8125rem) + var(--mrg-firm-600, 2.25rem)
+    );
     margin-top: var(--mrg-firm-600, 2.25rem);
     margin-bottom: var(--mrg-firm-600, 2.25rem);
     border: none;
@@ -212,6 +347,17 @@ hr {
 ::selection {
     background-color: var(--sys-clr-selection-bg, Highlight);
     color: var(--sys-clr-selection-text, HighlightText);
+}
+
+:root {
+    font-weight: 400;
+    line-height: var(--line-height-400, 1.6875);
+    background: var(--sys-clr-background, Canvas);
+    color: var(--sys-clr-text, CanvasText);
+}
+
+body {
+    font-size: var(--fs-normal, 1rem);
 }
 
 /* ## Typography - Inline ==================================== */
@@ -278,6 +424,11 @@ a:hover {
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
+a:focus-visible {
+    text-decoration-color: transparent;
+    color: var(--sys-clr-link-hover, ActiveText);
+}
+
 a:active {
     color: var(--sys-clr-link-active, ActiveText);
 }
@@ -314,6 +465,8 @@ blockquote {
     margin-left: auto;
     margin-right: auto;
     width: auto;
+    margin-left: var(--gap-inline-indent, 4vw);
+    margin-right: var(--gap-inline-indent, 4vw);
 }
 blockquote {
     margin-top: var(--mrg-soft-400, 0.8125rem);
@@ -371,6 +524,8 @@ pre {
     margin-left: auto;
     margin-right: auto;
     width: auto;
+    margin-left: var(--gap-inline-indent, 4vw);
+    margin-right: var(--gap-inline-indent, 4vw);
 }
 pre {
     position: relative;
@@ -932,6 +1087,7 @@ ul {
     margin-left: 20%;
     padding: 0;
     padding-left: 1em;
+    margin-left: var(--gap-inline-tab, 1.5vw);
     line-height: var(--line-height-400, 1.6875);
 }
 ol ol,
@@ -1042,12 +1198,11 @@ fieldset {
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
-.no-js fieldset:focus-within,
-.js__no-whereSelector fieldset:focus-within {
+fieldset:focus-visible {
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
-:where(.js__no-focusVisible) fieldset:focus-within {
+fieldset:focus-within {
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
@@ -1136,12 +1291,9 @@ input:hover {
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
-.no-js textarea:focus-within,
-.no-js select:focus-within,
-.no-js input:focus-within,
-.js__no-whereSelector textarea:focus-within,
-.js__no-whereSelector select:focus-within,
-.js__no-whereSelector input:focus-within {
+textarea:focus-visible,
+select:focus-visible,
+input:focus-visible {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -1149,9 +1301,9 @@ input:hover {
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
-:where(.js__no-focusVisible) textarea:focus-within,
-:where(.js__no-focusVisible) select:focus-within,
-:where(.js__no-focusVisible) input:focus-within {
+textarea:focus-within,
+select:focus-within,
+input:focus-within {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -1274,15 +1426,13 @@ input[type="radio"]:hover {
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
-.no-js input[type="checkbox"]:focus-within,
-.no-js input[type="radio"]:focus-within,
-.js__no-whereSelector input[type="checkbox"]:focus-within,
-.js__no-whereSelector input[type="radio"]:focus-within {
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
-:where(.js__no-focusVisible) input[type="checkbox"]:focus-within,
-:where(.js__no-focusVisible) input[type="radio"]:focus-within {
+input[type="checkbox"]:focus-within,
+input[type="radio"]:focus-within {
     accent-color: var(--sys-clr-input-text, FieldText);
 }
 
@@ -1444,20 +1594,13 @@ input[type="reset"]:hover {
     accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
-.no-js button:focus-within,
-.no-js [role="button"]:focus-within,
-.no-js input[type="button"]:focus-within,
-.no-js input[type="submit"]:focus-within,
-.no-js a.button:focus-within,
-.no-js a.button-secondary:focus-within,
-.no-js input[type="reset"]:focus-within,
-.js__no-whereSelector button:focus-within,
-.js__no-whereSelector [role="button"]:focus-within,
-.js__no-whereSelector input[type="button"]:focus-within,
-.js__no-whereSelector input[type="submit"]:focus-within,
-.js__no-whereSelector a.button:focus-within,
-.js__no-whereSelector a.button-secondary:focus-within,
-.js__no-whereSelector input[type="reset"]:focus-within {
+button:focus-visible,
+[role="button"]:focus-visible,
+input[type="button"]:focus-visible,
+input[type="submit"]:focus-visible,
+a.button:focus-visible,
+a.button-secondary:focus-visible,
+input[type="reset"]:focus-visible {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
         SelectedItem
@@ -1468,13 +1611,13 @@ input[type="reset"]:hover {
     accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
-:where(.js__no-focusVisible) button:focus-within,
-:where(.js__no-focusVisible) [role="button"]:focus-within,
-:where(.js__no-focusVisible) input[type="button"]:focus-within,
-:where(.js__no-focusVisible) input[type="submit"]:focus-within,
-:where(.js__no-focusVisible) a.button:focus-within,
-:where(.js__no-focusVisible) a.button-secondary:focus-within,
-:where(.js__no-focusVisible) input[type="reset"]:focus-within {
+button:focus-within,
+[role="button"]:focus-within,
+input[type="button"]:focus-within,
+input[type="submit"]:focus-within,
+a.button:focus-within,
+a.button-secondary:focus-within,
+input[type="reset"]:focus-within {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
         SelectedItem
@@ -1585,8 +1728,7 @@ input[aria-disabled="true"][type="reset"] {
     accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
-.no-js :focus-within::file-selector-button,
-.js__no-whereSelector :focus-within::file-selector-button {
+:focus-visible::file-selector-button {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
         SelectedItem
@@ -1597,7 +1739,7 @@ input[aria-disabled="true"][type="reset"] {
     accent-color: var(--sys-clr-button-border-hover, SelectedItem);
 }
 
-:where(.js__no-focusVisible) :focus-within::file-selector-button {
+:focus-within::file-selector-button {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
         SelectedItem
@@ -1653,6 +1795,7 @@ table {
         var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
     );
     background: var(--sys-clr-accent-bg, CanvasText);
+    width: min(var(--width-page, 53rem), 100%);
 }
 
 table {

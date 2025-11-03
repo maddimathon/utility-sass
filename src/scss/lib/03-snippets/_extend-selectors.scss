@@ -106,17 +106,6 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
         input,
         select,
         textarea,
-        (string.unquote('::file-selector-button'), file-selector-button),
-        (
-            (
-                button,
-                "[role='button']",
-                "input[type='button']",
-                "input[type='submit']"
-            ),
-            button
-        ),
-        (("button[type='reset']", "input[type='reset']"), button-secondary),
         ('::selection', selection),
         //
         /// ## Tables ==================================== ///
@@ -125,6 +114,31 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
         th,
         td
     );
+
+    @if config.$include_html {
+        $_global_selectors: list.join(
+            $_global_selectors,
+            (
+                (
+                    string.unquote('::file-selector-button'),
+                    file-selector-button
+                ),
+                (
+                    (
+                        button,
+                        "[role='button']",
+                        "input[type='button']",
+                        "input[type='submit']"
+                    ),
+                    button
+                ),
+                (
+                    ("button[type='reset']", "input[type='reset']"),
+                    button-secondary
+                )
+            )
+        );
+    }
 
     /// Headings - where
     @if config.$mx_extendHeadingsByRole {

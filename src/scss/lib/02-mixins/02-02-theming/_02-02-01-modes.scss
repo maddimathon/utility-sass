@@ -254,12 +254,16 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
     $includeRegionsOrComments: true;
 
     @if not $includeQuery and not $includeSelectors {
+        $includeRegions: false;
         $includeRegionsOrComments: false;
-    } @else if not $includeSelectors and $contrast == max {
+    } @else if
+        (not $includeSelectors or config.$selectorType_mode == 'null') and
+        #{$contrast} ==
+        'max'
+    {
+        $includeRegions: false;
         $includeRegionsOrComments: false;
     }
-
-    $includeRegions: $includeRegions and $includeRegionsOrComments;
 
     @at-root {
         @if $includeRegions {
@@ -281,7 +285,10 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             //
             // or, if there are multiple modes and one is default (e.g., forced-colors)
             @if not $includeSelectors {
-                @if $brightnessIsDefault and $contrastIsDefault {
+                @if $includeDefault and
+                    $brightnessIsDefault and
+                    $contrastIsDefault
+                {
                     // we need to include the defaults anyway
                     #{$_selectors_parentOrRoot} {
                         @content;
