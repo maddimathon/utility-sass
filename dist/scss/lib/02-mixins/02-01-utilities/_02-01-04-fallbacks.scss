@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.4
+/// @package @maddimathon/utility-sass@0.1.0-alpha.5
 /// @since 0.1.0-pre.0
 ///
 
@@ -58,7 +58,7 @@
     @at-root {
         @if $includeFallbacks or $fallbacksOnly {
             #{$sel_focus} {
-                @include feature-check.js-no-support(
+                @include feature-check.supports-not(
                     'focusVisible',
                     $addSelectors: (),
                     $args...
@@ -120,7 +120,7 @@
     @at-root {
         @if $includeFallbacks and $fallbacksOnly {
             #{$sel_focusWithin} {
-                @include feature-check.js-no-support('focusVisible', $args...) {
+                @include feature-check.supports-not('focusVisible', $args...) {
                     @content;
                 }
             }

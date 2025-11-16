@@ -13,105 +13,105 @@
  * ======================================================================== */
 
 /* ## HAS Support ==================================== */
-/* colour-mode-js-support */
+/* colour-mode-js-supports */
 
 test-yes {
     @at-root {
         /* ### Average, High - whereSelector ------------------ */
 
         &__average_high {
-            @include colour-mode-js-support((average, high), 'whereSelector') {
-                /* @include colour-mode-js-support((average, high), 'whereSelector'); */
+            @include colour-mode-js-supports((average, high), 'whereSelector') {
+                /* @include colour-mode-js-supports((average, high), 'whereSelector'); */
             }
         }
 
         /* ### Average ------------------ */
 
         &__average {
-            @include colour-mode-js-support(average, 'support-key') {
-                /* @include colour-mode-js-support(average, 'support-key'); */
+            @include colour-mode-js-supports(average, 'support-key') {
+                /* @include colour-mode-js-supports(average, 'support-key'); */
             }
         }
 
         /* ### Maximum ------------------ */
 
         &__max {
-            @include colour-mode-js-support(max, 'support-key') {
-                /* @include colour-mode-js-support(max, 'support-key'); */
+            @include colour-mode-js-supports(max, 'support-key') {
+                /* @include colour-mode-js-supports(max, 'support-key'); */
             }
         }
 
         /* ### Low ------------------ */
 
         &__low {
-            @include colour-mode-js-support(low, 'support-key') {
-                /* @include colour-mode-js-support(low, 'support-key'); */
+            @include colour-mode-js-supports(low, 'support-key') {
+                /* @include colour-mode-js-supports(low, 'support-key'); */
             }
         }
 
         /* ### Forced Colors ------------------ */
 
         &__forced-colors {
-            @include colour-mode-js-support(forced-colors, 'support-key') {
-                /* @include colour-mode-js-support(forced-colors, 'support-key'); */
+            @include colour-mode-js-supports(forced-colors, 'support-key') {
+                /* @include colour-mode-js-supports(forced-colors, 'support-key'); */
             }
         }
 
         /* ### Dark ------------------ */
 
         &__dark {
-            @include colour-mode-js-support(dark, 'support-key') {
-                /* @include colour-mode-js-support(dark, 'support-key'); */
+            @include colour-mode-js-supports(dark, 'support-key') {
+                /* @include colour-mode-js-supports(dark, 'support-key'); */
             }
         }
     }
 }
 
 /* ## NO Support ==================================== */
-/* colour-mode-js-no-support */
+/* colour-mode-js-supports-not */
 
 test-no {
     @at-root {
         /* ### Average, High - whereSelector ------------------ */
 
         &__high {
-            @include colour-mode-js-no-support(
+            @include colour-mode-js-supports-not(
                 (average, high),
                 'whereSelector'
             ) {
-                /* @include colour-mode-js-no-support((average, high), 'whereSelector'); */
+                /* @include colour-mode-js-supports-not((average, high), 'whereSelector'); */
             }
         }
 
         /* ### Average ------------------ */
 
         &__average {
-            @include colour-mode-js-no-support(average, 'support-key') {
-                /* @include colour-mode-js-no-support(average, 'support-key'); */
+            @include colour-mode-js-supports-not(average, 'support-key') {
+                /* @include colour-mode-js-supports-not(average, 'support-key'); */
             }
         }
 
         /* ### Low ------------------ */
 
         &__low {
-            @include colour-mode-js-no-support(low, 'support-key') {
-                /* @include colour-mode-js-no-support(low, 'support-key'); */
+            @include colour-mode-js-supports-not(low, 'support-key') {
+                /* @include colour-mode-js-supports-not(low, 'support-key'); */
             }
         }
 
         /* ### Forced Colors ------------------ */
 
         &__forced-colors {
-            @include colour-mode-js-no-support(forced-colors, 'support-key') {
-                /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+            @include colour-mode-js-supports-not(forced-colors, 'support-key') {
+                /* @include colour-mode-js-supports-not(forced-colors, 'support-key'); */
             }
         }
 
         /* ### Dark ------------------ */
 
         &__dark {
-            @include colour-mode-js-no-support(dark, 'support-key') {
-                /* @include colour-mode-js-no-support(dark, 'support-key'); */
+            @include colour-mode-js-supports-not(dark, 'support-key') {
+                /* @include colour-mode-js-supports-not(dark, 'support-key'); */
             }
         }
     }

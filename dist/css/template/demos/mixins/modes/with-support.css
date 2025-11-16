@@ -5,7 +5,7 @@
  * Extend the scss to play with the config, or see the defaults in the css
  * included in the pacakge.
  *
- * @maddimathon/utility-sass@0.1.0-alpha.4
+ * @maddimathon/utility-sass@0.1.0-alpha.5
  *
  * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
@@ -13,63 +13,63 @@
 /* # COLOUR MODE + JS SUPPORT
  * ======================================================================== */
 /* ## HAS Support ==================================== */
-/* colour-mode-js-support */
+/* colour-mode-js-supports */
 /* ### Average, High - whereSelector ------------------ */
 :where(.js) test-yes__average_high,
 [data-contrast-mode="average"]:where(.js) test-yes__average_high,
 [data-contrast-mode="high"]:where(.js) test-yes__average_high {
-    /* @include colour-mode-js-support((average, high), 'whereSelector'); */
+    /* @include colour-mode-js-supports((average, high), 'whereSelector'); */
 }
 
 @media (prefers-contrast: more) {
     :where(.js) test-yes__average_high {
-        /* @include colour-mode-js-support((average, high), 'whereSelector'); */
+        /* @include colour-mode-js-supports((average, high), 'whereSelector'); */
     }
 }
 
 /* ### Average ------------------ */
 :where(.js__support-key) test-yes__average,
 [data-contrast-mode="average"]:where(.js__support-key) test-yes__average {
-    /* @include colour-mode-js-support(average, 'support-key'); */
+    /* @include colour-mode-js-supports(average, 'support-key'); */
 }
 
 /* ### Maximum ------------------ */
 /* ### Low ------------------ */
 [data-contrast-mode="low"]:where(.js__support-key) test-yes__low {
-    /* @include colour-mode-js-support(low, 'support-key'); */
+    /* @include colour-mode-js-supports(low, 'support-key'); */
 }
 
 @media (prefers-contrast: less) {
     :where(.js__support-key) test-yes__low {
-        /* @include colour-mode-js-support(low, 'support-key'); */
+        /* @include colour-mode-js-supports(low, 'support-key'); */
     }
 }
 
 /* ### Forced Colors ------------------ */
 [data-contrast-mode="forced-colors"]:where(.js__support-key)
     test-yes__forced-colors {
-    /* @include colour-mode-js-support(forced-colors, 'support-key'); */
+    /* @include colour-mode-js-supports(forced-colors, 'support-key'); */
 }
 
 @media (forced-colors: active), (prefers-contrast: custom) {
     :where(.js__support-key) test-yes__forced-colors {
-        /* @include colour-mode-js-support(forced-colors, 'support-key'); */
+        /* @include colour-mode-js-supports(forced-colors, 'support-key'); */
     }
 }
 
 /* ### Dark ------------------ */
 [data-brightness-mode="dark"]:where(.js__support-key) test-yes__dark {
-    /* @include colour-mode-js-support(dark, 'support-key'); */
+    /* @include colour-mode-js-supports(dark, 'support-key'); */
 }
 
 @media (prefers-color-scheme: dark) {
     :where(.js__support-key) test-yes__dark {
-        /* @include colour-mode-js-support(dark, 'support-key'); */
+        /* @include colour-mode-js-supports(dark, 'support-key'); */
     }
 }
 
 /* ## NO Support ==================================== */
-/* colour-mode-js-no-support */
+/* colour-mode-js-supports-not */
 /* ### Average, High - whereSelector ------------------ */
 .no-js test-no__high,
 .js__no-whereSelector test-no__high,
@@ -77,13 +77,13 @@
 [data-contrast-mode="average"].js__no-whereSelector test-no__high,
 [data-contrast-mode="high"].no-js test-no__high,
 [data-contrast-mode="high"].js__no-whereSelector test-no__high {
-    /* @include colour-mode-js-no-support((average, high), 'whereSelector'); */
+    /* @include colour-mode-js-supports-not((average, high), 'whereSelector'); */
 }
 
 @media (prefers-contrast: more) {
     .no-js test-no__high,
     .js__no-whereSelector test-no__high {
-        /* @include colour-mode-js-no-support((average, high), 'whereSelector'); */
+        /* @include colour-mode-js-supports-not((average, high), 'whereSelector'); */
     }
 }
 
@@ -92,31 +92,31 @@
 .js__no-whereSelector test-no__average,
 [data-contrast-mode="average"].no-js test-no__average,
 [data-contrast-mode="average"].js__no-whereSelector test-no__average {
-    /* @include colour-mode-js-no-support(average, 'support-key'); */
+    /* @include colour-mode-js-supports-not(average, 'support-key'); */
 }
 
 :where(.js__no-support-key) test-no__average,
 [data-contrast-mode="average"]:where(.js__no-support-key) test-no__average {
-    /* @include colour-mode-js-no-support(average, 'support-key'); */
+    /* @include colour-mode-js-supports-not(average, 'support-key'); */
 }
 
 /* ### Low ------------------ */
 [data-contrast-mode="low"].no-js test-no__low,
 [data-contrast-mode="low"].js__no-whereSelector test-no__low {
-    /* @include colour-mode-js-no-support(low, 'support-key'); */
+    /* @include colour-mode-js-supports-not(low, 'support-key'); */
 }
 
 [data-contrast-mode="low"]:where(.js__no-support-key) test-no__low {
-    /* @include colour-mode-js-no-support(low, 'support-key'); */
+    /* @include colour-mode-js-supports-not(low, 'support-key'); */
 }
 
 @media (prefers-contrast: less) {
     .no-js test-no__low,
     .js__no-whereSelector test-no__low {
-        /* @include colour-mode-js-no-support(low, 'support-key'); */
+        /* @include colour-mode-js-supports-not(low, 'support-key'); */
     }
     :where(.js__no-support-key) test-no__low {
-        /* @include colour-mode-js-no-support(low, 'support-key'); */
+        /* @include colour-mode-js-supports-not(low, 'support-key'); */
     }
 }
 
@@ -124,41 +124,41 @@
 [data-contrast-mode="forced-colors"].no-js test-no__forced-colors,
 [data-contrast-mode="forced-colors"].js__no-whereSelector
     test-no__forced-colors {
-    /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+    /* @include colour-mode-js-supports-not(forced-colors, 'support-key'); */
 }
 
 [data-contrast-mode="forced-colors"]:where(.js__no-support-key)
     test-no__forced-colors {
-    /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+    /* @include colour-mode-js-supports-not(forced-colors, 'support-key'); */
 }
 
 @media (forced-colors: active), (prefers-contrast: custom) {
     .no-js test-no__forced-colors,
     .js__no-whereSelector test-no__forced-colors {
-        /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+        /* @include colour-mode-js-supports-not(forced-colors, 'support-key'); */
     }
     :where(.js__no-support-key) test-no__forced-colors {
-        /* @include colour-mode-js-no-support(forced-colors, 'support-key'); */
+        /* @include colour-mode-js-supports-not(forced-colors, 'support-key'); */
     }
 }
 
 /* ### Dark ------------------ */
 [data-brightness-mode="dark"].no-js test-no__dark,
 [data-brightness-mode="dark"].js__no-whereSelector test-no__dark {
-    /* @include colour-mode-js-no-support(dark, 'support-key'); */
+    /* @include colour-mode-js-supports-not(dark, 'support-key'); */
 }
 
 [data-brightness-mode="dark"]:where(.js__no-support-key) test-no__dark {
-    /* @include colour-mode-js-no-support(dark, 'support-key'); */
+    /* @include colour-mode-js-supports-not(dark, 'support-key'); */
 }
 
 @media (prefers-color-scheme: dark) {
     .no-js test-no__dark,
     .js__no-whereSelector test-no__dark {
-        /* @include colour-mode-js-no-support(dark, 'support-key'); */
+        /* @include colour-mode-js-supports-not(dark, 'support-key'); */
     }
     :where(.js__no-support-key) test-no__dark {
-        /* @include colour-mode-js-no-support(dark, 'support-key'); */
+        /* @include colour-mode-js-supports-not(dark, 'support-key'); */
     }
 }
 

@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.4
+/// @package @maddimathon/utility-sass@0.1.0-alpha.5
 /// @since 0.1.0-pre.0
 ///
 
@@ -715,8 +715,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
     $mixin: if(
         $bool,
-        meta.get-mixin('js-support', $module: feature-check),
-        meta.get-mixin('js-no-support', $module: feature-check)
+        meta.get-mixin('supports', $module: feature-check),
+        meta.get-mixin('supports-not', $module: feature-check)
     );
 
     $hasDefaultMode: false;
@@ -791,7 +791,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
     }
 }
 
-@mixin colour-mode-js-support($modes, $key, $args...) {
+@mixin colour-mode-js-supports($modes, $key, $args...) {
     $args: meta.keywords($args);
 
     @include _colour-mode-js-any-support(
@@ -804,7 +804,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
     }
 }
 
-@mixin colour-mode-js-no-support($modes, $key, $args...) {
+@mixin colour-mode-js-supports-not($modes, $key, $args...) {
     $args: meta.keywords($args);
 
     @include _colour-mode-js-any-support(
@@ -829,7 +829,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 //     $args...
 // ) {
 //     @if config.$include_featureCheck and $focus {
-//         @include colour-mode-js-no-support(
+//         @include colour-mode-js-supports-not(
 //             $modes: $modes,
 //             $key: 'focusVisible',
 //             $args...

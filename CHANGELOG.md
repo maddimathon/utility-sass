@@ -19,6 +19,13 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.5** — 2025-11-15
+
+### Breaking
+- Changed feature-check module's js-support mixin to supports and js-no-support
+  mixin to supports-not
+
+
 ## **0.1.0-alpha.4** — 2025-11-03
 
 More very minor mixin tweaks.
