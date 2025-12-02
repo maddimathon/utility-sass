@@ -33,7 +33,7 @@ styles.
 - `%a` is now extended by `a[href]`, not just `a`
 
 ### Fixed
-- Added explicit @supports for system colours with fallbacks
+- Added explicit css supports queries for system colours with fallbacks
 - Scss list style fixes for better extension of list exceptions (e.g., ol lists
   to display as ul, as in the utility-astro TableOfContents styles)
 
