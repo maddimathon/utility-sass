@@ -19,6 +19,25 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.6** — 2025-12-01
+
+'Unstyled' heading utilities, better system color fallbacks, and better list
+styles.
+
+### Added
+- Added unstyled-heading utility class and $includeUnstyledHeadingProps prop in
+  snippet-heading
+- New snippet-unstyled-heading mixin
+
+### Changed
+- `%a` is now extended by `a[href]`, not just `a`
+
+### Fixed
+- Added explicit @supports for system colours with fallbacks
+- Scss list style fixes for better extension of list exceptions (e.g., ol lists
+  to display as ul, as in the utility-astro TableOfContents styles)
+
+
 ## **0.1.0-alpha.5** — 2025-11-15
 
 ### Breaking

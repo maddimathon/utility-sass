@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.5
+/// @package @maddimathon/utility-sass@0.1.0-alpha.6
 /// @since 0.1.0-pre.0
 ///
 
@@ -193,12 +193,8 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
         @if $slug == indent {
             //
             @return (
-                calc(1vw * $num),
-                clamp(
-                    var-mrg-firm('200'),
-                    calc(1svw * $num),
-                    var-mrg-firm('600')
-                )
+                calc(1% * $num),
+                clamp(var-mrg-firm('200'), calc(1% * $num), var-mrg-firm('800'))
             );
         } @else if $slug == layout or $slug == layout-half {
             //
@@ -218,12 +214,8 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
         } @else if $slug == tab {
             //
             @return (
-                calc(1vw * $num),
-                clamp(
-                    var-mrg-firm('100'),
-                    calc(1svw * $num),
-                    var-mrg-firm('600')
-                )
+                calc(1% * $num),
+                clamp(var-mrg-firm('100'), calc(1% * $num), var-mrg-firm('600'))
             );
         }
     }

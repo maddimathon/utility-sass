@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.5
+/// @package @maddimathon/utility-sass@0.1.0-alpha.6
 /// @since 0.1.0-pre.0
 ///
 
@@ -35,36 +35,41 @@
 
     line-height: #{var-line-height('400')};
 
-    & & {
+    ol,
+    ul {
         margin-block-start: 0;
-    }
 
-    & & & {
-        // line-height: #{var-line-height('500')};
-        font-size: #{var-fs(smaller-1)};
+        ol,
+        ul {
+            font-size: #{var-fs(smaller-1)};
+        }
     }
 }
 
 %ol {
-    /* level 1 - ol */
+    // /* level 1 - ol */
     list-style-type: decimal;
 
     /// BLOCK ///
 
-    ol {
-        /* level 2 - ol ol */
+    @at-root %ol-2,
+        & ol {
+        // /* level 2 - ol ol */
         list-style-type: lower-alpha;
 
-        ol {
-            /* level 3 - ol ol ol */
+        @at-root %ol-3,
+            & ol {
+            // /* level 3 - ol ol ol */
             list-style-type: lower-roman;
 
-            ol {
-                /* level 4 - ol ol ol ol */
+            @at-root %ol-4,
+                & ol {
+                // /* level 4 - ol ol ol ol */
                 @extend %ul-3;
 
-                ol {
-                    /* level 5 - ol ol ol ol ol */
+                @at-root %ol-5,
+                    & ol {
+                    // /* level 5 - ol ol ol ol ol */
                     @extend %ul-4;
                 }
             }
@@ -73,26 +78,27 @@
 }
 
 %ul {
-    /* level 1 - ul */
+    // /* level 1 - ul */
     list-style-type: disc;
 
     /// BLOCK ///
 
-    ul {
-        /* level 2 - ul ul */
+    @at-root %ul-2,
+        & ul {
+        // /* level 2 - ul ul */
         list-style-type: circle;
 
         @at-root %ul-3,
             & ul {
-            /* level 3 - ul ul ul */
-            /* level 4 - ol ol ol ol */
+            // /* level 3 - ul ul ul */
+            // /* level 4 - ol ol ol ol */
             list-style-type: square; /* fallback */
             list-style-type: '–  ';
 
             @at-root %ul-4,
                 & ul {
-                /* level 4 - ul ul ul ul */
-                /* level 5 - ol ol ol ol ol */
+                // /* level 4 - ul ul ul ul */
+                // /* level 5 - ol ol ol ol ol */
             }
         }
     }
@@ -119,12 +125,10 @@
             li {
                 font-style: italic;
 
-                em,
-                i {
+                em {
                     font-style: normal;
 
-                    em,
-                    i {
+                    em {
                         font-style: italic;
                     }
                 }

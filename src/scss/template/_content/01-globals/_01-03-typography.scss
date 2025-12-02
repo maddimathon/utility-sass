@@ -54,12 +54,10 @@
 %em {
     font-style: italic;
 
-    em,
-    i {
+    em {
         font-style: normal;
 
-        em,
-        i {
+        em {
             font-style: italic;
         }
     }
@@ -130,16 +128,15 @@
 
     & {
         margin-block: #{var-mrg-soft('400')} 0;
-        margin-block: #{var-mrg-soft('600')} calc(#{var-mrg-soft('600')} - #{var-mrg-soft(
-                        '400'
-                    )});
+        margin-block: #{var-mrg-soft('600')}
+            calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
 
         padding-inline-start: #{var-mrg-firm('300')};
 
         border-inline-start: #{var-border-width('200')} solid currentColor;
 
         @include min-width(content) {
-            margin-inline: #{var-gap-inline(tab)};
+            margin-inline: #{var-gap-inline(indent)};
         }
     }
 
@@ -183,9 +180,8 @@
         position: relative;
         margin-inline: 0;
         margin-block: #{var-mrg-soft('400')} 0;
-        margin-block: #{var-mrg-soft('600')} calc(#{var-mrg-soft('600')} - #{var-mrg-soft(
-                        '400'
-                    )});
+        margin-block: #{var-mrg-soft('600')}
+            calc(#{var-mrg-soft('600')} - #{var-mrg-soft('400')});
 
         padding: #{var-mrg-soft('300')} #{var-mrg-firm('300')};
 
@@ -222,6 +218,8 @@
     }
 }
 
+$_whereUnstyledHeadingSelectors: ();
+
 @if tplConfig.$template_include_headings {
     @if config.$print_headings {
         /* ## Typography - Headings ==================================== */
@@ -230,7 +228,7 @@
     @each $num in token-all-heading-levels() {
         //
         #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
-            @include snippet-heading($num);
+            @include snippet-heading($num, $includeUnstyledHeadingProps: false);
 
             %button {
                 font: inherit;
@@ -239,7 +237,10 @@
             }
 
             &--where {
-                @include snippet-heading($num);
+                @include snippet-heading(
+                    $num,
+                    $includeUnstyledHeadingProps: false
+                );
 
                 :where(%button) {
                     font: inherit;
@@ -249,4 +250,12 @@
             }
         }
     }
+}
+
+%unstyled-heading {
+    @include snippet-unstyled-heading;
+}
+
+%unstyled-heading--where {
+    @include snippet-unstyled-heading;
 }

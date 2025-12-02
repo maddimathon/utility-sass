@@ -47,7 +47,7 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 ///
 @function selector-all-headings($globalsOnly: false) {
     //
-    $list: (if($globalsOnly, '.page-title', ()));
+    $list: if($globalsOnly, ('.page-title'), ('%unstyled-heading'));
 
     @each $num in token-all-heading-levels() {
         //

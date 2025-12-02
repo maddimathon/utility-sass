@@ -79,7 +79,7 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
         ('.screen-reader-text', screen-reader-text),
         ((strong, b), strong),
         ((em, i), em),
-        a,
+        ('a[href]', a),
         abbr,
         blockquote,
         code,
@@ -206,6 +206,7 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
         /// ## Objects ==================================== ///
         //
         /// ## Typography ==================================== ///
+        unstyled-heading,
         (page-title, title),
         //
         /// ## Forms ==================================== ///
@@ -217,6 +218,24 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
     /// Headings
     @each $headingLevel in $allHeadingLevels {
         $_utils_selectors: list.append($_utils_selectors, 'h#{$headingLevel}');
+
+        @if $headingLevel < 7 {
+            $additional: list.append(
+                $additional,
+                (
+                    'h#{$headingLevel}:where(.unstyled-heading)',
+                    'unstyled-heading--where'
+                )
+            );
+        }
+
+        $_utils_selectors: list.append(
+            $_utils_selectors,
+            (
+                'h#{$headingLevel}:where(.unstyled-heading)',
+                'unstyled-heading--where'
+            )
+        );
     }
 
     // font size utilities

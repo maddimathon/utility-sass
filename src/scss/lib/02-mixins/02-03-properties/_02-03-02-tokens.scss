@@ -164,8 +164,18 @@ $_systemColors: get-sys-colours();
     /* #region Tokens - System Colours */
     :where(#{selector.parent-or-root()}) {
         @each $slug, $list in $map {
+            $i: 1;
+
             @each $value in $list {
-                --sys-clr-#{$slug}: #{$value};
+                @if $i > 1 {
+                    @supports (color: #{$value}) {
+                        --sys-clr-#{$slug}: #{$value};
+                    }
+                } @else {
+                    --sys-clr-#{$slug}: #{$value};
+                }
+
+                $i: $i + 1;
             }
         }
     }

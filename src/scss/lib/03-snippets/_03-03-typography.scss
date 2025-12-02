@@ -14,25 +14,72 @@
 /// # SNIPPETS - TYPOGRAPHY
 /// ======================================================================== ///
 
+// default vars
+$_headingDefault_fontStyle: normal;
+$_headingDefault_fontWeight: 600;
+$_headingDefault_letterSpacing: normal;
+$_headingDefault_lineHeight: var-line-height('400');
+$_headingDefault_marginBlockEnd: var-mrg-half('400');
+$_headingDefault_marginBlockStart: var-mrg-soft('600');
+$_headingDefault_size: var-fs(normal);
+$_headingDefault_textTransform: none;
+
+///
+/// Adds properties to reverse heading styles when a heading element is used for
+/// a11y and not display.
+///
+/// @since 0.1.0-alpha.6 — Added optional $includeUnstyledHeadingProps prop.
+///
+@mixin snippet-unstyled-heading($fontStyle: 'italic') {
+    margin-block: #{$_headingDefault_marginBlockStart}
+        #{$_headingDefault_marginBlockEnd};
+
+    font-weight: #{$_headingDefault_fontWeight};
+    font-size: #{$_headingDefault_size};
+    line-height: #{$_headingDefault_lineHeight};
+    letter-spacing: #{$_headingDefault_letterSpacing};
+
+    text-transform: #{$_headingDefault_textTransform};
+
+    font-style: #{$_headingDefault_fontStyle};
+
+    @if $fontStyle == italic {
+        font-style: normal;
+
+        em {
+            font-style: italic;
+
+            em {
+                font-style: normal;
+
+                em {
+                    font-style: italic;
+                }
+            }
+        }
+    }
+}
+
 ///
 /// Adds basic properties for the given heading level.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.6 — Added optional $includeUnstyledHeadingProps prop.
 ///
-@mixin snippet-heading($slug: '7') {
+@mixin snippet-heading($slug: '7', $includeUnstyledHeadingProps: true) {
     $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
     $slug: #{$slug};
     $heading9orAbove: false;
 
-    // default prop values
-    $fontWeight: 600;
-    $fontStyle: normal;
-    $letterSpacing: normal;
-    $lineHeight: var-line-height('400');
-    $marginBlockStart: var-mrg-soft('600');
-    $marginBlockEnd: var-mrg-half('400');
-    $size: var-fs(normal);
-    $textTransform: none;
+    // setting default prop values
+    $fontWeight: $_headingDefault_fontWeight;
+    $fontStyle: $_headingDefault_fontStyle;
+    $letterSpacing: $_headingDefault_letterSpacing;
+    $lineHeight: $_headingDefault_lineHeight;
+    $marginBlockStart: $_headingDefault_marginBlockStart;
+    $marginBlockEnd: $_headingDefault_marginBlockEnd;
+    $size: $_headingDefault_size;
+    $textTransform: $_headingDefault_textTransform;
 
     @if $slug == title {
         //
@@ -122,14 +169,18 @@
     font-style: #{$fontStyle};
 
     @if $fontStyle == italic {
-        em,
-        i {
+        em {
             font-style: normal;
 
-            em,
-            i {
+            em {
                 font-style: italic;
             }
+        }
+    }
+
+    @if $includeUnstyledHeadingProps {
+        &:where(%unstyled-heading) {
+            @include snippet-unstyled-heading($fontStyle: $fontStyle);
         }
     }
 }
