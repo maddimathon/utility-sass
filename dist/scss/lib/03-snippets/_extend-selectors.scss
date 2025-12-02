@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.6
+/// @package @maddimathon/utility-sass@0.1.0-alpha.7
 /// @since 0.1.0-pre.0
 ///
 
@@ -252,7 +252,7 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
     @include _extend-selectors(
         (
             // ( globals, pseudo? ),
-            (('a.button', 'a.button-secondary'), button),
+            (('a.button[href]', 'a.button-secondary[href]'), button),
             (
                 (
                     selector.unify(
