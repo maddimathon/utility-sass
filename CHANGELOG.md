@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.10** — 2025-12-28
+
+Added immutable to dependecies (previously overlooked).
+
+
 ## **0.1.0-alpha.9** — 2025-12-28
 
 ### Misc. Breaking
