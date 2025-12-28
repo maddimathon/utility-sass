@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.8
+ * @maddimathon/utility-sass@0.1.0-alpha.9
  * @license MIT
  */
 import { sass_getCurrentVersion } from './sass/getCurrentVersion.js';
@@ -15,9 +15,9 @@ import { sass_getCurrentVersion } from './sass/getCurrentVersion.js';
  *
  * @since 0.1.0-alpha.8
  */
-export function sassCompilerFunctions(console) {
+export function sassCompilerFunctions() {
     return {
-        'mmutils-global-getCurrentVersion()': sass_getCurrentVersion(console),
+        'mmutils-global-getCurrentVersion()': sass_getCurrentVersion,
     };
 }
 //# sourceMappingURL=sassCompilerFunctions.js.map

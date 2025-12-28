@@ -10,11 +10,6 @@
 
 import type * as sass from "sass-embedded";
 
-import type {
-    Logger,
-    Stage_Console,
-} from '@maddimathon/build-utilities/internal';
-
 import { sassCompilerFunctions } from './sassCompilerFunctions.js';
 
 /**
@@ -25,7 +20,6 @@ import { sassCompilerFunctions } from './sassCompilerFunctions.js';
  * @since 0.1.0-alpha.8
  */
 export function sassCompilerOpts<T_Partial extends sass.Options<'async'>>(
-    console: Logger | Stage_Console,
     partial?: T_Partial,
 ) {
 
@@ -41,7 +35,7 @@ export function sassCompilerOpts<T_Partial extends sass.Options<'async'>>(
 
         functions: {
             ...partial?.functions ?? {},
-            ...sassCompilerFunctions( console ),
+            ...sassCompilerFunctions(),
         },
     } as T_Partial & sass.Options<'async'>;
 }

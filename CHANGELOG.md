@@ -19,6 +19,13 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.9** — 2025-12-28
+
+### Misc. Breaking
+- Switched SemVer version used in sass_getCurrentVersion to remove the Logger
+  instance requirement (which caused issues in dependent libraries using vite)
+
+
 ## **0.1.0-alpha.8** — 2025-12-27
 
 ### Added

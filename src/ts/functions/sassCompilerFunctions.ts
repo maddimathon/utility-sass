@@ -10,8 +10,6 @@
 
 import type * as sass from "sass-embedded";
 
-import type { Logger, Stage_Console } from '@maddimathon/build-utilities/internal';
-
 import { sass_getCurrentVersion } from './sass/getCurrentVersion.js';
 
 /**
@@ -21,11 +19,11 @@ import { sass_getCurrentVersion } from './sass/getCurrentVersion.js';
  * 
  * @since 0.1.0-alpha.8
  */
-export function sassCompilerFunctions( console: Logger | Stage_Console ) {
+export function sassCompilerFunctions() {
 
     return {
 
-        'mmutils-global-getCurrentVersion()': sass_getCurrentVersion( console ),
+        'mmutils-global-getCurrentVersion()': sass_getCurrentVersion,
 
     } as const satisfies sass.Options<'async'>[ 'functions' ];
 }

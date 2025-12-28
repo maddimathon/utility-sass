@@ -1,6 +1,6 @@
 {
     "name": "@maddimathon/utility-sass",
-    "version": "0.1.0-alpha.8",
+    "version": "0.1.0-alpha.9",
 
     "author": "Maddi Mathon (www.maddimathon.com)",
     "description": "Sass (scss) utilities to use in a variety of projects with an opinionated, optionally configurable design token system.",
@@ -148,9 +148,9 @@
         "prewatch": "build-utils build -- --without minimize,prettify --starting",
         
         "watch": "run-p --silent watch:*",
-            "watch:docs": "watch -p 'src/docs/**/*' -c 'build-utils document                  --watchedWatcher \"watch:docs\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:scss": "watch -p 'src/scss/**/*' -c 'build-utils build --compile-only scss --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:ts":   "watch -p 'src/ts/**/*'   -c 'build-utils build --compile-only ts   --watchedWatcher \"watch:ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:docs": "watch -p 'src/docs/**/*' -c 'build-utils build --compile-only document --watchedWatcher \"watch:docs\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:scss": "watch -p 'src/scss/**/*' -c 'build-utils build --compile-only scss     --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:ts":   "watch -p 'src/ts/**/*'   -c 'build-utils build --compile-only ts       --watchedWatcher \"watch:ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
 
         "package": "build-utils package",
@@ -160,11 +160,13 @@
     },
     
     "dependencies": {
+        "semver": "^7.7.3"
     },
     "devDependencies": {
         "@maddimathon/build-utilities": "0.3.0-alpha.13",
         "@maddimathon/utility-typescript": "2.0.0-beta.1",
         "@types/node": "22.15.30",
+        "@types/semver": "^7.7.1",
         "npm-run-all": "4.1.5",
         "sass-embedded": "^1.95.0",
         "typedoc": "0.28.15",
@@ -173,7 +175,13 @@
     },
 
     "peerDependencies": {
-        "sass-embedded": "^1.95.0"
+        "sass-embedded": "^1.95.0",
+        "semver": "^7.7.3"
+    },
+    "peerDependenciesMeta": {
+        "semver": {
+            "optional": true
+        }
     },
     
     "browserslist": [

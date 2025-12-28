@@ -4,15 +4,15 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.8
+ * @maddimathon/utility-sass@0.1.0-alpha.9
  * @license MIT
  */
 import * as sass from "sass-embedded";
-import { type Logger, type Stage_Console } from '@maddimathon/build-utilities/internal';
 /**
- * Returns a call signature and function to include in {@link sass.Options}.
+ * A function to include in {@link sass.Options} that gets the version of the
+ * active sass compiler.
  *
  * @since 0.1.0-alpha.8
  */
-export declare function sass_getCurrentVersion(console: Logger | Stage_Console): () => Promise<sass.SassMap>;
+export declare function sass_getCurrentVersion(): Promise<sass.SassMap>;
 //# sourceMappingURL=getCurrentVersion.d.ts.map

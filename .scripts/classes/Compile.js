@@ -47,8 +47,6 @@ export class Compile extends CompileStage {
         if ( sass_fn_import?.sassCompilerOpts ) {
 
             this.compiler.args.sass = sass_fn_import.sassCompilerOpts(
-                // @ts-expect-error
-                this.console,
                 this.compiler.args.sass,
             );
         }

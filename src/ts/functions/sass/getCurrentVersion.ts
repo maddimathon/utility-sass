@@ -9,83 +9,80 @@
  */
 
 import Immutable from 'immutable';
+import semver from 'semver';
 import * as sass from "sass-embedded";
 
-// import { VariableInspector } from '@maddimathon/utility-typescript/classes';
-import {
-    SemVer,
-    type Logger,
-    type Stage_Console,
-} from '@maddimathon/build-utilities/internal';
-
 /**
- * Returns a call signature and function to include in {@link sass.Options}.
+ * A function to include in {@link sass.Options} that gets the version of the
+ * active sass compiler.
  *
  * @since 0.1.0-alpha.8
  */
-export function sass_getCurrentVersion( console: Logger | Stage_Console ): () => Promise<sass.SassMap> {
+export async function sass_getCurrentVersion(): Promise<sass.SassMap> {
 
-    return async (): Promise<sass.SassMap> => {
+    let version: semver.SemVer | null;
 
-        let version: SemVer;
+    try {
+        version = semver.coerce(
+            sass.info.replace(
+                /^[\n\s]*sass(-embedded)([\n\s]+|$)/gi,
+                '',
+            ),
+            {
+                includePrerelease: true,
+                loose: true,
+            },
+        );
+    } catch ( err ) {
 
-        try {
-            version = new SemVer(
-                sass.info.replace(
-                    /^[\n\s]*sass(-embedded)([\n\s]+|$)/gi,
-                    '',
-                ),
-                console as Logger,
-            );
-        } catch ( err ) {
+        version = null;
+    }
 
-            return new sass.SassMap(
-                Immutable.OrderedMap( [
-                    [ new sass.SassString( 'major' ), new sass.SassNumber( 0 ) ],
-                    [ new sass.SassString( 'minor' ), new sass.SassNumber( 0 ) ],
-                    [ new sass.SassString( 'patch' ), new sass.SassNumber( 0 ) ],
-
-                    [ new sass.SassString( 'prerelease' ), sass.sassNull ],
-                    [ new sass.SassString( 'meta' ), sass.sassNull ],
-                ] )
-            );
-        }
-
-        // const toDump = {
-        //     info: sass.info,
-        //     version,
-        // };
+    // returns
+    if ( version === null ) {
 
         return new sass.SassMap(
             Immutable.OrderedMap( [
-                [ new sass.SassString( 'major' ), new sass.SassNumber( version.major ) ],
-                [ new sass.SassString( 'minor' ), new sass.SassNumber( version.minor ) ],
-                [ new sass.SassString( 'patch' ), new sass.SassNumber( version.patch ) ],
-                [
-                    new sass.SassString( 'prerelease' ),
-                    version.prerelease
-                        ? Array.isArray( version.prerelease )
-                            ? new sass.SassList( version.prerelease.map(
-                                _str => new sass.SassString( _str )
-                            ) )
-                            : new sass.SassString( version.prerelease )
-                        : sass.sassNull,
-                ],
-                [
-                    new sass.SassString( 'meta' ),
-                    version.meta ? new sass.SassString( version.meta ) : sass.sassNull,
-                ],
+                [ new sass.SassString( 'major' ), new sass.SassNumber( 0 ) ],
+                [ new sass.SassString( 'minor' ), new sass.SassNumber( 0 ) ],
+                [ new sass.SassString( 'patch' ), new sass.SassNumber( 0 ) ],
+
+                [ new sass.SassString( 'prerelease' ), sass.sassNull ],
+                [ new sass.SassString( 'meta' ), sass.sassNull ],
             ] )
         );
+    }
 
-        // return new sass.SassList(
-        //     [
-        //         new sass.SassString( VariableInspector.stringify( { toDump } ) ),
-        //     ],
-        //     {
-        //         brackets: false,
-        //         separator: ',',
-        //     },
-        // );
-    };
+    // const toDump = {
+    //     info: sass.info,
+    //     version,
+    // };
+
+    return new sass.SassMap(
+        Immutable.OrderedMap( [
+            [ new sass.SassString( 'major' ), new sass.SassNumber( version.major ) ],
+            [ new sass.SassString( 'minor' ), new sass.SassNumber( version.minor ) ],
+            [ new sass.SassString( 'patch' ), new sass.SassNumber( version.patch ) ],
+            [
+                new sass.SassString( 'prerelease' ),
+                version.prerelease
+                    ? Array.isArray( version.prerelease ) && version.prerelease.length
+                        ? new sass.SassList( version.prerelease.map(
+                            _str => new sass.SassString( _str )
+                        ) )
+                        : sass.sassNull
+                    : sass.sassNull,
+            ],
+            [
+                new sass.SassString( 'meta' ),
+                version.build
+                    ? Array.isArray( version.build ) && version.build.length
+                        ? new sass.SassList( version.build.map(
+                            _str => new sass.SassString( _str )
+                        ) )
+                        : sass.sassNull
+                    : sass.sassNull,
+            ],
+        ] )
+    );
 }
