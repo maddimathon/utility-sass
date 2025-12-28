@@ -4,12 +4,12 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.10
+ * @maddimathon/utility-sass@0.1.0-alpha.11
  * @license MIT
  */
-import Immutable from 'immutable';
-import semver from 'semver';
+import { OrderedMap } from 'immutable';
 import * as sass from "sass-embedded";
+import semver from 'semver';
 /**
  * A function to include in {@link sass.Options} that gets the version of the
  * active sass compiler.
@@ -29,7 +29,7 @@ export async function sass_getCurrentVersion() {
     }
     // returns
     if (version === null) {
-        return new sass.SassMap(Immutable.OrderedMap([
+        return new sass.SassMap(OrderedMap([
             [new sass.SassString('major'), new sass.SassNumber(0)],
             [new sass.SassString('minor'), new sass.SassNumber(0)],
             [new sass.SassString('patch'), new sass.SassNumber(0)],
@@ -41,7 +41,7 @@ export async function sass_getCurrentVersion() {
     //     info: sass.info,
     //     version,
     // };
-    return new sass.SassMap(Immutable.OrderedMap([
+    return new sass.SassMap(OrderedMap([
         [new sass.SassString('major'), new sass.SassNumber(version.major)],
         [new sass.SassString('minor'), new sass.SassNumber(version.minor)],
         [new sass.SassString('patch'), new sass.SassNumber(version.patch)],

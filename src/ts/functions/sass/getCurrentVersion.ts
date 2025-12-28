@@ -8,9 +8,9 @@
  * @license MIT
  */
 
-import Immutable from 'immutable';
-import semver from 'semver';
+import { OrderedMap } from 'immutable';
 import * as sass from "sass-embedded";
+import semver from 'semver';
 
 /**
  * A function to include in {@link sass.Options} that gets the version of the
@@ -42,7 +42,7 @@ export async function sass_getCurrentVersion(): Promise<sass.SassMap> {
     if ( version === null ) {
 
         return new sass.SassMap(
-            Immutable.OrderedMap( [
+            OrderedMap( [
                 [ new sass.SassString( 'major' ), new sass.SassNumber( 0 ) ],
                 [ new sass.SassString( 'minor' ), new sass.SassNumber( 0 ) ],
                 [ new sass.SassString( 'patch' ), new sass.SassNumber( 0 ) ],
@@ -59,7 +59,7 @@ export async function sass_getCurrentVersion(): Promise<sass.SassMap> {
     // };
 
     return new sass.SassMap(
-        Immutable.OrderedMap( [
+        OrderedMap( [
             [ new sass.SassString( 'major' ), new sass.SassNumber( version.major ) ],
             [ new sass.SassString( 'minor' ), new sass.SassNumber( version.minor ) ],
             [ new sass.SassString( 'patch' ), new sass.SassNumber( version.patch ) ],

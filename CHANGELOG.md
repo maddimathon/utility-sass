@@ -19,9 +19,16 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.11** — 2025-12-28
+
+### Fixed
+- Switched immutable import used in sass_getCurrentVersion to avoid importing
+  the whole namespace (which caused issues in dependent libraries using vite)
+
+
 ## **0.1.0-alpha.10** — 2025-12-28
 
-Added immutable to dependecies (previously overlooked).
+Added immutable to dependencies (previously overlooked).
 
 
 ## **0.1.0-alpha.9** — 2025-12-28
