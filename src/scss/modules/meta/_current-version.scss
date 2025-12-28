@@ -1,0 +1,22 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.8
+///
+@use 'sass:meta';
+
+///
+/// Abbreviates variable types for shorter output.
+///
+/// @return {map<string, number|string>}
+///
+/// @since 0.1.0-alpha.8
+///
+@function current-version() {
+    // returns
+    @if not meta.function-exists('mmutils-global-getCurrentVersion') {
+        @warn "[utility-sass/meta] global compiler function for meta.current-version not found (and is required)";
+        @return (major: 0, minor: 0, patch: 0);
+    }
+
+    @return meta.call(meta.get-function('mmutils-global-getCurrentVersion'));
+}

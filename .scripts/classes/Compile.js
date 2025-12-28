@@ -41,6 +41,18 @@ export class Compile extends CompileStage {
      */
     async scss() {
 
+        /** @type {undefined | { 'sassCompilerOpts': undefined | typeof import( 'dist/ts/functions/sassCompilerOpts.js' ).sassCompilerOpts; }} */
+        const sass_fn_import = await import( '../../dist/ts/functions/sassCompilerOpts.js' );
+
+        if ( sass_fn_import?.sassCompilerOpts ) {
+
+            this.compiler.args.sass = sass_fn_import.sassCompilerOpts(
+                // @ts-expect-error
+                this.console,
+                this.compiler.args.sass,
+            );
+        }
+
         // runs templates sub-stage and returns
         if (
             this.params.watchedFilename

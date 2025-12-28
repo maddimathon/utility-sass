@@ -39,6 +39,7 @@ const config = {
         sass: {
             benchmarkCompileTime: true,
             // compileViaCLI: true,
+            quietDeps: false,
         },
     },
 

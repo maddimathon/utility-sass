@@ -19,6 +19,14 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.8** — 2025-12-27
+
+### Added
+- Custom sass compiler functions to support advanced utilities in the modules
+- Sass compiler opts builder function
+- Scss function - current-version()
+
+
 ## **0.1.0-alpha.7** — 2025-12-02
 
 Quick fix to link button utilities that were broken by switch to `a[href]`

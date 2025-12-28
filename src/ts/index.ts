@@ -11,3 +11,6 @@
  */
 
 export * from './classes/index.js';
+
+export * from './functions/sassCompilerFunctions.js';
+export * from './functions/sassCompilerOpts.js';
