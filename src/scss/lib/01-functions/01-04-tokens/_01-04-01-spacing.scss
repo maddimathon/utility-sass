@@ -107,9 +107,12 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 ///
 @function var-mrg-firm($level) {
-    @return var(
-        --#{config.$customPropertyPrefix}mrg-firm-#{$level},
-        calc(1rem * mrg-value-firm($level))
+    $fallback: calc(1rem * mrg-value-firm($level));
+
+    @return if(
+        config.$fn_var_replaceWithValue_margin,
+        $fallback,
+        var(--#{config.$cxPropPre}mrg-firm-#{$level}, $fallback)
     );
 }
 
@@ -120,9 +123,12 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 ///
 @function var-mrg-half($level) {
-    @return var(
-        --#{config.$customPropertyPrefix}mrg-half-#{$level},
-        calc(1rem * mrg-value-half($level))
+    $fallback: calc(1rem * mrg-value-half($level));
+
+    @return if(
+        config.$fn_var_replaceWithValue_margin,
+        $fallback,
+        var(--#{config.$cxPropPre}mrg-half-#{$level}, $fallback)
     );
 }
 
@@ -133,9 +139,12 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 ///
 @function var-mrg-soft($level) {
-    @return var(
-        --#{config.$customPropertyPrefix}mrg-soft-#{$level},
-        calc(1rem * mrg-value-soft($level))
+    $fallback: calc(1rem * mrg-value-soft($level));
+
+    @return if(
+        config.$fn_var_replaceWithValue_margin,
+        $fallback,
+        var(--#{config.$cxPropPre}mrg-soft-#{$level}, $fallback)
     );
 }
 
@@ -149,10 +158,14 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
     $fallback: width-value($slug, $returnAsNumber: true);
 
     @if meta.type-of($fallback) == list and list.length($fallback) < 1 {
-        @return var(--#{config.$customPropertyPrefix}width-#{$slug});
+        @return var(--#{config.$cxPropPre}width-#{$slug});
     }
 
-    @return var(--#{config.$customPropertyPrefix}width-#{$slug}, $fallback);
+    @return if(
+        config.$fn_var_replaceWithValue_width,
+        $fallback,
+        var(--#{config.$cxPropPre}width-#{$slug}, $fallback)
+    );
 }
 
 /// ## GAPS ==================================== ///
@@ -250,9 +263,12 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 /// @since 0.1.0-pre.0
 ///
 @function var-gap($dir, $slug) {
-    @return var(
-        --#{config.$customPropertyPrefix}gap-#{$dir}-#{$slug},
-        list.nth(gap-value($dir, $slug), 1)
+    $fallback: list.nth(gap-value($dir, $slug), 1);
+
+    @return if(
+        config.$fn_var_replaceWithValue_gap,
+        $fallback,
+        var(--#{config.$cxPropPre}gap-#{$dir}-#{$slug}, $fallback)
     );
 }
 

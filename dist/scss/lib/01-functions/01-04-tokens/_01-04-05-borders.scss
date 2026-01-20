@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.13
+/// @package @maddimathon/utility-sass@0.1.0-alpha.14
 /// @since 0.1.0-pre.0
 ///
 
@@ -32,9 +32,12 @@
 /// @since 0.1.0-pre.0
 ///
 @function var-border-width($level) {
-    @return var(
-        --#{config.$customPropertyPrefix}border-width-#{$level},
-        border-width-value($level)
+    $fallback: border-width-value($level);
+
+    @return if(
+        config.$fn_var_replaceWithValue_borderWidth,
+        $fallback,
+        var(--#{config.$cxPropPre}border-width-#{$level}, $fallback)
     );
 }
 
@@ -62,8 +65,11 @@
 /// @since 0.1.0-pre.0
 ///
 @function var-stroke-relative($level) {
-    @return var(
-        --#{config.$customPropertyPrefix}stroke-relative-#{$level},
-        stroke-relative-value($level)
+    $fallback: stroke-relative-value($level);
+
+    @return if(
+        config.$fn_var_replaceWithValue_strokeRelative,
+        $fallback,
+        var(--#{config.$cxPropPre}stroke-relative-#{$level}, $fallback)
     );
 }

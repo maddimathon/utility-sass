@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.13
+/// @package @maddimathon/utility-sass@0.1.0-alpha.14
 /// @since 0.1.0-pre.0
 ///
 
@@ -94,9 +94,12 @@
 /// @since 0.1.0-pre.0
 ///
 @function var-line-height($slug) {
-    @return var(
-        --#{config.$customPropertyPrefix}line-height-#{$slug},
-        #{line-height-value($slug)}
+    $fallback: line-height-value($slug);
+
+    @return if(
+        config.$fn_var_replaceWithValue_lineHeight,
+        $fallback,
+        var(--#{config.$cxPropPre}line-height-#{$slug}, $fallback)
     );
 }
 
@@ -117,11 +120,15 @@
 
         // returns
         @if list.length($fallback) < 1 {
-            @return var(--#{config.$customPropertyPrefix}fs-#{$slug});
+            @return var(--#{config.$cxPropPre}fs-#{$slug});
         }
 
         $fallback: list.nth($fallback, 1);
     }
 
-    @return var(--#{config.$customPropertyPrefix}fs-#{$slug}, #{$fallback});
+    @return if(
+        config.$fn_var_replaceWithValue_fontSize,
+        $fallback,
+        var(--#{config.$cxPropPre}fs-#{$slug}, $fallback)
+    );
 }

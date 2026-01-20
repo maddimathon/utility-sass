@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.13
+/// @package @maddimathon/utility-sass@0.1.0-alpha.14
 /// @since 0.1.0-pre.0
 ///
 
@@ -23,15 +23,15 @@
 /// @since 0.1.0-pre.0
 ///
 @mixin tokens-all(
-    $borderWidth: true,
+    $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
     $custom: true,
-    $fontSize: true,
-    $gap: true,
-    $lineHeight: true,
-    $margin: true,
-    $strokeRelative: true,
+    $fontSize: not config.$fn_var_replaceWithValue_fontSize,
+    $gap: not config.$fn_var_replaceWithValue_gap,
+    $lineHeight: not config.$fn_var_replaceWithValue_lineHeight,
+    $margin: not config.$fn_var_replaceWithValue_margin,
+    $strokeRelative: not config.$fn_var_replaceWithValue_strokeRelative,
     $sysColours: config.$include_html,
-    $width: config.$include_html
+    $width: config.$include_html and not config.$fn_var_replaceWithValue_width
 ) {
     // colours
     @if $sysColours {

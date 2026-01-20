@@ -87,8 +87,8 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
     // returns
     @if #{$fallback} == #{$slug} {
-        @return var(--#{config.$customPropertyPrefix}#{$slug});
+        @return var(--#{config.$cxPropPre}#{$slug});
     }
 
-    @return var(--#{config.$customPropertyPrefix}#{$slug}, #{$fallback});
+    @return var(--#{config.$cxPropPre}#{$slug}, #{$fallback});
 }

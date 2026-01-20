@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.13
+/// @package @maddimathon/utility-sass@0.1.0-alpha.14
 /// @since 0.1.0-pre.0
 ///
 
@@ -91,7 +91,7 @@ $_systemColors: (
 @function var-sys-colour($slug) {
     @if not map.has-key($_systemColors, $slug) {
         @warn "$slug '#{$slug}' was not a key in the system colors";
-        @return var(--#{config.$customPropertyPrefix}sys-clr-#{$slug});
+        @return var(--#{config.$cxPropPre}sys-clr-#{$slug});
     }
 
     $fallback: map.get($_systemColors, $slug);
@@ -100,8 +100,5 @@ $_systemColors: (
         $fallback: list.nth($fallback, 1);
     }
 
-    @return var(
-        --#{config.$customPropertyPrefix}sys-clr-#{$slug},
-        #{$fallback}
-    );
+    @return var(--#{config.$cxPropPre}sys-clr-#{$slug}, #{$fallback});
 }
