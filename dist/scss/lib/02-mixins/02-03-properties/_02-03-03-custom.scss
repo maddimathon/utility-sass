@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.12
+/// @package @maddimathon/utility-sass@0.1.0-alpha.13
 /// @since 0.1.0-pre.0
 ///
 
@@ -33,7 +33,7 @@
         /* #region Tokens - Misc. */
         #{selector.parent-or-root()} {
             @each $slug, $_value in $tokens {
-                @include custom-property(#{$slug}, token-value($slug));
+                @include cx-prop(#{$slug}, token-value($slug));
             }
         }
         /* #endregion Tokens - Misc. */

@@ -30,10 +30,7 @@
     /* #region Tokens - Border Width */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$border_widths {
-            @include custom-property(
-                border-width-#{$slug},
-                border-width-value($slug)
-            );
+            @include cx-prop(border-width-#{$slug}, border-width-value($slug));
         }
     }
     /* #endregion Tokens - Border Width */
@@ -48,7 +45,7 @@
     /* #region Tokens - Stroke Relative */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$strokes_relative {
-            @include custom-property(
+            @include cx-prop(
                 stroke-relative-#{$slug},
                 stroke-relative-value($slug)
             );
@@ -67,7 +64,7 @@
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$font_sizes {
             @each $value in fs-value($slug) {
-                @include custom-property(fs-#{$slug}, $value);
+                @include cx-prop(fs-#{$slug}, $value);
             }
         }
     }
@@ -83,10 +80,7 @@
     /* #region Tokens - Line Heights */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$line_heights {
-            @include custom-property(
-                line-height-#{$slug},
-                line-height-value($slug)
-            );
+            @include cx-prop(line-height-#{$slug}, line-height-value($slug));
         }
     }
     /* #endregion Tokens - Line Heights */
@@ -103,28 +97,19 @@
     /* #region Tokens - Margin */
     #{$selector} {
         @each $level, $_value in tokens.$margins {
-            @include custom-property(
-                mrg-firm-#{$level},
-                #{mrg-value-firm($level)}rem
-            );
+            @include cx-prop(mrg-firm-#{$level}, #{mrg-value-firm($level)}rem);
         }
     }
 
     #{$selector} {
         @each $level, $_value in tokens.$margins {
-            @include custom-property(
-                mrg-soft-#{$level},
-                #{mrg-value-soft($level)}rem
-            );
+            @include cx-prop(mrg-soft-#{$level}, #{mrg-value-soft($level)}rem);
         }
     }
 
     #{$selector} {
         @each $level, $_value in tokens.$margins {
-            @include custom-property(
-                mrg-half-#{$level},
-                #{mrg-value-half($level)}rem
-            );
+            @include cx-prop(mrg-half-#{$level}, #{mrg-value-half($level)}rem);
         }
     }
     /* #endregion Tokens - Margin */
@@ -144,7 +129,7 @@
             @each $slug, $_list in $dirMap {
                 //
                 @each $value in gap-value($dir, $slug) {
-                    @include custom-property(gap-#{$dir}-#{$slug}, $value);
+                    @include cx-prop(gap-#{$dir}-#{$slug}, $value);
                 }
             }
         }
@@ -162,7 +147,7 @@
     #{selector.parent-or-root()} {
         @each $slug, $_value in config.$widths {
             @each $value in width-value($slug, $returnAsNumber: false) {
-                @include custom-property(width-#{$slug}, $value);
+                @include cx-prop(width-#{$slug}, $value);
             }
         }
     }
@@ -187,10 +172,10 @@ $_systemColors: get-sys-colours();
             @each $value in $list {
                 @if $i > 1 {
                     @supports (color: #{$value}) {
-                        @include custom-property(sys-clr-#{$slug}, $value);
+                        @include cx-prop(sys-clr-#{$slug}, $value);
                     }
                 } @else {
-                    @include custom-property(sys-clr-#{$slug}, $value);
+                    @include cx-prop(sys-clr-#{$slug}, $value);
                 }
 
                 $i: $i + 1;
@@ -212,10 +197,7 @@ $_systemColors: get-sys-colours();
                 }
 
                 @each $value in $list {
-                    @include custom-property(
-                        sys-clr-#{$slug},
-                        #{$value} !important
-                    );
+                    @include cx-prop(sys-clr-#{$slug}, #{$value} !important);
                 }
             }
         }

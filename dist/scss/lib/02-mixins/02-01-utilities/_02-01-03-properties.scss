@@ -1,7 +1,7 @@
 ///
 /// Utilities for printing any kind of css property.
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.12
+/// @package @maddimathon/utility-sass@0.1.0-alpha.13
 /// @since 0.1.0-alpha.12
 ///
 
@@ -25,4 +25,14 @@
 ///
 @mixin custom-property($slug, $value) {
     --#{config.$customPropertyPrefix}#{$slug}: #{$value};
+}
+
+///
+/// Prints a custom property definition.
+///
+/// @param {string} $slug
+/// @param {any} $value
+///
+@mixin cx-prop($slug, $value) {
+    @include custom-property($slug, $value);
 }

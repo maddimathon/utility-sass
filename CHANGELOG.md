@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.13** — 2026-01-19
+
+Switched custom-property mixin to cx-prop.
+
+
 ## **0.1.0-alpha.12** — 2026-01-19
 
 Testing $customPropertyPrefix config var.

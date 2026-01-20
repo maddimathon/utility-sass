@@ -26,3 +26,13 @@
 @mixin custom-property($slug, $value) {
     --#{config.$customPropertyPrefix}#{$slug}: #{$value};
 }
+
+///
+/// Prints a custom property definition.
+///
+/// @param {string} $slug
+/// @param {any} $value
+///
+@mixin cx-prop($slug, $value) {
+    @include custom-property($slug, $value);
+}

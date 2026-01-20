@@ -84,7 +84,7 @@
     );
 
     & {
-        @include custom-property(display, flex);
+        @include cx-prop(display, flex);
         display: flex;
 
         flex-direction: row;
@@ -191,7 +191,7 @@
     $includePlaceholder: true,
     $selector: #{&}
 ) {
-    @include custom-property(focus-ring-outline-offset, $focusOffset);
+    @include cx-prop(focus-ring-outline-offset, $focusOffset);
     display: #{$display};
     margin: #{$margin};
     padding: #{$padding};
@@ -204,7 +204,7 @@
     border-radius: 0;
 
     @if $includeClrs {
-        @include custom-property(focus-ring-outline-color, $accentClr);
+        @include cx-prop(focus-ring-outline-color, $accentClr);
         background-color: #{$background};
         color: #{$color};
         accent-color: #{$accentClr};
@@ -220,10 +220,7 @@
 
     @include hover-focus-visible-or-within {
         @if $includeClrs {
-            @include custom-property(
-                focus-ring-outline-color,
-                $accentClr_hover
-            );
+            @include cx-prop(focus-ring-outline-color, $accentClr_hover);
             background-color: #{$background_hover};
             border-color: #{$borderClr_hover};
             color: #{$color_hover};
@@ -248,10 +245,7 @@
 
     &:active {
         @if $includeClrs {
-            @include custom-property(
-                focus-ring-outline-color,
-                $accentClr_active
-            );
+            @include cx-prop(focus-ring-outline-color, $accentClr_active);
             background-color: #{$background_active};
             border-color: #{$borderClr_active};
             color: #{$color_active};
@@ -397,7 +391,7 @@
     }
 
     &:has(> :where(input[type='checkbox'], input[type='radio'])) {
-        @include custom-property(display, grid);
+        @include cx-prop(display, grid);
         display: grid;
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;
