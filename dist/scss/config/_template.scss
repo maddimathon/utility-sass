@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.11
+/// @package @maddimathon/utility-sass@0.1.0-alpha.12
 /// @since 0.1.0-pre.0
 ///
 
@@ -12,6 +12,19 @@
 
 /// # CONFIG - TEMPLATES
 /// ======================================================================== ///
+
+///
+/// Prefix to use before all css custom properties (to avoid conflict).
+///
+/// @since 0.1.0-alpha.12
+///
+$customPropertyPrefix: '' !default;
+$customPropertyPrefix: config-valid-string(
+    $customPropertyPrefix,
+    'customPropertyPrefix',
+    ''
+);
+$cxPropPre: $customPropertyPrefix;
 
 ///
 /// Whether to include the global selectors in the output. Otherwise, all

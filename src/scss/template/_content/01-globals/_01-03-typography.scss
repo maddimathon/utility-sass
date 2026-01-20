@@ -64,8 +64,11 @@
 }
 
 %a {
-    --focus-ring-outline-color: currentColor;
-    --focus-ring-outline-offset: #{var-stroke-relative('200')};
+    @include custom-property(focus-ring-outline-color, currentColor);
+    @include custom-property(
+        focus-ring-outline-offset,
+        var-stroke-relative('200')
+    );
     display: inline;
     border: none;
     text-decoration: underline #{var-stroke-relative('200')};

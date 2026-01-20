@@ -6,7 +6,7 @@
 @use '../../../modules/list';
 @use '../../../modules/map';
 
-// @use '../../../config';
+@use '../../../config';
 @use '../../../tokens';
 
 @use '01-04-05-borders' as *;
@@ -87,8 +87,8 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
     // returns
     @if #{$fallback} == #{$slug} {
-        @return var(--#{$slug});
+        @return var(--#{config.$customPropertyPrefix}#{$slug});
     }
 
-    @return var(--#{$slug}, #{$fallback});
+    @return var(--#{config.$customPropertyPrefix}#{$slug}, #{$fallback});
 }

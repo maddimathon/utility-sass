@@ -1,9 +1,9 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.11
+/// @package @maddimathon/utility-sass@0.1.0-alpha.12
 /// @since 0.1.0-pre.0
 ///
 
-// @use '../config';
+@use '../config';
 
 @use '../modules/map';
 
@@ -16,7 +16,10 @@ $internal_customTokensDefault: map.merge(
         focus-ring: (
             outline-width: '400',
             outline-offset: '400',
-            outline-color: var(--sys-clr-link, LinkText),
+            outline-color: var(
+                    --#{config.$customPropertyPrefix}sys-clr-link,
+                    LinkText
+                ),
         ),
     ),
     map.flatten($internal_customTokensDefault),

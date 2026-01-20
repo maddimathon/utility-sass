@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.11
+/// @package @maddimathon/utility-sass@0.1.0-alpha.12
 /// @since 0.1.0-pre.0
 ///
 
@@ -13,7 +13,7 @@
 
 @use '../../01-functions' as *;
 
-// @use '../02-01-utilities' as *;
+@use '../02-01-utilities' as *;
 @use '../02-02-theming' as *;
 
 // @use '02-03-01-utilities' as *;
@@ -30,7 +30,10 @@
     /* #region Tokens - Border Width */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$border_widths {
-            --border-width-#{$slug}: #{border-width-value($slug)};
+            @include custom-property(
+                border-width-#{$slug},
+                border-width-value($slug)
+            );
         }
     }
     /* #endregion Tokens - Border Width */
@@ -45,7 +48,10 @@
     /* #region Tokens - Stroke Relative */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$strokes_relative {
-            --stroke-relative-#{$slug}: #{stroke-relative-value($slug)};
+            @include custom-property(
+                stroke-relative-#{$slug},
+                stroke-relative-value($slug)
+            );
         }
     }
     /* #endregion Tokens - Stroke Relative */
@@ -61,7 +67,7 @@
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$font_sizes {
             @each $value in fs-value($slug) {
-                --fs-#{$slug}: #{$value};
+                @include custom-property(fs-#{$slug}, $value);
             }
         }
     }
@@ -77,7 +83,10 @@
     /* #region Tokens - Line Heights */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$line_heights {
-            --line-height-#{$slug}: #{line-height-value($slug)};
+            @include custom-property(
+                line-height-#{$slug},
+                line-height-value($slug)
+            );
         }
     }
     /* #endregion Tokens - Line Heights */
@@ -94,19 +103,28 @@
     /* #region Tokens - Margin */
     #{$selector} {
         @each $level, $_value in tokens.$margins {
-            --mrg-firm-#{$level}: #{mrg-value-firm($level)}rem;
+            @include custom-property(
+                mrg-firm-#{$level},
+                #{mrg-value-firm($level)}rem
+            );
         }
     }
 
     #{$selector} {
         @each $level, $_value in tokens.$margins {
-            --mrg-soft-#{$level}: #{mrg-value-soft($level)}rem;
+            @include custom-property(
+                mrg-soft-#{$level},
+                #{mrg-value-soft($level)}rem
+            );
         }
     }
 
     #{$selector} {
         @each $level, $_value in tokens.$margins {
-            --mrg-half-#{$level}: #{mrg-value-half($level)}rem;
+            @include custom-property(
+                mrg-half-#{$level},
+                #{mrg-value-half($level)}rem
+            );
         }
     }
     /* #endregion Tokens - Margin */
@@ -126,7 +144,7 @@
             @each $slug, $_list in $dirMap {
                 //
                 @each $value in gap-value($dir, $slug) {
-                    --gap-#{$dir}-#{$slug}: #{$value};
+                    @include custom-property(gap-#{$dir}-#{$slug}, $value);
                 }
             }
         }
@@ -144,7 +162,7 @@
     #{selector.parent-or-root()} {
         @each $slug, $_value in config.$widths {
             @each $value in width-value($slug, $returnAsNumber: false) {
-                --width-#{$slug}: #{$value};
+                @include custom-property(width-#{$slug}, $value);
             }
         }
     }
@@ -169,10 +187,10 @@ $_systemColors: get-sys-colours();
             @each $value in $list {
                 @if $i > 1 {
                     @supports (color: #{$value}) {
-                        --sys-clr-#{$slug}: #{$value};
+                        @include custom-property(sys-clr-#{$slug}, $value);
                     }
                 } @else {
-                    --sys-clr-#{$slug}: #{$value};
+                    @include custom-property(sys-clr-#{$slug}, $value);
                 }
 
                 $i: $i + 1;
@@ -194,7 +212,10 @@ $_systemColors: get-sys-colours();
                 }
 
                 @each $value in $list {
-                    --sys-clr-#{$slug}: #{$value} !important;
+                    @include custom-property(
+                        sys-clr-#{$slug},
+                        #{$value} !important
+                    );
                 }
             }
         }

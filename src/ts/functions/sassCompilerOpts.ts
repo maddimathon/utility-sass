@@ -10,6 +10,8 @@
 
 import type * as sass from "sass-embedded";
 
+import type { Stage } from '@maddimathon/build-utilities';
+
 import { sassCompilerFunctions } from './sassCompilerFunctions.js';
 
 /**
@@ -19,9 +21,11 @@ import { sassCompilerFunctions } from './sassCompilerFunctions.js';
  * 
  * @since 0.1.0-alpha.8
  */
-export function sassCompilerOpts<T_Partial extends sass.Options<'async'>>(
+export function sassCompilerOpts<
+    T_Partial extends Stage.Compiler.Args.Sass | Partial<Stage.Compiler.Args.Sass>
+>(
     partial?: T_Partial,
-) {
+): T_Partial & Partial<Stage.Compiler.Args.Sass> {
 
     const silenceDeprecations: sass.DeprecationOrId[] = [
         ...partial?.silenceDeprecations ?? [],
@@ -37,5 +41,5 @@ export function sassCompilerOpts<T_Partial extends sass.Options<'async'>>(
             ...partial?.functions ?? {},
             ...sassCompilerFunctions(),
         },
-    } as T_Partial & sass.Options<'async'>;
+    } satisfies T_Partial & Partial<Stage.Compiler.Args.Sass>;
 }

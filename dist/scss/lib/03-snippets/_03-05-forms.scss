@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.11
+/// @package @maddimathon/utility-sass@0.1.0-alpha.12
 /// @since 0.1.0-pre.0
 ///
 
@@ -84,7 +84,7 @@
     );
 
     & {
-        --display: flex;
+        @include custom-property(display, flex);
         display: flex;
 
         flex-direction: row;
@@ -191,7 +191,7 @@
     $includePlaceholder: true,
     $selector: #{&}
 ) {
-    --focus-ring-outline-offset: #{$focusOffset};
+    @include custom-property(focus-ring-outline-offset, $focusOffset);
     display: #{$display};
     margin: #{$margin};
     padding: #{$padding};
@@ -204,7 +204,7 @@
     border-radius: 0;
 
     @if $includeClrs {
-        --focus-ring-outline-color: #{$accentClr};
+        @include custom-property(focus-ring-outline-color, $accentClr);
         background-color: #{$background};
         color: #{$color};
         accent-color: #{$accentClr};
@@ -220,7 +220,10 @@
 
     @include hover-focus-visible-or-within {
         @if $includeClrs {
-            --focus-ring-outline-color: #{$accentClr_hover};
+            @include custom-property(
+                focus-ring-outline-color,
+                $accentClr_hover
+            );
             background-color: #{$background_hover};
             border-color: #{$borderClr_hover};
             color: #{$color_hover};
@@ -245,7 +248,10 @@
 
     &:active {
         @if $includeClrs {
-            --focus-ring-outline-color: #{$accentClr_active};
+            @include custom-property(
+                focus-ring-outline-color,
+                $accentClr_active
+            );
             background-color: #{$background_active};
             border-color: #{$borderClr_active};
             color: #{$color_active};
@@ -391,7 +397,7 @@
     }
 
     &:has(> :where(input[type='checkbox'], input[type='radio'])) {
-        --display: grid;
+        @include custom-property(display, grid);
         display: grid;
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;

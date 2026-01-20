@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.11
+/// @package @maddimathon/utility-sass@0.1.0-alpha.12
 /// @since 0.1.0-pre.0
 ///
 
@@ -94,7 +94,10 @@
 /// @since 0.1.0-pre.0
 ///
 @function var-line-height($slug) {
-    @return var(--line-height-#{$slug}, #{line-height-value($slug)});
+    @return var(
+        --#{config.$customPropertyPrefix}line-height-#{$slug},
+        #{line-height-value($slug)}
+    );
 }
 
 /// ## VARIABLES ==================================== ///
@@ -114,11 +117,11 @@
 
         // returns
         @if list.length($fallback) < 1 {
-            @return var(--fs-#{$slug});
+            @return var(--#{config.$customPropertyPrefix}fs-#{$slug});
         }
 
         $fallback: list.nth($fallback, 1);
     }
 
-    @return var(--fs-#{$slug}, #{$fallback});
+    @return var(--#{config.$customPropertyPrefix}fs-#{$slug}, #{$fallback});
 }

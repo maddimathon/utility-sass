@@ -1,0 +1,28 @@
+///
+/// Utilities for printing any kind of css property.
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.12
+/// @since 0.1.0-alpha.12
+///
+
+@use '../../../config';
+
+// @use '../../../modules/math';
+
+// @use '../../01-functions' as *;
+
+// @use '02-01-01-accessibility' as *;
+// @use '02-01-02-breakpoints' as *;
+
+/// # UTILITY MIXINS - Properties
+/// ======================================================================== ///
+
+///
+/// Prints a custom property definition.
+///
+/// @param {string} $slug
+/// @param {any} $value
+///
+@mixin custom-property($slug, $value) {
+    --#{config.$customPropertyPrefix}#{$slug}: #{$value};
+}

@@ -11,10 +11,10 @@
 
 @use '../../01-functions' as *;
 
-// @use '../02-01-utilities' as *;
+@use '../02-01-utilities' as *;
 // @use '../02-02-theming' as *;
 
-// @use '02-03-01-utilities' as *;
+@use '02-03-01-utilities' as *;
 // @use '02-03-02-tokens' as *;
 
 /// # PROPERTY MIXINS - Custom
@@ -33,7 +33,7 @@
         /* #region Tokens - Misc. */
         #{selector.parent-or-root()} {
             @each $slug, $_value in $tokens {
-                --#{$slug}: #{token-value($slug)};
+                @include custom-property(#{$slug}, token-value($slug));
             }
         }
         /* #endregion Tokens - Misc. */

@@ -3,6 +3,8 @@
 /// @since 0.1.0-pre.0
 ///
 
+@use '../../../config';
+
 @use '../../../modules/list';
 @use '../../../modules/map';
 @use '../../../modules/meta';
@@ -13,8 +15,7 @@ $_systemColors: (
     text: CanvasText,
 
     // SETS
-    accent-bg:
-        (
+    accent-bg: (
             CanvasText,
             AccentColor,
         ),
@@ -90,7 +91,7 @@ $_systemColors: (
 @function var-sys-colour($slug) {
     @if not map.has-key($_systemColors, $slug) {
         @warn "$slug '#{$slug}' was not a key in the system colors";
-        @return var(--sys-clr-#{$slug});
+        @return var(--#{config.$customPropertyPrefix}sys-clr-#{$slug});
     }
 
     $fallback: map.get($_systemColors, $slug);
@@ -99,5 +100,8 @@ $_systemColors: (
         $fallback: list.nth($fallback, 1);
     }
 
-    @return var(--sys-clr-#{$slug}, #{$fallback});
+    @return var(
+        --#{config.$customPropertyPrefix}sys-clr-#{$slug},
+        #{$fallback}
+    );
 }
