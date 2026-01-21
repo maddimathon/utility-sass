@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.14
+/// @package @maddimathon/utility-sass@0.1.0-alpha.15
 /// @since 0.1.0-pre.0
 ///
 
@@ -19,13 +19,13 @@
 @function round-to-pixel($num, $factor: 16) {
     // returns
     @if meta.type-of($num) != number {
-        @warn "$num should be a number but it was a: #{meta.type-of( $num )}";
+        @warn "[math.round-to-pixel] $num should be a number but it was a: #{meta.type-of( $num )}";
         @return $num;
     }
 
     // returns
     @if meta.type-of($factor) != number {
-        @warn "$factor should be a number but it was a: #{meta.type-of( $factor )}";
+        @warn "[math.round-to-pixel] $factor should be a number but it was a: #{meta.type-of( $factor )}";
         $factor: 16;
     }
 

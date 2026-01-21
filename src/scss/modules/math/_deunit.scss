@@ -17,9 +17,15 @@
 ///
 @function deunit($num) {
     // returns
-    @if meta.type-of($num) == 'number' and not math.is-unitless($num) {
-        @return math.div($num, ($num * 0 + 1));
+    @if meta.type-of($num) != 'number' {
+        @warn "[math.deunit] $num should be a number, not the #{meta.type-of($num)} '#{$num}'";
+        @return $num;
     }
 
-    @return $num;
+    // returns
+    @if math.is-unitless($num) {
+        @return $num;
+    }
+
+    @return math.div($num, ($num * 0 + 1));
 }

@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.14
+/// @package @maddimathon/utility-sass@0.1.0-alpha.15
 /// @since 0.1.0-pre.0
 ///
 
@@ -97,19 +97,46 @@
     /* #region Tokens - Margin */
     #{$selector} {
         @each $level, $_value in tokens.$margins {
-            @include cx-prop(mrg-firm-#{$level}, #{mrg-value-firm($level)}rem);
+            @include cx-prop(
+                mrg-firm-#{$level},
+                mrg-value-firm($level, $unit: 1rem)
+            );
+        }
+        @each $level, $_value in tokens.$margins {
+            @include cx-prop(
+                pad-firm-#{$level},
+                mrg-value-firm($level, $unit: 1em)
+            );
         }
     }
 
     #{$selector} {
         @each $level, $_value in tokens.$margins {
-            @include cx-prop(mrg-soft-#{$level}, #{mrg-value-soft($level)}rem);
+            @include cx-prop(
+                mrg-soft-#{$level},
+                mrg-value-soft($level, $unit: 1rem)
+            );
+        }
+        @each $level, $_value in tokens.$margins {
+            @include cx-prop(
+                pad-soft-#{$level},
+                mrg-value-soft($level, $unit: 1em)
+            );
         }
     }
 
     #{$selector} {
         @each $level, $_value in tokens.$margins {
-            @include cx-prop(mrg-half-#{$level}, #{mrg-value-half($level)}rem);
+            @include cx-prop(
+                mrg-half-#{$level},
+                mrg-value-half($level, $unit: 1rem)
+            );
+        }
+        @each $level, $_value in tokens.$margins {
+            @include cx-prop(
+                pad-half-#{$level},
+                mrg-value-half($level, $unit: 1em)
+            );
         }
     }
     /* #endregion Tokens - Margin */

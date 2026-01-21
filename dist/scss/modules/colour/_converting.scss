@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.14
+/// @package @maddimathon/utility-sass@0.1.0-alpha.15
 /// @since 0.1.0-pre.0
 ///
 @use 'sass:color';
@@ -17,7 +17,7 @@
 ///
 @function to-hsl($clr, $round: true) {
     @if meta.type-of($clr) != 'color' {
-        @warn "$clr should be a colour (was #{meta.type-of( $clr )})";
+        @warn "[colour.to-hsl] $clr should be a colour (was #{meta.type-of( $clr )})";
         @return $clr;
     }
 

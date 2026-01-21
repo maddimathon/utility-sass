@@ -17,7 +17,7 @@
 ///
 @function to-hsl($clr, $round: true) {
     @if meta.type-of($clr) != 'color' {
-        @warn "$clr should be a colour (was #{meta.type-of( $clr )})";
+        @warn "[colour.to-hsl] $clr should be a colour (was #{meta.type-of( $clr )})";
         @return $clr;
     }
 

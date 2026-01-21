@@ -1,0 +1,46 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.15
+///
+
+@use 'sass:math';
+@use 'sass:meta';
+
+@use 'always-one';
+@use 'deunit';
+
+///
+/// Adds a specific unit to the given number.
+///
+/// @param {number} $num
+/// @param {string} $unit
+///
+/// @return {number}
+///
+/// @since 0.1.0-alpha.15
+///
+@function add-unit($num, $unit) {
+    // returns
+    @if meta.type-of($num) != 'number' {
+        @warn "[math.add-unit] $num should be a number, not the #{meta.type-of($num)} '#{$num}'";
+        @return '#{$num}#{$unit}';
+    }
+
+    // returns
+    @if not meta.function-exists('mmutils-global-math-addUnit') {
+        // @warn "[meta.add-unit] global compiler function for meta.add-unit not found (and is required)";
+
+        // returns
+        @if meta.type-of($unit) == number {
+            @return if(
+                math.is-unitless($unit),
+                deunit.deunit($num),
+                calc(deunit.deunit($num) * always-one.always-one($unit))
+            );
+        }
+
+        @return '#{deunit.deunit($num)}#{$unit}';
+    }
+
+    @return meta.call(meta.get-function('mmutils-global-math-addUnit'));
+}

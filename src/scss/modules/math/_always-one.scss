@@ -1,0 +1,46 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.15
+///
+
+@use 'sass:math';
+@use 'sass:meta';
+
+@use 'deunit';
+
+///
+/// Always returns a number 1, maintaining a unit if applicable.
+///
+/// @param {number} $num
+///
+/// @return {number}
+///
+/// @since 0.1.0-alpha.15
+///
+@function always-one($num) {
+    // returns
+    @if meta.type-of($num) != 'number' {
+        @warn "[math.always-one] $num should be a number, not the #{meta.type-of($num)} '#{$num}'";
+        @return $num;
+    }
+
+    // returns
+    @if not meta.function-exists('mmutils-global-math-alwaysOne') {
+        // @warn "[meta.always-one] global compiler function for meta.always-one not found (and is required)";
+
+        $_num_zero: $num * 0;
+
+        // returns
+        @if deunit.deunit($num) == 1 {
+            @return $num;
+        }
+
+        @return if(
+            math.is-unitless($num),
+            1,
+            if(math.compatible($_num_zero, 1), $_num_zero + 1, 1)
+        );
+    }
+
+    @return meta.call(meta.get-function('mmutils-global-math-alwaysOne'));
+}

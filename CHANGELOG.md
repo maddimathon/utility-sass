@@ -19,6 +19,13 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.15** — 2026-01-20
+
+### Added
+- `--pad-[firm|soft|half]-000` vars for em versions of `--mrg-[firm|soft|half]-000`
+- math scss module functions - add-unit(), always-one()
+
+
 ## **0.1.0-alpha.14** — 2026-01-20
 
 Added config variables to replace token var(...) with their fallback values

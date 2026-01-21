@@ -15,8 +15,9 @@
 /// Uses the margin config to prepare the appropriate numerical value (rem).
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.15 — Added $unit param.
 ///
-@function mrg-value-firm($level) {
+@function mrg-value-firm($level, $unit: 1) {
     $value: map.get(tokens.$margins, '400');
 
     @if not map.has-key(tokens.$margins, '#{$level}') {
@@ -25,16 +26,27 @@
         $value: map.get(tokens.$margins, '#{$level}');
     }
 
-    @return $value;
+    @return if(
+        meta.type-of($value) == number,
+        math.add-unit($value, $unit),
+        $value
+    );
 }
 
 ///
 /// Uses the margin config to prepare the appropriate numerical value (rem).
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.15 — Added $unit param.
 ///
-@function mrg-value-half($level) {
-    @return calc(mrg-value-firm($level) - mrg-value-soft($level));
+@function mrg-value-half($level, $unit: 1) {
+    $value: calc(mrg-value-firm($level) - mrg-value-soft($level));
+
+    @return if(
+        meta.type-of($value) == number,
+        math.add-unit($value, $unit),
+        $value
+    );
 }
 
 $_mrgValFirm_400: mrg-value-firm('400');
@@ -44,30 +56,44 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// Uses the margin config to prepare the appropriate numerical value (rem).
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.15 — Added $unit param.
 ///
-@function mrg-value-soft($level) {
+@function mrg-value-soft($level, $unit: 1) {
     $value: mrg-value-firm($level);
 
     // returns
     @if math.num-val($level) <= 400 {
-        @return math.round-to-pixel($value * tokens.$margin_softener);
+        $value: math.round-to-pixel($value * tokens.$margin_softener);
+
+        @return if(
+            meta.type-of($value) == number,
+            math.add-unit($value, $unit),
+            $value
+        );
     }
 
-    $percentToSoftenFully: calc($_mrgValFirm_400 / $value);
-    $percentToSoftenPartially: calc(1 - $percentToSoftenFully);
+    $prct_soften_full: calc($_mrgValFirm_400 / $value);
+    $prct_soften_partial: calc(1 - $prct_soften_full);
 
-    @return math.round-to-pixel(
-        (($value * $percentToSoftenFully) * tokens.$margin_softener) +
-            (
-                ($value * $percentToSoftenPartially) *
-                    (
-                        tokens.$margin_softener +
-                            calc(
-                                (1 - tokens.$margin_softener) *
-                                    tokens.$margin_softener
-                            )
-                    )
-            )
+    $_full_softener: tokens.$margin_softener;
+
+    $_partial_softener: (
+        tokens.$margin_softener +
+            calc((1 - tokens.$margin_softener) * tokens.$margin_softener)
+    );
+
+    $value_half_full_soft: $value * $prct_soften_full * $_full_softener;
+
+    $value_half_partial_soft: $value * $prct_soften_partial * $_partial_softener;
+
+    $value: math.round-to-pixel(
+        $value_half_full_soft + $value_half_partial_soft
+    );
+
+    @return if(
+        meta.type-of($value) == number,
+        math.add-unit($value, $unit),
+        $value
     );
 }
 
@@ -99,6 +125,54 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 }
 
 /// ## VARIABLES ==================================== ///
+
+///
+/// Uses the margin config to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since 0.1.0-alpha.15
+///
+@function var-pad-firm($level) {
+    $fallback: calc(1em * pad-value-firm($level));
+
+    @return if(
+        config.$fn_var_replaceWithValue_margin,
+        $fallback,
+        var(--#{config.$cxPropPre}pad-firm-#{$level}, $fallback)
+    );
+}
+
+///
+/// Uses the margin config to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since 0.1.0-alpha.15
+///
+@function var-pad-half($level) {
+    $fallback: calc(1em * pad-value-half($level));
+
+    @return if(
+        config.$fn_var_replaceWithValue_margin,
+        $fallback,
+        var(--#{config.$cxPropPre}pad-half-#{$level}, $fallback)
+    );
+}
+
+///
+/// Uses the margin config tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since 0.1.0-alpha.15
+///
+@function var-pad-soft($level) {
+    $fallback: calc(1em * pad-value-soft($level));
+
+    @return if(
+        config.$fn_var_replaceWithValue_margin,
+        $fallback,
+        var(--#{config.$cxPropPre}pad-soft-#{$level}, $fallback)
+    );
+}
 
 ///
 /// Uses the margin config to print the appropriate var(...) with a
