@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.16** — 2026-01-20
+
+Minor fixes.
+
+
 ## **0.1.0-alpha.15** — 2026-01-20
 
 ### Added
