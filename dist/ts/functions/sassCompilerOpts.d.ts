@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.16
+ * @maddimathon/utility-sass@0.1.0-alpha.17
  * @license MIT
  */
 import type { Stage } from '@maddimathon/build-utilities';
