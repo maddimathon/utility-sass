@@ -19,6 +19,12 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.20** — 2026-01-27
+
+### Added
+- New config value - $fn_gapValue_useMarginValue (default true)
+
+
 ## **0.1.0-alpha.19** — 2026-01-27
 
 ### Added

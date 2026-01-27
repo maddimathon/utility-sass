@@ -262,8 +262,17 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
     @if $dir == block {
         //
         @if $slug == layout or $slug == layout-half {
-            $_clamp_low: var-mrg-soft('600', $multiplier: $multiplier);
-            $_clamp_high: var-mrg-soft('900', $multiplier: $multiplier);
+            $_clamp_low: if(
+                config.$fn_gapValue_useMarginValue,
+                mrg-value-soft('600', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-soft('600', $multiplier: $multiplier)
+            );
+
+            $_clamp_high: if(
+                config.$fn_gapValue_useMarginValue,
+                mrg-value-soft('900', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-soft('900', $multiplier: $multiplier)
+            );
 
             @return (
                 math.add-unit($num, 1vw),
@@ -277,19 +286,34 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
     } @else if $dir == inline {
         //
         @if $slug == indent {
-            //
+            $_clamp_low: if(
+                config.$fn_gapValue_useMarginValue,
+                mrg-value-firm('200', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-firm('200', $multiplier: $multiplier)
+            );
+
+            $_clamp_high: if(
+                config.$fn_gapValue_useMarginValue,
+                mrg-value-firm('800', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-firm('800', $multiplier: $multiplier)
+            );
+
             @return (
                 math.add-unit($num, 1%),
-                clamp(
-                    var-mrg-firm('200', $multiplier: $multiplier),
-                    math.add-unit($num, 1%),
-                    var-mrg-firm('800', $multiplier: $multiplier)
-                )
+                clamp($_clamp_low, math.add-unit($num, 1%), $_clamp_high)
             );
         } @else if $slug == layout or $slug == layout-half {
-            //
-            $_clamp_low: var-mrg-soft('400', $multiplier: $multiplier);
-            $_clamp_high: var-mrg-soft('900', $multiplier: $multiplier);
+            $_clamp_low: if(
+                config.$fn_gapValue_useMarginValue,
+                mrg-value-soft('400', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-soft('400', $multiplier: $multiplier)
+            );
+
+            $_clamp_high: if(
+                config.$fn_gapValue_useMarginValue,
+                mrg-value-soft('900', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-soft('900', $multiplier: $multiplier)
+            );
 
             @return (
                 math.add-unit($num, 1vw),
@@ -300,14 +324,21 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
                 )
             );
         } @else if $slug == tab {
-            //
+            $_clamp_low: if(
+                config.$fn_gapValue_useMarginValue,
+                mrg-value-firm('100', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-firm('100', $multiplier: $multiplier)
+            );
+
+            $_clamp_high: if(
+                config.$fn_gapValue_useMarginValue,
+                mrg-value-firm('600', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-firm('600', $multiplier: $multiplier)
+            );
+
             @return (
                 math.add-unit($num, 1%),
-                clamp(
-                    var-mrg-firm('100', $multiplier: $multiplier),
-                    math.add-unit($num, 1%),
-                    var-mrg-firm('600', $multiplier: $multiplier)
-                )
+                clamp($_clamp_low, math.add-unit($num, 1%), $_clamp_high)
             );
         }
     }
