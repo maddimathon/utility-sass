@@ -19,6 +19,41 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.19** — 2026-01-27
+
+### Added
+- New config vars:
+    - $fn_borderWidthValue_roundToPixelFactor
+    - $fn_lineHeightValue_roundToPixelFactor
+- Optional $multiplier param to:
+    - functions:
+        - border-width-value (also added optional $unit param)
+        - fs-value
+        - gap-value
+        - gap-block-value
+        - gap-inline-value
+        - line-height-value
+        - mrg-value-soft
+        - mrg-value-half
+        - mrg-value-firm
+        - stroke-relative-value (also added optional $unit param)
+        - width-value
+    - mixin:
+        - tokens-border-width
+        - tokens-font-size
+        - tokens-gap
+        - tokens-line-height
+        - tokens-margin
+        - tokens-stroke-relative
+        - tokens-widths
+---
+
+[2026-01-27] 
+
+Details:
+-
+
+
 ## **0.1.0-alpha.18** — 2026-01-26
 
 ### Added

@@ -16,7 +16,7 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.15 — Added $unit param.
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function mrg-value-firm($level, $unit: 1, $multiplier: 1) {
     $value: map.get(tokens.$margins, '400');
@@ -35,7 +35,7 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.15 — Added $unit param.
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function mrg-value-half($level, $unit: 1, $multiplier: 1) {
     //
@@ -53,7 +53,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.15 — Added $unit param.
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function mrg-value-soft($level, $unit: 1, $multiplier: 1) {
     $value: mrg-value-firm($level, $multiplier: $multiplier);
@@ -90,7 +90,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @return {list}
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function width-value($slug, $multiplier: 1, $returnAsNumber: true) {
     // returns
@@ -165,7 +165,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// fallback.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function var-mrg-firm($level, $multiplier: 1) {
     $fallback: math.add-unit(mrg-value-firm($level, $multiplier: $multiplier), 1rem);
@@ -182,7 +182,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// fallback.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function var-mrg-half($level, $multiplier: 1) {
     $fallback: math.add-unit(mrg-value-half($level, $multiplier: $multiplier), 1rem);
@@ -199,7 +199,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// fallback.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function var-mrg-soft($level, $multiplier: 1) {
     $fallback: math.add-unit(mrg-value-soft($level, $multiplier: $multiplier), 1rem);
@@ -216,7 +216,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// fallback.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function var-width($slug, $multiplier: 1) {
     $fallback: width-value($slug, $multiplier: $multiplier, $returnAsNumber: true);
@@ -239,7 +239,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function gap-value($dir, $slug, $multiplier: 1) {
     $dir: #{$dir};
@@ -317,7 +317,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function gap-block-value($slug, $multiplier: 1) {
     @return gap-value(block, $slug, $multiplier: $multiplier);
@@ -325,7 +325,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added $multiplier param.
+/// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function gap-inline-value($slug, $multiplier: 1) {
     @return gap-value(inline, $slug, $multiplier: $multiplier);
