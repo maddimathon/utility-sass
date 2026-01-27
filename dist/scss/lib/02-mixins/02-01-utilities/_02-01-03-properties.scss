@@ -1,7 +1,7 @@
 ///
 /// Utilities for printing any kind of css property.
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.17
+/// @package @maddimathon/utility-sass@0.1.0-alpha.18
 /// @since 0.1.0-alpha.12
 ///
 
@@ -22,9 +22,14 @@
 ///
 /// @param {string} $slug
 /// @param {any} $value
+/// @param {?string} $comment
 ///
-@mixin custom-property($slug, $value) {
-    --#{config.$cxPropPre}#{$slug}: #{$value};
+@mixin custom-property($slug, $value, $comment: null) {
+    @if $comment {
+        --#{config.$cxPropPre}#{$slug}: #{$value}; /* #{$comment} */
+    } @else {
+        --#{config.$cxPropPre}#{$slug}: #{$value};
+    }
 }
 
 ///
@@ -32,7 +37,8 @@
 ///
 /// @param {string} $slug
 /// @param {any} $value
+/// @param {?string} $comment
 ///
-@mixin cx-prop($slug, $value) {
-    @include custom-property($slug, $value);
+@mixin cx-prop($slug, $value, $comment: null) {
+    @include custom-property($slug, $value, $comment: $comment);
 }

@@ -19,6 +19,14 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.18** — 2026-01-26
+
+### Added
+- Optional $comment param to custom-property and cx-prop mixins
+- Optional $relative param to fs-value and clamp-font-size
+- Config var - $mx_tokensFontSize_printRelative - to add --fs-rel-[...] variables
+
+
 ## **0.1.0-alpha.17** — 2026-01-23
 
 Updated dependencies.

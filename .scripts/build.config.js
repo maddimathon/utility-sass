@@ -38,7 +38,7 @@ const config = {
 
         sass: {
             benchmarkCompileTime: true,
-            // compileViaCLI: true,
+            pathToSassLoggingRoot: 'node_modules/@maddimathon/build-utilities/node_modules',
             quietDeps: false,
         },
     },

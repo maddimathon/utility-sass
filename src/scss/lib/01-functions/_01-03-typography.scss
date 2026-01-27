@@ -10,56 +10,43 @@
 
 @use '../../config';
 
-@function _clamp-font-size_unit-adder($num, $unit) {
-    @if meta.type-of($num) ==
-        number and
-        meta.type-of($unit) ==
-        number and
-        math.deunit($unit) ==
-        1
-    {
-        @return calc($num * $unit);
-    } @else {
-        @return #{$num}#{$unit};
-    }
-}
-
 ///
 /// Returns a clamp value for given font size (uses svw).
 ///
-/// @param {number}     $size  Rem/em value.
-/// @param {"em"|"rem"} $unit  Whether font should be in rem or em.
+/// @param {number} $size  Rem/em value.
+/// @param {bool} $relative  Optional. Whether to return a relative value.
 ///
 /// @returns {calc}
 ///
 /// @since 0.1.0-pre.0
 ///
-@function clamp-font-size($size, $unit: 'rem') {
+@function clamp-font-size($size, $relative: false) {
     @if meta.type-of($size) != number {
         @warn "$size should be a number";
         @return #{$size}#{$unit};
     }
 
-    $multi_min: config.$fn_clampFontSize_multiplier_min;
-    $multi_svw: config.$fn_clampFontSize_multiplier_svw;
-    $multi_max: config.$fn_clampFontSize_multiplier_max;
-    $svw_rem: config.$fn_clampFontSize_svw_rem;
+    $clamp_min: math.round-to-pixel(
+        $size * config.$fn_clampFontSize_multiplier_min
+    );
+
+    $clamp_goal_svw: math.round-to-pixel(
+        $size * config.$fn_clampFontSize_multiplier_svw
+    );
+
+    $clamp_max: math.round-to-pixel(
+        $size * config.$fn_clampFontSize_multiplier_max
+    );
+
+    $unit: if($relative, 1em, 1rem);
 
     @return clamp(
-        _clamp-font-size_unit-adder(
-            math.round-to-pixel($size * $multi_min),
-            $unit
-        ),
+        math.add-unit($clamp_min, $unit),
         calc(
-            _clamp-font-size_unit-adder(
-                    math.round-to-pixel($size * $multi_svw),
-                    1svw
-                ) + _clamp-font-size_unit-adder($svw_rem, $unit)
+            math.add-unit($clamp_goal_svw, 1svw) +
+                math.add-unit(config.$fn_clampFontSize_svw_rem, $unit)
         ),
-        _clamp-font-size_unit-adder(
-            math.round-to-pixel($size * $multi_max),
-            $unit
-        )
+        math.add-unit($clamp_max, $unit)
     );
 }
 

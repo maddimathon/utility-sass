@@ -5,14 +5,20 @@
 
 @use '../config';
 
+@use '../../../modules/string';
+
 @if config.$print_templateDocBlock {
     @if config.$template_isDefault {
         /**
          * Utility Sass Template
+         * 
+         * @package utility-sass/template@___CURRENT_VERSION___
          */
     } @else {
         /**
          * Utility Sass Template - #{config.$template_name}
+         * 
+         * @package utility-sass/template/#{string.slugify(config.$template_name)}@___CURRENT_VERSION___
          */
     }
 }

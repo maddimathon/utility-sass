@@ -18,14 +18,20 @@
 /// Returns a list of values since some are calculations that may require
 /// fallbacks.
 ///
-/// @return {number}
+/// @param {string} $slug  Font size key to use to get the font size.
+/// @param {?bool} $clampFontSize  Optional. Whether to return the font-size value as a clamp function. If null, the value is determined based on the $slug.
+/// @param {number} $fontScale  Optional. Multiplier for the font size.
+/// @param {bool} $relative  Optional. Whether to return a relative value.
+///
+/// @return {list<number|calc>}
 ///
 /// @since 0.1.0-pre.0
 ///
 @function fs-value(
     $slug,
-    $fontScale: config.$fn_fontSizeValue_defaultFontScale,
-    $clampFontSize: null
+    $clampFontSize: null,
+    $fontScale: null,
+    $relative: false
 ) {
     // returns
     @if not map.has-key(tokens.$font_sizes, $slug) {
@@ -38,7 +44,6 @@
     @if $clampFontSize == null {
         $clampFontSize: false;
 
-        // returns - clamped value
         @if $slug == 'title' {
             $clampFontSize: true;
         }
@@ -50,20 +55,27 @@
         }
     }
 
+    $unit: if($relative, 1em, 1rem);
+
+    @if $fontScale == null {
+        $fontScale: if($relative, 1, config.$fn_fontSizeValue_defaultFontScale);
+    }
+
+    // returns
     @if $clampFontSize {
         @return (
-            calc(
-                1rem *
-                    math.round-to-pixel(
-                        $size * $fontScale,
-                        $factor: config.$fn_fontSizeValue_roundToPixelFactor
-                    )
+            math.add-unit(
+                math.round-to-pixel(
+                    $size * $fontScale,
+                    $factor: config.$fn_fontSizeValue_roundToPixelFactor
+                ),
+                $unit
             ),
-            clamp-font-size($size * $fontScale, $unit: 1rem)
+            clamp-font-size($size * $fontScale, $relative: $relative)
         );
     }
 
-    @return calc(1rem * math.round-to-pixel($size * $fontScale));
+    @return math.add-unit(math.round-to-pixel($size * $fontScale), $unit);
 }
 
 ///
@@ -87,6 +99,8 @@
     @return $value;
 }
 
+/// ## VARIABLES ==================================== ///
+
 ///
 /// Uses the line height config tokens to print the appropriate var(...) with a
 /// fallback.
@@ -103,32 +117,41 @@
     );
 }
 
-/// ## VARIABLES ==================================== ///
-
 ///
 /// Uses the font size config tokens to print the appropriate var(...) with a
 /// fallback.
 ///
 /// @since 0.1.0-pre.0
 ///
-@function var-fs($slug, $fallback: null) {
+@function var-fs($slug, $fallback: null, $relative: false) {
     //
+    $var_slug: if($relative, fs-rel-#{$slug}, fs-#{$slug});
+
     // if theres's no fallback set, then we use the fs-value function to find one
     // returns if no fallback
     @if $fallback == null {
-        $fallback: fs-value($slug);
+        $fallback: fs-value($slug, $relative: $relative);
 
         // returns
         @if list.length($fallback) < 1 {
-            @return var(--#{config.$cxPropPre}fs-#{$slug});
+            @return var(--#{config.$cxPropPre}#{$var_slug});
         }
 
         $fallback: list.nth($fallback, 1);
     }
 
+    $returnFallbackOnly: config.$fn_var_replaceWithValue_fontSize;
+
+    @if $relative {
+        // prettier-ignore
+        $returnFallbackOnly: $returnFallbackOnly 
+            or not config.$mx_tokensFontSize_printRelative 
+            or $slug == normal;
+    }
+
     @return if(
-        config.$fn_var_replaceWithValue_fontSize,
+        $returnFallbackOnly,
         $fallback,
-        var(--#{config.$cxPropPre}fs-#{$slug}, $fallback)
+        var(--#{config.$cxPropPre}#{$var_slug}, $fallback)
     );
 }

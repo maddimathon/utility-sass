@@ -1,18 +1,24 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.17
+/// @package @maddimathon/utility-sass@0.1.0-alpha.18
 /// @since 0.1.0-pre.0
 ///
 
 @use '../config';
 
+@use '../../../modules/string';
+
 @if config.$print_templateDocBlock {
     @if config.$template_isDefault {
         /**
          * Utility Sass Template
+         * 
+         * @package utility-sass/template@0.1.0-alpha.18
          */
     } @else {
         /**
          * Utility Sass Template - #{config.$template_name}
+         * 
+         * @package utility-sass/template/#{string.slugify(config.$template_name)}@0.1.0-alpha.18
          */
     }
 }
