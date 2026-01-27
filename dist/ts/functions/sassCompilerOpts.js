@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.20
+ * @maddimathon/utility-sass@0.1.0-alpha.21
  * @license MIT
  */
 import { sassCompilerFunctions } from './sassCompilerFunctions.js';

@@ -240,8 +240,14 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-alpha.21 — Added $useMarginValue param.
 ///
-@function gap-value($dir, $slug, $multiplier: 1) {
+@function gap-value(
+    $dir,
+    $slug,
+    $multiplier: 1,
+    $useMarginValue: config.$fn_gapValue_useMarginValue
+) {
     $dir: #{$dir};
 
     @if $dir != block and $dir != inline {
@@ -263,13 +269,13 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
         //
         @if $slug == layout or $slug == layout-half {
             $_clamp_low: if(
-                config.$fn_gapValue_useMarginValue,
+                $useMarginValue,
                 mrg-value-soft('600', $multiplier: $multiplier, $unit: 1rem),
                 var-mrg-soft('600', $multiplier: $multiplier)
             );
 
             $_clamp_high: if(
-                config.$fn_gapValue_useMarginValue,
+                $useMarginValue,
                 mrg-value-soft('900', $multiplier: $multiplier, $unit: 1rem),
                 var-mrg-soft('900', $multiplier: $multiplier)
             );
@@ -287,13 +293,13 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
         //
         @if $slug == indent {
             $_clamp_low: if(
-                config.$fn_gapValue_useMarginValue,
+                $useMarginValue,
                 mrg-value-firm('200', $multiplier: $multiplier, $unit: 1rem),
                 var-mrg-firm('200', $multiplier: $multiplier)
             );
 
             $_clamp_high: if(
-                config.$fn_gapValue_useMarginValue,
+                $useMarginValue,
                 mrg-value-firm('800', $multiplier: $multiplier, $unit: 1rem),
                 var-mrg-firm('800', $multiplier: $multiplier)
             );
@@ -304,15 +310,15 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
             );
         } @else if $slug == layout or $slug == layout-half {
             $_clamp_low: if(
-                config.$fn_gapValue_useMarginValue,
-                mrg-value-soft('400', $multiplier: $multiplier, $unit: 1rem),
-                var-mrg-soft('400', $multiplier: $multiplier)
+                $useMarginValue,
+                mrg-value-firm('400', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-firm('400', $multiplier: $multiplier)
             );
 
             $_clamp_high: if(
-                config.$fn_gapValue_useMarginValue,
-                mrg-value-soft('900', $multiplier: $multiplier, $unit: 1rem),
-                var-mrg-soft('900', $multiplier: $multiplier)
+                $useMarginValue,
+                mrg-value-firm('900', $multiplier: $multiplier, $unit: 1rem),
+                var-mrg-firm('900', $multiplier: $multiplier)
             );
 
             @return (
@@ -325,13 +331,13 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
             );
         } @else if $slug == tab {
             $_clamp_low: if(
-                config.$fn_gapValue_useMarginValue,
+                $useMarginValue,
                 mrg-value-firm('100', $multiplier: $multiplier, $unit: 1rem),
                 var-mrg-firm('100', $multiplier: $multiplier)
             );
 
             $_clamp_high: if(
-                config.$fn_gapValue_useMarginValue,
+                $useMarginValue,
                 mrg-value-firm('600', $multiplier: $multiplier, $unit: 1rem),
                 var-mrg-firm('600', $multiplier: $multiplier)
             );
@@ -349,16 +355,26 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-alpha.21 — Added $useMarginValue param.
 ///
-@function gap-block-value($slug, $multiplier: 1) {
+@function gap-block-value(
+    $slug,
+    $multiplier: 1,
+    $useMarginValue: config.$fn_gapValue_useMarginValue
+) {
     @return gap-value(block, $slug, $multiplier: $multiplier);
 }
 
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-alpha.21 — Added $useMarginValue param.
 ///
-@function gap-inline-value($slug, $multiplier: 1) {
+@function gap-inline-value(
+    $slug,
+    $multiplier: 1,
+    $useMarginValue: config.$fn_gapValue_useMarginValue
+) {
     @return gap-value(inline, $slug, $multiplier: $multiplier);
 }
 

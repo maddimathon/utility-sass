@@ -19,6 +19,16 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.21** — 2026-01-27
+
+### Added
+- Optional $useMarginValue param to gap-value, gap-value, gap-value (default set
+  by $fn_gapValue_useMarginValue in config)
+
+### Fixed
+- Issue with new gap-value calculations for inline-layout and inline-layout-half (from 0.1.0-alpha.19)
+
+
 ## **0.1.0-alpha.20** — 2026-01-27
 
 ### Added
