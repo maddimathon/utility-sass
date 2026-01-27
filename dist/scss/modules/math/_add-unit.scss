@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.18
+/// @package @maddimathon/utility-sass@0.1.0-alpha.19.draft
 /// @since 0.1.0-alpha.15
 ///
 
@@ -27,20 +27,14 @@
     }
 
     // returns
-    @if not meta.function-exists('mmutils-global-math-addUnit') {
-        // @warn "[meta.add-unit] global compiler function for meta.add-unit not found (and is required)";
-
-        // returns
-        @if meta.type-of($unit) == number {
-            @return if(
-                math.is-unitless($unit),
-                deunit.deunit($num),
-                calc(deunit.deunit($num) * always-one.always-one($unit))
-            );
-        }
-
-        @return '#{deunit.deunit($num)}#{$unit}';
+    @if meta.type-of($unit) == number {
+        //
+        @return if(
+            math.is-unitless($unit),
+            deunit.deunit($num),
+            calc(deunit.deunit($num) * always-one.always-one($unit))
+        );
     }
 
-    @return meta.call(meta.get-function('mmutils-global-math-addUnit'));
+    @return '#{deunit.deunit($num)}#{$unit}';
 }

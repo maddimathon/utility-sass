@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.18
+/// @package @maddimathon/utility-sass@0.1.0-alpha.19.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -16,8 +16,9 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.15 — Added $unit param.
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function mrg-value-firm($level, $unit: 1) {
+@function mrg-value-firm($level, $unit: 1, $multiplier: 1) {
     $value: map.get(tokens.$margins, '400');
 
     @if not map.has-key(tokens.$margins, '#{$level}') {
@@ -26,11 +27,7 @@
         $value: map.get(tokens.$margins, '#{$level}');
     }
 
-    @return if(
-        meta.type-of($value) == number,
-        math.add-unit($value, $unit),
-        $value
-    );
+    @return math.add-unit($value * $multiplier, $unit);
 }
 
 ///
@@ -38,15 +35,14 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.15 — Added $unit param.
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function mrg-value-half($level, $unit: 1) {
-    $value: calc(mrg-value-firm($level) - mrg-value-soft($level));
+@function mrg-value-half($level, $unit: 1, $multiplier: 1) {
+    //
+    $firm: mrg-value-firm($level, $multiplier: $multiplier);
+    $soft: mrg-value-soft($level, $multiplier: $multiplier);
 
-    @return if(
-        meta.type-of($value) == number,
-        math.add-unit($value, $unit),
-        $value
-    );
+    @return math.add-unit($firm - $soft, $unit);
 }
 
 $_mrgValFirm_400: mrg-value-firm('400');
@@ -57,23 +53,21 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.15 — Added $unit param.
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function mrg-value-soft($level, $unit: 1) {
-    $value: mrg-value-firm($level);
+@function mrg-value-soft($level, $unit: 1, $multiplier: 1) {
+    $value: mrg-value-firm($level, $multiplier: $multiplier);
 
-    // returns
+    // returns - simple softening
     @if math.num-val($level) <= 400 {
-        $value: math.round-to-pixel($value * tokens.$margin_softener);
-
-        @return if(
-            meta.type-of($value) == number,
-            math.add-unit($value, $unit),
-            $value
+        @return math.add-unit(
+            math.round-to-pixel($value * tokens.$margin_softener),
+            $unit
         );
     }
 
-    $prct_soften_full: calc($_mrgValFirm_400 / $value);
-    $prct_soften_partial: calc(1 - $prct_soften_full);
+    $pc_soften_full: calc($_mrgValFirm_400 / $value);
+    $pc_soften_partial: calc(1 - $pc_soften_full);
 
     $_full_softener: tokens.$margin_softener;
 
@@ -82,18 +76,13 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
             calc((1 - tokens.$margin_softener) * tokens.$margin_softener)
     );
 
-    $value_half_full_soft: $value * $prct_soften_full * $_full_softener;
+    $value_half_full_soft: $value * $pc_soften_full * $_full_softener;
 
-    $value_half_partial_soft: $value * $prct_soften_partial * $_partial_softener;
+    $value_half_partial_soft: $value * $pc_soften_partial * $_partial_softener;
 
-    $value: math.round-to-pixel(
-        $value_half_full_soft + $value_half_partial_soft
-    );
-
-    @return if(
-        meta.type-of($value) == number,
-        math.add-unit($value, $unit),
-        $value
+    @return math.add-unit(
+        math.round-to-pixel($value_half_full_soft + $value_half_partial_soft),
+        $unit
     );
 }
 
@@ -105,8 +94,9 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @return {list}
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function width-value($slug, $returnAsNumber: true) {
+@function width-value($slug, $multiplier: 1, $returnAsNumber: true) {
     // returns
     @if not map.has-key(config.$widths, '#{$slug}') {
         @warn "$slug was not a key in config.$widths";
@@ -115,11 +105,11 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 
     $num: map.get(config.$widths, '#{$slug}');
 
-    @if meta.type-of($num) == 'number' {
-        $num: $num * 1rem;
-    } @else {
-        $num: #{$num}rem;
+    @if meta.type-of($num) == 'number' and $multiplier != 1 {
+        $num: math.round-to-pixel($num * $multiplier);
     }
+
+    $num: math.add-unit($num, 1rem);
 
     @return if($returnAsNumber, $num, ($num));
 }
@@ -179,9 +169,13 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// fallback.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function var-mrg-firm($level) {
-    $fallback: calc(1rem * mrg-value-firm($level));
+@function var-mrg-firm($level, $multiplier: 1) {
+    $fallback: math.add-unit(
+        mrg-value-firm($level, $multiplier: $multiplier),
+        1rem
+    );
 
     @return if(
         config.$fn_var_replaceWithValue_margin,
@@ -195,9 +189,13 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// fallback.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function var-mrg-half($level) {
-    $fallback: calc(1rem * mrg-value-half($level));
+@function var-mrg-half($level, $multiplier: 1) {
+    $fallback: math.add-unit(
+        mrg-value-half($level, $multiplier: $multiplier),
+        1rem
+    );
 
     @return if(
         config.$fn_var_replaceWithValue_margin,
@@ -211,9 +209,13 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// fallback.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function var-mrg-soft($level) {
-    $fallback: calc(1rem * mrg-value-soft($level));
+@function var-mrg-soft($level, $multiplier: 1) {
+    $fallback: math.add-unit(
+        mrg-value-soft($level, $multiplier: $multiplier),
+        1rem
+    );
 
     @return if(
         config.$fn_var_replaceWithValue_margin,
@@ -227,9 +229,14 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// fallback.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function var-width($slug) {
-    $fallback: width-value($slug, $returnAsNumber: true);
+@function var-width($slug, $multiplier: 1) {
+    $fallback: width-value(
+        $slug,
+        $multiplier: $multiplier,
+        $returnAsNumber: true
+    );
 
     @if meta.type-of($fallback) == list and list.length($fallback) < 1 {
         @return var(--#{config.$cxPropPre}width-#{$slug});
@@ -249,8 +256,9 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function gap-value($dir, $slug) {
+@function gap-value($dir, $slug, $multiplier: 1) {
     $dir: #{$dir};
 
     @if $dir != block and $dir != inline {
@@ -262,25 +270,24 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
     // returns
     @if not map.has-key($map, $slug) {
         @warn "$slug '#{$slug}' was not a key in the gaps map";
-        @return ('gap-value(#{$dir}, #{$slug})');
+        @return ();
     }
 
-    $num: map.get($map, $slug);
+    $num: map.get($map, $slug) * $multiplier;
 
     // returns
     @if $dir == block {
         //
         @if $slug == layout or $slug == layout-half {
+            $_clamp_low: var-mrg-soft('600', $multiplier: $multiplier);
+            $_clamp_high: var-mrg-soft('900', $multiplier: $multiplier);
+
             @return (
-                calc(1vw * $num),
+                math.add-unit($num, 1vw),
                 clamp(
-                    calc(
-                        1rem * mrg-value-soft('600') / if($slug == layout, 1, 2)
-                    ),
-                    calc(1svw * $num),
-                    calc(
-                        1rem * mrg-value-soft('900') / if($slug == layout, 1, 2)
-                    )
+                    if($slug == layout, $_clamp_low, calc($_clamp_low/2)),
+                    math.add-unit($num, 1svw),
+                    if($slug == layout, $_clamp_high, calc($_clamp_high/2))
                 )
             );
         }
@@ -289,29 +296,35 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
         @if $slug == indent {
             //
             @return (
-                calc(1% * $num),
-                clamp(var-mrg-firm('200'), calc(1% * $num), var-mrg-firm('800'))
+                math.add-unit($num, 1%),
+                clamp(
+                    var-mrg-firm('200', $multiplier: $multiplier),
+                    math.add-unit($num, 1%),
+                    var-mrg-firm('800', $multiplier: $multiplier)
+                )
             );
         } @else if $slug == layout or $slug == layout-half {
             //
+            $_clamp_low: var-mrg-soft('400', $multiplier: $multiplier);
+            $_clamp_high: var-mrg-soft('900', $multiplier: $multiplier);
 
             @return (
-                calc(1vw * $num),
+                math.add-unit($num, 1vw),
                 clamp(
-                    calc(
-                        1rem * mrg-value-firm('400') / if($slug == layout, 1, 2)
-                    ),
-                    calc(1svw * $num),
-                    calc(
-                        1rem * mrg-value-firm('900') / if($slug == layout, 1, 2)
-                    )
+                    if($slug == layout, $_clamp_low, calc($_clamp_low/2)),
+                    math.add-unit($num, 1svw),
+                    if($slug == layout, $_clamp_high, calc($_clamp_high/2))
                 )
             );
         } @else if $slug == tab {
             //
             @return (
-                calc(1% * $num),
-                clamp(var-mrg-firm('100'), calc(1% * $num), var-mrg-firm('600'))
+                math.add-unit($num, 1%),
+                clamp(
+                    var-mrg-firm('100', $multiplier: $multiplier),
+                    math.add-unit($num, 1%),
+                    var-mrg-firm('600', $multiplier: $multiplier)
+                )
             );
         }
     }
@@ -321,16 +334,18 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function gap-block-value($slug) {
-    @return gap-value(block, $slug);
+@function gap-block-value($slug, $multiplier: 1) {
+    @return gap-value(block, $slug, $multiplier: $multiplier);
 }
 
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@function gap-inline-value($slug) {
-    @return gap-value(inline, $slug);
+@function gap-inline-value($slug, $multiplier: 1) {
+    @return gap-value(inline, $slug, $multiplier: $multiplier);
 }
 
 ///

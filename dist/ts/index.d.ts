@@ -6,7 +6,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.18
+ * @maddimathon/utility-sass@0.1.0-alpha.19.draft
  * @license MIT
  */
 export * from './classes/index.js';

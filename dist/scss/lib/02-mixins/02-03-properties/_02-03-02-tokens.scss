@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.18
+/// @package @maddimathon/utility-sass@0.1.0-alpha.19.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -26,12 +26,16 @@
 /// Prints out the border width custom property tokens based on config.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@mixin tokens-border-width {
+@mixin tokens-border-width($multiplier: 1) {
     /* #region Tokens - Border Width */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$border_widths {
-            @include cx-prop(border-width-#{$slug}, border-width-value($slug));
+            @include cx-prop(
+                border-width-#{$slug},
+                border-width-value($slug, $multiplier: $multiplier)
+            );
         }
     }
     /* #endregion Tokens - Border Width */
@@ -41,14 +45,15 @@
 /// Prints out the relative strokes custom property tokens based on config.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@mixin tokens-stroke-relative {
+@mixin tokens-stroke-relative($multiplier: 1) {
     /* #region Tokens - Stroke Relative */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$strokes_relative {
             @include cx-prop(
                 stroke-relative-#{$slug},
-                stroke-relative-value($slug)
+                stroke-relative-value($slug, $multiplier: $multiplier)
             );
         }
     }
@@ -59,19 +64,26 @@
 /// Prints out the font size custom property tokens based on config.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@mixin tokens-font-size {
+@mixin tokens-font-size($multiplier: 1) {
     /* #region Tokens - Font Size */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$font_sizes {
-            @each $value in fs-value($slug) {
+            @each $value in fs-value($slug, $multiplier: $multiplier) {
                 @include cx-prop(fs-#{$slug}, $value);
             }
         }
 
         @if config.$mx_tokensFontSize_printRelative {
             @each $slug, $_value in tokens.$font_sizes {
-                @each $value in fs-value($slug, $relative: true) {
+                @each $value
+                    in fs-value(
+                        $slug,
+                        $multiplier: $multiplier,
+                        $relative: true
+                    )
+                {
                     @include cx-prop(fs-rel-#{$slug}, $value);
                 }
             }
@@ -84,12 +96,16 @@
 /// Prints out the line height custom property tokens based on config.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@mixin tokens-line-height {
+@mixin tokens-line-height($multiplier: 1) {
     /* #region Tokens - Line Heights */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$line_heights {
-            @include cx-prop(line-height-#{$slug}, line-height-value($slug));
+            @include cx-prop(
+                line-height-#{$slug},
+                line-height-value($slug, $multiplier: $multiplier)
+            );
         }
     }
     /* #endregion Tokens - Line Heights */
@@ -99,8 +115,9 @@
 /// Prints out the margin custom property tokens based on config.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@mixin tokens-margin {
+@mixin tokens-margin($multiplier: 1) {
     $selector: selector.parent-or-root();
 
     /* #region Tokens - Margin */
@@ -108,13 +125,13 @@
         @each $level, $_value in tokens.$margins {
             @include cx-prop(
                 mrg-firm-#{$level},
-                mrg-value-firm($level, $unit: 1rem)
+                mrg-value-firm($level, $unit: 1rem, $multiplier: $multiplier)
             );
         }
         @each $level, $_value in tokens.$margins {
             @include cx-prop(
                 pad-firm-#{$level},
-                mrg-value-firm($level, $unit: 1em)
+                mrg-value-firm($level, $unit: 1em, $multiplier: $multiplier)
             );
         }
     }
@@ -123,13 +140,13 @@
         @each $level, $_value in tokens.$margins {
             @include cx-prop(
                 mrg-soft-#{$level},
-                mrg-value-soft($level, $unit: 1rem)
+                mrg-value-soft($level, $unit: 1rem, $multiplier: $multiplier)
             );
         }
         @each $level, $_value in tokens.$margins {
             @include cx-prop(
                 pad-soft-#{$level},
-                mrg-value-soft($level, $unit: 1em)
+                mrg-value-soft($level, $unit: 1em, $multiplier: $multiplier)
             );
         }
     }
@@ -138,13 +155,13 @@
         @each $level, $_value in tokens.$margins {
             @include cx-prop(
                 mrg-half-#{$level},
-                mrg-value-half($level, $unit: 1rem)
+                mrg-value-half($level, $unit: 1rem, $multiplier: $multiplier)
             );
         }
         @each $level, $_value in tokens.$margins {
             @include cx-prop(
                 pad-half-#{$level},
-                mrg-value-half($level, $unit: 1em)
+                mrg-value-half($level, $unit: 1em, $multiplier: $multiplier)
             );
         }
     }
@@ -155,8 +172,9 @@
 /// Prints out the border width custom property tokens based on config.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@mixin tokens-gap {
+@mixin tokens-gap($multiplier: 1) {
     /* #region Tokens - Gap */
     #{selector.parent-or-root()} {
         //
@@ -164,7 +182,8 @@
             //
             @each $slug, $_list in $dirMap {
                 //
-                @each $value in gap-value($dir, $slug) {
+                @each $value in gap-value($dir, $slug, $multiplier: $multiplier)
+                {
                     @include cx-prop(gap-#{$dir}-#{$slug}, $value);
                 }
             }
@@ -177,12 +196,19 @@
 /// Prints out the width custom property tokens based on breakpoints config.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier param.
 ///
-@mixin tokens-width {
+@mixin tokens-width($multiplier: 1) {
     /* #region Tokens - Width */
     #{selector.parent-or-root()} {
         @each $slug, $_value in config.$widths {
-            @each $value in width-value($slug, $returnAsNumber: false) {
+            @each $value
+                in width-value(
+                    $slug,
+                    $returnAsNumber: false,
+                    $multiplier: $multiplier
+                )
+            {
                 @include cx-prop(width-#{$slug}, $value);
             }
         }

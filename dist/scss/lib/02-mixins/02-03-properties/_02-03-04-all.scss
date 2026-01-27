@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.18
+/// @package @maddimathon/utility-sass@0.1.0-alpha.19.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -21,6 +21,7 @@
 /// Prints out all the custom properties included in this system.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.19.draft — Added $multiplier_... params.
 ///
 @mixin tokens-all(
     $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
@@ -31,7 +32,15 @@
     $margin: not config.$fn_var_replaceWithValue_margin,
     $strokeRelative: not config.$fn_var_replaceWithValue_strokeRelative,
     $sysColours: config.$include_html,
-    $width: config.$include_html and not config.$fn_var_replaceWithValue_width
+    $width: config.$include_html and not config.$fn_var_replaceWithValue_width,
+    //
+    $multiplier_borderWidth: 1,
+    $multiplier_fontSize: 1,
+    $multiplier_gap: 1,
+    $multiplier_lineHeight: 1,
+    $multiplier_margin: 1,
+    $multiplier_strokeRelative: 1,
+    $multiplier_width: 1
 ) {
     // colours
     @if $sysColours {
@@ -40,31 +49,33 @@
 
     // spacing
     @if $width {
-        @include tokens-width;
+        @include tokens-width($multiplier: $multiplier_width);
     }
     @if $margin {
-        @include tokens-margin;
+        @include tokens-margin($multiplier: $multiplier_margin);
     }
 
     // typography
     @if $fontSize {
-        @include tokens-font-size;
+        @include tokens-font-size($multiplier: $multiplier_fontSize);
     }
     @if $lineHeight {
-        @include tokens-line-height;
+        @include tokens-line-height($multiplier: $multiplier_lineHeight);
     }
 
     // spacing
     @if $gap {
-        @include tokens-gap;
+        @include tokens-gap($multiplier: $multiplier_gap);
     }
 
     // decoration
     @if $borderWidth {
-        @include tokens-border-width;
+        @include tokens-border-width($multiplier: $multiplier_borderWidth);
     }
     @if $strokeRelative {
-        @include tokens-stroke-relative;
+        @include tokens-stroke-relative(
+            $multiplier: $multiplier_strokeRelative
+        );
     }
 
     // custom

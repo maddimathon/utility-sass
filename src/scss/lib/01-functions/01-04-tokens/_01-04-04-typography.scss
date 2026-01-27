@@ -21,16 +21,20 @@
 /// @param {string} $slug  Font size key to use to get the font size.
 /// @param {?bool} $clampFontSize  Optional. Whether to return the font-size value as a clamp function. If null, the value is determined based on the $slug.
 /// @param {number} $fontScale  Optional. Multiplier for the font size.
+/// @param {bool} $multiplier  Optional. Multiplier for the font size, on top of $fontScale, if any.
 /// @param {bool} $relative  Optional. Whether to return a relative value.
 ///
 /// @return {list<number|calc>}
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.18 — Added $relative param.
+/// @since ___PKG_VERSION___ — Added $multiplier param.
 ///
 @function fs-value(
     $slug,
     $clampFontSize: null,
     $fontScale: null,
+    $multiplier: 1,
     $relative: false
 ) {
     // returns
@@ -61,6 +65,8 @@
         $fontScale: if($relative, 1, config.$fn_fontSizeValue_defaultFontScale);
     }
 
+    $fontScale: $fontScale * $multiplier;
+
     // returns
     @if $clampFontSize {
         @return (
@@ -86,8 +92,9 @@
 /// @return {number}
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Added $multiplier param.
 ///
-@function line-height-value($level) {
+@function line-height-value($level, $multiplier: 1) {
     $value: map.get(tokens.$line_heights, '400');
 
     @if not map.has-key(tokens.$line_heights, '#{$level}') {
@@ -96,7 +103,11 @@
         $value: map.get(tokens.$line_heights, '#{$level}');
     }
 
-    @return $value;
+    @return if(
+        $multiplier == 1,
+        $value,
+        math.round-to-pixel($value * $multiplier, config.$fn_lineHeighteValue_roundToPixelFactor)
+    );
 }
 
 /// ## VARIABLES ==================================== ///
@@ -149,9 +160,5 @@
             or $slug == normal;
     }
 
-    @return if(
-        $returnFallbackOnly,
-        $fallback,
-        var(--#{config.$cxPropPre}#{$var_slug}, $fallback)
-    );
+    @return if($returnFallbackOnly, $fallback, var(--#{config.$cxPropPre}#{$var_slug}, $fallback));
 }

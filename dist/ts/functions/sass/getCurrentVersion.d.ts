@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.18
+ * @maddimathon/utility-sass@0.1.0-alpha.19.draft
  * @license MIT
  */
 import * as sass from "sass-embedded";

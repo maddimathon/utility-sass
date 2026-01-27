@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.18
+/// @package @maddimathon/utility-sass@0.1.0-alpha.19.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -19,11 +19,12 @@
 /// @returns {calc}
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.18 — Added $relative param.
 ///
 @function clamp-font-size($size, $relative: false) {
     @if meta.type-of($size) != number {
         @warn "$size should be a number";
-        @return #{$size}#{$unit};
+        @return math.add-unit($size, if($relative, 1em, 1rem));
     }
 
     $clamp_min: math.round-to-pixel(

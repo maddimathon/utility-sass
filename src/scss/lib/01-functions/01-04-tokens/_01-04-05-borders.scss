@@ -4,6 +4,7 @@
 ///
 
 @use '../../../modules/map';
+@use '../../../modules/math';
 
 @use '../../../config';
 @use '../../../tokens';
@@ -12,8 +13,9 @@
 /// Uses the border width tokens to prepare the appropriate numerical value (rem).
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Added $multiplier and $unit param.
 ///
-@function border-width-value($level) {
+@function border-width-value($level, $multiplier: 1, $unit: 1rem) {
     $value: map.get(tokens.$border_widths, '200');
 
     @if not map.has-key(tokens.$border_widths, '#{$level}') {
@@ -22,7 +24,17 @@
         $value: map.get(tokens.$border_widths, '#{$level}');
     }
 
-    @return calc($value * 1rem);
+    @return math.add-unit(
+        if(
+            $multiplier == 1,
+            $value,
+            math.round-to-pixel(
+                $value * $multiplier,
+                config.$fn_borderWidthValue_roundToPixelFactor
+            )
+        ),
+        $unit
+    );
 }
 
 ///
@@ -45,8 +57,9 @@
 /// Uses the stroke relative tokens to prepare the appropriate numerical value (rem).
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Added $multiplier and $unit param.
 ///
-@function stroke-relative-value($level) {
+@function stroke-relative-value($level, $multiplier: 1, $unit: 1em) {
     $value: map.get(tokens.$strokes_relative, '200');
 
     @if not map.has-key(tokens.$strokes_relative, '#{$level}') {
@@ -55,7 +68,17 @@
         $value: map.get(tokens.$strokes_relative, '#{$level}');
     }
 
-    @return calc($value * 1em);
+    @return math.add-unit(
+        if(
+            $multiplier == 1,
+            $value,
+            math.round-to-pixel(
+                $value * $multiplier,
+                config.$fn_borderWidthValue_roundToPixelFactor
+            )
+        ),
+        $unit
+    );
 }
 
 ///

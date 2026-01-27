@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.18
+/// @package @maddimathon/utility-sass@0.1.0-alpha.19.draft
 /// @since 0.1.0-alpha.15
 ///
 
@@ -24,23 +24,16 @@
         @return $num;
     }
 
+    $_num_zero: $num * 0;
+
     // returns
-    @if not meta.function-exists('mmutils-global-math-alwaysOne') {
-        // @warn "[meta.always-one] global compiler function for meta.always-one not found (and is required)";
-
-        $_num_zero: $num * 0;
-
-        // returns
-        @if deunit.deunit($num) == 1 {
-            @return $num;
-        }
-
-        @return if(
-            math.is-unitless($num),
-            1,
-            if(math.compatible($_num_zero, 1), $_num_zero + 1, 1)
-        );
+    @if deunit.deunit($num) == 1 {
+        @return $num;
     }
 
-    @return meta.call(meta.get-function('mmutils-global-math-alwaysOne'));
+    @return if(
+        math.is-unitless($num),
+        1,
+        if(math.compatible($_num_zero, 1), $_num_zero + 1, 1)
+    );
 }
