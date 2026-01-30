@@ -63,10 +63,7 @@ $font_sizes: map.merge(
     $ordered_keys: if(
         $_isFirstLevel,
         map.keys($map),
-        list.sort(
-            list.sort(map.keys($map), $sortAs: 'string'),
-            $sortAs: 'number'
-        )
+        list.sort(list.sort(map.keys($map), $sortAs: 'string'), $sortAs: 'number')
     );
 
     $ordered_map: ();
@@ -126,22 +123,22 @@ $lineHeight_base: 1.6875 !default;
 ///
 $line_heights: () !default;
 
-$line_heights: map.merge(
-    (
-        '100': -2.75,
-        '200': -2,
-        '300': -1.25,
-        '400': 0,
-        '500': 1,
-        '600': 2,
-    ),
-    $line_heights
+$line_heights: map.ksort(
+    map.merge(
+        (
+            '100': -2.75,
+            '200': -2,
+            '300': -1.25,
+            '400': 0,
+            '500': 1,
+            '600': 2,
+        ),
+        $line_heights
+    )
 );
 
 @each $key, $value in $line_heights {
-    $lh: (
-        math.pow(spacing.$scaleMultiplier, $value * 0.875) * $lineHeight_base
-    );
+    $lh: math.pow(spacing.$scaleMultiplier, $value * 0.875) * $lineHeight_base;
 
     $line_heights: map.set($line_heights, $key, math.round-to-pixel($lh, 32));
 }

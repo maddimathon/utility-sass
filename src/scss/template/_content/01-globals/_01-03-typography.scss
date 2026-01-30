@@ -128,8 +128,7 @@
 
     & {
         margin-block: #{var-mrg-soft('400')} 0;
-        margin-block: #{var-mrg-soft('600')}
-            calc(var-mrg-soft('600') - var-mrg-soft('400'));
+        margin-block: #{var-mrg-soft('600')} calc(var-mrg-soft('600') - var-mrg-soft('400'));
 
         padding-inline-start: #{var-mrg-firm('300')};
 
@@ -179,9 +178,8 @@
     & {
         position: relative;
         margin-inline: 0;
-        margin-block: #{var-mrg-soft('400')} 0;
-        margin-block: #{var-mrg-soft('600')}
-            calc(var-mrg-soft('600') - var-mrg-soft('400'));
+        margin-block: #{var-mrg-firm('400')} 0;
+        margin-block: #{var-mrg-firm('600')} calc(var-mrg-firm('600') - var-mrg-firm('400'));
 
         padding: #{var-mrg-soft('300')} #{var-mrg-firm('300')};
 
@@ -237,10 +235,7 @@ $_whereUnstyledHeadingSelectors: ();
             }
 
             &--where {
-                @include snippet-heading(
-                    $num,
-                    $includeUnstyledHeadingProps: false
-                );
+                @include snippet-heading($num, $includeUnstyledHeadingProps: false);
 
                 :where(%button) {
                     font: inherit;

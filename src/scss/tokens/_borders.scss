@@ -21,22 +21,20 @@
 ///
 $border_widths: () !default;
 
-$border_widths: map.merge(
-    (
-        '100': 0.0625,
-        '200': 0.125,
-        '300': 0.1875,
-        '400': 0.25,
-    ),
-    $border_widths
+$border_widths: map.ksort(
+    map.merge(
+        (
+            '100': 0.0625,
+            '200': 0.125,
+            '300': 0.1875,
+            '400': 0.25,
+        ),
+        $border_widths
+    )
 );
 
 @each $key, $size in $border_widths {
-    $border_widths: map.set(
-        $border_widths,
-        $key,
-        math.round-to-pixel($size, 32)
-    );
+    $border_widths: map.set($border_widths, $key, math.round-to-pixel($size, 32));
 }
 
 ///
@@ -50,22 +48,20 @@ $border_widths: map.merge(
 ///
 $strokes_relative: () !default;
 
-$strokes_relative: map.merge(
-    (
-        '100': calc(0.5 / 16),
-        '200': calc(1 / 16),
-        '400': calc(2 / 16),
-        '600': calc(3 / 16),
-        '800': calc(4 / 16),
-        '900': calc(6 / 16),
-    ),
-    $strokes_relative
+$strokes_relative: map.ksort(
+    map.merge(
+        (
+            '100': calc(0.5 / 16),
+            '200': calc(1 / 16),
+            '400': calc(2 / 16),
+            '600': calc(3 / 16),
+            '800': calc(4 / 16),
+            '900': calc(6 / 16),
+        ),
+        $strokes_relative
+    )
 );
 
 @each $key, $size in $strokes_relative {
-    $strokes_relative: map.set(
-        $strokes_relative,
-        $key,
-        math.round-to-pixel($size, 32)
-    );
+    $strokes_relative: map.set($strokes_relative, $key, math.round-to-pixel($size, 32));
 }

@@ -15,6 +15,13 @@
 $margin_softener: 0.625 !default;
 
 ///
+/// The base value for the 400-level margin value.
+///
+/// @since 0.1.0-alpha.22
+///
+$margin_base: 1.25 !default;
+
+///
 /// Used for scaling various size sets relative to each other - e.g., margins,
 /// font sizes, line heights.
 ///
@@ -33,18 +40,20 @@ $scaleMultiplier: 1.15625 !default;
 ///
 $margins: () !default;
 
-$margins: map.merge(
-    (
-        '100': -9,
-        '200': -6,
-        '300': -3,
-        '400': 0,
-        '500': 2,
-        '600': 4,
-        '800': 8,
-        '900': 12,
-    ),
-    $margins
+$margins: map.ksort(
+    map.merge(
+        (
+            '100': -9,
+            '200': -6,
+            '300': -3,
+            '400': 0,
+            '500': 2,
+            '600': 4,
+            '800': 8,
+            '900': 12,
+        ),
+        $margins
+    )
 );
 
 // TODO - add config option for the 1.25 multiplier - $margin_base
@@ -52,7 +61,7 @@ $margins: map.merge(
     $margins: map.set(
         $margins,
         $key,
-        math.round-to-pixel(math.pow($scaleMultiplier, $size) * 1.25)
+        math.round-to-pixel(math.pow($scaleMultiplier, $size) * $margin_base)
     );
 }
 
@@ -62,27 +71,13 @@ $_layoutVW_default: 8;
 /// @since 0.1.0-pre.0
 ///
 $layoutVW: null !default;
-$layoutVW: config.config-valid-number(
-    $layoutVW,
-    'layoutVW',
-    $default: $_layoutVW_default,
-    $min: 2
-);
+$layoutVW: config.config-valid-number($layoutVW, 'layoutVW', $default: $_layoutVW_default, $min: 2);
 
-$_gap_tab: config.config-round-to-pixel(
-    calc($layoutVW * (5 / $_layoutVW_default)),
-    8
-);
+$_gap_tab: config.config-round-to-pixel(calc($layoutVW * (5 / $_layoutVW_default)), 8);
 
-$_gap_indent: config.config-round-to-pixel(
-    calc($layoutVW * (9 / $_layoutVW_default)),
-    8
-);
+$_gap_indent: config.config-round-to-pixel(calc($layoutVW * (9 / $_layoutVW_default)), 8);
 
-$_gap_block_layout: config.config-round-to-pixel(
-    calc($layoutVW * (5 / $_layoutVW_default)),
-    8
-);
+$_gap_block_layout: config.config-round-to-pixel(calc($layoutVW * (5 / $_layoutVW_default)), 8);
 
 ///
 /// Gaps are responsive margins to be used at the page layout level.

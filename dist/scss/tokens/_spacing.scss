@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.21
+/// @package @maddimathon/utility-sass@0.1.0-alpha.22
 /// @since 0.1.0-pre.0
 ///
 
@@ -13,6 +13,13 @@
 /// ======================================================================== ///
 
 $margin_softener: 0.625 !default;
+
+///
+/// The base value for the 400-level margin value.
+///
+/// @since 0.1.0-alpha.22
+///
+$margin_base: 1.25 !default;
 
 ///
 /// Used for scaling various size sets relative to each other - e.g., margins,
@@ -33,18 +40,20 @@ $scaleMultiplier: 1.15625 !default;
 ///
 $margins: () !default;
 
-$margins: map.merge(
-    (
-        '100': -9,
-        '200': -6,
-        '300': -3,
-        '400': 0,
-        '500': 2,
-        '600': 4,
-        '800': 8,
-        '900': 12,
-    ),
-    $margins
+$margins: map.ksort(
+    map.merge(
+        (
+            '100': -9,
+            '200': -6,
+            '300': -3,
+            '400': 0,
+            '500': 2,
+            '600': 4,
+            '800': 8,
+            '900': 12,
+        ),
+        $margins
+    )
 );
 
 // TODO - add config option for the 1.25 multiplier - $margin_base
@@ -52,7 +61,7 @@ $margins: map.merge(
     $margins: map.set(
         $margins,
         $key,
-        math.round-to-pixel(math.pow($scaleMultiplier, $size) * 1.25)
+        math.round-to-pixel(math.pow($scaleMultiplier, $size) * $margin_base)
     );
 }
 

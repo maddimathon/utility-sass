@@ -11,22 +11,27 @@
 
 $internal_customTokensDefault: () !default;
 
-$internal_customTokensDefault: map.merge(
-    (
-        focus-ring: (
-            outline-width: '400',
-            outline-offset: '400',
-            outline-color: var(--#{config.$cxPropPre}sys-clr-link, LinkText),
+$internal_customTokensDefault: map.ksort(
+    map.merge(
+        (
+            focus-ring: (
+                outline-width: '400',
+                outline-offset: '400',
+                outline-color: var(--#{config.$cxPropPre}sys-clr-link, LinkText),
+            ),
         ),
+        $internal_customTokensDefault,
+        $recursive: true
     ),
-    map.flatten($internal_customTokensDefault),
     $recursive: true
 );
 
 $customTokens: () !default;
 
-$customTokens: map.merge(
-    map.flatten($internal_customTokensDefault),
-    map.flatten($customTokens),
-    $recursive: true
+$customTokens: map.ksort(
+    map.merge(
+        map.flatten($internal_customTokensDefault),
+        map.flatten($customTokens),
+        $recursive: true
+    )
 );

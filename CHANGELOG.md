@@ -19,6 +19,13 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.22** — 2026-01-30
+
+### Added
+- Now sorting token maps by key for prettier css output
+- Config var - $margin_base
+
+
 ## **0.1.0-alpha.21** — 2026-01-27
 
 ### Added
@@ -62,12 +69,6 @@ and this project adheres to
         - tokens-margin
         - tokens-stroke-relative
         - tokens-widths
----
-
-[2026-01-27] 
-
-Details:
--
 
 
 ## **0.1.0-alpha.18** — 2026-01-26
