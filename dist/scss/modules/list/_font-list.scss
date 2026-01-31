@@ -1,11 +1,13 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.23
+/// @package @maddimathon/utility-sass@0.1.0-alpha.24
 /// @since 0.1.0-alpha
 ///
 
 @use 'sass:list';
 @use 'sass:meta';
 @use 'sass:string';
+
+@use 'unique';
 
 ///
 /// Quotes font names as needed for valid output.
@@ -26,7 +28,7 @@
         @return $fonts;
     }
 
-    @each $font in $fonts {
+    @each $font in unique.unique($fonts) {
         $str: string.unquote(#{$font});
 
         @if string.index($str, ' ') != null {

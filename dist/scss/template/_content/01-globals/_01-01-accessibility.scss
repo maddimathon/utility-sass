@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.23
+/// @package @maddimathon/utility-sass@0.1.0-alpha.24
 /// @since 0.1.0-pre.0
 ///
 
@@ -21,25 +21,19 @@
      * ======================================================================== */
 }
 
-@mixin _focus-ring {
-    outline: #{var-token('focus-ring-outline-width')} dashed currentColor;
-    outline-color: #{var-token('focus-ring-outline-color')};
-    outline-offset: #{var-token('focus-ring-outline-offset')};
-}
-
 %focus-ring {
     /* %focus-ring */
-    @include _focus-ring;
+    @include snippet-focus-ring;
 }
 
 %focus-ring--where {
     /* %focus-ring--where */
-    @include _focus-ring;
+    @include snippet-focus-ring;
 }
 
 %focus-ring--visible {
     /* %focus-ring--visible */
-    @include _focus-ring;
+    @include snippet-focus-ring;
 }
 
 %screen-reader-text {

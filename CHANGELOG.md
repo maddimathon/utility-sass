@@ -19,6 +19,15 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.24** — 2026-01-30
+
+### Misc. Breaking
+- Changed param from $lh to $lineHeight in mixins - snippet-button, snippet-input, snippet-label
+
+### Added
+- New mixin - snippet-focus-ring
+
+
 ## **0.1.0-alpha.23** — 2026-01-30
 
 ### Changed

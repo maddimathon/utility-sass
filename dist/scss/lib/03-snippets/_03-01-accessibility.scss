@@ -1,7 +1,26 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.23
+/// @package @maddimathon/utility-sass@0.1.0-alpha.24
 /// @since 0.1.0-pre.0
 ///
+
+// @use '../../config';
+
+// @use '../../modules/math';
+
+@use '../01-functions' as *;
+// @use '../02-mixins' as *;
+
+/// # SNIPPETS - ACCESSIBILITY
+/// ======================================================================== ///
+
+///
+/// @since 0.1.0-alpha.24
+///
+@mixin snippet-focus-ring {
+    outline: #{var-token('focus-ring-outline-width')} dashed currentColor;
+    outline-color: #{var-token('focus-ring-outline-color')};
+    outline-offset: #{var-token('focus-ring-outline-offset')};
+}
 
 ///
 /// @since 0.1.0-pre.0

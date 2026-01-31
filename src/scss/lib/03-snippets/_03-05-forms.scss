@@ -43,7 +43,7 @@
     //
     $borderWidth: 0.125rem,
     $focusOffset: 0.125rem,
-    $lh: '100',
+    $lineHeight: var-line-height('100'),
     $gap: var-mrg-soft('300') var-mrg-firm('100'),
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
     $opacity_hover: 0.875,
@@ -73,7 +73,7 @@
 
         $borderWidth: $borderWidth,
         $focusOffset: $focusOffset,
-        $lh: $lh,
+        $lineHeight: $lineHeight,
         $margin: $margin,
         $opacity_hover: $opacity_hover,
         $padding: $padding,
@@ -181,7 +181,7 @@
     $color_placeholder: currentColor,
     //
     $display: block,
-    $lh: '200',
+    $lineHeight: var-line-height('200'),
     $borderWidth: 0.0625rem,
     $focusOffset: 0.125rem,
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
@@ -202,7 +202,7 @@
     width: #{$width};
 
     font: inherit;
-    line-height: #{var-line-height($lh)};
+    line-height: #{$lineHeight};
 
     border: #{$borderWidth} solid #{$borderClr};
     border-radius: 0;
@@ -347,7 +347,7 @@
     $fontWeight: 600,
     $fontWeight_checkradio: 400,
     $gap_checkradio: var-mrg-soft('300'),
-    $lh: var-line-height('200'),
+    $lineHeight: var-line-height('200'),
     $lh_checkradio: var-line-height('400'),
     $marginBlock: var-mrg-firm('400'),
     $marginBlock_innercheckradio: var-mrg-firm('200'),
@@ -358,7 +358,7 @@
     margin-block: #{$marginBlock};
     margin-inline: 0;
     font-weight: #{$fontWeight};
-    line-height: #{$lh};
+    line-height: #{$lineHeight};
     text-wrap: balance;
 
     @if $includeClrs {

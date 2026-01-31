@@ -7,6 +7,8 @@
 @use 'sass:meta';
 @use 'sass:string';
 
+@use 'unique';
+
 ///
 /// Quotes font names as needed for valid output.
 ///
@@ -26,7 +28,7 @@
         @return $fonts;
     }
 
-    @each $font in $fonts {
+    @each $font in unique.unique($fonts) {
         $str: string.unquote(#{$font});
 
         @if string.index($str, ' ') != null {
