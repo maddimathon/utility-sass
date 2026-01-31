@@ -19,6 +19,12 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.23** — 2026-01-30
+
+### Changed
+- Added more optional parameters to snippet mixins for inputs and labels
+
+
 ## **0.1.0-alpha.22** — 2026-01-30
 
 ### Added

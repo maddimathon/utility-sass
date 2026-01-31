@@ -2,7 +2,7 @@
 /**
  * Utility Sass Template
  * 
- * @package utility-sass/template@0.1.0-alpha.22
+ * @package utility-sass/template@0.1.0-alpha.23
  */
 /*! START of @maddimathon/utility-sass/template */
 /* # TOKENS & PROPERTIES
@@ -1438,6 +1438,14 @@ input:active {
     color: var(--sys-clr-input-text-active, FieldText);
     accent-color: var(--sys-clr-text-active, ActiveText);
 }
+label + textarea,
+label + select,
+label + input,
+label > textarea,
+label > select,
+label > input {
+    margin-top: var(--mrg-firm-200, 0.5rem);
+}
 textarea::-moz-placeholder,
 select::-moz-placeholder,
 input::-moz-placeholder {
@@ -1485,15 +1493,6 @@ input::placeholder {
         color: color-mix(in srgb, currentColor 90%, transparent);
     }
 }
-label + textarea,
-label + select,
-label + input,
-label > textarea,
-label > select,
-label > input {
-    margin-top: var(--mrg-firm-200, 0.5rem);
-}
-
 input[type="button"],
 input[type="checkbox"],
 input[type="color"],
@@ -1525,38 +1524,6 @@ input[type="radio"] {
     display: inline-block;
     padding: 0;
     width: auto;
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-.no-js input[type="checkbox"]:focus,
-.no-js input[type="radio"]:focus,
-.js__no-whereSelector input[type="checkbox"]:focus,
-.js__no-whereSelector input[type="radio"]:focus {
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-
-:where(.js__no-focusVisible) input[type="checkbox"]:focus,
-:where(.js__no-focusVisible) input[type="radio"]:focus {
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-
-input[type="checkbox"]:hover,
-input[type="radio"]:hover {
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-
-input[type="checkbox"]:focus-visible,
-input[type="radio"]:focus-visible {
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-
-input[type="checkbox"]:focus-within,
-input[type="radio"]:focus-within {
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-
-input[type="checkbox"]:active,
-input[type="radio"]:active {
-    accent-color: var(--sys-clr-text-active, ActiveText);
 }
 input[type="color"] {
     padding: 0;
@@ -1592,9 +1559,13 @@ textarea {
 
 label {
     display: block;
-    margin: var(--mrg-firm-400, 1.25rem) 0 0;
+    margin-top: var(--mrg-firm-400, 1.25rem);
+    margin-bottom: var(--mrg-firm-400, 1.25rem);
+    margin-left: 0;
+    margin-right: 0;
     font-weight: 600;
     line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
     color: var(--sys-clr-text, CanvasText);
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"])) {
@@ -1607,7 +1578,6 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     gap: var(--mrg-soft-300, 0.5rem);
     font-weight: 400;
     line-height: var(--line-height-400, 1.6875);
-    text-wrap: balance;
     color: var(--sys-clr-text, CanvasText);
     cursor: pointer;
 }
@@ -1622,8 +1592,7 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
 }
 label > input[type="checkbox"],
 label > input[type="radio"] {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
 }
 
 /* ## Forms - Buttons ==================================== */

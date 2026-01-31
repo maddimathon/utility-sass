@@ -79,6 +79,7 @@
         $padding: $padding,
         $width: $width,
 
+        $includeLabel: false,
         $includePlaceholder: false,
         $args...
     );
@@ -122,6 +123,7 @@
     $borderWidth: 0.0625rem,
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
     $padding: var-mrg-soft('300') var-mrg-firm('400') var-mrg-firm('300'),
+    //
     $includeClrs: true
 ) {
     display: block;
@@ -183,11 +185,13 @@
     $borderWidth: 0.0625rem,
     $focusOffset: 0.125rem,
     $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
+    $marginBlockStart_afterLabel: var-mrg-firm('200'),
     $opacity_hover: 1,
     $padding: var-mrg-soft('200') var-mrg-firm('200'),
     $width: 100%,
     //
     $includeClrs: true,
+    $includeLabel: true,
     $includePlaceholder: true,
     $selector: #{&}
 ) {
@@ -212,12 +216,6 @@
 
     /// STATES ///
 
-    $_opacityIsLessThanOne: if(
-        math.unit($opacity_hover) == '%',
-        $opacity_hover < 100%,
-        $opacity_hover < 1
-    );
-
     @include hover-focus-visible-or-within {
         @if $includeClrs {
             @include cx-prop(focus-ring-outline-color, $accentClr_hover);
@@ -226,21 +224,6 @@
             color: #{$color_hover};
             accent-color: #{$accentClr_hover};
         }
-    }
-
-    @if $_opacityIsLessThanOne {
-        // @include colour-mode-interactive-mixin(
-        //     $modes: (
-        //         low,
-        //         average,
-        //     ),
-        //     $hover: true,
-        //     $focus: true,
-        //     $focusWithin: true,
-        //     $includeDefault: false
-        // ) {
-        //     opacity: #{$opacity_hover};
-        // }
     }
 
     &:active {
@@ -254,6 +237,13 @@
     }
 
     /// BLOCK ///
+
+    @if $includeLabel {
+        label + &,
+        label > & {
+            margin-block-start: #{$marginBlockStart_afterLabel};
+        }
+    }
 
     @if $includePlaceholder {
         $_clr: if($includeClrs, $color_placeholder, currentColor);
@@ -279,14 +269,7 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@mixin snippet-input-types(
-    $accentClr: var-sys-colour(input-text),
-    $accentClr_active: var-sys-colour(text-active),
-    $accentClr_hover: var-sys-colour(input-text),
-    $includeBase: true,
-
-    $includeClrs: true
-) {
+@mixin snippet-input-types($includeBase: true, $includeClrs: true) {
     @if $includeBase {
         @include snippet-input;
     }
@@ -324,18 +307,6 @@
         display: inline-block;
         padding: 0;
         width: auto;
-
-        @if $includeClrs {
-            accent-color: #{$accentClr};
-
-            @include hover-focus-visible-or-within {
-                accent-color: #{$accentClr_hover};
-            }
-
-            &:active {
-                accent-color: #{$accentClr_active};
-            }
-        }
     }
 
     &[type='color'] {
@@ -370,21 +341,25 @@
 /// @since 0.1.0-pre.0
 ///
 @mixin snippet-label(
-    $color: #{var-sys-colour(text)},
-    $color_checkradio: #{var-sys-colour(text)},
+    $color: var-sys-colour(text),
+    $color_checkradio: var-sys-colour(text),
     //
-    $gap: var-mrg-soft('300'),
-    $lh_checkradio: var-line-height('400'),
+    $fontWeight: 600,
+    $fontWeight_checkradio: 400,
+    $gap_checkradio: var-mrg-soft('300'),
     $lh: var-line-height('200'),
-    $marginBlock_innercheckradio: var-mrg-firm('200'),
+    $lh_checkradio: var-line-height('400'),
     $marginBlock: var-mrg-firm('400'),
+    $marginBlock_innercheckradio: var-mrg-firm('200'),
     //
     $includeClrs: true
 ) {
     display: block;
-    margin: #{$marginBlock} 0 0;
-    font-weight: 600;
+    margin-block: #{$marginBlock};
+    margin-inline: 0;
+    font-weight: #{$fontWeight};
     line-height: #{$lh};
+    text-wrap: balance;
 
     @if $includeClrs {
         color: #{$color};
@@ -396,11 +371,10 @@
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;
         align-items: baseline;
-        gap: #{$gap};
+        gap: #{$gap_checkradio};
 
-        font-weight: 400;
+        font-weight: #{$fontWeight_checkradio};
         line-height: #{$lh_checkradio};
-        text-wrap: balance;
 
         @if $includeClrs {
             color: #{$color_checkradio};
@@ -419,6 +393,6 @@
 
     > input[type='checkbox'],
     > input[type='radio'] {
-        margin-block: 0;
+        margin: 0;
     }
 }

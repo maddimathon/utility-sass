@@ -28,9 +28,7 @@
 
     > :first-child {
         margin-block-start: 0;
-        margin-block-start: calc(
-            #{var-mrg-soft('400')} - #{var-mrg-soft('200')}
-        );
+        margin-block-start: calc(#{var-mrg-soft('400')} - #{var-mrg-soft('200')});
     }
 
     > legend + * {
@@ -54,13 +52,6 @@
 
 %_input-base {
     @include snippet-input;
-
-    /// BLOCK ///
-
-    label + &,
-    label > & {
-        margin-block-start: #{var-mrg-firm('200')};
-    }
 }
 
 %input {
