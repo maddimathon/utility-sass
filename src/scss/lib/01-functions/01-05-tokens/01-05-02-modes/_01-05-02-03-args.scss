@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.24
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since 0.1.0-pre.0
 ///
 
@@ -12,8 +12,8 @@
 @use '../../../../config';
 // @use '../../../../tokens';
 
-@use '01-04-02-01-meta' as *;
-@use '01-04-02-02-utils' as *;
+@use '01-05-02-01-meta' as *;
+@use '01-05-02-02-utils' as *;
 
 ///
 /// Validates and defines defaults for arguments used in multiple clr mode
@@ -116,11 +116,7 @@
 
                 $simpleSels: list.join(
                     $simpleSels,
-                    if(
-                        $_isACombinator,
-                        (#{$_s}),
-                        selector.simple-selectors($_s)
-                    ),
+                    if($_isACombinator, (#{$_s}), selector.simple-selectors($_s)),
                     comma
                 );
             }

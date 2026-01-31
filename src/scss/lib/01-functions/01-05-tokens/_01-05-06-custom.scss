@@ -9,7 +9,9 @@
 @use '../../../config';
 @use '../../../tokens';
 
-@use '01-04-05-borders' as *;
+@use '../01-04-properties' as *;
+
+@use '01-05-05-borders' as *;
 
 $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
@@ -35,10 +37,7 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
         $border_min: list.nth($sorted_border_tokenKeys, 1);
 
-        $border_max: list.nth(
-            $sorted_border_tokenKeys,
-            list.length($sorted_border_tokenKeys)
-        );
+        $border_max: list.nth($sorted_border_tokenKeys, list.length($sorted_border_tokenKeys));
 
         @each $level in $sorted_border_tokenKeys {
             @if map.get(tokens.$border_widths, $level) <= 0.25 {
@@ -87,8 +86,8 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
     // returns
     @if #{$fallback} == #{$slug} {
-        @return var(--#{config.$cxPropPre}#{$slug});
+        @return do-var($slug);
     }
 
-    @return var(--#{config.$cxPropPre}#{$slug}, #{$fallback});
+    @return do-var($slug, $fallback);
 }

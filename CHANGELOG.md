@@ -19,6 +19,13 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.25** — 2026-01-31
+
+### Added
+- New do-var function
+- Config var - $customPropertyPrefix_asFallbackOnly
+
+
 ## **0.1.0-alpha.24** — 2026-01-30
 
 ### Misc. Breaking

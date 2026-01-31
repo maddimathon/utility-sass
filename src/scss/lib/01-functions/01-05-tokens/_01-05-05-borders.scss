@@ -9,6 +9,8 @@
 @use '../../../config';
 @use '../../../tokens';
 
+@use '../01-04-properties' as *;
+
 ///
 /// Uses the border width tokens to prepare the appropriate numerical value (rem).
 ///
@@ -49,7 +51,7 @@
     @return if(
         config.$fn_var_replaceWithValue_borderWidth,
         $fallback,
-        var(--#{config.$cxPropPre}border-width-#{$level}, $fallback)
+        do-var(border-width-#{$level}, $fallback)
     );
 }
 
@@ -93,6 +95,6 @@
     @return if(
         config.$fn_var_replaceWithValue_strokeRelative,
         $fallback,
-        var(--#{config.$cxPropPre}stroke-relative-#{$level}, $fallback)
+        do-var(stroke-relative-#{$level}, $fallback)
     );
 }

@@ -31,8 +31,7 @@ $_headingDefault_textTransform: none;
 /// @since 0.1.0-alpha.6 — Added optional $includeUnstyledHeadingProps prop.
 ///
 @mixin snippet-unstyled-heading($fontStyle: 'italic') {
-    margin-block: #{$_headingDefault_marginBlockStart}
-        #{$_headingDefault_marginBlockEnd};
+    margin-block: #{$_headingDefault_marginBlockStart} #{$_headingDefault_marginBlockEnd};
 
     font-weight: #{$_headingDefault_fontWeight};
     font-size: #{$_headingDefault_size};
@@ -88,11 +87,7 @@ $_headingDefault_textTransform: none;
         //
     } @else if $slug {
         //
-        $slugAsNumber: if(
-            $slugAsNumber == null,
-            math.num-val($slug),
-            $slugAsNumber
-        );
+        $slugAsNumber: if($slugAsNumber == null, math.num-val($slug), $slugAsNumber);
 
         @if $slugAsNumber > 8 {
             $heading9orAbove: true;
@@ -201,9 +196,9 @@ $_headingDefault_textTransform: none;
                 margin-inline: auto;
 
                 @if meta.type-of($maxWidth) == number {
-                    max-width: min(#{var-width('callout')}, #{$maxWidth});
+                    max-width: min(#{var-width(callout)}, #{$maxWidth});
                 } @else {
-                    max-width: min(#{var-width('callout')}, 100%);
+                    max-width: min(#{var-width(callout)}, 100%);
                 }
             }
         }

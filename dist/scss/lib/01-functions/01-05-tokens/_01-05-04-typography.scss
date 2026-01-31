@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.24
+/// @package @maddimathon/utility-sass@0.1.0-alpha.25
 /// @since 0.1.0-pre.0
 ///
 
@@ -12,6 +12,7 @@
 @use '../../../tokens';
 
 @use '../01-03-typography' as *;
+@use '../01-04-properties' as *;
 
 ///
 /// Uses the widths config to prepare the appropriate numerical value (rem).
@@ -127,7 +128,7 @@
     @return if(
         config.$fn_var_replaceWithValue_lineHeight,
         $fallback,
-        var(--#{config.$cxPropPre}line-height-#{$slug}, $fallback)
+        do-var(line-height-#{$slug}, $fallback)
     );
 }
 
@@ -149,7 +150,7 @@
 
         // returns
         @if list.length($fallback) < 1 {
-            @return var(--#{config.$cxPropPre}#{$var_slug});
+            @return do-var($var_slug);
         }
 
         $fallback: list.nth($fallback, 1);
@@ -164,9 +165,5 @@
             or $slug == normal;
     }
 
-    @return if(
-        $returnFallbackOnly,
-        $fallback,
-        var(--#{config.$cxPropPre}#{$var_slug}, $fallback)
-    );
+    @return if($returnFallbackOnly, $fallback, do-var($var_slug, $fallback));
 }

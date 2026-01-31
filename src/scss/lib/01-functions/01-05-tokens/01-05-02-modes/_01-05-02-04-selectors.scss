@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.24
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since 0.1.0-pre.0
 ///
 
@@ -12,8 +12,8 @@
 @use '../../../../config';
 // @use '../../../../tokens';
 
-@use '01-04-02-01-meta' as *;
-@use '01-04-02-03-args' as *;
+@use '01-05-02-01-meta' as *;
+@use '01-05-02-03-args' as *;
 
 ///
 /// Returns the selectors for the given colour modes.
@@ -83,18 +83,12 @@
             }
         } @else {
             @if $mode == light or $mode == dark {
-                @if not
-                    $isClrModeDefault or not
-                    $includeDefault or not
-                    $includeSelectors
-                {
+                @if not $isClrModeDefault or not $includeDefault or not $includeSelectors {
                     @if $debug {
                         @debug 'adding #{$mode} query';
                     }
 
-                    @if $isClrModeDefault and
-                        config.$include_noPreferenceMediaQueries
-                    {
+                    @if $isClrModeDefault and config.$include_noPreferenceMediaQueries {
                         $queries: list.append(
                             $queries,
                             '( prefers-color-scheme: no-preference )',
@@ -116,25 +110,13 @@
                 @if $debug {
                     @debug 'adding #{$mode} query';
                 }
-                $queries: list.append(
-                    $queries,
-                    '( forced-colors: active )',
-                    $separator: comma
-                );
-                $queries: list.append(
-                    $queries,
-                    '( prefers-contrast: custom )',
-                    $separator: comma
-                );
+                $queries: list.append($queries, '( forced-colors: active )', $separator: comma);
+                $queries: list.append($queries, '( prefers-contrast: custom )', $separator: comma);
             } @else if $mode == low {
                 @if $debug {
                     @debug 'adding #{$mode} query';
                 }
-                $queries: list.append(
-                    $queries,
-                    '( prefers-contrast: less )',
-                    $separator: comma
-                );
+                $queries: list.append($queries, '( prefers-contrast: less )', $separator: comma);
             } @else if $mode == average {
                 @if not
                     $isClrModeDefault or not
@@ -160,11 +142,7 @@
                 @if $debug {
                     @debug 'adding #{$mode} query';
                 }
-                $queries: list.append(
-                    $queries,
-                    '( prefers-contrast: more )',
-                    $separator: comma
-                );
+                $queries: list.append($queries, '( prefers-contrast: more )', $separator: comma);
             } @else {
                 @if $debug {
                     @debug "no queries for mode '#{$mode}'";
@@ -255,15 +233,11 @@
             $selector: ();
 
             @if config.$selectorType_mode == 'attribute' {
-                $selector: (
-                    string.unquote('[data-#{$modeType}-mode=#{$mode}]')
-                );
+                $selector: (string.unquote('[data-#{$modeType}-mode=#{$mode}]'));
             }
 
             @if config.$selectorType_mode == 'class' {
-                $selector: (
-                    string.unquote('.theme-#{$modeType}-mode-#{$mode}')
-                );
+                $selector: (string.unquote('.theme-#{$modeType}-mode-#{$mode}'));
             }
 
             @if $debug {
@@ -291,11 +265,7 @@
                     @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
                 }
 
-                $selectorsList: list.append(
-                    $selectorsList,
-                    $mergedSelectors,
-                    $separator: comma
-                );
+                $selectorsList: list.append($selectorsList, $mergedSelectors, $separator: comma);
             }
         } @else if $debug {
             @debug 'no selectors added';
@@ -308,11 +278,7 @@
     }
 
     @if $prependParentSelector {
-        $selectorsList: list.join(
-            $parentSelector,
-            $selectorsList,
-            $separator: comma
-        );
+        $selectorsList: list.join($parentSelector, $selectorsList, $separator: comma);
     }
 
     @if $debug {

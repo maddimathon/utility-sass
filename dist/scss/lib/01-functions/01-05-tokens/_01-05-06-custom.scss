@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.24
+/// @package @maddimathon/utility-sass@0.1.0-alpha.25
 /// @since 0.1.0-pre.0
 ///
 
@@ -9,7 +9,9 @@
 @use '../../../config';
 @use '../../../tokens';
 
-@use '01-04-05-borders' as *;
+@use '../01-04-properties' as *;
+
+@use '01-05-05-borders' as *;
 
 $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
@@ -87,8 +89,8 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 
     // returns
     @if #{$fallback} == #{$slug} {
-        @return var(--#{config.$cxPropPre}#{$slug});
+        @return do-var($slug);
     }
 
-    @return var(--#{config.$cxPropPre}#{$slug}, #{$fallback});
+    @return do-var($slug, $fallback);
 }

@@ -19,12 +19,40 @@
 /// @since 0.1.0-alpha.12
 ///
 $customPropertyPrefix: '' !default;
-$customPropertyPrefix: config-valid-string(
-    $customPropertyPrefix,
-    'customPropertyPrefix',
-    ''
-);
+$customPropertyPrefix: config-valid-string($customPropertyPrefix, 'customPropertyPrefix', '');
+
 $cxPropPre: $customPropertyPrefix;
+
+///
+/// If true, var(...) values are printed without prefix first with the prefixed
+/// var as a fallback.
+///
+/// @since 0.1.0-alpha.25
+///
+$customPropertyPrefix_asFallbackOnly: false !default;
+$customPropertyPrefix_asFallbackOnly: config-valid-bool(
+    $customPropertyPrefix_asFallbackOnly,
+    'customPropertyPrefix_asFallbackOnly'
+);
+
+///
+/// Prints a var(...) value with an optional fallback. Don't include -- in the slug.
+///
+/// @since 0.1.0-alpha.25
+///
+@function config-do-var($slug, $fallback: null) {
+    $var_value: if(
+        $fallback != null,
+        var(--#{$cxPropPre}#{$slug}, $fallback),
+        var(--#{$cxPropPre}#{$slug})
+    );
+
+    @if $customPropertyPrefix_asFallbackOnly and $cxPropPre {
+        $var_value: var(--#{$slug}, $var_value);
+    }
+
+    @return $var_value;
+}
 
 ///
 /// Whether to include the global selectors in the output. Otherwise, all
@@ -64,8 +92,6 @@ $print_utils: config-valid-bool($print_utils, 'print_utils');
 ///
 /// @since 0.1.0-pre.0
 ///
-$print_headings: (
-        $print_globals or $print_normalize or $print_tokens or $print_utils
-    )
-    and internal.$internal_isTemplate !default;
+$print_headings: ($print_globals or $print_normalize or $print_tokens or $print_utils) and
+    internal.$internal_isTemplate !default;
 $print_headings: config-valid-bool($print_headings, 'print_headings');
