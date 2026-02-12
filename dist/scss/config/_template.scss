@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.25
+/// @package @maddimathon/utility-sass@0.1.0-alpha.26
 /// @since 0.1.0-pre.0
 ///
 
@@ -47,12 +47,12 @@ $customPropertyPrefix_asFallbackOnly: config-valid-bool(
 @function config-do-var($slug, $fallback: null) {
     $var_value: if(
         $fallback != null,
-        var(--#{$cxPropPre}#{$slug}, $fallback),
+        var(--#{$cxPropPre}#{$slug}, #{$fallback}),
         var(--#{$cxPropPre}#{$slug})
     );
 
     @if $customPropertyPrefix_asFallbackOnly and $cxPropPre {
-        $var_value: var(--#{$slug}, $var_value);
+        $var_value: var(--#{$slug}, #{$var_value});
     }
 
     @return $var_value;

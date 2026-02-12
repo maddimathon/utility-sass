@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.25
+/// @package @maddimathon/utility-sass@0.1.0-alpha.26
 /// @since 0.1.0-pre.0
 ///
 @use 'sass:color';
@@ -9,8 +9,8 @@
 
 @use '../map';
 
-@use 'converting' as *;
-@use 'mixing' as *;
+@use 'converting';
+@use 'mixing';
 
 ///
 /// Get the reverse shade level based on given map (flipped).
@@ -62,40 +62,40 @@
     }
 
     @if meta.type-of($c500) != 'color' {
-        $c500: mix-oklch($c100, $c900);
+        $c500: mixing.mix-oklch($c100, $c900);
     }
 
     @if meta.type-of($c300) != 'color' {
-        $c300: mix-oklch($c100, $c500);
+        $c300: mixing.mix-oklch($c100, $c500);
     }
     @if meta.type-of($c700) != 'color' {
-        $c700: mix-oklch($c500, $c900);
+        $c700: mixing.mix-oklch($c500, $c900);
     }
 
     @if meta.type-of($c200) != 'color' {
-        $c200: mix-oklch($c100, $c300);
+        $c200: mixing.mix-oklch($c100, $c300);
     }
     @if meta.type-of($c400) != 'color' {
-        $c400: mix-oklch($c300, $c500);
+        $c400: mixing.mix-oklch($c300, $c500);
     }
 
     @if meta.type-of($c600) != 'color' {
-        $c600: mix-oklch($c500, $c700);
+        $c600: mixing.mix-oklch($c500, $c700);
     }
     @if meta.type-of($c800) != 'color' {
-        $c800: mix-oklch($c700, $c900);
+        $c800: mixing.mix-oklch($c700, $c900);
     }
 
     $fullMap: (
-        '100': to-hsl($c100),
-        '200': to-hsl($c200),
-        '300': to-hsl($c300),
-        '400': to-hsl($c400),
-        '500': to-hsl($c500),
-        '600': to-hsl($c600),
-        '700': to-hsl($c700),
-        '800': to-hsl($c800),
-        '900': to-hsl($c900),
+        '100': converting.to-hsl($c100),
+        '200': converting.to-hsl($c200),
+        '300': converting.to-hsl($c300),
+        '400': converting.to-hsl($c400),
+        '500': converting.to-hsl($c500),
+        '600': converting.to-hsl($c600),
+        '700': converting.to-hsl($c700),
+        '800': converting.to-hsl($c800),
+        '900': converting.to-hsl($c900),
     );
 
     // now testing to fill in-between steps
@@ -106,14 +106,14 @@
         $c850: if(map.has-key($map, '850'), map.get($map, '850'), null);
 
         @if meta.type-of($c150) != 'color' {
-            $c150: mix-oklch($c100, $c200);
+            $c150: mixing.mix-oklch($c100, $c200);
         }
         @if meta.type-of($c850) != 'color' {
-            $c850: mix-oklch($c800, $c900);
+            $c850: mixing.mix-oklch($c800, $c900);
         }
 
-        $fullMap: map.set($fullMap, '150', to-hsl($c150));
-        $fullMap: map.set($fullMap, '850', to-hsl($c850));
+        $fullMap: map.set($fullMap, '150', converting.to-hsl($c150));
+        $fullMap: map.set($fullMap, '850', converting.to-hsl($c850));
     }
 
     @if map.has-key($map, '250') or map.has-key($map, '750') {
@@ -121,14 +121,14 @@
         $c750: if(map.has-key($map, '750'), map.get($map, '750'), null);
 
         @if meta.type-of($c250) != 'color' {
-            $c250: mix-oklch($c200, $c300);
+            $c250: mixing.mix-oklch($c200, $c300);
         }
         @if meta.type-of($c750) != 'color' {
-            $c750: mix-oklch($c700, $c800);
+            $c750: mixing.mix-oklch($c700, $c800);
         }
 
-        $fullMap: map.set($fullMap, '250', to-hsl($c250));
-        $fullMap: map.set($fullMap, '750', to-hsl($c750));
+        $fullMap: map.set($fullMap, '250', converting.to-hsl($c250));
+        $fullMap: map.set($fullMap, '750', converting.to-hsl($c750));
     }
 
     @if map.has-key($map, '350') or map.has-key($map, '650') {
@@ -136,14 +136,14 @@
         $c650: if(map.has-key($map, '650'), map.get($map, '650'), null);
 
         @if meta.type-of($c350) != 'color' {
-            $c350: mix-oklch($c300, $c400);
+            $c350: mixing.mix-oklch($c300, $c400);
         }
         @if meta.type-of($c650) != 'color' {
-            $c650: mix-oklch($c600, $c700);
+            $c650: mixing.mix-oklch($c600, $c700);
         }
 
-        $fullMap: map.set($fullMap, '350', to-hsl($c350));
-        $fullMap: map.set($fullMap, '650', to-hsl($c650));
+        $fullMap: map.set($fullMap, '350', converting.to-hsl($c350));
+        $fullMap: map.set($fullMap, '650', converting.to-hsl($c650));
     }
 
     @if map.has-key($map, '450') or map.has-key($map, '550') {
@@ -151,14 +151,14 @@
         $c550: if(map.has-key($map, '550'), map.get($map, '550'), null);
 
         @if meta.type-of($c450) != 'color' {
-            $c450: mix-oklch($c400, $c500);
+            $c450: mixing.mix-oklch($c400, $c500);
         }
         @if meta.type-of($c550) != 'color' {
-            $c550: mix-oklch($c500, $c600);
+            $c550: mixing.mix-oklch($c500, $c600);
         }
 
-        $fullMap: map.set($fullMap, '450', to-hsl($c450));
-        $fullMap: map.set($fullMap, '550', to-hsl($c550));
+        $fullMap: map.set($fullMap, '450', converting.to-hsl($c450));
+        $fullMap: map.set($fullMap, '550', converting.to-hsl($c550));
     }
 
     @return map.ksort($fullMap);

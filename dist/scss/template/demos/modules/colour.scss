@@ -1,0 +1,47 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.26
+/// @since 0.1.0-alpha.26
+///
+
+// @forward '../config';
+// @forward '../header';
+
+@use '../../../../../dist/scss/modules/colour';
+// @use '../../../../../dist/scss/modules/list';
+// @use '../../../../../dist/scss/modules/meta';
+
+// @use '../../../lib';
+@use '../utils';
+
+/* # MODULES - COLOUR
+ * ======================================================================== */
+
+colour.to-hsl {
+    @include utils.var-dump('colour.to-hsl( red )', colour.to-hsl(red));
+}
+
+colour.to-hsl-list {
+    @include utils.var-dump(
+        'colour.to-hsl-list( red )',
+        colour.to-hsl-list(red)
+    );
+}
+
+colour.to-rgb {
+    @include utils.var-dump('colour.to-rgb( red )', colour.to-rgb(red));
+    @include utils.var-dump(
+        'colour.to-rgb( rgb( 10% 20% 30% ) )',
+        colour.to-rgb(rgb(10% 20% 30%))
+    );
+}
+
+colour.to-rgb-list {
+    @include utils.var-dump(
+        'colour.to-rgb-list( red )',
+        colour.to-rgb-list(red)
+    );
+    @include utils.var-dump(
+        'colour.to-rgb-list( rgb( 10% 20% 30% ) )',
+        colour.to-rgb-list(rgb(10% 20% 30%))
+    );
+}

@@ -1,23 +1,26 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.25
+/// @package @maddimathon/utility-sass@0.1.0-alpha.26
 /// @since 0.1.0-pre.0
 ///
 @use 'sass:color';
-@use 'sass:math';
 @use 'sass:meta';
 
+@use '../math';
+
 ///
-/// Converts given colour to an hsl css function.
+/// Converts given colour to a list of its hsl values (for use in hsl(...) or
+/// hsla(...)).
 ///
 /// @param {color} $clr
+/// @param {boolean} $round  Whether to round the channel values. Default true.
 ///
-/// @return {color}
+/// @return {list}
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.26
 ///
-@function to-hsl($clr, $round: true) {
+@function to-hsl-list($clr, $round: true) {
     @if meta.type-of($clr) != 'color' {
-        @warn "[colour.to-hsl] $clr should be a colour (was #{meta.type-of( $clr )})";
+        @warn "[colour.to-hsl-list] $clr should be a colour (was #{meta.type-of( $clr )})";
         @return $clr;
     }
 
@@ -25,34 +28,112 @@
 
     $rounding_factor: if($round, 1, 100);
 
-    @return hsl(
-        calc(
-            math.round(
-                    color.channel($clr, 'hue', $space: hsl) * $rounding_factor
-                ) /
-                $rounding_factor
+    $saturation: math.round-to-pixel(
+        color.channel($clr, 'saturation', $space: hsl),
+        $factor: $rounding_factor
+    );
+
+    $lightness: math.round-to-pixel(
+        color.channel($clr, 'lightness', $space: hsl),
+        $factor: $rounding_factor
+    );
+
+    @return (
+        math.deunit(
+            math.round-to-pixel(
+                color.channel($clr, 'hue', $space: hsl),
+                $factor: $rounding_factor
+            )
         ),
-        math.clamp(
-            0%,
-            calc(
-                math.round(
-                        color.channel($clr, 'saturation', $space: hsl) *
-                            $rounding_factor
-                    ) /
-                    $rounding_factor
-            ),
-            100%
+        math.clamp(0%, math.add-unit($saturation, 1%), 100%),
+        math.clamp(0%, math.add-unit($lightness, 1%), 100%)
+    );
+}
+
+///
+/// Converts given colour to a (rounded) hsl css function.
+///
+/// @param {color} $clr
+/// @param {boolean} $round  Whether to round the channel values. Default true.
+///
+/// @return {string}
+///
+/// @since 0.1.0-pre.0
+///
+@function to-hsl($clr, $round: true) {
+    @return 'hsl( #{to-hsl-list($clr, $round: $round)} )';
+}
+
+///
+/// Rounds the given RGB channel value appropriately.
+///
+/// @param {number} $num
+/// @param {boolean} $round  Whether to round the channel values. Default true.
+///
+/// @return {number}
+///
+/// @since 0.1.0-alpha.26
+///
+@function _to-rgb-value-round($num, $round: true) {
+    $rounding_factor: if($round, 1, 100);
+
+    @if $round {
+        $num: math.round-to-pixel($num, $factor: if($round, 1, 100));
+    }
+
+    // returns
+    @if math.unit($num) == '%' {
+        @return math.clamp(0%, $num, 100%);
+    }
+
+    @return math.clamp(0, $num, 255);
+}
+
+///
+/// Converts given colour to a list of its hsl values (for use in hsl(...) or
+/// hsla(...)).
+///
+/// @param {color} $clr
+/// @param {boolean} $round  Whether to round the channel values. Default true.
+///
+/// @return {list}
+///
+/// @since 0.1.0-alpha.26
+///
+@function to-rgb-list($clr, $round: true) {
+    @if meta.type-of($clr) != 'color' {
+        @warn "[colour.to-rgb-list] $clr should be a colour (was #{meta.type-of( $clr )})";
+        @return $clr;
+    }
+
+    $clr: color.to-space($clr, rgb);
+
+    @return (
+        _to-rgb-value-round(
+            color.channel($clr, 'red', $space: rgb),
+            $round: $round
         ),
-        math.clamp(
-            0%,
-            calc(
-                math.round(
-                        color.channel($clr, 'lightness', $space: hsl) *
-                            $rounding_factor
-                    ) /
-                    $rounding_factor
-            ),
-            100%
+        _to-rgb-value-round(
+            color.channel($clr, 'green', $space: rgb),
+            $round: $round
+        ),
+        _to-rgb-value-round(
+            color.channel($clr, 'blue', $space: rgb),
+            $round: $round
         )
     );
+}
+
+///
+/// Converts given colour to a (rounded) rgb css function.
+///
+/// @param {color} $clr
+/// @param {boolean} $round  Whether to round the channel values. Default true.
+///
+/// @return {string}
+///
+/// @since 0.1.0-alpha.26
+///
+@function to-rgb($clr, $round: true) {
+    @return 'rgb( #{to-rgb-list($clr, $round: $round)} )';
 }

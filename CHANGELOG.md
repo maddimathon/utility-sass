@@ -19,6 +19,17 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.26** — 2026-02-12
+
+More colour converting functions.
+
+### Added
+- Colour module functions - to-hsl-list, to-rgb, to-rgb-list
+
+### Fixed
+- Bug in new do-var() function fallbacks
+
+
 ## **0.1.0-alpha.25** — 2026-01-31
 
 ### Added

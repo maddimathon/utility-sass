@@ -43,12 +43,12 @@ $customPropertyPrefix_asFallbackOnly: config-valid-bool(
 @function config-do-var($slug, $fallback: null) {
     $var_value: if(
         $fallback != null,
-        var(--#{$cxPropPre}#{$slug}, $fallback),
+        var(--#{$cxPropPre}#{$slug}, #{$fallback}),
         var(--#{$cxPropPre}#{$slug})
     );
 
     @if $customPropertyPrefix_asFallbackOnly and $cxPropPre {
-        $var_value: var(--#{$slug}, $var_value);
+        $var_value: var(--#{$slug}, #{$var_value});
     }
 
     @return $var_value;
