@@ -72,10 +72,8 @@
 /// @since 0.1.0-alpha.26
 ///
 @function _to-rgb-value-round($num, $round: true) {
-    $rounding_factor: if($round, 1, 100);
-
     @if $round {
-        $num: math.round-to-pixel($num, $factor: if($round, 1, 100));
+        $num: math.round-to-pixel($num, $factor: if($round, 100, 1));
     }
 
     // returns

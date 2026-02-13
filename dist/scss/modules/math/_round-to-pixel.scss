@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.26
+/// @package @maddimathon/utility-sass@0.1.0-alpha.27
 /// @since 0.1.0-pre.0
 ///
 
@@ -29,5 +29,9 @@
         $factor: 16;
     }
 
-    @return calc(math.round($num * $factor) / $factor);
+    @if $factor == 0 {
+        $factor: 1;
+    }
+
+    @return math.div(math.round($num * $factor), $factor);
 }
