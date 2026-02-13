@@ -2,7 +2,7 @@
 /**
  * Utility Sass Template
  * 
- * @package utility-sass/template@0.1.0-alpha.27
+ * @package utility-sass/template@0.1.0-alpha.28
  */
 /*! START of @maddimathon/utility-sass/template */
 /* # TOKENS & PROPERTIES
@@ -1490,6 +1490,15 @@ input::placeholder {
         color: color-mix(in srgb, currentColor 90%, transparent);
     }
 }
+textarea[aria-disabled="true"],
+select[aria-disabled="true"],
+input[aria-disabled="true"],
+textarea[disabled],
+select[disabled],
+input[disabled] {
+    cursor: not-allowed;
+}
+
 input[type="button"],
 input[type="checkbox"],
 input[type="color"],
@@ -1726,6 +1735,22 @@ a.button-secondary:active {
     color: var(--sys-clr-button-text-active, ButtonText);
     accent-color: var(--sys-clr-button-border-active, ButtonFace);
 }
+button[aria-disabled="true"],
+[aria-disabled="true"][role="button"],
+input[aria-disabled="true"][type="button"],
+input[aria-disabled="true"][type="submit"],
+a[aria-disabled="true"].button[href],
+button[disabled],
+[disabled][role="button"],
+input[disabled][type="button"],
+input[disabled][type="submit"],
+a[disabled].button[href],
+input[aria-disabled="true"][type="reset"],
+a[aria-disabled="true"].button-secondary,
+input[disabled][type="reset"],
+a[disabled].button-secondary {
+    cursor: not-allowed;
+}
 button,
 [role="button"],
 input[type="button"],
@@ -1759,8 +1784,15 @@ button[aria-disabled="true"],
 input[aria-disabled="true"][type="button"],
 input[aria-disabled="true"][type="submit"],
 a[aria-disabled="true"].button[href],
+button[disabled],
+[disabled][role="button"],
+input[disabled][type="button"],
+input[disabled][type="submit"],
+a[disabled].button[href],
 input[aria-disabled="true"][type="reset"],
-a[aria-disabled="true"].button-secondary {
+a[aria-disabled="true"].button-secondary,
+input[disabled][type="reset"],
+a[disabled].button-secondary {
     cursor: not-allowed;
 }
 
@@ -1843,6 +1875,10 @@ a[aria-disabled="true"].button-secondary {
     color: var(--sys-clr-button-text-active, ButtonText);
     accent-color: var(--sys-clr-button-border-active, ButtonFace);
 }
+[aria-disabled="true"]::file-selector-button,
+[disabled]::file-selector-button {
+    cursor: not-allowed;
+}
 ::file-selector-button {
     --display: flex;
     display: flex;
@@ -1859,7 +1895,8 @@ a[aria-disabled="true"].button-secondary {
     text-decoration: none;
     cursor: pointer;
 }
-[aria-disabled="true"]::file-selector-button {
+[aria-disabled="true"]::file-selector-button,
+[disabled]::file-selector-button {
     cursor: not-allowed;
 }
 ::file-selector-button {

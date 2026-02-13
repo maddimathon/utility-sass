@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.27
+/// @package @maddimathon/utility-sass@0.1.0-alpha.28
 /// @since 0.1.0-pre.0
 ///
 
@@ -104,7 +104,8 @@
         cursor: pointer;
     }
 
-    &[aria-disabled='true'] {
+    &[aria-disabled='true'],
+    &[disabled] {
         cursor: not-allowed;
     }
 }
@@ -261,6 +262,11 @@
                 color: color-mix(in srgb, currentColor 90%, transparent);
             }
         }
+    }
+
+    &[aria-disabled='true'],
+    &[disabled] {
+        cursor: not-allowed;
     }
 }
 

@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.27
+/// @package @maddimathon/utility-sass@0.1.0-alpha.28
 /// @since 0.1.0-pre.0
 ///
 
@@ -12,14 +12,29 @@
 /// # TOKENS - MARGINS
 /// ======================================================================== ///
 
-$margin_softener: 0.625 !default;
+///
+/// Factor for 'softening' margins for --mrg-soft-### tokens.
+///
+/// @since 0.1.0-pre.0
+///
+$margin_softener: null !default;
+$margin_softener: config.config-valid-number(
+    $margin_softener,
+    'margin_softener',
+    $default: 0.625
+);
 
 ///
 /// The base value for the 400-level margin value.
 ///
 /// @since 0.1.0-alpha.22
 ///
-$margin_base: 1.25 !default;
+$margin_base: null !default;
+$margin_base: config.config-valid-number(
+    $margin_base,
+    'margin_base',
+    $default: 1.25
+);
 
 ///
 /// Used for scaling various size sets relative to each other - e.g., margins,
@@ -27,7 +42,12 @@ $margin_base: 1.25 !default;
 ///
 /// @since 0.1.0-pre.0
 ///
-$scaleMultiplier: 1.15625 !default;
+$scaleMultiplier: null !default;
+$scaleMultiplier: config.config-valid-number(
+    $scaleMultiplier,
+    'scaleMultiplier',
+    $default: 1.15625
+);
 
 ///
 /// A map (merged with the defaults) of margin levels used as tokens throught

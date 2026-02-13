@@ -19,6 +19,12 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.28** — 2026-02-13
+
+### Added
+- config-valid-number function now has optional $unit param
+
+
 ## **0.1.0-alpha.27** — 2026-02-12
 
 Minor bug fixes to styles.

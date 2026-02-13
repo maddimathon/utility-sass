@@ -3,6 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 @use 'sass:list';
+@use 'sass:math';
 @use 'sass:meta';
 // @use 'sass:string';
 
@@ -11,19 +12,23 @@
 ///
 /// If value is null, the default is returned without warning.
 ///
-/// @param {any}    $value  The variable's value.
-/// @param {number} $name   The variable's name.
+/// @param {any}    $value    The variable's value.
+/// @param {number} $name     The variable's name.
+/// @param {number} $default  Default value to return if $value is invalid.
 ///
-/// @param {number}  $default  Default value to return if $value is invalid.
-/// @param {?number} $min      Optional. Minimum allowed number. Default null.
-/// @param {?number} $max      Optional. Maximum allowed number. Default null.
+/// @param {?number}      $min   Optional. Minimum allowed number. Default null.
+/// @param {?number}      $max   Optional. Maximum allowed number. Default null.
+/// @param {number|false} $unit  Optional. A unit to enforce. If false, the number is returned unitless. Default false.
 ///
 /// @returns {string}  If $options is a list, the string is one of those values.
 ///
-@function config-valid-number($value, $name, $default, $min: null, $max: null) {
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.28 — Added $unit param.
+///
+@function config-valid-number($value, $name, $default, $min: null, $max: null, $unit: false) {
     // returns - value is to be default
     @if $value == null {
-        @return $default;
+        $value: $default;
     }
 
     // returns - value is not a number
@@ -32,12 +37,27 @@
         @return $default;
     }
 
+    @if not math.is-unitless($value) {
+        $value: math.div($value, ($value * 0 + 1));
+    }
+
     @if meta.type-of($min) == number {
         $value: math.max($min, $value);
     }
 
     @if meta.type-of($max) == number {
         $value: math.min($max, $value);
+    }
+
+    @if $unit != false and meta.type-of($unit) == number {
+        $_unit_zero: $unit * 0;
+        $_always_one_unit: if(
+            math.is-unitless($unit),
+            1,
+            if(math.compatible($_unit_zero, 1), $_unit_zero + 1, 1)
+        );
+
+        $value: calc($value * $_always_one_unit);
     }
 
     @return $value;
