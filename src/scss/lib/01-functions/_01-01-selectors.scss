@@ -67,6 +67,70 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 }
 
 ///
+/// Returns the motion setting selector.
+///
+/// @param {bool} $bool         Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
+/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default set based on parent selector type.
+/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default set based on parent selector type.
+///
+/// @since 0.1.0-pre.0
+///
+@function selector-motion($bool, $nestParent: null, $unifyParent: null, $args...) {
+    $args: meta.keywords($args);
+    $mode: if($bool, 'no-preference', 'reduce');
+
+    @if not selector.parent-exists() {
+        $nestParent: false;
+        $unifyParent: false;
+    } @else {
+        //
+        $nestParent: if(
+            $nestParent == null,
+            if(selector-parent-is-root(), false, true),
+            $nestParent
+        );
+
+        $unifyParent: if(
+            $unifyParent == null,
+            if(selector-parent-is-root(), true, false),
+            $unifyParent
+        );
+    }
+
+    $selector: null;
+
+    @if config.$selectorType_motion == 'attribute' {
+        $selector: (string.unquote('[data-motion=#{$mode}]'));
+    }
+
+    @if config.$selectorType_motion == 'class' {
+        $selector: (string.unquote('.motion-preference-#{$mode}'));
+    }
+
+    @if $selector == null {
+        @return config.$selector_null;
+    }
+
+    $selectorsList: ($selector);
+
+    @if $nestParent or $unifyParent {
+        $selectorsList: selector.merge(
+            $selectorsList,
+            &,
+            $nestAinB: false,
+            $nestBinA: $nestParent,
+            $unify: $unifyParent
+        );
+    }
+
+    @if list.length($selectorsList) > 0 {
+        @return $selectorsList;
+    }
+
+    @return config.$selector_null;
+}
+
+///
 /// Checks if the parent selector (if any) is a *simple* body element selector.
 ///
 /// This DOES NOT work for compound selectors.

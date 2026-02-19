@@ -1,0 +1,85 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.29
+///
+
+@use '../../modules/meta';
+
+///
+/// Checks for a global function.  If it exists, it returns a function object.
+/// Otherwise, a warning message is output and null is returned.
+///
+/// @param {string} $functionName  Function to look for.
+/// @param {string} $callerName  Name of the caller function to output in the error message.
+///
+/// @return {?function}
+///
+/// @since 0.1.0-alpha.29
+///
+@function get-global-util-fn($functionName, $callerName) {
+    // returns
+    @if not meta.function-exists($functionName) {
+        @warn "[#{$callerName}] global compiler function for #{$callerName} not found (and is required)";
+        @return null;
+    }
+
+    @return meta.get-function($functionName);
+}
+
+///
+/// Checks for and calls a global function.  If it exists, it calls the
+/// function. Otherwise, a warning message is output and null is returned.
+///
+/// @param {string} $functionName  Function to look for.
+/// @param {string} $callerName  Name of the caller function to output in the
+/// error message.
+///
+/// @return {?function}
+///
+/// @since 0.1.0-alpha.29
+///
+@function call-global-util-fn($functionName, $callerName, $params...) {
+    $fn: get-global-util-fn(
+        $functionName: $functionName,
+        $callerName: $callerName,
+    );
+
+    $params: meta.keywords($params);
+
+    // returns
+    @if $fn == null {
+        @return null;
+    }
+
+    @return meta.call($fn, $params...);
+}
+
+///
+/// Uses a global function to output a vardump to the console.
+///
+/// @since 0.1.0-alpha.29
+///
+@function js-var-dump($var, $name: 'var', $level: 1) {
+    @return call-global-util-fn(
+        'mmutils-global-jsVarDump',
+        'js-var-dump',
+        $value: $var,
+        $name: $name,
+        $level: $level
+    );
+}
+
+///
+/// Uses a global function to output a vardump to the console.
+///
+/// @since 0.1.0-alpha.29
+///
+@function debug-checkpoint($location, $output: false, $level: 1) {
+    @return call-global-util-fn(
+        'mmutils-global-debugProgressCheckpoint',
+        'debug-checkpoint',
+        $location: $location,
+        $output: $output,
+        $level: $level
+    );
+}

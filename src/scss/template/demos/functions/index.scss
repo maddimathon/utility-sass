@@ -15,8 +15,50 @@
  * ======================================================================== */
 
 all-heading-levels {
+    @include utils.var-dump('token-all-heading-levels()', token-all-heading-levels());
+}
+
+/* # FUNCTIONS - call-global-util-fn()
+ * ======================================================================== */
+
+call-global-util-fn {
     @include utils.var-dump(
-        'token-all-heading-levels()',
-        token-all-heading-levels()
+        "call-global-util-fn( 'non-existant-fn', 'demo-functions/non-existant-fn' )",
+        call-global-util-fn('non-existant-fn', 'demo-functions/non-existant-fn')
+    );
+    @include utils.var-dump(
+        "call-global-util-fn( 'mmutils-global-jsFnTemplate', 'demo-functions/jsFnTemplate' )",
+        call-global-util-fn('mmutils-global-jsFnTemplate', 'demo-functions/jsFnTemplate')
+    );
+}
+
+/* # FUNCTIONS - js-var-dump()
+ * ======================================================================== */
+
+js-var-dump {
+    @include utils.var-dump(
+        "js-var-dump('hello')",
+        js-var-dump('hello', $name: 'demo-var-1', $level: 2)
+    );
+    @include utils.var-dump(
+        "js-var-dump((this: 'is a', map: true))",
+        js-var-dump(
+            (
+                this: 'is a',
+                map: true,
+            ),
+            $name: 'demo-var-2',
+            $level: 2
+        )
+    );
+}
+
+/* # FUNCTIONS - debug-checkpoint()
+ * ======================================================================== */
+
+debug-checkpoint {
+    @include utils.var-dump(
+        "debug-checkpoint( $location: 'demo-debug-checkpoint', $level: 2 )",
+        debug-checkpoint($location: 'demo-debug-checkpoint', $level: 2)
     );
 }

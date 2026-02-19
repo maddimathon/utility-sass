@@ -3,16 +3,16 @@
  *
  * This stylesheet (and its partials) demonstrate a few of the core mixins.
  * Extend the scss to play with the config, or see the defaults in the css
- * included in the pacakge.
+ * included in the package.
  *
- * @maddimathon/utility-sass@0.1.0-alpha.28
+ * https://maddimathon.github.io/utility-sass
  *
  * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.28
+ * @maddimathon/utility-sass@0.1.0-alpha.29
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -30,4 +30,39 @@ all-heading-levels {
     /* 6: <#> 6 */
     /* 7: <#> 7 */
     /* 8: <#> 8 */
+}
+
+/* # FUNCTIONS - call-global-util-fn()
+ * ======================================================================== */
+call-global-util-fn {
+    /* 
+      call-global-util-fn( 'non-existant-fn', 'demo-functions/non-existant-fn' ): <-> null
+   */
+    /* 
+      call-global-util-fn( 'mmutils-global-jsFnTemplate', 'demo-functions/jsFnTemplate' ): <S> "hello"
+   */
+}
+
+/* # FUNCTIONS - js-var-dump()
+ * ======================================================================== */
+js-var-dump {
+    /* 
+      js-var-dump('hello') is a list:
+   */
+    /* 1: <S> 'demo-var-1 = <string> "hello"' */
+    /* 
+      js-var-dump((this: 'is a', map: true)) is a list:
+   */
+    /* 1: <S> "demo-var-2 = <Map> {" */
+    /* 2: <S> '    "this": <string> "is a"' */
+    /* 3: <S> '    "map": <boolean> TRUE' */
+    /* 4: <S> "}" */
+}
+
+/* # FUNCTIONS - debug-checkpoint()
+ * ======================================================================== */
+debug-checkpoint {
+    /* 
+      debug-checkpoint( $location: 'demo-debug-checkpoint', $level: 2 ): <S> "demo-debug-checkpoint @ 16:40:27.617"
+   */
 }

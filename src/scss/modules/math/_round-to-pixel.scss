@@ -11,12 +11,14 @@
 ///
 /// @param {number} $num
 /// @param {number} $factor
+/// @param {?"ceil"|"floor"} $method. Optional. Rounding method, if any.
 ///
 /// @return {number}
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.29 — Added $method param.
 ///
-@function round-to-pixel($num, $factor: 16) {
+@function round-to-pixel($num, $factor: 16, $method: null) {
     // returns
     @if meta.type-of($num) != number {
         @warn "[math.round-to-pixel] $num should be a number but it was a: #{meta.type-of( $num )}";
@@ -33,5 +35,15 @@
         $factor: 1;
     }
 
-    @return math.div(math.round($num * $factor), $factor);
+    $rounded: $num;
+
+    @if $method == 'ceil' {
+        $rounded: math.ceil($num * $factor);
+    } @else if $method == 'floor' {
+        $rounded: math.floor($num * $factor);
+    } @else {
+        $rounded: math.round($num * $factor);
+    }
+
+    @return math.div($rounded, $factor);
 }

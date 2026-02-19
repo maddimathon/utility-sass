@@ -1,0 +1,67 @@
+/**
+ * @since 0.1.0-alpha.29
+ * 
+ * @packageDocumentation
+ */
+/*!
+ * @maddimathon/utility-sass@___CURRENT_VERSION___
+ * @license MIT
+ */
+
+import type {
+    CLI,
+    Config,
+} from '@maddimathon/build-utilities';
+
+import type {
+    Logger,
+} from '@maddimathon/build-utilities/internal';
+
+import { DateTime } from 'luxon';
+import * as sass from "sass-embedded";
+import { sassAssertValueType } from '../sassAssertValueType.js';
+
+/**
+ * A function to include in {@link sass.Options} that outputs a named timestamp
+ * to the console (good for debugging compile time).
+ *
+ * @since 0.1.0-alpha.29
+ */
+export function sassFn_debugProgressCheckpoint(
+    { config, console, params }: {
+        config: Config.Class,
+        console: Logger,
+        params: CLI.Params,
+    },
+): [ string, sass.CustomFunction<'async'> ] {
+
+    return [
+        'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1 )',
+        async ( args: sass.Value[] ) => {
+            const time = DateTime.now();
+
+            const [
+                level = 1,
+                location = 'debug checkpoint',
+                output = true,
+            ] = await Promise.all( [
+                sassAssertValueType( 'number', args[ 2 ] ),
+                sassAssertValueType( 'string', args[ 0 ] ),
+                sassAssertValueType( 'bool', args[ 1 ] ),
+            ] );
+
+            const message = `${ location } @ ${ time.toFormat( 'H:mm:ss.SSS' ) }`;
+
+            if ( output || params.debug || params.verbose ) {
+                console.log( message, level, {
+                    clr: 'grey',
+                    italic: true,
+                    linesIn: 0,
+                    linesOut: 0,
+                } );
+            }
+
+            return new sass.SassString( message );
+        },
+    ];
+}

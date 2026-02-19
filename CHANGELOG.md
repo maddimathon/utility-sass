@@ -19,6 +19,17 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.29** — 2026-02-19
+
+### Added
+- New $method param for math.round-to-pixel
+- Added sassValueToJS function (from scss-templater WIP)
+- New sass compiler functions - js-var-dump() and debug-checkpoint()
+
+### Fixed
+- Updated build-utilities
+
+
 ## **0.1.0-alpha.28** — 2026-02-13
 
 ### Added

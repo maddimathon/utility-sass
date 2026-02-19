@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.28
+ * @maddimathon/utility-sass@0.1.0-alpha.29
  * @license MIT
  */
 import { sassCompilerFunctions } from './sassCompilerFunctions.js';
@@ -15,7 +15,7 @@ import { sassCompilerFunctions } from './sassCompilerFunctions.js';
  *
  * @since 0.1.0-alpha.8
  */
-export function sassCompilerOpts(partial) {
+export function sassCompilerOpts(args, partial) {
     const silenceDeprecations = [
         ...partial?.silenceDeprecations ?? [],
         'if-function',
@@ -25,7 +25,7 @@ export function sassCompilerOpts(partial) {
         silenceDeprecations,
         functions: {
             ...partial?.functions ?? {},
-            ...sassCompilerFunctions(),
+            ...sassCompilerFunctions(args),
         },
     };
 }
