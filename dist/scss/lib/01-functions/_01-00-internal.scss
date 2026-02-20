@@ -1,9 +1,11 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.29
+/// @package @maddimathon/utility-sass@0.1.0-alpha.30
 /// @since 0.1.0-alpha.29
 ///
 
 @use '../../modules/meta';
+
+@use '../../config';
 
 ///
 /// Checks for a global function.  If it exists, it returns a function object.
@@ -74,12 +76,42 @@
 ///
 /// @since 0.1.0-alpha.29
 ///
-@function debug-checkpoint($location, $output: false, $level: 1) {
-    @return call-global-util-fn(
+@function debug-checkpoint-fn(
+    $location,
+    $output: false,
+    $level: 1,
+    $verbose: false
+) {
+    // returns
+    @if not config.$fn_debugCheckpoint {
+        @return null;
+    }
+
+    $result: call-global-util-fn(
         'mmutils-global-debugProgressCheckpoint',
         'debug-checkpoint',
         $location: $location,
         $output: $output,
-        $level: $level
+        $level: $level,
+        $verbose: $verbose and config.$fn_debugCheckpoint_verbose
     );
+
+    // returns
+    @if $result != null {
+        @return $result;
+    }
+
+    @debug '#{$location}';
+    @return '#{$location}';
+}
+
+///
+/// Uses a global function to output a vardump to the console.
+///
+/// @since 0.1.0-alpha.30
+///
+@mixin debug-checkpoint($location, $output: false, $level: 1, $verbose: false) {
+    @if config.$fn_debugCheckpoint {
+        /* #{debug-checkpoint-fn( $location: $location, $output: $output, $level: $level, $verbose: $verbose )} */
+    }
 }

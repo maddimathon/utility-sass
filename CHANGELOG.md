@@ -19,6 +19,13 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.30** — 2026-02-19
+
+### Added
+- Scss config vars - $fn_debugCheckpoint, $fn_debugCheckpoint_locationPrefix,
+  and $fn_debugCheckpoint_verbose for better checkpoint debugging
+
+
 ## **0.1.0-alpha.29** — 2026-02-19
 
 ### Added

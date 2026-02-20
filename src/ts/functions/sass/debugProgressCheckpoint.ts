@@ -36,7 +36,7 @@ export function sassFn_debugProgressCheckpoint(
 ): [ string, sass.CustomFunction<'async'> ] {
 
     return [
-        'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1 )',
+        'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )',
         async ( args: sass.Value[] ) => {
             const time = DateTime.now();
 
@@ -44,21 +44,27 @@ export function sassFn_debugProgressCheckpoint(
                 level = 1,
                 location = 'debug checkpoint',
                 output = true,
+                verbose = false,
             ] = await Promise.all( [
                 sassAssertValueType( 'number', args[ 2 ] ),
                 sassAssertValueType( 'string', args[ 0 ] ),
                 sassAssertValueType( 'bool', args[ 1 ] ),
+                sassAssertValueType( 'bool', args[ 3 ] ),
             ] );
 
             const message = `${ location } @ ${ time.toFormat( 'H:mm:ss.SSS' ) }`;
 
             if ( output || params.debug || params.verbose ) {
-                console.log( message, level, {
-                    clr: 'grey',
-                    italic: true,
-                    linesIn: 0,
-                    linesOut: 0,
-                } );
+
+                if ( !verbose || params.verbose ) {
+
+                    console.log( message, level, {
+                        clr: 'grey',
+                        italic: true,
+                        linesIn: 0,
+                        linesOut: 0,
+                    } );
+                }
             }
 
             return new sass.SassString( message );
