@@ -41,6 +41,15 @@ const config = {
             pathToSassLoggingRoot: 'node_modules/@maddimathon/build-utilities/node_modules',
             quietDeps: false,
         },
+
+        ts: {
+            tidyGlobs: [
+                '**/@sassFn_Template.js',
+                '**/@sassFn_Template.js.map',
+                '**/@sassFn_Template.d.ts',
+                '**/@sassFn_Template.ts.map',
+            ],
+        },
     },
 
     stages: {
@@ -48,26 +57,34 @@ const config = {
         build: [
             Build,
             {
+                replace: ( _stage ) => {
+                    const _def = _defaults.build.replace( _stage );
+
+                    return {
+                        ..._def,
+                        ignore: [
+                            ..._def.ignore ?? [],
+                            '**/@sassFn_Template.ts',
+                        ],
+                    };
+                },
 
                 minimize: false,
 
                 /**
                  * @param {Stage} _stage
                  */
-                prettify: ( _stage ) => {
+                prettify: ( _stage ) => ( {
+                    ..._defaults.build.prettify( _stage ),
 
-                    return {
-                        ..._defaults.build.prettify( _stage ),
-
-                        html: undefined,
-                        js: undefined,
-                        json: undefined,
-                        md: undefined,
-                        mdx: undefined,
-                        ts: undefined,
-                        yaml: undefined,
-                    };
-                },
+                    html: undefined,
+                    js: undefined,
+                    json: undefined,
+                    md: undefined,
+                    mdx: undefined,
+                    ts: undefined,
+                    yaml: undefined,
+                } ),
             },
         ],
 

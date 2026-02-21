@@ -4,11 +4,10 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.30
+ * @maddimathon/utility-sass@0.1.0-alpha.31
  * @license MIT
  */
 import { sass_getCurrentVersion } from './sass/getCurrentVersion.js';
-import { sassFn_Template } from './sass/@sassFn_Template.js';
 import { sassFn_jsVarDump } from './sass/jsVarDump.js';
 import { sassFn_debugProgressCheckpoint } from './sass/debugProgressCheckpoint.js';
 /**
@@ -21,12 +20,10 @@ import { sassFn_debugProgressCheckpoint } from './sass/debugProgressCheckpoint.j
 export function sassCompilerFunctions(args) {
     const debugCheckpointFn = sassFn_debugProgressCheckpoint(args);
     const jsVarDumpFn = sassFn_jsVarDump(args);
-    const templateFn = sassFn_Template(args);
     return {
         'mmutils-global-getCurrentVersion()': sass_getCurrentVersion,
         [debugCheckpointFn[0]]: debugCheckpointFn[1],
         [jsVarDumpFn[0]]: jsVarDumpFn[1],
-        [templateFn[0]]: templateFn[1],
     };
 }
 //# sourceMappingURL=sassCompilerFunctions.js.map

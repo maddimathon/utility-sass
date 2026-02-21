@@ -36,7 +36,7 @@
 /// @param {string} $callerName  Name of the caller function to output in the
 /// error message.
 ///
-/// @return {?function}
+/// @return {?any}
 ///
 /// @since 0.1.0-alpha.29
 ///
@@ -86,7 +86,7 @@
         'mmutils-global-debugProgressCheckpoint',
         'debug-checkpoint',
         $location: $location,
-        $output: $output,
+        $output: $output or config.$fn_debugCheckpoint,
         $level: $level,
         $verbose: $verbose and config.$fn_debugCheckpoint_verbose
     );

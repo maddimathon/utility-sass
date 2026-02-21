@@ -19,6 +19,12 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.31** — 2026-02-20
+
+### Added
+- JS function jsValueToSass() (from scss-templater WIP)
+
+
 ## **0.1.0-alpha.30** — 2026-02-19
 
 ### Added

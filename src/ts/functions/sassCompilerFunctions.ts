@@ -20,7 +20,6 @@ import type {
 import type * as sass from "sass-embedded";
 
 import { sass_getCurrentVersion } from './sass/getCurrentVersion.js';
-import { sassFn_Template } from './sass/@sassFn_Template.js';
 import { sassFn_jsVarDump } from './sass/jsVarDump.js';
 import { sassFn_debugProgressCheckpoint } from './sass/debugProgressCheckpoint.js';
 
@@ -38,16 +37,13 @@ export function sassCompilerFunctions(
         params: CLI.Params,
     },
 ) {
-
     const debugCheckpointFn = sassFn_debugProgressCheckpoint( args );
     const jsVarDumpFn = sassFn_jsVarDump( args );
-    const templateFn = sassFn_Template( args );
 
     return {
         'mmutils-global-getCurrentVersion()': sass_getCurrentVersion,
         [ debugCheckpointFn[ 0 ] ]: debugCheckpointFn[ 1 ],
         [ jsVarDumpFn[ 0 ] ]: jsVarDumpFn[ 1 ],
-        [ templateFn[ 0 ] ]: templateFn[ 1 ],
 
     } as const satisfies sass.Options<'async'>[ 'functions' ];
 }
