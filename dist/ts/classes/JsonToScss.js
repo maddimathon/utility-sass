@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.31
+ * @maddimathon/utility-sass@0.1.0-alpha.32
  * @license MIT
  */
 /**
@@ -19,7 +19,7 @@ export var JsonToScss;
      *
      * Quasi-sanitizes output by converting to JSON and back before interpreting.
      */
-    function convert(json, _indent = '') {
+    function convert(json, _indent = '', opts = {}) {
         let scss;
         switch (typeof json) {
             case 'boolean':
@@ -28,7 +28,7 @@ export var JsonToScss;
                 scss = json.toString();
                 break;
             case 'string':
-                scss = convert_string(json);
+                scss = convert_string(json, opts);
                 break;
             case 'object':
                 // returns
@@ -36,7 +36,7 @@ export var JsonToScss;
                     return undefined;
                 }
                 json = JSON.parse(JSON.stringify(json));
-                scss = convert_object(json);
+                scss = convert_object(json, opts);
                 break;
             case 'undefined':
                 return undefined;
@@ -52,27 +52,27 @@ export var JsonToScss;
     /**
      * Converts an array to scss, calling the convert function as needed.
      */
-    function convert_array(input) {
+    function convert_array(input, opts) {
         // returns
         if (!input.length) {
             return '()';
         }
-        return '(\n' + input.map(i => convert(i, '    ')).filter(i => typeof i !== 'undefined').join(',\n') + '\n)';
+        return '(\n' + input.map(i => convert(i, '    ', opts)).filter(i => typeof i !== 'undefined').join(',\n') + '\n)';
     }
     /**
      * Converts any object to scss, calling the convert function as needed.
      */
-    function convert_object(input) {
+    function convert_object(input, opts) {
         // returns
         if (Array.isArray(input)) {
-            return convert_array(input);
+            return convert_array(input, opts);
         }
         const scss = [];
         for (const _t_key in input) {
             const _key = _t_key;
-            const _converted = JsonToScss.convert(input[_key], '    ')?.trim();
+            const _converted = convert(input[_key], '    ', opts)?.trim();
             if (typeof _converted !== 'undefined') {
-                scss.push(`    ${JsonToScss.convert(_key)}: ${_converted}`);
+                scss.push(`    ${convert(_key, undefined, opts)}: ${_converted}`);
             }
         }
         // returns
@@ -84,12 +84,12 @@ export var JsonToScss;
     /**
      * Converts a string for proper scss output.
      */
-    function convert_string(input) {
+    function convert_string(input, opts) {
         // returns - if it is a colour string, it gets no quotes
-        if (input.match(/^#[0-9|A-H]{3,6}$/i)
-            || input.match(/^hsl\(\s*[\d\.]+\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+%?\s*\)$/i)
-            || input.match(/^(ok)?l(ch|ab)\(\s*[\d\.]+%?\s+\s*[\d\.]+\s+\s*[\d\.]+(deg)?\s*\)$/i)
-            || input.match(/^rgb\(\s*[\d\.]+\s*,\s*[\d\.]+\s*,\s*[\d\.]+\s*\)$/i)) {
+        if (!opts.coloursAsStrings && (input.match(/^\s*#[0-9|A-H]{3,6}$/i)
+            || input.match(/^\s*hsl\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+%?\s*[,\s]\s*[\d\.]+%?\s*\)\s*$/i)
+            || input.match(/^\s*(ok)?l(ch|ab)\(\s*[\d\.]+%?\s+\s*[\d\.]+\s+\s*[\d\.]+(deg)?\s*\)\s*$/i)
+            || input.match(/^\s*rgb\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*\)\s*$/i))) {
             return `${input}`;
         }
         const hasSingleQuote = input.match(/'/) !== null;

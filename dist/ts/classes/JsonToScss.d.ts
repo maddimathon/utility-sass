@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.31
+ * @maddimathon/utility-sass@0.1.0-alpha.32
  * @license MIT
  */
 /**
@@ -14,10 +14,18 @@
  */
 export declare namespace JsonToScss {
     /**
+     * Options for the conversion function.
+     *
+     * @since 0.1.0-alpha.32
+     */
+    interface Opts {
+        coloursAsStrings?: boolean;
+    }
+    /**
      * Converts a js value into a valid scss string.
      *
      * Quasi-sanitizes output by converting to JSON and back before interpreting.
      */
-    function convert<T_Type extends unknown>(json: T_Type, _indent?: string): string | undefined;
+    function convert<T_Type extends unknown>(json: T_Type, _indent?: string, opts?: Opts): string | undefined;
 }
 //# sourceMappingURL=JsonToScss.d.ts.map

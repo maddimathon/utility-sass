@@ -49,7 +49,7 @@
     $params: meta.keywords($params);
 
     // returns
-    @if $fn == null {
+    @if $fn == null or not meta.type-of($fn) == function {
         @return null;
     }
 
