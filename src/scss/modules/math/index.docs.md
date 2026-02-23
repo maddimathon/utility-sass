@@ -1,5 +1,7 @@
 ---
 title: Math
+children:
+  - ./demo.docs.md
 ---
 
 # Math Module
@@ -7,7 +9,7 @@ title: Math
 This scss "module" is meant as a replacement for the built-in `sass:math` module.
 
 ```scss
-@use '@utility-sass/math'; // adds extras to 'sass:math'
+@use 'pkg:@maddimathon/utility-sass/math'; // adds extras to 'sass:math'
 
 math.deunit(...); // added
 

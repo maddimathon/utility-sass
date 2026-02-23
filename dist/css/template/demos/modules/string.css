@@ -1,0 +1,47 @@
+@charset "UTF-8";
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.32.draft
+ * 
+ * https://maddimathon.github.io/utility-sass
+ */
+/* # MODULES - STRING
+ * ======================================================================== */
+string.replace {
+    /* 
+      string.replace( "hello there", "hello", "goodbye" ): <S> goodbye there
+   */
+    /* 
+      string.replace( "remove this part but not the rest", "remove this part " ): <S> but not the rest
+   */
+}
+
+string.slugify {
+    /* 
+      string.slugify( "ÀÁÂÄÃÆÅĀàáâäãæåā" ): <S> aaaaaaaaaaaaaaaa
+   */
+    /* 
+      string.slugify( "ÈÉÊËĒĖĘèéêëēėę" ): <S> eeeeeeeeeeeeee
+   */
+    /* 
+      string.slugify( "ÎÏÍĪĮÌîïíīįì" ): <S> iiiiiiiiiiii
+   */
+    /* 
+      string.slugify( "ÔÖÒÓŒØŌÕôöòóœøōõ" ): <S> oooooooooooooooo
+   */
+    /* 
+      string.slugify( "ÛÜÙÚŪûüùúū" ): <S> uuuuuuuuuu
+   */
+    /* 
+      string.slugify( "ÑŃñń" ): <S> nnnn
+   */
+    /* 
+      string.slugify( "something & something else" ): <S> something-and-something-else
+   */
+    /* 
+      string.slugify( "eXamPle(-–—_:;/) 2346" ): <S> example-_-2346
+   */
+    /* 
+      string.slugify( "- hello – — _ : there ; / 56498d *%$#" ): <S> -hello-_-there-56498d-
+   */
+}

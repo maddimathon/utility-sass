@@ -1,0 +1,83 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+@use 'sass:map';
+@use 'sass:meta';
+// @use 'sass:string';
+
+///
+/// Returns an updated version of $defaults based on the contents of $inputs.
+/// Does not add any keys that exist in $inputs but don't exist in $defaults.
+///
+/// @param {map}   $defaults          The array of default map (values might be overwritten).
+/// @param {map}   $inputs            The input map passed to the function (probably partial).
+/// @param {?bool} $recursive         Optional. Whether to merge the maps recursively. Default false.
+/// @param {?bool} $respectUNDEFINED  Optional. If true, strings that == 'UNDEFINED' (case-sensitive) are treated like JS undefined values and removes that value from the returned map.
+///
+/// @return {map}  The resulting map with all the $defaults keys
+///                with either default values or input values, as appropriate.
+///
+/// @since ___PKG_VERSION___
+///
+@function parse-args($defaults, $inputs, $recursive: false, $respectUNDEFINED: false) {
+    $inputType: meta.type-of($inputs);
+    $defaultType: meta.type-of($inputs);
+
+    // returns - wrong type
+    @if $inputType != map {
+        // returns - no warning
+        @if $inputType == list or not $inputType {
+            @return $defaults;
+        }
+
+        @warn "[map.parse-args] $inputs should be a map (was #{$inputType})";
+        @return $defaults;
+    }
+
+    // returns - wrong type
+    @if $defaultType != map {
+        // returns - no warning
+        @if $defaultType == list or not $defaultType {
+            @return $defaults;
+        }
+
+        @warn "[map.parse-args] $defaults should be a map (was #{$defaultType})";
+        @return $defaults;
+    }
+
+    $return: $defaults;
+
+    @each $_key, $_inputValue in $inputs {
+        //
+        @if map.has-key($defaults, $_key) {
+            //
+            $_defaultValue: map.get($defaults, $_key);
+
+            @if $_inputValue == 'UNDEFINED' {
+                // = remove the default value
+                $return: map.remove($return, $_key);
+            } @else {
+                // prettier-ignore
+                $_mergeRecursively: $recursive and meta.type-of($_defaultValue) == map and meta.type-of($_inputValue) == map;
+
+                $return: map.set(
+                    $return,
+                    $_key,
+                    if(
+                        $_mergeRecursively,
+                        parse-args(
+                            $_defaultValue,
+                            $_inputValue,
+                            $recursive: $recursive,
+                            $respectUNDEFINED: $respectUNDEFINED
+                        ),
+                        $_inputValue
+                    )
+                );
+            }
+        }
+    }
+
+    @return $return;
+}

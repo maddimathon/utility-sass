@@ -6,11 +6,13 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.32
+ * @maddimathon/utility-sass@0.1.0-alpha.32.draft
  * @license MIT
  */
 export * from './classes/index.js';
 export * from './functions/jsValueToSass.js';
+export * from './functions/mapToObject.js';
+export * from './functions/mapToObjectAsync.js';
 export * from './functions/sassAssertValueType.js';
 export * from './functions/sassCompilerFunctions.js';
 export * from './functions/sassCompilerOpts.js';

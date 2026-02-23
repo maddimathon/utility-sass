@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.32
+/// @package @maddimathon/utility-sass@0.1.0-alpha.32.draft
 /// @since 0.1.0-pre.0
 ///
 @use 'sass:map';
@@ -9,14 +9,12 @@
 ///
 /// Returns an updated version of $defaults based on the contents of $inputs.
 ///
-/// Important: Strings that = 'UNDEFINED' are treated like JS undefined values.
+/// @param {map}   $defaults          The array of default map (values might be overwritten).
+/// @param {map}   $inputs            The input map passed to the function (probably partial).
+/// @param {?bool} $recursive         Optional. Whether to merge the maps recursively. Default false.
+/// @param {?bool} $respectUNDEFINED  Optional. If true, strings that == 'UNDEFINED' (case-sensitive) are treated like JS undefined values and removes that value from the returned map.
 ///
-/// @param {map}   $defaults   The array of default args.
-/// @param {map}   $inputs     The input array passed to the function.
-/// @param {?bool} $recursive  Whether to merge the maps recursively. Default false.
-/// @param {?bool} $respectUNDEFINED  If true, strings that == 'UNDEFINED' (case-sensitive) are treated like JS undefined values and 'unset' that value from the default map.
-///
-/// @return {map}  The resulting array with all the $defaults and $inputs props
+/// @return {map}  The resulting map with all the $defaults and $inputs keys
 ///                with either default values or input values, as appropriate.
 ///
 /// @since 0.1.0-pre.0
@@ -66,18 +64,13 @@
     @each $_key, $_inputValue in $inputs {
         $_defaultValue: map.get($defaults, $_key);
 
-        $_mergeRecursively: if(
-            $recursive and
-                (meta.type-of($_defaultValue) == map) and
-                (meta.type-of($_inputValue) == map),
-            true,
-            false
-        );
-
         @if $_inputValue == 'UNDEFINED' {
             // = remove the default value
             $return: map.remove($return, $_key);
         } @else {
+            // prettier-ignore
+            $_mergeRecursively: $recursive and meta.type-of($_defaultValue) == map and meta.type-of($_inputValue) == map;
+
             $return: map.set(
                 $return,
                 $_key,
@@ -86,8 +79,8 @@
                     merge(
                         $_defaultValue,
                         $_inputValue,
-                        $recursive: true,
-                        $respectUNDEFINED: true
+                        $recursive: $recursive,
+                        $respectUNDEFINED: $respectUNDEFINED
                     ),
                     $_inputValue
                 )

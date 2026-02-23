@@ -12,7 +12,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.32
+ * @maddimathon/utility-sass@0.1.0-alpha.32.draft
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -121,6 +121,39 @@ map.merge {
     /* "option2": <S> B */
     /* 
       map.merge( $recursive: true ) is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> OVERRIDE, "option3": <S> S-C ) */
+    /* "optionList": <S> OVERRIDE */
+    /* "option1": <S> A */
+    /* "option3": <S> OVERRIDE */
+    /* "option2": <S> B */
+}
+
+map.parse-args {
+    /* 
+      $_defaults is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+    /* "option1": <S> A */
+    /* "option3": <S> C */
+    /* "option2": <S> B */
+    /* 
+      $_inputs is a map:
+   */
+    /* "option3": <S> OVERRIDE */
+    /* "optionList": <S> OVERRIDE */
+    /* "optionSet": <:> ( "option2": <S> OVERRIDE ) */
+    /* 
+      map.parse-args( $recursive: false ) is a map:
+   */
+    /* "optionSet": <:> ( "option2": <S> OVERRIDE ) */
+    /* "optionList": <S> OVERRIDE */
+    /* "option1": <S> A */
+    /* "option3": <S> OVERRIDE */
+    /* "option2": <S> B */
+    /* 
+      map.parse-args( $recursive: true ) is a map:
    */
     /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> OVERRIDE, "option3": <S> S-C ) */
     /* "optionList": <S> OVERRIDE */

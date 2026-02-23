@@ -1,0 +1,133 @@
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.32.draft
+ * 
+ * https://maddimathon.github.io/utility-sass
+ */
+/* # MODULES - SELECTOR
+ * ======================================================================== */
+/* 
+    selector.parent-exists(): </> false
+ */
+/* 
+    selector.parent-or-body(): <S> body
+ */
+/* 
+    selector.parent-or-root(): <S> :root
+ */
+:root {
+    /* 
+      selector.is-body( & ): </> false
+   */
+    /* 
+      selector.is-root( & ): </> true
+   */
+    /* 
+      selector.parent-exists(): </> true
+   */
+    /* 
+      selector.parent-or-body() is a list:
+   */
+    /* 1: <()> ( <S> :root ) */
+    /* 
+      selector.parent-or-root() is a list:
+   */
+    /* 1: <()> ( <S> :root ) */
+}
+:root:where(.has-a-class) {
+    /* 
+      selector.is-body( & ): </> false
+   */
+    /* 
+      selector.is-root( & ): </> true
+   */
+    /* 
+      selector.parent-exists(): </> true
+   */
+    /* 
+      selector.parent-or-body() is a list:
+   */
+    /* 1: <()> ( <S> :root:where(.has-a-class) ) */
+    /* 
+      selector.parent-or-root() is a list:
+   */
+    /* 1: <()> ( <S> :root:where(.has-a-class) ) */
+}
+
+html {
+    /* 
+      selector.is-body( & ): </> false
+   */
+    /* 
+      selector.is-root( & ): </> true
+   */
+    /* 
+      selector.parent-exists(): </> true
+   */
+    /* 
+      selector.parent-or-body() is a list:
+   */
+    /* 1: <()> ( <S> html ) */
+    /* 
+      selector.parent-or-root() is a list:
+   */
+    /* 1: <()> ( <S> html ) */
+}
+html:where(.has-a-class) {
+    /* 
+      selector.is-body( & ): </> false
+   */
+    /* 
+      selector.is-root( & ): </> true
+   */
+    /* 
+      selector.parent-exists(): </> true
+   */
+    /* 
+      selector.parent-or-body() is a list:
+   */
+    /* 1: <()> ( <S> html:where(.has-a-class) ) */
+    /* 
+      selector.parent-or-root() is a list:
+   */
+    /* 1: <()> ( <S> html:where(.has-a-class) ) */
+}
+
+body {
+    /* 
+      selector.is-body( & ): </> true
+   */
+    /* 
+      selector.is-root( & ): </> false
+   */
+    /* 
+      selector.parent-exists(): </> true
+   */
+    /* 
+      selector.parent-or-body() is a list:
+   */
+    /* 1: <()> ( <S> body ) */
+    /* 
+      selector.parent-or-root() is a list:
+   */
+    /* 1: <()> ( <S> body ) */
+}
+body:where(.has-a-class) {
+    /* 
+      selector.is-body( & ): </> true
+   */
+    /* 
+      selector.is-root( & ): </> false
+   */
+    /* 
+      selector.parent-exists(): </> true
+   */
+    /* 
+      selector.parent-or-body() is a list:
+   */
+    /* 1: <()> ( <S> body:where(.has-a-class) ) */
+    /* 
+      selector.parent-or-root() is a list:
+   */
+    /* 1: <()> ( <S> body:where(.has-a-class) ) */
+}

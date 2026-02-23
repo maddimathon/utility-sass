@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.32
+/// @package @maddimathon/utility-sass@0.1.0-alpha.32.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -117,5 +117,18 @@ map.merge {
     @include utils.var-dump(
         'map.merge( $recursive: true )',
         map.merge($_defaults, $_inputs, true)
+    );
+}
+
+map.parse-args {
+    @include utils.var-dump('$_defaults', $_defaults);
+    @include utils.var-dump('$_inputs', $_inputs);
+    @include utils.var-dump(
+        'map.parse-args( $recursive: false )',
+        map.parse-args($_defaults, $_inputs)
+    );
+    @include utils.var-dump(
+        'map.parse-args( $recursive: true )',
+        map.parse-args($_defaults, $_inputs, true)
     );
 }

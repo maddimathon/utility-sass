@@ -55,6 +55,7 @@ In your partials, `*/*.scss`:
 @use '../tokens'; // if applicable
 
 @use 'pkg:@maddimathon/utility-sass/colour'; // replaces 'sass:color'
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/list'; // replaces 'sass:list'
 @use 'pkg:@maddimathon/utility-sass/map'; // replaces 'sass:map'
 @use 'pkg:@maddimathon/utility-sass/math'; // replaces 'sass:math'

@@ -1,0 +1,46 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @forward '../config';
+// @forward '../header';
+
+@use '../../../../../dist/scss/modules/string';
+
+// @use '../../../lib';
+@use '../utils';
+
+/* # MODULES - STRING
+ * ======================================================================== */
+
+string.replace {
+    @include utils.var-dump(
+        'string.replace( "hello there", "hello", "goodbye" )',
+        string.replace('hello there', 'hello', 'goodbye')
+    );
+    @include utils.var-dump(
+        'string.replace( "remove this part but not the rest", "remove this part " )',
+        string.replace('remove this part but not the rest', 'remove this part ')
+    );
+}
+
+// #region $_slug_tests
+$_slug_tests: (
+    'ÀÁÂÄÃÆÅĀàáâäãæåā',
+    'ÈÉÊËĒĖĘèéêëēėę',
+    'ÎÏÍĪĮÌîïíīįì',
+    'ÔÖÒÓŒØŌÕôöòóœøōõ',
+    'ÛÜÙÚŪûüùúū',
+    'ÑŃñń',
+    'something & something else',
+    'eXamPle(-–—_:;/) 2346',
+    '- hello – — _ : there ; / 56498d *%$#'
+);
+// #endregion $_slug_tests
+
+string.slugify {
+    @each $input in $_slug_tests {
+        @include utils.var-dump('string.slugify( "#{$input}" )', string.slugify($input));
+    }
+}

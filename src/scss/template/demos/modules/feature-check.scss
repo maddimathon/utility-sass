@@ -1,0 +1,125 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @forward '../config';
+// @forward '../header';
+
+@use '../../../../../dist/scss/modules/feature-check';
+
+// @use '../../../lib';
+@use '../utils';
+
+/* # MODULES - FEATURE CHECK
+ * ======================================================================== */
+
+feature-check.get-selector {
+    .whereSelector {
+        &--true {
+            @include utils.var-dump(
+                'feature-check.get-selector( whereSelector, $bool: true )',
+                feature-check.get-selector(whereSelector, $bool: true)
+            );
+        }
+
+        &--false {
+            @include utils.var-dump(
+                'feature-check.get-selector( whereSelector, $bool: false )',
+                feature-check.get-selector(whereSelector, $bool: false)
+            );
+        }
+
+        &--true.with-extra {
+            @include utils.var-dump(
+                'feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) )',
+                feature-check.get-selector(
+                    whereSelector,
+                    $bool: true,
+                    $addSelectors: (extra-selector)
+                )
+            );
+        }
+    }
+
+    .aspectRatio {
+        &--true {
+            @include utils.var-dump(
+                'feature-check.get-selector( aspectRatio, $bool: true )',
+                feature-check.get-selector(aspectRatio, $bool: true)
+            );
+        }
+
+        &--false {
+            @include utils.var-dump(
+                'feature-check.get-selector( aspectRatio, $bool: false )',
+                feature-check.get-selector(aspectRatio, $bool: false)
+            );
+        }
+
+        &--true.with-extra {
+            @include utils.var-dump(
+                'feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) )',
+                feature-check.get-selector(
+                    aspectRatio,
+                    $bool: true,
+                    $addSelectors: (extra-selector)
+                )
+            );
+        }
+    }
+}
+
+/* ## Modules - Feature Check - Mixins - JS ==================================== */
+
+@include feature-check.js {
+    /* @include feature-check.js */
+}
+
+@include feature-check.no-js {
+    /* @include feature-check.no-js */
+}
+
+/* ## Modules - Feature Check - Mixins - Supports ==================================== */
+
+@include feature-check.supports(whereSelector) {
+    /* @include feature-check.supports( whereSelector ) */
+}
+
+@include feature-check.supports(aspectRatio) {
+    /* @include feature-check.supports( aspectRatio ) */
+}
+
+@include feature-check.supports(aspectRatio, $addSelectors: (extra-selector)) {
+    /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ) ) */
+}
+
+/* ## Modules - Feature Check - Mixins - Supports Not ==================================== */
+
+@include feature-check.supports-not(whereSelector) {
+    /* @include feature-check.supports-not( whereSelector ) */
+}
+
+@include feature-check.supports-not(aspectRatio) {
+    /* @include feature-check.supports-not( aspectRatio ) */
+}
+
+@include feature-check.supports-not(aspectRatio, $includeNoWhereSelectorFallback: false) {
+    /* @include feature-check.supports-not( aspectRatio, $includeNoWhereSelectorFallback: false ) */
+}
+
+@include feature-check.supports-not(aspectRatio, $addSelectors: (extra-selector)) {
+    /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ) ) */
+}
+
+/* ## Modules - Feature Check - Mixins - Aspect Ratio (fallback) ==================================== */
+
+feature-check.aspectRatio {
+    .ar-1-2 {
+        @include feature-check.aspect-ratio(1, 2);
+    }
+
+    .ar-8-7 {
+        @include feature-check.aspect-ratio(8, 7);
+    }
+}

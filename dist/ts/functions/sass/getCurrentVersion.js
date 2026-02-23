@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.32
+ * @maddimathon/utility-sass@0.1.0-alpha.32.draft
  * @license MIT
  */
 import { OrderedMap } from 'immutable';

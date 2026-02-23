@@ -45,15 +45,7 @@ In your partials, `*/*.scss`:
 @use 'config'; // if applicable
 @use 'tokens'; // if applicable
 
-@use 'pkg:@maddimathon/utility-sass/colour'; // replaces 'sass:color'
-@use 'pkg:@maddimathon/utility-sass/list'; // replaces 'sass:list'
-@use 'pkg:@maddimathon/utility-sass/map'; // replaces 'sass:map'
-@use 'pkg:@maddimathon/utility-sass/math'; // replaces 'sass:math'
-@use 'pkg:@maddimathon/utility-sass/meta'; // replaces 'sass:meta'
-@use 'pkg:@maddimathon/utility-sass/selector'; // replaces 'sass:selector'
-@use 'pkg:@maddimathon/utility-sass/string'; // replaces 'sass:string'
-
-@use 'pkg:@maddimathon/utility-sass/template' as lib;
+@use 'pkg:@maddimathon/utility-sass'; // if applicable, for functions,mixins, etc.
 
 // your styles
 ```

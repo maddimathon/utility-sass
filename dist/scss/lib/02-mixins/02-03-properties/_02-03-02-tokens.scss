@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.32
+/// @package @maddimathon/utility-sass@0.1.0-alpha.32.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -224,7 +224,7 @@ $_systemColors: get-sys-colours();
 /// @since 0.1.0-pre.0
 ///
 @mixin tokens-sys-colour($clrOverrides: (), $includeForcedColours: true) {
-    $map: map.merge($_systemColors, $clrOverrides);
+    $map: map.parse-args($_systemColors, $clrOverrides);
 
     /* #region Tokens - System Colours */
     :where(#{selector.parent-or-root()}) {

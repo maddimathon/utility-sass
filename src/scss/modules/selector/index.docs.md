@@ -1,5 +1,7 @@
 ---
 title: Selector
+children:
+  - ./demo.docs.md
 ---
 
 # Selector Module
@@ -7,7 +9,7 @@ title: Selector
 This scss "module" is meant as a replacement for the built-in `sass:selector` module.
 
 ```scss
-@use '@utility-sass/selector'; // adds extras to 'sass:selector'
+@use 'pkg:@maddimathon/utility-sass/selector'; // adds extras to 'sass:selector'
 
 selector.merge(...); // added
 selector.parent-exists(...); // added

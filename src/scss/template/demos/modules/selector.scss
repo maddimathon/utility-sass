@@ -1,0 +1,47 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @forward '../config';
+// @forward '../header';
+
+@use '../../../../../dist/scss/modules/selector';
+
+// @use '../../../lib';
+@use '../utils';
+
+/* # MODULES - SELECTOR
+ * ======================================================================== */
+
+@include utils.var-dump('selector.parent-exists()', selector.parent-exists());
+@include utils.var-dump('selector.parent-or-body()', selector.parent-or-body());
+@include utils.var-dump('selector.parent-or-root()', selector.parent-or-root());
+
+@mixin _incl-single-var-dumps {
+    @include utils.var-dump('selector.is-body( & )', selector.is-body(&));
+    @include utils.var-dump('selector.is-root( & )', selector.is-root(&));
+    @include utils.var-dump('selector.parent-exists()', selector.parent-exists());
+    @include utils.var-dump('selector.parent-or-body()', selector.parent-or-body());
+    @include utils.var-dump('selector.parent-or-root()', selector.parent-or-root());
+}
+
+@mixin _incl-var-dumps {
+    @include _incl-single-var-dumps;
+
+    &:where(.has-a-class) {
+        @include _incl-single-var-dumps;
+    }
+}
+
+:root {
+    @include _incl-var-dumps;
+}
+
+html {
+    @include _incl-var-dumps;
+}
+
+body {
+    @include _incl-var-dumps;
+}

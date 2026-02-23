@@ -64,19 +64,24 @@
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha — Moved from library to own module.
 /// @since 0.1.0-alpha.5 — Changed name from `js-no-support` to `supports-not`.
+/// @since ___PKG_VERSION___ — Added $includeNoWhereSelectorFallback param, default true.
 ///
-@mixin supports-not($key, $addSelectors: (), $addSelectors_noJS: (), $args...) {
+@mixin supports-not(
+    $key,
+    $addSelectors: (),
+    $addSelectors_noJS: (),
+    $includeNoWhereSelectorFallback: true,
+    $args...
+) {
     $args: meta.keywords($args);
 
-    @include no-js(
-        $addSelectors: if(
-                $key == whereSelector,
-                $addSelectors,
-                $addSelectors_noJS
-            ),
-        $args...
-    ) {
-        @content;
+    @if $includeNoWhereSelectorFallback {
+        @include no-js(
+            $addSelectors: if($key == whereSelector, $addSelectors, $addSelectors_noJS),
+            $args...
+        ) {
+            @content;
+        }
     }
 
     @if $key != whereSelector {
@@ -92,10 +97,12 @@
 ///
 /// @since 0.1.0-alpha.5
 ///
-@mixin aspect-ratio($w, $h) {
+@mixin aspect-ratio($w, $h, $args...) {
+    $args: meta.keywords($args);
+
     aspect-ratio: #{$w} / #{$h};
 
-    @include supports-not(aspectRatio) {
+    @include supports-not(aspectRatio, $args...) {
         /* aspect-ratio fallback */
         position: relative;
 

@@ -1,0 +1,53 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @forward '../config';
+// @forward '../header';
+
+@use '../../../../../dist/scss/modules/meta';
+
+// @use '../../../lib';
+@use '../utils';
+
+/* # MODULES - META
+ * ======================================================================== */
+
+meta.current-version {
+    @include utils.var-dump('meta.current-version()', meta.current-version());
+}
+
+// #region $_map
+$_map: (
+    '$': default,
+
+    one: (
+        '$': default,
+        A: value,
+        B: (
+            '$': default,
+            1: value,
+        ),
+    ),
+
+    two: 'hello',
+);
+// #endregion $_map
+
+$_list: value is a list;
+
+meta.var-dump {
+    list {
+        @include utils.var-dump('meta.var-dump( $_list )', meta.var-dump($_list));
+    }
+    map {
+        @include utils.var-dump('meta.var-dump( $_map )', meta.var-dump($_map));
+    }
+    number {
+        @include utils.var-dump('meta.var-dump( 42 )', meta.var-dump(42));
+    }
+    string {
+        @include utils.var-dump('meta.var-dump( hello-there )', meta.var-dump(hello-there));
+    }
+}

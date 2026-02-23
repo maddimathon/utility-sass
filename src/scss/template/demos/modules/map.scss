@@ -81,24 +81,15 @@ map.flatten {
     @include utils.var-dump('map.flatten', map.flatten($_map));
 
     > with-prefix {
-        @include utils.var-dump(
-            'map.flatten',
-            map.flatten($_map, $prefix: 'pre')
-        );
+        @include utils.var-dump('map.flatten', map.flatten($_map, $prefix: 'pre'));
     }
 
     > with-suffix {
-        @include utils.var-dump(
-            'map.flatten',
-            map.flatten($_map, $suffix: 'suf')
-        );
+        @include utils.var-dump('map.flatten', map.flatten($_map, $suffix: 'suf'));
     }
 
     > with-both {
-        @include utils.var-dump(
-            'map.flatten',
-            map.flatten($_map, $prefix: 'pre', $suffix: 'suf')
-        );
+        @include utils.var-dump('map.flatten', map.flatten($_map, $prefix: 'pre', $suffix: 'suf'));
     }
 }
 
@@ -110,12 +101,19 @@ map.ksort {
 map.merge {
     @include utils.var-dump('$_defaults', $_defaults);
     @include utils.var-dump('$_inputs', $_inputs);
+    @include utils.var-dump('map.merge( $recursive: false )', map.merge($_defaults, $_inputs));
+    @include utils.var-dump('map.merge( $recursive: true )', map.merge($_defaults, $_inputs, true));
+}
+
+map.parse-args {
+    @include utils.var-dump('$_defaults', $_defaults);
+    @include utils.var-dump('$_inputs', $_inputs);
     @include utils.var-dump(
-        'map.merge( $recursive: false )',
-        map.merge($_defaults, $_inputs)
+        'map.parse-args( $recursive: false )',
+        map.parse-args($_defaults, $_inputs)
     );
     @include utils.var-dump(
-        'map.merge( $recursive: true )',
-        map.merge($_defaults, $_inputs, true)
+        'map.parse-args( $recursive: true )',
+        map.parse-args($_defaults, $_inputs, true)
     );
 }

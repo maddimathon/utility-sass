@@ -1,0 +1,181 @@
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.32.draft
+ * 
+ * https://maddimathon.github.io/utility-sass
+ */
+/* # MODULES - FEATURE CHECK
+ * ======================================================================== */
+feature-check.get-selector .whereSelector--true {
+    /* 
+      feature-check.get-selector( whereSelector, $bool: true ) is a list:
+   */
+    /* 1: <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true ) */
+}
+feature-check.get-selector .whereSelector--false {
+    /* 
+      feature-check.get-selector( whereSelector, $bool: false ) is a list:
+   */
+    /* 1: <()> ( <S> .no-js <S> feature-check.get-selector <S> .whereSelector--false ) */
+    /* 2: <()> ( <S> .js__no-whereSelector <S> feature-check.get-selector <S> .whereSelector--false ) */
+}
+feature-check.get-selector .whereSelector--true.with-extra {
+    /* 
+      feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) ) is a list:
+   */
+    /* 1: <S> extra-selector */
+    /* 2: <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true.with-extra ) */
+}
+feature-check.get-selector .aspectRatio--true {
+    /* 
+      feature-check.get-selector( aspectRatio, $bool: true ) is a list:
+   */
+    /* 1: <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true ) */
+}
+feature-check.get-selector .aspectRatio--false {
+    /* 
+      feature-check.get-selector( aspectRatio, $bool: false ) is a list:
+   */
+    /* 1: <()> ( <S> :where(.js__no-aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--false ) */
+}
+feature-check.get-selector .aspectRatio--true.with-extra {
+    /* 
+      feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) ) is a list:
+   */
+    /* 1: <S> extra-selector */
+    /* 2: <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true.with-extra ) */
+}
+
+/* ## Modules - Feature Check - Mixins - JS ==================================== */
+:where(.js) {
+    /* @include feature-check.js */
+}
+
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.no-js */
+}
+
+/* ## Modules - Feature Check - Mixins - Supports ==================================== */
+:where(.js) {
+    /* @include feature-check.supports( whereSelector ) */
+}
+
+:where(.js__aspectRatio) {
+    /* @include feature-check.supports( aspectRatio ) */
+}
+
+extra-selector,
+:where(.js__aspectRatio) {
+    /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ) ) */
+}
+
+/* ## Modules - Feature Check - Mixins - Supports Not ==================================== */
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.supports-not( whereSelector ) */
+}
+
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.supports-not( aspectRatio ) */
+}
+
+:where(.js__no-aspectRatio) {
+    /* @include feature-check.supports-not( aspectRatio ) */
+}
+
+:where(.js__no-aspectRatio) {
+    /* @include feature-check.supports-not( aspectRatio, $includeNoWhereSelectorFallback: false ) */
+}
+
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ) ) */
+}
+
+extra-selector,
+:where(.js__no-aspectRatio) {
+    /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ) ) */
+}
+
+/* ## Modules - Feature Check - Mixins - Aspect Ratio (fallback) ==================================== */
+feature-check.aspectRatio .ar-1-2 {
+    aspect-ratio: 1/2;
+}
+.no-js feature-check.aspectRatio .ar-1-2,
+.js__no-whereSelector feature-check.aspectRatio .ar-1-2 {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+.no-js feature-check.aspectRatio .ar-1-2::before,
+.js__no-whereSelector feature-check.aspectRatio .ar-1-2::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 200%;
+}
+.no-js feature-check.aspectRatio .ar-1-2::after,
+.js__no-whereSelector feature-check.aspectRatio .ar-1-2::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
+}
+
+:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-1-2 {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-1-2::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 200%;
+}
+:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-1-2::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
+}
+
+feature-check.aspectRatio .ar-8-7 {
+    aspect-ratio: 8/7;
+}
+.no-js feature-check.aspectRatio .ar-8-7,
+.js__no-whereSelector feature-check.aspectRatio .ar-8-7 {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+.no-js feature-check.aspectRatio .ar-8-7::before,
+.js__no-whereSelector feature-check.aspectRatio .ar-8-7::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 87.5%;
+}
+.no-js feature-check.aspectRatio .ar-8-7::after,
+.js__no-whereSelector feature-check.aspectRatio .ar-8-7::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
+}
+
+:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-8-7 {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-8-7::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 87.5%;
+}
+:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-8-7::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
+}

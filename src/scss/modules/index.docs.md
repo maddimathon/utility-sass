@@ -2,6 +2,7 @@
 title: Modules
 children:
   - ./colour/index.docs.md
+  - ./feature-check/index.docs.md
   - ./list/index.docs.md
   - ./map/index.docs.md
   - ./math/index.docs.md
@@ -19,7 +20,7 @@ the built-in module it is meant to replace (which is generally not recommended).
 
 For example:
 ```scss
-@use '@utility-sass/list'; // adds extras to 'sass:list'
+@use 'pkg:@maddimathon/utility-sass/list'; // adds extras to 'sass:list'
 
 list.flatten(...); // added
 
@@ -29,6 +30,7 @@ list.nth(...); // built-in
 
 **Modules:**
 - [colour](./colour/index.docs.md)
+- [feature-check](./feature-check/index.docs.md)
 - [list](./list/index.docs.md)
 - [map](./map/index.docs.md)
 - [math](./math/index.docs.md)
