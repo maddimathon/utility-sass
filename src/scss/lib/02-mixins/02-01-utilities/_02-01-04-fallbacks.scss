@@ -49,20 +49,18 @@
         $sel_focusVisible: selector.unify(&, $sel_focusVisible);
     }
 
-    $sel_additional: if(
-        list.length($addSelectors) > 0,
-        $addSelectors,
-        config.$selector_null
-    );
+    $sel_additional: if(list.length($addSelectors) > 0, $addSelectors, config.$selector_null);
 
     @at-root {
-        @if $includeFallbacks or $fallbacksOnly {
+        @if $fallbacksOnly {
             #{$sel_focus} {
-                @include feature-check.supports-not(
-                    'focusVisible',
-                    $addSelectors: (),
-                    $args...
-                ) {
+                &:focus {
+                    @content;
+                }
+            }
+        } @else if $includeFallbacks {
+            #{$sel_focus} {
+                @include feature-check.supports-not('focusVisible', $addSelectors: (), $args...) {
                     @content;
                 }
             }
@@ -256,12 +254,7 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@mixin apply-interactive-mixin(
-    $hover: false,
-    $focus: false,
-    $focusWithin: false,
-    $args...
-) {
+@mixin apply-interactive-mixin($hover: false, $focus: false, $focusWithin: false, $args...) {
     $args: meta.keywords($args);
     $mixin: meta.get-mixin('_nothing');
 

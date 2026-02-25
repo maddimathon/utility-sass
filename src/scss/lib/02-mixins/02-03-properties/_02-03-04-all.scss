@@ -32,7 +32,7 @@
     $margin: not config.$fn_var_replaceWithValue_margin,
     $strokeRelative: not config.$fn_var_replaceWithValue_strokeRelative,
     $sysColours: config.$include_html,
-    $width: config.$include_html and not config.$fn_var_replaceWithValue_width,
+    $width: not config.$fn_var_replaceWithValue_width,
     //
     $multiplier_borderWidth: 1,
     $multiplier_fontSize: 1,
@@ -73,9 +73,7 @@
         @include tokens-border-width($multiplier: $multiplier_borderWidth);
     }
     @if $strokeRelative {
-        @include tokens-stroke-relative(
-            $multiplier: $multiplier_strokeRelative
-        );
+        @include tokens-stroke-relative($multiplier: $multiplier_strokeRelative);
     }
 
     // custom

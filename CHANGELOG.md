@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.34** — 2026-02-24
+
+Very minor mixin fixes
+
+
 ## **0.1.0-alpha.33** — 2026-02-24
 
 ### Added

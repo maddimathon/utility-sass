@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.33
+/// @package @maddimathon/utility-sass@0.1.0-alpha.34
 /// @since 0.1.0-pre.0
 ///
 
@@ -56,7 +56,13 @@
     );
 
     @at-root {
-        @if $includeFallbacks or $fallbacksOnly {
+        @if $fallbacksOnly {
+            #{$sel_focus} {
+                &:focus {
+                    @content;
+                }
+            }
+        } @else if $includeFallbacks {
             #{$sel_focus} {
                 @include feature-check.supports-not(
                     'focusVisible',
