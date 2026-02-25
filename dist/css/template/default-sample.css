@@ -2,7 +2,7 @@
 /**
  * Utility Sass Template
  * 
- * @package utility-sass/template@0.1.0-alpha.35
+ * @package utility-sass/template@0.1.0-alpha.36
  */
 /*! START of @maddimathon/utility-sass/template */
 /* # TOKENS & PROPERTIES
@@ -381,9 +381,16 @@
 
 /* # GLOBALS - Objects
  * ======================================================================== */
+:root {
+    --scroll-padding-top: var(--gap-block-layout, 5vw);
+    --scroll-padding-top: calc(
+        var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw)
+    );
+}
+
 :root,
 body {
-    scroll-padding-top: var(--gap-block-layout, 5vw);
+    scroll-padding-top: var(--scroll-padding-top, var(--gap-block-layout, 5vw));
 }
 
 body {

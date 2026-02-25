@@ -3,13 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
-// @use '../../../modules/colour';
-// @use '../../../modules/list';
-// @use '../../../modules/map';
-// @use '../../../modules/math';
-// @use '../../../modules/meta';
-// @use '../../../modules/selector';
-// @use '../../../modules/string';
+@use '../../../modules/math';
 
 @use '../../../config';
 @use '../../../tokens';
@@ -21,14 +15,20 @@
      * ======================================================================== */
 }
 
-%root,
-%body {
+$_scrollPaddingFallback: var-gap-block(layout);
+
+%root {
     @if config.$include_html {
-        scroll-padding-top: #{var-gap-block(layout)};
+        @include cx-prop(scroll-padding-top, $_scrollPaddingFallback);
+        @include cx-prop(scroll-padding-top, scroll-padding-top-value());
     }
 }
 
-%root {
+%root,
+%body {
+    @if config.$include_html {
+        scroll-padding-top: var-scroll-padding-top($_scrollPaddingFallback);
+    }
 }
 
 %body {

@@ -1,0 +1,42 @@
+///
+/// Utilities for working with custom properties.
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.36
+/// @since 0.1.0-alpha.25
+///
+
+@use '../../modules/math';
+
+@use '../../config';
+
+@use '01-04-properties' as *;
+@use '01-05-tokens' as *;
+
+///
+/// @since 0.1.0-alpha.36
+///
+@function scroll-padding-top-value(
+    $margin: var-gap-block(layout),
+    $navHeightFallback: 0
+) {
+    // returns
+    @if math.deunit(config.$page_top) != 0 {
+        @return calc(
+            do-var(height-nav-primary, $navHeightFallback) + $margin +
+                config.$page_top
+        );
+    }
+
+    @return calc(do-var(height-nav-primary, $navHeightFallback) + $margin);
+}
+
+///
+/// @since 0.1.0-alpha.36
+///
+@function var-scroll-padding-top($fallback: null) {
+    @if not $fallback {
+        $fallback: scroll-padding-top-value();
+    }
+
+    @return do-var(scroll-padding-top, $fallback);
+}

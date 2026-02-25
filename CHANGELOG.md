@@ -19,6 +19,16 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.36** — 2026-02-25
+
+### Added
+- Config var - $page_top
+- Scss now sets scroll-padding-top if $include_html with a `scroll-padding-top`
+  cx prop (which itself is set using an unset `height-nav-primary` prop that
+  falls back to 0)
+- Scss functions - scroll-padding-top-value, var-scroll-padding-top
+
+
 ## **0.1.0-alpha.35** — 2026-02-24
 
 Another minor mixin fix

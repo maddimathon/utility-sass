@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.35
+ * @maddimathon/utility-sass@0.1.0-alpha.36
  * @license MIT
  */
 import { sass_getCurrentVersion } from './sass/getCurrentVersion.js';
