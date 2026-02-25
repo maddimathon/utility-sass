@@ -1,0 +1,191 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.37
+///
+
+@use 'sass:string';
+@use 'sass:selector';
+
+@use '../../config';
+
+@use '../list';
+@use '../meta';
+
+@use 'parent-exists';
+@use 'parent-or-body';
+
+///
+/// Takes given selectors (else *) and wraps them in individual
+/// :#{$pseudoType}() selectors.
+///
+/// @since 0.1.0-alpha.37
+///
+@function _pseudo-list($pseudoType, $selectors: null, $direct: false, $unifyParent: false) {
+    $parentExists: parent-exists.parent-exists();
+
+    @if not $parentExists {
+        $unifyParent: false;
+    }
+
+    @if $selectors == null {
+        $selectors: if($pseudoType == 'not', config.$selector_null, ('*'));
+    }
+
+    @if meta.type-of($selectors) != list {
+        $selectors: selector.parse($selectors);
+    }
+
+    @if list.separator($selectors) != comma {
+        //
+        $selectors: list.append((config.$selector_null), $selectors, $separator: comma);
+    }
+
+    $pseudo_selector_list: ();
+
+    @each $sel in $selectors {
+        @if $sel != config.$selector_null {
+            //
+            @if $direct and $pseudoType == 'has' {
+                $sel: selector.nest('>', ($sel));
+            }
+
+            $pseudo_selector_list: list.append(
+                $pseudo_selector_list,
+                ':#{$pseudoType}( #{$sel} )',
+                $separator: comma
+            );
+        }
+    }
+
+    @if $pseudoType == 'not' {
+        $pseudo_selector_list: list.text-join($pseudo_selector_list, '');
+    }
+
+    @return if(
+        $unifyParent,
+        selector.unify(&, ($pseudo_selector_list)),
+        if(
+            $direct and $pseudoType != 'has',
+            selector.nest('>', ($pseudo_selector_list)),
+            $pseudo_selector_list
+        )
+    );
+}
+
+///
+/// Takes given selectors (else *) and wraps them in individual
+/// :has() selectors.
+///
+/// @since 0.1.0-alpha.37
+///
+@function has-list($args...) {
+    @return _pseudo-list($pseudoType: 'has', $args...);
+}
+
+///
+/// Takes given selectors (else *) and wraps them in individual
+/// :is() selectors.
+///
+/// @since 0.1.0-alpha.37
+///
+@function is-list($args...) {
+    @return _pseudo-list($pseudoType: 'is', $args...);
+}
+
+///
+/// Takes given selectors (else *) and wraps them in individual
+/// :not() selectors.
+///
+/// @since 0.1.0-alpha.37
+///
+@function not-list($args...) {
+    @return _pseudo-list($pseudoType: 'not', $args...);
+}
+
+///
+/// Takes given selectors (else *) and wraps them in individual
+/// :where() selectors.
+///
+/// @since 0.1.0-alpha.37
+///
+@function where-list($args...) {
+    @return _pseudo-list($pseudoType: 'where', $args...);
+}
+
+///
+/// Nests given selectors inside parent selector, using the
+/// selector.#{$pseudoType}-list function.
+///
+/// @since 0.1.0-alpha.37
+///
+@mixin _pseudo-class-content(
+    $pseudoType,
+    $selectors: (string.unquote('*')),
+    $direct: false,
+    $includeParent: true,
+    $unifyParent: false
+) {
+    @if not parent-exists.parent-exists() {
+        $includeParent: false;
+        $unifyParent: false;
+    }
+
+    $selectors: _pseudo-list(
+        $pseudoType: $pseudoType,
+        $selectors: $selectors,
+        $direct: $direct,
+        $unifyParent: $unifyParent,
+    );
+
+    @if not $unifyParent and $includeParent {
+        $selectors: selector.nest(&, ($selectors));
+    }
+
+    @at-root #{$selectors} {
+        @content;
+    }
+}
+
+///
+/// Nests given selectors inside parent selector, using selectors.has-list function.
+///
+/// @since 0.1.0-alpha.37
+///
+@mixin has($args...) {
+    @include _pseudo-class-content('has', $args...) {
+        @content;
+    }
+}
+
+///
+/// Nests given selectors inside parent selector, using selectors.is-list function.
+///
+/// @since 0.1.0-alpha.37
+///
+@mixin is($args...) {
+    @include _pseudo-class-content('is', $args...) {
+        @content;
+    }
+}
+
+///
+/// Nests given selectors inside parent selector, using selectors.not-list function.
+///
+/// @since 0.1.0-alpha.37
+///
+@mixin not($args...) {
+    @include _pseudo-class-content('not', $args...) {
+        @content;
+    }
+}
+
+///
+/// Nests given selectors inside parent selector, using selectors.where-list function.
+///
+/// @since 0.1.0-alpha.37
+///
+@mixin where($args...) {
+    @include _pseudo-class-content('where', $args...) {
+        @content;
+    }
+}

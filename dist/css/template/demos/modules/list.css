@@ -10,12 +10,6 @@
  * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
  */
-/*!
- * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.36
- * 
- * https://maddimathon.github.io/utility-sass
- */
 /* # MODULES - LIST
  * ======================================================================== */
 list.flatten {
@@ -123,6 +117,32 @@ list.sort {
     /* 9: <S> two */
     /* 10: <S> two */
     /* 11: <S> yet */
+}
+
+list.text-join {
+    /* 
+      $list is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> two */
+    /* 3: <S> two */
+    /* 4: <S> one */
+    /* 5: <S> A */
+    /* 6: <S> B */
+    /* 7: <S> C */
+    /* 8: <S> yet */
+    /* 9: <S> another */
+    /* 10: <S> list */
+    /* 11: <S> B */
+    /* 
+      list.text-join( $list ): <S> "one, two, two, one, A, B, C, yet, another, list, B"
+   */
+    /* 
+      list.text-join( $list, " - " ): <S> "one - two - two - one - A - B - C - yet - another - list - B"
+   */
+    /* 
+      list.text-join( $list, " | " ): <S> "one | two | two | one | A | B | C | yet | another | list | B"
+   */
 }
 
 list.unique {

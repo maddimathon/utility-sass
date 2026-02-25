@@ -17,6 +17,7 @@ list.font-list(...); // added
 list.only(...); // added
 list.reverse(...); // added
 list.sort(...); // added
+list.text-join(...); // added
 list.unique(...); // added
 
 list.index(...); // built-in

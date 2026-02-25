@@ -141,7 +141,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
         );
 
         @if list.length($selectors) > 0 {
-            @at-root :not(#{$selectors}) {
+            @include selector.not($selectors) {
                 @content;
             }
         }
@@ -244,12 +244,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
     $selectors_brightness: selectors-colour-mode($brightness_args...);
     $selectors_contrast: selectors-colour-mode($contrast_args...);
 
-    $brightnessIsMultipleAndDefault: (
-        meta.type-of($brightness) == list and $brightnessIsDefault
-    );
-    $contrastIsMultipleAndDefault: (
-        meta.type-of($contrast) == list and $contrastIsDefault
-    );
+    $brightnessIsMultipleAndDefault: (meta.type-of($brightness) == list and $brightnessIsDefault);
+    $contrastIsMultipleAndDefault: (meta.type-of($contrast) == list and $contrastIsDefault);
 
     $includeRegionsOrComments: true;
 
@@ -285,10 +281,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             //
             // or, if there are multiple modes and one is default (e.g., forced-colors)
             @if not $includeSelectors {
-                @if $includeDefault and
-                    $brightnessIsDefault and
-                    $contrastIsDefault
-                {
+                @if $includeDefault and $brightnessIsDefault and $contrastIsDefault {
                     // we need to include the defaults anyway
                     #{$_selectors_parentOrRoot} {
                         @content;
@@ -297,20 +290,12 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
                 @if $brightnessIsDefault {
                     // brightness selector + contrast queries
-                    $_queries: list.append(
-                        $_queries,
-                        ($_queries_contrast),
-                        $separator: 'comma'
-                    );
+                    $_queries: list.append($_queries, ($_queries_contrast), $separator: 'comma');
                 }
 
                 @if $contrastIsDefault {
                     // contrast selector + brightness queries
-                    $_queries: list.append(
-                        $_queries,
-                        ($_queries_brightness),
-                        $separator: 'comma'
-                    );
+                    $_queries: list.append($_queries, ($_queries_brightness), $separator: 'comma');
                 }
             }
 
@@ -318,27 +303,16 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             // (e.g., forced-colors) we have to add in more queries AND
             // more root selectors
             @if $includeSelectors and
-                (
-                    $brightnessIsMultipleAndDefault or
-                        $contrastIsMultipleAndDefault
-                )
+                ($brightnessIsMultipleAndDefault or $contrastIsMultipleAndDefault)
             {
                 @if $brightnessIsDefault {
                     // brightness selector + contrast queries
-                    $_queries: list.append(
-                        $_queries,
-                        ($_queries_contrast),
-                        $separator: 'comma'
-                    );
+                    $_queries: list.append($_queries, ($_queries_contrast), $separator: 'comma');
                 }
 
                 @if $contrastIsDefault {
                     // contrast selector + brightness queries
-                    $_queries: list.append(
-                        $_queries,
-                        ($_queries_brightness),
-                        $separator: 'comma'
-                    );
+                    $_queries: list.append($_queries, ($_queries_brightness), $separator: 'comma');
                 }
 
                 @if $brightnessIsDefault and $contrastIsDefault {
@@ -370,10 +344,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                         $_selectors_parentOrRoot,
                         if(
                             $parentSelectorExists,
-                            selector.unify(
-                                '#{$selectors_parentOrRoot}',
-                                '#{$selectors_contrast}'
-                            ),
+                            selector.unify('#{$selectors_parentOrRoot}', '#{$selectors_contrast}'),
                             $selectors_contrast
                         )
                     );
@@ -381,17 +352,12 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             }
 
             // adding the merged queries together, one-by-one
-            @if not(
-                $brightnessIsMultipleAndDefault or $contrastIsMultipleAndDefault
-            )
-            {
+            @if not($brightnessIsMultipleAndDefault or $contrastIsMultipleAndDefault) {
                 @each $bright_query in $_queries_brightness {
                     @each $con_query in $_queries_contrast {
                         $_queries: list.append(
                             $_queries,
-                            string.unquote(
-                                '(#{$bright_query} and #{$con_query})'
-                            ),
+                            string.unquote('(#{$bright_query} and #{$con_query})'),
                             $separator: 'comma'
                         );
                     }
@@ -412,10 +378,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
         @if $includeSelectors {
             // here to reset if body selector is added for default modes
 
-            $selectors_merged: selector.unify(
-                '#{$selectors_brightness}',
-                '#{$selectors_contrast}'
-            );
+            $selectors_merged: selector.unify('#{$selectors_brightness}', '#{$selectors_contrast}');
 
             @if $nestModeSelectors {
                 $selectors_merged: list.join(
@@ -463,19 +426,13 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             }
 
             // first we may have to adjust the selectors
-            @if $includeDefault or
-                $brightnessIsMultipleAndDefault or
-                $contrastIsMultipleAndDefault
+            @if $includeDefault or $brightnessIsMultipleAndDefault or $contrastIsMultipleAndDefault
             {
                 @if $brightnessIsDefault and $contrastIsDefault {
                     // = the body element is part of the selectors here
 
                     $selectors_merged: list.join(
-                        (
-                            $selectors_parentOrRoot,
-                            $selectors_brightness,
-                            $selectors_contrast
-                        ),
+                        ($selectors_parentOrRoot, $selectors_brightness, $selectors_contrast),
                         $selectors_merged,
                         $separator: comma
                     );
@@ -485,10 +442,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                     $selectors_merged: list.join(
                         if(
                             $parentSelectorExists,
-                            selector.unify(
-                                '#{$selectors_parentOrRoot}',
-                                '#{$selectors_contrast}'
-                            ),
+                            selector.unify('#{$selectors_parentOrRoot}', '#{$selectors_contrast}'),
                             ($selectors_contrast)
                         ),
                         $selectors_merged,
@@ -514,10 +468,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
             // we may have to adjust the queries
             @if $includeQuery and not
-                (
-                    $brightnessIsMultipleAndDefault or
-                        $contrastIsMultipleAndDefault
-                )
+                ($brightnessIsMultipleAndDefault or $contrastIsMultipleAndDefault)
             {
                 @if list.length($queries_contrast) > 0 {
                     $_sel: if(
@@ -621,10 +572,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
         // iterate through contrast modes
         @each $contrast in $_contrastModes {
-            @if $contrast !=
-                forced-colors or
-                ($includeForcedColors and $iterateForcedColors)
-            {
+            @if $contrast != forced-colors or ($includeForcedColors and $iterateForcedColors) {
                 // local args
                 $contrast_args: colour-mode-validate-args(
                     $modes: $contrast,
@@ -651,8 +599,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                     $includeRegions: $includeRegions,
                     $includeSelectors: if(
                             (
-                                map.get($brightness_args, 'includeSelectors')
-                                    and
+                                map.get($brightness_args, 'includeSelectors') and
                                     map.get($contrast_args, 'includeSelectors')
                             ),
                             true,
@@ -794,12 +741,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 @mixin colour-mode-js-supports($modes, $key, $args...) {
     $args: meta.keywords($args);
 
-    @include _colour-mode-js-any-support(
-        $modes: $modes,
-        $key: $key,
-        $bool: true,
-        $args...
-    ) {
+    @include _colour-mode-js-any-support($modes: $modes, $key: $key, $bool: true, $args...) {
         @content;
     }
 }
@@ -807,12 +749,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 @mixin colour-mode-js-supports-not($modes, $key, $args...) {
     $args: meta.keywords($args);
 
-    @include _colour-mode-js-any-support(
-        $modes: $modes,
-        $key: $key,
-        $bool: false,
-        $args...
-    ) {
+    @include _colour-mode-js-any-support($modes: $modes, $key: $key, $bool: false, $args...) {
         @content;
     }
 }

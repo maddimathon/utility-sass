@@ -93,8 +93,23 @@ export class Compile extends CompileStage {
             'template',
             'dist/css',
             {
-                maxConcurrent: 15,
+                ignoreGlobs: [
+                    '**/_*',
+                    '**/demos/**',
+                ],
+                maxConcurrent: 5,
                 postCSS: true,
+                srcDir: 'src/scss',
+            },
+            1,
+        );
+
+        await this.runCustomScssDirSubStage(
+            'template/demos',
+            'dist/css',
+            {
+                maxConcurrent: 20,
+                postCSS: false,
                 srcDir: 'src/scss',
             },
             1,

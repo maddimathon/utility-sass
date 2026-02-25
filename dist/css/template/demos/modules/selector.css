@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Utility Sass Template - Demo
  *
@@ -9,12 +10,6 @@
  *
  * Author: Maddi Mathon (www.maddimathon.com)
  * License: MIT
- */
-/*!
- * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.36
- * 
- * https://maddimathon.github.io/utility-sass
  */
 /* # MODULES - SELECTOR
  * ======================================================================== */
@@ -105,7 +100,8 @@ html:where(.has-a-class) {
     /* 1: <()> ( <S> html:where(.has-a-class) ) */
 }
 
-body {
+body,
+.sample-body-replacement-class {
     /* 
       selector.is-body( & ): </> true
    */
@@ -124,7 +120,8 @@ body {
    */
     /* 1: <()> ( <S> body ) */
 }
-body:where(.has-a-class) {
+body:where(.has-a-class),
+.sample-body-replacement-class:where(.has-a-class) {
     /* 
       selector.is-body( & ): </> true
    */
@@ -142,4 +139,305 @@ body:where(.has-a-class) {
       selector.parent-or-root() is a list:
    */
     /* 1: <()> ( <S> body:where(.has-a-class) ) */
+}
+
+/* ## Modules - Selector - Pseudo Class Lists ==================================== */
+selector.has {
+    /* 
+      selector.has-list() is a list:
+   */
+    /* 1: <S> ":has( * )" */
+}
+selector.has--unified {
+    /* 
+      selector.has-list( $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.has--unified:has(*) ) */
+}
+selector.has--direct--unified {
+    /* 
+      selector.has-list( $direct: true, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.has--direct--unified:has(> *) ) */
+}
+selector.has--with-selectors {
+    /* 
+      selector.has-list( ( div, p, body ) ) is a list:
+   */
+    /* 1: <S> ":has( div )" */
+    /* 2: <S> ":has( p )" */
+    /* 3: <S> ":has( body )" */
+}
+selector.has--with-selectors--direct {
+    /* 
+      selector.has-list( ( div, p, body ), $direct: true ) is a list:
+   */
+    /* 1: <S> ":has( > div )" */
+    /* 2: <S> ":has( > p )" */
+    /* 3: <S> ":has( > body )" */
+}
+selector.has--with-selectors--direct--unified {
+    /* 
+      selector.has-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.has--with-selectors--direct--unified:has(> div) ) */
+    /* 2: <()> ( <S> selector.has--with-selectors--direct--unified:has(> p) ) */
+    /* 3: <()> ( <S> selector.has--with-selectors--direct--unified:has(> body) ) */
+}
+selector.has :has(*) {
+    /* @include selector.has() {} */
+}
+
+selector.has :has(> *) {
+    /* @include selector.has( $direct: true ) {} */
+}
+
+selector.has:has(*) {
+    /* @include selector.has( $unifyParent: true ) {} */
+}
+
+selector.has:has(> *) {
+    /* @include selector.has( $unifyParent: true, $direct: true ) {} */
+}
+
+:has(*) {
+    /* @include selector.has( $includeParent: false ) {} */
+}
+
+selector.has :has(div),
+selector.has :has(p),
+selector.has :has(body, .sample-body-replacement-class) {
+    /* @include selector.has( ( div, p, body ) ) {} */
+}
+
+selector.has :has(> div),
+selector.has :has(> p),
+selector.has :has(> body, > .sample-body-replacement-class) {
+    /* @include selector.has( ( div, p, body ), $direct: true ) {} */
+}
+
+selector.has:has(div),
+selector.has:has(p),
+selector.has:has(body, .sample-body-replacement-class) {
+    /* @include selector.has( ( div, p, body ), $unifyParent: true ) {} */
+}
+
+selector.has:has(> div),
+selector.has:has(> p),
+selector.has:has(> body, > .sample-body-replacement-class) {
+    /* @include selector.has( ( div, p, body ), $unifyParent: true, $direct: true ) {} */
+}
+
+selector.is {
+    /* 
+      selector.is-list() is a list:
+   */
+    /* 1: <S> ":is( * )" */
+}
+selector.is--unified {
+    /* 
+      selector.is-list( $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.is--unified:is(*) ) */
+}
+selector.is--direct--unified {
+    /* 
+      selector.is-list( $direct: true, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.is--direct--unified:is(*) ) */
+}
+selector.is--with-selectors {
+    /* 
+      selector.is-list( ( div, p, body ) ) is a list:
+   */
+    /* 1: <S> ":is( div )" */
+    /* 2: <S> ":is( p )" */
+    /* 3: <S> ":is( body )" */
+}
+selector.is--with-selectors--direct {
+    /* 
+      selector.is-list( ( div, p, body ), $direct: true ) is a list:
+   */
+    /* 1: <()> ( <S> > <S> :is(div) ) */
+    /* 2: <()> ( <S> > <S> :is(p) ) */
+    /* 3: <()> ( <S> > <S> :is(body) ) */
+}
+selector.is--with-selectors--direct--unified {
+    /* 
+      selector.is-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.is--with-selectors--direct--unified:is(div) ) */
+    /* 2: <()> ( <S> selector.is--with-selectors--direct--unified:is(p) ) */
+    /* 3: <()> ( <S> selector.is--with-selectors--direct--unified:is(body) ) */
+}
+selector.is :is(*) {
+    /* @include selector.is() {} */
+}
+
+selector.is > :is(*) {
+    /* @include selector.is( $direct: true ) {} */
+}
+
+selector.is:is(*) {
+    /* @include selector.is( $unifyParent: true ) {} */
+}
+
+:is(*) {
+    /* @include selector.is( $includeParent: false ) {} */
+}
+
+selector.is :is(div),
+selector.is :is(p),
+selector.is :is(body, .sample-body-replacement-class) {
+    /* @include selector.is( ( div, p, body ) ) {} */
+}
+
+selector.is > :is(div),
+selector.is > :is(p),
+selector.is > :is(body, .sample-body-replacement-class) {
+    /* @include selector.is( ( div, p, body ), $direct: true ) {} */
+}
+
+selector.is:is(div),
+selector.is:is(p),
+selector.is:is(body, .sample-body-replacement-class) {
+    /* @include selector.is( ( div, p, body ), $unifyParent: true ) {} */
+}
+
+selector.not {
+    /* 
+      selector.not-list(): <S> :not( %null )
+   */
+}
+selector.not--unified {
+    /* 
+      selector.not-list( $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.not--unified ) */
+}
+selector.not--direct--unified {
+    /* 
+      selector.not-list( $direct: true, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.not--direct--unified ) */
+}
+selector.not--with-selectors {
+    /* 
+      selector.not-list( ( div, p, body ) ): <S> ":not( div ):not( p ):not( body )"
+   */
+}
+selector.not--with-selectors--direct {
+    /* 
+      selector.not-list( ( div, p, body ), $direct: true ) is a list:
+   */
+    /* 1: <()> ( <S> > <S> :not(div):not(p):not(body) ) */
+}
+selector.not--with-selectors--direct--unified {
+    /* 
+      selector.not-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.not--with-selectors--direct--unified:not(div):not(p):not(body) ) */
+}
+selector.not :not(*) {
+    /* @include selector.not() {} */
+}
+
+selector.not > :not(*) {
+    /* @include selector.not( $direct: true ) {} */
+}
+
+selector.not:not(*) {
+    /* @include selector.not( $unifyParent: true ) {} */
+}
+
+:not(*) {
+    /* @include selector.not( $includeParent: false ) {} */
+}
+
+selector.not :not(div):not(p):not(body):not(.sample-body-replacement-class) {
+    /* @include selector.not( ( div, p, body ) ) {} */
+}
+
+selector.not > :not(div):not(p):not(body):not(.sample-body-replacement-class) {
+    /* @include selector.not( ( div, p, body ), $direct: true ) {} */
+}
+
+selector.not:not(div):not(p):not(body):not(.sample-body-replacement-class) {
+    /* @include selector.not( ( div, p, body ), $unifyParent: true ) {} */
+}
+
+selector.where {
+    /* 
+      selector.where-list() is a list:
+   */
+    /* 1: <S> ":where( * )" */
+}
+selector.where--unified {
+    /* 
+      selector.where-list( $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.where--unified:where(*) ) */
+}
+selector.where--direct--unified {
+    /* 
+      selector.where-list( $direct: true, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.where--direct--unified:where(*) ) */
+}
+selector.where--with-selectors {
+    /* 
+      selector.where-list( ( div, p, body ) ) is a list:
+   */
+    /* 1: <S> ":where( div )" */
+    /* 2: <S> ":where( p )" */
+    /* 3: <S> ":where( body )" */
+}
+selector.where--with-selectors--direct {
+    /* 
+      selector.where-list( ( div, p, body ), $direct: true ) is a list:
+   */
+    /* 1: <()> ( <S> > <S> :where(div) ) */
+    /* 2: <()> ( <S> > <S> :where(p) ) */
+    /* 3: <()> ( <S> > <S> :where(body) ) */
+}
+selector.where--with-selectors--direct--unified {
+    /* 
+      selector.where-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.where--with-selectors--direct--unified:where(div) ) */
+    /* 2: <()> ( <S> selector.where--with-selectors--direct--unified:where(p) ) */
+    /* 3: <()> ( <S> selector.where--with-selectors--direct--unified:where(body) ) */
+}
+selector.where :where(*) {
+    /* @include selector.where() {} */
+}
+
+selector.where > :where(*) {
+    /* @include selector.where( $direct: true ) {} */
+}
+
+selector.where:where(*) {
+    /* @include selector.where( $unifyParent: true ) {} */
+}
+
+:where(*) {
+    /* @include selector.where( $includeParent: false ) {} */
+}
+
+selector.where :where(div),
+selector.where :where(p),
+selector.where :where(body, .sample-body-replacement-class) {
+    /* @include selector.where( ( div, p, body ) ) {} */
+}
+
+selector.where > :where(div),
+selector.where > :where(p),
+selector.where > :where(body, .sample-body-replacement-class) {
+    /* @include selector.where( ( div, p, body ), $direct: true ) {} */
+}
+
+selector.where:where(div),
+selector.where:where(p),
+selector.where:where(body, .sample-body-replacement-class) {
+    /* @include selector.where( ( div, p, body ), $unifyParent: true ) {} */
 }

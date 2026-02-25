@@ -19,6 +19,15 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.37** — 2026-02-25
+
+### Added
+- Scss list module function - text-join
+- Scss selector module functions for pseudo class selector lists - has-list,
+  is-list, not-list, where-list
+- Scss selector module mixins for pseudo class selector lists - has, is, not, where
+
+
 ## **0.1.0-alpha.36** — 2026-02-25
 
 ### Added

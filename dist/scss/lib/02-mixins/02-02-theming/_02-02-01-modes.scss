@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.36
+/// @package @maddimathon/utility-sass@0.1.0-alpha.37
 /// @since 0.1.0-pre.0
 ///
 
@@ -141,7 +141,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
         );
 
         @if list.length($selectors) > 0 {
-            @at-root :not(#{$selectors}) {
+            @include selector.not($selectors) {
                 @content;
             }
         }

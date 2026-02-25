@@ -1,13 +1,13 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.36
+/// @package @maddimathon/utility-sass@0.1.0-alpha.37
 /// @since 0.1.0-pre.0
 ///
 
 @forward '../config';
 @forward '../header';
 
-@use '../../../../../dist/scss/modules/list';
-@use '../../../../../dist/scss/modules/meta';
+@use '../../../modules/list';
+@use '../../../modules/meta';
 
 // @use '../../../lib';
 @use '../utils';
@@ -43,6 +43,22 @@ list.only {
 list.sort {
     @include utils.var-dump('$list', $_list_flat);
     @include utils.var-dump('list.sort( $list )', list.sort($_list_flat));
+}
+
+list.text-join {
+    @include utils.var-dump('$list', $_list_flat);
+    @include utils.var-dump(
+        'list.text-join( $list )',
+        list.text-join($_list_flat)
+    );
+    @include utils.var-dump(
+        'list.text-join( $list, " - " )',
+        list.text-join($_list_flat, ' - ')
+    );
+    @include utils.var-dump(
+        'list.text-join( $list, " | " )',
+        list.text-join($_list_flat, ' | ')
+    );
 }
 
 list.unique {

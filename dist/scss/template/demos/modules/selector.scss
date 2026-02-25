@@ -1,14 +1,15 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.36
+/// @package @maddimathon/utility-sass@0.1.0-alpha.37
 /// @since 0.1.0-alpha.33
 ///
 
 @forward '../config';
 @forward '../header';
 
-@use '../../../../../dist/scss/modules/selector';
+@use '../../../modules/meta';
+@use '../../../modules/selector';
 
-// @use '../../../lib';
+@use '../../../lib';
 @use '../utils';
 
 /* # MODULES - SELECTOR
@@ -53,4 +54,111 @@ html {
 
 body {
     @include _incl-var-dumps;
+}
+
+/* ## Modules - Selector - Pseudo Class Lists ==================================== */
+
+@each $selectorName in ('has', 'is', 'not', 'where') {
+    selector.#{$selectorName} {
+        $fn: meta.get-function(#{$selectorName}-list, $module: selector);
+        $mixin: meta.get-mixin($selectorName, $module: selector);
+
+        @include utils.var-dump(
+            'selector.#{$selectorName}-list()',
+            meta.call($fn)
+        );
+
+        &--unified {
+            @include utils.var-dump(
+                'selector.#{$selectorName}-list( $unifyParent: true )',
+                meta.call($fn, $unifyParent: true)
+            );
+        }
+
+        &--direct--unified {
+            @include utils.var-dump(
+                'selector.#{$selectorName}-list( $direct: true, $unifyParent: true )',
+                meta.call($fn, $direct: true, $unifyParent: true)
+            );
+        }
+
+        &--with-selectors {
+            @include utils.var-dump(
+                'selector.#{$selectorName}-list( ( div, p, body ) )',
+                meta.call($fn, $selectors: (div, p, body))
+            );
+        }
+
+        &--with-selectors--direct {
+            @include utils.var-dump(
+                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true )',
+                meta.call($fn, $selectors: (div, p, body), $direct: true)
+            );
+        }
+
+        &--with-selectors--direct--unified {
+            @include utils.var-dump(
+                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true, $unifyParent: true )',
+                meta.call(
+                    $fn,
+                    $selectors: (div, p, body),
+                    $direct: true,
+                    $unifyParent: true
+                )
+            );
+        }
+
+        @include meta.apply($mixin) {
+            /* @include selector.#{$selectorName}() {} */
+        }
+
+        @include meta.apply($mixin, $direct: true) {
+            /* @include selector.#{$selectorName}( $direct: true ) {} */
+        }
+
+        @include meta.apply($mixin, $unifyParent: true) {
+            /* @include selector.#{$selectorName}( $unifyParent: true ) {} */
+        }
+
+        @if $selectorName == has {
+            @include meta.apply($mixin, $unifyParent: true, $direct: true) {
+                /* @include selector.#{$selectorName}( $unifyParent: true, $direct: true ) {} */
+            }
+        }
+
+        @include meta.apply($mixin, $includeParent: false) {
+            /* @include selector.#{$selectorName}( $includeParent: false ) {} */
+        }
+
+        @include meta.apply($mixin, $selectors: (div, p, body)) {
+            /* @include selector.#{$selectorName}( ( div, p, body ) ) {} */
+        }
+
+        @include meta.apply($mixin, $selectors: (div, p, body), $direct: true) {
+            /* @include selector.#{$selectorName}( ( div, p, body ), $direct: true ) {} */
+        }
+
+        @include meta.apply(
+            $mixin,
+            $selectors: (div, p, body),
+            $unifyParent: true
+        ) {
+            /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true ) {} */
+        }
+
+        @if $selectorName == has {
+            @include meta.apply(
+                $mixin,
+                $selectors: (div, p, body),
+                $unifyParent: true,
+                $direct: true
+            ) {
+                /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true, $direct: true ) {} */
+            }
+        }
+    }
+}
+
+.sample-body-replacement-class {
+    @extend body;
 }

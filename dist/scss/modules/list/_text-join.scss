@@ -1,0 +1,31 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-alpha.37
+/// @since 0.1.0-alpha.37
+///
+
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:string';
+
+///
+/// Joins list items into a string with the given $joiner string.
+///
+@function text-join($list, $joiner: ', ') {
+    // returns
+    @if meta.type-of($list) != list {
+        @warn "[list.text-join] $list should be a list (was a #{meta.type-of($list)})";
+        @return #{$list};
+    }
+
+    $str: '';
+
+    @each $item in $list {
+        $str: if(
+            string.length($str) > 0,
+            '#{$str}#{$joiner}#{$item}',
+            #{$item}
+        );
+    }
+
+    @return $str;
+}
