@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.34
+/// @package @maddimathon/utility-sass@0.1.0-alpha.35
 /// @since 0.1.0-pre.0
 ///
 
@@ -58,9 +58,7 @@
     @at-root {
         @if $fallbacksOnly {
             #{$sel_focus} {
-                &:focus {
-                    @content;
-                }
+                @content;
             }
         } @else if $includeFallbacks {
             #{$sel_focus} {
@@ -124,18 +122,8 @@
     }
 
     @at-root {
-        @if $includeFallbacks and $fallbacksOnly {
-            #{$sel_focusWithin} {
-                @include feature-check.supports-not('focusVisible', $args...) {
-                    @content;
-                }
-            }
-        }
-
-        @if not $fallbacksOnly {
-            #{$sel_focusWithin} {
-                @content;
-            }
+        #{$sel_focusWithin} {
+            @content;
         }
     }
 }
@@ -223,19 +211,6 @@
         @content;
     }
 }
-@mixin _hover-focus-within($includeParentSelector: true, $args...) {
-    $args: meta.keywords($args);
-
-    $selector: if(
-        $includeParentSelector and selector.parent-exists(),
-        (string.unquote('&:hover'), string.unquote('&:focus-within')),
-        (string.unquote(':hover'), string.unquote(':focus-within'))
-    );
-
-    @at-root #{$selector} {
-        @content;
-    }
-}
 @mixin _focus-within($includeParentSelector: true, $args...) {
     $args: meta.keywords($args);
 
@@ -246,6 +221,17 @@
     );
 
     @at-root #{$selector} {
+        @content;
+    }
+}
+@mixin _hover-focus-within($args...) {
+    $args: meta.keywords($args);
+
+    @include _focus-within($args...) {
+        @content;
+    }
+
+    @include _hover($args...) {
         @content;
     }
 }
