@@ -19,6 +19,21 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.33** — 2026-02-24
+
+### Added
+- Scss map module function - parse-args
+- Scss config vars:
+    - $fn_gapValue_block_layout_low
+    - $fn_gapValue_block_layout_high
+    - $fn_gapValue_inline_indent_low
+    - $fn_gapValue_inline_indent_high
+    - $fn_gapValue_inline_layout_low
+    - $fn_gapValue_inline_layout_high
+    - $fn_gapValue_inline_tab_low
+    - $fn_gapValue_inline_tab_high
+
+
 ## **0.1.0-alpha.32** — 2026-02-23
 
 ### Added

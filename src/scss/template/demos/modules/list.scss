@@ -26,18 +26,12 @@ list.flatten {
 
 list.except {
     @include utils.var-dump('$list', $_list_flat);
-    @include utils.var-dump(
-        'list.except( $list, one )',
-        list.except($_list_flat, one)
-    );
+    @include utils.var-dump('list.except( $list, one )', list.except($_list_flat, one));
 }
 
 list.only {
     @include utils.var-dump('$list', $_list_flat);
-    @include utils.var-dump(
-        'list.only( $list, one )',
-        list.only($_list_flat, one)
-    );
+    @include utils.var-dump('list.only( $list, one )', list.only($_list_flat, one));
 }
 
 list.sort {

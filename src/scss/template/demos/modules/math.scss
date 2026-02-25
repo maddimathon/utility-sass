@@ -17,22 +17,10 @@
 
 math.add-unit {
     string-unit {
-        @include utils.var-dump(
-            'math.add-unit( 123rem, "%" )',
-            math.add-unit(123rem, '%')
-        );
-        @include utils.var-dump(
-            'math.add-unit( 1em, "ch" )',
-            math.add-unit(1em, 'ch')
-        );
-        @include utils.var-dump(
-            'math.add-unit( 5.6851%, "rad" )',
-            math.add-unit(5.6851%, 'rad')
-        );
-        @include utils.var-dump(
-            'math.add-unit( 813, "deg" )',
-            math.add-unit(813, 'deg')
-        );
+        @include utils.var-dump('math.add-unit( 123rem, "%" )', math.add-unit(123rem, '%'));
+        @include utils.var-dump('math.add-unit( 1em, "ch" )', math.add-unit(1em, 'ch'));
+        @include utils.var-dump('math.add-unit( 5.6851%, "rad" )', math.add-unit(5.6851%, 'rad'));
+        @include utils.var-dump('math.add-unit( 813, "deg" )', math.add-unit(813, 'deg'));
         @include utils.var-dump(
             'math.add-unit( 16 / 3, "rem" )',
             math.add-unit(calc(16 / 3), 'rem')
@@ -47,30 +35,12 @@ math.add-unit {
         );
     }
     number-unit {
-        @include utils.var-dump(
-            'math.add-unit( 123rem, 1% )',
-            math.add-unit(123rem, 1%)
-        );
-        @include utils.var-dump(
-            'math.add-unit( 1em, 1ch )',
-            math.add-unit(1em, 1ch)
-        );
-        @include utils.var-dump(
-            'math.add-unit( 5.6851%, 1rad )',
-            math.add-unit(5.6851%, 1rad)
-        );
-        @include utils.var-dump(
-            'math.add-unit( 813, 1deg )',
-            math.add-unit(813, 1deg)
-        );
-        @include utils.var-dump(
-            'math.add-unit( 3ch, 1px )',
-            math.add-unit(calc(3ch), 1px)
-        );
-        @include utils.var-dump(
-            'math.add-unit( 16 / 3, 1rem )',
-            math.add-unit(calc(16 / 3), 1rem)
-        );
+        @include utils.var-dump('math.add-unit( 123rem, 1% )', math.add-unit(123rem, 1%));
+        @include utils.var-dump('math.add-unit( 1em, 1ch )', math.add-unit(1em, 1ch));
+        @include utils.var-dump('math.add-unit( 5.6851%, 1rad )', math.add-unit(5.6851%, 1rad));
+        @include utils.var-dump('math.add-unit( 813, 1deg )', math.add-unit(813, 1deg));
+        @include utils.var-dump('math.add-unit( 3ch, 1px )', math.add-unit(calc(3ch), 1px));
+        @include utils.var-dump('math.add-unit( 16 / 3, 1rem )', math.add-unit(calc(16 / 3), 1rem));
         @include utils.var-dump(
             'math.add-unit( 16 / 3ch, 1px )',
             math.add-unit(calc(16 / 3ch), 1px)
@@ -83,32 +53,14 @@ math.add-unit {
 }
 
 math.always-one {
-    @include utils.var-dump(
-        'math.always-one( 123rem )',
-        math.always-one(123rem)
-    );
+    @include utils.var-dump('math.always-one( 123rem )', math.always-one(123rem));
     @include utils.var-dump('math.always-one( 1em )', math.always-one(1em));
-    @include utils.var-dump(
-        'math.always-one( 5.6851% )',
-        math.always-one(5.6851%)
-    );
+    @include utils.var-dump('math.always-one( 5.6851% )', math.always-one(5.6851%));
     @include utils.var-dump('math.always-one( 813 )', math.always-one(813));
-    @include utils.var-dump(
-        'math.always-one( 5ch )',
-        math.always-one(calc(5ch))
-    );
-    @include utils.var-dump(
-        'math.always-one( 16 / 3 )',
-        math.always-one(calc(16 / 3))
-    );
-    @include utils.var-dump(
-        'math.always-one( 16 / 3ch )',
-        math.always-one(calc(16 / 3ch))
-    );
-    @include utils.var-dump(
-        'math.always-one( 813 * 1rem )',
-        math.always-one(calc(813 * 1rem))
-    );
+    @include utils.var-dump('math.always-one( 5ch )', math.always-one(calc(5ch)));
+    @include utils.var-dump('math.always-one( 16 / 3 )', math.always-one(calc(16 / 3)));
+    @include utils.var-dump('math.always-one( 16 / 3ch )', math.always-one(calc(16 / 3ch)));
+    @include utils.var-dump('math.always-one( 813 * 1rem )', math.always-one(calc(813 * 1rem)));
 }
 
 math.deunit {
@@ -117,31 +69,19 @@ math.deunit {
     @include utils.var-dump('math.deunit( 5.6851% )', math.deunit(5.6851%));
     @include utils.var-dump('math.deunit( 813 )', math.deunit(813));
     @include utils.var-dump('math.deunit( 16 / 3 )', math.deunit(calc(16 / 3)));
-    @include utils.var-dump(
-        'math.deunit( 16 / 3ch )',
-        math.deunit(calc(16 / 3ch))
-    );
-    @include utils.var-dump(
-        'math.deunit( 813 * 1rem )',
-        math.deunit(calc(813 * 1rem))
-    );
+    @include utils.var-dump('math.deunit( 16 / 3ch )', math.deunit(calc(16 / 3ch)));
+    @include utils.var-dump('math.deunit( 813 * 1rem )', math.deunit(calc(813 * 1rem)));
 }
 
 math.num-val {
     @include utils.var-dump('math.num-val( "123rem" )', math.num-val('123rem'));
-    @include utils.var-dump(
-        'math.num-val( "123.5641" )',
-        math.num-val('123.5641')
-    );
+    @include utils.var-dump('math.num-val( "123.5641" )', math.num-val('123.5641'));
     @include utils.var-dump('math.num-val( "600" )', math.num-val('600'));
     @include utils.var-dump('math.num-val( "0" )', math.num-val('0'));
 }
 
 math.round-to-pixel {
-    @include utils.var-dump(
-        'math.round-to-pixel( 123.5641 )',
-        math.round-to-pixel(123.5641)
-    );
+    @include utils.var-dump('math.round-to-pixel( 123.5641 )', math.round-to-pixel(123.5641));
     @include utils.var-dump(
         'math.round-to-pixel( 123.5641, $factor: 8 )',
         math.round-to-pixel(123.5641, $factor: 8)
