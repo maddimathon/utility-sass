@@ -19,6 +19,13 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.39** — 2026-02-25
+
+### Moved & Renamed
+- Removed button-secondary (as part of the slow move for templates to
+  scss-templater and design-system-utilities)
+
+
 ## **0.1.0-alpha.38** — 2026-02-25
 
 ### Added
