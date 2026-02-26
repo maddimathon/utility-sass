@@ -108,6 +108,7 @@ export class Compile extends CompileStage {
             'template/demos',
             'dist/css',
             {
+                clearOutputDir: false,
                 maxConcurrent: 20,
                 postCSS: false,
                 srcDir: 'src/scss',

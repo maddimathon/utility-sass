@@ -19,6 +19,13 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.38** — 2026-02-25
+
+### Added
+- extend-selectors-* mixins now have $additional_optional param for always-optional selectors
+- extend-selectors-generic mixin is now public (was _extend-selectors)
+
+
 ## **0.1.0-alpha.37** — 2026-02-25
 
 ### Added
