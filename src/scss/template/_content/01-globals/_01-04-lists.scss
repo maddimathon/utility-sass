@@ -33,7 +33,7 @@
         margin-inline-start: #{var-gap-inline(tab)};
     }
 
-    line-height: #{var-line-height('400')};
+    line-height: inherit;
 
     ol,
     ul {
@@ -112,6 +112,11 @@
     &::marker {
         font-weight: 500;
         font-size: #{var-fs(smaller-1)};
+    }
+
+    > a:only-child {
+        display: inline-block;
+        vertical-align: top;
     }
 
     li {
