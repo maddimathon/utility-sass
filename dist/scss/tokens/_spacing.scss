@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.40
+/// @package @maddimathon/utility-sass@0.1.0-alpha.41
 /// @since 0.1.0-pre.0
 ///
 
@@ -118,16 +118,21 @@ $_gap_block_layout: config.config-round-to-pixel(
 ///
 /// @since 0.1.0-pre.0
 ///
-$gaps: (
-    block: (
-        'layout': $_gap_block_layout,
-        'layout-half': calc($_gap_block_layout / 2),
-    ),
+$gaps: () !default;
+$gaps: map.merge(
+    $gaps,
+    (
+        block: (
+            'layout': $_gap_block_layout,
+            'layout-half': calc($_gap_block_layout / 2),
+        ),
 
-    inline: (
-        'indent': $_gap_indent,
-        'layout': $layoutVW,
-        'layout-half': calc($layoutVW/2),
-        'tab': $_gap_tab,
+        inline: (
+            'indent': $_gap_indent,
+            'layout': $layoutVW,
+            'layout-half': calc($layoutVW/2),
+            'tab': $_gap_tab,
+        ),
     ),
+    $recursive: true
 );

@@ -20,10 +20,15 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.18 — Added $relative param.
+/// @since 0.1.0-alpha.41 — Added $roundingFactor param.
 ///
-@function clamp-font-size($size, $relative: false) {
+@function clamp-font-size(
+    $size,
+    $relative: false,
+    $roundingFactor: config.$fn_fontSizeValue_roundToPixelFactor
+) {
     @if meta.type-of($size) != number {
-        @warn "$size should be a number";
+        @warn "$size should be a number (was the #{meta.type-of($size)} #{$size})";
         @return math.add-unit($size, if($relative, 1em, 1rem));
     }
 

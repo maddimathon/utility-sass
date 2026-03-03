@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.40
+ * @maddimathon/utility-sass@0.1.0-alpha.41
  * @license MIT
  */
 import type { CLI, Config, Stage } from '@maddimathon/build-utilities';

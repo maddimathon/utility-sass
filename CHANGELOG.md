@@ -19,6 +19,14 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.41** — 2026-03-03
+
+### Fixed
+- Scss config param $fn_fontSizeValue_roundToPixelFactor now applies properly
+  (was missing in one case of fs-value)
+- Fixed gap tokens merging
+
+
 ## **0.1.0-alpha.40** — 2026-03-01
 
 Minor scss fixes.

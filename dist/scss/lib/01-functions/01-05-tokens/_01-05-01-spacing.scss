@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.40
+/// @package @maddimathon/utility-sass@0.1.0-alpha.41
 /// @since 0.1.0-pre.0
 ///
 
@@ -101,7 +101,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 @function width-value($slug, $multiplier: 1, $returnAsNumber: true) {
     // returns
     @if not map.has-key(config.$widths, '#{$slug}') {
-        @warn "$slug was not a key in config.$widths";
+        @warn "$slug '#{$slug}' was not a key in config.$widths";
         @return ();
     }
 

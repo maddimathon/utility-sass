@@ -30,13 +30,15 @@
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.18 — Added $relative param.
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-alpha.41 — Added $roundingFactor param.
 ///
 @function fs-value(
     $slug,
     $clampFontSize: null,
     $fontScale: null,
     $multiplier: 1,
-    $relative: false
+    $relative: false,
+    $roundingFactor: config.$fn_fontSizeValue_roundToPixelFactor
 ) {
     // returns
     @if not map.has-key(tokens.$font_sizes, $slug) {
@@ -68,21 +70,25 @@
 
     $fontScale: $fontScale * $multiplier;
 
-    // returns
-    @if $clampFontSize {
-        @return (
-            math.add-unit(
-                math.round-to-pixel(
-                    $size * $fontScale,
-                    $factor: config.$fn_fontSizeValue_roundToPixelFactor
-                ),
-                $unit
-            ),
-            clamp-font-size($size * $fontScale, $relative: $relative)
-        );
-    }
+    $size_unitless: $size * $fontScale;
 
-    @return math.add-unit(math.round-to-pixel($size * $fontScale), $unit);
+    $size_withUnit: math.add-unit(
+        math.round-to-pixel($size_unitless, $factor: $roundingFactor),
+        $unit
+    );
+
+    @return if(
+        $clampFontSize,
+        (
+            $size_withUnit,
+            clamp-font-size(
+                $size_unitless,
+                $relative: $relative,
+                $roundingFactor: $roundingFactor
+            )
+        ),
+        $size_withUnit
+    );
 }
 
 ///
@@ -99,7 +105,7 @@
     $value: map.get(tokens.$line_heights, '400');
 
     @if not map.has-key(tokens.$line_heights, '#{$level}') {
-        @warn "$level was not a key in tokens.$line_heights";
+        @warn "$level '#{$level}' was not a key in tokens.$line_heights";
     } @else {
         $value: map.get(tokens.$line_heights, '#{$level}');
     }
@@ -107,7 +113,10 @@
     @return if(
         $multiplier == 1,
         $value,
-        math.round-to-pixel($value * $multiplier, config.$fn_lineHeightValue_roundToPixelFactor)
+        math.round-to-pixel(
+            $value * $multiplier,
+            config.$fn_lineHeightValue_roundToPixelFactor
+        )
     );
 }
 

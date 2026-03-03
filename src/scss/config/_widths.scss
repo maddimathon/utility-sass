@@ -11,7 +11,7 @@
 /// ======================================================================== ///
 
 $_widths_content: 36;
-$_widths_sidebar: 16;
+$_widths_sidebar: 18;
 
 ///
 /// A map (merged with the defaults) of widths used throughout.
@@ -29,11 +29,7 @@ $widths: map.deep-merge(
         'sidebar': $_widths_sidebar,
 
         'callout': calc(
-                if(
-                        map.has-key($widths, 'mobile'),
-                        map.get($widths, 'mobile'),
-                        $_widths_content
-                    ) *
+                if(map.has-key($widths, 'mobile'), map.get($widths, 'mobile'), $_widths_content) *
                     0.8125
             ),
     ),
