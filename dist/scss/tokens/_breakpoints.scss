@@ -1,12 +1,13 @@
 ///
 /// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Moved fron config to tokens.
 ///
 
 @use '../modules/map';
 @use '../modules/math';
 
-@use '../config';
+@use 'widths';
 
 /// # TOKENS - BREAKPOINTS
 /// ======================================================================== ///
@@ -14,9 +15,9 @@
 $_breakpoint_mobile: 25;
 $_breakpoint_tablet: 50;
 
-$_width_content: map.get(config.$widths, 'content');
-$_width_page: map.get(config.$widths, 'page');
-$_width_sidebar: map.get(config.$widths, 'sidebar');
+$_width_content: map.get(widths.$widths, 'content');
+$_width_page: map.get(widths.$widths, 'page');
+$_width_sidebar: map.get(widths.$widths, 'sidebar');
 
 ///
 /// A map (merged with the defaults) of breakpoints used with the breakpoint
@@ -26,6 +27,7 @@ $_width_sidebar: map.get(config.$widths, 'sidebar');
 /// rounded with config-round-to-pixel().
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Moved from config to tokens.
 ///
 $breakpoints: () !default;
 

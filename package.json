@@ -64,7 +64,13 @@
         
         "./template.scss": "./dist/scss/template/default/index.scss",
 
-        "./template/config.scss": "./dist/scss/template/_content/_config.scss",
+        "./template/config.scss": "./dist/scss/template/_content/config/template/_index.scss",
+        "./template/config/*.scss": [
+            "./dist/scss/template/_content/config/template/*.scss",
+            "./dist/scss/template/_content/config/template/_*.scss",
+            "./dist/scss/template/_content/config/template/*/index.scss",
+            "./dist/scss/template/_content/config/template/*/_index.scss"
+        ],
 
         "./template/content.scss": "./dist/scss/template/_content/_index.scss",
         "./template/content/notice.scss": "./dist/scss/template/_content/_header/_notice.scss",

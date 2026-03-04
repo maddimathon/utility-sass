@@ -14,3 +14,14 @@
 @forward '04-blocks';
 
 @forward '_footer';
+
+/// # EXTENDING SELECTORS
+/// ======================================================================== ///
+
+@use 'config';
+@use '../../lib' as *;
+
+@include extend-selectors(
+    $print_globals: config.$template_print_globals,
+    $print_utils: config.$template_print_utils
+);

@@ -65,7 +65,7 @@
     $unit: if($relative, 1em, 1rem);
 
     @if $fontScale == null {
-        $fontScale: if($relative, 1, config.$fn_fontSizeValue_defaultFontScale);
+        $fontScale: if($relative, 1, config.$fn_fontSizeValue_fontScale);
     }
 
     $fontScale: $fontScale * $multiplier;
@@ -167,7 +167,7 @@
     @if $relative {
         // prettier-ignore
         $returnFallbackOnly: $returnFallbackOnly 
-            or not config.$mx_tokensFontSize_printRelative 
+            or not config.$mx_tokens_fontSize_printRelative 
             or $slug == normal;
     }
 

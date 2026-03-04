@@ -3,14 +3,12 @@
 /// @since 0.1.0-pre.0
 ///
 
-@use '../../../config';
+@use '../config';
 // @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@use '../config' as tplConfig;
-
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* # GLOBALS - Typography
      * ======================================================================== */
 }
@@ -35,7 +33,7 @@
     }
 }
 
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* ## Typography - Inline ==================================== */
 }
 
@@ -111,7 +109,7 @@
     }
 }
 
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* ## Typography - Block ==================================== */
 }
 
@@ -218,8 +216,8 @@
 
 $_whereUnstyledHeadingSelectors: ();
 
-@if tplConfig.$template_include_headings {
-    @if config.$print_headings {
+@if config.$template_print_headings {
+    @if config.$template_include_cssHeadings {
         /* ## Typography - Headings ==================================== */
     }
 

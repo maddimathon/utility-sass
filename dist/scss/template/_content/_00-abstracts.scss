@@ -11,17 +11,17 @@
 // @use '../../modules/selector';
 // @use '../../modules/string';
 
-@use '../../config';
+@use 'config';
 // @use '../../tokens';
 
 @use '../../lib' as *;
 
-@if config.$print_normalize {
+@if config.$template_print_normalize {
     @include normalize;
 }
 
-@if config.$print_tokens {
-    @if config.$print_headings {
+@if config.$template_print_tokens {
+    @if config.$template_include_cssHeadings {
         /* # TOKENS & PROPERTIES
          * ======================================================================== */
     }

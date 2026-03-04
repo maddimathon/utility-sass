@@ -18,11 +18,7 @@
 /// @since 0.1.0-pre.0
 ///
 $margin_softener: null !default;
-$margin_softener: config.config-valid-number(
-    $margin_softener,
-    'margin_softener',
-    $default: 0.625
-);
+$margin_softener: config.config-valid-number($margin_softener, 'margin_softener', $default: 0.625);
 
 ///
 /// The base value for the 400-level margin value.
@@ -87,21 +83,13 @@ $_layoutVW_default: 8;
 /// @since 0.1.0-pre.0
 ///
 $layoutVW: null !default;
-$layoutVW: config.config-valid-number(
-    $layoutVW,
-    'layoutVW',
-    $default: $_layoutVW_default,
-    $min: 2
-);
+$layoutVW: config.config-valid-number($layoutVW, 'layoutVW', $default: $_layoutVW_default, $min: 2);
 
 $_gap_tab: config.config-round-to-pixel(calc($layoutVW * (5 / $_layoutVW_default)), 8);
 
 $_gap_indent: config.config-round-to-pixel(calc($layoutVW * (9 / $_layoutVW_default)), 8);
 
-$_gap_block_layout: config.config-round-to-pixel(
-    calc($layoutVW * (5 / $_layoutVW_default)),
-    8
-);
+$_gap_block_layout: config.config-round-to-pixel(calc($layoutVW * (5 / $_layoutVW_default)), 8);
 
 ///
 /// Gaps are responsive margins to be used at the page layout level.
@@ -126,3 +114,10 @@ $gaps: map.merge(
     ),
     $recursive: true
 );
+
+///
+/// The value used to position an element at the top of the page (via `top` property).
+///
+/// @since 0.1.0-alpha.36
+///
+$page_top: 0px !default;

@@ -3,12 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
-@forward 'include';
-@forward 'internal';
-
 @use 'functions' as *;
-@use 'include';
-@use 'internal';
 
 /// # CONFIG - TEMPLATES
 /// ======================================================================== ///
@@ -18,11 +13,11 @@
 ///
 /// @since 0.1.0-alpha.12
 ///
-$customPropertyPrefix: '' !default;
+$customPropertyPrefix: null !default;
 $customPropertyPrefix: config-valid-string(
     $customPropertyPrefix,
     'customPropertyPrefix',
-    ''
+    $default: ''
 );
 
 $cxPropPre: $customPropertyPrefix;
@@ -34,10 +29,6 @@ $cxPropPre: $customPropertyPrefix;
 /// @since 0.1.0-alpha.25
 ///
 $customPropertyPrefix_asFallbackOnly: false !default;
-$customPropertyPrefix_asFallbackOnly: config-valid-bool(
-    $customPropertyPrefix_asFallbackOnly,
-    'customPropertyPrefix_asFallbackOnly'
-);
 
 ///
 /// Prints a var(...) value with an optional fallback. Don't include -- in the slug.
@@ -59,52 +50,9 @@ $customPropertyPrefix_asFallbackOnly: config-valid-bool(
 }
 
 ///
-/// Whether to include the global selectors in the output. Otherwise, all
-/// selectors are pseudo selectors.
+/// Whether the library is being called from a stylesheet template.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Renamed from $internal_isTemplate to $isTemplate
 ///
-$print_globals: false !default;
-$print_globals: config-valid-bool($print_globals, 'print_globals');
-
-///
-/// Whether to include the normalize mixin in the output.
-///
-/// @since 0.1.0-pre.0
-///
-$print_normalize: include.$include_html and internal.$internal_isTemplate !default;
-$print_normalize: config-valid-bool($print_normalize, 'print_normalize');
-
-///
-/// Whether to include the custom property definitions in the output.
-///
-/// @since 0.1.0-pre.0
-///
-$print_tokens: $print_globals !default;
-$print_tokens: config-valid-bool($print_tokens, 'print_tokens');
-
-///
-/// Whether to include the utility class selectors in the output.
-///
-/// @since 0.1.0-pre.0
-///
-$print_utils: include.$include_html and $print_globals !default;
-$print_utils: config-valid-bool($print_utils, 'print_utils');
-
-///
-/// Whether to include the css headings in the output.
-///
-/// @since 0.1.0-pre.0
-///
-$print_headings: (
-        $print_globals or $print_normalize or $print_tokens or $print_utils
-    )
-    and internal.$internal_isTemplate !default;
-$print_headings: config-valid-bool($print_headings, 'print_headings');
-
-///
-/// The value used to position an element at the top of the page (via `top` property).
-///
-/// @since 0.1.0-alpha.36
-///
-$page_top: 0px !default;
+$isTemplate: false !default;

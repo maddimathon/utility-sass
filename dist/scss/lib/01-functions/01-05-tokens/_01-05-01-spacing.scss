@@ -100,12 +100,12 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 @function width-value($slug, $multiplier: 1, $returnAsNumber: true) {
     // returns
-    @if not map.has-key(config.$widths, '#{$slug}') {
-        @warn "$slug '#{$slug}' was not a key in config.$widths";
+    @if not map.has-key(tokens.$widths, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in tokens.$widths";
         @return ();
     }
 
-    $num: map.get(config.$widths, '#{$slug}');
+    $num: map.get(tokens.$widths, '#{$slug}');
 
     @if meta.type-of($num) == 'number' and $multiplier != 1 {
         $num: math.round-to-pixel($num * $multiplier);

@@ -1,9 +1,10 @@
 ///
-/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
 /// @since 0.1.0-pre.0
 ///
-@use 'sass:map';
-// @use 'sass:string';
+
+@use '../modules/map';
+@use '../modules/math';
 
 @use 'functions' as *;
 
@@ -17,23 +18,29 @@ $_widths_sidebar: 18;
 /// A map (merged with the defaults) of widths used throughout.
 ///
 /// Default keys are 'content' and 'sidebar'. After merging, values are
-/// rounded with config-round-to-pixel().
+/// rounded with math.round-to-pixel().
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Moved from config to tokens.
 ///
 $widths: () !default;
 
-$widths: map.deep-merge(
+$widths: map.merge(
     (
         'content': $_widths_content,
         'sidebar': $_widths_sidebar,
 
         'callout': calc(
-                if(map.has-key($widths, 'mobile'), map.get($widths, 'mobile'), $_widths_content) *
+                if(
+                        map.has-key($widths, 'mobile'),
+                        map.get($widths, 'mobile'),
+                        $_widths_content
+                    ) *
                     0.8125
             ),
     ),
-    $widths
+    $widths,
+    $recursive: true
 );
 
 $widths: map.set(
@@ -43,5 +50,5 @@ $widths: map.set(
 );
 
 @each $key, $value in $widths {
-    $widths: map.set($widths, $key, config-round-to-pixel($value));
+    $widths: map.set($widths, $key, math.round-to-pixel($value));
 }

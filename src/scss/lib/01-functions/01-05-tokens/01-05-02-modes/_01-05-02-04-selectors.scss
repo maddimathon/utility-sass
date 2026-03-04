@@ -88,7 +88,7 @@
                         @debug 'adding #{$mode} query';
                     }
 
-                    @if $isClrModeDefault and config.$include_noPreferenceMediaQueries {
+                    @if $isClrModeDefault and config.$mx_colourMode_includeNoPreferenceQueries {
                         $queries: list.append(
                             $queries,
                             '( prefers-color-scheme: no-preference )',
@@ -96,7 +96,7 @@
                         );
                     }
 
-                    @if $mode != light or config.$include_defaultMediaQueries {
+                    @if $mode != light or config.$mx_colourMode_includeDefaultQueries {
                         $queries: list.append(
                             $queries,
                             '( prefers-color-scheme: #{$mode} )',
@@ -121,14 +121,14 @@
                 @if not
                     $isClrModeDefault or not
                     $includeDefault or
-                    config.$include_defaultMediaQueries or not
+                    config.$mx_colourMode_includeDefaultQueries or not
                     $includeSelectors
                 {
                     @if $debug {
                         @debug 'adding #{$mode} query';
                     }
 
-                    @if config.$include_noPreferenceMediaQueries {
+                    @if config.$mx_colourMode_includeNoPreferenceQueries {
                         $queries: list.append(
                             $queries,
                             '( prefers-contrast: no-preference )',

@@ -11,14 +11,12 @@
 @use '../../../modules/selector';
 // @use '../../../modules/string';
 
-@use '../../../config';
+@use '../config';
 // @use '../../../tokens';
-
-@use '../config' as tplConfig;
 
 @use '../../../lib' as *;
 
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* # GLOBALS - Forms
      * ======================================================================== */
 }
@@ -75,8 +73,8 @@
     @include snippet-label;
 }
 
-@if tplConfig.$template_include_buttons {
-    @if config.$print_headings {
+@if config.$template_print_buttons {
+    @if config.$template_include_cssHeadings {
         /* ## Forms - Buttons ==================================== */
     }
 

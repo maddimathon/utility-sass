@@ -48,3 +48,56 @@
 
     @return $value;
 }
+
+$config_validTokenLevels: (
+    '100',
+    '150',
+    '200',
+    '250',
+    '300',
+    '350',
+    '400',
+    '450',
+    '500',
+    '550',
+    '600',
+    '650',
+    '700',
+    '750',
+    '800',
+    '850',
+    '900'
+) !default;
+
+///
+/// Validates the value of a config variable that should be a css token level.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}    $value  The variable's value.
+/// @param {string} $name   The variable's name.
+///
+/// @param {string} $default  Default value to return if $value is invalid.
+///
+@function config-valid-token-level($value, $name, $default, $options: $config_validTokenLevels) {
+    @if meta.type-of($value) == number {
+        $value: '#{$value}';
+
+        $_str_length: string.length($value);
+
+        @if string.length($_str_length) == 2 {
+            $value: '0#{$value}';
+        } @else if string.length($_str_length) == 1 {
+            $value: '00#{$value}';
+        } @else if string.length($_str_length) < 1 {
+            $value: '000';
+        }
+    }
+
+    @return config-valid-string(
+        $value: $value,
+        $name: $name,
+        $default: $default,
+        $options: $options
+    );
+}

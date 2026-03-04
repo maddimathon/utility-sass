@@ -75,7 +75,7 @@
             }
         }
 
-        @if config.$mx_tokensFontSize_printRelative {
+        @if config.$mx_tokens_fontSize_printRelative {
             @each $slug, $_value in tokens.$font_sizes {
                 @each $value
                     in fs-value(
@@ -201,7 +201,7 @@
 @mixin tokens-width($multiplier: 1) {
     /* #region Tokens - Width */
     #{selector.parent-or-root()} {
-        @each $slug, $_value in config.$widths {
+        @each $slug, $_value in tokens.$widths {
             @each $value
                 in width-value(
                     $slug,

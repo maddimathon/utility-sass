@@ -62,10 +62,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 
     // returns - simple softening
     @if math.num-val($level) <= 400 {
-        @return math.add-unit(
-            math.round-to-pixel($value * tokens.$margin_softener),
-            $unit
-        );
+        @return math.add-unit(math.round-to-pixel($value * tokens.$margin_softener), $unit);
     }
 
     $pc_soften_full: calc($_mrgValFirm_400 / $value);
@@ -74,8 +71,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
     $_full_softener: tokens.$margin_softener;
 
     $_partial_softener: (
-        tokens.$margin_softener +
-            calc((1 - tokens.$margin_softener) * tokens.$margin_softener)
+        tokens.$margin_softener + calc((1 - tokens.$margin_softener) * tokens.$margin_softener)
     );
 
     $value_half_full_soft: $value * $pc_soften_full * $_full_softener;
@@ -100,12 +96,12 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 @function width-value($slug, $multiplier: 1, $returnAsNumber: true) {
     // returns
-    @if not map.has-key(config.$widths, '#{$slug}') {
-        @warn "$slug '#{$slug}' was not a key in config.$widths";
+    @if not map.has-key(tokens.$widths, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in tokens.$widths";
         @return ();
     }
 
-    $num: map.get(config.$widths, '#{$slug}');
+    $num: map.get(tokens.$widths, '#{$slug}');
 
     @if meta.type-of($num) == 'number' and $multiplier != 1 {
         $num: math.round-to-pixel($num * $multiplier);
@@ -231,11 +227,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
         @return do-var(width-#{$slug});
     }
 
-    @return if(
-        config.$fn_var_replaceWithValue_width,
-        $fallback,
-        do-var(width-#{$slug}, $fallback)
-    );
+    @return if(config.$fn_var_replaceWithValue_width, $fallback, do-var(width-#{$slug}, $fallback));
 }
 
 /// ## GAPS ==================================== ///
@@ -281,10 +273,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
                     $multiplier: $multiplier,
                     $unit: 1rem
                 ),
-                var-mrg-soft(
-                    config.$fn_gapValue_block_layout_low,
-                    $multiplier: $multiplier
-                )
+                var-mrg-soft(config.$fn_gapValue_block_layout_low, $multiplier: $multiplier)
             );
 
             $_clamp_high: if(
@@ -294,10 +283,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
                     $multiplier: $multiplier,
                     $unit: 1rem
                 ),
-                var-mrg-soft(
-                    config.$fn_gapValue_block_layout_high,
-                    $multiplier: $multiplier
-                )
+                var-mrg-soft(config.$fn_gapValue_block_layout_high, $multiplier: $multiplier)
             );
 
             @return (
@@ -319,10 +305,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
                     $multiplier: $multiplier,
                     $unit: 1rem
                 ),
-                var-mrg-firm(
-                    config.$fn_gapValue_inline_indent_low,
-                    $multiplier: $multiplier
-                )
+                var-mrg-firm(config.$fn_gapValue_inline_indent_low, $multiplier: $multiplier)
             );
 
             $_clamp_high: if(
@@ -332,10 +315,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
                     $multiplier: $multiplier,
                     $unit: 1rem
                 ),
-                var-mrg-firm(
-                    config.$fn_gapValue_inline_indent_high,
-                    $multiplier: $multiplier
-                )
+                var-mrg-firm(config.$fn_gapValue_inline_indent_high, $multiplier: $multiplier)
             );
 
             @return (
@@ -350,10 +330,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
                     $multiplier: $multiplier,
                     $unit: 1rem
                 ),
-                var-mrg-firm(
-                    config.$fn_gapValue_inline_layout_low,
-                    $multiplier: $multiplier
-                )
+                var-mrg-firm(config.$fn_gapValue_inline_layout_low, $multiplier: $multiplier)
             );
 
             $_clamp_high: if(
@@ -363,10 +340,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
                     $multiplier: $multiplier,
                     $unit: 1rem
                 ),
-                var-mrg-firm(
-                    config.$fn_gapValue_inline_layout_high,
-                    $multiplier: $multiplier
-                )
+                var-mrg-firm(config.$fn_gapValue_inline_layout_high, $multiplier: $multiplier)
             );
 
             @return (
@@ -395,10 +369,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
                     $multiplier: $multiplier,
                     $unit: 1rem
                 ),
-                var-mrg-firm(
-                    config.$fn_gapValue_inline_tab_high,
-                    $multiplier: $multiplier
-                )
+                var-mrg-firm(config.$fn_gapValue_inline_tab_high, $multiplier: $multiplier)
             );
 
             @return (

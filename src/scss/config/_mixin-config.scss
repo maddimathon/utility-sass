@@ -3,44 +3,82 @@
 /// @since 0.1.0-pre.0
 ///
 
-@forward 'selectors';
-@forward 'template';
-
 @use 'functions' as *;
-
-@use 'selectors';
-@use 'template';
 
 /// # CONFIG - MIXINS
 /// ======================================================================== ///
 
 ///
-/// Whether the extend-selectors-global mixin should [role=heading] selectors as
-/// well.
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $mx_colourMode_includeQuery_default to $mx_colourMode_includeQuery
+///
+$mx_colourMode_includeQuery: true !default;
+
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $mx_colourMode_includeSelectors_default to $mx_colourMode_includeSelectors
 ///
-$mx_extendHeadingsByRole: template.$print_globals !default;
-$mx_extendHeadingsByRole: config-valid-bool(
-    $mx_extendHeadingsByRole,
-    'mx_extendHeadingsByRole'
-);
+$mx_colourMode_includeSelectors: true !default;
 
-// unlikely to want to use these, but here just in case
-$mx_interactive_states_include_fallbacks: true !default;
-$mx_interactive_states_include_fallbacks_only: false !default;
+///
+/// Whether to include media queries for default modes (average contrast and light).
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $include_defaultMediaQueries to $mx_colourMode_includeDefaultQueries
+///
+$mx_colourMode_includeDefaultQueries: false !default;
 
-$mx_colourMode_includeQuery_default: true !default;
-$mx_colourMode_includeSelectors_default: true !default;
+///
+/// Whether to include 'no-preference' media queries. Most relevant to
+/// brightness and contrast modes.
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $include_noPreferenceMediaQueries to $mx_colourMode_includeNoPreferenceQueries
+///
+$mx_colourMode_includeNoPreferenceQueries: false !default;
 
-$mx_colourModeEach_includeSelectors_forcedColors: false !default;
+///
+/// Whether to include the forced colours selectors when looping through
+/// colour-mode-each. Those selectors are unlikely to be used in most cases
+/// (since forced-colors mode cannot typically be manually toggled for a
+/// website).
+///
+/// @since 0.1.0-alpha.3
+/// @since ___PKG_VERSION___ — Renamed from $mx_colourModeEach_includeSelectors_forcedColors to $mx_colourModeEach_includeForcedColorsSelectors
+///
+$mx_colourModeEach_includeForcedColorsSelectors: false !default;
 
+///
+/// @since 0.1.0-alpha.3
+///
 $mx_colourModeEach_nestModeSelectors: false !default;
+
+///
+/// Whether the extend-selectors-global mixin should include
+/// :where([role='heading'][aria-level='…']) selectors for heading levels beyond 6.
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $mx_extendHeadingsByRole to $mx_extendSelectors_headingsByRole
+///
+$mx_extendSelectors_headingsByRole: true !default;
+
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks to $mx_interactiveStates_includeFallbacks
+///
+$mx_interactiveStates_includeFallbacks: true !default;
+
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks_only to $mx_interactiveStates_fallbacksOnly
+///
+$mx_interactiveStates_fallbacksOnly: false !default;
 
 ///
 /// Whether font-size tokens should also print --fs-rel-[...] tokens with em
 /// values.
 ///
 /// @since 0.1.0-alpha.18
+/// @since ___PKG_VERSION___ — Renamed from $mx_tokensFontSize_printRelative to $mx_tokens_fontSize_printRelative
 ///
-$mx_tokensFontSize_printRelative: false !default;
+$mx_tokens_fontSize_printRelative: false !default;

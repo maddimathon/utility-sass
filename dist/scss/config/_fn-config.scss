@@ -9,29 +9,90 @@
 /// # CONFIG - FUNCTIONS
 /// ======================================================================== ///
 
-// unlikely to want to use these, but here just in case
-$fn_clampFontSize_multiplier_min: 0.75 !default;
-$fn_clampFontSize_multiplier_svw: 1.3125 !default;
-$fn_clampFontSize_multiplier_max: 1.125 !default;
-$fn_clampFontSize_svw_rem: 1 !default;
+///
+/// @since 0.1.0-alpha
+///
+$fn_clampFontSize_multiplier_max: null !default;
+$fn_clampFontSize_multiplier_max: config-valid-number(
+    $fn_clampFontSize_multiplier_max,
+    'fn_clampFontSize_multiplier_max',
+    $default: 1.125,
+    $min: 0.1,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-alpha
+///
+$fn_clampFontSize_multiplier_min: null !default;
+$fn_clampFontSize_multiplier_min: config-valid-number(
+    $fn_clampFontSize_multiplier_min,
+    'fn_clampFontSize_multiplier_min',
+    $default: 0.75,
+    $min: 0.1,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-alpha
+///
+$fn_clampFontSize_multiplier_svw: null !default;
+$fn_clampFontSize_multiplier_svw: config-valid-number(
+    $fn_clampFontSize_multiplier_svw,
+    'fn_clampFontSize_multiplier_svw',
+    $default: 1.3125,
+    $min: 0.1,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-alpha
+///
+$fn_clampFontSize_svw_rem: null !default;
+$fn_clampFontSize_svw_rem: config-valid-number(
+    $fn_clampFontSize_svw_rem,
+    'fn_clampFontSize_svw_rem',
+    $default: 1,
+    $min: 0.1,
+    $unit: false
+);
 
 ///
 /// @since 0.1.0-alpha.19
 ///
-$fn_borderWidthValue_roundToPixelFactor: 32 !default;
+$fn_borderWidthValue_roundToPixelFactor: null !default;
+$fn_borderWidthValue_roundToPixelFactor: config-valid-number(
+    $fn_borderWidthValue_roundToPixelFactor,
+    'fn_borderWidthValue_roundToPixelFactor',
+    $default: 32,
+    $min: 0.1,
+    $unit: false
+);
 
 ///
-/// @since 0.1.0-alpha.30
+/// @since 0.1.0-alpha
+/// @since 0.1.0-beta.0.draft — Renamed from $fn_fontSizeValue_defaultFontScale to $fn_fontSizeValue_fontScale
 ///
-$fn_debugCheckpoint: false !default;
+$fn_fontSizeValue_fontScale: null !default;
+$fn_fontSizeValue_fontScale: config-valid-number(
+    $fn_fontSizeValue_fontScale,
+    'fn_fontSizeValue_fontScale',
+    $default: 1,
+    $min: 0.05,
+    $unit: false
+);
 
 ///
-/// @since 0.1.0-alpha.30
+/// @since 0.1.0-alpha
 ///
-$fn_debugCheckpoint_verbose: false !default;
-
-$fn_fontSizeValue_defaultFontScale: 1 !default;
-$fn_fontSizeValue_roundToPixelFactor: 16 !default;
+$fn_fontSizeValue_roundToPixelFactor: null !default;
+$fn_fontSizeValue_roundToPixelFactor: config-valid-number(
+    $fn_fontSizeValue_roundToPixelFactor,
+    'fn_fontSizeValue_roundToPixelFactor',
+    $default: 16,
+    $min: 1,
+    $unit: false
+);
 
 ///
 /// @since 0.1.0-alpha.20
@@ -41,107 +102,126 @@ $fn_gapValue_useMarginValue: true !default;
 ///
 /// @since 0.1.0-alpha.33
 ///
-$fn_gapValue_block_layout_low: '600' !default;
+$fn_gapValue_block_layout_low: null !default;
+$fn_gapValue_block_layout_low: config-valid-token-level(
+    $fn_gapValue_block_layout_low,
+    'fn_gapValue_block_layout_low',
+    $default: '600'
+);
 
 ///
 /// @since 0.1.0-alpha.33
 ///
-$fn_gapValue_block_layout_high: '800' !default;
+$fn_gapValue_block_layout_high: null !default;
+$fn_gapValue_block_layout_high: config-valid-token-level(
+    $fn_gapValue_block_layout_high,
+    'fn_gapValue_block_layout_high',
+    $default: '800'
+);
 
 ///
 /// @since 0.1.0-alpha.33
 ///
-$fn_gapValue_inline_indent_low: '200' !default;
+$fn_gapValue_inline_indent_low: null !default;
+$fn_gapValue_inline_indent_low: config-valid-token-level(
+    $fn_gapValue_inline_indent_low,
+    'fn_gapValue_inline_indent_low',
+    $default: '200'
+);
 
 ///
 /// @since 0.1.0-alpha.33
 ///
-$fn_gapValue_inline_indent_high: '800' !default;
+$fn_gapValue_inline_indent_high: null !default;
+$fn_gapValue_inline_indent_high: config-valid-token-level(
+    $fn_gapValue_inline_indent_high,
+    'fn_gapValue_inline_indent_high',
+    $default: '800'
+);
 
 ///
 /// @since 0.1.0-alpha.33
 ///
-$fn_gapValue_inline_layout_low: '400' !default;
+$fn_gapValue_inline_layout_low: null !default;
+$fn_gapValue_inline_layout_low: config-valid-token-level(
+    $fn_gapValue_inline_layout_low,
+    'fn_gapValue_inline_layout_low',
+    $default: '400'
+);
 
 ///
 /// @since 0.1.0-alpha.33
 ///
-$fn_gapValue_inline_layout_high: '900' !default;
+$fn_gapValue_inline_layout_high: null !default;
+$fn_gapValue_inline_layout_high: config-valid-token-level(
+    $fn_gapValue_inline_layout_high,
+    'fn_gapValue_inline_layout_high',
+    $default: '900'
+);
 
 ///
 /// @since 0.1.0-alpha.33
 ///
-$fn_gapValue_inline_tab_low: '100' !default;
+$fn_gapValue_inline_tab_low: null !default;
+$fn_gapValue_inline_tab_low: config-valid-token-level(
+    $fn_gapValue_inline_tab_low,
+    'fn_gapValue_inline_tab_low',
+    $default: '100'
+);
 
 ///
 /// @since 0.1.0-alpha.33
 ///
-$fn_gapValue_inline_tab_high: '600' !default;
+$fn_gapValue_inline_tab_high: null !default;
+$fn_gapValue_inline_tab_high: config-valid-token-level(
+    $fn_gapValue_inline_tab_high,
+    'fn_gapValue_inline_tab_high',
+    $default: '600'
+);
 
 ///
 /// @since 0.1.0-alpha.19
 ///
-$fn_lineHeightValue_roundToPixelFactor: 32 !default;
+$fn_lineHeightValue_roundToPixelFactor: null !default;
+$fn_lineHeightValue_roundToPixelFactor: config-valid-number(
+    $fn_lineHeightValue_roundToPixelFactor,
+    'fn_lineHeightValue_roundToPixelFactor',
+    $default: 32,
+    $min: 1,
+    $unit: false
+);
 
 ///
 /// @since 0.1.0-alpha.14
 ///
 $fn_var_replaceWithValue_borderWidth: false !default;
-$fn_var_replaceWithValue_borderWidth: config-valid-bool(
-    $fn_var_replaceWithValue_borderWidth,
-    'fn_var_replaceWithValue_borderWidth'
-);
 
 ///
 /// @since 0.1.0-alpha.14
 ///
 $fn_var_replaceWithValue_fontSize: false !default;
-$fn_var_replaceWithValue_fontSize: config-valid-bool(
-    $fn_var_replaceWithValue_fontSize,
-    'fn_var_replaceWithValue_fontSize'
-);
 
 ///
 /// @since 0.1.0-alpha.14
 ///
 $fn_var_replaceWithValue_lineHeight: false !default;
-$fn_var_replaceWithValue_lineHeight: config-valid-bool(
-    $fn_var_replaceWithValue_lineHeight,
-    'fn_var_replaceWithValue_lineHeight'
-);
 
 ///
 /// @since 0.1.0-alpha.14
 ///
 $fn_var_replaceWithValue_gap: false !default;
-$fn_var_replaceWithValue_gap: config-valid-bool(
-    $fn_var_replaceWithValue_gap,
-    'fn_var_replaceWithValue_gap'
-);
 
 ///
 /// @since 0.1.0-alpha.14
 ///
 $fn_var_replaceWithValue_margin: false !default;
-$fn_var_replaceWithValue_margin: config-valid-bool(
-    $fn_var_replaceWithValue_margin,
-    'fn_var_replaceWithValue_margin'
-);
 
 ///
 /// @since 0.1.0-alpha.14
 ///
 $fn_var_replaceWithValue_strokeRelative: false !default;
-$fn_var_replaceWithValue_strokeRelative: config-valid-bool(
-    $fn_var_replaceWithValue_strokeRelative,
-    'fn_var_replaceWithValue_strokeRelative'
-);
 
 ///
 /// @since 0.1.0-alpha.14
 ///
 $fn_var_replaceWithValue_width: false !default;
-$fn_var_replaceWithValue_width: config-valid-bool(
-    $fn_var_replaceWithValue_width,
-    'fn_var_replaceWithValue_width'
-);

@@ -1,0 +1,27 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.26
+///
+
+@forward '../config';
+// @forward '../header';
+
+@use '../../../modules/map';
+@use '../../../modules/meta';
+
+@use '../../../tokens';
+
+// @use '../../../lib';
+@use '../utils';
+
+/* # MODULES - TOKENS
+ * This is a dump of the available vars from the tokens end point
+ * ======================================================================== */
+
+tokens-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/tokens'` */
+    @include utils.var-dump(
+        'meta.module-variables(tokens)',
+        map.ksort(meta.module-variables(tokens))
+    );
+}

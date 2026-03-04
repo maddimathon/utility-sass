@@ -32,27 +32,27 @@
         @return math.add-unit($size, if($relative, 1em, 1rem));
     }
 
-    $clamp_min: math.round-to-pixel(
+    $size_min: math.round-to-pixel(
         $size * config.$fn_clampFontSize_multiplier_min
     );
 
-    $clamp_goal_svw: math.round-to-pixel(
+    $goal_svw: math.round-to-pixel(
         $size * config.$fn_clampFontSize_multiplier_svw
     );
 
-    $clamp_max: math.round-to-pixel(
+    $size_max: math.round-to-pixel(
         $size * config.$fn_clampFontSize_multiplier_max
     );
 
     $unit: if($relative, 1em, 1rem);
 
     @return clamp(
-        math.add-unit($clamp_min, $unit),
+        math.add-unit($size_min, $unit),
         calc(
-            math.add-unit($clamp_goal_svw, 1svw) +
+            math.add-unit($goal_svw, 1svw) +
                 math.add-unit(config.$fn_clampFontSize_svw_rem, $unit)
         ),
-        math.add-unit($clamp_max, $unit)
+        math.add-unit($size_max, $unit)
     );
 }
 

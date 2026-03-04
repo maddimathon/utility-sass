@@ -1,0 +1,29 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-pre.0
+///
+
+@use '../../../../config';
+@use '../../../../modules/string';
+
+@use 'include';
+
+///
+/// @since 0.1.0-pre.0
+///
+$template_name: 'Default' !default;
+
+///
+/// @since ___PKG_VERSION___
+///
+$template_slug: string.slugify($template_name) !default;
+
+///
+/// @since 0.1.0-pre.0
+///
+$template_internal_supressCredit: not include.$template_print_docBlock !default;
+
+///
+/// @since 0.1.0-pre.0
+///
+$template_isDefault: $template_slug == default !default;

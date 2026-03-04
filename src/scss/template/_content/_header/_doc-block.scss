@@ -5,9 +5,7 @@
 
 @use '../config';
 
-@use '../../../modules/string';
-
-@if config.$print_templateDocBlock {
+@if config.$template_print_docBlock {
     @if config.$template_isDefault {
         /**
          * Utility Sass Template
@@ -18,7 +16,7 @@
         /**
          * Utility Sass Template - #{config.$template_name}
          * 
-         * @package utility-sass/template/#{string.slugify(config.$template_name)}@___CURRENT_VERSION___
+         * @package utility-sass/template/#{config.$template_slug}@___CURRENT_VERSION___
          */
     }
 }

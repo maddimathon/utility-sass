@@ -78,7 +78,7 @@
 ///
 @function debug-checkpoint-fn($location, $output: false, $level: 1, $verbose: false) {
     // returns
-    @if not config.$fn_debugCheckpoint {
+    @if not config.$debug_checkpoints {
         @return null;
     }
 
@@ -86,9 +86,9 @@
         'mmutils-global-debugProgressCheckpoint',
         'debug-checkpoint',
         $location: $location,
-        $output: $output or config.$fn_debugCheckpoint,
+        $output: $output or config.$debug_checkpoints,
         $level: $level,
-        $verbose: $verbose and config.$fn_debugCheckpoint_verbose
+        $verbose: $verbose and config.$debug_checkpoints_verbose
     );
 
     // returns
@@ -106,7 +106,7 @@
 /// @since 0.1.0-alpha.30
 ///
 @mixin debug-checkpoint($location, $output: false, $level: 1, $verbose: false) {
-    @if config.$fn_debugCheckpoint {
+    @if config.$debug_checkpoints {
         /* #{debug-checkpoint-fn( $location: $location, $output: $output, $level: $level, $verbose: $verbose )} */
     }
 }

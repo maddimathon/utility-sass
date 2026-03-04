@@ -33,8 +33,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 ///
 @mixin colour-mode(
     $modes,
-    $includeQuery: config.$mx_colourMode_includeQuery_default,
-    $includeSelectors: config.$mx_colourMode_includeSelectors_default,
+    $includeQuery: config.$mx_colourMode_includeQuery,
+    $includeSelectors: config.$mx_colourMode_includeSelectors,
 
     $modeArgs: false,
     $args...
@@ -104,8 +104,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 ///
 @mixin colour-mode-not(
     $modes,
-    $includeQuery: config.$mx_colourMode_includeQuery_default,
-    $includeSelectors: config.$mx_colourMode_includeSelectors_default,
+    $includeQuery: config.$mx_colourMode_includeQuery,
+    $includeSelectors: config.$mx_colourMode_includeSelectors,
 
     $modeArgs: false,
     $args...
@@ -229,6 +229,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
     $includeQuery,
     $includeRegions_heading,
     $includeRegions,
+    $includeForcedColorsSelectors,
     $includeSelectors,
     $nestModeSelectors,
     $nestParentSelector,
@@ -487,11 +488,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
                 @if list.length($queries_brightness) >
                     0 and
-                    (
-                        #{$contrast} !=
-                            forced-colors or
-                            config.$mx_colourModeEach_includeSelectors_forcedColors
-                    )
+                    (#{$contrast} != forced-colors or $includeForcedColorsSelectors)
                 {
                     $_sel: if(
                         $contrastIsDefault and $includeDefault,
@@ -509,11 +506,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             }
 
             // includes default selector(s) as applicable
-            @if (
-                #{$contrast} !=
-                    forced-colors or
-                    config.$mx_colourModeEach_includeSelectors_forcedColors
-            ) {
+            @if (#{$contrast} != forced-colors or $includeForcedColorsSelectors) {
                 #{$selectors_merged} {
                     @content;
                 }
@@ -533,8 +526,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 /// @since 0.1.0-pre.0
 ///
 @mixin colour-mode-each(
-    $includeQuery: config.$mx_colourMode_includeQuery_default,
-    $includeSelectors: config.$mx_colourMode_includeSelectors_default,
+    $includeQuery: config.$mx_colourMode_includeQuery,
+    $includeSelectors: config.$mx_colourMode_includeSelectors,
 
     $includeForcedColors: true,
     $nestModeSelectors: config.$mx_colourModeEach_nestModeSelectors,
@@ -549,6 +542,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
     /// @param {boolean} $iterateForcedColors  Whether to include forced-colors for each brightness mode.
     $iterateForcedColors: false,
+
+    $includeForcedColorsSelectors: config.$mx_colourModeEach_includeForcedColorsSelectors,
 
     $args...
 ) {
@@ -587,6 +582,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                     $contrast_args: $contrast_args,
                     $contrastIsDefault: is-colour-mode-default($contrast),
                     $includeDefault: $includeDefault,
+                    $includeForcedColorsSelectors: $includeForcedColorsSelectors,
                     $includeQuery: if(
                             (
                                 map.get($brightness_args, 'includeQuery') and
@@ -639,6 +635,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             $contrast_args: $forced_args,
             $contrastIsDefault: is-colour-mode-default($contrast),
             $includeDefault: map.get($forced_args, 'includeDefault'),
+            $includeForcedColorsSelectors: $includeForcedColorsSelectors,
             $includeQuery: true,
             $includeRegions_heading: $includeRegions_heading,
             $includeRegions: $includeRegions,

@@ -5,19 +5,27 @@
 
 @use 'functions' as *;
 
+@use 'template';
+
 /// # CONFIG - INTERNAL
 /// ======================================================================== ///
 
 ///
-/// Whether the library is being called from a stylesheet template.
+/// Whether to output debug checkpoints (e.g., to debug compile time).
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.30
+/// @since ___PKG_VERSION___ — Renamed from $fn_debugCheckpoint to $debug_checkpoints
 ///
-$internal_isTemplate: false !default;
-$internal_isTemplate: config-valid-bool(
-    $internal_isTemplate,
-    'internal_isTemplate'
-);
+$debug_checkpoints: false !default;
+
+///
+/// Whether to output verbose debug checkpoints (e.g., to verbosely debug
+/// compile time).
+///
+/// @since 0.1.0-alpha.30
+/// @since ___PKG_VERSION___ — Renamed from $fn_debugCheckpoint_verbose to $debug_checkpoints_verbose
+///
+$debug_checkpoints_verbose: false !default;
 
 ///
 /// Removes the 'these styles include utility-sass' comment (for use internally
@@ -26,8 +34,4 @@ $internal_isTemplate: config-valid-bool(
 /// @since 0.1.0-pre.0
 /// @internal
 ///
-$internal_supressCredit: $internal_isTemplate !default;
-$internal_supressCredit: config-valid-bool(
-    $internal_supressCredit,
-    'internal_supressCredit'
-);
+$internal_supressCredit: template.$isTemplate !default;

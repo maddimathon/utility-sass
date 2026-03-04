@@ -16,7 +16,7 @@
 
 @use '../01-functions' as *;
 
-$_optionalDefault: if(config.$internal_isTemplate, false, true);
+$_optionalDefault: if(config.$isTemplate, false, true);
 
 ///
 /// @since 0.1.0-alpha.38 — Made public.
@@ -126,7 +126,7 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
     );
 
     /// Headings - where
-    @if config.$mx_extendHeadingsByRole {
+    @if config.$mx_extendSelectors_headingsByRole {
         // for all levels
         @each $headingLevel in $allHeadingLevels {
             //
@@ -258,8 +258,11 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
 
 ///
 /// @since 0.1.0-alpha.38 — Added $additional_globals_optional and $additional_utils_optional params for additional selectors that are always optional.
+/// @since 0.1.0-beta.0.draft — Switched from using $print_globals & $print_utils config to required params.
 ///
 @mixin extend-selectors(
+    $print_globals,
+    $print_utils,
     $optional: $_optionalDefault,
     $additional_globals: (),
     $additional_globals_optional: (),
@@ -267,7 +270,7 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
     $additional_utils_optional: (),
     $allHeadingLevels: token-all-heading-levels()
 ) {
-    @if config.$print_globals {
+    @if $print_globals {
         @include extend-selectors-globals(
             $additional: $additional_globals,
             $additional_optional: $additional_globals_optional,
@@ -276,7 +279,7 @@ $_optionalDefault: if(config.$internal_isTemplate, false, true);
         );
     }
 
-    @if config.$print_utils {
+    @if $print_utils {
         @include extend-selectors-utils(
             $additional: $additional_utils,
             $additional_optional: $additional_utils_optional,
