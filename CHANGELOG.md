@@ -19,181 +19,30 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
-## **0.1.0-alpha.41** — 2026-03-03
+## **0.1.0-alpha** to **0.1.0-alpha.41** — 2025-10-29 to 2026-03-03
 
-### Fixed
-- Scss config param $fn_fontSizeValue_roundToPixelFactor now applies properly
-  (was missing in one case of fs-value)
-- Fixed gap tokens merging
-
-
-## **0.1.0-alpha.40** — 2026-03-01
-
-Minor scss fixes.
-
-
-## **0.1.0-alpha.39** — 2026-02-25
+### Removed
+- Removed button-secondary styles (as part of the slow move for templates to
+  scss-templater and design-system-utilities) [0.1.0-alpha.39 — 2026-02-25]
 
 ### Moved & Renamed
-- Removed button-secondary (as part of the slow move for templates to
-  scss-templater and design-system-utilities)
-
-
-## **0.1.0-alpha.38** — 2026-02-25
-
-### Added
-- extend-selectors-* mixins now have $additional_optional param for always-optional selectors
-- extend-selectors-generic mixin is now public (was _extend-selectors)
-
-
-## **0.1.0-alpha.37** — 2026-02-25
-
-### Added
-- Scss list module function - text-join
-- Scss selector module functions for pseudo class selector lists - has-list,
-  is-list, not-list, where-list
-- Scss selector module mixins for pseudo class selector lists - has, is, not, where
-
-
-## **0.1.0-alpha.36** — 2026-02-25
-
-### Added
-- Config var - $page_top
-- Scss now sets scroll-padding-top if $include_html with a `scroll-padding-top`
-  cx prop (which itself is set using an unset `height-nav-primary` prop that
-  falls back to 0)
-- Scss functions - scroll-padding-top-value, var-scroll-padding-top
-
-
-## **0.1.0-alpha.35** — 2026-02-24
-
-Another minor mixin fix
-
-
-## **0.1.0-alpha.34** — 2026-02-24
-
-Very minor mixin fixes
-
-
-## **0.1.0-alpha.33** — 2026-02-24
-
-### Added
-- Scss map module function - parse-args
-- Scss config vars:
-    - $fn_gapValue_block_layout_low
-    - $fn_gapValue_block_layout_high
-    - $fn_gapValue_inline_indent_low
-    - $fn_gapValue_inline_indent_high
-    - $fn_gapValue_inline_layout_low
-    - $fn_gapValue_inline_layout_high
-    - $fn_gapValue_inline_tab_low
-    - $fn_gapValue_inline_tab_high
-
-
-## **0.1.0-alpha.32** — 2026-02-23
-
-### Added
-- Added JS utilities - mapToObject, mapToObjectAsync
-
-
-## **0.1.0-alpha.31** — 2026-02-20
-
-### Added
-- JS function jsValueToSass() (from scss-templater WIP)
-
-
-## **0.1.0-alpha.30** — 2026-02-19
-
-### Added
-- Scss config vars - $fn_debugCheckpoint, $fn_debugCheckpoint_locationPrefix,
-  and $fn_debugCheckpoint_verbose for better checkpoint debugging
-
-
-## **0.1.0-alpha.29** — 2026-02-19
-
-### Added
-- New $method param for math.round-to-pixel
-- Added sassValueToJS function (from scss-templater WIP)
-- New sass compiler functions - js-var-dump() and debug-checkpoint()
-
-### Fixed
-- Updated build-utilities
-
-
-## **0.1.0-alpha.28** — 2026-02-13
-
-### Added
-- config-valid-number function now has optional $unit param
-
-
-## **0.1.0-alpha.27** — 2026-02-12
-
-Minor bug fixes to styles.
-
-
-## **0.1.0-alpha.26** — 2026-02-12
-
-More colour converting functions.
-
-### Added
-- Colour module functions - to-hsl-list, to-rgb, to-rgb-list
-
-### Fixed
-- Bug in new do-var() function fallbacks
-
-
-## **0.1.0-alpha.25** — 2026-01-31
-
-### Added
-- New do-var function
-- Config var - $customPropertyPrefix_asFallbackOnly
-
-
-## **0.1.0-alpha.24** — 2026-01-30
+- Changed feature-check module's js-support mixin to supports and js-no-support
+  mixin to supports-not [0.1.0-alpha.5 — 2025-11-15]
 
 ### Misc. Breaking
-- Changed param from $lh to $lineHeight in mixins - snippet-button, snippet-input, snippet-label
+- Switched SemVer version used in sassFn_getCurrentVersion to remove the Logger
+  instance requirement (which caused issues in dependent libraries using vite) [0.1.0-alpha.9 — 2025-12-28]
+- Changed param from $lh to $lineHeight in mixins - snippet-button, snippet-input, snippet-label [0.1.0-alpha.24 — 2026-01-30]
 
 ### Added
-- New mixin - snippet-focus-ring
-
-
-## **0.1.0-alpha.23** — 2026-01-30
-
-### Changed
-- Added more optional parameters to snippet mixins for inputs and labels
-
-
-## **0.1.0-alpha.22** — 2026-01-30
-
-### Added
-- Now sorting token maps by key for prettier css output
-- Config var - $margin_base
-
-
-## **0.1.0-alpha.21** — 2026-01-27
-
-### Added
-- Optional $useMarginValue param to gap-value, gap-value, gap-value (default set
-  by $fn_gapValue_useMarginValue in config)
-
-### Fixed
-- Issue with new gap-value calculations for inline-layout and inline-layout-half (from 0.1.0-alpha.19)
-
-
-## **0.1.0-alpha.20** — 2026-01-27
-
-### Added
-- New config value - $fn_gapValue_useMarginValue (default true)
-
-
-## **0.1.0-alpha.19** — 2026-01-27
-
-### Added
-- New config vars:
-    - $fn_borderWidthValue_roundToPixelFactor
-    - $fn_lineHeightValue_roundToPixelFactor
-- Optional $multiplier param to:
+- Added unstyled-heading utility class and $includeUnstyledHeadingProps prop in
+  snippet-heading [0.1.0-alpha.6 — 2025-12-01]
+- Custom sass compiler functions to support advanced utilities in the modules [0.1.0-alpha.8 — 2025-12-27]
+- Sass compiler opts builder function [0.1.0-alpha.8 — 2025-12-27]
+- `--pad-[firm|soft|half]-000` vars for em versions of `--mrg-[firm|soft|half]-000` [0.1.0-alpha.15 — 2026-01-20]
+- New optional $comment param to custom-property and cx-prop mixins [0.1.0-alpha.18 — 2026-01-26]
+- New optional $relative param to fs-value and clamp-font-size [0.1.0-alpha.18 — 2026-01-26]
+- New optional $multiplier param to: [0.1.0-alpha.19 — 2026-01-27]
     - functions:
         - border-width-value (also added optional $unit param)
         - fs-value
@@ -214,163 +63,110 @@ More colour converting functions.
         - tokens-margin
         - tokens-stroke-relative
         - tokens-widths
+- New optional $useMarginValue param to gap-value, gap-value, gap-value (default
+  set by $fn_gapValue_useMarginValue in config) [0.1.0-alpha.21 — 2026-01-27]
+- config-valid-number function now has optional $unit param [0.1.0-alpha.28 — 2026-02-13]
+- New $method param for math.round-to-pixel [0.1.0-alpha.29 — 2026-02-19]
+- Added sassValueToJS function (from scss-templater WIP) [0.1.0-alpha.29 — 2026-02-19]
+- New sass compiler functions - js-var-dump() and debug-checkpoint() [0.1.0-alpha.29 — 2026-02-19]
+- Added JS utilities - mapToObject, mapToObjectAsync [0.1.0-alpha.32 — 2026-02-23]
+- JS function jsValueToSass() (from scss-templater WIP) [0.1.0-alpha.31 — 2026-02-20]
+- Scss now sets scroll-padding-top if $include_html with a `scroll-padding-top`
+  cx prop (which itself is set using an unset `height-nav-primary` prop that
+  falls back to 0) [0.1.0-alpha.36 — 2026-02-25]
+- extend-selectors-* mixins now have $additional_optional param for always-optional selectors [0.1.0-alpha.38 — 2026-02-25]
+- extend-selectors-generic mixin is now public (was _extend-selectors) [0.1.0-alpha.38 — 2026-02-25]
 
+#### Config
+- New variables:
+    - $customPropertyPrefix_asFallbackOnly [0.1.0-alpha.25 — 2026-01-31]
+    - $fn_borderWidthValue_roundToPixelFactor [0.1.0-alpha.19 — 2026-01-27]
+    - $fn_debugCheckpoint [0.1.0-alpha.30 — 2026-02-19]
+    - $fn_debugCheckpoint_locationPrefix [0.1.0-alpha.30 — 2026-02-19]
+    - $fn_debugCheckpoint_verbose [0.1.0-alpha.30 — 2026-02-19]
+    - $fn_gapValue_block_layout_high [0.1.0-alpha.33 — 2026-02-24]
+    - $fn_gapValue_block_layout_low [0.1.0-alpha.33 — 2026-02-24]
+    - $fn_gapValue_inline_indent_high [0.1.0-alpha.33 — 2026-02-24]
+    - $fn_gapValue_inline_indent_low [0.1.0-alpha.33 — 2026-02-24]
+    - $fn_gapValue_inline_layout_high [0.1.0-alpha.33 — 2026-02-24]
+    - $fn_gapValue_inline_layout_low [0.1.0-alpha.33 — 2026-02-24]
+    - $fn_gapValue_inline_tab_high [0.1.0-alpha.33 — 2026-02-24]
+    - $fn_gapValue_inline_tab_low [0.1.0-alpha.33 — 2026-02-24]
+    - $fn_gapValue_useMarginValue (default true) [0.1.0-alpha.20 — 2026-01-27]
+    - $fn_lineHeightValue_roundToPixelFactor [0.1.0-alpha.19 — 2026-01-27]
+    - $margin_base [0.1.0-alpha.22 — 2026-01-30]
+    - $mx_colourModeEach_nestModeSelectors [0.1.0-alpha.3 — 2025-11-02]
+    - $mx_tokensFontSize_printRelative - to add --fs-rel-[...] variables [0.1.0-alpha.18 — 2026-01-26]
+    - $page_top [0.1.0-alpha.36 — 2026-02-25]
+- Added config variables to replace token var(...) with their fallback values instead. [0.1.0-alpha.14 — 2026-01-20]
 
-## **0.1.0-alpha.18** — 2026-01-26
-
-### Added
-- Optional $comment param to custom-property and cx-prop mixins
-- Optional $relative param to fs-value and clamp-font-size
-- Config var - $mx_tokensFontSize_printRelative - to add --fs-rel-[...] variables
-
-
-## **0.1.0-alpha.17** — 2026-01-23
-
-Updated dependencies.
-
-
-## **0.1.0-alpha.16** — 2026-01-20
-
-Minor fixes.
-
-
-## **0.1.0-alpha.15** — 2026-01-20
-
-### Added
-- `--pad-[firm|soft|half]-000` vars for em versions of `--mrg-[firm|soft|half]-000`
-- math scss module functions - add-unit(), always-one()
-
-
-## **0.1.0-alpha.14** — 2026-01-20
-
-Added config variables to replace token var(...) with their fallback values
-instead.
-
-
-## **0.1.0-alpha.13** — 2026-01-19
-
-Switched custom-property mixin to cx-prop.
-
-
-## **0.1.0-alpha.12** — 2026-01-19
-
-Testing $customPropertyPrefix config var.
-
-
-## **0.1.0-alpha.11** — 2025-12-28
-
-### Fixed
-- Switched immutable import used in sass_getCurrentVersion to avoid importing
-  the whole namespace (which caused issues in dependent libraries using vite)
-
-
-## **0.1.0-alpha.10** — 2025-12-28
-
-Added immutable to dependencies (previously overlooked).
-
-
-## **0.1.0-alpha.9** — 2025-12-28
-
-### Misc. Breaking
-- Switched SemVer version used in sass_getCurrentVersion to remove the Logger
-  instance requirement (which caused issues in dependent libraries using vite)
-
-
-## **0.1.0-alpha.8** — 2025-12-27
-
-### Added
-- Custom sass compiler functions to support advanced utilities in the modules
-- Sass compiler opts builder function
-- Scss function - current-version()
-
-
-## **0.1.0-alpha.7** — 2025-12-02
-
-Quick fix to link button utilities that were broken by switch to `a[href]`
-selectors.
-
-
-## **0.1.0-alpha.6** — 2025-12-01
-
-'Unstyled' heading utilities, better system color fallbacks, and better list
-styles.
-
-### Added
-- Added unstyled-heading utility class and $includeUnstyledHeadingProps prop in
-  snippet-heading
-- New snippet-unstyled-heading mixin
+#### New Scss Functions & Mixins
+- Module functions:
+    - colour.to-hsl-list() [0.1.0-alpha.26 — 2026-02-12]
+    - colour.to-rgb() [0.1.0-alpha.26 — 2026-02-12]
+    - colour.to-rgb-list() [0.1.0-alpha.26 — 2026-02-12]
+    - list.text-join() [0.1.0-alpha.37 — 2026-02-25]
+    - map.parse-args [0.1.0-alpha.33 — 2026-02-24]
+    - math.add-unit() [0.1.0-alpha.15 — 2026-01-20]
+    - math.always-one() [0.1.0-alpha.15 — 2026-01-20]
+    - meta.current-version() [0.1.0-alpha.8 — 2025-12-27]
+    - selector.has-list() [0.1.0-alpha.37 — 2026-02-25]
+    - selector.is-list() [0.1.0-alpha.37 — 2026-02-25]
+    - selector.not-list() [0.1.0-alpha.37 — 2026-02-25]
+    - selector.where-list() [0.1.0-alpha.37 — 2026-02-25]
+- Module mixins:
+    - selector.has [0.1.0-alpha.37 — 2026-02-25]
+    - selector.is [0.1.0-alpha.37 — 2026-02-25]
+    - selector.not [0.1.0-alpha.37 — 2026-02-25]
+    - selector.where [0.1.0-alpha.37 — 2026-02-25]
+- Lib functions:
+    - do-var [0.1.0-alpha.25 — 2026-01-31]
+    - scroll-padding-top-value [0.1.0-alpha.36 — 2026-02-25]
+    - var-scroll-padding-top [0.1.0-alpha.36 — 2026-02-25]
+- Lib mixins:
+    - snippet-focus-ring [0.1.0-alpha.24 — 2026-01-30]
+    - snippet-unstyled-heading mixin [0.1.0-alpha.6 — 2025-12-01]
 
 ### Changed
-- `%a` is now extended by `a[href]`, not just `a`
+- Super minor change to region comments in colour-mode-each. [0.1.0-alpha.2 — 2025-11-02]
+- More very minor mixin tweaks. [0.1.0-alpha.4 — 2025-11-03]
+- `%a` is now extended by `a[href]`, not just `a` [0.1.0-alpha.6 — 2025-12-01]
+- Now sorting token maps by key for prettier css output [0.1.0-alpha.22 — 2026-01-30]
+- Added more optional parameters to snippet mixins for inputs and labels [0.1.0-alpha.23 — 2026-01-30]
 
 ### Fixed
-- Added explicit css supports queries for system colours with fallbacks
+- Minor fixes to let private package be installed in gh actions. [0.1.0-alpha.1 — 2025-10-29]
+- Added explicit css supports queries for system colours with fallbacks [0.1.0-alpha.6 — 2025-12-01]
 - Scss list style fixes for better extension of list exceptions (e.g., ol lists
-  to display as ul, as in the utility-astro TableOfContents styles)
+  to display as ul, as in the utility-astro TableOfContents styles) [0.1.0-alpha.6 — 2025-12-01]
+- Quick fix to link button utilities that were broken by switch to `a[href]` selectors. [0.1.0-alpha.7 — 2025-12-02]
+- Added immutable to dependencies. [0.1.0-alpha.10 — 2025-12-28]
+- Switched immutable import used in sassFn_getCurrentVersion to avoid importing
+  the whole namespace (which caused issues in dependent libraries using vite)
+  [0.1.0-alpha.11 — 2025-12-28]
+- Switched custom-property mixin to cx-prop. [0.1.0-alpha.13 — 2026-01-19]
+- Testing $customPropertyPrefix config var. [0.1.0-alpha.12 — 2026-01-19]
+- Issue with new gap-value calculations for inline-layout and inline-layout-half (from 0.1.0-alpha.19) [0.1.0-alpha.21 — 2026-01-27]
+- Scss config param $fn_fontSizeValue_roundToPixelFactor now applies properly
+  (was missing in one case of fs-value) [0.1.0-alpha.41 — 2026-03-03]
+- Fixed gap tokens merging [0.1.0-alpha.41 — 2026-03-03]
 
 
-## **0.1.0-alpha.5** — 2025-11-15
+## **0.1.0-pre.0** to **0.1.0-pre.5** — 2025-10-18 to 2025-10-22
 
-### Breaking
-- Changed feature-check module's js-support mixin to supports and js-no-support
-  mixin to supports-not
+First releases, mostly for testing.
 
+### Added
+- $fn_fontSizeValue_defaultFontScale config var function default [0.1.0-pre.1 — 2025-10-19]
 
-## **0.1.0-alpha.4** — 2025-11-03
+### Changed
+- Switched token values that were string-ified numbers with units to return
+  actual numbers. [0.1.0-pre.2 — 2025-10-21]
 
-More very minor mixin tweaks.
-
-
-## **0.1.0-alpha.3** — 2025-11-02
-
-Added config var: $mx_colourModeEach_nestModeSelectors
-
-
-## **0.1.0-alpha.2** — 2025-11-02
-
-Super minor change to region comments in colour-mode-each.
-
-
-## **0.1.0-alpha.1** — 2025-10-29
-
-Trying a couple minor config updates to let this private package be installed in
-gh actions to publish other packages.
-
-
-## **0.1.0-alpha** — 2025-10-29
-
-A quick pre-release before removing templates.  Version 0.1.0 won't progress
-beyond alpha.
-
-
-## **0.1.0-pre.5** — 2025-10-22
-
-Fixed issue in no-motion selectors and queries causing reduced-motion to never
-be respected.
-
-
-## **0.1.0-pre.4** — 2025-10-22
-
-Fixed heading style inheritance issue
-
-
-## **0.1.0-pre.3** — 2025-10-22
-
-- Button style improvements (specifically for icon pseudo elements in design-system-utilities)
-- Minor scss improvements
-
-
-## **0.1.0-pre.2** — 2025-10-21
-
-Switched token values that were string-ified numbers with units to return actual
-numbers.
-
-
-## **0.1.0-pre.1** — 2025-10-19
-
-Added $fn_fontSizeValue_defaultFontScale config for fs-value() function default
-
-
-## **0.1.0-pre.0** — 2025-10-18
-
-Test release during development; not for use
+### Fixed
+- Button style improvements (specifically for icon pseudo elements inæ
+  design-system-utilities) [0.1.0-pre.3 — 2025-10-22]
+- Minor scss improvements [0.1.0-pre.3 — 2025-10-22]
+- Fixed heading style inheritance issue [0.1.0-pre.4 — 2025-10-22]
+- Fixed issue in no-motion selectors and queries causing reduced-motion to never
+  be respected. [0.1.0-pre.5 — 2025-10-22]

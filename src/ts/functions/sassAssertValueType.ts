@@ -20,9 +20,14 @@ export async function sassAssertValueType( type: "list", value: sass.Value | und
 /**
  * Asserts a sass value type and converts it to a JS value.
  * 
+ * @category Utilities – Sass API
+ * 
  * @since 0.1.0-alpha.29
  */
-export async function sassAssertValueType( type: "bool" | "list" | "map" | "number" | "string", value: sass.Value | undefined ): Promise<undefined | boolean | number | object | string | unknown[]> {
+export async function sassAssertValueType(
+    type: "bool" | "list" | "map" | "number" | "string",
+    value: sass.Value | undefined,
+): Promise<undefined | boolean | number | object | string | unknown[]> {
 
     let asserted: sass.Value | undefined;
 

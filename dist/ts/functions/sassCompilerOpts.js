@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.41
+ * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
 import { sassCompilerFunctions } from './sassCompilerFunctions.js';
@@ -12,6 +12,8 @@ import { sassCompilerFunctions } from './sassCompilerFunctions.js';
  * Compiles the functions available from this package (intended as compiler
  * functions to support the package's modules) into a {@link sass.Options}-ready
  * format.
+ *
+ * @category Utilities – Sass API
  *
  * @since 0.1.0-alpha.8
  */

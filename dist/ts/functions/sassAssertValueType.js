@@ -4,13 +4,15 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.41
+ * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
 import * as sass from "sass-embedded";
 import { sassValueToJS } from './sassValueToJS.js';
 /**
  * Asserts a sass value type and converts it to a JS value.
+ *
+ * @category Utilities – Sass API
  *
  * @since 0.1.0-alpha.29
  */

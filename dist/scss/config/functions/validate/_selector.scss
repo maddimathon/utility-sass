@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.41
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
 /// @since 0.1.0-pre.0
 ///
 @use 'sass:list';
@@ -7,6 +7,7 @@
 @use 'sass:string';
 
 @use 'string' as *;
+@use 'warnings' as *;
 
 ///
 /// Selector used as a 'null' (e.g., not-output) selector within the system to
@@ -47,8 +48,10 @@ $selector_null: (string.unquote('%null')) !default;
         $value: (string.unquote('#{$value}'));
 
         // returns - value is not a selector
-    } @else if meta.type-of($value) != 'list' {
-        @warn "[config] $#{$name} must be a selector (not the #{meta.type-of( $value )} '#{$value}')";
+    } @else if
+        enforce-type-or-warn($value: $value, $type: list, $varName: $name) ==
+        false
+    {
         @return $default;
     }
 
@@ -57,14 +60,6 @@ $selector_null: (string.unquote('%null')) !default;
         @warn "[config] $#{$name} must be a valid selector (not an empty list)";
         @return $default;
     }
-
-    // $parsedSelector: selector.parse(#{$value});
-
-    // // returns - empty
-    // @if list.length($parsedSelector) < 1 {
-    //     @warn "[config] $#{$name} must be a valid selector (not empty)";
-    //     @return $default;
-    // }
 
     @return $value;
 }

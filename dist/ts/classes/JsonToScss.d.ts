@@ -4,11 +4,14 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.41
+ * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
 /**
- * Converts a JSON object to a scss list or map.
+ * Converts a JSON object to a scss list or map (as a string, to be written to a
+ * .scss file).
+ *
+ * @category Utilities
  *
  * @since 0.1.0-pre.0
  */

@@ -1,11 +1,12 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.41
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
 /// @since 0.1.0-pre.0
 ///
 @use 'sass:list';
 @use 'sass:math';
 @use 'sass:meta';
-// @use 'sass:string';
+
+@use 'warnings' as *;
 
 ///
 /// Validates the value of a config variable that should be a string.
@@ -39,8 +40,9 @@
     }
 
     // returns - value is not a number
-    @if meta.type-of($value) != 'number' {
-        @warn "[config] $#{$name} must be a number (not the #{meta.type-of( $value )} '#{$value}')";
+    @if enforce-type-or-warn($value: $value, $type: number, $varName: $name) ==
+        false
+    {
         @return $default;
     }
 

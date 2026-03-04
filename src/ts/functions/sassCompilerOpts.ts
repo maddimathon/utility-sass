@@ -27,6 +27,8 @@ import { sassCompilerFunctions } from './sassCompilerFunctions.js';
  * functions to support the package's modules) into a {@link sass.Options}-ready
  * format.
  * 
+ * @category Utilities – Sass API
+ * 
  * @since 0.1.0-alpha.8
  */
 export function sassCompilerOpts<

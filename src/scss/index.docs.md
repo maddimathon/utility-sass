@@ -1,5 +1,6 @@
 ---
 title: Sass Exports
+category: Docs
 children:
   - ./config/index.docs.md
   - ./lib/index.docs.md

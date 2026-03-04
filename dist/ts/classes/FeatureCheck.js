@@ -4,12 +4,14 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.41
+ * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
 /**
  * Utility class that uses client-side JS to test for JS and CSS feature
  * compaibility. Updates root element class names accordingly.
+ *
+ * @category Module Support
  *
  * @typeParam T_CustomCheckerSlug  Slugs used for custom feature checkers.
  * @typeParam T_CustomChecker      Shape(s) of the custom feature checkers.
@@ -23,11 +25,11 @@
  * import { FeatureCheck } from '@maddimathon/utility-sass';
  * ```
  *  and running one line:
- * {@includeCode ./FeatureCheck.example.ts#Simple}
+ * {@includeCode ./FeatureCheck.docs.ts#Simple}
  *
  * The check can also be customized — this customization can mark some features
  * as never available and add on custom feature checks:
- * {@includeCode ./FeatureCheck.example.ts#Custom}
+ * {@includeCode ./FeatureCheck.docs.ts#Custom}
  *
  * @since 0.1.0-pre.0
  */

@@ -47,7 +47,12 @@ const config = {
                 '**/@sassFn_Template.js',
                 '**/@sassFn_Template.js.map',
                 '**/@sassFn_Template.d.ts',
-                '**/@sassFn_Template.ts.map',
+                '**/@sassFn_Template.d.ts.map',
+
+                '**/*.docs.js',
+                '**/*.docs.js.map',
+                '**/*.docs.d.ts',
+                '**/*.docs.d.ts.map',
             ],
         },
     },
@@ -101,6 +106,10 @@ const config = {
                 categorizeByGroup: false,
                 groupReferencesByType: false,
 
+                navigation: {
+                    includeCategories: true,
+                },
+
                 projectDocuments: [
                     'README.md',
                     'src/scss/index.docs.md',
@@ -112,7 +121,7 @@ const config = {
             },
         } ],
 
-        test: true,
+        test: false,
     },
 };
 

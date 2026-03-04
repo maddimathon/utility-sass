@@ -4,14 +4,14 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.41
+ * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
 import * as sass from "sass-embedded";
 /**
  * Translates sass values to JS values.
  *
- * @category Utilities - Sass API
+ * @category Utilities – Sass API
  *
  * @since 0.1.0-alpha.29
  */

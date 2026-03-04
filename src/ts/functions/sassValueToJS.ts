@@ -28,7 +28,7 @@ export function sassValueToJS(
 /**
  * Translates sass values to JS values.
  * 
- * @category Utilities - Sass API
+ * @category Utilities – Sass API
  * 
  * @since 0.1.0-alpha.29
  */
@@ -93,7 +93,7 @@ export async function sassValueToJS(
 /**
  * Utilities for the {@link sassValueToJS} function.
  * 
- * @category Utilities - Sass API
+ * @category Utilities – Sass API
  * 
  * @since 0.1.0-alpha.29
  */

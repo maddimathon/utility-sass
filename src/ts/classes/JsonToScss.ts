@@ -9,8 +9,11 @@
  */
 
 /**
- * Converts a JSON object to a scss list or map.
- * 
+ * Converts a JSON object to a scss list or map (as a string, to be written to a
+ * .scss file).
+ *
+ * @category Utilities
+ *
  * @since 0.1.0-pre.0
  */
 export namespace JsonToScss {

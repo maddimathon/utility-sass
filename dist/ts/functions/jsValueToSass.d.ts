@@ -4,19 +4,11 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.41
+ * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
+import type { RecursiveRecord } from '@maddimathon/utility-typescript/types';
 import * as sass from "sass-embedded";
-/**
- * Similar to the built-in `Record` type, but where the object's values can also
- * be identical records.
- *
- * @since 0.1.0-alpha.31
- */
-export type RecursiveRecord<T_Keys extends number | string | symbol = number | string | symbol, T_Values extends any = any, T_SubKeys extends number | string | symbol = T_Keys> = {
-    [K in T_Keys]: T_Values | RecursiveRecord<T_SubKeys, T_Values>;
-};
 export declare function jsValueToSass(sassValue: boolean): Promise<sass.SassBoolean>;
 export declare function jsValueToSass(sassValue: Map<number | string, jsValueToSass.SimpleAcceptedValues>): Promise<sass.SassMap>;
 export declare function jsValueToSass<T_Obj extends RecursiveRecord<number | string, jsValueToSass.SimpleAcceptedValues>>(sassValue: T_Obj): Promise<sass.SassMap>;
@@ -27,7 +19,7 @@ export declare function jsValueToSass(sassValue: jsValueToSass.AcceptedValues): 
 /**
  * Utilities for the {@link jsValueToSass} function.
  *
- * @category Utilities - Sass API
+ * @category Utilities – Sass API
  *
  * @since 0.1.0-alpha.31
  */

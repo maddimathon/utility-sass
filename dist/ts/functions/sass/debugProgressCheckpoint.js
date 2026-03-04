@@ -4,22 +4,23 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-alpha.41
+ * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
 import { DateTime } from 'luxon';
 import * as sass from "sass-embedded";
 import { sassAssertValueType } from '../sassAssertValueType.js';
 /**
- * A function to include in {@link sass.Options} that outputs a named timestamp
- * to the console (good for debugging compile time).
+ * Returns a call signature and function to include in {@link sass.Options} that
+ * outputs a named timestamp to the console (good for debugging compile time).
+ *
+ * @category Sass API - Compiler Functions
  *
  * @since 0.1.0-alpha.29
  */
 export function sassFn_debugProgressCheckpoint({ config, console, params }) {
-    return [
-        'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )',
-        async (args) => {
+    return {
+        'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': async (args) => {
             const time = DateTime.now();
             const [level = 1, location = 'debug checkpoint', output = true, verbose = false,] = await Promise.all([
                 sassAssertValueType('number', args[2]),
@@ -40,6 +41,6 @@ export function sassFn_debugProgressCheckpoint({ config, console, params }) {
             }
             return new sass.SassString(message);
         },
-    ];
+    };
 }
 //# sourceMappingURL=debugProgressCheckpoint.js.map

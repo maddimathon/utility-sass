@@ -7,6 +7,7 @@
 @use 'sass:string';
 
 @use 'string' as *;
+@use 'warnings' as *;
 
 ///
 /// Validates the value of a config variable that should be a list of strings.
@@ -46,8 +47,7 @@
         $value: ($value);
 
         // returns - value is not a selector
-    } @else if meta.type-of($value) != 'list' {
-        @warn "[config] $#{$name} must be a list (not the #{meta.type-of( $value )} '#{$value}')";
+    } @else if enforce-type-or-warn($value: $value, $type: list, $varName: $name) == false {
         @return $default;
     }
 
@@ -71,20 +71,11 @@
 
     @each $item in $value {
         // validates the item
-        $valid_item: config-valid-string(
-            $item,
-            '#{$name}.#{$i}',
-            $fail_return,
-            $options
-        );
+        $valid_item: config-valid-string($item, '#{$name}.#{$i}', $fail_return, $options);
 
         @if $valid_item != $fail_return {
             // adds item to the valid list
-            $valid_list: list.append(
-                $valid_list,
-                $valid_item,
-                $separator: $list_separator
-            );
+            $valid_list: list.append($valid_list, $valid_item, $separator: $list_separator);
         }
 
         $i: $i + 1;

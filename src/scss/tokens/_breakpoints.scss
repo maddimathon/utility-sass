@@ -1,25 +1,22 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-alpha.41
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since 0.1.0-pre.0
 ///
-@use 'sass:map';
-// @use 'sass:string';
 
-@forward 'widths';
+@use '../modules/map';
+@use '../modules/math';
 
-@use 'functions' as *;
+@use '../config';
 
-@use 'widths' as *;
-
-/// # CONFIG - BREAKPOINTS
+/// # TOKENS - BREAKPOINTS
 /// ======================================================================== ///
 
 $_breakpoint_mobile: 25;
 $_breakpoint_tablet: 50;
 
-$_width_content: map.get($widths, 'content');
-$_width_page: map.get($widths, 'page');
-$_width_sidebar: map.get($widths, 'sidebar');
+$_width_content: map.get(config.$widths, 'content');
+$_width_page: map.get(config.$widths, 'page');
+$_width_sidebar: map.get(config.$widths, 'sidebar');
 
 ///
 /// A map (merged with the defaults) of breakpoints used with the breakpoint
@@ -32,25 +29,24 @@ $_width_sidebar: map.get($widths, 'sidebar');
 ///
 $breakpoints: () !default;
 
-$breakpoints: map.deep-merge(
+$breakpoints: map.merge(
     (
         'mobile': $_breakpoint_mobile,
         'tablet': $_breakpoint_tablet,
 
         'content': $_width_content,
         'page': $_width_page,
-        'sidebar': calc(
-                (($_width_page - $_width_sidebar) + ($_width_sidebar * 3 / 4))
-            ),
+        'sidebar': calc((($_width_page - $_width_sidebar) + ($_width_sidebar * 3 / 4))),
         'indent': if(
                 map.has-key($breakpoints, 'mobile'),
                 map.get($breakpoints, 'mobile'),
                 $_breakpoint_mobile
             ),
     ),
-    $breakpoints
+    $breakpoints,
+    $recursive: tru
 );
 
 @each $key, $value in $breakpoints {
-    $breakpoints: map.set($breakpoints, $key, config-round-to-pixel($value));
+    $breakpoints: map.set($breakpoints, $key, math.round-to-pixel($value));
 }

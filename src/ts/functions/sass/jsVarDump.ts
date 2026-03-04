@@ -8,6 +8,8 @@
  * @license MIT
  */
 
+import { VariableInspector } from '@maddimathon/utility-typescript';
+
 import type {
     CLI,
     Config,
@@ -21,10 +23,12 @@ import * as sass from "sass-embedded";
 
 import { sassValueToJS } from '../sassValueToJS.js';
 import { sassAssertValueType } from '../sassAssertValueType.js';
-import { VariableInspector } from '@maddimathon/utility-typescript/classes';
 
 /**
- * A function to include in {@link sass.Options} that outputs a var dump to the console.
+ * Returns a call signature and function to include in {@link sass.Options} that
+ * outputs a var dump to the console.
+ *
+ * @category Sass API - Compiler Functions
  *
  * @since 0.1.0-alpha.29
  */
@@ -34,11 +38,10 @@ export function sassFn_jsVarDump(
         console: Logger,
         params: CLI.Params,
     },
-): [ string, sass.CustomFunction<'async'> ] {
+) {
 
-    return [
-        'mmutils-global-jsVarDump( $value, $name, $level )',
-        async ( args: sass.Value[] ) => {
+    return {
+        'mmutils-global-jsVarDump( $value, $name, $level )': async ( args: sass.Value[] ) => {
 
             const [
                 level = 1,
@@ -48,8 +51,6 @@ export function sassFn_jsVarDump(
                 sassAssertValueType( 'string', args[ 1 ] ),
             ] );
 
-            // const level = args[2]?.assertNumber() ?? 1;
-            // const varName = args[ 1 ]?.assertString() ? await sassValueToJS( args[ 1 ]?.assertString() ) :  'var';
             const value = args[ 0 ];
 
             // returns
@@ -71,5 +72,5 @@ export function sassFn_jsVarDump(
                 }
             );
         },
-    ];
+    } as const satisfies { [ key: string ]: sass.CustomFunction<'async'>; };
 }

@@ -1,0 +1,26 @@
+///
+/// Warning messages for the config functions.
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:meta';
+
+///
+/// Checks a value is of the given type. If not, it outputs a warning and
+/// returns false.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function enforce-type-or-warn($value, $type, $varName) {
+    $_actualType: meta.type-of($value);
+
+    // returns
+    @if $_actualType != $type {
+        @warn "[config] #{$varName} must be a #{$type} (was a #{$_actualType}: #{$value})";
+        @return false;
+    }
+
+    @return $value;
+}

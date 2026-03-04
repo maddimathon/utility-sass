@@ -22,8 +22,10 @@ import * as sass from "sass-embedded";
 import { sassAssertValueType } from '../sassAssertValueType.js';
 
 /**
- * A function to include in {@link sass.Options} that outputs a named timestamp
- * to the console (good for debugging compile time).
+ * Returns a call signature and function to include in {@link sass.Options} that
+ * outputs a named timestamp to the console (good for debugging compile time).
+ *
+ * @category Sass API - Compiler Functions
  *
  * @since 0.1.0-alpha.29
  */
@@ -33,11 +35,10 @@ export function sassFn_debugProgressCheckpoint(
         console: Logger,
         params: CLI.Params,
     },
-): [ string, sass.CustomFunction<'async'> ] {
+) {
 
-    return [
-        'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )',
-        async ( args: sass.Value[] ) => {
+    return {
+        'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': async ( args: sass.Value[] ) => {
             const time = DateTime.now();
 
             const [
@@ -69,5 +70,5 @@ export function sassFn_debugProgressCheckpoint(
 
             return new sass.SassString( message );
         },
-    ];
+    } as const satisfies { [ key: string ]: sass.CustomFunction<'async'>; };
 }

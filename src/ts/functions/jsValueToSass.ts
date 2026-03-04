@@ -8,23 +8,11 @@
  * @license MIT
  */
 
+import type { RecursiveRecord } from '@maddimathon/utility-typescript/types';
+
 import { OrderedMap } from 'immutable';
 
 import * as sass from "sass-embedded";
-
-/**
- * Similar to the built-in `Record` type, but where the object's values can also
- * be identical records.
- *
- * @since 0.1.0-alpha.31
- */
-export type RecursiveRecord<
-    T_Keys extends number | string | symbol = number | string | symbol,
-    T_Values extends any = any,
-    T_SubKeys extends number | string | symbol = T_Keys,
-> = {
-        [ K in T_Keys ]: T_Values | RecursiveRecord<T_SubKeys, T_Values>;
-    };
 
 // export function jsValueToSass( sassValue: null ): Promise<sass.Value>;
 export function jsValueToSass( sassValue: boolean ): Promise<sass.SassBoolean>;
@@ -41,7 +29,7 @@ export function jsValueToSass(
 /**
  * Translates sass values to JS values.
  * 
- * @category Utilities - Sass API
+ * @category Utilities – Sass API
  * 
  * @since 0.1.0-alpha.31
  */
@@ -110,7 +98,7 @@ export async function jsValueToSass(
 /**
  * Utilities for the {@link jsValueToSass} function.
  * 
- * @category Utilities - Sass API
+ * @category Utilities – Sass API
  * 
  * @since 0.1.0-alpha.31
  */

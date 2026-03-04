@@ -5,7 +5,8 @@
 @use 'sass:list';
 @use 'sass:math';
 @use 'sass:meta';
-// @use 'sass:string';
+
+@use 'warnings' as *;
 
 ///
 /// Validates the value of a config variable that should be a string.
@@ -32,8 +33,7 @@
     }
 
     // returns - value is not a number
-    @if meta.type-of($value) != 'number' {
-        @warn "[config] $#{$name} must be a number (not the #{meta.type-of( $value )} '#{$value}')";
+    @if enforce-type-or-warn($value: $value, $type: number, $varName: $name) == false {
         @return $default;
     }
 
