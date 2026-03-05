@@ -3,8 +3,6 @@
 /// @since 0.1.0-pre.0
 ///
 
-@forward 'config';
-
 @forward '_header';
 
 @forward '00-abstracts';
@@ -19,9 +17,8 @@
 /// ======================================================================== ///
 
 @use 'config';
-@use '../../lib' as *;
+@use 'lib' as *;
 
-@include extend-selectors(
-    $print_globals: config.$template_print_globals,
-    $print_utils: config.$template_print_utils
-);
+@if config.$template_extendSelectors {
+    @include extend-selectors;
+}

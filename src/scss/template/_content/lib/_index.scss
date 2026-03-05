@@ -1,27 +1,29 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___
 ///
 
-@use '../../modules/feature-check';
-@use '../../modules/list';
-@use '../../modules/meta';
-@use '../../modules/selector';
-@use '../../modules/string';
+@use '../../../modules/feature-check';
+@use '../../../modules/list';
+@use '../../../modules/meta';
+@use '../../../modules/string';
 
-@use '../../lib/02-mixins' as lib;
+@use '../config';
+@use '../../../tokens';
 
-@use '../../config';
-@use '../../tokens';
-
-@use '../01-functions' as *;
+@use '../../../lib' as *;
 
 $_optionalDefault: if(config.$isTemplate, false, true);
 
 ///
 /// @since 0.1.0-alpha.38 — Made public.
+/// @since ___PKG_VERSION___ — Moved to template directory.
 ///
-@mixin extend-selectors-generic($selectors, $selector_prefix: '', $optional: $_optionalDefault) {
+@mixin extend-selectors-generic($selectors, $selector_prefix: '', $optional: null) {
+    @if $optional == null {
+        $optional: $_optionalDefault;
+    }
+
     @each $pair in $selectors {
         $pairType: meta.type-of($pair);
 
@@ -49,13 +51,18 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 
 ///
 /// @since 0.1.0-alpha.38 — Added $additional_optional param for additional selectors that are always optional.
+/// @since ___PKG_VERSION___ — Moved to template directory.
 ///
 @mixin extend-selectors-globals(
     $additional: (),
     $additional_optional: (),
-    $optional: $_optionalDefault,
+    $optional: null,
     $allHeadingLevels: token-all-heading-levels()
 ) {
+    @if $optional == null {
+        $optional: $_optionalDefault;
+    }
+
     $_global_selectors: (
         // ( globals, pseudo? ),
         //
@@ -178,13 +185,18 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 
 ///
 /// @since 0.1.0-alpha.38 — Added $additional_optional param for additional selectors that are always optional.
+/// @since ___PKG_VERSION___ — Moved to template directory.
 ///
 @mixin extend-selectors-utils(
     $additional: (),
     $additional_optional: (),
-    $optional: $_optionalDefault,
+    $optional: null,
     $allHeadingLevels: token-all-heading-levels()
 ) {
+    @if $optional == null {
+        $optional: $_optionalDefault;
+    }
+
     $_utils_selectors: (
         // ( globals, pseudo? ),
         //
@@ -247,32 +259,30 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 }
 
 ///
-/// @since 0.1.0-alpha.38 — Added $additional_globals_optional and $additional_utils_optional params for additional selectors that are always optional.
-/// @since ___PKG_VERSION___ — Switched from using $print_globals & $print_utils config to required params.
+/// @since 0.1.0-alpha.38 — Added $add_globals_optional and $add_utils_optional params for additional selectors that are always optional.
+/// @since ___PKG_VERSION___ — Moved to template directory. Renamed params.
 ///
 @mixin extend-selectors(
-    $print_globals,
-    $print_utils,
-    $optional: $_optionalDefault,
-    $additional_globals: (),
-    $additional_globals_optional: (),
-    $additional_utils: (),
-    $additional_utils_optional: (),
+    $optional: null,
+    $add_globals: (),
+    $add_globals_optional: (),
+    $add_utils: (),
+    $add_utils_optional: (),
     $allHeadingLevels: token-all-heading-levels()
 ) {
-    @if $print_globals {
+    @if config.$template_print_globals {
         @include extend-selectors-globals(
-            $additional: $additional_globals,
-            $additional_optional: $additional_globals_optional,
+            $additional: $add_globals,
+            $additional_optional: $add_globals_optional,
             $optional: $optional,
             $allHeadingLevels: $allHeadingLevels
         );
     }
 
-    @if $print_utils {
+    @if config.$template_print_utils {
         @include extend-selectors-utils(
-            $additional: $additional_utils,
-            $additional_optional: $additional_utils_optional,
+            $additional: $add_utils,
+            $additional_optional: $add_utils_optional,
             $optional: $optional,
             $allHeadingLevels: $allHeadingLevels
         );

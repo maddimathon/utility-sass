@@ -3,7 +3,7 @@
 /// @since ___PKG_VERSION___
 ///
 
-@use '../../../../config';
+@use '../../../../config' as lib;
 
 ///
 /// Whether to include the global selectors in the output. Otherwise, all
@@ -20,14 +20,7 @@ $template_print_globals: false !default;
 /// @since 0.1.0-pre.0
 /// @since ___PKG_VERSION___ — Renamed from $print_utils to $template_print_utils and moved from lib to template config.
 ///
-$template_print_utils: config.$include_html and $template_print_globals !default;
-
-///
-/// Whether to include the extend selectors mixin after the template content.
-///
-/// @since ___PKG_VERSION___
-///
-$template_extendSelectors: $template_print_globals or $template_print_utils !default;
+$template_print_utils: lib.$include_html and $template_print_globals !default;
 
 ///
 /// Whether to include the custom property definitions in the output.
@@ -38,12 +31,19 @@ $template_extendSelectors: $template_print_globals or $template_print_utils !def
 $template_print_tokens: $template_print_globals !default;
 
 ///
+/// Whether to include the extend selectors mixin after the template content.
+///
+/// @since ___PKG_VERSION___
+///
+$template_extendSelectors: $template_print_globals or $template_print_utils !default;
+
+///
 /// Whether to include the css headings in the output.
 ///
 /// @since 0.1.0-pre.0
 /// @since ___PKG_VERSION___ — Renamed from $print_headings to $template_include_cssHeadings and moved from lib to template config.
 ///
-$template_include_cssHeadings: config.$isTemplate and
+$template_include_cssHeadings: lib.$isTemplate and
     ($template_print_globals or $template_print_tokens or $template_print_utils) !default;
 
 ///
@@ -56,7 +56,7 @@ $template_print_buttons: true !default;
 /// @since 0.1.0-pre.0
 /// @since ___PKG_VERSION___ — Renamed from $print_templateDocBlock to $template_print_docBlock
 ///
-$template_print_docBlock: not config.$internal_supressCredit or config.$isTemplate !default;
+$template_print_docBlock: not lib.$internal_supressCredit or lib.$isTemplate !default;
 
 ///
 /// @since 0.1.0-alpha
@@ -70,4 +70,4 @@ $template_print_headings: true !default;
 /// @since 0.1.0-pre.0
 /// @since ___PKG_VERSION___ — Renamed from $print_normalize to $template_print_normalize and moved from lib to template config.
 ///
-$template_print_normalize: config.$include_html and config.$isTemplate !default;
+$template_print_normalize: lib.$include_html and lib.$isTemplate !default;
