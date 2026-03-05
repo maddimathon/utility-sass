@@ -28,7 +28,7 @@ $template_print_utils: lib.$include_html and $template_print_globals !default;
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Renamed from $print_tokens to $template_print_tokens and moved from lib to template config.
 ///
-$template_print_tokens: $template_print_globals !default;
+$template_print_tokens: $template_print_globals or $template_print_utils !default;
 
 ///
 /// Whether to include the extend selectors mixin after the template content.
@@ -47,6 +47,8 @@ $template_include_cssHeadings: lib.$isTemplate and
     ($template_print_globals or $template_print_tokens or $template_print_utils) !default;
 
 ///
+/// Whether to print button styles.
+///
 /// @since 0.1.0-alpha
 /// @since 0.1.0-beta.0.draft — Renamed from $template_include_buttons to $template_print_buttons
 ///
@@ -58,6 +60,8 @@ $template_print_buttons: true !default;
 ///
 $template_print_docBlock: not lib.$internal_supressCredit or lib.$isTemplate !default;
 
+///
+/// Whether to print heading styles.
 ///
 /// @since 0.1.0-alpha
 /// @since 0.1.0-beta.0.draft — Renamed from $template_include_headings to $template_print_headings

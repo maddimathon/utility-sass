@@ -109,6 +109,18 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 
     $num: math.add-unit($num, 1rem);
 
+    // returns
+    @if config.$include_html and not $returnAsNumber and $slug == 'page' {
+        @return list.join(
+            $num,
+            calc(
+                var-width(content, $multiplier: $multiplier) +
+                    var-width(sidebar, $multiplier: $multiplier) + var-gap-inline(layout)
+            ),
+            $separator: comma
+        );
+    }
+
     @return if($returnAsNumber, $num, ($num));
 }
 
