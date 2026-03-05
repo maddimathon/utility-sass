@@ -65,7 +65,7 @@
     $unit: if($relative, 1em, 1rem);
 
     @if $fontScale == null {
-        $fontScale: if($relative, 1, config.$fn_fontSizeValue_fontScale);
+        $fontScale: if($relative, 1, tokens.$fontSize_base);
     }
 
     $fontScale: $fontScale * $multiplier;

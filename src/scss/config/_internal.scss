@@ -5,8 +5,6 @@
 
 @use 'functions' as *;
 
-@use 'template';
-
 /// # CONFIG - INTERNAL
 /// ======================================================================== ///
 
@@ -28,10 +26,18 @@ $debug_checkpoints: false !default;
 $debug_checkpoints_verbose: false !default;
 
 ///
+/// Whether the library is being called from a stylesheet template.
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $internal_isTemplate to $isTemplate
+///
+$isTemplate: false !default;
+
+///
 /// Removes the 'these styles include utility-sass' comment (for use internally
 /// only).
 ///
 /// @since 0.1.0-pre.0
 /// @internal
 ///
-$internal_supressCredit: template.$isTemplate !default;
+$internal_supressCredit: $isTemplate !default;

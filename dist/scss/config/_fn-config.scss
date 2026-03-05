@@ -2,9 +2,13 @@
 /// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
 /// @since 0.1.0-pre.0
 ///
-// @use 'sass:string';
+
+@use 'sass:string';
 
 @use 'functions' as *;
+
+@use 'include';
+@use 'template';
 
 /// # CONFIG - FUNCTIONS
 /// ======================================================================== ///
@@ -66,19 +70,6 @@ $fn_borderWidthValue_roundToPixelFactor: config-valid-number(
     'fn_borderWidthValue_roundToPixelFactor',
     $default: 32,
     $min: 0.1,
-    $unit: false
-);
-
-///
-/// @since 0.1.0-alpha
-/// @since 0.1.0-beta.0.draft — Renamed from $fn_fontSizeValue_defaultFontScale to $fn_fontSizeValue_fontScale
-///
-$fn_fontSizeValue_fontScale: null !default;
-$fn_fontSizeValue_fontScale: config-valid-number(
-    $fn_fontSizeValue_fontScale,
-    'fn_fontSizeValue_fontScale',
-    $default: 1,
-    $min: 0.05,
     $unit: false
 );
 
@@ -191,37 +182,40 @@ $fn_lineHeightValue_roundToPixelFactor: config-valid-number(
     $unit: false
 );
 
-///
-/// @since 0.1.0-alpha.14
-///
-$fn_var_replaceWithValue_borderWidth: false !default;
+$_var_replace_default: string.length(template.$cxPropPre) < 1 and not
+    include.$include_html;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_fontSize: false !default;
+$fn_var_replaceWithValue_borderWidth: $_var_replace_default !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_lineHeight: false !default;
+$fn_var_replaceWithValue_fontSize: $_var_replace_default !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_gap: false !default;
+$fn_var_replaceWithValue_lineHeight: $_var_replace_default !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_margin: false !default;
+$fn_var_replaceWithValue_gap: $_var_replace_default !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_strokeRelative: false !default;
+$fn_var_replaceWithValue_margin: $_var_replace_default !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_width: false !default;
+$fn_var_replaceWithValue_strokeRelative: $_var_replace_default !default;
+
+///
+/// @since 0.1.0-alpha.14
+///
+$fn_var_replaceWithValue_width: $_var_replace_default !default;

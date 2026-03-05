@@ -18,6 +18,19 @@
 /// ## Font Sizes ==================================== ///
 
 ///
+/// @since 0.1.0-alpha
+/// @since 0.1.0-beta.0.draft — Renamed from $fn_fontSizeValue_defaultFontScale to $fontSize_base and moved to tokens.
+///
+$fontSize_base: null !default;
+$fontSize_base: config.config-valid-number(
+    $fontSize_base,
+    'fontSize_base',
+    $default: 1,
+    $min: 0.05,
+    $unit: false
+);
+
+///
 /// A map (merged with the defaults) of font size multipliers (0 = base size)
 /// used with the font size mixins and --fs-X properties.
 ///

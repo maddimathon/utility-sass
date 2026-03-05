@@ -10,6 +10,7 @@
  * @license MIT
  */
 
+export * from './classes/CssColours.js';
 export * from './classes/FeatureCheck.js';
 export * from './classes/JsonToScss.js';
 
