@@ -82,13 +82,13 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 ///
 /// @since 0.1.0-pre.0
 ///
-@function var-token($slug, $fallback: null) {
+@function var-token($slug, $fallback: null, $args...) {
     $fallback: if($fallback == null, token-value($slug), $fallback);
 
     // returns
     @if #{$fallback} == #{$slug} {
-        @return do-var($slug);
+        @return do-var($slug, $args...);
     }
 
-    @return do-var($slug, $fallback);
+    @return do-var($slug, $fallback, $args...);
 }

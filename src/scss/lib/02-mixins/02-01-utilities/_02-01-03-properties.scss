@@ -26,9 +26,9 @@
 ///
 @mixin custom-property($slug, $value, $comment: null) {
     @if $comment {
-        --#{config.$cxPropPre}#{$slug}: #{$value}; /* #{$comment} */
+        --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value}; /* #{$comment} */
     } @else {
-        --#{config.$cxPropPre}#{$slug}: #{$value};
+        --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value};
     }
 }
 

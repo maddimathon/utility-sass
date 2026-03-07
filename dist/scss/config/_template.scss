@@ -3,6 +3,9 @@
 /// @since 0.1.0-pre.0
 ///
 
+@use 'sass:meta';
+@use 'sass:string';
+
 @use 'functions' as *;
 
 /// # CONFIG - TEMPLATES
@@ -20,30 +23,61 @@ $customPropertyPrefix: config-valid-string(
     $default: ''
 );
 
-$cxPropPre: $customPropertyPrefix;
+///
+/// If a string with at least one character, this
+///
+/// @since 0.1.0-beta.0.draft
+///
+$customPropertyPrefix_fallback: null !default;
+$customPropertyPrefix_fallback: config-valid-string(
+    $customPropertyPrefix_fallback,
+    'customPropertyPrefix_fallback',
+    $default: ''
+);
+
+// @if string.length($customPropertyPrefix) > 0 and string.length($customPropertyPrefix_fallback) < 1 {
+//     $customPropertyPrefix_fallback: $customPropertyPrefix;
+//     $customPropertyPrefix: '';
+// }
 
 ///
 /// If true, var(...) values are printed without prefix first with the prefixed
 /// var as a fallback.
 ///
 /// @since 0.1.0-alpha.25
+/// @since 0.1.0-beta.0.draft — Renamed from $customPropertyPrefix_asFallbackOnly to $customPropertyPrefix_asFallback
 ///
-$customPropertyPrefix_asFallbackOnly: false !default;
+$customPropertyPrefix_asFallback: string.length($customPropertyPrefix_fallback)
+    > 0 !default;
+
+@if $customPropertyPrefix == $customPropertyPrefix_fallback {
+    $customPropertyPrefix_asFallback: false;
+}
 
 ///
 /// Prints a var(...) value with an optional fallback. Don't include -- in the slug.
 ///
 /// @since 0.1.0-alpha.25
+/// @since 0.1.0-beta.0.draft — Added optional $fallbackOnly param.
 ///
-@function config-do-var($slug, $fallback: null) {
+@function config-do-var(
+    $slug,
+    $fallback: null,
+    $fallbackOnly: false,
+    $neverAsFallback: false
+) {
     $var_value: if(
-        $fallback != null,
-        var(--#{$cxPropPre}#{$slug}, #{$fallback}),
-        var(--#{$cxPropPre}#{$slug})
+        $fallbackOnly and $fallback != null,
+        $fallback,
+        if(
+            $fallback != null,
+            var(--#{$customPropertyPrefix_fallback}#{$slug}, #{$fallback}),
+            var(--#{$customPropertyPrefix_fallback}#{$slug})
+        )
     );
 
-    @if $customPropertyPrefix_asFallbackOnly and $cxPropPre {
-        $var_value: var(--#{$slug}, #{$var_value});
+    @if $customPropertyPrefix_asFallback and not $neverAsFallback {
+        $var_value: var(--#{$customPropertyPrefix}#{$slug}, #{$var_value});
     }
 
     @return $var_value;

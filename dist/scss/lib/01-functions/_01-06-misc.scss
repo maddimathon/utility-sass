@@ -38,10 +38,10 @@
 ///
 /// @since 0.1.0-alpha.36
 ///
-@function var-scroll-padding-top($fallback: null) {
+@function var-scroll-padding-top($fallback: null, $args...) {
     @if not $fallback {
         $fallback: scroll-padding-top-value();
     }
 
-    @return do-var(scroll-padding-top, $fallback);
+    @return do-var(scroll-padding-top, $fallback: $fallback, $args...);
 }

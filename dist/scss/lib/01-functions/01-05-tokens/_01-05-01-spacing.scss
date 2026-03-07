@@ -118,8 +118,16 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
         @return list.join(
             $num,
             calc(
-                var-width(content, $multiplier: $multiplier) +
-                    var-width(sidebar, $multiplier: $multiplier) +
+                var-width(
+                        content,
+                        $multiplier: $multiplier,
+                        $neverAsFallback: config.$fn_var_replaceWithValue_width
+                    ) +
+                    var-width(
+                        sidebar,
+                        $multiplier: $multiplier,
+                        $neverAsFallback: config.$fn_var_replaceWithValue_width
+                    ) +
                     var-gap-inline(layout)
             ),
             $separator: comma
@@ -137,13 +145,14 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @since 0.1.0-alpha.15
 ///
-@function var-pad-firm($level) {
+@function var-pad-firm($level, $args...) {
     $fallback: calc(1em * mrg-value-firm($level));
 
-    @return if(
-        config.$fn_var_replaceWithValue_margin,
+    @return do-var(
+        pad-firm-#{$level},
         $fallback,
-        do-var(pad-firm-#{$level}, $fallback)
+        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $args...
     );
 }
 
@@ -153,13 +162,14 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @since 0.1.0-alpha.15
 ///
-@function var-pad-half($level) {
+@function var-pad-half($level, $args...) {
     $fallback: calc(1em * mrg-value-half($level));
 
-    @return if(
-        config.$fn_var_replaceWithValue_margin,
+    @return do-var(
+        pad-half-#{$level},
         $fallback,
-        do-var(pad-half-#{$level}, $fallback)
+        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $args...
     );
 }
 
@@ -169,13 +179,14 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @since 0.1.0-alpha.15
 ///
-@function var-pad-soft($level) {
+@function var-pad-soft($level, $args...) {
     $fallback: calc(1em * mrg-value-soft($level));
 
-    @return if(
-        config.$fn_var_replaceWithValue_margin,
+    @return do-var(
+        pad-soft-#{$level},
         $fallback,
-        do-var(pad-soft-#{$level}, $fallback)
+        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $args...
     );
 }
 
@@ -186,16 +197,17 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
-@function var-mrg-firm($level, $multiplier: 1) {
+@function var-mrg-firm($level, $multiplier: 1, $args...) {
     $fallback: math.add-unit(
         mrg-value-firm($level, $multiplier: $multiplier),
         1rem
     );
 
-    @return if(
-        config.$fn_var_replaceWithValue_margin,
+    @return do-var(
+        mrg-firm-#{$level},
         $fallback,
-        do-var(mrg-firm-#{$level}, $fallback)
+        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $args...
     );
 }
 
@@ -206,16 +218,17 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
-@function var-mrg-half($level, $multiplier: 1) {
+@function var-mrg-half($level, $multiplier: 1, $args...) {
     $fallback: math.add-unit(
         mrg-value-half($level, $multiplier: $multiplier),
         1rem
     );
 
-    @return if(
-        config.$fn_var_replaceWithValue_margin,
+    @return do-var(
+        mrg-half-#{$level},
         $fallback,
-        do-var(mrg-half-#{$level}, $fallback)
+        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $args...
     );
 }
 
@@ -226,16 +239,17 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
-@function var-mrg-soft($level, $multiplier: 1) {
+@function var-mrg-soft($level, $multiplier: 1, $args...) {
     $fallback: math.add-unit(
         mrg-value-soft($level, $multiplier: $multiplier),
         1rem
     );
 
-    @return if(
-        config.$fn_var_replaceWithValue_margin,
+    @return do-var(
+        mrg-soft-#{$level},
         $fallback,
-        do-var(mrg-soft-#{$level}, $fallback)
+        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $args...
     );
 }
 
@@ -246,7 +260,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
-@function var-width($slug, $multiplier: 1) {
+@function var-width($slug, $multiplier: 1, $args...) {
     $fallback: width-value(
         $slug,
         $multiplier: $multiplier,
@@ -257,10 +271,11 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
         @return do-var(width-#{$slug});
     }
 
-    @return if(
-        config.$fn_var_replaceWithValue_width,
+    @return do-var(
+        width-#{$slug},
         $fallback,
-        do-var(width-#{$slug}, $fallback)
+        $fallbackOnly: config.$fn_var_replaceWithValue_width,
+        $args...
     );
 }
 
@@ -469,26 +484,27 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 ///
 /// @since 0.1.0-pre.0
 ///
-@function var-gap($dir, $slug) {
+@function var-gap($dir, $slug, $args...) {
     $fallback: list.nth(gap-value($dir, $slug), 1);
 
-    @return if(
-        config.$fn_var_replaceWithValue_gap,
+    @return do-var(
+        gap-#{$dir}-#{$slug},
         $fallback,
-        do-var(gap-#{$dir}-#{$slug}, $fallback)
+        $fallbackOnly: config.$fn_var_replaceWithValue_gap,
+        $args...
     );
 }
 
 ///
 /// @since 0.1.0-pre.0
 ///
-@function var-gap-block($slug) {
-    @return var-gap(block, $slug);
+@function var-gap-block($args...) {
+    @return var-gap(block, $args...);
 }
 
 ///
 /// @since 0.1.0-pre.0
 ///
-@function var-gap-inline($slug) {
-    @return var-gap(inline, $slug);
+@function var-gap-inline($args...) {
+    @return var-gap(inline, $args...);
 }

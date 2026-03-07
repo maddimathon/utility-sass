@@ -90,10 +90,10 @@ $_systemColors: (
 ///
 /// @since 0.1.0-pre.0
 ///
-@function var-sys-colour($slug) {
+@function var-sys-colour($slug, $args...) {
     @if not map.has-key($_systemColors, $slug) {
         @warn "$slug '#{$slug}' was not a key in the system colors";
-        @return do-var(sys-clr-#{$slug});
+        @return do-var(sys-clr-#{$slug}, $args...);
     }
 
     $fallback: map.get($_systemColors, $slug);
@@ -102,5 +102,5 @@ $_systemColors: (
         $fallback: list.nth($fallback, 1);
     }
 
-    @return do-var(sys-clr-#{$slug}, #{$fallback});
+    @return do-var(sys-clr-#{$slug}, #{$fallback}, $args...);
 }
