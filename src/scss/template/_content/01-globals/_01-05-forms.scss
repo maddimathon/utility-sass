@@ -3,13 +3,8 @@
 /// @since 0.1.0-pre.0
 ///
 
-// @use '../../../modules/colour';
-// @use '../../../modules/list';
-// @use '../../../modules/map';
-// @use '../../../modules/math';
-// @use '../../../modules/meta';
+@use '../../../modules/map';
 @use '../../../modules/selector';
-// @use '../../../modules/string';
 
 @use '../config';
 // @use '../../../tokens';
@@ -71,7 +66,7 @@
     @include snippet-label;
 }
 
-@if config.$template_print_buttons {
+@if map.get(config.$template_print_styles, buttons) {
     @if config.$template_include_cssHeadings {
         /* ## Forms - Buttons ==================================== */
     }

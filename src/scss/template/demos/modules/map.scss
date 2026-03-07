@@ -117,3 +117,12 @@ map.parse-args {
         map.parse-args($_defaults, $_inputs, true)
     );
 }
+
+map.pick {
+    @include utils.var-dump('map', $_defaults);
+    @include utils.var-dump('map.pick( $map, () )', map.pick($_defaults, ()));
+    @include utils.var-dump(
+        'map.pick( $map, ( "option1", "optionSet" ) )',
+        map.pick($_defaults, ('option1', 'optionSet'))
+    );
+}

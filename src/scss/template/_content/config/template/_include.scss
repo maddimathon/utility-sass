@@ -3,6 +3,8 @@
 /// @since ___PKG_VERSION___
 ///
 
+@use 'sass:map';
+
 @use '../../../../config' as lib;
 
 ///
@@ -49,24 +51,22 @@ $template_include_cssHeadings: lib.$isTemplate and
 ///
 /// Whether to print button styles.
 ///
-/// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $template_include_buttons to $template_print_buttons
+/// @since ___PKG_VERSION___ — Merged $template_include_buttons and $template_include_headings into this var.
 ///
-$template_print_buttons: true !default;
+$template_print_styles: () !default;
+$template_print_styles: map.merge(
+    (
+        'buttons': true,
+        'headings': true,
+    ),
+    $template_print_styles
+);
 
 ///
 /// @since 0.1.0-pre.0
 /// @since ___PKG_VERSION___ — Renamed from $print_templateDocBlock to $template_print_docBlock
 ///
 $template_print_docBlock: not lib.$internal_supressCredit or lib.$isTemplate !default;
-
-///
-/// Whether to print heading styles.
-///
-/// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $template_include_headings to $template_print_headings
-///
-$template_print_headings: true !default;
 
 ///
 /// Whether to include the normalize mixin in the output.

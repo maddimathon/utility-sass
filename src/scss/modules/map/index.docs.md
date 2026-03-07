@@ -13,6 +13,7 @@ This scss "module" is meant as a replacement for the built-in `sass:map` module.
 
 map.flatten(...); // added
 map.ksort(...); // added
+map.pick(...); // added
 
 map.merge(...); // replaces both merge and deep-merge from the built-in module with additional options
 map.parse-args(...); // a version of merge that ignores keys in $inputs that aren't in $defaults

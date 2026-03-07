@@ -120,6 +120,8 @@ export class Build extends BuildStage {
                 '$1\n' + escRegExpReplace( [
                     '```bash',
                     'npm i -D @maddimathon/utility-sass@' + this.pkg.version,
+                    '',
+                    '// for pre-releases',
                     'npm i -D github:maddimathon/utility-sass#' + this.pkg.version,
                     '```',
                 ].join( '\n' ) ) + '\n$2'

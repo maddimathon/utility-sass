@@ -6,6 +6,8 @@
 @use '../config';
 // @use '../../../tokens';
 
+@use '../../../modules/map';
+
 @use '../../../lib' as *;
 
 @if config.$template_include_cssHeadings {
@@ -218,7 +220,7 @@
 
 $_whereUnstyledHeadingSelectors: ();
 
-@if config.$template_print_headings {
+@if map.get(config.$template_print_styles, headings) {
     @if config.$template_include_cssHeadings {
         /* ## Typography - Headings ==================================== */
     }

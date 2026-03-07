@@ -55,14 +55,12 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
         }
 
         @return clamp(
-            border-width-value($border_min),
-            stroke-relative-value($value),
-            border-width-value($border_max)
+            var-border-width($border_min),
+            var-stroke-relative($value),
+            var-border-width($border_max)
         );
-    }
-
-    @if $slug == focus-ring-outline-offset {
-        @return stroke-relative-value($value);
+    } @else if $slug == focus-ring-outline-offset {
+        @return var-stroke-relative($value);
     }
 
     @return $value;

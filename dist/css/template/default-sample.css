@@ -324,8 +324,14 @@
 /* #region Tokens - Misc. */
 :root {
     --focus-ring-outline-color: var(--sys-clr-link, LinkText);
-    --focus-ring-outline-offset: 0.125em;
-    --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
+    --focus-ring-outline-width: max(
+        var(--border-width-200, 0.125rem),
+        min(
+            var(--stroke-relative-400, 0.125em),
+            var(--border-width-400, 0.25rem)
+        )
+    );
 }
 
 /* #endregion Tokens - Misc. */
@@ -336,42 +342,69 @@
     /* %focus-ring */
     outline: var(
             --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.25rem))
+            max(
+                var(--border-width-200, 0.125rem),
+                min(
+                    var(--stroke-relative-400, 0.125em),
+                    var(--border-width-400, 0.25rem)
+                )
+            )
         )
         dashed currentColor;
     outline-color: var(
         --focus-ring-outline-color,
         var(--sys-clr-link, LinkText)
     );
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+    outline-offset: var(
+        --focus-ring-outline-offset,
+        var(--stroke-relative-400, 0.125em)
+    );
 }
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
     outline: var(
             --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.25rem))
+            max(
+                var(--border-width-200, 0.125rem),
+                min(
+                    var(--stroke-relative-400, 0.125em),
+                    var(--border-width-400, 0.25rem)
+                )
+            )
         )
         dashed currentColor;
     outline-color: var(
         --focus-ring-outline-color,
         var(--sys-clr-link, LinkText)
     );
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+    outline-offset: var(
+        --focus-ring-outline-offset,
+        var(--stroke-relative-400, 0.125em)
+    );
 }
 
 :focus-visible {
     /* %focus-ring--visible */
     outline: var(
             --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.25rem))
+            max(
+                var(--border-width-200, 0.125rem),
+                min(
+                    var(--stroke-relative-400, 0.125em),
+                    var(--border-width-400, 0.25rem)
+                )
+            )
         )
         dashed currentColor;
     outline-color: var(
         --focus-ring-outline-color,
         var(--sys-clr-link, LinkText)
     );
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+    outline-offset: var(
+        --focus-ring-outline-offset,
+        var(--stroke-relative-400, 0.125em)
+    );
 }
 
 .screen-reader-text {

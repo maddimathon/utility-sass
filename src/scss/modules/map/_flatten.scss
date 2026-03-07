@@ -2,6 +2,7 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since 0.1.0-pre.0
 ///
+
 @use 'sass:map';
 @use 'sass:meta';
 @use 'sass:string';
@@ -16,11 +17,7 @@
         true
     );
 
-    $includePrefix: if(
-        ($prefix and string.length($str_prefix) > 0),
-        true,
-        false
-    );
+    $includePrefix: if(($prefix and string.length($str_prefix) > 0), true, false);
 
     // returns
     @if not $includeKeyName {
@@ -34,11 +31,7 @@
     $str_key: '#{$key}';
     $str_suffix: '#{$suffix}';
 
-    $includeSuffix: if(
-        ($suffix and string.length($str_suffix) > 0),
-        true,
-        false
-    );
+    $includeSuffix: if(($suffix and string.length($str_suffix) > 0), true, false);
 
     // returns
     @if string.length($str_key) < 1 {
@@ -68,11 +61,7 @@
 
         @if meta.type-of($_value) != map {
             // just set the value plainly
-            $return: map.set(
-                $return,
-                _flat-key-add-suffix($_key, $suffix),
-                $_value
-            );
+            $return: map.set($return, _flat-key-add-suffix($_key, $suffix), $_value);
         } @else {
             // if value is a map, then we recurse and iterate through the
             // flattened results
@@ -88,11 +77,7 @@
             // and set those keys in the return
             @each $_flat_childKey, $_flat_childValue in $_value_flat {
                 // now we can set it plainly
-                $return: map.set(
-                    $return,
-                    '#{$_flat_childKey}',
-                    $_flat_childValue
-                );
+                $return: map.set($return, '#{$_flat_childKey}', $_flat_childValue);
             }
         }
     }

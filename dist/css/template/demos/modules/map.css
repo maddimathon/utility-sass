@@ -155,3 +155,22 @@ map.parse-args {
     /* "option3": <S> OVERRIDE */
     /* "option2": <S> B */
 }
+
+map.pick {
+    /* 
+      map is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+    /* "option1": <S> A */
+    /* "option3": <S> C */
+    /* "option2": <S> B */
+    /* 
+      map.pick( $map, () ) is a map:
+   */
+    /* 
+      map.pick( $map, ( "option1", "optionSet" ) ) is a map:
+   */
+    /* "option1": <S> A */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+}

@@ -1,0 +1,42 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:map';
+@use 'sass:meta';
+
+///
+/// Takes a map and returns a copy with only the keys present in $keys.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function pick($map, $keys) {
+    // returns
+    @if meta.type-of($map) != map {
+        @warn "[map.pick] $map should be a map (was #{meta.type-of($map)})";
+        @return map.merge((), ());
+    }
+
+    $keys_type: meta.type-of($keys);
+
+    // returns if not a string or number
+    @if $keys_type != list {
+        @if $keys_type == number or $keys_type == string {
+            $keys: ($keys);
+        } @else {
+            @warn "[map.pick] $keys should be a list (was #{$keys_type})";
+            @return $map;
+        }
+    }
+
+    $return: map.merge((), ());
+
+    @each $key in $keys {
+        @if map.has-key($map, $key) {
+            $return: map.set($return, $key, map.get($map, $key));
+        }
+    }
+
+    @return $return;
+}

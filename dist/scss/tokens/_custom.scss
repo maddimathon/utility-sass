@@ -9,29 +9,19 @@
 
 // @use 'functions' as *;
 
-$internal_customTokensDefault: () !default;
-
-$internal_customTokensDefault: map.ksort(
-    map.merge(
-        (
-            focus-ring: (
-                outline-width: '400',
-                outline-offset: '400',
-
-                outline-color: config.config-do-var(sys-clr-link, LinkText),
-            ),
-        ),
-        $internal_customTokensDefault,
-        $recursive: true
-    ),
-    $recursive: true
-);
-
 $customTokens: () !default;
 
 $customTokens: map.ksort(
     map.merge(
-        map.flatten($internal_customTokensDefault),
+        map.flatten(
+            (
+                focus-ring: (
+                    outline-width: '400',
+                    outline-offset: '400',
+                    outline-color: config.config-do-var(sys-clr-link, LinkText),
+                ),
+            )
+        ),
         map.flatten($customTokens),
         $recursive: true
     )
