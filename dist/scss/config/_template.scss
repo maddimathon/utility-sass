@@ -35,24 +35,11 @@ $customPropertyPrefix_fallback: config-valid-string(
     $default: ''
 );
 
-// @if string.length($customPropertyPrefix) > 0 and string.length($customPropertyPrefix_fallback) < 1 {
-//     $customPropertyPrefix_fallback: $customPropertyPrefix;
-//     $customPropertyPrefix: '';
-// }
-
-///
-/// If true, var(...) values are printed without prefix first with the prefixed
-/// var as a fallback.
-///
-/// @since 0.1.0-alpha.25
-/// @since 0.1.0-beta.0.draft — Renamed from $customPropertyPrefix_asFallbackOnly to $customPropertyPrefix_asFallback
-///
-$customPropertyPrefix_asFallback: string.length($customPropertyPrefix_fallback)
-    > 0 !default;
-
-@if $customPropertyPrefix == $customPropertyPrefix_fallback {
-    $customPropertyPrefix_asFallback: false;
-}
+$_exists_customPropertyPrefix: string.length($customPropertyPrefix) >0;
+$_exists_customPropertyPrefix_fallback: string.length(
+        $customPropertyPrefix_fallback
+    )
+    >0 and $customPropertyPrefix != $customPropertyPrefix_fallback;
 
 ///
 /// Prints a var(...) value with an optional fallback. Don't include -- in the slug.
@@ -64,21 +51,30 @@ $customPropertyPrefix_asFallback: string.length($customPropertyPrefix_fallback)
     $slug,
     $fallback: null,
     $fallbackOnly: false,
-    $neverAsFallback: false
+    $onlyFallbackPrefix: false
 ) {
-    $var_value: if(
-        $fallbackOnly and $fallback != null,
-        $fallback,
-        if(
-            $fallback != null,
-            var(--#{$customPropertyPrefix_fallback}#{$slug}, #{$fallback}),
-            var(--#{$customPropertyPrefix_fallback}#{$slug})
-        )
-    );
+    //
+    $onlyFallbackPrefix: $onlyFallbackPrefix and
+        $_exists_customPropertyPrefix_fallback;
 
-    @if $customPropertyPrefix_asFallback and not $neverAsFallback {
-        $var_value: var(--#{$customPropertyPrefix}#{$slug}, #{$var_value});
+    @if $onlyFallbackPrefix or
+        (not $fallbackOnly and $_exists_customPropertyPrefix_fallback)
+    {
+        $fallback: if(
+            $fallback == null,
+            var(--#{$customPropertyPrefix_fallback}#{$slug}),
+            var(--#{$customPropertyPrefix_fallback}#{$slug}, #{$fallback})
+        );
     }
 
-    @return $var_value;
+    @return if(
+        $onlyFallbackPrefix or
+            ($fallbackOnly and not $_exists_customPropertyPrefix_fallback),
+        $fallback,
+        if(
+            $fallback == null,
+            var(--#{$customPropertyPrefix}#{$slug}),
+            var(--#{$customPropertyPrefix}#{$slug}, #{$fallback})
+        )
+    );
 }

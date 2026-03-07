@@ -7,7 +7,8 @@
 
 @use '../../../config';
 
-// @use '../../../modules/math';
+@use '../../../modules/meta';
+@use '../../../modules/string';
 
 // @use '../../01-functions' as *;
 
@@ -16,6 +17,12 @@
 
 /// # UTILITY MIXINS - Properties
 /// ======================================================================== ///
+
+$_cxPropPre: if(
+    string.length(config.$customPropertyPrefix_fallback) > 0,
+    config.$customPropertyPrefix_fallback,
+    config.$customPropertyPrefix
+);
 
 ///
 /// Prints a custom property definition.
@@ -26,9 +33,9 @@
 ///
 @mixin custom-property($slug, $value, $comment: null) {
     @if $comment {
-        --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value}; /* #{$comment} */
+        --#{$_cxPropPre}#{$slug}: #{$value}; /* #{$comment} */
     } @else {
-        --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value};
+        --#{$_cxPropPre}#{$slug}: #{$value};
     }
 }
 
@@ -39,6 +46,6 @@
 /// @param {any} $value
 /// @param {?string} $comment
 ///
-@mixin cx-prop($slug, $value, $comment: null) {
-    @include custom-property($slug, $value, $comment: $comment);
+@mixin cx-prop($args...) {
+    @include custom-property($args...);
 }
