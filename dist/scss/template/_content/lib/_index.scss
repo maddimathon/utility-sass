@@ -6,6 +6,7 @@
 @use '../../../modules/feature-check';
 @use '../../../modules/list';
 @use '../../../modules/meta';
+@use '../../../modules/selector';
 @use '../../../modules/string';
 
 @use '../config';
@@ -14,6 +15,83 @@
 @use '../../../lib' as *;
 
 $_optionalDefault: if(config.$isTemplate, false, true);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function get-extend-selectors-button() {
+    @return (
+        (string.unquote('::file-selector-button'), file-selector-button),
+        (
+            (
+                button,
+                "[role='button']",
+                "input[type='button']",
+                "input[type='reset']",
+                "input[type='submit']",
+                'a.button[href]'
+            ),
+            button
+        )
+    );
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function get-extend-selectors-headings-global($allHeadingLevels) {
+    $sels: (h1, h2, h3, h4, h5, h6);
+
+    /// Headings - where
+    @if config.$mx_extendSelectors_headingsByRole {
+        // for all levels
+        @each $headingLevel in $allHeadingLevels {
+            //
+            $sels: list.append(
+                $sels,
+                (
+                    (':where( [role=heading][aria-level="#{$headingLevel}"] )'),
+                    'h#{$headingLevel}--where'
+                ),
+                $separator: comma
+            );
+        }
+    }
+
+    @return $sels;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function get-extend-selectors-headings-utils($allHeadingLevels) {
+    $sels: ();
+
+    /// Headings
+    @each $headingLevel in $allHeadingLevels {
+        $sels: list.append($sels, ('.h#{$headingLevel}', 'h#{$headingLevel}'));
+
+        $sels: list.append(
+            $sels,
+            (
+                selector.unify('%h#{$headingLevel}', ':is(.unstyled-heading)'),
+                'unstyled-heading--is'
+            )
+        );
+        $sels: list.append(
+            $sels,
+            (
+                selector.unify(
+                    '%h#{$headingLevel}--where',
+                    ':is(.unstyled-heading)'
+                ),
+                'unstyled-heading--where'
+            )
+        );
+    }
+
+    @return $sels;
+}
 
 ///
 /// @since 0.1.0-alpha.38 — Made public.
@@ -87,12 +165,6 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         p,
         pre,
         samp,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
         //
         /// ## Lists ==================================== ///
         ol,
@@ -115,37 +187,17 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         td
     );
 
-    $additional_optional: list.join(
-        $additional_optional,
-        (
-            (string.unquote('::file-selector-button'), file-selector-button),
-            (
-                (
-                    button,
-                    "[role='button']",
-                    "input[type='button']",
-                    "input[type='reset']",
-                    "input[type='submit']"
-                ),
-                button
-            )
+    $_global_selectors: list.join(
+        $_global_selectors,
+        get-extend-selectors-headings-global(
+            $allHeadingLevels: $allHeadingLevels,
         )
     );
 
-    /// Headings - where
-    @if config.$mx_extendSelectors_headingsByRole {
-        // for all levels
-        @each $headingLevel in $allHeadingLevels {
-            //
-            @at-root :where([role='heading'][aria-level='#{$headingLevel}']) {
-                @if $optional {
-                    @extend %h#{$headingLevel}--where !optional;
-                } @else {
-                    @extend %h#{$headingLevel}--where;
-                }
-            }
-        }
-    }
+    $additional_optional: list.join(
+        $additional_optional,
+        get-extend-selectors-button()
+    );
 
     // universal focus ring
     @at-root {
@@ -218,28 +270,12 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         table-wrapper
     );
 
-    /// Headings
-    @each $headingLevel in $allHeadingLevels {
-        $_utils_selectors: list.append($_utils_selectors, 'h#{$headingLevel}');
-
-        @if $headingLevel < 7 {
-            $additional: list.append(
-                $additional,
-                (
-                    'h#{$headingLevel}:where(.unstyled-heading)',
-                    'unstyled-heading--where'
-                )
-            );
-        }
-
-        $_utils_selectors: list.append(
-            $_utils_selectors,
-            (
-                'h#{$headingLevel}:where(.unstyled-heading)',
-                'unstyled-heading--where'
-            )
-        );
-    }
+    $additional: list.join(
+        $additional,
+        get-extend-selectors-headings-utils(
+            $allHeadingLevels: $allHeadingLevels,
+        )
+    );
 
     // font size utilities
     @each $slug, $_value in tokens.$font_sizes {
@@ -249,15 +285,6 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     @include extend-selectors-generic(
         $_utils_selectors,
         $selector_prefix: '.',
-        $optional: $optional
-    );
-
-    @include extend-selectors-generic(
-        (
-            // ( globals, pseudo? ),
-            (('a.button[href]'), button),
-            ()
-        ),
         $optional: $optional
     );
 
@@ -280,7 +307,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     $add_utils_optional: (),
     $allHeadingLevels: token-all-heading-levels()
 ) {
-    @if config.$template_print_globals {
+    @if config.$template_globals {
         @include extend-selectors-globals(
             $additional: $add_globals,
             $additional_optional: $add_globals_optional,
@@ -289,7 +316,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         );
     }
 
-    @if config.$template_print_utils {
+    @if config.$template_utils {
         @include extend-selectors-utils(
             $additional: $add_utils,
             $additional_optional: $add_utils_optional,

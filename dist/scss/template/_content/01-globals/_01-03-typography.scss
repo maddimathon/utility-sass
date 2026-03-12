@@ -10,7 +10,7 @@
 
 @use '../../../lib' as *;
 
-@if config.$template_include_cssHeadings {
+@if config.$template_cssHeadings {
     /* # GLOBALS - Typography
      * ======================================================================== */
 }
@@ -35,7 +35,7 @@
     }
 }
 
-@if config.$template_include_cssHeadings {
+@if config.$template_cssHeadings {
     /* ## Typography - Inline ==================================== */
 }
 
@@ -110,7 +110,7 @@
     }
 }
 
-@if config.$template_include_cssHeadings {
+@if config.$template_cssHeadings {
     /* ## Typography - Block ==================================== */
 }
 
@@ -219,8 +219,8 @@
 
 $_whereUnstyledHeadingSelectors: ();
 
-@if map.get(config.$template_print_styles, headings) {
-    @if config.$template_include_cssHeadings {
+@if map.get(config.$template_styles, headings) {
+    @if config.$template_cssHeadings {
         /* ## Typography - Headings ==================================== */
     }
 
@@ -249,12 +249,16 @@ $_whereUnstyledHeadingSelectors: ();
             }
         }
     }
-}
 
-%unstyled-heading {
-    @include snippet-unstyled-heading;
-}
+    %unstyled-heading {
+        @include snippet-unstyled-heading;
+    }
 
-%unstyled-heading--where {
-    @include snippet-unstyled-heading;
+    %unstyled-heading--is {
+        @include snippet-unstyled-heading;
+    }
+
+    %unstyled-heading--where {
+        @include snippet-unstyled-heading;
+    }
 }

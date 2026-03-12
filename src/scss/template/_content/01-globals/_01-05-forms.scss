@@ -11,7 +11,7 @@
 
 @use '../../../lib' as *;
 
-@if config.$template_include_cssHeadings {
+@if config.$template_cssHeadings {
     /* # GLOBALS - Forms
      * ======================================================================== */
 }
@@ -66,8 +66,8 @@
     @include snippet-label;
 }
 
-@if map.get(config.$template_print_styles, buttons) {
-    @if config.$template_include_cssHeadings {
+@if map.get(config.$template_styles, buttons) {
+    @if config.$template_cssHeadings {
         /* ## Forms - Buttons ==================================== */
     }
 

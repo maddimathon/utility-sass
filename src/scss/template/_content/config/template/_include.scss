@@ -12,66 +12,59 @@
 /// selectors are pseudo selectors.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_globals to $template_print_globals and moved from lib to template config.
+/// @since ___PKG_VERSION___ — Renamed from $print_globals to $template_globals and moved from lib to template config.
 ///
-$template_print_globals: false !default;
+$template_globals: false !default;
 
 ///
 /// Whether to include the utility class selectors in the output.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_utils to $template_print_utils and moved from lib to template config.
+/// @since ___PKG_VERSION___ — Renamed from $print_utils to $template_utils and moved from lib to template config.
 ///
-$template_print_utils: lib.$include_html and $template_print_globals !default;
+$template_utils: false !default;
 
 ///
 /// Whether to include the custom property definitions in the output.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_tokens to $template_print_tokens and moved from lib to template config.
+/// @since ___PKG_VERSION___ — Renamed from $print_tokens to $template_tokens and moved from lib to template config.
 ///
-$template_print_tokens: $template_print_globals or $template_print_utils !default;
+$template_tokens: $template_globals or $template_utils !default;
+
+///
+/// Whether to include the css headings in the output.
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $print_headings to $template_cssHeadings and moved from lib to template config.
+///
+$template_cssHeadings: lib.$isTemplate and
+    ($template_globals or $template_tokens or $template_utils) !default;
+
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $print_templateDocBlock to $template_docBlock
+///
+$template_docBlock: not lib.$internal_supressCredit or lib.$isTemplate !default;
 
 ///
 /// Whether to include the extend selectors mixin after the template content.
 ///
 /// @since ___PKG_VERSION___
 ///
-$template_extendSelectors: $template_print_globals or $template_print_utils !default;
+$template_extendSelectors: $template_globals or $template_utils !default;
 
 ///
-/// Whether to include the css headings in the output.
+/// Whether to print certain styles.
 ///
-/// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_headings to $template_include_cssHeadings and moved from lib to template config.
+/// @since ___PKG_VERSION___ — Merged $template_include_buttons, $template_include_headings, $print_normalize into this var.
 ///
-$template_include_cssHeadings: lib.$isTemplate and
-    ($template_print_globals or $template_print_tokens or $template_print_utils) !default;
-
-///
-/// Whether to print button styles.
-///
-/// @since ___PKG_VERSION___ — Merged $template_include_buttons and $template_include_headings into this var.
-///
-$template_print_styles: () !default;
-$template_print_styles: map.merge(
+$template_styles: () !default;
+$template_styles: map.deep-merge(
     (
-        'buttons': true,
-        'headings': true,
+        buttons: $template_globals,
+        headings: $template_globals,
+        normalize: lib.$include_html and lib.$isTemplate,
     ),
-    $template_print_styles
+    $template_styles
 );
-
-///
-/// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_templateDocBlock to $template_print_docBlock
-///
-$template_print_docBlock: not lib.$internal_supressCredit or lib.$isTemplate !default;
-
-///
-/// Whether to include the normalize mixin in the output.
-///
-/// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_normalize to $template_print_normalize and moved from lib to template config.
-///
-$template_print_normalize: lib.$include_html and lib.$isTemplate !default;
