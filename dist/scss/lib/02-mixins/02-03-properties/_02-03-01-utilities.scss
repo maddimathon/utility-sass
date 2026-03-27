@@ -4,8 +4,9 @@
 ///
 
 @use '../../../modules/list';
+@use '../../../modules/meta';
 
-@use '../../../config';
+@use '../../../tokens';
 
 // @use '../../01-functions' as *;
 
@@ -19,19 +20,9 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin tokens-at-property($additional: ()) {
-    $properties: list.join(
-        (
-            display: (
-                syntax: '*',
-                inherits: false,
-            ),
-        ),
-        config.$mx_tokens_atProperty_additional
-    );
-
-    $properties: list.join($properties, $additional);
-
-    @each $slug, $map in $properties {
-        @include at-property($slug, $map);
+    @each $slug, $map in list.join(tokens.$atProperties, $additional) {
+        @if meta.type-of($map) == map {
+            @include at-property($slug, $map);
+        }
     }
 }

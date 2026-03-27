@@ -6,8 +6,38 @@
 @use '../config';
 
 @use '../modules/map';
+@use '../modules/string';
 
 // @use 'functions' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+$atProperties: () !default;
+$atProperties: map.merge(
+    (
+        display: (
+            syntax: '*',
+            inherits: false,
+        ),
+        focus-ring-outline-color: (
+            syntax: '<color>',
+            inherits: true,
+            initial-value: currentColor,
+        ),
+        height-nav-primary: (
+            syntax: '<length-percentage> | <number>',
+            inherits: true,
+            initial-value: 0,
+        ),
+        scroll-padding-top: (
+            syntax: '<length-percentage> | <number>',
+            inherits: true,
+            initial-value: 0,
+        ),
+    ),
+    $atProperties
+);
 
 $customTokens: () !default;
 

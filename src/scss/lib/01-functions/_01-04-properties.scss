@@ -5,15 +5,20 @@
 /// @since 0.1.0-alpha.25
 ///
 
-// @use '../../modules/list';
+@use '../../modules/map';
 
 @use '../../config';
+@use '../../tokens';
 
 ///
 /// Prints a var(...) value with an optional fallback. Don't include -- in the slug.
 ///
 /// @since 0.1.0-alpha.25
 ///
-@function do-var($args...) {
-    @return config.config-do-var($args...);
+@function do-var($slug, $fallback: null, $args...) {
+    @if $fallback == null and map.get(tokens.$atProperties, $slug) {
+        $fallback: map.get(tokens.$atProperties, $slug, initial-value);
+    }
+
+    @return config.config-do-var($slug: $slug, $fallback: $fallback, $args...);
 }
