@@ -12,6 +12,7 @@ This scss "module" is meant as a replacement for the built-in `sass:list` module
 @use 'pkg:@maddimathon/utility-sass/list'; // adds extras to 'sass:list'
 
 list.except(...); // added
+list.except-any(...); // added
 list.flatten(...); // added
 list.font-list(...); // added
 list.only(...); // added

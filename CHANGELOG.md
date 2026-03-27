@@ -164,7 +164,7 @@ First releases, mostly for testing.
   actual numbers. [0.1.0-pre.2 — 2025-10-21]
 
 ### Fixed
-- Button style improvements (specifically for icon pseudo elements inæ
+- Button style improvements (specifically for icon pseudo elements in
   design-system-utilities) [0.1.0-pre.3 — 2025-10-22]
 - Minor scss improvements [0.1.0-pre.3 — 2025-10-22]
 - Fixed heading style inheritance issue [0.1.0-pre.4 — 2025-10-22]

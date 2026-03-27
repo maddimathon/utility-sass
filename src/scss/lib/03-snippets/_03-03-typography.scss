@@ -181,25 +181,152 @@ $_headingDefault_textTransform: none;
 }
 
 ///
-/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___
 ///
-@mixin snippet-centre-callout-block($maxWidth: true) {
-    display: block;
-    margin-inline: auto;
-    width: auto;
+@mixin snippet-blockquote(
+    $display: block,
+    $marginInline: var-gap-inline(indent),
+    $paddingInlineStart: var-mrg-firm('300'),
+    $width: auto,
+    $maxWidth: var-width(callout),
+    //
+    $includeBorder: true,
+    $includeCite: true,
+    $includeMarginBlock: true,
+    $includeWidth: true
+) {
+    $_content_exists: meta.content-exists();
 
-    @if config.$include_html {
-        margin-inline: #{var-gap-inline(indent)};
+    @include prop-display($display);
 
-        @if $maxWidth {
-            @include min-width(indent) {
-                margin-inline: auto;
+    margin-inline: #{$marginInline};
 
-                @if meta.type-of($maxWidth) == number {
-                    max-width: min(#{var-width(callout)}, #{$maxWidth});
-                } @else {
-                    max-width: min(#{var-width(callout)}, 100%);
-                }
+    @if $includeMarginBlock {
+        margin-block: #{var-mrg-soft('400')} 0;
+        margin-block: #{var-mrg-soft('600')} calc(var-mrg-soft('600') - var-mrg-soft('400'));
+    }
+
+    padding-inline-start: #{$paddingInlineStart};
+
+    @if $includeBorder {
+        border-inline-start: #{var-border-width('200')} solid currentColor;
+    }
+
+    @if $includeWidth {
+        width: #{$width};
+        max-width: #{$maxWidth};
+    }
+
+    @if $_content_exists {
+        @content (root);
+    }
+
+    > :first-child {
+        margin-block-start: 0;
+    }
+
+    @if $includeCite {
+        > cite {
+            @include prop-display(block);
+            margin-block: #{var-mrg-soft('400')} 0;
+            text-align: end;
+
+            @if $_content_exists {
+                @content (cite);
+            }
+
+            &::before {
+                content: '— ' / '';
+            }
+
+            @include colour-mode((low, average)) {
+                color: color-mix(in srgb, currentColor 75%, transparent);
+            }
+
+            @include high-contrast {
+                color: color-mix(in srgb, currentColor 87.5%, transparent);
+            }
+        }
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-pre(
+    $fontSize: var-fs(smaller-1),
+    $marginInline: 0,
+    $maxWidth: 100%,
+    $width: auto,
+    $padding: var-mrg-soft('300') var-mrg-firm('300'),
+    //
+    $includeBorder: true,
+    $includeMarginBlock: true,
+    $includeWidth: true
+) {
+    $_content_exists: meta.content-exists();
+
+    @include prop-display(block);
+    position: relative;
+
+    margin-inline: #{$marginInline};
+
+    @if $includeMarginBlock {
+        margin-block: #{var-mrg-firm('400')} 0;
+        margin-block: #{var-mrg-firm('600')} calc(var-mrg-firm('600') - var-mrg-firm('400'));
+    }
+
+    padding: #{$padding};
+
+    @if $includeBorder {
+        border: #{var-border-width('100')} solid currentColor;
+    }
+
+    @if $includeWidth {
+        width: #{$width};
+        max-width: #{$maxWidth};
+    }
+
+    font-size: #{$fontSize};
+
+    overflow: auto;
+
+    @if $_content_exists {
+        @content (root);
+    }
+
+    > %code {
+        @include prop-display(block);
+        margin: 0;
+        padding: 0;
+        border: none;
+
+        width: fit-content;
+        max-width: none;
+
+        overflow: visible;
+        white-space: normal;
+        text-wrap: auto;
+
+        @if $_content_exists {
+            @content (cite);
+        }
+    }
+
+    &:has(> %code) {
+        white-space: normal;
+        text-wrap: auto;
+
+        @if $_content_exists {
+            @content (pre-has-code);
+        }
+
+        > %code {
+            white-space: pre;
+            text-wrap: nowrap;
+
+            @if $_content_exists {
+                @content (pre-has-code--code);
             }
         }
     }

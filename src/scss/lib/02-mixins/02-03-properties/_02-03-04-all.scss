@@ -10,7 +10,7 @@
 // @use '../02-01-utilities' as *;
 // @use '../02-02-theming' as *;
 
-// @use '02-03-01-utilities' as *;
+@use '02-03-01-utilities' as *;
 @use '02-03-02-tokens' as *;
 @use '02-03-03-custom' as *;
 
@@ -24,6 +24,7 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier_... params.
 ///
 @mixin tokens-all(
+    $atProperty: true,
     $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
     $custom: true,
     $fontSize: not config.$fn_var_replaceWithValue_fontSize,
@@ -42,6 +43,10 @@
     $multiplier_strokeRelative: 1,
     $multiplier_width: 1
 ) {
+    @if $atProperty {
+        @include tokens-at-property;
+    }
+
     // colours
     @if $sysColours {
         @include tokens-sys-colour;

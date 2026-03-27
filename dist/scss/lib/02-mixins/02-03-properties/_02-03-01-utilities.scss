@@ -1,14 +1,37 @@
 ///
 /// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft
 ///
 
-// @use '../../../config';
+@use '../../../modules/list';
+
+@use '../../../config';
 
 // @use '../../01-functions' as *;
 
-// @use '../02-01-utilities' as *;
+@use '../02-01-utilities' as *;
 // @use '../02-02-theming' as *;
 
 /// # PROPERTY MIXINS - Utilities
 /// ======================================================================== ///
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin tokens-at-property($additional: ()) {
+    $properties: list.join(
+        (
+            display: (
+                syntax: '*',
+                inherits: false,
+            ),
+        ),
+        config.$mx_tokens_atProperty_additional
+    );
+
+    $properties: list.join($properties, $additional);
+
+    @each $slug, $map in $properties {
+        @include at-property($slug, $map);
+    }
+}

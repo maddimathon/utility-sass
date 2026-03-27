@@ -33,7 +33,7 @@ $_scrollPaddingFallback: var-gap-block(layout);
 
 %body {
     @if config.$include_html {
-        display: flex;
+        @include prop-display(flex);
         flex-direction: column;
         justify-content: start;
         align-items: center;
@@ -50,12 +50,14 @@ $_scrollPaddingFallback: var-gap-block(layout);
 }
 
 %hr {
-    @include snippet-centre-callout-block($maxWidth: 80%);
+    @include prop-display(block);
 
-    & {
-        width: 100%;
-        margin-block: #{var-mrg-firm('600')};
-        border: none;
-        border-block-end: currentColor solid #{var-border-width('200')};
-    }
+    margin-block: #{var-mrg-firm('600')};
+    margin-inline: #{var-gap-inline(indent)};
+
+    width: auto;
+    max-width: min(80%, #{var-width(callout)});
+
+    border: none;
+    border-block-end: currentColor solid #{var-border-width('200')};
 }

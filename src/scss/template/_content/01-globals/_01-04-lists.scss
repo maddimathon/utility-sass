@@ -37,12 +37,7 @@
 
     ol,
     ul {
-        margin-block-start: 0;
-
-        ol,
-        ul {
-            font-size: #{var-fs(smaller-1)};
-        }
+        margin-block: 0;
     }
 }
 
@@ -115,7 +110,7 @@
     }
 
     > a:only-child {
-        display: inline-block;
+        @include prop-display(inline-block);
         vertical-align: top;
     }
 

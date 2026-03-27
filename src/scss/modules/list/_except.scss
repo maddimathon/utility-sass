@@ -33,22 +33,59 @@
         $separator: list.separator($list);
     }
 
-    $filteredList: list.join(
-        (),
-        (),
-        $separator: $separator,
-        $bracketed: $bracketed
-    );
+    $filteredList: list.join((), (), $separator: $separator, $bracketed: $bracketed);
 
     @each $item in $list {
         //
         @if '#{$item}' != '#{$except}' {
             //
-            $filteredList: list.append(
-                $filteredList,
-                $item,
-                $separator: $separator
-            );
+            $filteredList: list.append($filteredList, $item, $separator: $separator);
+        }
+    }
+
+    @return $filteredList;
+}
+
+///
+/// Compares items of a list and returns only those that don't match with any
+/// items in $except (as strings).
+///
+/// @param {list}         $list       To test.
+/// @param {list<string>} $except     Values to exclude from the list.
+/// @param {?string}      $separator  Optional. List separator. Default is determine via list.separator().
+/// @param {?bool}        $bracketed  Optional. Whether list is bracketed. Default is determine via list.is-bracketed().
+///
+/// @return {list}
+///
+/// @since ___PKG_VERSION___
+///
+@function except-any($list, $except, $separator: null, $bracketed: null) {
+    // returns
+    @if meta.type-of($list) != list {
+        @return $list;
+    }
+
+    // returns
+    @if meta.type-of($except) != list {
+        @warn '[list.except-any] $except should be a list (was the #{meta.type-of($except)} #{$except}); else use list.except()';
+        @return $list;
+    }
+
+    @if $bracketed == null {
+        $bracketed: list.is-bracketed($list);
+    }
+
+    @if $separator == null {
+        $separator: list.separator($list);
+    }
+
+    $filteredList: list.join((), (), $separator: $separator, $bracketed: $bracketed);
+
+    @each $item in $list {
+        //
+        @if not list.index($except, '#{$item}') {
+            //
+            $filteredList: list.append($filteredList, $item, $separator: $separator);
         }
     }
 

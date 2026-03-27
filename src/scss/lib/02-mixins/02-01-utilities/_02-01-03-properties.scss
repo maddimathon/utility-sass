@@ -7,10 +7,11 @@
 
 @use '../../../config';
 
+@use '../../../modules/map';
 @use '../../../modules/meta';
 @use '../../../modules/string';
 
-// @use '../../01-functions' as *;
+@use '../../01-functions' as *;
 
 // @use '02-01-01-accessibility' as *;
 // @use '02-01-02-breakpoints' as *;
@@ -23,6 +24,17 @@ $_cxPropPre: if(
     config.$customPropertyPrefix_fallback,
     config.$customPropertyPrefix
 );
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin at-property($slug, $map) {
+    @property --#{$_cxPropPre}#{$slug} {
+        @each $prop, $value in map.flatten($map) {
+            #{$prop}: $value;
+        }
+    }
+}
 
 ///
 /// Prints a custom property definition.
@@ -48,4 +60,33 @@ $_cxPropPre: if(
 ///
 @mixin cx-prop($args...) {
     @include custom-property($args...);
+}
+
+///
+/// Prints a custom property and uses its value to set the normal property with
+/// its same name.
+///
+/// @param {string} $slug
+/// @param {any} $value
+///
+/// @since ___PKG_VERSION___
+///
+@mixin prop($slug, $value, $useCustom: true) {
+    @if $useCustom and not config.$mx_prop_useCustom_never {
+        @include custom-property($slug, $value);
+        #{$slug}: var(--#{$_cxPropPre}#{$slug}, #{$value});
+    } @else {
+        #{$slug}: #{$value};
+    }
+}
+
+///
+/// Sets display custom and normal properties.
+///
+/// @param {any} $value
+///
+/// @since ___PKG_VERSION___
+///
+@mixin prop-display($value) {
+    @include prop(display, $value, $useCustom: config.$mx_prop_useCustom_display);
 }

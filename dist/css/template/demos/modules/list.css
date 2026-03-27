@@ -64,6 +64,57 @@ list.except {
     /* 7: <S> another */
     /* 8: <S> list */
     /* 9: <S> B */
+    /* 
+      list.except( $list, C ) is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> two */
+    /* 3: <S> two */
+    /* 4: <S> one */
+    /* 5: <S> A */
+    /* 6: <S> B */
+    /* 7: <S> yet */
+    /* 8: <S> another */
+    /* 9: <S> list */
+    /* 10: <S> B */
+}
+
+list.except-any {
+    /* 
+      $list is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> two */
+    /* 3: <S> two */
+    /* 4: <S> one */
+    /* 5: <S> A */
+    /* 6: <S> B */
+    /* 7: <S> C */
+    /* 8: <S> yet */
+    /* 9: <S> another */
+    /* 10: <S> list */
+    /* 11: <S> B */
+    /* 
+      list.except-any( $list, (one, B) ) is a list:
+   */
+    /* 1: <S> two */
+    /* 2: <S> two */
+    /* 3: <S> A */
+    /* 4: <S> C */
+    /* 5: <S> yet */
+    /* 6: <S> another */
+    /* 7: <S> list */
+    /* 
+      list.except-any( $list, (C, two) ) is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> one */
+    /* 3: <S> A */
+    /* 4: <S> B */
+    /* 5: <S> yet */
+    /* 6: <S> another */
+    /* 7: <S> list */
+    /* 8: <S> B */
 }
 
 list.only {

@@ -43,22 +43,22 @@
     }
 }
 
-%_input-base {
+%input-base {
     @include snippet-input;
 }
 
 %input {
-    @extend %_input-base;
+    @extend %input-base;
     @include snippet-input-types($includeBase: false);
 }
 
 %select {
-    @extend %_input-base;
+    @extend %input-base;
     cursor: pointer;
 }
 
 %textarea {
-    @extend %_input-base;
+    @extend %input-base;
     cursor: text;
 }
 
@@ -79,7 +79,7 @@
         @include snippet-button;
 
         & {
-            display: initial;
+            @include prop-display(initial);
             margin: 0;
             margin-inline-end: #{var-mrg-firm('300')};
 

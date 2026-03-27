@@ -5,6 +5,8 @@
 
 @use 'functions' as *;
 
+@use 'include';
+
 /// # CONFIG - MIXINS
 /// ======================================================================== ///
 
@@ -75,6 +77,16 @@ $mx_interactiveStates_includeFallbacks: true !default;
 $mx_interactiveStates_fallbacksOnly: false !default;
 
 ///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_prop_useCustom_never: false !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_prop_useCustom_display: include.$include_html !default;
+
+///
 /// Whether font-size tokens should also print --fs-rel-[...] tokens with em
 /// values.
 ///
@@ -82,3 +94,8 @@ $mx_interactiveStates_fallbacksOnly: false !default;
 /// @since 0.1.0-beta.0.draft — Renamed from $mx_tokensFontSize_printRelative to $mx_tokens_fontSize_printRelative
 ///
 $mx_tokens_fontSize_printRelative: false !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_atProperty_additional: () !default;

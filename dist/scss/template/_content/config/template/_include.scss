@@ -62,9 +62,11 @@ $template_extendSelectors: $template_globals or $template_utils !default;
 $template_styles: () !default;
 $template_styles: map.deep-merge(
     (
+        blockquote: $template_globals,
         buttons: $template_globals,
         headings: $template_globals,
         normalize: lib.$include_html and lib.$isTemplate,
+        pre: $template_globals,
     ),
     $template_styles
 );

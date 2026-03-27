@@ -8,6 +8,8 @@
 
 @use 'functions' as *;
 
+@use 'spacing';
+
 /// # CONFIG - WIDTHS
 /// ======================================================================== ///
 
@@ -31,8 +33,8 @@ $widths: map.merge(
         'sidebar': $_widths_sidebar,
 
         'callout': calc(
-                if(map.has-key($widths, 'mobile'), map.get($widths, 'mobile'), $_widths_content) *
-                    0.8125
+                if(map.has-key($widths, 'content'), map.get($widths, 'content'), $_widths_content) *
+                    (100 - math.deunit(map.get(spacing.$gaps, inline, indent)) * 2) / 100
             ),
     ),
     $widths,
