@@ -317,10 +317,6 @@ $_headingDefault_textTransform: none;
         white-space: normal;
         text-wrap: auto;
 
-        @if $_content_exists {
-            @content (pre-has-code);
-        }
-
         > %code {
             white-space: pre;
             text-wrap: nowrap;
@@ -328,6 +324,10 @@ $_headingDefault_textTransform: none;
             @if $_content_exists {
                 @content (pre-has-code--code);
             }
+        }
+
+        @if $_content_exists {
+            @content (pre-has-code);
         }
     }
 }

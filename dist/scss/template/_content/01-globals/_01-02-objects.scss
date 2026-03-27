@@ -3,6 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
+@use '../../../modules/map';
 @use '../../../modules/math';
 
 @use '../config';
@@ -31,20 +32,22 @@ $_scrollPaddingFallback: var-gap-block(layout);
     }
 }
 
-%body {
-    @if config.$include_html {
-        @include prop-display(flex);
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
+@if map.get(config.$template_styles, bodyFlow) {
+    %body {
+        @if config.$include_html {
+            @include prop-display(flex);
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
 
-        gap: #{var-gap-block(layout)} #{var-gap-inline(layout)};
+            gap: #{var-gap-block(layout)} #{var-gap-inline(layout)};
 
-        margin-block: #{var-gap-block(layout)};
-        margin-inline: #{var-gap-inline(layout)};
+            margin-block: #{var-gap-block(layout)};
+            margin-inline: #{var-gap-inline(layout)};
 
-        :where(& > *) {
-            width: min(#{var-width(page)}, 100%);
+            :where(&) > :where(*) {
+                width: min(#{var-width(page)}, 100%);
+            }
         }
     }
 }
@@ -55,8 +58,18 @@ $_scrollPaddingFallback: var-gap-block(layout);
     margin-block: #{var-mrg-firm('600')};
     margin-inline: #{var-gap-inline(indent)};
 
-    width: auto;
-    max-width: min(80%, #{var-width(callout)});
+    width: #{math.add-unit(
+            math.round-to-pixel(
+                calc(
+                    100 * map.get(tokens.$widths, callout) /
+                        map.get(tokens.$widths, content)
+                ),
+                100
+            ),
+            $unit: 1%
+        )};
+
+    max-width: #{var-width(callout)};
 
     border: none;
     border-block-end: currentColor solid #{var-border-width('200')};

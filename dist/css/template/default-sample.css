@@ -154,7 +154,7 @@
 :root {
     --width-content: 36rem;
     --width-sidebar: 18rem;
-    --width-callout: 29.5rem;
+    --width-callout: 26.25rem;
     --width-page: 60rem;
     --width-page: calc(
         var(--width-content, 36rem) + var(--width-sidebar, 18rem) +
@@ -269,7 +269,7 @@ body {
     margin-left: var(--gap-inline-layout, 8vw);
     margin-right: var(--gap-inline-layout, 8vw);
 }
-:where(body > *) {
+:where(body) > :where(*) {
     width: min(var(--width-page, 60rem), 100%);
 }
 
@@ -280,8 +280,8 @@ hr {
     margin-bottom: 2.25rem;
     margin-left: var(--gap-inline-indent, 9%);
     margin-right: var(--gap-inline-indent, 9%);
-    width: auto;
-    max-width: min(80%, var(--width-callout, 29.5rem));
+    width: 72.92%;
+    max-width: var(--width-callout, 26.25rem);
     border: none;
     border-bottom: currentColor solid 0.125rem;
 }
@@ -416,7 +416,7 @@ blockquote {
     padding-left: 0.8125rem;
     border-left: 0.125rem solid currentColor;
     width: auto;
-    max-width: var(--width-callout, 29.5rem);
+    max-width: var(--width-callout, 26.25rem);
 }
 blockquote > :first-child {
     margin-top: 0;
@@ -1792,7 +1792,6 @@ table {
     margin-top: 2.25rem;
     margin-bottom: 0.8125rem;
     background: var(--sys-clr-accent-bg, CanvasText);
-    width: min(var(--width-page, 60rem), 100%);
 }
 
 table {

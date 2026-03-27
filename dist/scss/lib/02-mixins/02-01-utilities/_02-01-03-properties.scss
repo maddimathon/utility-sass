@@ -71,11 +71,15 @@ $_cxPropPre: if(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin prop($slug, $value, $useCustom: true) {
+@mixin prop($slug, $value, $useCustom: true, $setCxProp: true, $setProp: true) {
     @if $useCustom and not config.$mx_prop_useCustom_never {
-        @include custom-property($slug, $value);
-        #{$slug}: var(--#{$_cxPropPre}#{$slug}, #{$value});
-    } @else {
+        @if $setCxProp {
+            @include custom-property($slug, $value);
+        }
+        @if $setProp {
+            #{$slug}: var(--#{$_cxPropPre}#{$slug}, #{$value});
+        }
+    } @else if $setProp {
         #{$slug}: #{$value};
     }
 }
@@ -87,10 +91,11 @@ $_cxPropPre: if(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin prop-display($value) {
+@mixin prop-display($value, $args...) {
     @include prop(
         display,
         $value,
-        $useCustom: config.$mx_prop_useCustom_display
+        $useCustom: config.$mx_prop_useCustom_display,
+        $args...
     );
 }
