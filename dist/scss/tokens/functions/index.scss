@@ -1,4 +1,41 @@
 ///
 /// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft
 ///
+
+@use '../../modules/map';
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function tokens-get-at-properties($inputs) {
+    @return map.ksort(
+        map.merge(
+            (
+                display: (
+                    syntax: '*',
+                    inherits: false,
+                ),
+                focus-ring-outline-color: (
+                    syntax: '<color>',
+                    inherits: true,
+                    initial-value: currentColor,
+                ),
+                height-nav-primary: (
+                    syntax: '<length-percentage> | <number>',
+                    inherits: true,
+                    initial-value: 0,
+                ),
+                scroll-padding-top: (
+                    syntax: '<length-percentage> | <number>',
+                    inherits: true,
+                    initial-value: 0,
+                ),
+            ),
+            $inputs,
+            $recursive: true,
+            $respectUNDEFINED: true,
+            $sort: false
+        )
+    );
+}

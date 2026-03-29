@@ -6,6 +6,11 @@
 @use 'sass:map';
 @use 'sass:meta';
 
+@use '../list/reverse' as list-reverse;
+@use '../list/sort' as list-sort;
+
+@use 'ksort';
+
 ///
 /// Returns an updated version of $defaults based on the contents of $inputs.
 ///
@@ -13,17 +18,24 @@
 /// @param {map}   $inputs            The input map passed to the function (probably partial).
 /// @param {?bool} $recursive         Optional. Whether to merge the maps recursively. Default false.
 /// @param {?bool} $respectUNDEFINED  Optional. If true, strings that == 'UNDEFINED' (case-sensitive) are treated like JS undefined values and removes that value from the returned map.
+/// @param {?bool} $sort              Optional. Whether to apply ksort to the maps during merge (recursively).
+/// @param {?bool} $sortAs            Optional. Passed to map.ksort().
+/// @param {?bool} $sortReverse       Optional. Passed to map.ksort().
 ///
 /// @return {map}  The resulting map with all the $defaults and $inputs keys
 ///                with either default values or input values, as appropriate.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Added optional $sort, $sortAs, $sortReverse props.
 ///
 @function merge(
     $defaults,
     $inputs,
     $recursive: false,
-    $respectUNDEFINED: false
+    $respectUNDEFINED: false,
+    $sort: false,
+    $sortAs: 'string',
+    $sortReverse: false
 ) {
     $inputType: meta.type-of($inputs);
     $defaultType: meta.type-of($inputs);
@@ -31,7 +43,12 @@
     // returns - wrong type
     @if $inputType != map {
         // returns - no warning
-        @if $inputType == list or not $inputType {
+        @if $inputType == list {
+            @return $defaults;
+        }
+
+        // returns
+        @if not $inputType {
             @return $defaults;
         }
 
@@ -42,7 +59,12 @@
     // returns - wrong type
     @if $defaultType != map {
         // returns - no warning
-        @if $defaultType == list or not $defaultType {
+        @if $defaultType == list {
+            @return $defaults;
+        }
+
+        // returns
+        @if not $defaultType {
             @return $defaults;
         }
 
@@ -52,10 +74,22 @@
 
     // returns - can use built-in functions
     @if not $respectUNDEFINED {
-        @return if(
+        $return: if(
             $recursive,
             map.deep-merge($defaults, $inputs),
             map.merge($defaults, $inputs)
+        );
+
+        // returns
+        @if not $sort {
+            @return $return;
+        }
+
+        @return ksort.ksort(
+            $return,
+            $sortAs: $sortAs,
+            $recursive: $recursive,
+            $reverse: $sortReverse
         );
     }
 
@@ -71,22 +105,39 @@
             // prettier-ignore
             $_mergeRecursively: $recursive and meta.type-of($_defaultValue) == map and meta.type-of($_inputValue) == map;
 
-            $return: map.set(
-                $return,
-                $_key,
-                if(
-                    $_mergeRecursively,
-                    merge(
-                        $_defaultValue,
-                        $_inputValue,
-                        $recursive: $recursive,
-                        $respectUNDEFINED: $respectUNDEFINED
-                    ),
-                    $_inputValue
-                )
+            $_merged: if(
+                $_mergeRecursively,
+                merge(
+                    $_defaultValue,
+                    $_inputValue,
+                    $recursive: $recursive,
+                    $respectUNDEFINED: $respectUNDEFINED
+                ),
+                $_inputValue
             );
+
+            @if $_mergeRecursively and $sort {
+                $_merged: ksort.ksort(
+                    $_merged,
+                    $sortAs: $sortAs,
+                    $recursive: false,
+                    $reverse: $sortReverse
+                );
+            }
+
+            $return: map.set($return, $_key, $_merged);
         }
     }
 
-    @return $return;
+    // returns
+    @if not $sort {
+        @return $return;
+    }
+
+    @return ksort.ksort(
+        $return,
+        $sortAs: $sortAs,
+        $recursive: false,
+        $reverse: $sortReverse
+    );
 }

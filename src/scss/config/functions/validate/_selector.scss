@@ -48,7 +48,7 @@ $selector_null: (string.unquote('%null')) !default;
         $value: (string.unquote('#{$value}'));
 
         // returns - value is not a selector
-    } @else if enforce-type-or-warn($value: $value, $type: list, $varName: $name) == false {
+    } @else if config-enforce-type-or-warn($value: $value, $type: list, $varName: $name) == false {
         @return $default;
     }
 

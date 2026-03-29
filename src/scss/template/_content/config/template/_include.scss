@@ -5,14 +5,14 @@
 
 @use 'sass:map';
 
-@use '../../../../config' as lib;
+@use '../../../../config';
 
 ///
 /// Whether to include the global selectors in the output. Otherwise, all
 /// selectors are pseudo selectors.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_globals to $template_globals and moved from lib to template config.
+/// @since ___PKG_VERSION___ — Renamed from $print_globals to $template_globals and moved from config to template config.
 ///
 $template_globals: false !default;
 
@@ -20,7 +20,7 @@ $template_globals: false !default;
 /// Whether to include the utility class selectors in the output.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_utils to $template_utils and moved from lib to template config.
+/// @since ___PKG_VERSION___ — Renamed from $print_utils to $template_utils and moved from config to template config.
 ///
 $template_utils: false !default;
 
@@ -28,7 +28,7 @@ $template_utils: false !default;
 /// Whether to include the custom property definitions in the output.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_tokens to $template_tokens and moved from lib to template config.
+/// @since ___PKG_VERSION___ — Renamed from $print_tokens to $template_tokens and moved from config to template config.
 ///
 $template_tokens: $template_globals or $template_utils !default;
 
@@ -36,16 +36,16 @@ $template_tokens: $template_globals or $template_utils !default;
 /// Whether to include the css headings in the output.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_headings to $template_cssHeadings and moved from lib to template config.
+/// @since ___PKG_VERSION___ — Renamed from $print_headings to $template_cssHeadings and moved from config to template config.
 ///
-$template_cssHeadings: lib.$isTemplate and
+$template_cssHeadings: config.$isTemplate and
     ($template_globals or $template_tokens or $template_utils) !default;
 
 ///
 /// @since 0.1.0-pre.0
 /// @since ___PKG_VERSION___ — Renamed from $print_templateDocBlock to $template_docBlock
 ///
-$template_docBlock: not lib.$internal_supressCredit or lib.$isTemplate !default;
+$template_docBlock: not config.$internal_supressCredit or config.$isTemplate !default;
 
 ///
 /// Whether to include the extend selectors mixin after the template content.
@@ -60,14 +60,11 @@ $template_extendSelectors: $template_globals or $template_utils !default;
 /// @since ___PKG_VERSION___ — Merged $template_include_buttons, $template_include_headings, $print_normalize into this var.
 ///
 $template_styles: () !default;
-$template_styles: map.deep-merge(
-    (
-        blockquote: $template_globals,
-        bodyFlow: $template_globals,
-        buttons: $template_globals,
-        headings: $template_globals,
-        normalize: lib.$include_html and lib.$isTemplate,
-        pre: $template_globals,
-    ),
-    $template_styles
+$template_styles: config.config-get-template-styles(
+    $inputs: $template_styles,
+    $include_html: config.$include_html,
+    $isTemplate: config.$isTemplate,
+    $template_tokens: $template_tokens,
+    $template_globals: $template_globals,
+    $template_utils: $template_utils,
 );

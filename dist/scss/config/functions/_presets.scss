@@ -1,0 +1,30 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:map';
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function config-get-template-styles(
+    $inputs,
+    $include_html,
+    $isTemplate,
+    $template_tokens,
+    $template_globals,
+    $template_utils
+) {
+    @return map.deep-merge(
+        (
+            blockquote: $template_globals,
+            bodyFlow: $template_globals,
+            buttons: $template_globals,
+            headings: $template_globals,
+            normalize: $include_html and $isTemplate,
+            pre: $template_globals,
+        ),
+        $inputs
+    );
+}
