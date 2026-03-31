@@ -23,6 +23,7 @@ export declare namespace JsonToScss {
      */
     interface Opts {
         coloursAsStrings?: boolean;
+        convertUnitStringsToNumbers?: boolean;
     }
     /**
      * Converts a js value into a valid scss string.

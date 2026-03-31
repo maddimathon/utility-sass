@@ -4,57 +4,8 @@
 ///
 
 @use '../../modules/list';
-@use '../../modules/math';
-@use '../../modules/meta';
-@use '../../modules/string';
 
 @use '../../config';
-
-///
-/// Returns a clamp value for given font size (uses svw).
-///
-/// @param {number} $size  Rem/em value.
-/// @param {bool} $relative  Optional. Whether to return a relative value.
-///
-/// @returns {calc}
-///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-alpha.18 — Added $relative param.
-/// @since 0.1.0-alpha.41 — Added $roundingFactor param.
-///
-@function clamp-font-size(
-    $size,
-    $relative: false,
-    $roundingFactor: config.$fn_fontSizeValue_roundToPixelFactor
-) {
-    @if meta.type-of($size) != number {
-        @warn "$size should be a number (was the #{meta.type-of($size)} #{$size})";
-        @return math.add-unit($size, if($relative, 1em, 1rem));
-    }
-
-    $size_min: math.round-to-pixel(
-        $size * config.$fn_clampFontSize_multiplier_min
-    );
-
-    $goal_svw: math.round-to-pixel(
-        $size * config.$fn_clampFontSize_multiplier_svw
-    );
-
-    $size_max: math.round-to-pixel(
-        $size * config.$fn_clampFontSize_multiplier_max
-    );
-
-    $unit: if($relative, 1em, 1rem);
-
-    @return clamp(
-        math.add-unit($size_min, $unit),
-        calc(
-            math.add-unit($goal_svw, 1svw) +
-                math.add-unit(config.$fn_clampFontSize_svw_rem, $unit)
-        ),
-        math.add-unit($size_max, $unit)
-    );
-}
 
 ///
 /// Returns a css-friendly font-family value for a monospace system font stack.
@@ -64,16 +15,7 @@
 /// @since 0.1.0-pre.0
 ///
 @function font-family-system-monospace() {
-    @return list.font-list(
-        (
-            ui-monospace,
-            SFMono-Regular,
-            Consolas,
-            Liberation Mono,
-            Menlo,
-            monospace
-        )
-    );
+    @return list.font-list(config.$systemFontList_monospace);
 }
 
 ///
@@ -84,23 +26,5 @@
 /// @since 0.1.0-pre.0
 ///
 @function font-family-system-ui() {
-    @return list.font-list(
-        (
-            system-ui,
-            -apple-system,
-            BlinkMacSystemFont,
-            Segoe UI,
-            Roboto,
-            Oxygen-Sans,
-            Ubuntu,
-            Cantarell,
-            Helvetica Neue,
-            Helvetica,
-            Arial,
-            sans-serif,
-            Apple Color Emoji,
-            Segoe UI Emoji,
-            Segoe UI Symbol
-        )
-    );
+    @return list.font-list(config.$systemFontList);
 }

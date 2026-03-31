@@ -6,6 +6,13 @@
 @use '../../modules/map';
 
 ///
+/// The value used to position an element at the top of the page (via `top` property).
+///
+/// @since 0.1.0-alpha.36
+///
+$page_top: 0px !default;
+
+///
 /// @since 0.1.0-beta.0.draft
 ///
 @function tokens-get-at-properties($inputs) {
@@ -29,7 +36,7 @@
                 scroll-padding-top: (
                     syntax: '<length-percentage> | <number>',
                     inherits: true,
-                    initial-value: 0,
+                    initial-value: #{$page_top},
                 ),
             ),
             $inputs,

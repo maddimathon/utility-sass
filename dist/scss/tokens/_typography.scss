@@ -129,7 +129,14 @@ $font_sizes: map.flatten($font_sizes);
 ///
 /// @since 0.1.0-pre.0
 ///
-$lineHeight_base: 1.6875 !default;
+$lineHeight_base: null !default;
+$lineHeight_base: config.config-valid-number(
+    $lineHeight_base,
+    'lineHeight_base',
+    $default: 1.6875,
+    $min: 0.05,
+    $unit: false
+);
 
 ///
 /// A map (merged with the defaults) of line height multipliers (0 = base lh)
@@ -154,7 +161,13 @@ $line_heights: map.ksort(
 );
 
 @each $key, $value in $line_heights {
-    $lh: math.pow(spacing.$scaleMultiplier, $value * 0.875) * $lineHeight_base;
-
-    $line_heights: map.set($line_heights, $key, math.round-to-pixel($lh, 32));
+    $line_heights: map.set(
+        $line_heights,
+        $key,
+        math.round-to-pixel(
+            math.pow(spacing.$scaleMultiplier, $value * 0.875) *
+                $lineHeight_base,
+            32
+        )
+    );
 }

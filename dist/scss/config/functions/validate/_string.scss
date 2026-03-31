@@ -27,7 +27,11 @@
     }
 
     // returns - value is not a string
-    @if enforce-type-or-warn($value: $value, $type: string, $varName: $name) ==
+    @if config-enforce-type-or-warn(
+            $value: $value,
+            $type: string,
+            $varName: $name
+        ) ==
         false
     {
         @return $default;

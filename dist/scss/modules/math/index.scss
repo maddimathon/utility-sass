@@ -12,8 +12,15 @@
 
 @forward 'sass:math';
 
-@forward 'add-unit';
-@forward 'always-one';
 @forward 'deunit';
 @forward 'num-val';
 @forward 'round-to-pixel';
+
+// deps on deunit
+@forward 'always-one';
+
+// deps on always-one, deunit
+@forward 'add-unit';
+
+// deps on add-unit, round-to-pixel
+@forward 'clamp-font-size';

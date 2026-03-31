@@ -40,7 +40,11 @@
     }
 
     // returns - value is not a number
-    @if enforce-type-or-warn($value: $value, $type: number, $varName: $name) ==
+    @if config-enforce-type-or-warn(
+            $value: $value,
+            $type: number,
+            $varName: $name
+        ) ==
         false
     {
         @return $default;

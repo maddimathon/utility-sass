@@ -1,0 +1,58 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:meta';
+
+@use '../../config';
+
+@use 'add-unit';
+@use 'round-to-pixel';
+
+///
+/// Returns a clamp value for given font size (uses svw).
+///
+/// @param {number} $size  Rem/em value.
+/// @param {bool} $relative  Optional. Whether to return a relative value.
+///
+/// @returns {calc}
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha.18 — Added $relative param.
+/// @since 0.1.0-alpha.41 — Added $roundingFactor param.
+/// @since 0.1.0-beta.0.draft — Moved to math module.
+///
+@function clamp-font-size(
+    $size,
+    $relative: false,
+    $roundingFactor: config.$fn_fontSizeValue_roundToPixelFactor
+) {
+    @if meta.type-of($size) != number {
+        @warn "$size should be a number (was the #{meta.type-of($size)} #{$size})";
+        @return add-unit.add-unit($size, if($relative, 1em, 1rem));
+    }
+
+    $size_min: round-to-pixel.round-to-pixel(
+        $size * config.$fn_clampFontSize_multiplier_min
+    );
+
+    $goal_svw: round-to-pixel.round-to-pixel(
+        $size * config.$fn_clampFontSize_multiplier_svw
+    );
+
+    $size_max: round-to-pixel.round-to-pixel(
+        $size * config.$fn_clampFontSize_multiplier_max
+    );
+
+    $unit: if($relative, 1em, 1rem);
+
+    @return clamp(
+        add-unit.add-unit($size_min, $unit),
+        calc(
+            add-unit.add-unit($goal_svw, 1svw) +
+                add-unit.add-unit(config.$fn_clampFontSize_svw_rem, $unit)
+        ),
+        add-unit.add-unit($size_max, $unit)
+    );
+}

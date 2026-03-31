@@ -28,7 +28,14 @@
         @return $fonts;
     }
 
-    @each $font in unique.unique($fonts) {
+    $fonts: unique.unique($fonts);
+
+    // returns
+    @if list.length($fonts) < 2 {
+        @return string.unquote('"#{$fonts}"');
+    }
+
+    @each $font in $fonts {
         $str: string.unquote(#{$font});
 
         @if string.index($str, ' ') != null {

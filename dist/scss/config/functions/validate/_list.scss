@@ -48,7 +48,11 @@
 
         // returns - value is not a selector
     } @else if
-        enforce-type-or-warn($value: $value, $type: list, $varName: $name) ==
+        config-enforce-type-or-warn(
+            $value: $value,
+            $type: list,
+            $varName: $name
+        ) ==
         false
     {
         @return $default;

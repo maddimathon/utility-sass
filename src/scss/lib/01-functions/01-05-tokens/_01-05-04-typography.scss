@@ -81,7 +81,11 @@
         $clampFontSize,
         (
             $size_withUnit,
-            clamp-font-size($size_unitless, $relative: $relative, $roundingFactor: $roundingFactor)
+            math.clamp-font-size(
+                $size_unitless,
+                $relative: $relative,
+                $roundingFactor: $roundingFactor
+            )
         ),
         $size_withUnit
     );

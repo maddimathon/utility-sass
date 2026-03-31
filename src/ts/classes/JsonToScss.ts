@@ -25,6 +25,7 @@ export namespace JsonToScss {
      */
     export interface Opts {
         coloursAsStrings?: boolean;
+        convertUnitStringsToNumbers?: boolean;
     }
 
     /**
@@ -123,10 +124,18 @@ export namespace JsonToScss {
      */
     function convert_string( input: string, opts: Opts ): string {
 
+        // returns - no quotes
+        if (
+            opts.convertUnitStringsToNumbers
+            && input.match( /^\s*\d[\d\.]*(%|[cm]m|deg|m?s|p[ctx]|rad|r?em|[dls]?v[wh])\s*$/i )
+        ) {
+            return `${ input }`;
+        }
+
         // returns - if it is a colour string, it gets no quotes
         if (
             !opts.coloursAsStrings && (
-                input.match( /^\s*#[0-9|A-H]{3,6}$/i )
+                input.match( /^\s*#[0-9|A-H]{3,6}\s*$/i )
                 || input.match( /^\s*hsl\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+%?\s*[,\s]\s*[\d\.]+%?\s*\)\s*$/i )
                 || input.match( /^\s*(ok)?l(ch|ab)\(\s*[\d\.]+%?\s+\s*[\d\.]+\s+\s*[\d\.]+(deg)?\s*\)\s*$/i )
                 || input.match( /^\s*rgb\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*\)\s*$/i )

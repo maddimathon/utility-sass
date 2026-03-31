@@ -35,6 +35,31 @@
     border-spacing: #{var-border-width('200')};
     font-size: #{var-fs(smaller-1)};
     line-height: inherit;
+
+    @include forced-colors {
+        border-spacing: 0;
+
+        $_border: #{var-border-width('200')} solid #{var-sys-colour(text)};
+
+        %th,
+        %td {
+            border-block-end: #{$_border};
+            border-inline-end: #{$_border};
+
+            &:first-child {
+                border-inline-start: #{$_border};
+            }
+        }
+
+        %tr {
+            &:first-child {
+                %th,
+                %td {
+                    border-block-start: #{$_border};
+                }
+            }
+        }
+    }
 }
 
 %table-wrapper {
@@ -76,6 +101,8 @@
 %th {
     padding-top: #{var-mrg-soft('200')};
     padding-bottom: #{var-mrg-soft('200')};
+
+    text-wrap: balance;
 
     background: #{var-sys-colour(accent-bg)};
     color: #{var-sys-colour(accent-text)};

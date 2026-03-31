@@ -91,11 +91,9 @@
 /// @since 0.1.0-pre.0
 ///
 @function var-stroke-relative($level, $args...) {
-    $fallback: stroke-relative-value($level);
-
     @return do-var(
         stroke-relative-#{$level},
-        $fallback,
+        $fallback: stroke-relative-value($level),
         $fallbackOnly: config.$fn_var_replaceWithValue_strokeRelative,
         $args...
     );
