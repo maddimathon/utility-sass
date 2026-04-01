@@ -30,12 +30,16 @@
     $tokens: map.flatten(if($tokens == null, token-map(), $tokens));
 
     @if list.length(map.keys($tokens)) > 0 {
-        /* #region Tokens - Misc. */
-        #{selector.parent-or-root()} {
+        @at-root {
+            /* #region Tokens - Misc. */
+        }
+        @at-root #{selector.parent-or-root()} {
             @each $slug, $_value in $tokens {
                 @include cx-prop(#{$slug}, token-value($slug));
             }
         }
-        /* #endregion Tokens - Misc. */
+        @at-root {
+            /* #endregion Tokens - Misc. */
+        }
     }
 }

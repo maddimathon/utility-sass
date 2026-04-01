@@ -20,8 +20,9 @@
 /// Adds in a [min|max]-[height|width] media query with the given breakpoint.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Added optional $unit param.
 ///
-@mixin breakpoint($point, $type) {
+@mixin breakpoint($point, $type, $unit: 1em) {
     @each $key, $value in tokens.$breakpoints {
         @if ($point == $key) {
             $point: $value;
@@ -32,7 +33,7 @@
         @warn "$point should be a key of tokens.$breakpoints or a number but it was a: #{meta.type-of( $point )} (#{$point})";
     } @else {
         @if not math.is-unitless($point) {
-            @error 'Breakpoint #{$point} should not have a unit. An em unit will be added by the mixin.';
+            @error 'Breakpoint #{$point} should not have a unit. A #{math.unit($unit)} unit will be added by the mixin.';
             $point: math.deunit($point);
         }
 
@@ -42,7 +43,7 @@
             $point: $point - 0.01;
         }
 
-        @media ( #{$type}: #{$point}em ) {
+        @media ( #{$type}: math.add-unit($point, $unit: $unit) ) {
             @content;
         }
     }

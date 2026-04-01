@@ -264,11 +264,6 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         )
     );
 
-    // font size utilities
-    @each $slug, $_value in tokens.$font_sizes {
-        $_utils_selectors: list.append($_utils_selectors, 'font-size-#{$slug}');
-    }
-
     @include extend-selectors-generic(
         $_utils_selectors,
         $selector_prefix: '.',

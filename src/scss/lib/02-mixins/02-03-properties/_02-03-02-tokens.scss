@@ -29,8 +29,10 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @mixin tokens-border-width($multiplier: 1) {
-    /* #region Tokens - Border Width */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Border Width */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$border_widths {
             @include cx-prop(
                 border-width-#{$slug},
@@ -38,7 +40,9 @@
             );
         }
     }
-    /* #endregion Tokens - Border Width */
+    @at-root {
+        /* #endregion Tokens - Border Width */
+    }
 }
 
 ///
@@ -48,8 +52,10 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @mixin tokens-stroke-relative($multiplier: 1) {
-    /* #region Tokens - Stroke Relative */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Stroke Relative */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$strokes_relative {
             @include cx-prop(
                 stroke-relative-#{$slug},
@@ -57,7 +63,9 @@
             );
         }
     }
-    /* #endregion Tokens - Stroke Relative */
+    @at-root {
+        /* #endregion Tokens - Stroke Relative */
+    }
 }
 
 ///
@@ -67,8 +75,10 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @mixin tokens-font-size($multiplier: 1) {
-    /* #region Tokens - Font Size */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Font Size */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$font_sizes {
             @each $value in fs-value($slug, $multiplier: $multiplier) {
                 @include cx-prop(fs-#{$slug}, $value);
@@ -83,7 +93,9 @@
             }
         }
     }
-    /* #endregion Tokens - Font Size */
+    @at-root {
+        /* #endregion Tokens - Font Size */
+    }
 }
 
 ///
@@ -93,8 +105,10 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @mixin tokens-line-height($multiplier: 1) {
-    /* #region Tokens - Line Heights */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Line Heights */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$line_heights {
             @include cx-prop(
                 line-height-#{$slug},
@@ -102,7 +116,9 @@
             );
         }
     }
-    /* #endregion Tokens - Line Heights */
+    @at-root {
+        /* #endregion Tokens - Line Heights */
+    }
 }
 
 ///
@@ -114,52 +130,54 @@
 @mixin tokens-margin($multiplier: 1) {
     $selector: selector.parent-or-root();
 
-    /* #region Tokens - Margin */
-    #{$selector} {
-        @each $level, $_value in tokens.$margins {
-            @include cx-prop(
-                mrg-firm-#{$level},
-                mrg-value-firm($level, $unit: 1rem, $multiplier: $multiplier)
-            );
+    @at-root {
+        /* #region Tokens - Margin */
+        #{$selector} {
+            @each $level, $_value in tokens.$margins {
+                @include cx-prop(
+                    mrg-firm-#{$level},
+                    mrg-value-firm($level, $unit: 1rem, $multiplier: $multiplier)
+                );
+            }
+            @each $level, $_value in tokens.$margins {
+                @include cx-prop(
+                    pad-firm-#{$level},
+                    mrg-value-firm($level, $unit: 1em, $multiplier: $multiplier)
+                );
+            }
         }
-        @each $level, $_value in tokens.$margins {
-            @include cx-prop(
-                pad-firm-#{$level},
-                mrg-value-firm($level, $unit: 1em, $multiplier: $multiplier)
-            );
-        }
-    }
 
-    #{$selector} {
-        @each $level, $_value in tokens.$margins {
-            @include cx-prop(
-                mrg-soft-#{$level},
-                mrg-value-soft($level, $unit: 1rem, $multiplier: $multiplier)
-            );
+        #{$selector} {
+            @each $level, $_value in tokens.$margins {
+                @include cx-prop(
+                    mrg-soft-#{$level},
+                    mrg-value-soft($level, $unit: 1rem, $multiplier: $multiplier)
+                );
+            }
+            @each $level, $_value in tokens.$margins {
+                @include cx-prop(
+                    pad-soft-#{$level},
+                    mrg-value-soft($level, $unit: 1em, $multiplier: $multiplier)
+                );
+            }
         }
-        @each $level, $_value in tokens.$margins {
-            @include cx-prop(
-                pad-soft-#{$level},
-                mrg-value-soft($level, $unit: 1em, $multiplier: $multiplier)
-            );
-        }
-    }
 
-    #{$selector} {
-        @each $level, $_value in tokens.$margins {
-            @include cx-prop(
-                mrg-half-#{$level},
-                mrg-value-half($level, $unit: 1rem, $multiplier: $multiplier)
-            );
+        #{$selector} {
+            @each $level, $_value in tokens.$margins {
+                @include cx-prop(
+                    mrg-half-#{$level},
+                    mrg-value-half($level, $unit: 1rem, $multiplier: $multiplier)
+                );
+            }
+            @each $level, $_value in tokens.$margins {
+                @include cx-prop(
+                    pad-half-#{$level},
+                    mrg-value-half($level, $unit: 1em, $multiplier: $multiplier)
+                );
+            }
         }
-        @each $level, $_value in tokens.$margins {
-            @include cx-prop(
-                pad-half-#{$level},
-                mrg-value-half($level, $unit: 1em, $multiplier: $multiplier)
-            );
-        }
+        /* #endregion Tokens - Margin */
     }
-    /* #endregion Tokens - Margin */
 }
 
 ///
@@ -169,8 +187,10 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @mixin tokens-gap($multiplier: 1) {
-    /* #region Tokens - Gap */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Gap */
+    }
+    @at-root #{selector.parent-or-root()} {
         //
         @each $dir, $dirMap in tokens.$gaps {
             //
@@ -182,7 +202,9 @@
             }
         }
     }
-    /* #endregion Tokens - Gap */
+    @at-root {
+        /* #endregion Tokens - Gap */
+    }
 }
 
 ///
@@ -192,15 +214,19 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @mixin tokens-width($multiplier: 1) {
-    /* #region Tokens - Width */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Width */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$widths {
             @each $value in width-value($slug, $multiplier: $multiplier, $returnAsNumber: false) {
                 @include cx-prop(width-#{$slug}, $value);
             }
         }
     }
-    /* #endregion Tokens - Width */
+    @at-root {
+        /* #endregion Tokens - Width */
+    }
 }
 
 $_systemColors: get-sys-colours();
@@ -213,8 +239,10 @@ $_systemColors: get-sys-colours();
 @mixin tokens-sys-colour($clrOverrides: (), $includeForcedColours: true) {
     $map: map.parse-args($_systemColors, $clrOverrides);
 
-    /* #region Tokens - System Colours */
-    :where(#{selector.parent-or-root()}) {
+    @at-root {
+        /* #region Tokens - System Colours */
+    }
+    @at-root :where(#{selector.parent-or-root()}) {
         @each $slug, $list in $map {
             $i: 1;
 
@@ -251,5 +279,7 @@ $_systemColors: get-sys-colours();
             }
         }
     }
-    /* #endregion Tokens - System Colours */
+    @at-root {
+        /* #endregion Tokens - System Colours */
+    }
 }

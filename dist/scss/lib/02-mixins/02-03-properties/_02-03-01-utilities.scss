@@ -20,11 +20,13 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin tokens-at-property($additional: ()) {
-    /* #region Tokens - @property */
-    @each $slug, $map in list.join(tokens.$atProperties, $additional) {
-        @if meta.type-of($map) == map {
-            @include at-property($slug, $map);
+    @at-root {
+        /* #region Tokens - @property */
+        @each $slug, $map in list.join(tokens.$atProperties, $additional) {
+            @if meta.type-of($map) == map {
+                @include at-property($slug, $map);
+            }
         }
+        /* #endregion Tokens - @property */
     }
-    /* #endregion Tokens - @property */
 }
