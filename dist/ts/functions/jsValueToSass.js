@@ -31,11 +31,11 @@ export async function jsValueToSass(value) {
         case 'number':
             return new sass.SassNumber(Number(value));
         case 'string':
-            return new sass.SassString(value);
+            return new sass.SassString(value, { quotes: value.match(/[\s\n\r]/g) !== null });
         case 'object':
             // returns
             if (Array.isArray(value) || value instanceof Set) {
-                return Promise.all(Array.from(value, jsValueToSass)).then((arr) => new sass.SassList(arr));
+                return Promise.all(Array.from(value, jsValueToSass)).then((arr) => new sass.SassList(arr, { separator: ',' }));
             }
             const entries = typeof value.entries === 'function'
                 ? Array.from(value.entries())
@@ -44,14 +44,7 @@ export async function jsValueToSass(value) {
                 jsValueToSass(key),
                 jsValueToSass(value),
             ])));
-            const immuMap = await sassEntries.then((_entries) => OrderedMap(_entries));
-            // @ts-ignore
-            const sassMap = new sass.SassMap(immuMap);
-            // const sassMap = immuMap.then( ( _map ) => new sass.SassMap( _map ) )
-            // return test.then(
-            //     entries => new sass.SassMap( OrderedMap( entries ) ) as sass.SassMap
-            // );
-            return sassMap;
+            return sassEntries.then(_entries => new sass.SassMap(OrderedMap(_entries)));
     }
     return new sass.SassString(String(value));
 }

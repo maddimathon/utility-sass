@@ -25,7 +25,7 @@ export declare function sassCompilerFunctions(args: {
     params: CLI.Params;
 }): {
     readonly 'mmutils-global-jsVarDump( $value, $name, $level )': (args: sass.Value[]) => Promise<sass.Value>;
-    readonly 'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': (args: sass.Value[]) => Promise<sass.SassString>;
+    readonly 'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': (args: sass.Value[]) => Promise<sass.Value | sass.SassString>;
     readonly 'mmutils-global-getCurrentVersion()': () => sass.SassMap;
 };
 //# sourceMappingURL=sassCompilerFunctions.d.ts.map

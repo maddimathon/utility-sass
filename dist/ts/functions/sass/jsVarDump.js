@@ -22,9 +22,9 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
 export function sassFn_jsVarDump({ console }) {
     return {
         'mmutils-global-jsVarDump( $value, $name, $level )': async (args) => {
-            const [level = 1, varName = 'var',] = await Promise.all([
-                sassAssertValueType('number', args[2]),
-                sassAssertValueType('string', args[1]),
+            const [varName = 'var', level = 1,] = await Promise.all([
+                sassAssertValueType('name', 'string', args[1], true),
+                sassAssertValueType('level', 'number', args[2], true),
             ]);
             const value = args[0];
             // returns

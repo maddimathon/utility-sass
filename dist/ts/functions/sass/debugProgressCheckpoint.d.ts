@@ -18,11 +18,11 @@ import * as sass from "sass-embedded";
  *
  * @since 0.1.0-alpha.29
  */
-export declare function sassFn_debugProgressCheckpoint({ config, console, params }: {
+export declare function sassFn_debugProgressCheckpoint({ console, params }: {
     config: Config.Class;
     console: Logger;
     params: CLI.Params;
 }): {
-    readonly 'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': (args: sass.Value[]) => Promise<sass.SassString>;
+    readonly 'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': (args: sass.Value[]) => Promise<sass.Value | sass.SassString>;
 };
 //# sourceMappingURL=debugProgressCheckpoint.d.ts.map

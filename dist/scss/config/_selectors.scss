@@ -3,42 +3,10 @@
 /// @since 0.1.0-pre.0
 ///
 
-@use 'sass:string';
-
 @use 'functions' as *;
 
 /// # CONFIG - SELECTORS
 /// ======================================================================== ///
-
-///
-/// Selector to use for the body element.  Included here to allow
-/// lower-specificity options.
-///
-/// @default ( string.unquote('body') )
-///
-/// @since 0.1.0-pre.0
-///
-$selector_body: null !default;
-$selector_body: config-valid-selector(
-    $selector_body,
-    'selector_body',
-    (string.unquote('body'))
-);
-
-///
-/// Selector to use for the root element.  Included here to allow
-/// lower-specificity options.
-///
-/// @default ( string.unquote(':root') )
-///
-/// @since 0.1.0-pre.0
-///
-$selector_root: null !default;
-$selector_root: config-valid-selector(
-    $selector_root,
-    'selector_root',
-    (string.unquote(':root'))
-);
 
 ///
 /// How to select for manual overrides of theme modes (e.g., brightness, contrast).

@@ -55,14 +55,14 @@ export async function jsValueToSass(
             return new sass.SassNumber( Number( value ) );
 
         case 'string':
-            return new sass.SassString( value );
+            return new sass.SassString( value, { quotes: value.match( /[\s\n\r]/g ) !== null } );
 
         case 'object':
             // returns
             if ( Array.isArray( value ) || value instanceof Set ) {
 
                 return Promise.all( Array.from( value, jsValueToSass ) ).then(
-                    ( arr ) => new sass.SassList( arr )
+                    ( arr ) => new sass.SassList( arr, { separator: ',' } )
                 );
             }
 
@@ -77,19 +77,9 @@ export async function jsValueToSass(
                 ] ) )
             );
 
-            const immuMap = await sassEntries.then(
-                ( _entries ) => OrderedMap( _entries )
-            ) as OrderedMap<sass.SassString, sass.SassString>;
-
-            // @ts-ignore
-            const sassMap: sass.SassMap = new sass.SassMap( immuMap );
-
-            // const sassMap = immuMap.then( ( _map ) => new sass.SassMap( _map ) )
-
-            // return test.then(
-            //     entries => new sass.SassMap( OrderedMap( entries ) ) as sass.SassMap
-            // );
-            return sassMap;
+            return sassEntries.then(
+                _entries => new sass.SassMap( OrderedMap( _entries ) )
+            );
     }
 
     return new sass.SassString( String( value ) );

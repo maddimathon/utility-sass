@@ -18,28 +18,29 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
  *
  * @since 0.1.0-alpha.29
  */
-export function sassFn_debugProgressCheckpoint({ config, console, params }) {
+export function sassFn_debugProgressCheckpoint({ console, params }) {
     return {
         'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': async (args) => {
             const time = DateTime.now();
-            const [level = 1, location = 'debug checkpoint', output = true, verbose = false,] = await Promise.all([
-                sassAssertValueType('number', args[2]),
-                sassAssertValueType('string', args[0]),
-                sassAssertValueType('bool', args[1]),
-                sassAssertValueType('bool', args[3]),
-            ]);
-            const message = `${location} @ ${time.toFormat('H:mm:ss.SSS')}`;
-            if (output || params.debug || params.verbose) {
-                if (!verbose || params.verbose) {
-                    console.log(message, level, {
-                        clr: 'grey',
-                        italic: true,
-                        linesIn: 0,
-                        linesOut: 0,
-                    });
+            return Promise.all([
+                sassAssertValueType('location', 'number', args[2]),
+                sassAssertValueType('output', 'string', args[0]),
+                sassAssertValueType('level', 'bool', args[1]),
+                sassAssertValueType('verbose', 'bool', args[3]),
+            ]).then(([level, location, output, verbose]) => {
+                const message = `${location?.toString() ?? 'debug checkpoint'} @ ${time.toFormat('H:mm:ss.SSS')}`;
+                if ((output?.isTruthy ?? true) || params.debug || params.verbose) {
+                    if (!verbose?.isTruthy || params.verbose) {
+                        console.log(message, level?.asInt ?? 1, {
+                            clr: 'grey',
+                            italic: true,
+                            linesIn: 0,
+                            linesOut: 0,
+                        });
+                    }
                 }
-            }
-            return new sass.SassString(message);
+                return new sass.SassString(message);
+            });
         },
     };
 }

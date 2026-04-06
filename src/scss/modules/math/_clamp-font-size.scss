@@ -5,7 +5,7 @@
 
 @use 'sass:meta';
 
-@use '../../config';
+@use '../_config' as config;
 
 @use 'add-unit';
 @use 'round-to-pixel';
@@ -26,18 +26,18 @@
 @function clamp-font-size(
     $size,
     $relative: false,
-    $roundingFactor: config.$fn_fontSizeValue_roundToPixelFactor
+    $roundingFactor: config.$math_fontSize_roundingFactor
 ) {
     @if meta.type-of($size) != number {
         @warn "$size should be a number (was the #{meta.type-of($size)} #{$size})";
         @return add-unit.add-unit($size, if($relative, 1em, 1rem));
     }
 
-    $size_min: round-to-pixel.round-to-pixel($size * config.$fn_clampFontSize_multiplier_min);
+    $size_min: round-to-pixel.round-to-pixel($size * config.$math_clampFontSize_multiplier_min);
 
-    $goal_svw: round-to-pixel.round-to-pixel($size * config.$fn_clampFontSize_multiplier_svw);
+    $goal_svw: round-to-pixel.round-to-pixel($size * config.$math_clampFontSize_multiplier_svw);
 
-    $size_max: round-to-pixel.round-to-pixel($size * config.$fn_clampFontSize_multiplier_max);
+    $size_max: round-to-pixel.round-to-pixel($size * config.$math_clampFontSize_multiplier_max);
 
     $unit: if($relative, 1em, 1rem);
 
@@ -45,7 +45,7 @@
         add-unit.add-unit($size_min, $unit),
         calc(
             add-unit.add-unit($goal_svw, 1svw) +
-                add-unit.add-unit(config.$fn_clampFontSize_svw_rem, $unit)
+                add-unit.add-unit(config.$math_clampFontSize_baseRem, $unit)
         ),
         add-unit.add-unit($size_max, $unit)
     );

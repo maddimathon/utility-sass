@@ -88,7 +88,7 @@ $font_size: map.merge(
         $value: map.get($map, $key);
 
         @if meta.type-of($value) == map {
-            $value: _ksort_sizes($value, $_isFirstLevel: false);
+            $value: _ksort_sizes(map.flatten($value), $_isFirstLevel: false);
         }
 
         $ordered_map: map.set($ordered_map, $key, $value);
@@ -117,7 +117,7 @@ $font_size: map.flatten($font_size);
         $key,
         math.round-to-pixel(
             math.pow(spacing.$scaleMultiplier, $value),
-            $factor: config.$fn_fontSizeValue_roundToPixelFactor
+            $factor: config.$math_fontSize_roundingFactor
         )
     );
 }

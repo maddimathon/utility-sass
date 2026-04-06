@@ -1,7 +1,10 @@
 ///
-/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since 0.1.0-pre.0
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
 ///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Moved to module config.
+///
+
 @use 'sass:list';
 @use 'sass:meta';
 
@@ -27,7 +30,13 @@
     }
 
     // returns - value is not a string
-    @if config-enforce-type-or-warn($value: $value, $type: string, $varName: $name) == false {
+    @if config-enforce-type-or-warn(
+            $value: $value,
+            $type: string,
+            $varName: $name
+        ) ==
+        false
+    {
         @return $default;
     }
 
@@ -79,7 +88,12 @@ $config_validTokenLevels: (
 ///
 /// @param {string} $default  Default value to return if $value is invalid.
 ///
-@function config-valid-token-level($value, $name, $default, $options: $config_validTokenLevels) {
+@function config-valid-token-level(
+    $value,
+    $name,
+    $default,
+    $options: $config_validTokenLevels
+) {
     @if meta.type-of($value) == number {
         $value: '#{$value}';
 

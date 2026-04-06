@@ -9,7 +9,7 @@
 
 @use '../meta';
 
-@use '../../config';
+@use '../_config' as config;
 
 ///
 /// Joins given selectors together nested in both directions and unified.
@@ -67,11 +67,7 @@
         $selectorB: config.$selector_null;
     }
 
-    @if $selectorA ==
-        config.$selector_null and
-        $selectorB ==
-        config.$selector_null
-    {
+    @if $selectorA == config.$selector_null and $selectorB == config.$selector_null {
         $ret_override: config.$selector_null;
     } @else {
         @if $selectorA == config.$selector_null {

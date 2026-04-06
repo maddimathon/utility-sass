@@ -7,15 +7,13 @@
 @use 'sass:meta';
 @use 'sass:string';
 
-@function _flat-key-valid-and-add-prefix($key, $prefix, $allowRootValues) {
+@use '../_config' as config;
+
+@function _flat-key-valid-and-add-prefix($key, $prefix) {
     $str_key: '#{$key}';
     $str_prefix: '#{$prefix}';
 
-    $includeKeyName: if(
-        (string.length($str_key) < 1 or ($key == '$' and $allowRootValues)),
-        false,
-        true
-    );
+    $includeKeyName: if((string.length($str_key) < 1 or $key == '$'), false, true);
 
     $includePrefix: if(($prefix and string.length($str_prefix) > 0), true, false);
 
@@ -47,17 +45,27 @@
 /// @param {map}     $map     The map to flatten.
 /// @param {?string} $prefix  A prefix to add to all map keys. Default null.
 /// @param {?string} $suffix  A suffix to add to all map keys. Default null.
-/// @param {boolean} $allowRootValues  Whether '$' keys should be considered the 'root' value for that map when flattened.
 ///
 /// @return {map}
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Added global compiler function for better performance.
 ///
-@function flatten($map, $prefix: null, $suffix: null, $allowRootValues: true) {
+@function flatten($map, $prefix: null, $suffix: null) {
+    // returns
+    @if meta.function-exists('mmutils-map-flatten') {
+        @return meta.call(
+            meta.get-function('mmutils-map-flatten'),
+            $map,
+            $prefix: $prefix,
+            $suffix: $suffix
+        );
+    }
+
     $return: ();
 
     @each $_key, $_value in $map {
-        $_key: _flat-key-valid-and-add-prefix($_key, $prefix, $allowRootValues);
+        $_key: _flat-key-valid-and-add-prefix($_key, $prefix);
 
         @if meta.type-of($_value) != map {
             // just set the value plainly
@@ -67,12 +75,7 @@
             // flattened results
 
             // recursed map
-            $_value_flat: flatten(
-                $_value,
-                $prefix: $_key,
-                $suffix: $suffix,
-                $allowRootValues: $allowRootValues
-            );
+            $_value_flat: flatten($_value, $prefix: $_key, $suffix: $suffix);
 
             // and set those keys in the return
             @each $_flat_childKey, $_flat_childValue in $_value_flat {

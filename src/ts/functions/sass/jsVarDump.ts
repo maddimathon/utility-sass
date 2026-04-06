@@ -44,11 +44,11 @@ export function sassFn_jsVarDump(
         'mmutils-global-jsVarDump( $value, $name, $level )': async ( args: sass.Value[] ) => {
 
             const [
-                level = 1,
                 varName = 'var',
+                level = 1,
             ] = await Promise.all( [
-                sassAssertValueType( 'number', args[ 2 ] ),
-                sassAssertValueType( 'string', args[ 1 ] ),
+                sassAssertValueType( 'name', 'string', args[ 1 ], true ),
+                sassAssertValueType( 'level', 'number', args[ 2 ], true ),
             ] );
 
             const value = args[ 0 ];

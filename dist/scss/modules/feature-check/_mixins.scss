@@ -5,7 +5,7 @@
 
 @use 'sass:meta';
 
-@use '../../config';
+@use '../_config' as config;
 
 @use 'get-selector' as *;
 
@@ -16,11 +16,7 @@
 @mixin js($args...) {
     $args: meta.keywords($args);
 
-    @at-root #{get-selector(
-        $key: null,
-        $bool: true,
-        $args...,
-    )} {
+    @at-root #{get-selector( $key: null, $bool: true, $args... )} {
         @content;
     }
 }
@@ -32,11 +28,7 @@
 @mixin no-js($args...) {
     $args: meta.keywords($args);
 
-    @at-root #{get-selector(
-        $key: null,
-        $bool: false,
-        $args...,
-    )} {
+    @at-root #{get-selector( $key: null, $bool: false, $args... )} {
         @content;
     }
 }

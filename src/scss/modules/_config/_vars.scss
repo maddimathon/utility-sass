@@ -1,0 +1,117 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:string';
+
+@use 'functions' as fns;
+
+///
+/// @since 0.1.0-alpha
+///
+$math_clampFontSize_multiplier_max: null !default;
+$math_clampFontSize_multiplier_max: fns.config-valid-number(
+    $math_clampFontSize_multiplier_max,
+    'math_clampFontSize_multiplier_max',
+    $default: 1.125,
+    $min: 0.1,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-alpha
+///
+$math_clampFontSize_multiplier_min: null !default;
+$math_clampFontSize_multiplier_min: fns.config-valid-number(
+    $math_clampFontSize_multiplier_min,
+    'math_clampFontSize_multiplier_min',
+    $default: 0.75,
+    $min: 0.1,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-alpha
+///
+$math_clampFontSize_multiplier_svw: null !default;
+$math_clampFontSize_multiplier_svw: fns.config-valid-number(
+    $math_clampFontSize_multiplier_svw,
+    'math_clampFontSize_multiplier_svw',
+    $default: 1.3125,
+    $min: 0.1,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-alpha
+///
+$math_clampFontSize_baseRem: null !default;
+$math_clampFontSize_baseRem: fns.config-valid-number(
+    $math_clampFontSize_baseRem,
+    'math_clampFontSize_baseRem',
+    $default: 1,
+    $min: 0.1,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-alpha
+///
+$math_fontSize_roundingFactor: null !default;
+$math_fontSize_roundingFactor: fns.config-valid-number(
+    $math_fontSize_roundingFactor,
+    'math_fontSize_roundingFactor',
+    $default: 16,
+    $min: 1,
+    $unit: false
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$warnOnMissingCompilerFunctions: true !default;
+
+///
+/// Selector to use for the body element.  Included here to allow
+/// lower-specificity options.
+///
+/// @default ( body )
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Moved to module config.
+///
+$selector_body: null !default;
+$selector_body: fns.config-valid-selector($selector_body, 'selector_body', (body));
+
+///
+/// Selector used as a 'null' (e.g., not-output) selector within the system to
+/// avoid errors.  e.g., with the mode mixins if the targeted mode is disabled.
+///
+/// @default ( string.unquote('%null') )
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Moved to module config.
+///
+$selector_null: null !default;
+$selector_null: fns.config-valid-selector(
+    $selector_null,
+    'selector_null',
+    (string.unquote('%null'))
+);
+
+///
+/// Selector to use for the root element.  Included here to allow
+/// lower-specificity options.
+///
+/// @default ( string.unquote(':root') )
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Moved to module config.
+///
+$selector_root: null !default;
+$selector_root: fns.config-valid-selector(
+    $selector_root,
+    'selector_root',
+    (string.unquote(':root'))
+);

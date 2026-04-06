@@ -38,5 +38,31 @@ export declare namespace sassValueToJS {
     interface SassNull extends sass.Value {
         realNull: null;
     }
+    /**
+     * Gets the type of a sass value.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    function typeOf<T_Type extends typeOf.TestType | sass.Value>(value: T_Type): typeOf.Return;
+    namespace typeOf {
+        /**
+         * Possible return values for {@link typeOf}.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        type Return = "boolean" | "color" | "list" | "map" | "null" | "number" | "string" | "undefined";
+        /**
+         * Possible return values for {@link typeOf}, generically.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        type ReturnGeneric<T_Type extends TestType> = (T_Type extends undefined ? "undefined" : never) | (T_Type extends null | typeof sass.sassNull ? "null" : never) | (T_Type extends sass.SassColor ? "color" : never) | (T_Type extends sass.SassList ? "list" : never) | (T_Type extends sass.SassBoolean ? "boolean" : never) | (T_Type extends sass.SassNumber ? "number" : never) | (T_Type extends sass.SassMap ? "map" : never) | (T_Type extends sass.SassString ? "string" : never);
+        /**
+         * Input variable types for the {@link typeOf | typeOf()}.
+         *
+         * @since 0.1.0
+         */
+        type TestType = null | undefined | sass.SassBoolean | sass.SassColor | sass.SassList | sass.SassMap | sass.SassNumber | sass.SassString;
+    }
 }
 //# sourceMappingURL=sassValueToJS.d.ts.map
