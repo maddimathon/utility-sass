@@ -13,6 +13,30 @@
  */
 /* # MODULES - STRING
  * ======================================================================== */
+string.concat {
+    /* 
+      string.concat( "hello", " ", "there" ): <S> "hello there"
+   */
+    /* 
+      string.concat( "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ): <S> "hello1bad:practice-to-put-maps-or-lists there"
+   */
+    /* 
+      string.concat( "\f139", "\f132", " ", "\f139" ): <S> "\f139\f132  \f139"
+   */
+}
+
+string.join {
+    /* 
+      string.join( " ",  "hello", "there", "more" ): <S> "hello there more"
+   */
+    /* 
+      string.join( "  —  ", "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ): <S> "hello  —  1  —  bad: practice-to-put-maps-or-lists  —     —  there"
+   */
+    /* 
+      string.join( " + ",  "\f139", "\f132", "\f139" ): <S> "\f139  + \f132  + \f139"
+   */
+}
+
 string.replace {
     /* 
       string.replace( "hello there", "hello", "goodbye" ): <S> goodbye there

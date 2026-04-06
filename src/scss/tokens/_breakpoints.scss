@@ -7,7 +7,8 @@
 @use '../modules/map';
 @use '../modules/math';
 
-@use 'widths';
+@use 'spacing';
+@use 'width';
 
 /// # TOKENS - BREAKPOINTS
 /// ======================================================================== ///
@@ -15,9 +16,9 @@
 $_breakpoint_mobile: 25;
 $_breakpoint_tablet: 50;
 
-$_width_content: map.get(widths.$widths, 'content');
-$_width_page: map.get(widths.$widths, 'page');
-$_width_sidebar: map.get(widths.$widths, 'sidebar');
+$_width_content: map.get(width.$width, 'content');
+$_width_page: map.get(width.$width, 'page');
+$_width_sidebar: map.get(width.$width, 'sidebar');
 
 ///
 /// A map (merged with the defaults) of breakpoints used with the breakpoint
@@ -39,14 +40,13 @@ $breakpoints: map.merge(
         'content': $_width_content,
         'page': $_width_page,
         'sidebar': calc((($_width_page - $_width_sidebar) + ($_width_sidebar * 3 / 4))),
-        'indent': if(
-                map.has-key($breakpoints, 'mobile'),
-                map.get($breakpoints, 'mobile'),
-                $_breakpoint_mobile
+        'indent': calc(
+                map.get(width.$width, 'callout') *
+                    ((100 + math.deunit(map.get(spacing.$gap, inline, indent)) * 2) / 100)
             ),
     ),
     $breakpoints,
-    $recursive: tru
+    $recursive: true
 );
 
 @each $key, $value in $breakpoints {

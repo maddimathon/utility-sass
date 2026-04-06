@@ -17,7 +17,7 @@ $_widths_content: 36;
 $_widths_sidebar: 18;
 
 ///
-/// A map (merged with the defaults) of widths used throughout.
+/// A map (merged with the defaults) of width used throughout.
 ///
 /// Default keys are 'content' and 'sidebar'. After merging, values are
 /// rounded with math.round-to-pixel().
@@ -25,28 +25,24 @@ $_widths_sidebar: 18;
 /// @since 0.1.0-pre.0
 /// @since ___PKG_VERSION___ — Moved from config to tokens.
 ///
-$widths: () !default;
+$width: () !default;
 
-$widths: map.merge(
+$width: map.merge(
     (
         'content': $_widths_content,
         'sidebar': $_widths_sidebar,
 
         'callout': calc(
-                if(map.has-key($widths, 'content'), map.get($widths, 'content'), $_widths_content) *
-                    (100 - math.deunit(map.get(spacing.$gaps, inline, indent)) * 3) / 100
+                if(map.has-key($width, 'content'), map.get($width, 'content'), $_widths_content) *
+                    (100 - math.deunit(map.get(spacing.$gap, inline, indent)) * 3) / 100
             ),
     ),
-    $widths,
+    $width,
     $recursive: true
 );
 
-$widths: map.set(
-    $widths,
-    'page',
-    calc(map.get($widths, 'content') + map.get($widths, 'sidebar') + 6)
-);
+$width: map.set($width, 'page', calc(map.get($width, 'content') + map.get($width, 'sidebar') + 6));
 
-@each $key, $value in $widths {
-    $widths: map.set($widths, $key, math.round-to-pixel($value));
+@each $key, $value in $width {
+    $width: map.set($width, $key, math.round-to-pixel($value));
 }

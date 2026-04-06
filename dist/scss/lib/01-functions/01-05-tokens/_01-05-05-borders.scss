@@ -18,12 +18,12 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier and $unit param.
 ///
 @function border-width-value($level, $multiplier: 1, $unit: 1rem) {
-    $value: map.get(tokens.$border_widths, '200');
+    $value: map.get(tokens.$border_width, '200');
 
-    @if not map.has-key(tokens.$border_widths, '#{$level}') {
-        @warn "$level '#{$level}' was not a key in tokens.$border_widths";
+    @if not map.has-key(tokens.$border_width, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$border_width";
     } @else {
-        $value: map.get(tokens.$border_widths, '#{$level}');
+        $value: map.get(tokens.$border_width, '#{$level}');
     }
 
     @return math.add-unit(
@@ -63,12 +63,12 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier and $unit param.
 ///
 @function stroke-relative-value($level, $multiplier: 1, $unit: 1em) {
-    $value: map.get(tokens.$strokes_relative, '200');
+    $value: map.get(tokens.$stroke_relative, '200');
 
-    @if not map.has-key(tokens.$strokes_relative, '#{$level}') {
-        @warn "$level '#{$level}' was not a key in tokens.$strokes_relative";
+    @if not map.has-key(tokens.$stroke_relative, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$stroke_relative";
     } @else {
-        $value: map.get(tokens.$strokes_relative, '#{$level}');
+        $value: map.get(tokens.$stroke_relative, '#{$level}');
     }
 
     @return math.add-unit(

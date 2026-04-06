@@ -21,12 +21,12 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function mrg-value-firm($level, $unit: 1, $multiplier: 1) {
-    $value: map.get(tokens.$margins, '400');
+    $value: map.get(tokens.$margin, '400');
 
-    @if not map.has-key(tokens.$margins, '#{$level}') {
-        @warn "$level '#{$level}' was not a key in tokens.$margins";
+    @if not map.has-key(tokens.$margin, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$margin";
     } @else {
-        $value: map.get(tokens.$margins, '#{$level}');
+        $value: map.get(tokens.$margin, '#{$level}');
     }
 
     @return math.add-unit($value * $multiplier, $unit);
@@ -85,7 +85,8 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 }
 
 ///
-/// Uses the widths config to prepare the appropriate numerical value (rem).
+/// Uses the width tokens to prepare the appropriate numerical value (rem).
+///
 /// Returns a list of values since some are calculations that may require
 /// fallbacks.
 ///
@@ -96,12 +97,12 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 @function width-value($slug, $multiplier: 1, $returnAsNumber: true) {
     // returns
-    @if not map.has-key(tokens.$widths, '#{$slug}') {
-        @warn "$slug '#{$slug}' was not a key in tokens.$widths";
+    @if not map.has-key(tokens.$width, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in tokens.$width";
         @return ();
     }
 
-    $num: map.get(tokens.$widths, '#{$slug}');
+    $num: map.get(tokens.$width, '#{$slug}');
 
     @if meta.type-of($num) == 'number' and $multiplier != 1 {
         $num: math.round-to-pixel($num * $multiplier);
@@ -256,8 +257,8 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 
 /// ## GAPS ==================================== ///
 
-$_gaps_block: map.get(tokens.$gaps, block);
-$_gaps_inline: map.get(tokens.$gaps, inline);
+$_gaps_block: map.get(tokens.$gap, block);
+$_gaps_inline: map.get(tokens.$gap, inline);
 
 ///
 /// @since 0.1.0-pre.0
@@ -280,7 +281,7 @@ $_gaps_inline: map.get(tokens.$gaps, inline);
 
     // returns
     @if not map.has-key($map, $slug) {
-        @warn "$slug '#{$slug}' was not a key in the gaps map";
+        @warn "$slug '#{$slug}' was not a key in the gap map";
         @return ();
     }
 

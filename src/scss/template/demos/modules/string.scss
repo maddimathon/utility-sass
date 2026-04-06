@@ -14,6 +14,36 @@
 /* # MODULES - STRING
  * ======================================================================== */
 
+string.concat {
+    @include utils.var-dump(
+        'string.concat( "hello", " ", "there" )',
+        string.concat('hello', ' ', 'there')
+    );
+    @include utils.var-dump(
+        'string.concat( "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" )',
+        string.concat('hello', (1, (bad: practice-to-put-maps-or-lists)), ' ', 'there')
+    );
+    @include utils.var-dump(
+        'string.concat( "\f139", "\f132", " ", "\f139" )',
+        string.concat('\f139', '\f132', ' ', '\f139')
+    );
+}
+
+string.join {
+    @include utils.var-dump(
+        'string.join( " ",  "hello", "there", "more" )',
+        string.join(' ', 'hello', 'there', 'more')
+    );
+    @include utils.var-dump(
+        'string.join( "  —  ", "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" )',
+        string.join('  —  ', 'hello', (1, (bad: practice-to-put-maps-or-lists)), ' ', 'there')
+    );
+    @include utils.var-dump(
+        'string.join( " + ",  "\f139", "\f132", "\f139" )',
+        string.join(' + ', '\f139', '\f132', '\f139')
+    );
+}
+
 string.replace {
     @include utils.var-dump(
         'string.replace( "hello there", "hello", "goodbye" )',

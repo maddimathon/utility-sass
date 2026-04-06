@@ -11,6 +11,8 @@ This scss "module" is meant as a replacement for the built-in `sass:string` modu
 ```scss
 @use 'pkg:@maddimathon/utility-sass/string'; // adds extras to 'sass:string'
 
+string.concat(...); // added
+string.join(...); // added
 string.replace(...); // added
 string.slugify(...); // added
 

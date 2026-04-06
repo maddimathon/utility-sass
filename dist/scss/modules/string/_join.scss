@@ -1,0 +1,74 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:meta';
+
+@use 'concat';
+
+///
+/// Merges strings together, with a given string between and without interpolation.
+///
+/// @param {string} $joiner
+/// @param {string[]} $strings...
+///
+/// @return {string}
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function join($joiner, $strings...) {
+    //
+    @if not meta.type-of($joiner) == string {
+        @warn "[string.join] $joiner should be a string (was the #{meta.type-of($joiner)} #{joiner})";
+        $joiner: null;
+    } @else if $joiner == '' {
+        $joiner: null;
+        @warn "[string.join] $joiner should not be empty; else use string.concat() for better performance";
+    }
+
+    // returns
+    @if not $joiner {
+        @return concat.concat($strings...);
+    }
+
+    $toConcat: ();
+
+    $isFirst: true;
+
+    @each $string in $strings {
+        $_thisType: meta.type-of($string);
+
+        @if $_thisType != string {
+            //
+            @if $_thisType == list {
+                $string: join($joiner, $string...);
+            } @else if $_thisType == map {
+                $_new_strings: ();
+
+                @each $_key, $_val in $string {
+                    $_new_strings: list.append(
+                        $_new_strings,
+                        concat.concat($_key, ': ', $_val)
+                    );
+                }
+
+                $string: join($joiner, $_new_strings...);
+            } @else {
+                $string: #{$string};
+            }
+        }
+
+        @if $isFirst {
+            $toConcat: ($string);
+        } @else {
+            $toConcat: list.append($toConcat, $joiner);
+            $toConcat: list.append($toConcat, $string);
+        }
+
+        $isFirst: false;
+    }
+
+    @return concat.concat($toConcat...);
+}

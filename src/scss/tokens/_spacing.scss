@@ -50,9 +50,9 @@ $scaleMultiplier: config.config-valid-number(
 ///
 /// @since 0.1.0-pre.0
 ///
-$margins: () !default;
+$margin: () !default;
 
-$margins: map.ksort(
+$margin: map.ksort(
     map.merge(
         (
             '100': -9,
@@ -64,13 +64,13 @@ $margins: map.ksort(
             '800': 8,
             '900': 12,
         ),
-        $margins
+        $margin
     )
 );
 
-@each $key, $size in $margins {
-    $margins: map.set(
-        $margins,
+@each $key, $size in $margin {
+    $margin: map.set(
+        $margin,
         $key,
         math.round-to-pixel(math.pow($scaleMultiplier, $size) * $margin_base)
     );
@@ -95,9 +95,9 @@ $_gap_block_layout: config.config-round-to-pixel(calc($layoutVW * (5 / $_layoutV
 ///
 /// @since 0.1.0-pre.0
 ///
-$gaps: () !default;
-$gaps: map.merge(
-    $gaps,
+$gap: () !default;
+$gap: map.merge(
+    $gap,
     (
         block: (
             'layout': $_gap_block_layout,

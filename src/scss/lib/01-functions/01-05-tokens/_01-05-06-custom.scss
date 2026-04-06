@@ -13,40 +13,39 @@
 
 @use '01-05-05-borders' as *;
 
-$_flattened_customTokens: map.flatten(tokens.$customTokens);
-
 ///
-/// Gets the value of a custom token.
+/// Gets the value of a style token.
 ///
 /// @param {string} $slug  Flattened key for the token to fetch.
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from token-value to style-value.
 ///
-@function token-value($slug) {
+@function style-value($slug) {
+    $value: map.get(tokens.$style, '#{$slug}');
+
     // returns
-    @if not map.has-key($_flattened_customTokens, '#{$slug}') {
-        @warn "$slug '#{$slug}' was not a key in the flattened tokens.$customTokens";
+    @if $value == null {
+        @warn "$slug '#{$slug}' was not a key in the flattened tokens.$style";
         @return $slug;
     }
 
-    $value: map.get($_flattened_customTokens, '#{$slug}');
-
     // returns
     @if $slug == focus-ring-outline-width {
-        $sorted_border_tokenKeys: list.sort(map.keys(tokens.$border_widths));
+        $sorted_border_tokenKeys: list.sort(map.keys(tokens.$border_width));
 
         $border_min: list.nth($sorted_border_tokenKeys, 1);
 
         $border_max: list.nth($sorted_border_tokenKeys, list.length($sorted_border_tokenKeys));
 
         @each $level in $sorted_border_tokenKeys {
-            @if map.get(tokens.$border_widths, $level) <= 0.25 {
+            @if map.get(tokens.$border_width, $level) <= 0.25 {
                 $border_max: $level;
             }
         }
 
         @each $level in list.reverse($sorted_border_tokenKeys) {
-            @if map.get(tokens.$border_widths, $level) > 0.0625 {
+            @if map.get(tokens.$border_width, $level) > 0.0625 {
                 $border_min: $level;
             }
         }
@@ -64,23 +63,15 @@ $_flattened_customTokens: map.flatten(tokens.$customTokens);
 }
 
 ///
-/// Returns the flattened custom tokens map.
-///
-/// @since 0.1.0-pre.0
-///
-@function token-map() {
-    @return $_flattened_customTokens;
-}
-
-///
-/// Uses the custom tokens to print the appropriate var(...) with a fallback.
+/// Uses the style tokens to print the appropriate var(...) with a fallback.
 ///
 /// @param {string} $slug  Flattened key for the token to fetch.
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from var-token to var-style.
 ///
-@function var-token($slug, $fallback: null, $args...) {
-    $fallback: if($fallback == null, token-value($slug), $fallback);
+@function var-style($slug, $fallback: null, $args...) {
+    $fallback: if($fallback == null, style-value($slug), $fallback);
 
     // returns
     @if #{$fallback} == #{$slug} {

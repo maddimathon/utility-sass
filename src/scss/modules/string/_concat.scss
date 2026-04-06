@@ -1,0 +1,53 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:meta';
+@use 'sass:string';
+
+///
+/// Merges strings together, with no spaces between and without interpolation.
+///
+/// @param {string[]} $strings...
+///
+/// @return {string}
+///
+/// @since ___PKG_VERSION___
+///
+@function concat($strings...) {
+    $concatenated: '';
+
+    $isFirst: true;
+
+    @each $string in $strings {
+        $_thisType: meta.type-of($string);
+
+        @if $_thisType != string {
+            //
+            @if $_thisType == list {
+                $string: concat($string...);
+            } @else if $_thisType == map {
+                $_new_string: '';
+
+                @each $_key, $_val in $string {
+                    $_new_string: concat($_new_string, $_key, ':', $_val);
+                }
+
+                $string: $_new_string;
+            } @else {
+                $string: #{$string};
+            }
+        }
+
+        @if $isFirst {
+            $concatenated: $string;
+        } @else {
+            $concatenated: string.insert($concatenated, $string, string.length($concatenated) + 10);
+        }
+
+        $isFirst: false;
+    }
+
+    @return $concatenated;
+}

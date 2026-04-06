@@ -36,9 +36,9 @@ $fontSize_base: config.config-valid-number(
 ///
 /// @since 0.1.0-pre.0
 ///
-$font_sizes: () !default;
+$font_size: () !default;
 
-$font_sizes: map.merge(
+$font_size: map.merge(
     (
         'heading': (
             '1': 7,
@@ -67,7 +67,7 @@ $font_sizes: map.merge(
             '9': 9,
         ),
     ),
-    $font_sizes,
+    $font_size,
     $recursive: true
 );
 
@@ -95,22 +95,22 @@ $font_sizes: map.merge(
 }
 
 // sort recursively
-$font_sizes: _ksort_sizes($font_sizes);
+$font_size: _ksort_sizes($font_size);
 
 // reverse the smaller sizes
-$font_sizes: map.set(
-    $font_sizes,
+$font_size: map.set(
+    $font_size,
     smaller,
-    map.ksort(map.get($font_sizes, smaller), $sortAs: 'number', $reverse: true)
+    map.ksort(map.get($font_size, smaller), $sortAs: 'number', $reverse: true)
 );
 
 // flatten the map
-$font_sizes: map.flatten($font_sizes);
+$font_size: map.flatten($font_size);
 
 // now calculating & rounding
-@each $key, $value in $font_sizes {
-    $font_sizes: map.set(
-        $font_sizes,
+@each $key, $value in $font_size {
+    $font_size: map.set(
+        $font_size,
         $key,
         math.round-to-pixel(
             math.pow(spacing.$scaleMultiplier, $value),
@@ -141,9 +141,9 @@ $lineHeight_base: config.config-valid-number(
 ///
 /// @since 0.1.0-pre.0
 ///
-$line_heights: () !default;
+$line_height: () !default;
 
-$line_heights: map.ksort(
+$line_height: map.ksort(
     map.merge(
         (
             '100': -2.75,
@@ -153,13 +153,13 @@ $line_heights: map.ksort(
             '500': 1,
             '600': 2,
         ),
-        $line_heights
+        $line_height
     )
 );
 
-@each $key, $value in $line_heights {
-    $line_heights: map.set(
-        $line_heights,
+@each $key, $value in $line_height {
+    $line_height: map.set(
+        $line_height,
         $key,
         math.round-to-pixel(
             math.pow(spacing.$scaleMultiplier, $value * 0.875) * $lineHeight_base,

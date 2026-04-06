@@ -24,16 +24,17 @@
         @return $num;
     }
 
-    $_num_zero: $num * 0;
+    // returns
+    @if math.is-unitless($num) {
+        @return 1;
+    }
 
     // returns
     @if deunit.deunit($num) == 1 {
         @return $num;
     }
 
-    @return if(
-        math.is-unitless($num),
-        1,
-        if(math.compatible($_num_zero, 1), $_num_zero + 1, 1)
-    );
+    $_num_zero: $num * 0;
+
+    @return if(math.compatible($_num_zero, 1), $_num_zero + 1, 1);
 }

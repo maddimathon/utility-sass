@@ -15,7 +15,8 @@
 @use '../01-04-properties' as *;
 
 ///
-/// Uses the widths config to prepare the appropriate numerical value (rem).
+/// Uses the font size tokens to prepare the appropriate numerical value (rem).
+///
 /// Returns a list of values since some are calculations that may require
 /// fallbacks.
 ///
@@ -41,12 +42,12 @@
     $roundingFactor: config.$fn_fontSizeValue_roundToPixelFactor
 ) {
     // returns
-    @if not map.has-key(tokens.$font_sizes, $slug) {
+    @if not map.has-key(tokens.$font_size, $slug) {
         @warn "$slug '#{$slug}' did not match any of the font size tokens";
         @return ();
     }
 
-    $size: map.get(tokens.$font_sizes, $slug);
+    $size: map.get(tokens.$font_size, $slug);
 
     @if $clampFontSize == null {
         $clampFontSize: false;
@@ -92,7 +93,8 @@
 }
 
 ///
-/// Uses the widths config to prepare the appropriate numerical value (rem).
+/// Uses the line height tokens to prepare the appropriate numerical value.
+///
 /// Returns a list of values since some are calculations that may require
 /// fallbacks.
 ///
@@ -102,12 +104,12 @@
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
 @function line-height-value($level, $multiplier: 1) {
-    $value: map.get(tokens.$line_heights, '400');
+    $value: map.get(tokens.$line_height, '400');
 
-    @if not map.has-key(tokens.$line_heights, '#{$level}') {
-        @warn "$level '#{$level}' was not a key in tokens.$line_heights";
+    @if not map.has-key(tokens.$line_height, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$line_height";
     } @else {
-        $value: map.get(tokens.$line_heights, '#{$level}');
+        $value: map.get(tokens.$line_height, '#{$level}');
     }
 
     @return if(

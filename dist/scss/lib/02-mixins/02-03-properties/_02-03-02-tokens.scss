@@ -27,21 +27,26 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-border-width($multiplier: 1) {
+@mixin tokens-border-width($multiplier: 1, $includeRegion: true) {
+    $_sel: selector.parent-or-root();
+
     @at-root {
-        /* #region Tokens - Border Width */
-    }
-    @at-root #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$border_widths {
-            @include cx-prop(
-                border-width-#{$slug},
-                border-width-value($slug, $multiplier: $multiplier)
-            );
+        @if $includeRegion {
+            /* #region Tokens - Border Width */
         }
-    }
-    @at-root {
-        /* #endregion Tokens - Border Width */
+        #{$_sel} {
+            @each $slug, $_value in tokens.$border_width {
+                @include cx-prop(
+                    border-width-#{$slug},
+                    border-width-value($slug, $multiplier: $multiplier)
+                );
+            }
+        }
+        @if $includeRegion {
+            /* #endregion Tokens - Border Width */
+        }
     }
 }
 
@@ -50,21 +55,26 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-stroke-relative($multiplier: 1) {
+@mixin tokens-stroke-relative($multiplier: 1, $includeRegion: true) {
+    $_sel: selector.parent-or-root();
+
     @at-root {
-        /* #region Tokens - Stroke Relative */
-    }
-    @at-root #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$strokes_relative {
-            @include cx-prop(
-                stroke-relative-#{$slug},
-                stroke-relative-value($slug, $multiplier: $multiplier)
-            );
+        @if $includeRegion {
+            /* #region Tokens - Stroke Relative */
         }
-    }
-    @at-root {
-        /* #endregion Tokens - Stroke Relative */
+        #{$_sel} {
+            @each $slug, $_value in tokens.$stroke_relative {
+                @include cx-prop(
+                    stroke-relative-#{$slug},
+                    stroke-relative-value($slug, $multiplier: $multiplier)
+                );
+            }
+        }
+        @if $includeRegion {
+            /* #endregion Tokens - Stroke Relative */
+        }
     }
 }
 
@@ -73,34 +83,39 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-font-size($multiplier: 1) {
-    @at-root {
-        /* #region Tokens - Font Size */
-    }
-    @at-root #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$font_sizes {
-            @each $value in fs-value($slug, $multiplier: $multiplier) {
-                @include cx-prop(fs-#{$slug}, $value);
-            }
-        }
+@mixin tokens-font-size($multiplier: 1, $includeRegion: true) {
+    $_sel: selector.parent-or-root();
 
-        @if config.$mx_tokens_fontSize_printRelative {
-            @each $slug, $_value in tokens.$font_sizes {
-                @each $value
-                    in fs-value(
-                        $slug,
-                        $multiplier: $multiplier,
-                        $relative: true
-                    )
-                {
-                    @include cx-prop(fs-rel-#{$slug}, $value);
+    @at-root {
+        @if $includeRegion {
+            /* #region Tokens - Font Size */
+        }
+        #{$_sel} {
+            @each $slug, $_value in tokens.$font_size {
+                @each $value in fs-value($slug, $multiplier: $multiplier) {
+                    @include cx-prop(fs-#{$slug}, $value);
+                }
+            }
+
+            @if config.$mx_tokens_fontSize_printRelative {
+                @each $slug, $_value in tokens.$font_size {
+                    @each $value
+                        in fs-value(
+                            $slug,
+                            $multiplier: $multiplier,
+                            $relative: true
+                        )
+                    {
+                        @include cx-prop(fs-rel-#{$slug}, $value);
+                    }
                 }
             }
         }
-    }
-    @at-root {
-        /* #endregion Tokens - Font Size */
+        @if $includeRegion {
+            /* #endregion Tokens - Font Size */
+        }
     }
 }
 
@@ -109,21 +124,26 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-line-height($multiplier: 1) {
+@mixin tokens-line-height($multiplier: 1, $includeRegion: true) {
+    $_sel: selector.parent-or-root();
+
     @at-root {
-        /* #region Tokens - Line Heights */
-    }
-    @at-root #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$line_heights {
-            @include cx-prop(
-                line-height-#{$slug},
-                line-height-value($slug, $multiplier: $multiplier)
-            );
+        @if $includeRegion {
+            /* #region Tokens - Line Heights */
         }
-    }
-    @at-root {
-        /* #endregion Tokens - Line Heights */
+        #{$_sel} {
+            @each $slug, $_value in tokens.$line_height {
+                @include cx-prop(
+                    line-height-#{$slug},
+                    line-height-value($slug, $multiplier: $multiplier)
+                );
+            }
+        }
+        @if $includeRegion {
+            /* #endregion Tokens - Line Heights */
+        }
     }
 }
 
@@ -132,14 +152,18 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-margin($multiplier: 1) {
-    $selector: selector.parent-or-root();
+@mixin tokens-margin($multiplier: 1, $includeRegion: true) {
+    $_sel: selector.parent-or-root();
 
     @at-root {
-        /* #region Tokens - Margin */
-        #{$selector} {
-            @each $level, $_value in tokens.$margins {
+        @if $includeRegion {
+            /* #region Tokens - Margin */
+        }
+
+        #{$_sel} {
+            @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     mrg-firm-#{$level},
                     mrg-value-firm(
@@ -149,7 +173,7 @@
                     )
                 );
             }
-            @each $level, $_value in tokens.$margins {
+            @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     pad-firm-#{$level},
                     mrg-value-firm($level, $unit: 1em, $multiplier: $multiplier)
@@ -157,8 +181,8 @@
             }
         }
 
-        #{$selector} {
-            @each $level, $_value in tokens.$margins {
+        #{$_sel} {
+            @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     mrg-soft-#{$level},
                     mrg-value-soft(
@@ -168,7 +192,7 @@
                     )
                 );
             }
-            @each $level, $_value in tokens.$margins {
+            @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     pad-soft-#{$level},
                     mrg-value-soft($level, $unit: 1em, $multiplier: $multiplier)
@@ -176,8 +200,8 @@
             }
         }
 
-        #{$selector} {
-            @each $level, $_value in tokens.$margins {
+        #{$_sel} {
+            @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     mrg-half-#{$level},
                     mrg-value-half(
@@ -187,14 +211,17 @@
                     )
                 );
             }
-            @each $level, $_value in tokens.$margins {
+            @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     pad-half-#{$level},
                     mrg-value-half($level, $unit: 1em, $multiplier: $multiplier)
                 );
             }
         }
-        /* #endregion Tokens - Margin */
+
+        @if $includeRegion {
+            /* #endregion Tokens - Margin */
+        }
     }
 }
 
@@ -203,26 +230,30 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-gap($multiplier: 1) {
+@mixin tokens-gap($multiplier: 1, $includeRegion: true) {
+    $_sel: selector.parent-or-root();
+
     @at-root {
-        /* #region Tokens - Gap */
-    }
-    @at-root #{selector.parent-or-root()} {
-        //
-        @each $dir, $dirMap in tokens.$gaps {
-            //
-            @each $slug, $_list in $dirMap {
+        @if $includeRegion {
+            /* #region Tokens - Gap */
+        }
+        #{$_sel} {
+            @each $dir, $dirMap in tokens.$gap {
                 //
-                @each $value in gap-value($dir, $slug, $multiplier: $multiplier)
-                {
-                    @include cx-prop(gap-#{$dir}-#{$slug}, $value);
+                @each $slug, $_list in $dirMap {
+                    @each $value
+                        in gap-value($dir, $slug, $multiplier: $multiplier)
+                    {
+                        @include cx-prop(gap-#{$dir}-#{$slug}, $value);
+                    }
                 }
             }
         }
-    }
-    @at-root {
-        /* #endregion Tokens - Gap */
+        @if $includeRegion {
+            /* #endregion Tokens - Gap */
+        }
     }
 }
 
@@ -231,26 +262,31 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-width($multiplier: 1) {
+@mixin tokens-width($multiplier: 1, $includeRegion: true) {
+    $_sel: selector.parent-or-root();
+
     @at-root {
-        /* #region Tokens - Width */
-    }
-    @at-root #{selector.parent-or-root()} {
-        @each $slug, $_value in tokens.$widths {
-            @each $value
-                in width-value(
-                    $slug,
-                    $multiplier: $multiplier,
-                    $returnAsNumber: false
-                )
-            {
-                @include cx-prop(width-#{$slug}, $value);
+        @if $includeRegion {
+            /* #region Tokens - Width */
+        }
+        #{$_sel} {
+            @each $slug, $_value in tokens.$width {
+                @each $value
+                    in width-value(
+                        $slug,
+                        $multiplier: $multiplier,
+                        $returnAsNumber: false
+                    )
+                {
+                    @include cx-prop(width-#{$slug}, $value);
+                }
             }
         }
-    }
-    @at-root {
-        /* #endregion Tokens - Width */
+        @if $includeRegion {
+            /* #endregion Tokens - Width */
+        }
     }
 }
 
@@ -260,51 +296,65 @@ $_systemColors: get-sys-colours();
 /// Prints out the line height custom property default values based on config.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-sys-colour($clrOverrides: (), $includeForcedColours: true) {
+@mixin tokens-sys-colour(
+    $clrOverrides: (),
+    $includeForcedColours: true,
+    $includeRegion: true
+) {
+    $_sel: selector.parent-or-root();
+
     $map: map.parse-args($_systemColors, $clrOverrides);
 
     @at-root {
-        /* #region Tokens - System Colours */
-    }
-    @at-root :where(#{selector.parent-or-root()}) {
-        @each $slug, $list in $map {
-            $i: 1;
+        @if $includeRegion {
+            /* #region Tokens - System Colours */
+        }
 
-            @each $value in list.unique($list) {
-                @if $i > 1 {
-                    @supports (color: #{$value}) {
+        :where(#{$_sel}) {
+            @each $slug, $list in $map {
+                $i: 1;
+
+                @each $value in list.unique($list) {
+                    @if $i > 1 {
+                        @supports (color: #{$value}) {
+                            @include cx-prop(sys-clr-#{$slug}, $value);
+                        }
+                    } @else {
                         @include cx-prop(sys-clr-#{$slug}, $value);
                     }
-                } @else {
-                    @include cx-prop(sys-clr-#{$slug}, $value);
-                }
 
-                $i: $i + 1;
-            }
-        }
-    }
-
-    @if $includeForcedColours {
-        @include forced-colors {
-            @each $slug, $list in $map {
-                //
-                // changes $list
-                @if string.index($slug, button-bg) == 1 {
-                    $list: map.get($map, button-bg);
-                } @else if string.index($slug, button-border) == 1 {
-                    $list: map.get($map, button-border);
-                } @else if string.index($slug, button-text) == 1 {
-                    $list: map.get($map, button-text);
-                }
-
-                @each $value in $list {
-                    @include cx-prop(sys-clr-#{$slug}, #{$value} !important);
+                    $i: $i + 1;
                 }
             }
         }
-    }
-    @at-root {
-        /* #endregion Tokens - System Colours */
+
+        @if $includeForcedColours {
+            @include forced-colors {
+                @each $slug, $list in $map {
+                    //
+                    // changes $list
+                    @if string.index($slug, button-bg) == 1 {
+                        $list: map.get($map, button-bg);
+                    } @else if string.index($slug, button-border) == 1 {
+                        $list: map.get($map, button-border);
+                    } @else if string.index($slug, button-text) == 1 {
+                        $list: map.get($map, button-text);
+                    }
+
+                    @each $value in $list {
+                        @include cx-prop(
+                            sys-clr-#{$slug},
+                            #{$value} !important
+                        );
+                    }
+                }
+            }
+        }
+
+        @if $includeRegion {
+            /* #endregion Tokens - System Colours */
+        }
     }
 }

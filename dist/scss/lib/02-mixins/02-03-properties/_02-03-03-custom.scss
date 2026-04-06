@@ -3,7 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
-// @use '../../../config';
+@use '../../../tokens';
 
 @use '../../../modules/list';
 @use '../../../modules/map';
@@ -24,22 +24,26 @@
 /// Prints out the custom tokens based on config.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param. Renamed from tokens-custom to tokens-style.
 ///
-@mixin tokens-custom($tokens: null) {
-    //
-    $tokens: map.flatten(if($tokens == null, token-map(), $tokens));
+@mixin tokens-style($tokens: null, $includeRegion: true) {
+    $_sel: selector.parent-or-root();
 
-    @if list.length(map.keys($tokens)) > 0 {
-        @at-root {
-            /* #region Tokens - Misc. */
-        }
-        @at-root #{selector.parent-or-root()} {
-            @each $slug, $_value in $tokens {
-                @include cx-prop(#{$slug}, token-value($slug));
+    $tokens: map.flatten(if($tokens == null, tokens.$style, $tokens));
+
+    @at-root {
+        @if list.length(map.keys($tokens)) > 0 {
+            @if $includeRegion {
+                /* #region Tokens - Style */
             }
-        }
-        @at-root {
-            /* #endregion Tokens - Misc. */
+            #{$_sel} {
+                @each $slug, $_value in $tokens {
+                    @include cx-prop(#{$slug}, style-value($slug));
+                }
+            }
+            @if $includeRegion {
+                /* #endregion Tokens - Style */
+            }
         }
     }
 }

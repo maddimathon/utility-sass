@@ -22,16 +22,17 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier_... params.
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
 @mixin tokens-all(
     $atProperty: true,
     $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
-    $custom: true,
     $fontSize: not config.$fn_var_replaceWithValue_fontSize,
     $gap: not config.$fn_var_replaceWithValue_gap,
     $lineHeight: not config.$fn_var_replaceWithValue_lineHeight,
     $margin: not config.$fn_var_replaceWithValue_margin,
     $strokeRelative: not config.$fn_var_replaceWithValue_strokeRelative,
+    $style: true,
     $sysColours: config.$include_html,
     $width: not config.$fn_var_replaceWithValue_width,
     //
@@ -41,7 +42,9 @@
     $multiplier_lineHeight: 1,
     $multiplier_margin: 1,
     $multiplier_strokeRelative: 1,
-    $multiplier_width: 1
+    $multiplier_width: 1,
+    //
+    $includeRegion: true
 ) {
     @if $atProperty {
         @include tokens-at-property;
@@ -49,42 +52,61 @@
 
     // colours
     @if $sysColours {
-        @include tokens-sys-colour;
+        @include tokens-sys-colour($includeRegion: $includeRegion);
     }
 
     // spacing
     @if $width {
-        @include tokens-width($multiplier: $multiplier_width);
+        @include tokens-width(
+            $includeRegion: $includeRegion,
+            $multiplier: $multiplier_width
+        );
     }
     @if $margin {
-        @include tokens-margin($multiplier: $multiplier_margin);
+        @include tokens-margin(
+            $includeRegion: $includeRegion,
+            $multiplier: $multiplier_margin
+        );
     }
 
     // typography
     @if $fontSize {
-        @include tokens-font-size($multiplier: $multiplier_fontSize);
+        @include tokens-font-size(
+            $includeRegion: $includeRegion,
+            $multiplier: $multiplier_fontSize
+        );
     }
     @if $lineHeight {
-        @include tokens-line-height($multiplier: $multiplier_lineHeight);
+        @include tokens-line-height(
+            $includeRegion: $includeRegion,
+            $multiplier: $multiplier_lineHeight
+        );
     }
 
     // spacing
     @if $gap {
-        @include tokens-gap($multiplier: $multiplier_gap);
+        @include tokens-gap(
+            $includeRegion: $includeRegion,
+            $multiplier: $multiplier_gap
+        );
     }
 
     // decoration
     @if $borderWidth {
-        @include tokens-border-width($multiplier: $multiplier_borderWidth);
+        @include tokens-border-width(
+            $includeRegion: $includeRegion,
+            $multiplier: $multiplier_borderWidth
+        );
     }
     @if $strokeRelative {
         @include tokens-stroke-relative(
+            $includeRegion: $includeRegion,
             $multiplier: $multiplier_strokeRelative
         );
     }
 
-    // custom
-    @if $custom {
-        @include tokens-custom;
+    // style
+    @if $style {
+        @include tokens-style($includeRegion: $includeRegion);
     }
 }

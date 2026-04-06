@@ -16,9 +16,13 @@
 $atProperties: () !default;
 $atProperties: fns.tokens-get-at-properties($atProperties);
 
-$customTokens: () !default;
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Renamed from $customTokens to $style.
+///
+$style: () !default;
 
-$customTokens: map.ksort(
+$style: map.ksort(
     map.merge(
         map.flatten(
             (
@@ -29,7 +33,7 @@ $customTokens: map.ksort(
                 ),
             )
         ),
-        map.flatten($customTokens),
+        map.flatten($style),
         $recursive: true
     )
 );
