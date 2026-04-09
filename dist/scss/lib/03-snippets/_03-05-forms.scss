@@ -45,9 +45,11 @@
     $focusOffset: 0.125rem,
     $lineHeight: var-line-height('100'),
     $gap: var-mrg-soft('300') var-mrg-firm('100'),
-    $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
+    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
+    $marginInline: 0,
     $opacity_hover: 0.875,
-    $padding: var-mrg-soft('200') var-mrg-firm('300'),
+    $paddingBlock: var-mrg-soft('200'),
+    $paddingInline: var-mrg-firm('300'),
     $width: fit-content,
 
     $args...
@@ -74,9 +76,11 @@
         $borderWidth: $borderWidth,
         $focusOffset: $focusOffset,
         $lineHeight: $lineHeight,
-        $margin: $margin,
+        $marginBlock: $marginBlock,
+        $marginInline: $marginInline,
         $opacity_hover: $opacity_hover,
-        $padding: $padding,
+        $paddingBlock: $paddingBlock,
+        $paddingInline: $paddingInline,
         $width: $width,
 
         $includeLabel: false,
@@ -113,6 +117,7 @@
 /// Base styles for a fieldset element.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Changed $margin and $padding params to $marginBlock, $marginInline, $paddingBlock, $paddingInline.
 ///
 @mixin snippet-fieldset(
     $background: var-sys-colour(background),
@@ -121,14 +126,20 @@
     $borderClr_active: var-sys-colour(input-border-active),
     $color: var-sys-colour(text),
     $borderWidth: 0.0625rem,
-    $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
-    $padding: var-mrg-soft('300') var-mrg-firm('400') var-mrg-firm('300'),
+    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
+    $marginInline: 0,
+    $paddingBlock: var-mrg-soft('300') var-mrg-firm('300'),
+    $paddingInline: var-mrg-firm('400'),
     //
     $includeClrs: true
 ) {
     @include prop-display(block);
-    margin: #{$margin};
-    padding: #{$padding};
+
+    margin-block: #{$marginBlock};
+    margin-inline: #{$marginInline};
+
+    padding-block: #{$paddingBlock};
+    padding-inline: #{$paddingInline};
 
     border: #{$borderWidth} solid #{$borderClr};
     border-radius: 0;
@@ -161,6 +172,7 @@
 /// Base styles for an input element.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Changed $margin and $padding params to $marginBlock, $marginInline, $paddingBlock, $paddingInline.
 ///
 @mixin snippet-input(
     $accentClr: var-sys-colour(input-text),
@@ -184,10 +196,12 @@
     $lineHeight: var-line-height('200'),
     $borderWidth: 0.0625rem,
     $focusOffset: 0.125rem,
-    $margin: var-mrg-firm('400') 0 var-mrg-half('400'),
+    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
+    $marginInline: 0,
     $marginBlockStart_afterLabel: var-mrg-half('400'),
     $opacity_hover: 1,
-    $padding: var-mrg-soft('200') var-mrg-firm('200'),
+    $paddingBlock: var-mrg-soft('200'),
+    $paddingInline: var-mrg-firm('200'),
     $width: 100%,
     //
     $includeClrs: true,
@@ -197,8 +211,13 @@
 ) {
     @include cx-prop(focus-ring-outline-offset, $focusOffset);
     @include prop-display($display);
-    margin: #{$margin};
-    padding: #{$padding};
+
+    margin-block: #{$marginBlock};
+    margin-inline: #{$marginInline};
+
+    padding-block: #{$paddingBlock};
+    padding-inline: #{$paddingInline};
+
     width: #{$width};
 
     font: inherit;
@@ -326,12 +345,6 @@
         &[type='time'],
         &[type='week'] {
         width: auto;
-    }
-
-    @at-root &[type='file'],
-        %input--file {
-        padding-block: #{var-mrg-soft('300')};
-        padding-inline: #{var-mrg-firm('300')};
     }
 
     &[type='range'] {

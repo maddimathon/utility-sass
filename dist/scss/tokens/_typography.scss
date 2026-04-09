@@ -139,6 +139,20 @@ $lineHeight_base: config.config-valid-number(
 );
 
 ///
+/// Multiplier used when defining line heights.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$lineHeight_multiplier: null !default;
+$lineHeight_multiplier: config.config-valid-number(
+    $lineHeight_multiplier,
+    'lineHeight_multiplier',
+    $default: 0.875,
+    $min: 0.01,
+    $unit: false
+);
+
+///
 /// A map (merged with the defaults) of line height multipliers (0 = base lh)
 /// used with the line heights mixins and --line-height-X properties.
 ///
@@ -165,7 +179,10 @@ $line_height: map.ksort(
         $line_height,
         $key,
         math.round-to-pixel(
-            math.pow(spacing.$scaleMultiplier, $value * 0.875) *
+            math.pow(
+                    spacing.$scaleMultiplier,
+                    $value * $lineHeight_multiplier
+                ) *
                 $lineHeight_base,
             32
         )

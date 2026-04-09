@@ -255,10 +255,12 @@ $_headingDefault_textTransform: none;
 ///
 @mixin snippet-pre(
     $fontSize: var-fs(smaller-1),
+    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
     $marginInline: 0,
     $maxWidth: 100%,
     $width: auto,
-    $padding: var-mrg-soft('300') var-mrg-firm('300'),
+    $paddingBlock: var-mrg-soft('300'),
+    $paddingInline: var-mrg-firm('300'),
     //
     $includeBorder: true,
     $includeMarginBlock: true,
@@ -269,14 +271,11 @@ $_headingDefault_textTransform: none;
     @include prop-display(block);
     position: relative;
 
+    margin-block: #{$marginBlock};
     margin-inline: #{$marginInline};
 
-    @if $includeMarginBlock {
-        margin-block: #{var-mrg-firm('400')} 0;
-        margin-block: #{var-mrg-firm('600')} calc(var-mrg-firm('600') - var-mrg-firm('400'));
-    }
-
-    padding: #{$padding};
+    padding-block: #{$paddingBlock};
+    padding-inline: #{$paddingInline};
 
     @if $includeBorder {
         border: #{var-border-width('100')} solid currentColor;
