@@ -98,6 +98,8 @@ export async function sassAssertValueType(
 /**
  * Utilities for the {@link sassAssertValueType} function.
  * 
+ * @category Utilities – Sass API
+ * 
  * @since ___PKG_VERSION___
  */
 export namespace sassAssertValueType {

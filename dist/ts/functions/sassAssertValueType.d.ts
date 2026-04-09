@@ -22,6 +22,8 @@ export declare function sassAssertValueType(name: string, type: sassAssertValueT
 /**
  * Utilities for the {@link sassAssertValueType} function.
  *
+ * @category Utilities – Sass API
+ *
  * @since 0.1.0-beta.0.draft
  */
 export declare namespace sassAssertValueType {

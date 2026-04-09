@@ -1,0 +1,36 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:meta';
+@use 'sass:string';
+
+@use '../_config' as config;
+
+///
+/// Uses a compiler function to use JS strings' match property to test a regexp.
+///
+/// @param {string[]} $strings...
+///
+/// @return {string}
+///
+/// @since ___PKG_VERSION___
+///
+@function match($string, $pattern, $flags: null, $debug: false) {
+    @if not meta.function-exists('mmutils-string-match') {
+        @if not config.$warnOnMissingCompilerFunctions {
+            @warn "[string.match] global compiler function for string.match not found, which is required for use";
+        }
+
+        @return ();
+    }
+
+    @return meta.call(
+        meta.get-function('mmutils-string-match'),
+        $string: $string,
+        $pattern: string.unquote($pattern),
+        $flags: $flags,
+        $debug: $debug
+    );
+}

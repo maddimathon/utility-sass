@@ -5,7 +5,7 @@
 
 @use '../_config' as config;
 
-@use 'parent-exists' as *;
+@use 'parent-exists';
 
 ///
 /// Returns the current parent selector, or if none exists, the root selector.
@@ -13,7 +13,12 @@
 /// @return {selector}
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Added optional $asPseudoSelector param.
 ///
-@function parent-or-body() {
-    @return if(parent-exists(), &, config.$selector_body);
+@function parent-or-body($asPseudoSelector: false) {
+    @return if(
+        parent-exists.parent-exists(),
+        &,
+        if($asPseudoSelector, '%body', config.$selector_body)
+    );
 }

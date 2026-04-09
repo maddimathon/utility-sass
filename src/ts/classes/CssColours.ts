@@ -205,17 +205,17 @@ export namespace CssColours {
     /**
      * @since ___PKG_VERSION___
      */
-    const keywords = new Set( arrays.keywords );
+    export const keywords = new Set( arrays.keywords );
 
     /**
      * @since ___PKG_VERSION___
      */
-    const slugs = new Set( arrays.slugs );
+    export const slugs = new Set( arrays.slugs );
 
     /**
      * @since ___PKG_VERSION___
      */
-    const systemColors = new Set( arrays.systemColors );
+    export const systemColors = new Set( arrays.systemColors );
 
     /**
      * These are the keywords used to reference other colour values. For

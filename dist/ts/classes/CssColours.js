@@ -200,22 +200,22 @@ export var CssColours;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const keywords = new Set(arrays.keywords);
+    CssColours.keywords = new Set(arrays.keywords);
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const slugs = new Set(arrays.slugs);
+    CssColours.slugs = new Set(arrays.slugs);
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const systemColors = new Set(arrays.systemColors);
+    CssColours.systemColors = new Set(arrays.systemColors);
     /**
      * Whether this is one of the keywords in {@link CssColours.Keyword}.
      *
      * @since 0.1.0-beta.0.draft
      */
     function isKeyword(value) {
-        return keywords.has(value);
+        return CssColours.keywords.has(value);
     }
     CssColours.isKeyword = isKeyword;
     /**
@@ -224,7 +224,7 @@ export var CssColours;
      * @since 0.1.0-beta.0.draft
      */
     function isSlug(value) {
-        return slugs.has(value);
+        return CssColours.slugs.has(value);
     }
     CssColours.isSlug = isSlug;
     /**
@@ -233,7 +233,7 @@ export var CssColours;
      * @since 0.1.0-beta.0.draft
      */
     function isSystemColor(value) {
-        return systemColors.has(value);
+        return CssColours.systemColors.has(value);
     }
     CssColours.isSystemColor = isSystemColor;
 })(CssColours || (CssColours = {}));

@@ -3,10 +3,22 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
-// @use 'sass:meta';
+@use 'sass:meta';
 
-// @use 'vars' as config;
+@use 'vars' as config;
 
 // @if config.$warnOnMissingCompilerFunctions and not meta.function-exists('mmutils-map-flatten') {
 //     @warn "[map.flatten] global compiler function for map.flatten not found, which will significantly impact performance for large maps";
 // }
+
+@if config.$warnOnMissingCompilerFunctions and not
+    meta.function-exists('mmutils-string-match')
+{
+    @warn "[string.match] global compiler function for string.match not found, which is required for use";
+}
+
+@if config.$warnOnMissingCompilerFunctions and not
+    meta.function-exists('mmutils-string-regex-replace')
+{
+    @warn "[string.regex-replace] global compiler function for string.regex-replace not found, which is required for use";
+}

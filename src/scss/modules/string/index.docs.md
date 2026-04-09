@@ -13,6 +13,8 @@ This scss "module" is meant as a replacement for the built-in `sass:string` modu
 
 string.concat(...); // added
 string.join(...); // added
+string.match(...); // added
+string.regex-replace(...); // added
 string.replace(...); // added
 string.slugify(...); // added
 

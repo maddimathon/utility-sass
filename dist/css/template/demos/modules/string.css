@@ -37,6 +37,46 @@ string.join {
    */
 }
 
+string.match {
+    /* 
+      string.match( "hello there", "^hello" ) is a list:
+   */
+    /* 1: <S> hello */
+    /* 
+      string.match( "hello there", "^Hello" ): <-> null
+   */
+    /* 
+      string.match( "hello there", "^Hello", "i" ) is a list:
+   */
+    /* 1: <S> hello */
+    /* 
+      string.match( "hello there", "[^\\s] ([^\\s]+)$", "i" ) is a list:
+   */
+    /* 1: <S> "o there" */
+    /* 2: <S> there */
+}
+
+string.regex-replace {
+    /* 
+      string.regex-replace( "hello there", "^hello", "goodbye" ): <S> "goodbye there"
+   */
+    /* 
+      string.regex-replace( "hello there", "^Hello", "goodbye" ): <S> "hello there"
+   */
+    /* 
+      string.regex-replace( "hello there", "^Hello", "goodbye", $flags: "gi" ): <S> "goodbye there"
+   */
+    /* 
+      string.regex-replace( "hello there", "^([^\\s]+)", "goodbye" ): <S> goodbye
+   */
+    /* 
+      string.regex-replace( "hello there", "^hello\\s*(.*)$", "goodbye $1" ): <S> "goodbye there"
+   */
+    /* 
+      string.regex-replace( "remove this part but not the rest", "^remove this part\\s+" ): <S> "but not the rest"
+   */
+}
+
 string.replace {
     /* 
       string.replace( "hello there", "hello", "goodbye" ): <S> goodbye there

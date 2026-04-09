@@ -22,6 +22,8 @@ import type * as sass from "sass-embedded";
 import { sassFn_getCurrentVersion } from './sass/getCurrentVersion.js';
 import { sassFn_jsVarDump } from './sass/jsVarDump.js';
 // import { sassFn_map_flatten } from './sass/map_flatten.js';
+import { sassFn_string_match } from './sass/string_match.js';
+import { sassFn_string_regexReplace } from './sass/string_regexReplace.js';
 import { sassFn_debugProgressCheckpoint } from './sass/debugProgressCheckpoint.js';
 
 /**
@@ -45,5 +47,7 @@ export function sassCompilerFunctions(
         ...sassFn_debugProgressCheckpoint( args ),
         ...sassFn_jsVarDump( args ),
         // ...sassFn_map_flatten( args ),
+        ...sassFn_string_match( args ),
+        ...sassFn_string_regexReplace( args ),
     } as const satisfies sass.Options<'async'>[ 'functions' ];
 }

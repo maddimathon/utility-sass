@@ -15,13 +15,13 @@ import { sassValueToJS } from '../sassValueToJS.js';
 // import { jsValueToSass } from '../jsValueToSass.js';
 /**
  * Returns a call signature and function to include in {@link sass.Options} that
- * outputs a var dump to the console.
+ * uses js utilities to flatten a map.
  *
  * @category Sass API - Compiler Functions
  *
  * @since __PKG_VERSION___
  */
-export function sassFn_map_flatten({ console }) {
+export function sassFn_map_flatten({}) {
     const _emptyMap = new sass.SassMap();
     const _emptyString = new sass.SassString();
     const _rootString = new sass.SassString('$');
@@ -80,9 +80,6 @@ export function sassFn_map_flatten({ console }) {
             if (!map) {
                 return _emptyMap;
             }
-            // return mapFlattenAsync( map, { prefix, separator: '-', suffix } ).then(
-            //     flatMap => jsValueToSass( flatMap as Map<number | string, jsValueToSass.SimpleAcceptedValues> )
-            // );
             return mapFlattener(map, prefix, suffix);
         }),
     };

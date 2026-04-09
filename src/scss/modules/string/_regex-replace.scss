@@ -1,0 +1,33 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:meta';
+@use 'sass:string';
+
+///
+/// Replaces $search with $replace in $string. Replaces all though recursion.
+///
+/// @return {string}
+///
+/// @since ___PKG_VERSION___
+///
+@function regex-replace($string, $search, $replace: '', $flags: null, $debug: false) {
+    @if not meta.function-exists('mmutils-string-regex-replace') {
+        @if not config.$warnOnMissingCompilerFunctions {
+            @warn "[string.regex-replace] global compiler function for string.regex-replace not found, which is required for use";
+        }
+
+        @return $string;
+    }
+
+    @return meta.call(
+        meta.get-function('mmutils-string-regex-replace'),
+        $string: $string,
+        $search: string.unquote($search),
+        $replace: $replace,
+        $flags: $flags,
+        $debug: $debug
+    );
+}

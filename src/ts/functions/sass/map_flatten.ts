@@ -28,14 +28,14 @@ import { sassValueToJS } from '../sassValueToJS.js';
 
 /**
  * Returns a call signature and function to include in {@link sass.Options} that
- * outputs a var dump to the console.
+ * uses js utilities to flatten a map.
  *
  * @category Sass API - Compiler Functions
  *
  * @since __PKG_VERSION___
  */
 export function sassFn_map_flatten(
-    { console }: {
+    { }: {
         config: Config.Class,
         console: Logger,
         params: CLI.Params,
@@ -134,9 +134,6 @@ export function sassFn_map_flatten(
                         return _emptyMap;
                     }
 
-                    // return mapFlattenAsync( map, { prefix, separator: '-', suffix } ).then(
-                    //     flatMap => jsValueToSass( flatMap as Map<number | string, jsValueToSass.SimpleAcceptedValues> )
-                    // );
                     return mapFlattener( map, prefix, suffix );
                 }
             ),

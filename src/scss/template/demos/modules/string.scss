@@ -44,6 +44,52 @@ string.join {
     );
 }
 
+string.match {
+    @include utils.var-dump(
+        'string.match( "hello there", "^hello" )',
+        string.match('hello there', '^hello')
+    );
+    @include utils.var-dump(
+        'string.match( "hello there", "^Hello" )',
+        string.match('hello there', '^Hello')
+    );
+    @include utils.var-dump(
+        'string.match( "hello there", "^Hello", "i" )',
+        string.match('hello there', '^Hello', 'i')
+    );
+    @include utils.var-dump(
+        'string.match( "hello there", "[^\\\\s] ([^\\\\s]+)$", "i" )',
+        string.match('hello there', '[^\\s] ([^\\s]+)$', 'i')
+    );
+}
+
+string.regex-replace {
+    @include utils.var-dump(
+        'string.regex-replace( "hello there", "^hello", "goodbye" )',
+        string.regex-replace('hello there', '^hello', 'goodbye')
+    );
+    @include utils.var-dump(
+        'string.regex-replace( "hello there", "^Hello", "goodbye" )',
+        string.regex-replace('hello there', '^Hello', 'goodbye')
+    );
+    @include utils.var-dump(
+        'string.regex-replace( "hello there", "^Hello", "goodbye", $flags: "gi" )',
+        string.regex-replace('hello there', '^Hello', 'goodbye', $flags: 'gi')
+    );
+    @include utils.var-dump(
+        'string.regex-replace( "hello there", "^([^\\\\s]+)", "goodbye" )',
+        string.regex-replace('hello there', '^([^\\\\s]+)', 'goodbye')
+    );
+    @include utils.var-dump(
+        'string.regex-replace( "hello there", "^hello\\\\s*(.*)$", "goodbye $1" )',
+        string.regex-replace('hello there', '^hello\\s*(.*)$', 'goodbye $1')
+    );
+    @include utils.var-dump(
+        'string.regex-replace( "remove this part but not the rest", "^remove this part\\\\s+" )',
+        string.regex-replace('remove this part but not the rest', '^remove this part\\s+')
+    );
+}
+
 string.replace {
     @include utils.var-dump(
         'string.replace( "hello there", "hello", "goodbye" )',

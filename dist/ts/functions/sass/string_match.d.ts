@@ -12,17 +12,17 @@ import type { Logger } from '@maddimathon/build-utilities/internal';
 import * as sass from "sass-embedded";
 /**
  * Returns a call signature and function to include in {@link sass.Options} that
- * uses js utilities to flatten a map.
+ * uses js to match a regex against a string.
  *
  * @category Sass API - Compiler Functions
  *
  * @since __PKG_VERSION___
  */
-export declare function sassFn_map_flatten({}: {
+export declare function sassFn_string_match({ console }: {
     config: Config.Class;
     console: Logger;
     params: CLI.Params;
 }): {
-    readonly 'mmutils-map-flatten( $map, $prefix: null, $suffix: null )': (args: sass.Value[]) => Promise<sass.Value | sass.SassMap>;
+    readonly 'mmutils-string-match( $string, $pattern, $flags: null, $debug: false )': (args: sass.Value[]) => Promise<sass.Value>;
 };
-//# sourceMappingURL=map_flatten.d.ts.map
+//# sourceMappingURL=string_match.d.ts.map
