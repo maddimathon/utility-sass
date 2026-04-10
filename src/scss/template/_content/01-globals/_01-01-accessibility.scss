@@ -3,39 +3,40 @@
 /// @since 0.1.0-pre.0
 ///
 
-// @use '../../../modules/colour';
-// @use '../../../modules/list';
-// @use '../../../modules/map';
-// @use '../../../modules/math';
-// @use '../../../modules/meta';
-// @use '../../../modules/selector';
-// @use '../../../modules/string';
+@use '../../../modules/map';
 
 @use '../config';
 // @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@if config.$template_cssHeadings {
-    /* # GLOBALS - Accessibility
+$_print_focusRing: map.get(config.$template_styles, focusRing);
+$_print_screenReaderText: map.get(config.$template_styles, screenReaderText);
+
+@if config.$template_cssHeadings and ($_print_focusRing or $_print_screenReaderText) {
+    /* # GLOBALS - ACCESSIBILITY
      * ======================================================================== */
 }
 
-%focus-ring {
-    /* %focus-ring */
-    @include snippet-focus-ring;
+@if $_print_focusRing {
+    %focus-ring {
+        /* %focus-ring */
+        @include snippet-focus-ring;
+    }
+
+    %focus-ring--where {
+        /* %focus-ring--where */
+        @include snippet-focus-ring;
+    }
+
+    %focus-ring--visible {
+        /* %focus-ring--visible */
+        @include snippet-focus-ring;
+    }
 }
 
-%focus-ring--where {
-    /* %focus-ring--where */
-    @include snippet-focus-ring;
-}
-
-%focus-ring--visible {
-    /* %focus-ring--visible */
-    @include snippet-focus-ring;
-}
-
-%screen-reader-text {
-    @include snippet-screen-reader-text;
+@if $_print_screenReaderText {
+    %screen-reader-text {
+        @include snippet-screen-reader-text;
+    }
 }

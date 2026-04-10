@@ -3,110 +3,106 @@
 /// @since 0.1.0-pre.0
 ///
 
-// @use '../../../modules/colour';
-// @use '../../../modules/list';
-// @use '../../../modules/map';
-// @use '../../../modules/math';
-// @use '../../../modules/meta';
-// @use '../../../modules/selector';
-// @use '../../../modules/string';
+@use '../../../modules/map';
 
 @use '../config';
 // @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@if config.$template_cssHeadings {
-    /* # GLOBALS - Tables
-     * ======================================================================== */
-}
+@if map.get(config.$template_styles, table) {
+    @if config.$template_cssHeadings {
+        /* # GLOBALS - TABLES
+         * ======================================================================== */
+    }
 
-%table-wrapper,
-%table {
-    position: relative;
-    margin-block: #{var-mrg-firm('400')} 0;
-    margin-block: #{var-mrg-firm('600')} calc(var-mrg-soft('600') - var-mrg-soft('400'));
+    %table-wrapper,
+    %table {
+        position: relative;
+        margin-block: #{var-mrg-firm('400')} 0;
+        margin-block: #{var-mrg-firm('600')} calc(var-mrg-soft('600') - var-mrg-soft('400'));
 
-    background: #{var-sys-colour(accent-bg)};
-}
+        background: #{var-sys-colour(accent-bg)};
+    }
 
-%table {
-    border-spacing: #{var-border-width('200')};
-    font-size: #{var-fs(smaller-1)};
-    line-height: inherit;
+    %table {
+        border-spacing: #{var-border-width('200')};
+        font-size: #{var-fs(smaller-1)};
+        line-height: inherit;
 
-    @include forced-colors {
-        border-spacing: 0;
+        @include forced-colors {
+            border-spacing: 0;
 
-        $_border: #{var-border-width('200')} solid #{var-sys-colour(text)};
+            $_border: #{var-border-width('200')} solid #{var-sys-colour(text)};
 
-        %th,
-        %td {
-            border-block-end: #{$_border};
-            border-inline-end: #{$_border};
+            %th,
+            %td {
+                border-block-end: #{$_border};
+                border-inline-end: #{$_border};
 
-            &:first-child {
-                border-inline-start: #{$_border};
+                &:first-child {
+                    border-inline-start: #{$_border};
+                }
             }
-        }
 
-        %tr {
-            &:first-child {
-                %th,
-                %td {
-                    border-block-start: #{$_border};
+            %tr {
+                &:first-child {
+                    %th,
+                    %td {
+                        border-block-start: #{$_border};
+                    }
                 }
             }
         }
     }
-}
 
-%table-wrapper {
-    @include prop-display(block);
-    overflow-x: auto;
-    overscroll-behavior-x: none;
+    %table-wrapper {
+        @include prop-display(block);
+        overflow-x: auto;
+        overscroll-behavior-x: none;
 
-    /// BLOCK ///
+        /// BLOCK ///
 
-    > %table {
-        margin: 0;
-        padding: 0;
-        background: transparent;
+        > %table {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }
     }
-}
 
-%tr {
-}
-
-%th,
-%td {
-    padding-block: #{var-mrg-soft('200')};
-    padding-inline: #{var-mrg-firm('300')};
-    min-width: 10em;
-    background: #{var-sys-colour(background)};
-
-    vertical-align: top;
-    text-align: left;
-
-    /// BLOCK ///
-
-    > :first-child {
-        margin-top: 0;
+    %tr {
     }
-    > :last-child {
-        margin-bottom: 0;
+
+    %th,
+    %td {
+        padding-block: #{var-mrg-soft('200')};
+        padding-inline: #{var-mrg-firm('300')};
+        min-width: 10em;
+        background: #{var-sys-colour(background)};
+
+        vertical-align: top;
+        text-align: left;
+
+        /// BLOCK ///
+
+        > :first-child {
+            margin-top: 0;
+        }
+        > :last-child {
+            margin-bottom: 0;
+        }
     }
-}
 
-%th {
-    padding-top: #{var-mrg-soft('200')};
-    padding-bottom: #{var-mrg-soft('200')};
+    %th {
+        padding-top: #{var-mrg-soft('200')};
+        padding-bottom: #{var-mrg-soft('200')};
 
-    text-wrap: balance;
+        text-wrap: balance;
 
-    background: #{var-sys-colour(accent-bg)};
-    color: #{var-sys-colour(accent-text)};
-}
+        background: #{var-sys-colour(accent-bg)};
+        color: #{var-sys-colour(accent-text)};
+    }
 
-%td {
+    %td {
+    }
 }

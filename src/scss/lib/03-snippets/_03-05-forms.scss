@@ -5,6 +5,7 @@
 
 @use '../../modules/math';
 @use '../../modules/meta';
+@use '../../modules/selector';
 @use '../../modules/string';
 
 @use '../01-functions' as *;
@@ -312,6 +313,11 @@
     &[type='time'],
     &[type='week'] {
         cursor: pointer;
+
+        &[aria-disabled='true'],
+        &[disabled] {
+            cursor: not-allowed;
+        }
     }
 
     &[type='email'],
@@ -324,6 +330,11 @@
     &[type='url'],
     &[type='week'] {
         cursor: text;
+
+        &[aria-disabled='true'],
+        &[disabled] {
+            cursor: not-allowed;
+        }
     }
 
     &[type='checkbox'],
@@ -382,7 +393,7 @@
         color: #{$color};
     }
 
-    &:has(> :where(input[type='checkbox'], input[type='radio'])) {
+    &:has(> :where([type='checkbox'], [type='radio'])) {
         @include prop-display(grid);
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;
@@ -397,6 +408,10 @@
         }
 
         cursor: pointer;
+
+        @at-root #{selector.unify(&, ('[aria-disabled=true]', '[disabled]'))} {
+            cursor: not-allowed;
+        }
 
         & + & {
             margin-block-start: #{$marginBlock_innercheckradio};

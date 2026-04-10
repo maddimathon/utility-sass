@@ -5,34 +5,39 @@
 
 @use '../../../modules/map';
 @use '../../../modules/math';
+@use '../../../modules/meta';
 
 @use '../config';
 @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@if config.$template_cssHeadings {
-    /* # GLOBALS - Objects
+$_print_bodyFlow: map.get(config.$template_styles, bodyFlow);
+$_print_hr: map.get(config.$template_styles, hr);
+$_print_scrollPadding: map.get(config.$template_styles, scrollPadding);
+
+@if config.$template_cssHeadings and
+    ($_print_bodyFlow or $_print_hr or $_print_scrollPadding)
+{
+    /* # GLOBALS - OBJECTS
      * ======================================================================== */
 }
 
-$_scrollPaddingFallback: var-gap-block(layout);
+@if $_print_scrollPadding {
+    $_scrollPaddingFallback: var-gap-block(layout);
 
-%root {
-    @if config.$include_html {
+    %root {
         @include cx-prop(scroll-padding-top, $_scrollPaddingFallback);
         @include cx-prop(scroll-padding-top, scroll-padding-top-value());
     }
-}
 
-%root,
-%body {
-    @if config.$include_html {
+    %root,
+    %body {
         scroll-padding-top: var-scroll-padding-top($_scrollPaddingFallback);
     }
 }
 
-@if map.get(config.$template_styles, bodyFlow) {
+@if $_print_bodyFlow {
     %body {
         @if config.$include_html {
             @include prop-display(flex);
@@ -52,25 +57,28 @@ $_scrollPaddingFallback: var-gap-block(layout);
     }
 }
 
-%hr {
-    @include prop-display(block);
+@if $_print_hr {
+    %hr {
+        @include prop-display(block);
 
-    margin-block: #{var-mrg-firm('600')};
-    margin-inline: #{var-gap-inline(indent)};
+        margin-block: #{var-mrg-firm('600')};
+        margin-inline: #{var-gap-inline(indent)};
 
-    width: #{math.add-unit(
-            math.round-to-pixel(
-                calc(
-                    100 * map.get(tokens.$width, callout) /
-                        map.get(tokens.$width, content)
+        width: #{math.add-unit(
+                math.round-to-pixel(
+                    calc(
+                        100 *
+                            map.get(tokens.$width, callout) /
+                            map.get(tokens.$width, content)
+                    ),
+                    100
                 ),
-                100
-            ),
-            $unit: 1%
-        )};
+                $unit: 1%
+            )};
 
-    max-width: #{var-width(callout)};
+        max-width: #{var-width(callout)};
 
-    border: none;
-    border-block-end: currentColor solid #{var-border-width('200')};
+        border: none;
+        border-block-end: currentColor solid #{var-border-width('200')};
+    }
 }

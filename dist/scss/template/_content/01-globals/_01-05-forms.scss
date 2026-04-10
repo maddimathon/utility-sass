@@ -11,64 +11,74 @@
 
 @use '../../../lib' as *;
 
-@if config.$template_cssHeadings {
-    /* # GLOBALS - Forms
+$_print_buttons: map.get(config.$template_styles, buttons);
+$_print_fieldset: map.get(config.$template_styles, fieldset);
+$_print_inputs: map.get(config.$template_styles, inputs);
+
+@if config.$template_cssHeadings and
+    ($_print_buttons or $_print_fieldset or $_print_inputs)
+{
+    /* # GLOBALS - FORMS
      * ======================================================================== */
 }
 
-%fieldset {
-    @include snippet-fieldset;
+@if $_print_fieldset {
+    %fieldset {
+        @include snippet-fieldset;
 
-    > :first-child {
-        margin-block-start: 0;
-        margin-block-start: calc(
-            #{var-mrg-soft('400')} - #{var-mrg-soft('200')}
-        );
+        > :first-child {
+            margin-block-start: 0;
+            margin-block-start: calc(
+                #{var-mrg-soft('400')} - #{var-mrg-soft('200')}
+            );
+        }
+
+        > legend + * {
+            margin-block-start: 0;
+        }
     }
 
-    > legend + * {
-        margin-block-start: 0;
+    %legend {
+        fieldset &,
+        fieldset &:first-child {
+            @include snippet-heading(7);
+
+            margin-inline: calc(var-mrg-soft('300') * -1);
+            margin-block: 0 #{var-mrg-soft('300')};
+
+            padding-inline: #{var-mrg-soft('300')};
+
+            font-style: italic;
+        }
     }
 }
 
-%legend {
-    fieldset &,
-    fieldset &:first-child {
-        @include snippet-heading(7);
+@if $_print_inputs {
+    %input-base {
+        @include snippet-input;
+    }
 
-        margin-inline: calc(var-mrg-soft('300') * -1);
-        margin-block: 0 #{var-mrg-soft('300')};
+    %input {
+        @extend %input-base;
+        @include snippet-input-types($includeBase: false);
+    }
 
-        padding-inline: #{var-mrg-soft('300')};
+    %select {
+        @extend %input-base;
+        cursor: pointer;
+    }
 
-        font-style: italic;
+    %textarea {
+        @extend %input-base;
+        cursor: text;
+    }
+
+    %label {
+        @include snippet-label;
     }
 }
 
-%input-base {
-    @include snippet-input;
-}
-
-%input {
-    @extend %input-base;
-    @include snippet-input-types($includeBase: false);
-}
-
-%select {
-    @extend %input-base;
-    cursor: pointer;
-}
-
-%textarea {
-    @extend %input-base;
-    cursor: text;
-}
-
-%label {
-    @include snippet-label;
-}
-
-@if map.get(config.$template_styles, buttons) {
+@if $_print_buttons {
     @if config.$template_cssHeadings {
         /* ## Forms - Buttons ==================================== */
     }

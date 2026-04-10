@@ -183,9 +183,9 @@
 /* #region Tokens - Gap */
 :root {
     --gap-block-layout: 5vw;
-    --gap-block-layout: max(1.625rem, min(5svw, 3.125rem));
+    --gap-block-layout: max(1.875rem, min(5svw, 3.5rem));
     --gap-block-layout-half: 2.5vw;
-    --gap-block-layout-half: max(0.8125rem, min(2.5svw, 1.5625rem));
+    --gap-block-layout-half: max(0.9375rem, min(2.5svw, 1.75rem));
     --gap-inline-indent: 9%;
     --gap-inline-indent: max(0.5rem, min(9%, 4rem));
     --gap-inline-layout: 8vw;
@@ -205,7 +205,7 @@
 }
 
 /* #endregion Tokens - Style */
-/* # GLOBALS - Accessibility
+/* # GLOBALS - ACCESSIBILITY
  * ======================================================================== */
 .no-js :focus,
 .js__no-whereSelector :focus {
@@ -260,7 +260,7 @@
     overflow: hidden !important;
 }
 
-/* # GLOBALS - Objects
+/* # GLOBALS - OBJECTS
  * ======================================================================== */
 :root {
     --scroll-padding-top: var(--gap-block-layout, 5vw);
@@ -303,7 +303,7 @@ hr {
     border-bottom: currentColor solid 0.125rem;
 }
 
-/* # GLOBALS - Typography
+/* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
 ::-moz-selection {
     background-color: var(--sys-clr-selection-bg, Highlight);
@@ -414,7 +414,7 @@ abbr[title] {
 
 /* ## Typography - Block ==================================== */
 p {
-    margin-top: 0.8125rem;
+    margin-top: 0.9375rem;
     margin-bottom: 0;
 }
 hr + p {
@@ -426,10 +426,10 @@ blockquote {
     display: var(--display, block);
     margin-left: var(--gap-inline-indent, 9%);
     margin-right: var(--gap-inline-indent, 9%);
-    margin-top: 0.8125rem;
+    margin-top: 0.9375rem;
     margin-bottom: 0;
-    margin-top: 1.625rem;
-    margin-bottom: 0.8125rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.9375rem;
     padding-left: 0.8125rem;
     border-left: 0.125rem solid currentColor;
     width: auto;
@@ -441,7 +441,7 @@ blockquote > :first-child {
 blockquote > cite {
     --display: block;
     display: var(--display, block);
-    margin-top: 0.8125rem;
+    margin-top: 0.9375rem;
     margin-bottom: 0;
     text-align: right;
 }
@@ -475,11 +475,11 @@ pre {
     display: var(--display, block);
     position: relative;
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
+    margin-bottom: 0.3125rem;
     margin-left: 0;
     margin-right: 0;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
     padding-left: 0.8125rem;
     padding-right: 0.8125rem;
     border: 0.0625rem solid currentColor;
@@ -488,7 +488,9 @@ pre {
     font-size: 0.9375rem;
     overflow: auto;
 }
-pre > code {
+pre > code,
+pre > kbd,
+pre > samp {
     --display: block;
     display: var(--display, block);
     margin: 0;
@@ -501,11 +503,11 @@ pre > code {
     white-space: normal;
     text-wrap: auto;
 }
-pre:has(> code) {
+pre:has(> :is(code, kbd, samp)) {
     white-space: normal;
     text-wrap: auto;
 }
-pre:has(> code) > code {
+pre:has(> :is(code, kbd, samp)) > code {
     white-space: pre;
     text-wrap: nowrap;
 }
@@ -514,8 +516,8 @@ pre:has(> code) > code {
 h1,
 .h1,
 .page-title {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 900;
     font-size: 2.75rem;
     line-height: 1.3125;
@@ -547,8 +549,8 @@ h1 a.button[href],
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="1"]) {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 900;
     font-size: 2.75rem;
     line-height: 1.3125;
@@ -573,8 +575,8 @@ h1 a.button[href],
 
 h2,
 .h2 {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 800;
     font-size: 2.0625rem;
     line-height: 1.3125;
@@ -600,8 +602,8 @@ h2 a.button[href],
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="2"]) {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 800;
     font-size: 2.0625rem;
     line-height: 1.3125;
@@ -626,8 +628,8 @@ h2 a.button[href],
 
 h3,
 .h3 {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 700;
     font-size: 1.8125rem;
     line-height: 1.3125;
@@ -653,8 +655,8 @@ h3 a.button[href],
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="3"]) {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 700;
     font-size: 1.8125rem;
     line-height: 1.3125;
@@ -679,8 +681,8 @@ h3 a.button[href],
 
 h4,
 .h4 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 700;
     font-size: 1.5625rem;
     line-height: 1.4375;
@@ -714,8 +716,8 @@ h4 a.button[href],
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="4"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 700;
     font-size: 1.5625rem;
     line-height: 1.4375;
@@ -746,8 +748,8 @@ h4 a.button[href],
 
 h5,
 .h5 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 600;
     font-size: 1.3125rem;
     line-height: 1.4375;
@@ -781,8 +783,8 @@ h5 a.button[href],
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="5"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 600;
     font-size: 1.3125rem;
     line-height: 1.4375;
@@ -813,8 +815,8 @@ h5 a.button[href],
 
 h6,
 .h6 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 1.1875rem;
     line-height: 1.4375;
@@ -848,8 +850,8 @@ h6 a.button[href],
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="6"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 1.1875rem;
     line-height: 1.4375;
@@ -879,8 +881,8 @@ h6 a.button[href],
 }
 
 .h7 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
@@ -900,8 +902,8 @@ h6 a.button[href],
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="7"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
@@ -925,8 +927,8 @@ h6 a.button[href],
 }
 
 .h8 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 0.8125rem;
     line-height: 1.6875;
@@ -952,8 +954,8 @@ h6 a.button[href],
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="8"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 0.8125rem;
     line-height: 1.6875;
@@ -983,8 +985,8 @@ h6 a.button[href],
 }
 
 .unstyled-heading {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.6875;
@@ -1017,8 +1019,8 @@ h6:is(.unstyled-heading),
 .h6:is(.unstyled-heading),
 .h7:is(.unstyled-heading),
 .h8:is(.unstyled-heading) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.6875;
@@ -1084,8 +1086,8 @@ h6:is(.unstyled-heading) em em em,
 :is(.unstyled-heading):where([role="heading"][aria-level="6"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="7"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="8"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.6875;
@@ -1125,7 +1127,7 @@ h6:is(.unstyled-heading) em em em,
     font-style: italic;
 }
 
-/* # GLOBALS - Lists
+/* # GLOBALS - LISTS
  * ======================================================================== */
 ol,
 ul {
@@ -1166,7 +1168,7 @@ ul ul ul {
 }
 li {
     margin: 0;
-    margin-top: 0.5rem;
+    margin-top: 0.625rem;
     padding: 0;
 }
 li::marker {
@@ -1179,7 +1181,7 @@ li > a:only-child {
     vertical-align: top;
 }
 li li li {
-    margin-top: 0.3125rem;
+    margin-top: 0.375rem;
 }
 li li li::marker {
     font-size: 0.8125rem;
@@ -1194,16 +1196,16 @@ li li li li em em {
     font-style: italic;
 }
 
-/* # GLOBALS - Forms
+/* # GLOBALS - FORMS
  * ======================================================================== */
 fieldset {
     --display: block;
     display: var(--display, block);
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
+    margin-bottom: 0.3125rem;
     margin-left: 0;
     margin-right: 0;
-    padding-top: 0.5rem;
+    padding-top: 0.625rem;
     padding-bottom: 0.8125rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
@@ -1238,15 +1240,15 @@ fieldset legend {
 }
 fieldset > :first-child {
     margin-top: 0;
-    margin-top: calc(0.8125rem - 0.3125rem);
+    margin-top: calc(0.9375rem - 0.375rem);
 }
 fieldset > legend + * {
     margin-top: 0;
 }
 
 fieldset legend {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
@@ -1256,8 +1258,8 @@ fieldset legend {
     font-style: normal;
 }
 fieldset legend:is(.unstyled-heading) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.6875;
@@ -1266,12 +1268,12 @@ fieldset legend:is(.unstyled-heading) {
     font-style: normal;
 }
 fieldset legend {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
+    margin-left: -0.625rem;
+    margin-right: -0.625rem;
     margin-top: 0;
-    margin-bottom: 0.5rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    margin-bottom: 0.625rem;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
     font-style: italic;
 }
 
@@ -1282,11 +1284,11 @@ input {
     --display: block;
     display: var(--display, block);
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
+    margin-bottom: 0.3125rem;
     margin-left: 0;
     margin-right: 0;
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     width: 100%;
@@ -1367,7 +1369,7 @@ label + input,
 label > textarea,
 label > select,
 label > input {
-    margin-top: 0.4375rem;
+    margin-top: 0.3125rem;
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
@@ -1440,6 +1442,34 @@ input[type="time"],
 input[type="week"] {
     cursor: pointer;
 }
+input[type="button"][aria-disabled="true"],
+input[type="button"][disabled],
+input[type="checkbox"][aria-disabled="true"],
+input[type="checkbox"][disabled],
+input[type="color"][aria-disabled="true"],
+input[type="color"][disabled],
+input[type="date"][aria-disabled="true"],
+input[type="date"][disabled],
+input[type="datetime-local"][aria-disabled="true"],
+input[type="datetime-local"][disabled],
+input[type="file"][aria-disabled="true"],
+input[type="file"][disabled],
+input[type="month"][aria-disabled="true"],
+input[type="month"][disabled],
+input[type="radio"][aria-disabled="true"],
+input[type="radio"][disabled],
+input[type="range"][aria-disabled="true"],
+input[type="range"][disabled],
+input[type="reset"][aria-disabled="true"],
+input[type="reset"][disabled],
+input[type="submit"][aria-disabled="true"],
+input[type="submit"][disabled],
+input[type="time"][aria-disabled="true"],
+input[type="time"][disabled],
+input[type="week"][aria-disabled="true"],
+input[type="week"][disabled] {
+    cursor: not-allowed;
+}
 input[type="email"],
 input[type="month"],
 input[type="number"],
@@ -1450,6 +1480,26 @@ input[type="text"],
 input[type="url"],
 input[type="week"] {
     cursor: text;
+}
+input[type="email"][aria-disabled="true"],
+input[type="email"][disabled],
+input[type="month"][aria-disabled="true"],
+input[type="month"][disabled],
+input[type="number"][aria-disabled="true"],
+input[type="number"][disabled],
+input[type="password"][aria-disabled="true"],
+input[type="password"][disabled],
+input[type="search"][aria-disabled="true"],
+input[type="search"][disabled],
+input[type="tel"][aria-disabled="true"],
+input[type="tel"][disabled],
+input[type="text"][aria-disabled="true"],
+input[type="text"][disabled],
+input[type="url"][aria-disabled="true"],
+input[type="url"][disabled],
+input[type="week"][aria-disabled="true"],
+input[type="week"][disabled] {
+    cursor: not-allowed;
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -1486,7 +1536,7 @@ textarea {
 label {
     --display: block;
     display: var(--display, block);
-    margin-top: 0.8125rem;
+    margin-top: 0.9375rem;
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
@@ -1495,25 +1545,30 @@ label {
     text-wrap: balance;
     color: var(--sys-clr-text, CanvasText);
 }
-label:has(> :where(input[type="checkbox"], input[type="radio"])) {
+label:has(> :where([type="checkbox"], [type="radio"])) {
     --display: grid;
     display: var(--display, grid);
     grid-template-columns: fit-content(0) 1fr;
     justify-content: end;
     align-items: baseline;
-    gap: 0.5rem;
+    gap: 0.625rem;
     font-weight: 400;
     line-height: 1.6875;
     color: var(--sys-clr-text, CanvasText);
     cursor: pointer;
 }
-label:has(> :where(input[type="checkbox"], input[type="radio"]))
-    + label:has(> :where(input[type="checkbox"], input[type="radio"])) {
+label[aria-disabled="true"]:has(> :where([type="checkbox"], [type="radio"])),
+label[disabled]:has(> :where([type="checkbox"], [type="radio"])) {
+    cursor: not-allowed;
+}
+
+label:has(> :where([type="checkbox"], [type="radio"]))
+    + label:has(> :where([type="checkbox"], [type="radio"])) {
     margin-top: 0.5rem;
 }
-label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
-label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
-label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
+label:has(> :where([type="checkbox"], [type="radio"])) + input,
+label:has(> :where([type="checkbox"], [type="radio"])) + select,
+label:has(> :where([type="checkbox"], [type="radio"])) + textarea {
     margin-top: 1.25rem;
 }
 label > input[type="checkbox"],
@@ -1532,11 +1587,11 @@ a.button[href] {
     --display: block;
     display: var(--display, block);
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
+    margin-bottom: 0.3125rem;
     margin-left: 0;
     margin-right: 0;
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
     padding-left: 0.8125rem;
     padding-right: 0.8125rem;
     width: -moz-fit-content;
@@ -1675,7 +1730,7 @@ a.button[href] {
     justify-content: start;
     align-content: start;
     align-items: start;
-    gap: 0.5rem 0.3125rem;
+    gap: 0.625rem 0.3125rem;
     text-align: left;
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -1703,11 +1758,11 @@ a[disabled].button[href] {
     --display: block;
     display: var(--display, block);
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
+    margin-bottom: 0.3125rem;
     margin-left: 0;
     margin-right: 0;
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
     padding-left: 0.8125rem;
     padding-right: 0.8125rem;
     width: -moz-fit-content;
@@ -1796,7 +1851,7 @@ a[disabled].button[href] {
     justify-content: start;
     align-content: start;
     align-items: start;
-    gap: 0.5rem 0.3125rem;
+    gap: 0.625rem 0.3125rem;
     text-align: left;
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -1816,7 +1871,7 @@ a[disabled].button[href] {
     font-size: 1rem;
 }
 
-/* # GLOBALS - Tables
+/* # GLOBALS - TABLES
  * ======================================================================== */
 .table-wrapper,
 table {
@@ -1824,7 +1879,7 @@ table {
     margin-top: 1.25rem;
     margin-bottom: 0;
     margin-top: 2.25rem;
-    margin-bottom: 0.8125rem;
+    margin-bottom: 0.9375rem;
     background: var(--sys-clr-accent-bg, CanvasText);
 }
 
@@ -1865,8 +1920,8 @@ table {
 
 th,
 td {
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
     padding-left: 0.8125rem;
     padding-right: 0.8125rem;
     min-width: 10em;
@@ -1884,8 +1939,8 @@ td > :last-child {
 }
 
 th {
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
     text-wrap: balance;
     background: var(--sys-clr-accent-bg, CanvasText);
     color: var(--sys-clr-accent-text, Canvas);

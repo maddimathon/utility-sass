@@ -3,133 +3,129 @@
 /// @since 0.1.0-pre.0
 ///
 
-// @use '../../../modules/colour';
-// @use '../../../modules/list';
-// @use '../../../modules/map';
-// @use '../../../modules/math';
-// @use '../../../modules/meta';
-// @use '../../../modules/selector';
-// @use '../../../modules/string';
+@use '../../../modules/map';
 
 @use '../config';
 // @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@if config.$template_cssHeadings {
-    /* # GLOBALS - Lists
-     * ======================================================================== */
-}
-
-%ol,
-%ul {
-    margin: 0;
-    margin-inline-start: 20%;
-
-    padding: 0;
-    padding-inline-start: 1em;
-
-    @if config.$include_html {
-        margin-inline-start: #{var-gap-inline(tab)};
+@if map.get(config.$template_styles, lists) {
+    @if config.$template_cssHeadings {
+        /* # GLOBALS - LISTS
+         * ======================================================================== */
     }
 
-    line-height: inherit;
+    %ol,
+    %ul {
+        margin: 0;
+        margin-inline-start: 20%;
 
-    ol,
-    ul {
-        margin-block: 0;
+        padding: 0;
+        padding-inline-start: 1em;
+
+        @if config.$include_html {
+            margin-inline-start: #{var-gap-inline(tab)};
+        }
+
+        line-height: inherit;
+
+        ol,
+        ul {
+            margin-block: 0;
+        }
     }
-}
 
-%ol {
-    // /* level 1 - ol */
-    list-style-type: decimal;
+    %ol {
+        // /* level 1 - ol */
+        list-style-type: decimal;
 
-    /// BLOCK ///
+        /// BLOCK ///
 
-    @at-root %ol-2,
-        & ol {
-        // /* level 2 - ol ol */
-        list-style-type: lower-alpha;
-
-        @at-root %ol-3,
+        @at-root %ol-2,
             & ol {
-            // /* level 3 - ol ol ol */
-            list-style-type: lower-roman;
+            // /* level 2 - ol ol */
+            list-style-type: lower-alpha;
 
-            @at-root %ol-4,
+            @at-root %ol-3,
                 & ol {
-                // /* level 4 - ol ol ol ol */
-                @extend %ul-3;
+                // /* level 3 - ol ol ol */
+                list-style-type: lower-roman;
 
-                @at-root %ol-5,
+                @at-root %ol-4,
                     & ol {
-                    // /* level 5 - ol ol ol ol ol */
-                    @extend %ul-4;
+                    // /* level 4 - ol ol ol ol */
+                    @extend %ul-3;
+
+                    @at-root %ol-5,
+                        & ol {
+                        // /* level 5 - ol ol ol ol ol */
+                        @extend %ul-4;
+                    }
                 }
             }
         }
     }
-}
 
-%ul {
-    // /* level 1 - ul */
-    list-style-type: disc;
+    %ul {
+        // /* level 1 - ul */
+        list-style-type: disc;
 
-    /// BLOCK ///
+        /// BLOCK ///
 
-    @at-root %ul-2,
-        & ul {
-        // /* level 2 - ul ul */
-        list-style-type: circle;
-
-        @at-root %ul-3,
+        @at-root %ul-2,
             & ul {
-            // /* level 3 - ul ul ul */
-            // /* level 4 - ol ol ol ol */
-            list-style-type: square; /* fallback */
-            list-style-type: '–  ';
+            // /* level 2 - ul ul */
+            list-style-type: circle;
 
-            @at-root %ul-4,
+            @at-root %ul-3,
                 & ul {
-                // /* level 4 - ul ul ul ul */
-                // /* level 5 - ol ol ol ol ol */
+                // /* level 3 - ul ul ul */
+                // /* level 4 - ol ol ol ol */
+                list-style-type: square; /* fallback */
+                list-style-type: '–  ';
+
+                @at-root %ul-4,
+                    & ul {
+                    // /* level 4 - ul ul ul ul */
+                    // /* level 5 - ol ol ol ol ol */
+                }
             }
         }
     }
-}
 
-%li {
-    margin: 0;
-    margin-block-start: #{var-mrg-soft('300')};
-    padding: 0;
+    %li {
+        margin: 0;
+        margin-block-start: #{var-mrg-soft('300')};
+        padding: 0;
 
-    &::marker {
-        font-weight: 500;
-        font-size: #{var-fs(smaller-1)};
-    }
+        &::marker {
+            font-weight: 500;
+            font-size: #{var-fs(smaller-1)};
+        }
 
-    > a:only-child {
-        @include prop-display(inline-block);
-        vertical-align: top;
-    }
+        > a:only-child {
+            @include prop-display(inline-block);
+            vertical-align: top;
+        }
 
-    li {
         li {
-            margin-block-start: #{var-mrg-soft('200')};
-
-            &::marker {
-                font-size: #{var-fs(smaller-2)};
-            }
-
             li {
-                font-style: italic;
+                margin-block-start: #{var-mrg-soft('200')};
 
-                em {
-                    font-style: normal;
+                &::marker {
+                    font-size: #{var-fs(smaller-2)};
+                }
+
+                li {
+                    font-style: italic;
 
                     em {
-                        font-style: italic;
+                        font-style: normal;
+
+                        em {
+                            font-style: italic;
+                        }
                     }
                 }
             }

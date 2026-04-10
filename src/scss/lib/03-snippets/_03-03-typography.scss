@@ -294,7 +294,9 @@ $_headingDefault_textTransform: none;
         @content (root);
     }
 
-    > %code {
+    > %code,
+    > %kbd,
+    > %samp {
         @include prop-display(block);
         margin: 0;
         padding: 0;
@@ -308,11 +310,11 @@ $_headingDefault_textTransform: none;
         text-wrap: auto;
 
         @if $_content_exists {
-            @content (cite);
+            @content (code);
         }
     }
 
-    &:has(> %code) {
+    &:has(> :is(%code, %kbd, %samp)) {
         white-space: normal;
         text-wrap: auto;
 
@@ -321,12 +323,12 @@ $_headingDefault_textTransform: none;
             text-wrap: nowrap;
 
             @if $_content_exists {
-                @content (pre-has-code--code);
+                @content (has-code--code);
             }
         }
 
         @if $_content_exists {
-            @content (pre-has-code);
+            @content (has-code);
         }
     }
 }
