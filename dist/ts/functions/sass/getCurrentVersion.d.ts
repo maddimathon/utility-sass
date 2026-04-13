@@ -17,6 +17,5 @@ import * as sass from "sass-embedded";
  * @since 0.1.0-alpha.8
  */
 export declare function sassFn_getCurrentVersion(): {
-    readonly 'mmutils-global-getCurrentVersion()': () => sass.SassMap;
+    'mmutils-global-getCurrentVersion()': sass.CustomFunction<'async'>;
 };
-//# sourceMappingURL=getCurrentVersion.d.ts.map

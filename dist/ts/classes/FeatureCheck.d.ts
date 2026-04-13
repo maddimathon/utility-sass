@@ -76,17 +76,17 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string | never = s
     /**
      * Default value for {@link FeatureCheck.opts}.
      */
-    static get DEFAULT_OPTS(): {
-        readonly aspectRatio: true;
-        readonly atProperty: true;
-        readonly backgroundFixed: true;
-        readonly displayContents: true;
-        readonly focusWithin: true;
-        readonly focusVisible: true;
-        readonly hasSelector: true;
-        readonly subgrid: true;
-        readonly whereSelector: true;
-    };
+    static get DEFAULT_OPTS(): Readonly<{
+        aspectRatio: true;
+        atProperty: true;
+        backgroundFixed: true;
+        displayContents: true;
+        focusWithin: true;
+        focusVisible: true;
+        hasSelector: true;
+        subgrid: true;
+        whereSelector: true;
+    }>;
     /**
      * Completed copy of the built-in check options.
      *
@@ -265,4 +265,3 @@ export declare namespace FeatureCheck {
         test: boolean | ((check: FeatureCheck) => boolean);
     };
 }
-//# sourceMappingURL=FeatureCheck.d.ts.map

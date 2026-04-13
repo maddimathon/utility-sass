@@ -36,20 +36,19 @@ export function sassFn_string_regexReplace({ console }) {
             // returns - empty
             if (!string || !search) {
                 if (debug) {
-                    console.vi.log({ '[string.regex-replace] string': string }, 2, { linesIn: 1 });
-                    console.vi.log({ '[string.regex-replace] search': search }, 2, { linesIn: 0 });
+                    console.vi.log({ '[string.regex-replace] string': string }, 2, { msg: { linesIn: 1 } });
+                    console.vi.log({ '[string.regex-replace] search': search }, 2, { msg: { linesIn: 0 } });
                 }
                 return _emptyString;
             }
             const regex = new RegExp(search, flags ?? 'g');
             if (debug) {
-                console.vi.log({ '[string.regex-replace] string': string }, 2, { linesIn: 1 });
-                // console.vi.log( { '[string.regex-replace] search': search }, 2, { linesIn: 0 } );
-                console.vi.log({ '[string.regex-replace] regex': regex }, 2, { linesIn: 0 });
-                console.vi.log({ '[string.regex-replace] string.match( regex )': string.match(new RegExp(search, flags?.replace('g', ''))) }, 2, { linesIn: 0 });
+                console.vi.log({ '[string.regex-replace] string': string }, 2, { msg: { linesIn: 1 } });
+                // console.vi.log( { '[string.regex-replace] search': search }, 2, { msg: { linesIn: 0 } } );
+                console.vi.log({ '[string.regex-replace] regex': regex }, 2, { msg: { linesIn: 0 } });
+                console.vi.log({ '[string.regex-replace] string.match( regex )': string.match(new RegExp(search, flags?.replace('g', ''))) }, 2, { msg: { linesIn: 0 } });
             }
             return jsValueToSass(string.replace(regex, replace ?? ''));
         }),
     };
 }
-//# sourceMappingURL=string_regexReplace.js.map

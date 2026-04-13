@@ -41,7 +41,8 @@ export function sassCompilerFunctions(
         console: Logger,
         params: CLI.Params,
     },
-) {
+): sass.Options<'async'>[ 'functions' ] {
+
     return {
         ...sassFn_getCurrentVersion(),
         ...sassFn_debugProgressCheckpoint( args ),
@@ -49,5 +50,5 @@ export function sassCompilerFunctions(
         // ...sassFn_map_flatten( args ),
         ...sassFn_string_match( args ),
         ...sassFn_string_regexReplace( args ),
-    } as const satisfies sass.Options<'async'>[ 'functions' ];
+    };
 }

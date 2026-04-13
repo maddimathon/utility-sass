@@ -23,6 +23,5 @@ export declare function sassFn_string_regexReplace({ console }: {
     console: Logger;
     params: CLI.Params;
 }): {
-    readonly 'mmutils-string-regex-replace( $string, $search, $replace: "", $flags: null, $debug: false )': (args: sass.Value[]) => Promise<sass.Value | sass.SassString>;
+    'mmutils-string-regex-replace( $string, $search, $replace: "", $flags: null, $debug: false )': sass.CustomFunction<'async'>;
 };
-//# sourceMappingURL=string_regexReplace.d.ts.map

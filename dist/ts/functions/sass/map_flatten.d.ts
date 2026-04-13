@@ -23,6 +23,5 @@ export declare function sassFn_map_flatten({}: {
     console: Logger;
     params: CLI.Params;
 }): {
-    readonly 'mmutils-map-flatten( $map, $prefix: null, $suffix: null )': (args: sass.Value[]) => Promise<sass.Value | sass.SassMap>;
+    'mmutils-map-flatten( $map, $prefix: null, $suffix: null )': sass.CustomFunction<'async'>;
 };
-//# sourceMappingURL=map_flatten.d.ts.map

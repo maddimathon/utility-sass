@@ -39,4 +39,3 @@ export function sassFn_jsVarDump({ console }) {
         },
     };
 }
-//# sourceMappingURL=jsVarDump.js.map

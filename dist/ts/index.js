@@ -17,4 +17,3 @@ export * from './functions/sassAssertValueType.js';
 export * from './functions/sassCompilerFunctions.js';
 export * from './functions/sassCompilerOpts.js';
 export * from './functions/sassValueToJS.js';
-//# sourceMappingURL=index.js.map

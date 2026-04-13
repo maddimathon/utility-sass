@@ -36,7 +36,7 @@ export function sassFn_string_match(
         console: Logger,
         params: CLI.Params,
     },
-) {
+): { 'mmutils-string-match( $string, $pattern, $flags: null, $debug: false )': sass.CustomFunction<'async'>; } {
 
     return {
         'mmutils-string-match( $string, $pattern, $flags: null, $debug: false )':
@@ -72,5 +72,5 @@ export function sassFn_string_match(
                     return jsValueToSass( string.match( regex ) );
                 }
             ),
-    } as const satisfies { [ key: string ]: sass.CustomFunction<'async'>; };
+    };
 }

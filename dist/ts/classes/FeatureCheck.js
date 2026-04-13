@@ -310,4 +310,3 @@ export class FeatureCheck {
         this.setFeature('whereSelector', FeatureCheck.supportsCSS('selector( :where( a ) )'));
     }
 }
-//# sourceMappingURL=FeatureCheck.js.map

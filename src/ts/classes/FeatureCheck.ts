@@ -106,7 +106,7 @@ export class FeatureCheck<
          * Custom checks to include in the class list.
          */
         customChecks?: T_CustomChecker[],
-    ) {
+    ): string {
 
         const keys = Object.keys( FeatureCheck.DEFAULT_OPTS )
             .concat( ( customChecks ?? [] ).map( _check => _check.slug ) )
@@ -122,7 +122,17 @@ export class FeatureCheck<
     /**
      * Default value for {@link FeatureCheck.opts}.
      */
-    public static get DEFAULT_OPTS() {
+    public static get DEFAULT_OPTS(): Readonly<{
+        aspectRatio: true,
+        atProperty: true,
+        backgroundFixed: true,
+        displayContents: true,
+        focusWithin: true,
+        focusVisible: true,
+        hasSelector: true,
+        subgrid: true,
+        whereSelector: true,
+    }> {
 
         return {
             aspectRatio: true,
@@ -214,7 +224,7 @@ export class FeatureCheck<
      * 
      * @experimental
      */
-    public check() {
+    public check(): void {
         if ( !this.root ) { return; }
 
         const checkers = {
@@ -248,7 +258,7 @@ export class FeatureCheck<
          * A custom check to run.
          */
         check: T_CustomChecker,
-    ) {
+    ): void {
         const { test, slug } = check;
 
         this.setFeature(
@@ -308,7 +318,7 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected aspectRatio() {
+    protected aspectRatio(): void {
 
         this.setFeature(
             'aspectRatio',
@@ -322,7 +332,7 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected atProperty() {
+    protected atProperty(): void {
         this.setFeature( 'atProperty', !!window.CSSPropertyRule );
     }
 
@@ -332,7 +342,7 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected backgroundFixed() {
+    protected backgroundFixed(): void {
 
         this.setFeature(
             'backgroundFixed',
@@ -346,7 +356,7 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected displayContents() {
+    protected displayContents(): void {
 
         this.setFeature(
             'displayContents',
@@ -360,7 +370,7 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected focusWithin() {
+    protected focusWithin(): void {
 
         this.setFeature(
             'focusWithin',
@@ -374,7 +384,7 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected focusVisible() {
+    protected focusVisible(): void {
 
         this.setFeature(
             'focusVisible',
@@ -388,7 +398,7 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected hasSelector() {
+    protected hasSelector(): void {
 
         this.setFeature(
             'hasSelector',
@@ -402,7 +412,7 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected subgrid() {
+    protected subgrid(): void {
 
         this.setFeature(
             'subgrid',
@@ -416,7 +426,7 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected whereSelector() {
+    protected whereSelector(): void {
 
         this.setFeature(
             'whereSelector',

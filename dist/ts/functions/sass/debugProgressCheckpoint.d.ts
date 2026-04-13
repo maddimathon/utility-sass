@@ -23,6 +23,5 @@ export declare function sassFn_debugProgressCheckpoint({ console, params }: {
     console: Logger;
     params: CLI.Params;
 }): {
-    readonly 'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': (args: sass.Value[]) => Promise<sass.Value | sass.SassString>;
+    'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': sass.CustomFunction<'async'>;
 };
-//# sourceMappingURL=debugProgressCheckpoint.d.ts.map

@@ -38,7 +38,7 @@ export function sassFn_jsVarDump(
         console: Logger,
         params: CLI.Params,
     },
-) {
+): { 'mmutils-global-jsVarDump( $value, $name, $level )': sass.CustomFunction<'async'>; } {
 
     return {
         'mmutils-global-jsVarDump( $value, $name, $level )': async ( args: sass.Value[] ) => {
@@ -72,5 +72,5 @@ export function sassFn_jsVarDump(
                 }
             );
         },
-    } as const satisfies { [ key: string ]: sass.CustomFunction<'async'>; };
+    };
 }

@@ -32,4 +32,3 @@ export declare namespace JsonToScss {
      */
     function convert<T_Type extends unknown>(json: T_Type, _indent?: string, opts?: Opts): string | undefined;
 }
-//# sourceMappingURL=JsonToScss.d.ts.map

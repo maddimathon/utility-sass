@@ -23,6 +23,5 @@ export declare function sassFn_jsVarDump({ console }: {
     console: Logger;
     params: CLI.Params;
 }): {
-    readonly 'mmutils-global-jsVarDump( $value, $name, $level )': (args: sass.Value[]) => Promise<sass.Value>;
+    'mmutils-global-jsVarDump( $value, $name, $level )': sass.CustomFunction<'async'>;
 };
-//# sourceMappingURL=jsVarDump.d.ts.map

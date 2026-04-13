@@ -23,6 +23,5 @@ export declare function sassFn_string_match({ console }: {
     console: Logger;
     params: CLI.Params;
 }): {
-    readonly 'mmutils-string-match( $string, $pattern, $flags: null, $debug: false )': (args: sass.Value[]) => Promise<sass.Value>;
+    'mmutils-string-match( $string, $pattern, $flags: null, $debug: false )': sass.CustomFunction<'async'>;
 };
-//# sourceMappingURL=string_match.d.ts.map

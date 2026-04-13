@@ -23,4 +23,3 @@ export declare function sassCompilerOpts<T_Partial extends Stage.Compiler.Args.S
     console: Logger;
     params: CLI.Params;
 }, partial?: T_Partial): T_Partial & Partial<Stage.Compiler.Args.Sass>;
-//# sourceMappingURL=sassCompilerOpts.d.ts.map

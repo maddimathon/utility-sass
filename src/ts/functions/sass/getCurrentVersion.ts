@@ -20,7 +20,7 @@ import semver from 'semver';
  *
  * @since 0.1.0-alpha.8
  */
-export function sassFn_getCurrentVersion() {
+export function sassFn_getCurrentVersion(): { 'mmutils-global-getCurrentVersion()': sass.CustomFunction<'async'>; } {
 
     return {
         'mmutils-global-getCurrentVersion()': () => {
@@ -85,5 +85,5 @@ export function sassFn_getCurrentVersion() {
                 ] )
             );
         }
-    } as const satisfies { [ key: string ]: sass.CustomFunction<'async'>; };
+    };
 }

@@ -41,7 +41,7 @@ export class Compile extends CompileStage {
      */
     async scss() {
 
-        /** @type { undefined | typeof import( 'src/ts/functions/sassCompilerOpts.ts' ) } */
+        /** @type { undefined | typeof import( '../../src/ts/functions/sassCompilerOpts.ts' ) } */
         const sass_fn_import = await import( '../../dist/ts/functions/sassCompilerOpts.js' );
 
         if ( sass_fn_import?.sassCompilerOpts ) {

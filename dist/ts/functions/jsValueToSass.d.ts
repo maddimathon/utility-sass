@@ -28,4 +28,3 @@ export declare namespace jsValueToSass {
     type AcceptedValues = SimpleAcceptedValues | AcceptedValues[] | RecursiveRecord<number | string, SimpleAcceptedValues>;
     type AcceptedReturns = sass.Value;
 }
-//# sourceMappingURL=jsValueToSass.d.ts.map

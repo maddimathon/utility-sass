@@ -65,4 +65,3 @@ export function sassFn_getCurrentVersion() {
         }
     };
 }
-//# sourceMappingURL=getCurrentVersion.js.map

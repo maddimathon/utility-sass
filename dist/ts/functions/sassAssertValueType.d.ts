@@ -34,4 +34,3 @@ export declare namespace sassAssertValueType {
      */
     type AllowedTypes = "bool" | "list" | "map" | "number" | "string";
 }
-//# sourceMappingURL=sassAssertValueType.d.ts.map

@@ -53,4 +53,3 @@ export async function sassAssertValueType(name, type, value, convertValue = fals
     }
     return sassValueToJS(asserted);
 }
-//# sourceMappingURL=sassAssertValueType.js.map

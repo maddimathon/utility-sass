@@ -237,4 +237,3 @@ export var CssColours;
     }
     CssColours.isSystemColor = isSystemColor;
 })(CssColours || (CssColours = {}));
-//# sourceMappingURL=CssColours.js.map

@@ -40,7 +40,7 @@ export function sassFn_map_flatten(
         console: Logger,
         params: CLI.Params,
     },
-) {
+): { 'mmutils-map-flatten( $map, $prefix: null, $suffix: null )': sass.CustomFunction<'async'>; } {
     const _emptyMap = new sass.SassMap();
 
     const _emptyString = new sass.SassString();

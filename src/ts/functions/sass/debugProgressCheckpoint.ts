@@ -36,7 +36,7 @@ export function sassFn_debugProgressCheckpoint(
         console: Logger,
         params: CLI.Params,
     },
-) {
+): { 'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': sass.CustomFunction<'async'>; } {
 
     return {
         'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': async ( args: sass.Value[] ) => {
@@ -73,5 +73,5 @@ export function sassFn_debugProgressCheckpoint(
                 }
             );
         },
-    } as const satisfies { [ key: string ]: sass.CustomFunction<'async'>; };
+    };
 }

@@ -65,4 +65,3 @@ export declare namespace sassValueToJS {
         type TestType = null | undefined | sass.SassBoolean | sass.SassColor | sass.SassList | sass.SassMap | sass.SassNumber | sass.SassString;
     }
 }
-//# sourceMappingURL=sassValueToJS.d.ts.map

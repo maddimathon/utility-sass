@@ -150,6 +150,20 @@ $lineHeight_multiplier: config.config-valid-number(
 );
 
 ///
+/// Rounding factor used when defining line heights.
+///
+/// @since ___PKG_VERSION___
+///
+$lineHeight_roundingFactor: null !default;
+$lineHeight_roundingFactor: config.config-valid-number(
+    $lineHeight_roundingFactor,
+    'lineHeight_roundingFactor',
+    $default: 16,
+    $min: 1,
+    $unit: false
+);
+
+///
 /// A map (merged with the defaults) of line height multipliers (0 = base lh)
 /// used with the line heights mixins and --line-height-X properties.
 ///
@@ -177,7 +191,7 @@ $line_height: map.ksort(
         $key,
         math.round-to-pixel(
             math.pow(spacing.$scaleMultiplier, $value * $lineHeight_multiplier) * $lineHeight_base,
-            32
+            $lineHeight_roundingFactor
         )
     );
 }

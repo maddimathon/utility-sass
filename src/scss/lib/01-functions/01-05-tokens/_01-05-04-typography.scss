@@ -22,8 +22,8 @@
 ///
 /// @param {string} $slug  Font size key to use to get the font size.
 /// @param {?bool} $clampFontSize  Optional. Whether to return the font-size value as a clamp function. If null, the value is determined based on the $slug.
-/// @param {number} $fontScale  Optional. Multiplier for the font size.
-/// @param {bool} $multiplier  Optional. Multiplier for the font size, on top of $fontScale, if any.
+/// @param {number} $sizeBase  Optional. Base for the font size (e.g., the rem size for normal / 0-level).
+/// @param {bool} $multiplier  Optional. Multiplier for the font size, on top of $sizeBase, if any.
 /// @param {bool} $relative  Optional. Whether to return a relative value.
 ///
 /// @return {list<number|calc>}
@@ -32,11 +32,12 @@
 /// @since 0.1.0-alpha.18 — Added $relative param.
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 /// @since 0.1.0-alpha.41 — Added $roundingFactor param.
+/// @since ___PKG_VERSION___ — Renamed $fontScale to $sizeBase.
 ///
 @function fs-value(
     $slug,
     $clampFontSize: null,
-    $fontScale: null,
+    $sizeBase: null,
     $multiplier: 1,
     $relative: false,
     $roundingFactor: config.$math_fontSize_roundingFactor
@@ -65,13 +66,13 @@
 
     $unit: if($relative, 1em, 1rem);
 
-    @if $fontScale == null {
-        $fontScale: if($relative, 1, tokens.$fontSize_base);
+    @if $sizeBase == null {
+        $sizeBase: if($relative, 1, tokens.$fontSize_base);
     }
 
-    $fontScale: $fontScale * $multiplier;
+    $sizeBase: $sizeBase * $multiplier;
 
-    $size_unitless: $size * $fontScale;
+    $size_unitless: $size * $sizeBase;
 
     $size_withUnit: math.add-unit(
         math.round-to-pixel($size_unitless, $factor: $roundingFactor),

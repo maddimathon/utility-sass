@@ -113,4 +113,3 @@ export var JsonToScss;
         return `'${input.replace(/'/gi, '\\\'')}'`;
     }
 })(JsonToScss || (JsonToScss = {}));
-//# sourceMappingURL=JsonToScss.js.map

@@ -37,7 +37,7 @@ export namespace JsonToScss {
         json: T_Type,
         _indent: string = '',
         opts: Opts = {},
-    ) {
+    ): string | undefined {
 
         let scss: string | undefined;
 

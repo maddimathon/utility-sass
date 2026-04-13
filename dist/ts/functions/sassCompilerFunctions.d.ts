@@ -23,11 +23,4 @@ export declare function sassCompilerFunctions(args: {
     config: Config.Class;
     console: Logger;
     params: CLI.Params;
-}): {
-    readonly 'mmutils-string-regex-replace( $string, $search, $replace: "", $flags: null, $debug: false )': (args: sass.Value[]) => Promise<sass.Value | sass.SassString>;
-    readonly 'mmutils-string-match( $string, $pattern, $flags: null, $debug: false )': (args: sass.Value[]) => Promise<sass.Value>;
-    readonly 'mmutils-global-jsVarDump( $value, $name, $level )': (args: sass.Value[]) => Promise<sass.Value>;
-    readonly 'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': (args: sass.Value[]) => Promise<sass.Value | sass.SassString>;
-    readonly 'mmutils-global-getCurrentVersion()': () => sass.SassMap;
-};
-//# sourceMappingURL=sassCompilerFunctions.d.ts.map
+}): sass.Options<'async'>['functions'];

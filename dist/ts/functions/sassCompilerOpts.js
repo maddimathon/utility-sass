@@ -31,4 +31,3 @@ export function sassCompilerOpts(args, partial) {
         },
     };
 }
-//# sourceMappingURL=sassCompilerOpts.js.map
