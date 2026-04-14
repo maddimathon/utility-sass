@@ -53,6 +53,8 @@ const config = {
                 '**/*.docs.js.map',
                 '**/*.docs.d.ts',
                 '**/*.docs.d.ts.map',
+
+                '**/tsconfig.tsbuildinfo',
             ],
         },
     },
