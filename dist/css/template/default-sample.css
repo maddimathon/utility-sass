@@ -18,6 +18,16 @@
     inherits: true;
     initial-value: currentColor;
 }
+@property --focus-ring-outline-offset {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 0.125em;
+}
+@property --focus-ring-outline-width {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 0.125em;
+}
 @property --height-nav-primary {
     syntax: "<length-percentage> | <number>";
     inherits: true;
@@ -210,11 +220,11 @@
 .no-js :focus,
 .js__no-whereSelector :focus {
     /* %focus-ring */
-    outline: var(
-            --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.25rem))
-        )
-        dashed currentColor;
+    outline-width: var(
+        --focus-ring-outline-width,
+        max(0.125rem, min(0.125em, 0.25rem))
+    );
+    outline-style: dashed;
     outline-color: var(
         --focus-ring-outline-color,
         var(--sys-clr-link, LinkText)
@@ -224,11 +234,11 @@
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
-    outline: var(
-            --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.25rem))
-        )
-        dashed currentColor;
+    outline-width: var(
+        --focus-ring-outline-width,
+        max(0.125rem, min(0.125em, 0.25rem))
+    );
+    outline-style: dashed;
     outline-color: var(
         --focus-ring-outline-color,
         var(--sys-clr-link, LinkText)
@@ -238,11 +248,11 @@
 
 :focus-visible {
     /* %focus-ring--visible */
-    outline: var(
-            --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.25rem))
-        )
-        dashed currentColor;
+    outline-width: var(
+        --focus-ring-outline-width,
+        max(0.125rem, min(0.125em, 0.25rem))
+    );
+    outline-style: dashed;
     outline-color: var(
         --focus-ring-outline-color,
         var(--sys-clr-link, LinkText)
@@ -1296,7 +1306,9 @@ input {
     width: 100%;
     font: inherit;
     line-height: 1.3125;
-    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
+    border-width: 0.0625rem;
+    border-style: solid;
+    border-color: var(--sys-clr-input-border, FieldText);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
     background-color: var(--sys-clr-input-bg, Field);
@@ -1600,7 +1612,9 @@ a.button[href] {
     width: fit-content;
     font: inherit;
     line-height: 1.1875;
-    border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
+    border-width: 0.125rem;
+    border-style: solid;
+    border-color: var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-button-border, ButtonFace);
     background-color: var(--sys-clr-button-bg, ButtonFace);
@@ -1771,7 +1785,9 @@ a[disabled].button[href] {
     width: fit-content;
     font: inherit;
     line-height: 1.1875;
-    border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
+    border-width: 0.125rem;
+    border-style: solid;
+    border-color: var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-button-border, ButtonFace);
     background-color: var(--sys-clr-button-bg, ButtonFace);

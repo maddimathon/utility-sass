@@ -10,11 +10,7 @@
 
 @use 'functions' as fns;
 
-///
-/// @since 0.1.0-beta.0.draft
-///
-$atProperties: () !default;
-$atProperties: fns.tokens-get-at-properties($atProperties);
+@use 'borders';
 
 ///
 /// @since 0.1.0-pre.0
@@ -36,4 +32,14 @@ $style: map.ksort(
         map.flatten($style),
         $recursive: true
     )
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$atProperties: () !default;
+$atProperties: fns.tokens-get-at-properties(
+    $atProperties,
+    $stroke_relative: borders.$stroke_relative,
+    $style_flat: $style
 );

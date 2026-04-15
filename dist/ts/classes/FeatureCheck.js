@@ -235,7 +235,7 @@ export class FeatureCheck {
      * @source
      */
     aspectRatio() {
-        this.setFeature('aspectRatio', FeatureCheck.supportsCSS('aspect-ratio: 1 / 1'));
+        this.setFeature('aspectRatio', FeatureCheck.supportsCSS('aspect-ratio: 1 / 2'));
     }
     /**
      * Checks for css `@property` at-rule support.

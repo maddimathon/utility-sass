@@ -322,7 +322,7 @@ export class FeatureCheck<
 
         this.setFeature(
             'aspectRatio',
-            FeatureCheck.supportsCSS( 'aspect-ratio: 1 / 1' ),
+            FeatureCheck.supportsCSS( 'aspect-ratio: 1 / 2' ),
         );
     }
 

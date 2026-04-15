@@ -15,53 +15,53 @@
 /* ## HAS Support ==================================== */
 /* colour-mode-js-supports */
 
-test-yes {
+supports[js] {
     @at-root {
         /* ### Average, High - whereSelector ------------------ */
 
-        &__average_high {
-            @include colour-mode-js-supports((average, high), 'whereSelector') {
-                /* @include colour-mode-js-supports((average, high), 'whereSelector'); */
+        &.average_high {
+            @include colour-mode-js-supports((average, high), 'whereSelector', $viaQuery: false) {
+                /* @include colour-mode-js-supports((average, high), 'whereSelector', $viaQuery: false); */
             }
         }
 
         /* ### Average ------------------ */
 
-        &__average {
-            @include colour-mode-js-supports(average, 'support-key') {
-                /* @include colour-mode-js-supports(average, 'support-key'); */
+        &.average {
+            @include colour-mode-js-supports(average, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(average, 'aspectRatio', $viaQuery: false); */
             }
         }
 
         /* ### Maximum ------------------ */
 
-        &__max {
-            @include colour-mode-js-supports(max, 'support-key') {
-                /* @include colour-mode-js-supports(max, 'support-key'); */
+        &.max {
+            @include colour-mode-js-supports(max, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(max, 'aspectRatio', $viaQuery: false); */
             }
         }
 
         /* ### Low ------------------ */
 
-        &__low {
-            @include colour-mode-js-supports(low, 'support-key') {
-                /* @include colour-mode-js-supports(low, 'support-key'); */
+        &.low {
+            @include colour-mode-js-supports(low, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(low, 'aspectRatio', $viaQuery: false); */
             }
         }
 
         /* ### Forced Colors ------------------ */
 
-        &__forced-colors {
-            @include colour-mode-js-supports(forced-colors, 'support-key') {
-                /* @include colour-mode-js-supports(forced-colors, 'support-key'); */
+        &.forced-colors {
+            @include colour-mode-js-supports(forced-colors, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $viaQuery: false); */
             }
         }
 
         /* ### Dark ------------------ */
 
-        &__dark {
-            @include colour-mode-js-supports(dark, 'support-key') {
-                /* @include colour-mode-js-supports(dark, 'support-key'); */
+        &.dark {
+            @include colour-mode-js-supports(dark, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(dark, 'aspectRatio', $viaQuery: false); */
             }
         }
     }
@@ -70,189 +70,159 @@ test-yes {
 /* ## NO Support ==================================== */
 /* colour-mode-js-supports-not */
 
-test-no {
+supports-not[js] {
     @at-root {
         /* ### Average, High - whereSelector ------------------ */
 
-        &__high {
+        &.high {
             @include colour-mode-js-supports-not(
                 (average, high),
-                'whereSelector'
+                'whereSelector',
+                $viaQuery: false
             ) {
-                /* @include colour-mode-js-supports-not((average, high), 'whereSelector'); */
+                /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $viaQuery: false); */
             }
         }
 
         /* ### Average ------------------ */
 
-        &__average {
-            @include colour-mode-js-supports-not(average, 'support-key') {
-                /* @include colour-mode-js-supports-not(average, 'support-key'); */
+        &.average {
+            @include colour-mode-js-supports-not(average, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports-not(average, 'aspectRatio', $viaQuery: false); */
             }
         }
 
         /* ### Low ------------------ */
 
-        &__low {
-            @include colour-mode-js-supports-not(low, 'support-key') {
-                /* @include colour-mode-js-supports-not(low, 'support-key'); */
+        &.low {
+            @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
             }
         }
 
         /* ### Forced Colors ------------------ */
 
-        &__forced-colors {
-            @include colour-mode-js-supports-not(forced-colors, 'support-key') {
-                /* @include colour-mode-js-supports-not(forced-colors, 'support-key'); */
+        &.forced-colors {
+            @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
             }
         }
 
         /* ### Dark ------------------ */
 
-        &__dark {
-            @include colour-mode-js-supports-not(dark, 'support-key') {
-                /* @include colour-mode-js-supports-not(dark, 'support-key'); */
+        &.dark {
+            @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
             }
         }
     }
 }
 
-/* # COLOUR MODE + INTERACTIVE
+/* # COLOUR MODE + CSS SUPPORT
  * ======================================================================== */
-/* colour-mode-interactive-mixin */
 
-/* ## hover ==================================== */
+/* ## HAS Support ==================================== */
+/* colour-mode-js-supports */
 
-// test-hover {
-//     @at-root {
-//         /* ### Average ------------------ */
+supports[query] {
+    @at-root {
+        /* ### Average, High - whereSelector ------------------ */
 
-//         &__average {
-//             @include colour-mode-interactive-mixin(average, $hover: true) {
-//                 /* @include colour-mode-interactive-mixin(average, $hover: true); */
-//             }
-//         }
+        &.average_high {
+            @include colour-mode-js-supports((average, high), 'whereSelector', $neverUseJS: true) {
+                /* @include colour-mode-js-supports((average, high), 'whereSelector', $neverUseJS: true); */
+            }
+        }
 
-//         /* ### Low ------------------ */
+        /* ### Average ------------------ */
 
-//         &__low {
-//             @include colour-mode-interactive-mixin(low, $hover: true) {
-//                 /* @include colour-mode-interactive-mixin(low, $hover: true); */
-//             }
-//         }
+        &.average {
+            @include colour-mode-js-supports(average, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(average, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
 
-//         /* ### Forced-Colors ------------------ */
+        /* ### Maximum ------------------ */
 
-//         &__forced-colors {
-//             @include colour-mode-interactive-mixin(
-//                 forced-colors,
-//                 $hover: true
-//             ) {
-//                 /* @include colour-mode-interactive-mixin(forced-colors, $hover: true); */
-//             }
-//         }
+        &.max {
+            @include colour-mode-js-supports(max, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(max, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
 
-//         /* ### Dark ------------------ */
+        /* ### Low ------------------ */
 
-//         &__dark {
-//             @include colour-mode-interactive-mixin(dark, $hover: true) {
-//                 /* @include colour-mode-interactive-mixin(dark, $hover: true); */
-//             }
-//         }
-//     }
-// }
+        &.low {
+            @include colour-mode-js-supports(low, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(low, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
 
-// /* ## focus-visible ==================================== */
+        /* ### Forced Colors ------------------ */
 
-// test-focus {
-//     @at-root {
-//         /* ### Average ------------------ */
+        &.forced-colors {
+            @include colour-mode-js-supports(forced-colors, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
 
-//         &__average {
-//             @include colour-mode-interactive-mixin(average, $focus: true) {
-//                 /* @include colour-mode-interactive-mixin(average, $focus: true); */
-//             }
-//         }
+        /* ### Dark ------------------ */
 
-//         /* ### Low ------------------ */
+        &.dark {
+            @include colour-mode-js-supports(dark, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(dark, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+    }
+}
 
-//         &__low {
-//             @include colour-mode-interactive-mixin(low, $focus: true) {
-//                 /* @include colour-mode-interactive-mixin(low, $focus: true); */
-//             }
-//         }
+/* ## NO Support ==================================== */
+/* colour-mode-js-supports-not */
 
-//         /* ### Forced-Colors ------------------ */
+supports-not[query] {
+    @at-root {
+        /* ### Average, High - whereSelector ------------------ */
 
-//         &__forced-colors {
-//             @include colour-mode-interactive-mixin(
-//                 forced-colors,
-//                 $focus: true
-//             ) {
-//                 /* @include colour-mode-interactive-mixin(forced-colors, $focus: true); */
-//             }
-//         }
+        &.high {
+            @include colour-mode-js-supports-not(
+                (average, high),
+                'whereSelector',
+                $neverUseJS: true
+            ) {
+                /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $neverUseJS: true); */
+            }
+        }
 
-//         /* ### Dark ------------------ */
+        /* ### Average ------------------ */
 
-//         &__dark {
-//             @include colour-mode-interactive-mixin(dark, $focus: true) {
-//                 /* @include colour-mode-interactive-mixin(dark, $focus: true); */
-//             }
-//         }
-//     }
-// }
+        &.average {
+            @include colour-mode-js-supports-not(average, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports-not(average, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
 
-/* ## focus-visible and hover ==================================== */
+        /* ### Low ------------------ */
 
-// test-focus-and-hover {
-//     @at-root {
-//         /* ### Average ------------------ */
+        &.low {
+            @include colour-mode-js-supports-not(low, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports-not(low, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
 
-//         &__average {
-//             @include colour-mode-interactive-mixin(
-//                 average,
-//                 $focus: true,
-//                 $hover: true
-//             ) {
-//                 /* @include colour-mode-interactive-mixin(average, $focus: true, $hover: true); */
-//             }
-//         }
+        /* ### Forced Colors ------------------ */
 
-//         /* ### Low ------------------ */
+        &.forced-colors {
+            @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
 
-//         &__low {
-//             @include colour-mode-interactive-mixin(
-//                 low,
-//                 $focus: true,
-//                 $hover: true
-//             ) {
-//                 /* @include colour-mode-interactive-mixin(low, $focus: true, $hover: true); */
-//             }
-//         }
+        /* ### Dark ------------------ */
 
-//         /* ### Forced-Colors ------------------ */
-
-//         &__forced-colors {
-//             @include colour-mode-interactive-mixin(
-//                 forced-colors,
-//                 $focus: true,
-//                 $hover: true
-//             ) {
-//                 /* @include colour-mode-interactive-mixin(forced-colors, $focus: true, $hover: true); */
-//             }
-//         }
-
-//         /* ### Dark ------------------ */
-
-//         &__dark {
-//             @include colour-mode-interactive-mixin(
-//                 dark,
-//                 $focus: true,
-//                 $hover: true
-//             ) {
-//                 /* @include colour-mode-interactive-mixin(dark, $focus: true, $hover: true); */
-//             }
-//         }
-//     }
-// }
+        &.dark {
+            @include colour-mode-js-supports-not(dark, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+    }
+}

@@ -64,124 +64,160 @@ feature-check.get-selector .aspectRatio--true.with-extra {
 
 /* ## Modules - Feature Check - Mixins - Supports ==================================== */
 :where(.js) {
-    /* @include feature-check.supports( whereSelector ) */
+    /* @include feature-check.supports( whereSelector, $viaQuery: false ) */
 }
 
 :where(.js__aspectRatio) {
-    /* @include feature-check.supports( aspectRatio ) */
+    /* @include feature-check.supports( aspectRatio, $viaQuery: false ) */
 }
 
 extra-selector,
 :where(.js__aspectRatio) {
-    /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ) ) */
+    /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: false ) */
 }
 
+/* ### Feature Check - Supports - CSS ------------------ */
+@supports (selector(:where(a))) {
+    :root {
+        /* @include feature-check.supports( whereSelector, $viaQuery: true ) */
+    }
+}
+@supports (aspect-ratio: 1 / 2) {
+    :root {
+        /* @include feature-check.supports( aspectRatio, $viaQuery: true ) */
+    }
+}
+@supports (aspect-ratio: 1 / 2) {
+    :root,
+    extra-selector {
+        /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: true ) */
+    }
+}
 /* ## Modules - Feature Check - Mixins - Supports Not ==================================== */
 .no-js,
 .js__no-whereSelector {
-    /* @include feature-check.supports-not( whereSelector ) */
+    /* @include feature-check.supports-not( whereSelector, $viaQuery: false ) */
 }
 
 .no-js,
 .js__no-whereSelector {
-    /* @include feature-check.supports-not( aspectRatio ) */
+    /* @include feature-check.supports-not( aspectRatio, $viaQuery: false ) */
 }
 
 :where(.js__no-aspectRatio) {
-    /* @include feature-check.supports-not( aspectRatio ) */
+    /* @include feature-check.supports-not( aspectRatio, $viaQuery: false ) */
 }
 
 :where(.js__no-aspectRatio) {
-    /* @include feature-check.supports-not( aspectRatio, $includeNoWhereSelectorFallback: false ) */
+    /* @include feature-check.supports-not( aspectRatio, $includeNoWhereSelectorFallback: false, $viaQuery: false ) */
 }
 
 .no-js,
 .js__no-whereSelector {
-    /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ) ) */
+    /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: false ) */
 }
 
 extra-selector,
 :where(.js__no-aspectRatio) {
-    /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ) ) */
+    /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: false ) */
 }
 
+/* ### Feature Check - Supports Not - CSS ------------------ */
+@supports not (selector(:where(a))) {
+    :root {
+        /* @include feature-check.supports-not( whereSelector, $viaQuery: true ) */
+    }
+}
+@supports not (aspect-ratio: 1 / 2) {
+    :root {
+        /* @include feature-check.supports-not( aspectRatio, $viaQuery: true ) */
+    }
+}
+@supports not (aspect-ratio: 1 / 2) {
+    :root,
+    extra-selector {
+        /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: true ) */
+    }
+}
 /* ## Modules - Feature Check - Mixins - Aspect Ratio (fallback) ==================================== */
-feature-check.aspectRatio .ar-1-2 {
-    aspect-ratio: 1/2;
+feature-check.aspectRatio .ar-0_5 {
+    aspect-ratio: 0.5;
+    /* feature-check.aspect-ratio( 0.5 ) using ( $location = 'root' ) */
 }
-.no-js feature-check.aspectRatio .ar-1-2,
-.js__no-whereSelector feature-check.aspectRatio .ar-1-2 {
-    /* aspect-ratio fallback */
+.no-js feature-check.aspectRatio .ar-0_5,
+.js__no-whereSelector feature-check.aspectRatio .ar-0_5 {
     position: relative;
+    /* feature-check.aspect-ratio( 0.5 ) using ( $location = 'supports-not' ) */
 }
-.no-js feature-check.aspectRatio .ar-1-2::before,
-.js__no-whereSelector feature-check.aspectRatio .ar-1-2::before {
-    /* aspect-ratio fallback */
+.no-js feature-check.aspectRatio .ar-0_5::before,
+.js__no-whereSelector feature-check.aspectRatio .ar-0_5::before {
     content: "";
     float: left;
     padding-top: 200%;
+    /* feature-check.aspect-ratio( 0.5 ) using ( $location = 'supports-not--before' ) */
 }
-.no-js feature-check.aspectRatio .ar-1-2::after,
-.js__no-whereSelector feature-check.aspectRatio .ar-1-2::after {
-    /* aspect-ratio fallback */
+.no-js feature-check.aspectRatio .ar-0_5::after,
+.js__no-whereSelector feature-check.aspectRatio .ar-0_5::after {
     content: "";
     display: block;
     clear: both;
+    /* feature-check.aspect-ratio( 0.5 ) using ( $location = 'supports-not--after' ) */
 }
 
-:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-1-2 {
-    /* aspect-ratio fallback */
+:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-0_5 {
     position: relative;
+    /* feature-check.aspect-ratio( 0.5 ) using ( $location = 'supports-not' ) */
 }
-:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-1-2::before {
-    /* aspect-ratio fallback */
+:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-0_5::before {
     content: "";
     float: left;
     padding-top: 200%;
+    /* feature-check.aspect-ratio( 0.5 ) using ( $location = 'supports-not--before' ) */
 }
-:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-1-2::after {
-    /* aspect-ratio fallback */
+:where(.js__no-aspectRatio) feature-check.aspectRatio .ar-0_5::after {
     content: "";
     display: block;
     clear: both;
+    /* feature-check.aspect-ratio( 0.5 ) using ( $location = 'supports-not--after' ) */
 }
 
 feature-check.aspectRatio .ar-8-7 {
     aspect-ratio: 8/7;
+    /* feature-check.aspect-ratio( 8, 7 ) using ( $location = 'root' ) */
 }
 .no-js feature-check.aspectRatio .ar-8-7,
 .js__no-whereSelector feature-check.aspectRatio .ar-8-7 {
-    /* aspect-ratio fallback */
     position: relative;
+    /* feature-check.aspect-ratio( 8, 7 ) using ( $location = 'supports-not' ) */
 }
 .no-js feature-check.aspectRatio .ar-8-7::before,
 .js__no-whereSelector feature-check.aspectRatio .ar-8-7::before {
-    /* aspect-ratio fallback */
     content: "";
     float: left;
     padding-top: 87.5%;
+    /* feature-check.aspect-ratio( 8, 7 ) using ( $location = 'supports-not--before' ) */
 }
 .no-js feature-check.aspectRatio .ar-8-7::after,
 .js__no-whereSelector feature-check.aspectRatio .ar-8-7::after {
-    /* aspect-ratio fallback */
     content: "";
     display: block;
     clear: both;
+    /* feature-check.aspect-ratio( 8, 7 ) using ( $location = 'supports-not--after' ) */
 }
 
 :where(.js__no-aspectRatio) feature-check.aspectRatio .ar-8-7 {
-    /* aspect-ratio fallback */
     position: relative;
+    /* feature-check.aspect-ratio( 8, 7 ) using ( $location = 'supports-not' ) */
 }
 :where(.js__no-aspectRatio) feature-check.aspectRatio .ar-8-7::before {
-    /* aspect-ratio fallback */
     content: "";
     float: left;
     padding-top: 87.5%;
+    /* feature-check.aspect-ratio( 8, 7 ) using ( $location = 'supports-not--before' ) */
 }
 :where(.js__no-aspectRatio) feature-check.aspectRatio .ar-8-7::after {
-    /* aspect-ratio fallback */
     content: "";
     display: block;
     clear: both;
+    /* feature-check.aspect-ratio( 8, 7 ) using ( $location = 'supports-not--after' ) */
 }

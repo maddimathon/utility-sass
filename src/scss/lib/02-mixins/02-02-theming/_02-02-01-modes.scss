@@ -652,152 +652,134 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
 
 /// ## Colour Mode - with JS Support ==================================== ///
 
-@mixin _colour-mode-js-any-support($modes, $key, $bool, $args...) {
-    $selector: #{&};
+@mixin _colour-mode-js-any-support--content() {
+}
 
-    $args: meta.keywords($args);
+@mixin _colour-mode-js-any-support(
+    $modes,
+    $key,
+    $bool,
+    $neverUseJS: null,
+    $viaQuery: null,
+    $args...
+) {
+    $supportsTest: map.get(config.$featureCheck_supportsQueries, #{$key});
 
-    $mixin: if(
-        $bool,
-        meta.get-mixin('supports', $module: feature-check),
-        meta.get-mixin('supports-not', $module: feature-check)
+    $neverUseJS: feature-check.param-never-use-js($neverUseJS);
+
+    $viaQuery: feature-check.param-via-query(
+        $key: $key,
+        $bool: $bool,
+        $neverUseJS: $neverUseJS,
+        $viaQuery: $viaQuery,
     );
 
-    $hasDefaultMode: false;
-
-    @each $mode in $modes {
-        @if is-colour-mode-default($mode) {
-            $hasDefaultMode: true;
+    @if $supportsTest and $viaQuery {
+        @if $bool {
+            @supports (#{$supportsTest}) {
+                @include colour-mode($modes: $modes, $args...) {
+                    @content;
+                }
+            }
+        } @else {
+            @supports not (#{$supportsTest}) {
+                @include colour-mode($modes: $modes, $args...) {
+                    @content;
+                }
+            }
         }
-    }
+    } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
+        $selector: #{&};
 
-    @if config.$selectorType_mode != 'null' or $hasDefaultMode {
-        $addSelectors: if(
-            $hasDefaultMode,
-            (
-                feature-check.get-selector(
+        $mixin: if(
+            $bool,
+            meta.get-mixin('supports', $module: feature-check),
+            meta.get-mixin('supports-not', $module: feature-check)
+        );
+
+        $hasDefaultMode: false;
+
+        @each $mode in $modes {
+            @if is-colour-mode-default($mode) {
+                $hasDefaultMode: true;
+            }
+        }
+
+        @at-root {
+            //
+            @if config.$selectorType_mode != 'null' or $hasDefaultMode {
+                $addSelectors: if(
+                    $hasDefaultMode,
+                    (
+                        feature-check.get-selector(
+                            $key: $key,
+                            $bool: $bool,
+                            $args...,
+                        )
+                    ),
+                    ()
+                );
+
+                $addSelectors_noJS: if(
+                    (
+                        config.$include_featureCheck and
+                            $hasDefaultMode and not
+                            $bool and
+                            $key !=
+                            whereSelector
+                    ),
+                    (
+                        feature-check.get-selector(
+                            $key: null,
+                            $bool: $bool,
+                            $args...,
+                        )
+                    ),
+                    ()
+                );
+
+                @include meta.apply(
+                    $mixin: $mixin,
                     $key: $key,
-                    $bool: $bool,
-                    $args...,
-                )
-            ),
-            ()
-        );
-
-        $addSelectors_noJS: if(
-            (
-                config.$include_featureCheck and
-                    $hasDefaultMode and not
-                    $bool and
-                    $key !=
-                    whereSelector
-            ),
-            (
-                feature-check.get-selector(
-                    $key: null,
-                    $bool: $bool,
-                    $args...,
-                )
-            ),
-            ()
-        );
-
-        @include meta.apply(
-            $mixin: $mixin,
-            $key: $key,
-            $replaceRootSelector: selectors-colour-mode(
-                    $modes: $modes,
-                    $ignoreParentSelector: true,
-                    $includeDefault: false,
+                    $replaceRootSelector: selectors-colour-mode(
+                            $modes: $modes,
+                            $ignoreParentSelector: true,
+                            $includeDefault: false,
+                            $args...
+                        ),
+                    $addSelectors: $addSelectors,
+                    $addSelectors_noJS: $addSelectors_noJS,
+                    $viaQuery: false,
                     $args...
-                ),
-            $addSelectors: $addSelectors,
-            $addSelectors_noJS: $addSelectors_noJS,
-            $args...
-        ) {
-            @content;
-        }
-    }
+                ) {
+                    @content;
+                }
+            }
 
-    @at-root {
-        @include colour-mode(
-            $modes: $modes,
-            $includeSelectors: false,
-            $parentSelector: (
-                $selector,
-            ),
-            $args...
-        ) {
-            @include meta.apply($mixin: $mixin, $key: $key, $args...) {
-                @content;
+            @include colour-mode(
+                $modes: $modes,
+                $includeSelectors: false,
+                $parentSelector: (
+                    $selector,
+                ),
+                $args...
+            ) {
+                @include meta.apply($mixin: $mixin, $key: $key, $viaQuery: false, $args...) {
+                    @content;
+                }
             }
         }
     }
 }
 
 @mixin colour-mode-js-supports($modes, $key, $args...) {
-    $args: meta.keywords($args);
-
     @include _colour-mode-js-any-support($modes: $modes, $key: $key, $bool: true, $args...) {
         @content;
     }
 }
 
 @mixin colour-mode-js-supports-not($modes, $key, $args...) {
-    $args: meta.keywords($args);
-
     @include _colour-mode-js-any-support($modes: $modes, $key: $key, $bool: false, $args...) {
         @content;
     }
 }
-
-/// ## Colour Mode - with Interactivity ==================================== ///
-
-// @mixin colour-mode-interactive-mixin(
-//     $modes,
-//     $active: false,
-//     $focus: false,
-//     $focusWithin: false,
-//     $hover: false,
-//     $visited: false,
-//     $args...
-// ) {
-//     @if config.$include_featureCheck and $focus {
-//         @include colour-mode-js-supports-not(
-//             $modes: $modes,
-//             $key: 'focusVisible',
-//             $args...
-//         ) {
-//             @if $focus {
-//                 &:focus {
-//                     @content;
-//                 }
-//             }
-//         }
-//     }
-
-//     @include colour-mode($modes: $modes, $args...) {
-//         @if $focus and config.$include_featureCheck {
-//             &:focus-visible {
-//                 @content;
-//             }
-//         }
-
-//         @if $focusWithin {
-//             &:focus-within {
-//                 @content;
-//             }
-//         }
-
-//         @if $hover or $active or $visited {
-//             #{(
-//                 if($focus and not config.$include_featureCheck, '&:focus', config.$selector_null),
-//                 if($hover, '&:hover', config.$selector_null),
-//                 if($active, '&:active', config.$selector_null),
-//                 if($visited, '&:visited', config.$selector_null),
-//             )} {
-//                 @content;
-//             }
-//         }
-//     }
-// }

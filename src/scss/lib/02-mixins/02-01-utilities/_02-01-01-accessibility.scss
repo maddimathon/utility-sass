@@ -70,8 +70,6 @@
 /// @since 0.1.0-pre.0
 ///
 @mixin motion($args...) {
-    $args: meta.keywords($args);
-
     @include _any-motion(true, $args...) {
         @content;
     }
@@ -86,8 +84,6 @@
 /// @since 0.1.0-pre.0
 ///
 @mixin no-motion($args...) {
-    $args: meta.keywords($args);
-
     @include _any-motion(false, $args...) {
         @content;
     }

@@ -3,7 +3,10 @@
 /// @since ___PKG_VERSION___
 ///
 
+@use '../../config';
+
 @use '../../modules/map';
+@use '../../modules/math';
 
 ///
 /// The value used to position an element at the top of the page (via `top` property).
@@ -15,7 +18,10 @@ $page_top: 0px !default;
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-get-at-properties($inputs) {
+@function tokens-get-at-properties($inputs, $stroke_relative, $style_flat) {
+    $focusRingOffset: '#{map.get($style_flat, focus-ring-outline-offset)}';
+    $focusRingWidth: '#{map.get($style_flat, focus-ring-outline-width)}';
+
     @return map.ksort(
         map.merge(
             (
@@ -23,11 +29,49 @@ $page_top: 0px !default;
                     syntax: '*',
                     inherits: false,
                 ),
+
                 focus-ring-outline-color: (
                     syntax: '<color>',
                     inherits: true,
                     initial-value: currentColor,
                 ),
+
+                focus-ring-outline-offset: (
+                    syntax: '<length-percentage> | <number>',
+                    inherits: true,
+
+                    initial-value: config.config-do-var(
+                            stroke-relative-#{$focusRingOffset},
+                            $fallback: math.add-unit(
+                                    if(
+                                        map.has-key($stroke_relative, $focusRingOffset),
+                                        map.get($stroke_relative, $focusRingOffset),
+                                        map.get($stroke_relative, '200')
+                                    ),
+                                    $unit: 1em
+                                ),
+                            $fallbackOnly: config.$fn_var_replaceWithValue_strokeRelative
+                        ),
+                ),
+
+                focus-ring-outline-width: (
+                    syntax: '<length-percentage> | <number>',
+                    inherits: true,
+
+                    initial-value: config.config-do-var(
+                            stroke-relative-#{$focusRingWidth},
+                            $fallback: math.add-unit(
+                                    if(
+                                        map.has-key($stroke_relative, $focusRingWidth),
+                                        map.get($stroke_relative, $focusRingWidth),
+                                        map.get($stroke_relative, '200')
+                                    ),
+                                    $unit: 1em
+                                ),
+                            $fallbackOnly: config.$fn_var_replaceWithValue_strokeRelative
+                        ),
+                ),
+
                 height-nav-primary: (
                     syntax: '<length-percentage> | <number>',
                     inherits: true,

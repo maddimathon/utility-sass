@@ -55,8 +55,6 @@
 
     $args...
 ) {
-    $args: meta.keywords($args);
-
     @include snippet-input(
         $accentClr: $accentClr,
         $accentClr_active: $accentClr_active,
@@ -224,7 +222,11 @@
     font: inherit;
     line-height: #{$lineHeight};
 
-    border: #{$borderWidth} solid #{$borderClr};
+    border-width: #{$borderWidth};
+    border-style: solid;
+    @if $includeClrs {
+        border-color: #{$borderClr};
+    }
     border-radius: 0;
 
     @if $includeClrs {
