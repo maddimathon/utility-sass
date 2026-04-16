@@ -153,20 +153,6 @@ $lineHeight_multiplier: config.config-valid-number(
 );
 
 ///
-/// Rounding factor used when defining line heights.
-///
-/// @since 0.1.0-beta.0.draft
-///
-$lineHeight_roundingFactor: null !default;
-$lineHeight_roundingFactor: config.config-valid-number(
-    $lineHeight_roundingFactor,
-    'lineHeight_roundingFactor',
-    $default: 16,
-    $min: 1,
-    $unit: false
-);
-
-///
 /// A map (merged with the defaults) of line height multipliers (0 = base lh)
 /// used with the line heights mixins and --line-height-X properties.
 ///
@@ -198,7 +184,115 @@ $line_height: map.ksort(
                     $value * $lineHeight_multiplier
                 ) *
                 $lineHeight_base,
-            $lineHeight_roundingFactor
+            $factor: config.$fn_lineHeightValue_roundToPixelFactor
         )
     );
 }
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$systemFontList_append: null !default;
+$systemFontList_append: config.config-valid-list-strings(
+    $systemFontList_append,
+    'systemFontList_append',
+    $default: ()
+);
+
+$systemFontList_append: list.join(
+    $systemFontList_append,
+    ('Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'),
+    $separator: comma
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$systemFontList_prepend: null !default;
+$systemFontList_prepend: config.config-valid-list-strings(
+    $systemFontList_prepend,
+    'systemFontList_prepend',
+    $default: ()
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$systemFontList: null !default;
+$systemFontList: config.config-valid-list-strings(
+    $systemFontList,
+    'systemFontList',
+    $default: list.join(
+            list.join(
+                $systemFontList_prepend,
+                (
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    'Segoe UI',
+                    Roboto,
+                    Oxygen-Sans,
+                    Ubuntu,
+                    Cantarell,
+                    'Helvetica Neue',
+                    Helvetica,
+                    Arial,
+                    sans-serif
+                ),
+                $separator: comma
+            ),
+            $systemFontList_append,
+            $separator: comma
+        )
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$systemFontList_monospace_append: null !default;
+$systemFontList_monospace_append: config.config-valid-list-strings(
+    $systemFontList_monospace_append,
+    'systemFontList_monospace_append',
+    $default: ()
+);
+
+$systemFontList_monospace_append: list.join(
+    $systemFontList_monospace_append,
+    ('Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'),
+    $separator: comma
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$systemFontList_monospace_prepend: null !default;
+$systemFontList_monospace_prepend: config.config-valid-list-strings(
+    $systemFontList_monospace_prepend,
+    'systemFontList_monospace_prepend',
+    $default: ()
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$systemFontList_monospace: null !default;
+$systemFontList_monospace: config.config-valid-list-strings(
+    $systemFontList_monospace,
+    'systemFontList_monospace',
+    $default: list.join(
+            list.join(
+                $systemFontList_monospace_prepend,
+                (
+                    ui-monospace,
+                    SFMono-Regular,
+                    Consolas,
+                    'Liberation Mono',
+                    Menlo,
+                    monospace
+                ),
+                $separator: comma
+            ),
+            $systemFontList_monospace_append,
+            $separator: comma
+        )
+);

@@ -5,7 +5,7 @@
 
 @use '../../modules/list';
 
-@use '../../config';
+@use '../../tokens';
 
 ///
 /// Returns a css-friendly font-family value for a monospace system font stack.
@@ -15,7 +15,7 @@
 /// @since 0.1.0-pre.0
 ///
 @function font-family-system-monospace() {
-    @return list.font-list(config.$systemFontList_monospace);
+    @return list.font-list(tokens.$systemFontList_monospace);
 }
 
 ///
@@ -26,5 +26,5 @@
 /// @since 0.1.0-pre.0
 ///
 @function font-family-system-ui() {
-    @return list.font-list(config.$systemFontList);
+    @return list.font-list(tokens.$systemFontList);
 }

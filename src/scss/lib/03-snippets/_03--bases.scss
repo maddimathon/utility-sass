@@ -1,6 +1,8 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ Merged 03--normalize and 03--reset into renamed 03--bases.
 ///
 
 @use '../../config';
@@ -10,9 +12,77 @@
 @use '../02-mixins' as *;
 
 ///
+/// @since ___PKG_VERSION___
+///
+@mixin _shared-base(
+    $codeFontFamily_usePseudo: config.$mx_normalizeOrReset_codeFontFamily_usePseudo,
+    $includeColorScheme: config.$mx_normalizeOrReset_includeColorScheme,
+    $includeFontFamily: config.$mx_normalizeOrReset_includeFontFamily,
+    $includeFontSize: config.$mx_normalizeOrReset_includeFontSize,
+    $includeFontSmoothing: config.$mx_normalizeOrReset_includeFontSmoothing
+) {
+    //
+
+    #{config.$selector_root} {
+        @if $includeFontSmoothing {
+            -moz-text-size-adjust: none;
+            -webkit-text-size-adjust: none;
+            text-size-adjust: none;
+
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @if $includeColorScheme {
+            color-scheme: #{tokens.$brightnessMode_all};
+
+            @each $mode in tokens.$brightnessMode_all {
+                @include colour-mode($mode, $includeDefault: false) {
+                    color-scheme: #{$mode};
+                }
+            }
+        }
+    }
+
+    #{config.$selector_root} {
+        @if $includeFontFamily {
+            font-family: #{font-family-system-ui()};
+        }
+
+        @if $includeFontSize {
+            font-size: 115%;
+
+            @include min-width(tablet) {
+                font-size: 105%;
+            }
+        }
+    }
+
+    @if $includeFontFamily {
+        @if $codeFontFamily_usePseudo {
+            %code,
+            %kbd,
+            %samp,
+            %pre {
+                font-family: #{font-family-system-monospace()};
+            }
+        } @else {
+            code,
+            kbd,
+            samp,
+            pre {
+                font-family: #{font-family-system-monospace()};
+            }
+        }
+    }
+}
+
+///
 /// A basic normalize stylesheet.
 ///
-@mixin normalize {
+/// @since 0.1.0-pre.0
+///
+@mixin normalize($args...) {
     /* #region Normalize */
     /*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
@@ -160,7 +230,6 @@
     [type='reset'],
     [type='submit'] {
         -webkit-appearance: button;
-        user-select: text;
     }
 
     /**
@@ -231,30 +300,148 @@
 
     /*! end of modern-normalize */
 
-    #{config.$selector_root} {
-        color-scheme: #{tokens.$brightnessMode_all};
-
-        @each $mode in tokens.$brightnessMode_all {
-            @include colour-mode($mode, $includeDefault: false) {
-                color-scheme: #{$mode};
-            }
-        }
-    }
-
-    #{config.$selector_root} {
-        font-family: #{font-family-system-ui()};
-        font-size: 115%;
-
-        @include min-width(tablet) {
-            font-size: 105%;
-        }
-    }
-
-    code,
-    kbd,
-    samp,
-    pre {
-        font-family: #{font-family-system-monospace()};
-    }
+    @include _shared-base($args...);
     /* #endregion Normalize */
+}
+
+///
+/// A basic reset stylesheet.
+///
+/// @since 0.1.0-pre.0
+///
+@mixin reset($doUniversalBoxSizing: config.$mx_reset_doUniversalBoxSizing, $args...) {
+    /* #region Reset */
+
+    #{config.$selector_root},
+    #{config.$selector_body} {
+        margin: 0;
+        padding: 0;
+
+        @if not $doUniversalBoxSizing {
+            box-sizing: border-box;
+        }
+    }
+
+    button {
+        text-align: left; /* fallback */
+        text-align: start;
+    }
+
+    ::placeholder,
+    blockquote,
+    button,
+    cite,
+    code,
+    dd,
+    dl,
+    figure,
+    input,
+    kbd,
+    ol,
+    optgroup,
+    pre,
+    samp,
+    select,
+    small,
+    td,
+    textarea,
+    th,
+    ul {
+        margin: 0;
+        padding: 0;
+        font: inherit;
+
+        @if not $doUniversalBoxSizing {
+            box-sizing: border-box;
+        }
+    }
+
+    #{selector-all-headings($globalsOnly: true)} {
+        margin: 0;
+        font: inherit;
+
+        @if not $doUniversalBoxSizing {
+            box-sizing: border-box;
+        }
+    }
+
+    td,
+    th {
+        vertical-align: top;
+    }
+
+    li {
+        @if not $doUniversalBoxSizing {
+            box-sizing: border-box;
+        }
+    }
+
+    p {
+        margin: 0;
+
+        @if not $doUniversalBoxSizing {
+            box-sizing: border-box;
+        }
+    }
+
+    embed,
+    iframe,
+    img,
+    object,
+    picture,
+    svg,
+    video {
+        @include prop-display(block);
+        max-width: 100%;
+
+        @if not $doUniversalBoxSizing {
+            box-sizing: border-box;
+        }
+    }
+
+    embed,
+    iframe,
+    img,
+    object,
+    picture,
+    video {
+        // height: auto;
+    }
+
+    img {
+        object-fit: cover;
+    }
+
+    hr {
+        margin: 0;
+        border: none;
+        border-block: currentColor solid 1px;
+
+        @if not $doUniversalBoxSizing {
+            box-sizing: border-box;
+        }
+    }
+
+    input,
+    label,
+    pre,
+    pre > code {
+        @include prop-display(block);
+
+        @if not $doUniversalBoxSizing {
+            box-sizing: border-box;
+        }
+    }
+
+    @if $doUniversalBoxSizing {
+        *,
+        ::before,
+        ::after {
+            box-sizing: border-box;
+        }
+    }
+
+    @include _shared-base($args...);
+
+    /* #endregion Reset */
 }

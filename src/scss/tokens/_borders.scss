@@ -3,7 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
-// @use '../config';
+@use '../config';
 
 @use '../modules/map';
 @use '../modules/math';
@@ -34,7 +34,11 @@ $border_width: map.ksort(
 );
 
 @each $key, $size in $border_width {
-    $border_width: map.set($border_width, $key, math.round-to-pixel($size, 32));
+    $border_width: map.set(
+        $border_width,
+        $key,
+        math.round-to-pixel($size, $factor: config.$fn_borderWidthValue_roundToPixelFactor)
+    );
 }
 
 ///
@@ -63,5 +67,9 @@ $stroke_relative: map.ksort(
 );
 
 @each $key, $size in $stroke_relative {
-    $stroke_relative: map.set($stroke_relative, $key, math.round-to-pixel($size, 32));
+    $stroke_relative: map.set(
+        $stroke_relative,
+        $key,
+        math.round-to-pixel($size, $factor: config.$fn_borderWidthValue_roundToPixelFactor)
+    );
 }

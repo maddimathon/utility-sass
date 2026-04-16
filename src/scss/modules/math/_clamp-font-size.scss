@@ -26,27 +26,37 @@
 @function clamp-font-size(
     $size,
     $relative: false,
-    $roundingFactor: config.$math_fontSize_roundingFactor
+    $roundingFactor: config.$math_fontSize_roundingFactor,
+    $unit: if($relative, 1em, 1rem)
 ) {
     @if meta.type-of($size) != number {
         @warn "$size should be a number (was the #{meta.type-of($size)} #{$size})";
-        @return add-unit.add-unit($size, if($relative, 1em, 1rem));
+        @return add-unit.add-unit($size, $unit: $unit);
     }
 
-    $size_min: round-to-pixel.round-to-pixel($size * config.$math_clampFontSize_multiplier_min);
+    $size_min: round-to-pixel.round-to-pixel(
+        $size * config.$math_clampFontSize_multiplier_min,
+        $factor: $roundingFactor,
+        $method: floor
+    );
 
-    $goal_svw: round-to-pixel.round-to-pixel($size * config.$math_clampFontSize_multiplier_svw);
-
-    $size_max: round-to-pixel.round-to-pixel($size * config.$math_clampFontSize_multiplier_max);
-
-    $unit: if($relative, 1em, 1rem);
+    $size_max: round-to-pixel.round-to-pixel(
+        $size * config.$math_clampFontSize_multiplier_max,
+        $factor: $roundingFactor,
+        $method: ceil
+    );
 
     @return clamp(
-        add-unit.add-unit($size_min, $unit),
+        add-unit.add-unit($size_min, $unit: $unit),
         calc(
-            add-unit.add-unit($goal_svw, 1svw) +
-                add-unit.add-unit(config.$math_clampFontSize_baseRem, $unit)
+            add-unit.add-unit(
+                    round-to-pixel.round-to-pixel(
+                        $size * config.$math_clampFontSize_multiplier_svw
+                    ),
+                    $unit: 1svw
+                ) +
+                add-unit.add-unit(config.$math_clampFontSize_baseRem, $unit: $unit)
         ),
-        add-unit.add-unit($size_max, $unit)
+        add-unit.add-unit($size_max, $unit: $unit)
     );
 }

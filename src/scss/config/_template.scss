@@ -3,6 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
+@use 'sass:list';
 @use 'sass:meta';
 @use 'sass:string';
 
@@ -10,42 +11,6 @@
 
 /// # CONFIG - TEMPLATES
 /// ======================================================================== ///
-
-///
-/// @since ___PKG_VERSION___
-///
-$systemFontList: null !default;
-$systemFontList: config-valid-list-strings(
-    $systemFontList,
-    'systemFontList',
-    $default: (
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        Segoe UI,
-        Roboto,
-        Oxygen-Sans,
-        Ubuntu,
-        Cantarell,
-        Helvetica Neue,
-        Helvetica,
-        Arial,
-        sans-serif,
-        Apple Color Emoji,
-        Segoe UI Emoji,
-        Segoe UI Symbol
-    )
-);
-
-///
-/// @since ___PKG_VERSION___
-///
-$systemFontList_monospace: null !default;
-$systemFontList_monospace: config-valid-list-strings(
-    $systemFontList_monospace,
-    'systemFontList_monospace',
-    $default: (ui-monospace, SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace)
-);
 
 ///
 /// Prefix to use before all css custom properties (to avoid conflict).
