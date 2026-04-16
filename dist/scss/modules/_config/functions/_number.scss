@@ -57,16 +57,21 @@
         $value: math.div($value, ($value * 0 + 1));
     }
 
-    @if meta.type-of($min) == number {
+    @if meta.type-of($min) == number and $value < $min {
+        @warn "[config] $#{$name} should be at least #{$min} (was #{$value})";
+
         $value: math.max($min, $value);
     }
 
-    @if meta.type-of($max) == number {
+    @if meta.type-of($max) == number and $value > $max {
+        @warn "[config] $#{$name} should be less than #{$max} (was #{$value})";
+
         $value: math.min($max, $value);
     }
 
     @if $unit != false and meta.type-of($unit) == number {
         $_unit_zero: $unit * 0;
+
         $_always_one_unit: if(
             math.is-unitless($unit),
             1,

@@ -21,42 +21,51 @@
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.18 — Added $relative param.
 /// @since 0.1.0-alpha.41 — Added $roundingFactor param.
-/// @since ___PKG_VERSION___ — Moved to math module.
+///
+/// @since ___PKG_VERSION___ — Moved to math module. Added optional $max_viewport, $min_viewport, $roundingFactor_viewport, $size_max, $size_min params.
 ///
 @function clamp-font-size(
     $size,
     $relative: false,
+    $unit: if($relative, 1em, 1rem),
+    //
     $roundingFactor: config.$math_fontSize_roundingFactor,
-    $unit: if($relative, 1em, 1rem)
+    $roundingFactor_viewport: 32,
+    //
+    $max_viewport: config.$math_clampFontSize_viewport_max,
+    $min_viewport: config.$math_clampFontSize_viewport_min,
+    $size_max: $size * config.$math_clampFontSize_multiplier_max,
+    $size_min: $size * config.$math_clampFontSize_multiplier_min,
+    //
+    // via - https://www.marcbacon.com/understanding-clamp/
+    $sizeScalingSlope: calc(($size_max - $size_min) / ($max_viewport - $min_viewport))
 ) {
     @if meta.type-of($size) != number {
         @warn "$size should be a number (was the #{meta.type-of($size)} #{$size})";
         @return add-unit.add-unit($size, $unit: $unit);
     }
 
-    $size_min: round-to-pixel.round-to-pixel(
-        $size * config.$math_clampFontSize_multiplier_min,
-        $factor: $roundingFactor,
-        $method: floor
+    $yIntersection: calc((-1 * $min_viewport * $sizeScalingSlope) + $size_min);
+
+    $svw_size: round-to-pixel.round-to-pixel(
+        $sizeScalingSlope * 100,
+        $factor: $roundingFactor_viewport
     );
 
-    $size_max: round-to-pixel.round-to-pixel(
-        $size * config.$math_clampFontSize_multiplier_max,
-        $factor: $roundingFactor,
-        $method: ceil
-    );
+    $rem_addition: round-to-pixel.round-to-pixel($yIntersection, $factor: $roundingFactor);
 
     @return clamp(
-        add-unit.add-unit($size_min, $unit: $unit),
-        calc(
-            add-unit.add-unit(
-                    round-to-pixel.round-to-pixel(
-                        $size * config.$math_clampFontSize_multiplier_svw
-                    ),
-                    $unit: 1svw
-                ) +
-                add-unit.add-unit(config.$math_clampFontSize_baseRem, $unit: $unit)
+        add-unit.add-unit(
+            round-to-pixel.round-to-pixel($size_min, $factor: $roundingFactor),
+            $unit: $unit
         ),
-        add-unit.add-unit($size_max, $unit: $unit)
+        calc(
+            add-unit.add-unit($svw_size, $unit: 1svw) +
+                add-unit.add-unit($rem_addition, $unit: $unit)
+        ),
+        add-unit.add-unit(
+            round-to-pixel.round-to-pixel($size_max, $factor: $roundingFactor),
+            $unit: $unit
+        )
     );
 }

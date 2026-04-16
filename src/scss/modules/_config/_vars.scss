@@ -82,11 +82,23 @@ $featureCheck_supportsQueries: map.merge(
 ///
 /// @since 0.1.0-alpha
 ///
+$math_clampFontSize_baseRem: null !default;
+$math_clampFontSize_baseRem: fns.config-valid-number(
+    $math_clampFontSize_baseRem,
+    'math_clampFontSize_baseRem',
+    $default: 1,
+    $min: 0.1,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-alpha
+///
 $math_clampFontSize_multiplier_max: null !default;
 $math_clampFontSize_multiplier_max: fns.config-valid-number(
     $math_clampFontSize_multiplier_max,
     'math_clampFontSize_multiplier_max',
-    $default: 1.125,
+    $default: 1.25,
     $min: 0.1,
     $unit: false
 );
@@ -98,32 +110,33 @@ $math_clampFontSize_multiplier_min: null !default;
 $math_clampFontSize_multiplier_min: fns.config-valid-number(
     $math_clampFontSize_multiplier_min,
     'math_clampFontSize_multiplier_min',
-    $default: 0.75,
+    $default: 0.9375,
     $min: 0.1,
     $unit: false
 );
 
 ///
-/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___
 ///
-$math_clampFontSize_multiplier_svw: null !default;
-$math_clampFontSize_multiplier_svw: fns.config-valid-number(
-    $math_clampFontSize_multiplier_svw,
-    'math_clampFontSize_multiplier_svw',
-    $default: 1.3125,
-    $min: 0.1,
+$math_clampFontSize_viewport_max: null !default;
+$math_clampFontSize_viewport_max: fns.config-valid-number(
+    $math_clampFontSize_viewport_max,
+    'math_clampFontSize_viewport_max',
+    $default: 120,
+    $min: 20,
     $unit: false
 );
 
 ///
-/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___
 ///
-$math_clampFontSize_baseRem: null !default;
-$math_clampFontSize_baseRem: fns.config-valid-number(
-    $math_clampFontSize_baseRem,
-    'math_clampFontSize_baseRem',
-    $default: 1,
-    $min: 0.1,
+$math_clampFontSize_viewport_min: null !default;
+$math_clampFontSize_viewport_min: fns.config-valid-number(
+    $math_clampFontSize_viewport_min,
+    'math_clampFontSize_viewport_min',
+    $default: 25,
+    $max: $math_clampFontSize_viewport_max,
+    $min: 16,
     $unit: false
 );
 

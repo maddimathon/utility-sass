@@ -4,6 +4,8 @@
 /// @since ___PKG_VERSION___ — Moved fron config to tokens.
 ///
 
+@use '../config';
+
 @use '../modules/map';
 @use '../modules/math';
 
@@ -13,12 +15,19 @@
 /// # TOKENS - BREAKPOINTS
 /// ======================================================================== ///
 
-$_breakpoint_mobile: 25;
-$_breakpoint_tablet: 50;
-
 $_width_content: map.get(width.$width, 'content');
 $_width_page: map.get(width.$width, 'page');
 $_width_sidebar: map.get(width.$width, 'sidebar');
+
+$_gap_percent: calc(map.get(spacing.$gap, inline, layout) / 100);
+
+$_viewport_percent_minus_gutter: 1 - $_gap_percent;
+
+$_viewport_percent_minus_gap: 1 - (config.$fn_breakpoints_gapDoubler * $_gap_percent);
+
+@function _breakpoint-maker($num) {
+    @return calc($num/$_viewport_percent_minus_gap);
+}
 
 ///
 /// A map (merged with the defaults) of breakpoints used with the breakpoint
@@ -34,21 +43,31 @@ $breakpoints: () !default;
 
 $breakpoints: map.merge(
     (
-        'mobile': $_breakpoint_mobile,
-        'tablet': $_breakpoint_tablet,
+        'mobile': 25,
+        'tablet': 50,
 
-        'content': $_width_content,
-        'page': $_width_page,
-        'sidebar': calc((($_width_page - $_width_sidebar) + ($_width_sidebar * 3 / 4))),
-        'indent': calc(
-                map.get(width.$width, 'callout') *
-                    ((100 + math.deunit(map.get(spacing.$gap, inline, indent)) * 2) / 100)
+        'content': _breakpoint-maker($_width_content),
+        'page': _breakpoint-maker($_width_page),
+        // 'sidebar': _breakpoint-maker($_width_page * config.$fn_breakpoints_sidebarMultiplier),
+        'sidebar': _breakpoint-maker(
+                calc(
+                    (
+                            ($_width_content * config.$fn_breakpoints_sidebarMultiplier) +
+                                $_width_sidebar
+                        ) /
+                        $_viewport_percent_minus_gutter
+                )
             ),
+        'indent': _breakpoint-maker(map.get(width.$width, 'callout')),
     ),
     $breakpoints,
     $recursive: true
 );
 
 @each $key, $value in $breakpoints {
-    $breakpoints: map.set($breakpoints, $key, math.round-to-pixel($value));
+    $breakpoints: map.set(
+        $breakpoints,
+        $key,
+        math.round-to-pixel($value, $factor: config.$fn_breakpointValue_roundToPixelFactor)
+    );
 }

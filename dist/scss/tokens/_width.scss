@@ -3,6 +3,8 @@
 /// @since 0.1.0-pre.0
 ///
 
+@use '../config';
+
 @use '../modules/map';
 @use '../modules/math';
 
@@ -51,10 +53,17 @@ $width: map.merge(
     $recursive: true
 );
 
+$_viewport_percent_minus_gutter: 1 - calc(
+        map.get(spacing.$gap, inline, layout) / 100
+    );
+
 $width: map.set(
     $width,
     'page',
-    calc(map.get($width, 'content') + map.get($width, 'sidebar') + 6)
+    calc(
+        (map.get($width, 'content') + map.get($width, 'sidebar')) /
+            $_viewport_percent_minus_gutter
+    )
 );
 
 @each $key, $value in $width {

@@ -182,7 +182,7 @@
     --width-content: 36rem;
     --width-sidebar: 18rem;
     --width-callout: 26.25rem;
-    --width-page: 60rem;
+    --width-page: 58.6875rem;
     --width-page: calc(
         var(--width-content, 36rem) + var(--width-sidebar, 18rem) +
             var(--gap-inline-layout, 8vw)
@@ -297,7 +297,7 @@ body {
     margin-right: var(--gap-inline-layout, 8vw);
 }
 :where(body) > :where(*) {
-    width: min(var(--width-page, 60rem), 100%);
+    width: min(var(--width-page, 58.6875rem), 100%);
 }
 
 hr {
@@ -1899,6 +1899,7 @@ table {
     margin-top: 2.25rem;
     margin-bottom: 0.9375rem;
     background: var(--sys-clr-accent-bg, CanvasText);
+    max-width: 100%;
 }
 
 table {
@@ -1934,6 +1935,7 @@ table {
     margin: 0;
     padding: 0;
     background: transparent;
+    max-width: none;
 }
 
 th,
