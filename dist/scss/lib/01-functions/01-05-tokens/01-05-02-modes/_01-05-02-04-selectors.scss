@@ -42,6 +42,8 @@
     $parentSelector: map.get($args, 'parentSelector');
     $parentSelectorExists: map.get($args, 'parentSelectorExists');
 
+    $anyModeIsDefault: is-colour-mode-default($modes);
+
     $debug: map.get($args, 'debug');
 
     @if $debug {
@@ -59,6 +61,8 @@
         @debug '$ignoreParentSelector = #{meta.var-dump($ignoreParentSelector)}';
         @debug '$parentSelector = #{meta.var-dump($parentSelector)}';
         @debug '$parentSelectorExists = #{meta.var-dump($parentSelectorExists)}';
+        @debug '';
+        @debug '$anyModeIsDefault = #{meta.var-dump($anyModeIsDefault)}';
     }
 
     $queries: ();
@@ -104,7 +108,7 @@
 
                     @if $mode !=
                         light or
-                        config.$mx_colourMode_includeDefaultQueries
+                        config.$mx_colourMode_includeLightModeQuery
                     {
                         $queries: list.append(
                             $queries,
@@ -139,23 +143,24 @@
                     $separator: comma
                 );
             } @else if $mode == average {
-                @if not
-                    $isClrModeDefault or not
-                    $includeDefault or
-                    config.$mx_colourMode_includeDefaultQueries or not
-                    $includeSelectors
+                // if this is default, then only print if we allow no preference queries
+                // OR if we are not including content as default with a selector, then we should include this query
+                @if config.$mx_colourMode_includeNoPreferenceQueries or
+                    (
+                        not
+                            $includeDefault and
+                            (not $includeSelectors or not $anyModeIsDefault)
+                    )
                 {
                     @if $debug {
                         @debug 'adding #{$mode} query';
                     }
 
-                    @if config.$mx_colourMode_includeNoPreferenceQueries {
-                        $queries: list.append(
-                            $queries,
-                            '( prefers-contrast: no-preference )',
-                            $separator: comma
-                        );
-                    }
+                    $queries: list.append(
+                        $queries,
+                        '( prefers-contrast: no-preference )',
+                        $separator: comma
+                    );
                 } @else if $debug {
                     @debug 'skipping #{$mode} query';
                 }

@@ -98,6 +98,13 @@
     --colour-mode-each-contrast: average;
 }
 
+@media (prefers-contrast: no-preference) {
+    :root {
+        /* $includeSelectors: false */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
 /* #endregion light mode + average contrast */
 /* #region light mode + low contrast */
 @media (prefers-contrast: less) {
@@ -118,7 +125,8 @@
 }
 /* #endregion light mode + high contrast */
 /* #region dark mode + average contrast */
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
     :root {
         /* $includeSelectors: false */
         --colour-mode-each-brightness: dark;

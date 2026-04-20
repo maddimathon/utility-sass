@@ -16,8 +16,7 @@
   * @include lib.colour-mode-each($includeQuery: false)
   */
 .parent {
-    @include lib.colour-mode-each($includeQuery: false) using
-        ($brightness, $contrast) {
+    @include lib.colour-mode-each($includeQuery: false) using ($brightness, $contrast) {
         /* $includeQuery: false */
         --colour-mode-each-brightness: #{$brightness};
         --colour-mode-each-contrast: #{$contrast};
@@ -28,8 +27,7 @@
  * @include lib.colour-mode-each($includeSelectors: false)
  */
 .parent {
-    @include lib.colour-mode-each($includeSelectors: false) using
-        ($brightness, $contrast) {
+    @include lib.colour-mode-each($includeSelectors: false) using ($brightness, $contrast) {
         /* $includeSelectors: false */
         --colour-mode-each-brightness: #{$brightness};
         --colour-mode-each-contrast: #{$contrast};
@@ -51,8 +49,7 @@
  * @include lib.colour-mode-each($nestModeSelectors: true)
  */
 .parent {
-    @include lib.colour-mode-each($nestModeSelectors: true) using
-        ($brightness, $contrast) {
+    @include lib.colour-mode-each($nestModeSelectors: true) using ($brightness, $contrast) {
         /* $nestModeSelectors: true */
         --colour-mode-each-brightness: #{$brightness};
         --colour-mode-each-contrast: #{$contrast};
@@ -66,11 +63,8 @@
  * )
  */
 .parent {
-    @include lib.colour-mode-each(
-            $includeForcedColors: true,
-            $nestModeSelectors: true
-        )
-        using ($brightness, $contrast) {
+    @include lib.colour-mode-each($includeForcedColors: true, $nestModeSelectors: true) using
+        ($brightness, $contrast) {
         /* $includeForcedColors: true */
         /* $nestModeSelectors: true */
         --colour-mode-each-brightness: #{$brightness};
