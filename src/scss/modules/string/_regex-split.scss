@@ -1,0 +1,33 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:meta';
+@use 'sass:string';
+
+///
+/// Replaces $search with $replace in $string. Replaces all though recursion.
+///
+/// @return {string}
+///
+/// @since ___PKG_VERSION___
+///
+@function regex-split($string, $separator, $flags: null, $limit: null, $debug: false) {
+    @if not meta.function-exists('mmutils-string-regex-split') {
+        @if not config.$warnOnMissingCompilerFunctions {
+            @warn "[string.regex-split] global compiler function for string.regex-split not found, which is required for use";
+        }
+
+        @return $string;
+    }
+
+    @return meta.call(
+        meta.get-function('mmutils-string-regex-split'),
+        $string: $string,
+        $separator: $separator,
+        $flags: $flags,
+        $limit: $limit,
+        $debug: $debug
+    );
+}

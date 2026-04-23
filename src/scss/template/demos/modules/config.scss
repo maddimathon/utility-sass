@@ -3,7 +3,10 @@
 /// @since 0.1.0-alpha.26
 ///
 
-@forward '../config';
+@forward '../../../config' with (
+    $internal_supressCredit: true
+);
+
 // @forward '../header';
 
 @use '../../../modules/map';
@@ -13,7 +16,6 @@
 @use '../../_content/config/template' as tmplConfig;
 
 // @use '../../../lib';
-@use '../utils';
 
 /* # MODULES - CONFIG
  * This is a dump of the available vars from the config end points
@@ -21,7 +23,7 @@
 
 config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/config'` */
-    @include utils.var-dump(
+    @include meta.var-dump(
         'meta.module-variables(config)',
         map.ksort(meta.module-variables(config))
     );
@@ -29,7 +31,7 @@ config-vars {
 
 template-config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/template/config'` */
-    @include utils.var-dump(
+    @include meta.var-dump(
         'meta.module-variables(tmplConfig)',
         map.ksort(meta.module-variables(tmplConfig))
     );

@@ -159,39 +159,42 @@ $fn_lineHeightValue_roundToPixelFactor: config-valid-number(
     $unit: false
 );
 
-// $_var_replace_default: not include.$include_html and string.length(template.$customPropertyPrefix_fallback) < 1 ;
+///
+/// @since ___PKG_VERSION___
+///
+$fn_var_replaceWithValue_resist: false !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_borderWidth: true !default;
+$fn_var_replaceWithValue_borderWidth: true and not $fn_var_replaceWithValue_resist !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_fontSize: true !default;
+$fn_var_replaceWithValue_fontSize: true and not $fn_var_replaceWithValue_resist !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_lineHeight: true !default;
+$fn_var_replaceWithValue_lineHeight: true and not $fn_var_replaceWithValue_resist !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_gap: not include.$include_html !default;
+$fn_var_replaceWithValue_gap: not include.$include_html and not $fn_var_replaceWithValue_resist !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_margin: true !default;
+$fn_var_replaceWithValue_margin: true and not $fn_var_replaceWithValue_resist !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_strokeRelative: true !default;
+$fn_var_replaceWithValue_strokeRelative: true and not $fn_var_replaceWithValue_resist !default;
 
 ///
 /// @since 0.1.0-alpha.14
 ///
-$fn_var_replaceWithValue_width: not include.$include_html !default;
+$fn_var_replaceWithValue_width: not include.$include_html and not $fn_var_replaceWithValue_resist !default;

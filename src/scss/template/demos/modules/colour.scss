@@ -8,30 +8,29 @@
 
 @use '../../../modules/colour';
 // @use '../../../modules/list';
-// @use '../../../modules/meta';
+@use '../../../modules/meta';
 
 // @use '../../../lib';
-@use '../utils';
 
 /* # MODULES - COLOUR
  * ======================================================================== */
 
 colour.to-hsl {
-    @include utils.var-dump('colour.to-hsl( red )', colour.to-hsl(red));
+    @include meta.var-dump('colour.to-hsl( red )', colour.to-hsl(red));
 }
 
 colour.to-hsl-list {
-    @include utils.var-dump('colour.to-hsl-list( red )', colour.to-hsl-list(red));
+    @include meta.var-dump('colour.to-hsl-list( red )', colour.to-hsl-list(red));
 }
 
 colour.to-rgb {
-    @include utils.var-dump('colour.to-rgb( red )', colour.to-rgb(red));
-    @include utils.var-dump('colour.to-rgb( rgb( 10% 20% 30% ) )', colour.to-rgb(rgb(10% 20% 30%)));
+    @include meta.var-dump('colour.to-rgb( red )', colour.to-rgb(red));
+    @include meta.var-dump('colour.to-rgb( rgb( 10% 20% 30% ) )', colour.to-rgb(rgb(10% 20% 30%)));
 }
 
 colour.to-rgb-list {
-    @include utils.var-dump('colour.to-rgb-list( red )', colour.to-rgb-list(red));
-    @include utils.var-dump(
+    @include meta.var-dump('colour.to-rgb-list( red )', colour.to-rgb-list(red));
+    @include meta.var-dump(
         'colour.to-rgb-list( rgb( 10% 20% 30% ) )',
         colour.to-rgb-list(rgb(10% 20% 30%))
     );

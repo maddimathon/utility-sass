@@ -1,14 +1,13 @@
 @charset "UTF-8";
 /*!
- * Utility Sass Template - Demo
+ * Utility Sass - Demo
  *
- * This stylesheet (and its partials) demonstrate a few of the core mixins.
- * Extend the scss to play with the config, or see the defaults in the css
- * included in the package.
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
  *
  * https://maddimathon.github.io/utility-sass
  *
- * Author: Maddi Mathon (www.maddimathon.com)
+ * Author: Maddi Mathon (www.maddimathon.com/web)
  * License: MIT
  */
 /* # MODULES - STRING
@@ -56,6 +55,15 @@ string.match {
     /* 2: <S> there */
 }
 
+string.replace {
+    /* 
+      string.replace( "hello there", "hello", "goodbye" ): <S> goodbye there
+   */
+    /* 
+      string.replace( "remove this part but not the rest", "remove this part " ): <S> but not the rest
+   */
+}
+
 string.regex-replace {
     /* 
       string.regex-replace( "hello there", "^hello", "goodbye" ): <S> "goodbye there"
@@ -77,13 +85,53 @@ string.regex-replace {
    */
 }
 
-string.replace {
+string.regex-split {
     /* 
-      string.replace( "hello there", "hello", "goodbye" ): <S> goodbye there
+      string.regex-split( "hello there", "^hello" ) is a list:
    */
+    /* 1: <S>  */
+    /* 2: <S> " there" */
     /* 
-      string.replace( "remove this part but not the rest", "remove this part " ): <S> but not the rest
+      string.regex-split( "hello there", "^Hello" ) is a list:
    */
+    /* 1: <S> "hello there" */
+    /* 
+      string.regex-split( "hello there", "^Hello",  $flags: "i" ) is a list:
+   */
+    /* 1: <S>  */
+    /* 2: <S> " there" */
+    /* 
+      string.regex-split( "remove this part but not the rest", "\\s+this part but\\s+" ) is a list:
+   */
+    /* 1: <S> remove */
+    /* 2: <S> "not the rest" */
+    /* 
+      string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+" ) is a list:
+   */
+    /* 1: <S> Lorem */
+    /* 2: <S> ipsum */
+    /* 3: <S> dolor */
+    /* 4: <S> sit */
+    /* 5: <S> amet, */
+    /* 6: <S> consectetur */
+    /* 7: <S> adipiscing */
+    /* 8: <S> elit. */
+    /* 
+      string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+",  $flags: "is" ) is a list:
+   */
+    /* 1: <S> Lorem */
+    /* 2: <S> ipsum */
+    /* 3: <S> dolor */
+    /* 4: <S> sit */
+    /* 5: <S> amet, */
+    /* 6: <S> consectetur */
+    /* 7: <S> adipiscing */
+    /* 8: <S> elit. */
+    /* 
+      string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+", $limit: 2 ) is a list:
+   */
+    /* 1: <S> Lorem */
+    /* 2: <S> ipsum */
 }
 
 string.slugify {

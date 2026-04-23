@@ -10,21 +10,20 @@
 @use '../../../modules/selector';
 
 @use '../../../lib';
-@use '../utils';
 
 /* # MODULES - SELECTOR
  * ======================================================================== */
 
-@include utils.var-dump('selector.parent-exists()', selector.parent-exists());
-@include utils.var-dump('selector.parent-or-body()', selector.parent-or-body());
-@include utils.var-dump('selector.parent-or-root()', selector.parent-or-root());
+@include meta.var-dump('selector.parent-exists()', selector.parent-exists());
+@include meta.var-dump('selector.parent-or-body()', selector.parent-or-body());
+@include meta.var-dump('selector.parent-or-root()', selector.parent-or-root());
 
 @mixin _incl-single-var-dumps {
-    @include utils.var-dump('selector.is-body( & )', selector.is-body(&));
-    @include utils.var-dump('selector.is-root( & )', selector.is-root(&));
-    @include utils.var-dump('selector.parent-exists()', selector.parent-exists());
-    @include utils.var-dump('selector.parent-or-body()', selector.parent-or-body());
-    @include utils.var-dump('selector.parent-or-root()', selector.parent-or-root());
+    @include meta.var-dump('selector.is-body( & )', selector.is-body(&));
+    @include meta.var-dump('selector.is-root( & )', selector.is-root(&));
+    @include meta.var-dump('selector.parent-exists()', selector.parent-exists());
+    @include meta.var-dump('selector.parent-or-body()', selector.parent-or-body());
+    @include meta.var-dump('selector.parent-or-root()', selector.parent-or-root());
 }
 
 @mixin _incl-var-dumps {
@@ -54,38 +53,38 @@ body {
         $fn: meta.get-function(#{$selectorName}-list, $module: selector);
         $mixin: meta.get-mixin($selectorName, $module: selector);
 
-        @include utils.var-dump('selector.#{$selectorName}-list()', meta.call($fn));
+        @include meta.var-dump('selector.#{$selectorName}-list()', meta.call($fn));
 
         &--unified {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'selector.#{$selectorName}-list( $unifyParent: true )',
                 meta.call($fn, $unifyParent: true)
             );
         }
 
         &--direct--unified {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'selector.#{$selectorName}-list( $direct: true, $unifyParent: true )',
                 meta.call($fn, $direct: true, $unifyParent: true)
             );
         }
 
         &--with-selectors {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'selector.#{$selectorName}-list( ( div, p, body ) )',
                 meta.call($fn, $selectors: (div, p, body))
             );
         }
 
         &--with-selectors--direct {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'selector.#{$selectorName}-list( ( div, p, body ), $direct: true )',
                 meta.call($fn, $selectors: (div, p, body), $direct: true)
             );
         }
 
         &--with-selectors--direct--unified {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'selector.#{$selectorName}-list( ( div, p, body ), $direct: true, $unifyParent: true )',
                 meta.call($fn, $selectors: (div, p, body), $direct: true, $unifyParent: true)
             );

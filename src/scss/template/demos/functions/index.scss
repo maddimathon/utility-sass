@@ -6,27 +6,26 @@
 @forward '../config';
 @forward '../header';
 
-// @use '../../../modules/list';
+@use '../../../modules/meta';
 
 @use '../../../lib' as *;
-@use '../utils';
 
 /* # FUNCTIONS - token-all-heading-levels()
  * ======================================================================== */
 
 all-heading-levels {
-    @include utils.var-dump('token-all-heading-levels()', token-all-heading-levels());
+    @include meta.var-dump('token-all-heading-levels()', token-all-heading-levels());
 }
 
 /* # FUNCTIONS - call-global-util-fn()
  * ======================================================================== */
 
 call-global-util-fn {
-    @include utils.var-dump(
+    @include meta.var-dump(
         "call-global-util-fn( 'non-existant-fn', 'demo-functions/non-existant-fn' )",
         call-global-util-fn('non-existant-fn', 'demo-functions/non-existant-fn')
     );
-    @include utils.var-dump(
+    @include meta.var-dump(
         "call-global-util-fn( 'mmutils-global-getCurrentVersion', 'demo-functions/getCurrentVersion' )",
         call-global-util-fn('mmutils-global-getCurrentVersion', 'demo-functions/getCurrentVersion')
     );
@@ -36,11 +35,11 @@ call-global-util-fn {
  * ======================================================================== */
 
 js-var-dump {
-    @include utils.var-dump(
+    @include meta.var-dump(
         "js-var-dump('hello')",
         js-var-dump('hello', $name: 'demo-var-1', $level: 2)
     );
-    @include utils.var-dump(
+    @include meta.var-dump(
         "js-var-dump((this: 'is a', map: true))",
         js-var-dump(
             (
@@ -57,7 +56,7 @@ js-var-dump {
  * ======================================================================== */
 
 debug-checkpoint {
-    @include utils.var-dump(
+    @include meta.var-dump(
         "debug-checkpoint-fn( $location: 'demo-debug-checkpoint', $level: 2 )",
         debug-checkpoint-fn($location: 'demo-debug-checkpoint', $level: 2)
     );

@@ -73,7 +73,7 @@ export function sassFn_string_regexReplace(
                         console.vi.log( { '[string.regex-replace] string': string }, 2, { msg: { linesIn: 1 } } );
                         // console.vi.log( { '[string.regex-replace] search': search }, 2, { msg: { linesIn: 0 } } );
                         console.vi.log( { '[string.regex-replace] regex': regex }, 2, { msg: { linesIn: 0 } } );
-                        console.vi.log( { '[string.regex-replace] string.match( regex )': string.match( new RegExp( search, flags?.replace( 'g', '' ) ) ) }, 2, { msg: { linesIn: 0 } } );
+                        console.vi.log( { '[string.regex-replace] string.match( regex )': string.match( regex ) }, 2, { msg: { linesIn: 0 } } );
                     }
 
                     return jsValueToSass( string.replace( regex, replace ?? '' ) );

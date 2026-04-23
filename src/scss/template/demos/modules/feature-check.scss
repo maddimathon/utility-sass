@@ -7,9 +7,9 @@
 @forward '../header';
 
 @use '../../../modules/feature-check';
+@use '../../../modules/meta';
 
 // @use '../../../lib';
-@use '../utils';
 
 /* # MODULES - FEATURE CHECK
  * ======================================================================== */
@@ -17,21 +17,21 @@
 feature-check.get-selector {
     .whereSelector {
         &--true {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'feature-check.get-selector( whereSelector, $bool: true )',
                 feature-check.get-selector(whereSelector, $bool: true)
             );
         }
 
         &--false {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'feature-check.get-selector( whereSelector, $bool: false )',
                 feature-check.get-selector(whereSelector, $bool: false)
             );
         }
 
         &--true.with-extra {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) )',
                 feature-check.get-selector(
                     whereSelector,
@@ -44,21 +44,21 @@ feature-check.get-selector {
 
     .aspectRatio {
         &--true {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'feature-check.get-selector( aspectRatio, $bool: true )',
                 feature-check.get-selector(aspectRatio, $bool: true)
             );
         }
 
         &--false {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'feature-check.get-selector( aspectRatio, $bool: false )',
                 feature-check.get-selector(aspectRatio, $bool: false)
             );
         }
 
         &--true.with-extra {
-            @include utils.var-dump(
+            @include meta.var-dump(
                 'feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) )',
                 feature-check.get-selector(
                     aspectRatio,

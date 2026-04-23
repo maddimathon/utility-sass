@@ -2,6 +2,7 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since 0.1.0-pre.0
 ///
+
 @use 'sass:list';
 @use 'sass:map';
 @use 'sass:meta';
@@ -30,18 +31,14 @@
         'null': '-',
     );
     $return: map.get($abbrs, $type);
-    @return if(
-        $return != null,
-        string.unquote($return),
-        string.unquote('#{$type}')
-    );
+    @return if($return != null, string.unquote($return), string.unquote('#{$type}'));
 }
 
 ///
 /// Modelled after php var_dump() function -- converts given var to an
 /// easily-read string with var types in <>.
 ///
-/// @param {any}  $var
+/// @param {any}  $var          Value to dump.
 /// @param {bool} $withType     Optional. Include the variable type(s) in
 ///                             output. Default true.
 /// @param {bool} $shortType    Optional. Whether to shorten the type output
@@ -88,11 +85,7 @@
             }
         }
 
-        $msg: if(
-            list.length($msg) > 0,
-            string.unquote('( #{$msg} )'),
-            meta.inspect(())
-        );
+        $msg: if(list.length($msg) > 0, string.unquote('( #{$msg} )'), meta.inspect(()));
     }
     @if $type == 'calculation' {
         $msg: ();
@@ -133,11 +126,7 @@
             );
         }
         $msg: if(list.length($msg) > 0, $msg, meta.inspect(()));
-        $msg: if(
-            $bracketed,
-            string.unquote('( [ #{$msg} ] )'),
-            string.unquote('( #{$msg} )')
-        );
+        $msg: if($bracketed, string.unquote('( [ #{$msg} ] )'), string.unquote('( #{$msg} )'));
     }
     @if $type == 'map' {
         $msg: ();
@@ -155,11 +144,7 @@
                 $separator: comma
             );
         }
-        $msg: if(
-            list.length($msg) > 0,
-            string.unquote('( #{$msg} )'),
-            meta.inspect(())
-        );
+        $msg: if(list.length($msg) > 0, string.unquote('( #{$msg} )'), meta.inspect(()));
     }
     @if $type == 'string' {
         @if $alwaysQuote {
@@ -176,4 +161,50 @@
         string.unquote('<#{$typeToPrint}> #{meta.inspect( $msg )}'),
         string.unquote('#{meta.inspect( $msg )}')
     );
+}
+
+///
+/// A mixin to dump variables as css comments, allowing for multi-line output
+/// for lists and maps.
+///
+/// @param {string} $name  Name of the variable to use for print.
+/// @param {any}    $var   Value to dump.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin var-dump($name, $var, $alwaysQuote: false, $neverQuote: false, $args...) {
+    $typeOf: meta.type-of($var);
+
+    $args: map.set($args, alwaysQuote, $alwaysQuote);
+    $args: map.set($args, neverQuote, $neverQuote);
+
+    @if $typeOf != list and $typeOf != map {
+        /* 
+            #{$name}: #{var-dump($var, $args...)}
+         */
+    } @else {
+        /* 
+            #{$name} is a #{$typeOf}:
+         */
+
+        @if $typeOf == map {
+            @each $_key, $_val in $var {
+                $_keyDisplay: if(
+                    not $neverQuote and ($alwaysQuote or meta.type-of($_key) == string),
+                    '"#{string.unquote(#{$_key})}"',
+                    string.unquote(#{$_key})
+                );
+
+                /* #{$_keyDisplay}: #{var-dump($_val, $args...)} */
+            }
+        } @else {
+            $i: 1;
+
+            @each $_val in $var {
+                /* #{$i}: #{var-dump($_val, $args...)} */
+
+                $i: $i + 1;
+            }
+        }
+    }
 }

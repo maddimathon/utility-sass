@@ -15,6 +15,7 @@ string.concat(...); // added
 string.join(...); // added
 string.match(...); // added
 string.regex-replace(...); // added
+string.regex-split(...); // added
 string.replace(...); // added
 string.slugify(...); // added
 
