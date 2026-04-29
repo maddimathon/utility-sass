@@ -126,6 +126,7 @@ export class FeatureCheck<
         aspectRatio: true,
         atProperty: true,
         backgroundFixed: true,
+        calc: true,
         displayContents: true,
         focusWithin: true,
         focusVisible: true,
@@ -138,6 +139,7 @@ export class FeatureCheck<
             aspectRatio: true,
             atProperty: true,
             backgroundFixed: true,
+            calc: true,
             displayContents: true,
             focusWithin: true,
             focusVisible: true,
@@ -319,7 +321,6 @@ export class FeatureCheck<
      * @source
      */
     protected aspectRatio(): void {
-
         this.setFeature(
             'aspectRatio',
             FeatureCheck.supportsCSS( 'aspect-ratio: 1 / 2' ),
@@ -343,10 +344,22 @@ export class FeatureCheck<
      * @source
      */
     protected backgroundFixed(): void {
-
         this.setFeature(
             'backgroundFixed',
             FeatureCheck.supportsCSS( 'background-attachment: fixed' ),
+        );
+    }
+
+    /**
+     * Checks for `calc()` css value support.
+     * 
+     * @experimental
+     * @source
+     */
+    protected calc(): void {
+        this.setFeature(
+            'calc',
+            FeatureCheck.supportsCSS( 'width: calc( 0.25em + 10% )' ),
         );
     }
 
@@ -357,7 +370,6 @@ export class FeatureCheck<
      * @source
      */
     protected displayContents(): void {
-
         this.setFeature(
             'displayContents',
             FeatureCheck.supportsCSS( 'display: contents' ),
@@ -371,7 +383,6 @@ export class FeatureCheck<
      * @source
      */
     protected focusWithin(): void {
-
         this.setFeature(
             'focusWithin',
             FeatureCheck.supportsCSS( 'selector( a:focus-within )' ),
@@ -385,7 +396,6 @@ export class FeatureCheck<
      * @source
      */
     protected focusVisible(): void {
-
         this.setFeature(
             'focusVisible',
             FeatureCheck.supportsCSS( 'selector( a:focus-visible )' ),
@@ -399,7 +409,6 @@ export class FeatureCheck<
      * @source
      */
     protected hasSelector(): void {
-
         this.setFeature(
             'hasSelector',
             FeatureCheck.supportsCSS( 'selector( :has( a ) )' ),
@@ -413,7 +422,6 @@ export class FeatureCheck<
      * @source
      */
     protected subgrid(): void {
-
         this.setFeature(
             'subgrid',
             FeatureCheck.supportsCSS( 'grid-template-columns: subgrid' ),
@@ -427,7 +435,6 @@ export class FeatureCheck<
      * @source
      */
     protected whereSelector(): void {
-
         this.setFeature(
             'whereSelector',
             FeatureCheck.supportsCSS( 'selector( :where( a ) )' ),
@@ -451,6 +458,7 @@ export namespace FeatureCheck {
         | "aspectRatio"
         | "atProperty"
         | "backgroundFixed"
+        | "calc"
         | "displayContents"
         | "focusWithin"
         | "focusVisible"

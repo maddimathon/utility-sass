@@ -80,6 +80,7 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string | never = s
         aspectRatio: true;
         atProperty: true;
         backgroundFixed: true;
+        calc: true;
         displayContents: true;
         focusWithin: true;
         focusVisible: true;
@@ -185,6 +186,13 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string | never = s
      */
     protected backgroundFixed(): void;
     /**
+     * Checks for `calc()` css value support.
+     *
+     * @experimental
+     * @source
+     */
+    protected calc(): void;
+    /**
      * Checks for `display: contents` css rule support.
      *
      * @experimental
@@ -238,7 +246,7 @@ export declare namespace FeatureCheck {
     /**
      * Built-in feature-check methods.
      */
-    type Checker = "aspectRatio" | "atProperty" | "backgroundFixed" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid" | "whereSelector";
+    type Checker = "aspectRatio" | "atProperty" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid" | "whereSelector";
     /**
      * An options object to allow (or disallow) built-in feature checkers.
      *

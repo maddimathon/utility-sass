@@ -19,6 +19,71 @@
 /// # UTILITY MIXINS - Fallbacks
 /// ======================================================================== ///
 
+///
+/// Declares selectors for active states by both pseudo class and value of
+/// config.$mx_interactiveStates_selector_active.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin active($includeParentSelector: true) {
+    $sel_pseudo: (':active');
+    $sel_select: config.$mx_interactiveStates_selector_active;
+
+    @if $includeParentSelector and selector.parent-exists() {
+        $sel_pseudo: selector.unify(&, $sel_pseudo);
+        $sel_select: selector.unify(&, $sel_select);
+    }
+
+    @at-root {
+        @if config.$mx_interactiveStates_selector_active_separate {
+            #{$sel_pseudo} {
+                @content;
+            }
+
+            #{$sel_select} {
+                @content;
+            }
+        } @else {
+            #{$sel_pseudo},
+            #{$sel_select} {
+                @content;
+            }
+        }
+    }
+}
+
+///
+/// Whether a child is active. Uses &:has().
+///
+/// @since ___PKG_VERSION___
+///
+@mixin active-within($includeParentSelector: true) {
+    $sel_pseudo: (':has(:active)');
+    $sel_select: selector.has-list(config.$mx_interactiveStates_selector_active);
+
+    @if $includeParentSelector and selector.parent-exists() {
+        $sel_pseudo: selector.unify(&, $sel_pseudo);
+        $sel_select: selector.unify(&, $sel_select);
+    }
+
+    @at-root {
+        @if config.$mx_interactiveStates_selector_active_separate {
+            #{$sel_pseudo} {
+                @content;
+            }
+
+            #{$sel_select} {
+                @content;
+            }
+        } @else {
+            #{$sel_pseudo},
+            #{$sel_select} {
+                @content;
+            }
+        }
+    }
+}
+
 /// ## Focus & Hover ==================================== ///
 
 ///
@@ -26,12 +91,15 @@
 /// `focus-visible`, plus any additional selectors).
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Added optional $includeActive, $includeActiveWithin selectors.
 ///
 @mixin focus-visible(
     $addSelectors: (),
     $includeFallbacks: config.$mx_interactiveStates_includeFallbacks,
     $fallbacksOnly: config.$mx_interactiveStates_fallbacksOnly,
     $includeParentSelector: true,
+    $includeActive: false,
+    $includeActiveWithin: false,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -70,6 +138,18 @@
 
         @if not $fallbacksOnly {
             #{$sel_focusVisible} {
+                @content;
+            }
+        }
+
+        @if $includeActive {
+            @include active($includeParentSelector: $includeParentSelector) {
+                @content;
+            }
+        }
+
+        @if $includeActiveWithin {
+            @include active-within($includeParentSelector: $includeParentSelector) {
                 @content;
             }
         }

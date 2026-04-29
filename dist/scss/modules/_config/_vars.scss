@@ -71,6 +71,7 @@ $featureCheck_supportsQueries: map.merge(
     (
         aspectRatio: 'aspect-ratio: 1 / 2',
         backgroundFixed: 'background-attachment: fixed',
+        calc: 'width: calc( 0.25em + 10% )',
         displayContents: 'display: contents',
         focusWithin: 'selector( a:focus-within )',
         focusVisible: 'selector( a:focus-visible )',
@@ -179,7 +180,7 @@ $selector_body: fns.config-valid-selector(
 /// Selector used as a 'null' (e.g., not-output) selector within the system to
 /// avoid errors.  e.g., with the mode mixins if the targeted mode is disabled.
 ///
-/// @default ( string.unquote('%null') )
+/// @default ( '%null' )
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Moved to module config.
@@ -188,14 +189,14 @@ $selector_null: null !default;
 $selector_null: fns.config-valid-selector(
     $selector_null,
     'selector_null',
-    (string.unquote('%null'))
+    ('%null')
 );
 
 ///
 /// Selector to use for the root element.  Included here to allow
 /// lower-specificity options.
 ///
-/// @default ( string.unquote(':root') )
+/// @default ( ':root' )
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Moved to module config.
@@ -204,5 +205,5 @@ $selector_root: null !default;
 $selector_root: fns.config-valid-selector(
     $selector_root,
     'selector_root',
-    (string.unquote(':root'))
+    (':root')
 );

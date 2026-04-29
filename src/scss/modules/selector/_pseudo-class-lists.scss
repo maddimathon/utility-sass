@@ -78,8 +78,8 @@
 ///
 /// @since 0.1.0-alpha.37
 ///
-@function has-list($args...) {
-    @return _pseudo-list($pseudoType: 'has', $args...);
+@function has-list($selectors: null, $args...) {
+    @return _pseudo-list($pseudoType: 'has', $selectors: $selectors, $args...);
 }
 
 ///
@@ -88,8 +88,8 @@
 ///
 /// @since 0.1.0-alpha.37
 ///
-@function is-list($args...) {
-    @return _pseudo-list($pseudoType: 'is', $args...);
+@function is-list($selectors: null, $args...) {
+    @return _pseudo-list($pseudoType: 'is', $selectors: $selectors, $args...);
 }
 
 ///
@@ -98,8 +98,8 @@
 ///
 /// @since 0.1.0-alpha.37
 ///
-@function not-list($args...) {
-    @return _pseudo-list($pseudoType: 'not', $args...);
+@function not-list($selectors: null, $args...) {
+    @return _pseudo-list($pseudoType: 'not', $selectors: $selectors, $args...);
 }
 
 ///
@@ -108,8 +108,8 @@
 ///
 /// @since 0.1.0-alpha.37
 ///
-@function where-list($args...) {
-    @return _pseudo-list($pseudoType: 'where', $args...);
+@function where-list($selectors: null, $args...) {
+    @return _pseudo-list($pseudoType: 'where', $selectors: $selectors, $args...);
 }
 
 ///

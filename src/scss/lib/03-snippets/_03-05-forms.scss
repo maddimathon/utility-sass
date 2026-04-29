@@ -157,7 +157,7 @@
             border-color: #{$borderClr_hover};
         }
 
-        &:active {
+        @include active {
             border-color: #{$borderClr_active};
         }
     }
@@ -240,18 +240,16 @@
 
     /// STATES ///
 
-    @include hover-focus-visible-or-within {
-        @if $includeClrs {
+    @if $includeClrs {
+        @include hover-focus-visible-or-within {
             @include cx-prop(focus-ring-outline-color, $accentClr_hover);
             background-color: #{$background_hover};
             border-color: #{$borderClr_hover};
             color: #{$color_hover};
             accent-color: #{$accentClr_hover};
         }
-    }
 
-    &:active {
-        @if $includeClrs {
+        @include active {
             @include cx-prop(focus-ring-outline-color, $accentClr_active);
             background-color: #{$background_active};
             border-color: #{$borderClr_active};

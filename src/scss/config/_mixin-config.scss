@@ -7,6 +7,7 @@
 
 @use 'functions' as *;
 
+@use '../modules/_config' as modules;
 @use 'include';
 
 /// # CONFIG - MIXINS
@@ -82,6 +83,31 @@ $mx_interactiveStates_fallbacksOnly: false !default;
 /// @since ___PKG_VERSION___
 ///
 $mx_interactiveStates_featureCheck_viaQuery: false !default;
+
+///
+/// An additional selector to use for active states.
+///
+/// @since ___PKG_VERSION___
+///
+$mx_interactiveStates_selector_active: null !default;
+$mx_interactiveStates_selector_active: config-valid-selector(
+    $mx_interactiveStates_selector_active,
+    'mx_interactiveStates_selector_active',
+    $default: modules.$selector_null
+);
+
+///
+/// Whether to declare $mx_interactiveStates_selector_active rules separately
+/// from ':active' for better compatibility.
+///
+/// @since ___PKG_VERSION___
+///
+$mx_interactiveStates_selector_active_separate: null !default;
+$mx_interactiveStates_selector_active_separate: config-valid-selector(
+    $mx_interactiveStates_selector_active_separate,
+    'mx_interactiveStates_selector_active_separate',
+    $default: modules.$selector_null
+);
 
 ///
 /// @since ___PKG_VERSION___

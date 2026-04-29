@@ -97,6 +97,7 @@ export class FeatureCheck {
             aspectRatio: true,
             atProperty: true,
             backgroundFixed: true,
+            calc: true,
             displayContents: true,
             focusWithin: true,
             focusVisible: true,
@@ -254,6 +255,15 @@ export class FeatureCheck {
      */
     backgroundFixed() {
         this.setFeature('backgroundFixed', FeatureCheck.supportsCSS('background-attachment: fixed'));
+    }
+    /**
+     * Checks for `calc()` css value support.
+     *
+     * @experimental
+     * @source
+     */
+    calc() {
+        this.setFeature('calc', FeatureCheck.supportsCSS('width: calc( 0.25em + 10% )'));
     }
     /**
      * Checks for `display: contents` css rule support.
