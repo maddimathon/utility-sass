@@ -16,8 +16,89 @@
 // @use '02-01-01-accessibility' as *;
 // @use '02-01-02-breakpoints' as *;
 
-/// # UTILITY MIXINS - Fallbacks
+/// # UTILITY MIXINS - Interactive
 /// ======================================================================== ///
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin _interactive-template(
+    /// The built-in pseudo class selector for this state
+    $selector_pseudo,
+
+    /// The selector for this state from the configuration
+    $selector_config: false,
+    //
+    $addSelectors: (),
+    //
+    $includeParentSelector: true,
+    //
+    $separate_addSelectors: false,
+    $separate_config: false,
+    //
+    $args...
+) {
+    $args: meta.keywords($args);
+
+    @if $includeParentSelector and selector.parent-exists() {
+        @if $selector_pseudo != false {
+            $selector_pseudo: selector.unify(&, $selector_pseudo);
+        }
+
+        @if $selector_config != false {
+            $selector_config: selector.unify(&, $selector_config);
+        }
+    }
+
+    @if list.length($addSelectors) < 1 {
+        $addSelectors: false;
+    }
+
+    // merge the additional with the pseudo to display together
+    @if $addSelectors != false and not $separate_addSelectors {
+        $selector_pseudo: if(
+            $selector_pseudo == false,
+            $addSelectors,
+            list.append($selector_pseudo, $addSelectors, $separator: comma)
+        );
+
+        $addSelectors: false;
+    }
+
+    // merge the pseudo with the config to display together
+    @if $selector_config !=
+        false and
+        $selector_pseudo !=
+        false and not
+        $separate_config
+    {
+        $selector_config: list.append(
+            $selector_config,
+            $selector_pseudo,
+            $separator: comma
+        );
+        $selector_pseudo: false;
+    }
+
+    @at-root {
+        @if $addSelectors != false {
+            #{$addSelectors} {
+                @content;
+            }
+        }
+
+        @if $selector_pseudo != false {
+            #{$selector_pseudo} {
+                @content;
+            }
+        }
+
+        @if $selector_config != false {
+            #{$selector_config} {
+                @content;
+            }
+        }
+    }
+}
 
 ///
 /// Declares selectors for active states by both pseudo class and value of
@@ -25,8 +106,10 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin active($includeParentSelector: true) {
-    $sel_pseudo: (':active');
+@mixin active($includeParentSelector: true, $args...) {
+    $args: meta.keywords($args);
+
+    $sel_pseudo: ':active';
     $sel_select: config.$mx_interactiveStates_selector_active;
 
     @if $includeParentSelector and selector.parent-exists() {
@@ -57,8 +140,10 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin active-within($includeParentSelector: true) {
-    $sel_pseudo: (':has(:active)');
+@mixin active-within($includeParentSelector: true, $args...) {
+    $args: meta.keywords($args);
+
+    $sel_pseudo: ':has(:active)';
     $sel_select: selector.has-list(
         config.$mx_interactiveStates_selector_active
     );
@@ -89,82 +174,91 @@
 /// ## Focus & Hover ==================================== ///
 
 ///
+/// Declares selectors for focus states by both pseudo class and value of
+/// config.$mx_interactiveStates_selector_focus.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin focus(
+    $selector_config: config.$mx_interactiveStates_selector_focus,
+    $separate_config: config.$mx_interactiveStates_selector_focus_separate,
+    $args...
+) {
+    @include _interactive-template(
+        $selector_pseudo: ':focus',
+        $selector_config: $selector_config,
+        $separate_config: $separate_config,
+        $args...
+    ) {
+        @content;
+    }
+}
+
+///
+/// Declares selectors for focus-within states by both pseudo class and value of
+/// config.$mx_interactiveStates_selector_focus.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin focus-within($args...) {
+    @include _interactive-template(
+        $selector_pseudo: ':focus-within',
+        $selector_config: selector.has-list(
+                config.$mx_interactiveStates_selector_focus
+            ),
+        $separate_config: true,
+        $args...
+    ) {
+        @content;
+    }
+}
+
+///
 /// To be nested IN the target element to add a fallback for `focus-visible` (and
 /// `focus-visible`, plus any additional selectors).
 ///
 /// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0.draft — Added optional $includeActive, $includeActiveWithin selectors.
 ///
 @mixin focus-visible(
     $addSelectors: (),
     $includeFallbacks: config.$mx_interactiveStates_includeFallbacks,
     $fallbacksOnly: config.$mx_interactiveStates_fallbacksOnly,
+    //
     $includeParentSelector: true,
-    $includeActive: false,
-    $includeActiveWithin: false,
     $args...
 ) {
-    $args: meta.keywords($args);
-
-    // force fallbacks only when applicable
-    @if not config.$include_featureCheck {
-        $fallbacksOnly: true;
-    }
-
-    $sel_focus: (string.unquote(':focus'));
-    $sel_focusVisible: (string.unquote(':focus-visible'));
-
-    @if $includeParentSelector and selector.parent-exists() {
-        $sel_focus: selector.unify(&, $sel_focus);
-        $sel_focusVisible: selector.unify(&, $sel_focusVisible);
-    }
-
-    $sel_additional: if(
-        list.length($addSelectors) > 0,
-        $addSelectors,
-        config.$selector_null
-    );
-
-    @at-root {
-        @if $fallbacksOnly {
-            #{$sel_focus} {
-                @content;
-            }
-        } @else if $includeFallbacks {
-            #{$sel_focus} {
-                @include feature-check.supports-not(
-                    'focusVisible',
-                    $addSelectors: (),
-                    $args...
-                ) {
-                    @content;
-                }
-            }
-        }
-
-        #{$sel_additional} {
+    // :focus (with additional selectors)
+    @if $fallbacksOnly {
+        @include focus(
+            $selector_config: false,
+            $addSelectors: $addSelectors,
+            $args...
+        ) {
             @content;
         }
-
-        @if not $fallbacksOnly {
-            #{$sel_focusVisible} {
-                @content;
-            }
-        }
-
-        @if $includeActive {
-            @include active($includeParentSelector: $includeParentSelector) {
-                @content;
-            }
-        }
-
-        @if $includeActiveWithin {
-            @include active-within(
-                $includeParentSelector: $includeParentSelector
+    } @else if $includeFallbacks {
+        @include focus(
+            $selector_config: false,
+            $addSelectors: $addSelectors,
+            $args...
+        ) {
+            @include feature-check.supports-not(
+                'focusVisible',
+                $addSelectors: ()
             ) {
                 @content;
             }
         }
+    }
+
+    @include _interactive-template(
+        $addSelectors: (),
+        $selector_pseudo: if($fallbacksOnly, false, ':focus-visible'),
+        $selector_config: config.$mx_interactiveStates_selector_focus,
+        $separate_config: true,
+        $args...
+    ) {
+        @content;
     }
 }
 
@@ -175,40 +269,27 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@mixin focus-visible-or-within(
-    $addSelectors: (),
-    $includeFallbacks: config.$mx_interactiveStates_includeFallbacks,
-    $fallbacksOnly: config.$mx_interactiveStates_fallbacksOnly,
-    $includeParentSelector: true,
-    $args...
-) {
-    $args: meta.keywords($args);
-
-    // force fallbacks only when applicable
-    @if not config.$include_featureCheck {
-        $fallbacksOnly: true;
-    }
-
-    @include focus-visible(
-        $addSelectors: $addSelectors,
-        $includeFallbacks: $includeFallbacks,
-        $fallbacksOnly: $fallbacksOnly,
-        $includeParentSelector: $includeParentSelector,
-        $args...
-    ) {
+@mixin focus-visible-or-within($args...) {
+    @include focus-visible($args...) {
         @content;
     }
 
-    $sel_focusWithin: (string.unquote(':focus-within'));
-
-    @if $includeParentSelector and selector.parent-exists() {
-        $sel_focusWithin: selector.unify(&, $sel_focusWithin);
+    @include focus-within($args...) {
+        @content;
     }
+}
 
-    @at-root {
-        #{$sel_focusWithin} {
-            @content;
-        }
+///
+/// @since 0.1.0-pre.0
+///
+@mixin _hover($args...) {
+    @include _interactive-template(
+        $selector_pseudo: ':hover',
+        $selector_config: false,
+        $separate_config: true,
+        $args...
+    ) {
+        @content;
     }
 }
 
@@ -217,32 +298,12 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@mixin hover-focus-visible(
-    $addSelectors: (),
-    $includeFallbacks: config.$mx_interactiveStates_includeFallbacks,
-    $fallbacksOnly: config.$mx_interactiveStates_fallbacksOnly,
-    $includeParentSelector: true,
-    $args...
-) {
-    $args: meta.keywords($args);
-
-    // force fallbacks only when applicable
-    @if not config.$include_featureCheck {
-        $fallbacksOnly: true;
+@mixin hover-focus-visible($args...) {
+    @include _hover($args...) {
+        @content;
     }
 
-    $sel_hover: (string.unquote(':hover'));
-
-    @if $includeParentSelector and selector.parent-exists() {
-        $sel_hover: selector.unify(&, $sel_hover);
-    }
-
-    @include focus-visible(
-        list.join($sel_hover, $addSelectors, $separator: comma),
-        $includeFallbacks: $includeFallbacks,
-        $fallbacksOnly: $fallbacksOnly,
-        $args...
-    ) {
+    @include focus-visible($args...) {
         @content;
     }
 }
@@ -252,73 +313,53 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@mixin hover-focus-visible-or-within(
-    $addSelectors: (),
-    $includeFallbacks: config.$mx_interactiveStates_includeFallbacks,
-    $fallbacksOnly: config.$mx_interactiveStates_fallbacksOnly,
-    $includeParentSelector: true,
-    $args...
-) {
-    $args: meta.keywords($args);
-
-    // force fallbacks only when applicable
-    @if not config.$include_featureCheck {
-        $fallbacksOnly: true;
-    }
-
-    $sel_hover: (string.unquote(':hover'));
-
-    @if $includeParentSelector and selector.parent-exists() {
-        $sel_hover: selector.unify(&, $sel_hover);
-    }
-
-    @include focus-visible-or-within(
-        list.join(($sel_hover), $addSelectors, $separator: comma),
-        $includeFallbacks: $includeFallbacks,
-        $fallbacksOnly: $fallbacksOnly,
-        $args...
-    ) {
-        @content;
-    }
-}
-
-@mixin _hover($includeParentSelector: true, $args...) {
-    $args: meta.keywords($args);
-
-    $selector: if(
-        $includeParentSelector and selector.parent-exists(),
-        (string.unquote('&:hover')),
-        (string.unquote(':hover'))
-    );
-
-    @at-root #{$selector} {
-        @content;
-    }
-}
-@mixin _focus-within($includeParentSelector: true, $args...) {
-    $args: meta.keywords($args);
-
-    $selector: if(
-        $includeParentSelector and selector.parent-exists(),
-        (string.unquote('&:focus-within')),
-        (string.unquote(':focus-within'))
-    );
-
-    @at-root #{$selector} {
-        @content;
-    }
-}
-@mixin _hover-focus-within($args...) {
-    $args: meta.keywords($args);
-
-    @include _focus-within($args...) {
-        @content;
-    }
-
+@mixin hover-focus-visible-or-within($args...) {
     @include _hover($args...) {
         @content;
     }
+
+    @include focus-visible-or-within($args...) {
+        @content;
+    }
 }
+
+///
+/// Adds `active` to `hover-focus-visible` mixin.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin active-hover-focus-visible($args...) {
+    @include hover-focus-visible($args...) {
+        @content;
+    }
+
+    @include active($args...) {
+        @content;
+    }
+}
+
+///
+/// Adds `active` and `active-within` to `hover-focus-visible-or-within` mixin.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin active-hover-focus-visible-or-within($args...) {
+    @include hover-focus-visible-or-within($args...) {
+        @content;
+    }
+
+    @include active($args...) {
+        @content;
+    }
+
+    @include active-within($args...) {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-pre.0
+///
 @mixin _nothing($args...) {
     $args: meta.keywords($args);
 
@@ -331,34 +372,139 @@
 /// Fetches the appropriate mixin depending on input values.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Added optional $active, $activeWithin selectors.
 ///
 @mixin apply-interactive-mixin(
-    $hover: false,
+    $active: false,
+    $activeWithin: false,
     $focus: false,
     $focusWithin: false,
+    $hover: false,
     $args...
 ) {
-    $args: meta.keywords($args);
-    $mixin: meta.get-mixin('_nothing');
+    $mixin_a: meta.get-mixin('_nothing');
+    $mixin_b: meta.get-mixin('_nothing');
+    $mixin_c: meta.get-mixin('_nothing');
+    $mixin_d: meta.get-mixin('_nothing');
 
-    @if $hover and $focus and $focusWithin {
-        $mixin: meta.get-mixin('hover-focus-visible-or-within');
-    } @else if $hover and $focus and not $focusWithin {
-        $mixin: meta.get-mixin('hover-focus-visible');
-    } @else if $hover and not $focus and $focusWithin {
-        $mixin: meta.get-mixin('_hover-focus-within');
-    } @else if $hover and not $focus and not $focusWithin {
-        $mixin: meta.get-mixin('_hover');
+    @if $active and $activeWithin and $hover and $focus and $focusWithin {
+        $mixin_a: meta.get-mixin('active-hover-focus-visible-or-within');
+    } @else if
+        $active and
+        $activeWithin and not
+        $hover and not
+        $focus and
+        $focusWithin
+    {
+        $mixin_a: meta.get-mixin('focus-within');
+        $mixin_c: meta.get-mixin('active');
+        $mixin_d: meta.get-mixin('active-within');
+    } @else if $active and $hover and $focus and not $focusWithin {
+        $mixin_a: meta.get-mixin('active-hover-focus-visible');
+
+        @if $activeWithin {
+            $mixin_d: meta.get-mixin('active-within');
+        }
+    } @else if $active and not $hover and not $focus and not $focusWithin {
+        $mixin_c: meta.get-mixin('active');
+
+        @if $activeWithin {
+            $mixin_d: meta.get-mixin('active-within');
+        }
+    } @else if not
+        $active and
+        $activeWithin and not
+        $hover and not
+        $focus and not
+        $focusWithin
+    {
+        $mixin_a: meta.get-mixin('active-within');
+    } @else if $hover and $focus and $focusWithin {
+        $mixin_a: meta.get-mixin('hover-focus-visible-or-within');
+
+        @if $active {
+            $mixin_c: meta.get-mixin('active');
+        }
+
+        @if $activeWithin {
+            $mixin_d: meta.get-mixin('active-within');
+        }
+    } @else if not $active and $hover and $focus and not $focusWithin {
+        $mixin_a: meta.get-mixin('hover-focus-visible');
+
+        @if $activeWithin {
+            $mixin_d: meta.get-mixin('active-within');
+        }
+    } @else if $hover and not $focus {
+        $mixin_a: meta.get-mixin('_hover');
+
+        @if $focusWithin {
+            $mixin_b: meta.get-mixin('focus-within');
+        }
+
+        @if $active {
+            $mixin_c: meta.get-mixin('active');
+        }
+
+        @if $activeWithin {
+            $mixin_d: meta.get-mixin('active-within');
+        }
     } @else if not $hover and $focus and $focusWithin {
-        $mixin: meta.get-mixin('focus-visible-or-within');
+        $mixin_a: meta.get-mixin('focus-visible-or-within');
+
+        @if $active {
+            $mixin_c: meta.get-mixin('active');
+        }
+
+        @if $activeWithin {
+            $mixin_d: meta.get-mixin('active-within');
+        }
     } @else if not $hover and $focus and not $focusWithin {
-        $mixin: meta.get-mixin('focus-visible');
-    } @else if not $hover and not $focus and $focusWithin {
-        $mixin: meta.get-mixin('_focus-within');
+        $mixin_a: meta.get-mixin('focus-visible');
+
+        @if $active {
+            $mixin_c: meta.get-mixin('active');
+        }
+
+        @if $activeWithin {
+            $mixin_d: meta.get-mixin('active-within');
+        }
+        // } @else if not $active and not $hover and not $focus and ($focusWithin or $activeWithin) {
+        //     @if $focusWithin {
+        //         $mixin_a: meta.get-mixin('focus-within');
+        //     }
+
+        //     @if $activeWithin {
+        //         $mixin_d: meta.get-mixin('active-within');
+        //     }
+    } @else {
+        @if $focusWithin {
+            $mixin_a: meta.get-mixin('focus-within');
+        }
+
+        @if $active {
+            $mixin_c: meta.get-mixin('active');
+        }
+
+        @if $activeWithin {
+            $mixin_d: meta.get-mixin('active-within');
+        }
     }
 
-    @if meta.accepts-content($mixin) {
-        @include meta.apply($mixin, $args...) {
+    @if meta.accepts-content($mixin_a) {
+        @include meta.apply($mixin_a, $args...) {
+            @content;
+        }
+
+        @include meta.apply($mixin_b, $args...) {
+            @content;
+        }
+
+        @include meta.apply($mixin_c, $args...) {
+            @content;
+        }
+
+        @include meta.apply($mixin_d, $args...) {
             @content;
         }
     }

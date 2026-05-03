@@ -107,10 +107,10 @@
 @function line-height-value($level, $multiplier: 1) {
     $value: map.get(tokens.$line_height, '400');
 
-    @if not map.has-key(tokens.$line_height, '#{$level}') {
+    @if not map.has-key(tokens.$line_height, #{$level}) {
         @warn "$level '#{$level}' was not a key in tokens.$line_height";
     } @else {
-        $value: map.get(tokens.$line_height, '#{$level}');
+        $value: map.get(tokens.$line_height, #{$level});
     }
 
     @return if(

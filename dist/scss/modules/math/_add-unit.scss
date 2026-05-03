@@ -5,6 +5,7 @@
 
 @use 'sass:math';
 @use 'sass:meta';
+@use 'sass:string';
 
 @use 'always-one';
 @use 'deunit';
@@ -23,7 +24,7 @@
     // returns
     @if meta.type-of($num) != 'number' {
         @warn "[math.add-unit] $num should be a number, not the #{meta.type-of($num)} '#{$num}'";
-        @return '#{$num}#{$unit}';
+        @return #{$num}#{$unit};
     }
 
     // returns
@@ -36,5 +37,5 @@
         );
     }
 
-    @return '#{deunit.deunit($num)}#{$unit}';
+    @return #{deunit.deunit($num)}#{$unit};
 }

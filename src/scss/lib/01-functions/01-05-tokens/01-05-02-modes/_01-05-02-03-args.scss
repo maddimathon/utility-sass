@@ -101,7 +101,7 @@
 
         @each $sel in selector.parse(#{$parentSelector}) {
             //
-            @each $_s in string.split('#{$sel}', ' ') {
+            @each $_s in string.split(#{$sel}, ' ') {
                 //
                 $_isACombinator: if(
                     (

@@ -38,7 +38,7 @@
             @return $default;
         }
 
-        $value: (string.unquote('#{$value}'));
+        $value: (string.unquote(#{$value}));
 
         // returns - value is not a selector
     } @else if config-enforce-type-or-warn($value: $value, $type: list, $varName: $name) == false {

@@ -7,10 +7,9 @@
 @use '../../../modules/list';
 @use '../../../modules/meta';
 @use '../../../modules/selector';
-@use '../../../modules/string';
 
 @use '../config';
-@use '../../../tokens';
+// @use '../../../tokens';
 
 @use '../../../lib' as *;
 
@@ -21,7 +20,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 @function get-extend-selectors-button() {
     @return (
-        (string.unquote('::file-selector-button'), file-selector-button),
+        ('::file-selector-button', file-selector-button),
         (
             (
                 button,
@@ -116,6 +115,33 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 }
 
 ///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin extend-selectors-globals--focus-ring {
+    @at-root {
+        :focus {
+            @include feature-check.no-js {
+                @extend %focus-ring--fallback !optional;
+            }
+        }
+
+        :focus {
+            @at-root #{feature-check.get-selector( 'focusVisible', false )} {
+                @extend %focus-ring--where !optional;
+            }
+        }
+
+        :focus-visible {
+            @extend %focus-ring--visible !optional;
+        }
+
+        #{config.$mx_interactiveStates_selector_focus} {
+            @extend %focus-ring !optional;
+        }
+    }
+}
+
+///
 /// @since 0.1.0-alpha.38 — Added $additional_optional param for additional selectors that are always optional.
 /// @since 0.1.0-beta.0.draft — Moved to template directory. Removed $additional_optional and $optional params.
 ///
@@ -174,24 +200,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 
     $additional: list.join($additional, get-extend-selectors-button());
 
-    // universal focus ring
-    @at-root {
-        :focus {
-            @include feature-check.no-js {
-                @extend %focus-ring !optional;
-            }
-        }
-
-        :focus {
-            @at-root #{feature-check.get-selector( 'focusVisible', false )} {
-                @extend %focus-ring--where !optional;
-            }
-        }
-
-        :focus-visible {
-            @extend %focus-ring--visible !optional;
-        }
-    }
+    @include extend-selectors-globals--focus-ring;
 
     @include extend-selectors-generic($_global_selectors);
 

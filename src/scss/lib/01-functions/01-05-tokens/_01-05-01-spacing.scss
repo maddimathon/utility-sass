@@ -23,10 +23,10 @@
 @function mrg-value-firm($level, $unit: 1, $multiplier: 1) {
     $value: map.get(tokens.$margin, '400');
 
-    @if not map.has-key(tokens.$margin, '#{$level}') {
+    @if not map.has-key(tokens.$margin, #{$level}) {
         @warn "$level '#{$level}' was not a key in tokens.$margin";
     } @else {
-        $value: map.get(tokens.$margin, '#{$level}');
+        $value: map.get(tokens.$margin, #{$level});
     }
 
     @return math.add-unit($value * $multiplier, $unit);
@@ -97,12 +97,12 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 @function width-value($slug, $multiplier: 1, $returnAsNumber: true) {
     // returns
-    @if not map.has-key(tokens.$width, '#{$slug}') {
+    @if not map.has-key(tokens.$width, #{$slug}) {
         @warn "$slug '#{$slug}' was not a key in tokens.$width";
         @return ();
     }
 
-    $num: map.get(tokens.$width, '#{$slug}');
+    $num: map.get(tokens.$width, #{$slug});
 
     @if meta.type-of($num) == 'number' and $multiplier != 1 {
         $num: math.round-to-pixel($num * $multiplier);

@@ -5,14 +5,16 @@
 
 @use 'sass:list';
 @use 'sass:meta';
-@use 'sass:string';
+
+@use '../string';
 
 @use 'unique';
 
 ///
 /// Quotes font names as needed for valid output.
 ///
-/// @param {list<string>} $fonts  Font names to include.
+/// @param {list<string>} $fonts        Font names to include.
+/// @param {boolean}      $doubleQuote  Optional. Whether to double-quote list items (e.g., for the list to be used as an interpolated value).
 ///
 /// @returns {list<string>}
 ///
@@ -28,7 +30,7 @@
         @return $fonts;
     }
 
-    $fonts: unique.unique($fonts);
+    $fonts: unique.unique(string.regex-split(#{$fonts}, ',\\s+'));
 
     // returns
     @if list.length($fonts) < 2 {

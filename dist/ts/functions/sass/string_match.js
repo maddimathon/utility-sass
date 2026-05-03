@@ -26,6 +26,7 @@ export function sassFn_string_match({ console }) {
             sassAssertValueType('flags', 'string', args[2], false),
             sassAssertValueType('debug', 'bool', args[3], true),
         ]).then(async (arr) => {
+            const quoteStrings = arr[0]?.hasQuotes;
             const string = arr[0]?.hasQuotes ? arr[0]?.text.replace(/^['"](.*)['"]$/g, '$1') : arr[0]?.text;
             const pattern = arr[1]?.hasQuotes ? arr[1]?.text.replace(/^['"](.*)['"]$/g, '$1') : arr[1]?.text;
             const flags = arr[2]?.hasQuotes ? arr[2]?.text.replace(/^['"](.*)['"]$/g, '$1') : arr[2]?.text;
@@ -42,7 +43,7 @@ export function sassFn_string_match({ console }) {
             if (debug) {
                 console.vi.log({ '[string.match] regex': regex }, 2);
             }
-            return jsValueToSass(string.match(regex));
+            return jsValueToSass(string.match(regex), { quoteStrings });
         }),
     };
 }

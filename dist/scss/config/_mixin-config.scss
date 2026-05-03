@@ -85,7 +85,8 @@ $mx_interactiveStates_fallbacksOnly: false !default;
 $mx_interactiveStates_featureCheck_viaQuery: false !default;
 
 ///
-/// An additional selector to use for active states.
+/// An additional selector to use for active states. May be declared separately from
+/// ':active' for better compatibility.
 ///
 /// @since 0.1.0-beta.0.draft
 ///
@@ -102,12 +103,28 @@ $mx_interactiveStates_selector_active: config-valid-selector(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_interactiveStates_selector_active_separate: null !default;
-$mx_interactiveStates_selector_active_separate: config-valid-selector(
-    $mx_interactiveStates_selector_active_separate,
-    'mx_interactiveStates_selector_active_separate',
+$mx_interactiveStates_selector_active_separate: false !default;
+
+///
+/// An additional selector to use for focus states. May be declared separately
+/// from ':focus' for better compatibility.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_interactiveStates_selector_focus: null !default;
+$mx_interactiveStates_selector_focus: config-valid-selector(
+    $mx_interactiveStates_selector_focus,
+    'mx_interactiveStates_selector_focus',
     $default: modules.$selector_null
 );
+
+///
+/// Whether to declare $mx_interactiveStates_selector_focus rules separately
+/// from ':focus' for better compatibility.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_interactiveStates_selector_focus_separate: false !default;
 
 ///
 /// @since 0.1.0-beta.0.draft

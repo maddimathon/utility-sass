@@ -39,17 +39,17 @@ $_heading_inlines: false;
 
 @if $_print_selection {
     %selection {
-        background-color: #{var-sys-colour(selection-bg)};
-        color: #{var-sys-colour(selection-text)};
+        background-color: var-sys-colour(selection-bg);
+        color: var-sys-colour(selection-text);
     }
 }
 
 @if $_print_typeDefaults {
     %root {
         font-weight: 400;
-        line-height: #{var-line-height('400')};
-        background: #{var-sys-colour(background)};
-        color: #{var-sys-colour(text)};
+        line-height: var-line-height('400');
+        background: var-sys-colour(background);
+        color: var-sys-colour(text);
 
         @if config.$include_html {
             @include max-width(mobile) {
@@ -59,7 +59,7 @@ $_heading_inlines: false;
     }
 
     %body {
-        font-size: #{var-fs(normal)};
+        font-size: var-fs(normal);
     }
 }
 
@@ -100,23 +100,23 @@ $_heading_inlines: false;
         @include cx-prop(focus-ring-outline-offset, var-stroke-relative('200'));
         @include prop-display(inline);
         border: none;
-        text-decoration: underline #{var-stroke-relative('200')};
-        text-underline-offset: #{var-stroke-relative('800')};
-        color: #{var-sys-colour(link)};
+        text-decoration: underline var-stroke-relative('200');
+        text-underline-offset: var-stroke-relative('800');
+        color: var-sys-colour(link);
 
         /// STATES ///
 
         &:visited {
-            color: #{var-sys-colour(link-visited)};
+            color: var-sys-colour(link-visited);
         }
 
         @include hover-focus-visible() {
             text-decoration-color: transparent;
-            color: #{var-sys-colour(link-hover)};
+            color: var-sys-colour(link-hover);
         }
 
         @include active {
-            color: #{var-sys-colour(link-active)};
+            color: var-sys-colour(link-active);
         }
 
         /// EXCEPTIONS ///
@@ -140,7 +140,7 @@ $_heading_inlines: false;
 @if $_print_abbr {
     %abbr {
         &[title] {
-            text-decoration: dotted underline #{var-stroke-relative('400')};
+            text-decoration: dotted underline var-stroke-relative('400');
             cursor: help;
         }
     }
@@ -152,7 +152,7 @@ $_heading_inlines: false;
 
 @if $_print_p {
     %p {
-        margin-block: #{var-mrg-soft('400')} 0;
+        margin-block: var-mrg-soft('400') 0;
 
         hr + & {
             margin-block-start: 0;
@@ -195,6 +195,7 @@ $_heading_inlines: false;
 
             %button {
                 font: inherit;
+                font-size: 1em;
                 letter-spacing: inherit;
                 text-transform: inherit;
             }
@@ -207,6 +208,7 @@ $_heading_inlines: false;
 
                 :where(%button) {
                     font: inherit;
+                    font-size: 1em;
                     letter-spacing: inherit;
                     text-transform: inherit;
                 }

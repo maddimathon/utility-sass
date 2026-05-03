@@ -41,7 +41,7 @@
         @if list.index($options, $value) == null {
             $optsList: ();
             @each $opt in $options {
-                $optsList: list.append($optsList, "'#{$opt}'", comma);
+                $optsList: list.append($optsList, "'#{$opt}'", $separator: comma);
             }
 
             @warn "[config] $#{$name} must be one of: #{$optsList} (not '#{$value}')";
@@ -84,7 +84,7 @@ $config_validTokenLevels: (
 ///
 @function config-valid-token-level($value, $name, $default, $options: $config_validTokenLevels) {
     @if meta.type-of($value) == number {
-        $value: '#{$value}';
+        $value: #{$value};
 
         $_str_length: string.length($value);
 

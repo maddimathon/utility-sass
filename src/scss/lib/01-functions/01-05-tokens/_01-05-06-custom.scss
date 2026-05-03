@@ -22,7 +22,7 @@
 /// @since ___PKG_VERSION___ — Renamed from token-value to style-value.
 ///
 @function style-value($slug) {
-    $value: map.get(tokens.$style, '#{$slug}');
+    $value: map.get(tokens.$style, #{$slug});
 
     // returns
     @if $value == null {

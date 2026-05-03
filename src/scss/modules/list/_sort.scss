@@ -11,63 +11,12 @@
 @use '../string';
 
 // #region $lettersLowerCase
-$lettersLowerCase: (
-    a,
-    b,
-    c,
-    d,
-    e,
-    f,
-    g,
-    h,
-    i,
-    j,
-    k,
-    l,
-    m,
-    n,
-    o,
-    p,
-    q,
-    r,
-    s,
-    t,
-    u,
-    v,
-    w,
-    x,
-    y,
-    z
-);
+$lettersLowerCase: (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z);
 // #endregion $lettersLowerCase
 
 // #region $sortOrder
 $sortOrder: list.join(
-    (
-        ' ',
-        '-',
-        _,
-        0,
-        '0',
-        1,
-        '1',
-        2,
-        '2',
-        3,
-        '3',
-        4,
-        '4',
-        5,
-        '5',
-        6,
-        '6',
-        7,
-        '7',
-        8,
-        '8',
-        9,
-        '9'
-    ),
+    (' ', '-', _, 0, '0', 1, '1', 2, '2', 3, '3', 4, '4', 5, '5', 6, '6', 7, '7', 8, '8', 9, '9'),
     $lettersLowerCase
 );
 // #endregion $sortOrder
@@ -76,13 +25,10 @@ $sortOrder: list.join(
 /// @return {number} true if $string_a goes before $string_b and false if not
 ///
 @function _compare($string_a, $string_b) {
-    $string_a: string.slugify('#{$string_a}');
-    $string_b: string.slugify('#{$string_b}');
+    $string_a: string.slugify(#{$string_a});
+    $string_b: string.slugify(#{$string_b});
 
-    @for $i
-        from 1
-        through math.min(string.length($string_a), string.length($string_b))
-    {
+    @for $i from 1 through math.min(string.length($string_a), string.length($string_b)) {
         $char_a: string.slice($string_a, $i, $i);
         $char_b: string.slice($string_b, $i, $i);
 
@@ -91,10 +37,7 @@ $sortOrder: list.join(
             list.index($sortOrder, $char_a) !=
             list.index($sortOrder, $char_b)
         {
-            @return (
-                list.index($sortOrder, $char_a) <
-                    list.index($sortOrder, $char_b)
-            );
+            @return (list.index($sortOrder, $char_a) < list.index($sortOrder, $char_b));
         }
     }
 
@@ -106,11 +49,7 @@ $sortOrder: list.join(
 ///
 @function _swap($list, $index_a, $index_b) {
     // returns - invalid list indices
-    @if math.abs($index_a) >
-        list.length($list) or
-        math.abs($index_b) >
-        list.length($list)
-    {
+    @if math.abs($index_a) > list.length($list) or math.abs($index_b) > list.length($list) {
         @return $list;
     }
 
@@ -146,20 +85,12 @@ $sortOrder: list.join(
                     $_a_isNum: meta.type-of($str_a) == number;
                     $_b_isNum: meta.type-of($str_b) == number;
 
-                    @if not
-                        $_a_isNum and
-                        list.index($lettersLowerCase, $str_a) ==
-                        null
-                    {
+                    @if not $_a_isNum and list.index($lettersLowerCase, $str_a) == null {
                         $str_a: num-val.num-val($str_a);
                         $_a_isNum: true;
                     }
 
-                    @if not
-                        $_b_isNum and
-                        list.index($lettersLowerCase, $str_b) ==
-                        null
-                    {
+                    @if not $_b_isNum and list.index($lettersLowerCase, $str_b) == null {
                         $str_b: num-val.num-val($str_b);
                         $_b_isNum: true;
                     }

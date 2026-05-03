@@ -28,9 +28,7 @@ $_print_inputs: map.get(config.$template_styles, inputs);
 
         > :first-child {
             margin-block-start: 0;
-            margin-block-start: calc(
-                #{var-mrg-soft('400')} - #{var-mrg-soft('200')}
-            );
+            margin-block-start: calc(var-mrg-soft('400') - var-mrg-soft('200'));
         }
 
         > legend + * {
@@ -44,9 +42,9 @@ $_print_inputs: map.get(config.$template_styles, inputs);
             @include snippet-heading(7);
 
             margin-inline: calc(var-mrg-soft('300') * -1);
-            margin-block: 0 #{var-mrg-soft('300')};
+            margin-block: 0 var-mrg-soft('300');
 
-            padding-inline: #{var-mrg-soft('300')};
+            padding-inline: var-mrg-soft('300');
 
             font-style: italic;
         }
@@ -87,15 +85,6 @@ $_print_inputs: map.get(config.$template_styles, inputs);
         @include snippet-button;
     }
 
-    %file-selector-button {
-        @include snippet-button;
-
-        & {
-            @include prop-display(initial);
-            margin: 0;
-            margin-inline-end: #{var-mrg-firm('300')};
-
-            font-size: #{var-fs(normal)};
-        }
-    }
+    // file-selector-button
+    @include snippet-add-pseudo-file-selector-button;
 }

@@ -35,11 +35,12 @@
         }
 
         @if $includeColorScheme {
-            color-scheme: #{tokens.$brightnessMode_all};
+            color-scheme: tokens.$brightnessMode_all;
 
             @each $mode in tokens.$brightnessMode_all {
                 @include colour-mode($mode, $includeDefault: false) {
-                    color-scheme: #{$mode};
+                    color-scheme: $mode;
+                    color-scheme: only $mode;
                 }
             }
         }
@@ -47,7 +48,7 @@
 
     #{config.$selector_root} {
         @if $includeFontFamily {
-            font-family: #{font-family-system-ui()};
+            font-family: font-family-system-ui();
         }
 
         @if $includeFontSize {
@@ -65,14 +66,14 @@
             %kbd,
             %samp,
             %pre {
-                font-family: #{font-family-system-monospace()};
+                font-family: font-family-system-monospace();
             }
         } @else {
             code,
             kbd,
             samp,
             pre {
-                font-family: #{font-family-system-monospace()};
+                font-family: font-family-system-monospace();
             }
         }
     }
@@ -217,7 +218,8 @@
     select,
     textarea {
         font-family: inherit; /* 1 */
-        font-size: 100%; /* 1 */
+        // font-size: 100%; /* 1 */
+        font-size: 1em;
         line-height: 1.15; /* 1 */
         margin: 0; /* 2 */
     }
@@ -355,6 +357,7 @@
         margin: 0;
         padding: 0;
         font: inherit;
+        font-size: 1em;
 
         @if not $doUniversalBoxSizing {
             box-sizing: border-box;
@@ -364,6 +367,7 @@
     #{selector-all-headings($globalsOnly: true)} {
         margin: 0;
         font: inherit;
+        font-size: 1em;
 
         @if not $doUniversalBoxSizing {
             box-sizing: border-box;

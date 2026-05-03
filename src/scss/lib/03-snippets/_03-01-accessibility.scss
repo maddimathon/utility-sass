@@ -17,10 +17,37 @@
 /// @since 0.1.0-alpha.24
 ///
 @mixin snippet-focus-ring {
-    outline-width: #{var-style(focus-ring-outline-width)};
+    outline-width: var-style(focus-ring-outline-width);
     outline-style: dashed;
-    outline-color: #{var-style(focus-ring-outline-color)};
-    outline-offset: #{var-style(focus-ring-outline-offset)};
+    outline-color: var-style(focus-ring-outline-color);
+    outline-offset: var-style(focus-ring-outline-offset);
+}
+
+///
+/// Prints pseudo selectors and rules for global focus rings.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-support-focus-ring {
+    %focus-ring--fallback {
+        /* %focus-ring--fallback */
+        @include snippet-focus-ring;
+    }
+
+    %focus-ring--where {
+        /* %focus-ring--where */
+        @include snippet-focus-ring;
+    }
+
+    %focus-ring--visible {
+        /* %focus-ring--visible */
+        @include snippet-focus-ring;
+    }
+
+    %focus-ring {
+        /* %focus-ring */
+        @include snippet-focus-ring;
+    }
 }
 
 ///

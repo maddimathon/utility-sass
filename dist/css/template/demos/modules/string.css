@@ -24,6 +24,15 @@ string.concat {
    */
 }
 
+string.is-quoted {
+    /* 
+      string.is-quoted( "hello" ): </> true
+   */
+    /* 
+      string.is-quoted( hello ): </> false
+   */
+}
+
 string.join {
     /* 
       string.join( " ",  "hello", "there", "more" ): <S> "hello there more"
@@ -40,19 +49,19 @@ string.match {
     /* 
       string.match( "hello there", "^hello" ) is a list:
    */
-    /* 1: <S> hello */
+    /* 1: <S> "hello" */
     /* 
       string.match( "hello there", "^Hello" ): <-> null
    */
     /* 
       string.match( "hello there", "^Hello", "i" ) is a list:
    */
-    /* 1: <S> hello */
+    /* 1: <S> "hello" */
     /* 
       string.match( "hello there", "[^\\s] ([^\\s]+)$", "i" ) is a list:
    */
     /* 1: <S> "o there" */
-    /* 2: <S> there */
+    /* 2: <S> "there" */
 }
 
 string.replace {
@@ -75,7 +84,7 @@ string.regex-replace {
       string.regex-replace( "hello there", "^Hello", "goodbye", $flags: "gi" ): <S> "goodbye there"
    */
     /* 
-      string.regex-replace( "hello there", "^([^\\s]+)", "goodbye" ): <S> goodbye
+      string.regex-replace( "hello there", "^([^\\s]+)", "goodbye" ): <S> "goodbye"
    */
     /* 
       string.regex-replace( "hello there", "^hello\\s*(.*)$", "goodbye $1" ): <S> "goodbye there"
@@ -89,7 +98,7 @@ string.regex-split {
     /* 
       string.regex-split( "hello there", "^hello" ) is a list:
    */
-    /* 1: <S>  */
+    /* 1: <S> "" */
     /* 2: <S> " there" */
     /* 
       string.regex-split( "hello there", "^Hello" ) is a list:
@@ -98,40 +107,40 @@ string.regex-split {
     /* 
       string.regex-split( "hello there", "^Hello",  $flags: "i" ) is a list:
    */
-    /* 1: <S>  */
+    /* 1: <S> "" */
     /* 2: <S> " there" */
     /* 
       string.regex-split( "remove this part but not the rest", "\\s+this part but\\s+" ) is a list:
    */
-    /* 1: <S> remove */
+    /* 1: <S> "remove" */
     /* 2: <S> "not the rest" */
     /* 
       string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+" ) is a list:
    */
-    /* 1: <S> Lorem */
-    /* 2: <S> ipsum */
-    /* 3: <S> dolor */
-    /* 4: <S> sit */
-    /* 5: <S> amet, */
-    /* 6: <S> consectetur */
-    /* 7: <S> adipiscing */
-    /* 8: <S> elit. */
+    /* 1: <S> "Lorem" */
+    /* 2: <S> "ipsum" */
+    /* 3: <S> "dolor" */
+    /* 4: <S> "sit" */
+    /* 5: <S> "amet," */
+    /* 6: <S> "consectetur" */
+    /* 7: <S> "adipiscing" */
+    /* 8: <S> "elit." */
     /* 
       string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+",  $flags: "is" ) is a list:
    */
-    /* 1: <S> Lorem */
-    /* 2: <S> ipsum */
-    /* 3: <S> dolor */
-    /* 4: <S> sit */
-    /* 5: <S> amet, */
-    /* 6: <S> consectetur */
-    /* 7: <S> adipiscing */
-    /* 8: <S> elit. */
+    /* 1: <S> "Lorem" */
+    /* 2: <S> "ipsum" */
+    /* 3: <S> "dolor" */
+    /* 4: <S> "sit" */
+    /* 5: <S> "amet," */
+    /* 6: <S> "consectetur" */
+    /* 7: <S> "adipiscing" */
+    /* 8: <S> "elit." */
     /* 
       string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+", $limit: 2 ) is a list:
    */
-    /* 1: <S> Lorem */
-    /* 2: <S> ipsum */
+    /* 1: <S> "Lorem" */
+    /* 2: <S> "ipsum" */
 }
 
 string.slugify {

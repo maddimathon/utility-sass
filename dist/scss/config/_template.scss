@@ -3,11 +3,13 @@
 /// @since 0.1.0-pre.0
 ///
 
-@use 'sass:list';
-@use 'sass:meta';
-@use 'sass:string';
-
 @use 'functions' as *;
+
+@use '../modules/_config' as modules;
+
+@use '../modules/list';
+@use '../modules/meta';
+@use '../modules/string';
 
 /// # CONFIG - TEMPLATES
 /// ======================================================================== ///
@@ -50,9 +52,18 @@ $_exists_customPropertyPrefix_fallback: string.length(
     $slug,
     $fallback: null,
     $fallbackOnly: false,
-    $onlyFallbackPrefix: false
+    $onlyFallbackPrefix: false,
+    $quoteString: string.is-quoted($fallback)
 ) {
     //
+    @if meta.type-of($fallback) == string {
+        @if $quoteString {
+            $fallback: string.quote($fallback);
+        } @else {
+            $fallback: string.unquote($fallback);
+        }
+    }
+
     $onlyFallbackPrefix: $onlyFallbackPrefix and
         $_exists_customPropertyPrefix_fallback;
 
@@ -62,7 +73,7 @@ $_exists_customPropertyPrefix_fallback: string.length(
         $fallback: if(
             $fallback == null,
             var(--#{$customPropertyPrefix_fallback}#{$slug}),
-            var(--#{$customPropertyPrefix_fallback}#{$slug}, #{$fallback})
+            var(--#{$customPropertyPrefix_fallback}#{$slug}, $fallback)
         );
     }
 
@@ -73,7 +84,7 @@ $_exists_customPropertyPrefix_fallback: string.length(
         if(
             $fallback == null,
             var(--#{$customPropertyPrefix}#{$slug}),
-            var(--#{$customPropertyPrefix}#{$slug}, #{$fallback})
+            var(--#{$customPropertyPrefix}#{$slug}, $fallback)
         )
     );
 }

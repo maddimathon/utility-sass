@@ -45,13 +45,13 @@ $_print_scrollPadding: map.get(config.$template_styles, scrollPadding);
             justify-content: start;
             align-items: center;
 
-            gap: #{var-gap-block(layout)} #{var-gap-inline(layout)};
+            gap: var-gap-block(layout) var-gap-inline(layout);
 
-            margin-block: #{var-gap-block(layout)};
-            margin-inline: #{var-gap-inline(layout)};
+            margin-block: var-gap-block(layout);
+            margin-inline: var-gap-inline(layout);
 
             :where(&) > :where(*) {
-                width: min(#{var-width(page)}, 100%);
+                width: min(var-width(page), 100%);
             }
         }
     }
@@ -63,24 +63,24 @@ $_print_scrollPadding: map.get(config.$template_styles, scrollPadding);
         justify-self: center;
         align-self: center;
 
-        margin-block: #{var-mrg-firm('600')};
-        margin-inline: #{var-gap-inline(indent)};
+        margin-block: var-mrg-firm('600');
+        margin-inline: var-gap-inline(indent);
 
-        width: #{math.add-unit(
-                math.round-to-pixel(
-                    calc(
-                        100 *
-                            map.get(tokens.$width, callout) /
-                            map.get(tokens.$width, content)
-                    ),
-                    100
+        width: math.add-unit(
+            math.round-to-pixel(
+                calc(
+                    100 *
+                        map.get(tokens.$width, callout) /
+                        map.get(tokens.$width, content)
                 ),
-                $unit: 1%
-            )};
+                100
+            ),
+            $unit: 1%
+        );
 
-        max-width: #{var-width(callout)};
+        max-width: var-width(callout);
 
         border: none;
-        border-block-end: currentColor solid #{var-border-width('200')};
+        border-block-end: currentColor solid var-border-width('200');
     }
 }

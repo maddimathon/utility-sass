@@ -32,22 +32,13 @@
         $separator: list.separator($list);
     }
 
-    $filteredList: list.join(
-        (),
-        (),
-        $separator: $separator,
-        $bracketed: $bracketed
-    );
+    $filteredList: list.join((), (), $separator: $separator, $bracketed: $bracketed);
 
     @each $item in $list {
         //
-        @if '#{$item}' == '#{$only}' {
+        @if #{$item} == #{$only} {
             //
-            $filteredList: list.append(
-                $filteredList,
-                $item,
-                $separator: $separator
-            );
+            $filteredList: list.append($filteredList, $item, $separator: $separator);
         }
     }
 

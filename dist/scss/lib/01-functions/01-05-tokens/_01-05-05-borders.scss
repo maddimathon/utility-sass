@@ -20,10 +20,10 @@
 @function border-width-value($level, $multiplier: 1, $unit: 1rem) {
     $value: map.get(tokens.$border_width, '200');
 
-    @if not map.has-key(tokens.$border_width, '#{$level}') {
+    @if not map.has-key(tokens.$border_width, #{$level}) {
         @warn "$level '#{$level}' was not a key in tokens.$border_width";
     } @else {
-        $value: map.get(tokens.$border_width, '#{$level}');
+        $value: map.get(tokens.$border_width, #{$level});
     }
 
     @return math.add-unit(
@@ -65,10 +65,10 @@
 @function stroke-relative-value($level, $multiplier: 1, $unit: 1em) {
     $value: map.get(tokens.$stroke_relative, '200');
 
-    @if not map.has-key(tokens.$stroke_relative, '#{$level}') {
+    @if not map.has-key(tokens.$stroke_relative, #{$level}) {
         @warn "$level '#{$level}' was not a key in tokens.$stroke_relative";
     } @else {
-        $value: map.get(tokens.$stroke_relative, '#{$level}');
+        $value: map.get(tokens.$stroke_relative, #{$level});
     }
 
     @return math.add-unit(
@@ -77,7 +77,7 @@
             $value,
             math.round-to-pixel(
                 $value * $multiplier,
-                config.$fn_borderWidthValue_roundToPixelFactor
+                config.$fn_strokeRelativeValue_roundToPixelFactor
             )
         ),
         $unit

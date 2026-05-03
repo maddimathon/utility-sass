@@ -1,0 +1,1173 @@
+/*!
+ * Utility Sass - Demo
+ *
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ *
+ * https://maddimathon.github.io/utility-sass
+ *
+ * Author: Maddi Mathon (www.maddimathon.com/web)
+ * License: MIT
+ */
+/* # MIXINS - INTERACTIVE
+ * For demo, the config has been extended with:
+ * $mx_interactiveStates_selector_active: '[data-state-active=true]'
+ * $mx_interactiveStates_selector_focus: '[data-state-focus=true]'
+ * ======================================================================== */
+/* #region - NO PARENT */
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) */
+    :hover {
+        /* content */
+    }
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true ) */
+    :hover {
+        /* content */
+    }
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true ) */
+    :hover {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true ) */
+    :hover {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) */
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true ) */
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true ) */
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $active: true, $activeWithin: true ) */
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true ) */
+    :hover {
+        /* content */
+    }
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $active: true ) */
+    :hover {
+        /* content */
+    }
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true ) */
+    :hover {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $active: true ) */
+    :hover {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true ) */
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $active: true ) */
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focusWithin: true, $active: true ) */
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $active: true ) */
+    :active,
+    [data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true ) */
+    :hover {
+        /* content */
+    }
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true ) */
+    :hover {
+        /* content */
+    }
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true ) */
+    :hover {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $activeWithin: true ) */
+    :hover {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true ) */
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $activeWithin: true ) */
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focusWithin: true, $activeWithin: true ) */
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $activeWithin: true ) */
+    :has(:active),
+    :has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true ) */
+    :hover {
+        /* content */
+    }
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true ) */
+    :hover {
+        /* content */
+    }
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focusWithin: true ) */
+    :hover {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true ) */
+    :hover {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $focusWithin: true ) */
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true ) */
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    [data-state-focus="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focusWithin: true ) */
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin() */
+}
+/* #endregion - NO PARENT */
+/* #region - WITH PARENT */
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) */
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true ) */
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true ) */
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $active: true, $activeWithin: true ) */
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true ) */
+    button:hover {
+        /* content */
+    }
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $active: true ) */
+    button:hover {
+        /* content */
+    }
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true ) */
+    button:hover {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $active: true ) */
+    button:hover {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true ) */
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $active: true ) */
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focusWithin: true, $active: true ) */
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $active: true ) */
+    button:active,
+    button[data-state-active="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $activeWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true ) */
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $activeWithin: true ) */
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focusWithin: true, $activeWithin: true ) */
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $activeWithin: true ) */
+    button:has(:active),
+    button:has([data-state-active="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focus: true ) */
+    button:hover {
+        /* content */
+    }
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true, $focusWithin: true ) */
+    button:hover {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $hover: true ) */
+    button:hover {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true, $focusWithin: true ) */
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focus: true ) */
+    .no-js button:focus,
+    .js__no-whereSelector button:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) button:focus {
+        /* content */
+    }
+    button:focus-visible {
+        /* content */
+    }
+    button[data-state-focus="true"] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin( $focusWithin: true ) */
+    button:focus-within {
+        /* content */
+    }
+    button:has([data-state-focus="true"]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* apply-interactive-mixin() */
+}
+
+/* #endregion - WITH PARENT */

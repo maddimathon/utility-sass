@@ -42,7 +42,7 @@
 
     @each $item in $list {
         //
-        @if '#{$item}' != '#{$except}' {
+        @if #{$item} != #{$except} {
             //
             $filteredList: list.append(
                 $filteredList,
@@ -97,7 +97,7 @@
 
     @each $item in $list {
         //
-        @if not list.index($except, '#{$item}') {
+        @if not list.index($except, #{$item}) {
             //
             $filteredList: list.append(
                 $filteredList,

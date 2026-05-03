@@ -19,20 +19,7 @@ $_print_screenReaderText: map.get(config.$template_styles, screenReaderText);
 }
 
 @if $_print_focusRing {
-    %focus-ring {
-        /* %focus-ring */
-        @include snippet-focus-ring;
-    }
-
-    %focus-ring--where {
-        /* %focus-ring--where */
-        @include snippet-focus-ring;
-    }
-
-    %focus-ring--visible {
-        /* %focus-ring--visible */
-        @include snippet-focus-ring;
-    }
+    @include snippet-support-focus-ring;
 }
 
 @if $_print_screenReaderText {

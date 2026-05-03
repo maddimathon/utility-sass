@@ -20,11 +20,8 @@ import type {
 import Immutable from 'immutable';
 import * as sass from "sass-embedded";
 
-// import { mapFlattenAsync } from '@maddimathon/utility-typescript/functions/objects/mapFlattenAsync';
-
 import { sassAssertValueType } from '../sassAssertValueType.js';
 import { sassValueToJS } from '../sassValueToJS.js';
-// import { jsValueToSass } from '../jsValueToSass.js';
 
 /**
  * Returns a call signature and function to include in {@link sass.Options} that

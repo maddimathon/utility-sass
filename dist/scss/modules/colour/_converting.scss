@@ -4,6 +4,7 @@
 ///
 @use 'sass:color';
 @use 'sass:meta';
+@use 'sass:string';
 
 @use '../math';
 
@@ -61,7 +62,7 @@
 /// @since 0.1.0-pre.0
 ///
 @function to-hsl($clr, $round: true) {
-    @return 'hsl( #{to-hsl-list($clr, $round: $round)} )';
+    @return string.unquote('hsl( #{to-hsl-list($clr, $round: $round)} )');
 }
 
 ///
@@ -133,5 +134,5 @@
 /// @since 0.1.0-alpha.26
 ///
 @function to-rgb($clr, $round: true) {
-    @return 'rgb( #{to-rgb-list($clr, $round: $round)} )';
+    @return string.unquote('rgb( #{to-rgb-list($clr, $round: $round)} )');
 }

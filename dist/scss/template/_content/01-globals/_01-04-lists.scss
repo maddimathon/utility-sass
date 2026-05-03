@@ -25,7 +25,7 @@
         padding-inline-start: 1em;
 
         @if config.$include_html {
-            margin-inline-start: #{var-gap-inline(tab)};
+            margin-inline-start: var-gap-inline(tab);
         }
 
         line-height: inherit;
@@ -96,12 +96,11 @@
 
     %li {
         margin: 0;
-        margin-block-start: #{var-mrg-soft('300')};
+        margin-block-start: var-mrg-soft('300');
         padding: 0;
 
         &::marker {
             font-weight: 500;
-            font-size: #{var-fs(smaller-1)};
         }
 
         > a:only-child {
@@ -111,11 +110,7 @@
 
         li {
             li {
-                margin-block-start: #{var-mrg-soft('200')};
-
-                &::marker {
-                    font-size: #{var-fs(smaller-2)};
-                }
+                margin-block-start: var-mrg-soft('200');
 
                 li {
                     font-style: italic;

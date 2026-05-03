@@ -29,6 +29,11 @@ string.concat {
     );
 }
 
+string.is-quoted {
+    @include meta.var-dump('string.is-quoted( "hello" )', string.is-quoted('hello'));
+    @include meta.var-dump('string.is-quoted( hello )', string.is-quoted(hello));
+}
+
 string.join {
     @include meta.var-dump(
         'string.join( " ",  "hello", "there", "more" )',
@@ -160,6 +165,6 @@ $_slug_tests: (
 
 string.slugify {
     @each $input in $_slug_tests {
-        @include meta.var-dump('string.slugify( "#{$input}" )', string.slugify($input));
+        @include meta.var-dump('string.slugify( "#{$input}" )', string.slugify(#{$input}));
     }
 }

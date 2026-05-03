@@ -31,7 +31,7 @@
         'null': '-',
     );
     $return: map.get($abbrs, $type);
-    @return if($return != null, string.unquote($return), string.unquote('#{$type}'));
+    @return if($return != null, string.unquote($return), string.unquote($type));
 }
 
 ///
@@ -51,35 +51,58 @@
 /// @return {string}
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Added optional $keys_withType, $keys_shortType, $keys_alwaysQuote, $keys_neverQuote, $child_withType, $child_shortType, $child_alwaysQuote, $child_neverQuote params.
 ///
 @function var-dump(
     $var,
     $withType: true,
     $shortType: true,
     $alwaysQuote: false,
-    $neverQuote: false
+    $neverQuote: false,
+    //
+    $keys_withType: null,
+    $keys_shortType: null,
+    $keys_alwaysQuote: null,
+    $keys_neverQuote: null,
+    //
+    $child_withType: null,
+    $child_shortType: null,
+    $child_alwaysQuote: null,
+    $child_neverQuote: null
 ) {
     $type: meta.type-of($var);
     $msg: meta.inspect($var);
 
+    $childArgs: (
+        withType: if($child_withType == null, $withType, $child_withType),
+        shortType: if($child_shortType == null, $shortType, $child_shortType),
+        alwaysQuote: if($child_alwaysQuote == null, $alwaysQuote, $child_alwaysQuote),
+        neverQuote: if($child_neverQuote == null, $neverQuote, $child_neverQuote),
+    );
+
+    $keyArgs: (
+        withType: if($keys_withType == null, false, $keys_withType),
+        shortType: if($keys_shortType == null, $shortType, $keys_shortType),
+        alwaysQuote: if($keys_alwaysQuote == null, not $keys_neverQuote, $keys_alwaysQuote),
+        neverQuote: if($keys_neverQuote == null, $neverQuote, $keys_neverQuote),
+    );
+
     @if $type == 'arglist' {
         $msg: ();
         @each $arg in $var {
-            $msg: list.append($msg, var-dump($arg), $separator: comma);
+            $msg: list.append($msg, var-dump($arg, $childArgs...), $separator: comma);
         }
+
+        $keyArgs: map.set($keyArgs, neverQuote, true);
+        $keyArgs: map.remove($keyArgs, alwaysQuote);
+
         @if list.length(map.values(meta.keywords($var))) > 0 {
             @each $key, $value in meta.keywords($var) {
-                $key: var-dump(
-                    $key,
-                    $withType: false,
-                    $shortType: $shortType,
-                    // $alwaysQuote: $alwaysQuote,
-                    $neverQuote: true
-                );
+                $key: var-dump($key, $keyArgs...);
 
                 $msg: list.append(
                     $msg,
-                    (string.unquote('$#{$key}:') var-dump($value)),
+                    (string.unquote('$#{$key}:') var-dump($value, $childArgs...)),
                     $separator: comma
                 );
             }
@@ -87,19 +110,15 @@
 
         $msg: if(list.length($msg) > 0, string.unquote('( #{$msg} )'), meta.inspect(()));
     }
-    @if $type == 'calculation' {
+    //
+    @else if $type == 'calculation' {
         $msg: ();
+
+        $childArgs: map.set($childArgs, alwaysQuote, true);
+        $childArgs: map.remove($childArgs, neverQuote);
+
         @each $item in meta.calc-args($var) {
-            $msg: list.append(
-                $msg,
-                var-dump(
-                    $item,
-                    $withType: $withType,
-                    $shortType: $shortType,
-                    $alwaysQuote: true // $neverQuote: $neverQuote,
-                ),
-                $separator: comma
-            );
+            $msg: list.append($msg, var-dump($item, $childArgs...), $separator: comma);
         }
         $msg: if(
             list.length($msg) > 0,
@@ -107,46 +126,37 @@
             string.unquote('#{meta.calc-name( $var )}()')
         );
     }
-    @if $type == 'list' {
+    //
+    @else if $type == 'list' {
         $bracketed: list.is-bracketed($var);
         $separator: list.separator($var);
 
         $msg: ();
+
         @each $item in $var {
-            $msg: list.append(
-                $msg,
-                var-dump(
-                    $item,
-                    $withType: $withType,
-                    $shortType: $shortType,
-                    $alwaysQuote: $alwaysQuote,
-                    $neverQuote: $neverQuote
-                ),
-                $separator: $separator
-            );
+            $msg: list.append($msg, var-dump($item, $childArgs...), $separator: $separator);
         }
+
         $msg: if(list.length($msg) > 0, $msg, meta.inspect(()));
+
         $msg: if($bracketed, string.unquote('( [ #{$msg} ] )'), string.unquote('( #{$msg} )'));
     }
-    @if $type == 'map' {
+    //
+    @else if $type == 'map' {
         $msg: ();
         @each $key, $value in $var {
-            $key: var-dump(
-                $key,
-                $withType: false,
-                $shortType: $shortType,
-                $alwaysQuote: true // $neverQuote: $neverQuote,
-            );
+            $key: var-dump($key, $keyArgs...);
 
             $msg: list.append(
                 $msg,
-                (string.unquote('#{$key}:') var-dump($value)),
+                (string.unquote('#{$key}:') var-dump($value, $childArgs...)),
                 $separator: comma
             );
         }
         $msg: if(list.length($msg) > 0, string.unquote('( #{$msg} )'), meta.inspect(()));
     }
-    @if $type == 'string' {
+    //
+    @else if $type == 'string' {
         @if $alwaysQuote {
             $msg: string.quote($var);
         }

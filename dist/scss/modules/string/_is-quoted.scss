@@ -1,0 +1,31 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:meta';
+
+@use '../_config' as config;
+
+///
+/// Uses a compiler function to check if the given string is quoted.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function is-quoted($str) {
+    // returns
+    @if meta.type-of($str) != string {
+        @return false;
+    }
+
+    // returns
+    @if not meta.function-exists('mmutils-string-is-quoted') {
+        @if not config.$warnOnMissingCompilerFunctions {
+            @warn "[string.is-quoted] global compiler function for string.is-quoted not found, which is required for use";
+        }
+
+        @return null;
+    }
+
+    @return meta.call(meta.get-function('mmutils-string-is-quoted'), $str);
+}

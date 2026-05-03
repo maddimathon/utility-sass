@@ -49,8 +49,8 @@
         @debug '$unify = #{meta.var-dump($unify)}';
     }
 
-    $selectorA: (string.unquote('#{$selectorA}'));
-    $selectorB: (string.unquote('#{$selectorB}'));
+    $selectorA: (#{$selectorA});
+    $selectorB: (#{$selectorB});
 
     @if $debug {
         @debug '';
@@ -60,10 +60,10 @@
 
     $ret_override: null;
 
-    @if string.length('#{$selectorA}') < 1 {
+    @if string.length(#{$selectorA}) < 1 {
         $selectorA: config.$selector_null;
     }
-    @if string.length('#{$selectorB}') < 1 {
+    @if string.length(#{$selectorB}) < 1 {
         $selectorB: config.$selector_null;
     }
 

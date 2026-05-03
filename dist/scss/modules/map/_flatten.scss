@@ -10,8 +10,8 @@
 @use '../_config' as config;
 
 @function _flat-key-valid-and-add-prefix($key, $prefix) {
-    $str_key: '#{$key}';
-    $str_prefix: '#{$prefix}';
+    $str_key: #{$key};
+    $str_prefix: #{$prefix};
 
     $includeKeyName: if(
         (string.length($str_key) < 1 or $key == '$'),
@@ -34,8 +34,8 @@
 }
 
 @function _flat-key-add-suffix($key, $suffix) {
-    $str_key: '#{$key}';
-    $str_suffix: '#{$suffix}';
+    $str_key: #{$key};
+    $str_suffix: #{$suffix};
 
     $includeSuffix: if(
         ($suffix and string.length($str_suffix) > 0),
@@ -98,7 +98,7 @@
                 // now we can set it plainly
                 $return: map.set(
                     $return,
-                    '#{$_flat_childKey}',
+                    #{$_flat_childKey},
                     $_flat_childValue
                 );
             }

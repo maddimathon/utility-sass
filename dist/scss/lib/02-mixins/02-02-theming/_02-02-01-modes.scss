@@ -275,11 +275,14 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
         $includeRegionsOrComments: false;
     }
 
+    $str_brightness: string.join('/', $brightness);
+    $str_contrast: string.join('/', $contrast);
+
     @at-root {
         @if $includeRegion {
-            /* #region #{$includeRegion_heading}#{$brightness} mode + #{$contrast} contrast */
+            /* #region #{$includeRegion_heading}#{$str_brightness} mode + #{$str_contrast} contrast */
         } @else if $includeRegionsOrComments {
-            /* #{$includeRegion_heading}#{$brightness} mode + #{$contrast} contrast */
+            /* #{$includeRegion_heading}#{$str_brightness} mode + #{$str_contrast} contrast */
         }
 
         @if $includeQuery {
@@ -367,8 +370,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                         if(
                             $parentSelectorExists,
                             selector.unify(
-                                '#{$selectors_parentOrRoot}',
-                                '#{$selectors_brightness}'
+                                #{$selectors_parentOrRoot},
+                                #{$selectors_brightness}
                             ),
                             $selectors_brightness
                         )
@@ -381,8 +384,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                         if(
                             $parentSelectorExists,
                             selector.unify(
-                                '#{$selectors_parentOrRoot}',
-                                '#{$selectors_contrast}'
+                                #{$selectors_parentOrRoot},
+                                #{$selectors_contrast}
                             ),
                             $selectors_contrast
                         )
@@ -423,8 +426,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             // here to reset if body selector is added for default modes
 
             $selectors_merged: selector.unify(
-                '#{$selectors_brightness}',
-                '#{$selectors_contrast}'
+                #{$selectors_brightness},
+                #{$selectors_contrast}
             );
 
             @if $nestModeSelectors {
@@ -496,8 +499,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                         if(
                             $parentSelectorExists,
                             selector.unify(
-                                '#{$selectors_parentOrRoot}',
-                                '#{$selectors_contrast}'
+                                #{$selectors_parentOrRoot},
+                                #{$selectors_contrast}
                             ),
                             ($selectors_contrast)
                         ),
@@ -511,8 +514,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                         if(
                             $parentSelectorExists,
                             selector.unify(
-                                '#{$selectors_parentOrRoot}',
-                                '#{$selectors_brightness}'
+                                #{$selectors_parentOrRoot},
+                                #{$selectors_brightness}
                             ),
                             ($selectors_brightness)
                         ),
@@ -536,7 +539,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                         $selectors_brightness
                     );
 
-                    // /* #{$contrast} contrast queries + #{$brightness} mode selectors */
+                    // /* #{$str_contrast} contrast queries + #{$str_brightness} mode selectors */
                     @media #{$queries_contrast} {
                         #{$_sel} {
                             @content;
@@ -558,7 +561,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                         $selectors_contrast
                     );
 
-                    // /* #{$brightness} mode queries + #{$contrast} contrast selectors */
+                    // /* #{$str_brightness} mode queries + #{$str_contrast} contrast selectors */
                     @media #{$queries_brightness} {
                         #{$_sel} {
                             @content;
@@ -578,7 +581,7 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
         }
 
         @if $includeRegion {
-            /* #endregion #{$includeRegion_heading}#{$brightness} mode + #{$contrast} contrast */
+            /* #endregion #{$includeRegion_heading}#{$str_brightness} mode + #{$str_contrast} contrast */
         }
     }
 }

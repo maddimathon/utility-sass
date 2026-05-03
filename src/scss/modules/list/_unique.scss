@@ -40,12 +40,9 @@
     $return: list.join((), (), $separator: $separator, $bracketed: $bracketed);
 
     @each $value in $list {
-        @if string.length('#{$value}') and
-            list.index($test, '#{$value}') ==
-            null
-        {
+        @if string.length(#{$value}) and list.index($test, #{$value}) == null {
             $return: list.append($return, $value, $separator: $separator);
-            $test: list.append($test, '#{$value}');
+            $test: list.append($test, #{$value});
         }
     }
 

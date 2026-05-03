@@ -21,96 +21,328 @@
 /// ======================================================================== ///
 
 ///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin _snippet-button-colours(
+    $state: null,
+    //
+    $accentClr: null,
+    $background: null,
+    $borderClr: null,
+    $color: null
+) {
+    $suffix: if(not $state, '', '-#{$state}');
+
+    $accentClr: if(
+        $accentClr == null,
+        var-sys-colour(button-border#{$suffix}),
+        $accentClr
+    );
+    $background: if(
+        $background == null,
+        var-sys-colour(button-bg#{$suffix}),
+        $background
+    );
+    $borderClr: if(
+        $borderClr == null,
+        var-sys-colour(button-border#{$suffix}),
+        $borderClr
+    );
+    $color: if($color == null, var-sys-colour(button-text#{$suffix}), $color);
+
+    @include cx-prop(focus-ring-outline-color, $accentClr);
+
+    border-color: $borderClr;
+    background-color: $background;
+    color: $color;
+    accent-color: $accentClr;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin _snippet-button-base(
+    $borderWidth: 0.125rem,
+    $display: flex,
+    $focusOffset: 0.125rem,
+    $fontSize: 1em,
+    $gap: var-mrg-soft('300') var-mrg-firm('100'),
+    $lineHeight: var-line-height('100'),
+    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
+    $marginInline: 0,
+    $paddingBlock: var-mrg-soft('200'),
+    $paddingInline: var-mrg-firm('300'),
+    $width: fit-content
+) {
+    $_isDisplay_flex: $display == flex or $display == inline-flex;
+    $_isDisplay_grid: $display == grid or $display == inline-grid;
+
+    @include cx-prop(focus-ring-outline-offset, $focusOffset);
+
+    @if $display != false {
+        @include prop-display($display);
+
+        @if $_isDisplay_flex {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        @if $_isDisplay_flex or $_isDisplay_grid {
+            justify-content: start;
+            align-content: start;
+            align-items: start;
+
+            gap: $gap;
+        }
+    }
+
+    margin-block: $marginBlock;
+    margin-inline: $marginInline;
+
+    padding-block: $paddingBlock;
+    padding-inline: $paddingInline;
+
+    @if $width != false {
+        width: $width;
+    }
+
+    font: inherit;
+    font-size: $fontSize;
+    line-height: $lineHeight;
+
+    border-width: $borderWidth;
+    border-style: solid;
+    border-radius: 0;
+
+    text-align: start;
+
+    appearance: button;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+///
 /// Base styles for a button element.
 ///
 /// @since 0.1.0-pre.0
 ///
 @mixin snippet-button(
     //
-    $accentClr: var-sys-colour(button-border),
-    $background: var-sys-colour(button-bg),
-    $borderClr: var-sys-colour(button-border),
-    $color: var-sys-colour(button-text),
+    $accentClr: null,
+    $background: null,
+    $borderClr: null,
+    $color: null,
     //
-    $accentClr_active: var-sys-colour(button-border-active),
-    $background_active: var-sys-colour(button-bg-active),
-    $borderClr_active: var-sys-colour(button-border-active),
-    $color_active: var-sys-colour(button-text-active),
+    $accentClr_hover: null,
+    $background_hover: null,
+    $borderClr_hover: null,
+    $color_hover: null,
     //
-    $accentClr_hover: var-sys-colour(button-border-hover),
-    $background_hover: var-sys-colour(button-bg-hover),
-    $borderClr_hover: var-sys-colour(button-border-hover),
-    $color_hover: var-sys-colour(button-text-hover),
+    $accentClr_active: null,
+    $background_active: null,
+    $borderClr_active: null,
+    $color_active: null,
     //
-    $borderWidth: 0.125rem,
-    $focusOffset: 0.125rem,
-    $lineHeight: var-line-height('100'),
-    $gap: var-mrg-soft('300') var-mrg-firm('100'),
-    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
-    $marginInline: 0,
-    $opacity_hover: 0.875,
-    $paddingBlock: var-mrg-soft('200'),
-    $paddingInline: var-mrg-firm('300'),
-    $width: fit-content,
-
+    $includeClrs: true,
+    //
     $args...
 ) {
-    @include snippet-input(
-        $accentClr: $accentClr,
-        $accentClr_active: $accentClr_active,
-        $accentClr_hover: $accentClr_hover,
+    @include _snippet-button-base($args...);
 
-        $borderClr: $borderClr,
-        $borderClr_hover: $borderClr_hover,
-        $borderClr_active: $borderClr_active,
-
-        $background: $background,
-        $background_hover: $background_hover,
-        $background_active: $background_active,
-
-        $color: $color,
-        $color_hover: $color_hover,
-        $color_active: $color_active,
-
-        $borderWidth: $borderWidth,
-        $focusOffset: $focusOffset,
-        $lineHeight: $lineHeight,
-        $marginBlock: $marginBlock,
-        $marginInline: $marginInline,
-        $opacity_hover: $opacity_hover,
-        $paddingBlock: $paddingBlock,
-        $paddingInline: $paddingInline,
-        $width: $width,
-
-        $includeLabel: false,
-        $includePlaceholder: false,
-        $args...
-    );
-
-    & {
-        @include prop-display(flex);
-
-        flex-direction: row;
-        flex-wrap: wrap;
-
-        justify-content: start;
-        align-content: start;
-        align-items: start;
-
-        gap: #{$gap};
-
-        text-align: start;
-
-        appearance: button;
-        text-decoration: none;
-        cursor: pointer;
-
-        @content;
+    @if $includeClrs {
+        @include _snippet-button-colours(
+            $accentClr: $accentClr,
+            $background: $background,
+            $borderClr: $borderClr,
+            $color: $color
+        );
     }
+
+    @content (root);
+
+    /// STATES ///
+
+    &:hover {
+        @if $includeClrs {
+            @include _snippet-button-colours(
+                $state: hover,
+                $accentClr: $accentClr_hover,
+                $background: $background_hover,
+                $borderClr: $borderClr_hover,
+                $color: $color_hover
+            );
+        }
+
+        @content (hover);
+    }
+
+    @include focus-visible-or-within {
+        @if $includeClrs {
+            @include _snippet-button-colours(
+                $state: hover,
+                $accentClr: $accentClr_hover,
+                $background: $background_hover,
+                $borderClr: $borderClr_hover,
+                $color: $color_hover
+            );
+        }
+
+        @content (focus-visible-or-within);
+    }
+
+    @include active {
+        @if $includeClrs {
+            @include _snippet-button-colours(
+                $state: active,
+                $accentClr: $accentClr_active,
+                $background: $background_active,
+                $borderClr: $borderClr_active,
+                $color: $color_active
+            );
+        }
+
+        @content (active);
+    }
+
+    /// BLOCK ///
 
     &[aria-disabled='true'],
     &[disabled] {
         cursor: not-allowed;
+
+        @content (disabled);
+    }
+}
+
+///
+/// Base styles for the `::file-selector-button` selector with
+///
+/// If you nest this mixin, its parent should be an `input` selector.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-add-pseudo-file-selector-button(
+    $accentClr: null,
+    $background: null,
+    $borderClr: null,
+    $color: null,
+    //
+    $accentClr_hover: null,
+    $background_hover: null,
+    $borderClr_hover: null,
+    $color_hover: null,
+    //
+    $accentClr_active: null,
+    $background_active: null,
+    $borderClr_active: null,
+    $color_active: null,
+    //
+    $display: false,
+    $fontSize: 1em,
+    $marginBlock: 0,
+    $marginInline: 0 var-mrg-firm('300'),
+    $width: false,
+    //
+    $includeClrs: true,
+    //
+    $args...
+) {
+    $_parent_exists: selector.parent-exists();
+
+    $selector_root: if(
+        $_parent_exists,
+        selector.unify(&, '::file-selector-button'),
+        '::file-selector-button'
+    );
+    $selector_hover: if($_parent_exists, selector.unify(&, ':hover'), ':hover');
+
+    $selector_disabled: ('[aria-disabled=true]', '[disabled]');
+    $selector_disabled: if(
+        $_parent_exists,
+        selector.unify(&, $selector_disabled),
+        $selector_disabled
+    );
+
+    @at-root #{$selector_root} {
+        @include _snippet-button-base(
+            $display: $display,
+            $fontSize: $fontSize,
+            $marginBlock: $marginBlock,
+            $marginInline: $marginInline,
+            $width: $width,
+            $args...
+        );
+
+        @if $includeClrs {
+            @include _snippet-button-colours(
+                $accentClr: $accentClr,
+                $background: $background,
+                $borderClr: $borderClr,
+                $color: $color
+            );
+        }
+
+        @content (root);
+    }
+
+    /// STATES ///
+
+    @at-root #{$selector_hover} {
+        @at-root #{selector.unify(&, '%file-selector-button')} {
+            @if $includeClrs {
+                @include _snippet-button-colours(
+                    $state: hover,
+                    $accentClr: $accentClr_hover,
+                    $background: $background_hover,
+                    $borderClr: $borderClr_hover,
+                    $color: $color_hover
+                );
+            }
+
+            @content (hover);
+        }
+    }
+
+    @include focus-visible-or-within {
+        @at-root #{selector.unify(&, '%file-selector-button')} {
+            @if $includeClrs {
+                @include _snippet-button-colours(
+                    $state: hover,
+                    $accentClr: $accentClr_hover,
+                    $background: $background_hover,
+                    $borderClr: $borderClr_hover,
+                    $color: $color_hover
+                );
+            }
+
+            @content (focus-visible-or-within);
+        }
+    }
+
+    @include active {
+        @at-root #{selector.unify(&, '%file-selector-button')} {
+            @if $includeClrs {
+                @include _snippet-button-colours(
+                    $state: active,
+                    $accentClr: $accentClr_active,
+                    $background: $background_active,
+                    $borderClr: $borderClr_active,
+                    $color: $color_active
+                );
+            }
+
+            @content (active);
+        }
+    }
+
+    /// BLOCK ///
+
+    @at-root #{$selector_disabled} {
+        @at-root #{selector.unify(&, '%file-selector-button')} {
+            cursor: not-allowed;
+
+            @content (disabled);
+        }
     }
 }
 
@@ -123,8 +355,8 @@
 @mixin snippet-fieldset(
     $background: var-sys-colour(background),
     $borderClr: var-sys-colour(input-border),
-    $borderClr_hover: var-sys-colour(input-border-hover),
-    $borderClr_active: var-sys-colour(input-border-active),
+    $borderClr_hover: var-sys-colour(input-border),
+    $borderClr_active: var-sys-colour(input-border),
     $color: var-sys-colour(text),
     $borderWidth: 0.0625rem,
     $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
@@ -136,29 +368,38 @@
 ) {
     @include prop-display(block);
 
-    margin-block: #{$marginBlock};
-    margin-inline: #{$marginInline};
+    margin-block: $marginBlock;
+    margin-inline: $marginInline;
 
-    padding-block: #{$paddingBlock};
-    padding-inline: #{$paddingInline};
+    padding-block: $paddingBlock;
+    padding-inline: $paddingInline;
 
-    border: #{$borderWidth} solid #{$borderClr};
+    border: $borderWidth solid currentColor;
     border-radius: 0;
 
     @if $includeClrs {
-        background-color: #{$background};
-        color: #{$color};
+        border-color: $borderClr;
+        background-color: $background;
+        color: $color;
     }
 
     /// STATES ///
 
     @if $includeClrs {
-        @include focus-visible-or-within {
-            border-color: #{$borderClr_hover};
+        @if $borderClr_hover != $borderClr {
+            @include focus {
+                border-color: $borderClr_hover;
+            }
+
+            @include focus-within {
+                border-color: $borderClr_hover;
+            }
         }
 
-        @include active {
-            border-color: #{$borderClr_active};
+        @if $borderClr_active != $borderClr {
+            @include active-within {
+                border-color: $borderClr_active;
+            }
         }
     }
 
@@ -200,7 +441,6 @@
     $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
     $marginInline: 0,
     $marginBlockStart_afterLabel: var-mrg-half('400'),
-    $opacity_hover: 1,
     $paddingBlock: var-mrg-soft('200'),
     $paddingInline: var-mrg-firm('200'),
     $width: 100%,
@@ -208,53 +448,82 @@
     $includeClrs: true,
     $includeLabel: true,
     $includePlaceholder: true,
-    $selector: #{&}
+    $selector: &
 ) {
     @include cx-prop(focus-ring-outline-offset, $focusOffset);
     @include prop-display($display);
 
-    margin-block: #{$marginBlock};
-    margin-inline: #{$marginInline};
+    margin-block: $marginBlock;
+    margin-inline: $marginInline;
 
-    padding-block: #{$paddingBlock};
-    padding-inline: #{$paddingInline};
+    padding-block: $paddingBlock;
+    padding-inline: $paddingInline;
 
-    width: #{$width};
+    width: $width;
 
     font: inherit;
-    line-height: #{$lineHeight};
+    font-size: 1em;
+    line-height: $lineHeight;
 
-    border-width: #{$borderWidth};
+    border-width: $borderWidth;
     border-style: solid;
     @if $includeClrs {
-        border-color: #{$borderClr};
+        border-color: $borderClr;
     }
     border-radius: 0;
 
     @if $includeClrs {
         @include cx-prop(focus-ring-outline-color, $accentClr);
-        background-color: #{$background};
-        color: #{$color};
-        accent-color: #{$accentClr};
+        background-color: $background;
+        color: $color;
+        accent-color: $accentClr;
     }
+
+    @content (root);
 
     /// STATES ///
 
     @if $includeClrs {
-        @include hover-focus-visible-or-within {
+        @include focus-visible-or-within {
             @include cx-prop(focus-ring-outline-color, $accentClr_hover);
-            background-color: #{$background_hover};
-            border-color: #{$borderClr_hover};
-            color: #{$color_hover};
-            accent-color: #{$accentClr_hover};
+            background-color: $background_hover;
+            border-color: $borderClr_hover;
+            color: $color_hover;
+            accent-color: $accentClr_hover;
+
+            @content (focus-visible-or-within);
+        }
+
+        &:hover {
+            @include cx-prop(focus-ring-outline-color, $accentClr_hover);
+            background-color: $background_hover;
+            border-color: $borderClr_hover;
+            color: $color_hover;
+            accent-color: $accentClr_hover;
+
+            @content (hover);
         }
 
         @include active {
             @include cx-prop(focus-ring-outline-color, $accentClr_active);
-            background-color: #{$background_active};
-            border-color: #{$borderClr_active};
-            color: #{$color_active};
-            accent-color: #{$accentClr_active};
+            background-color: $background_active;
+            border-color: $borderClr_active;
+            color: $color_active;
+            accent-color: $accentClr_active;
+
+            @content (active);
+        }
+    } @else {
+        @include focus-visible-or-within {
+            @content (focus-visible-or-within);
+        }
+
+        &:hover {
+            @content (hover);
+        }
+
+        @include active {
+            @content (active);
         }
     }
 
@@ -263,7 +532,9 @@
     @if $includeLabel {
         label + &,
         label > & {
-            margin-block-start: #{$marginBlockStart_afterLabel};
+            margin-block-start: $marginBlockStart_afterLabel;
+
+            @content (after-or-in-label);
         }
     }
 
@@ -275,12 +546,18 @@
 
             color: currentColor;
 
+            @content (placeholder);
+
             @include colour-mode(('low', 'average')) {
                 color: color-mix(in srgb, currentColor 75%, transparent);
+
+                @content (placeholder--low-or-average-contrast);
             }
 
             @include high-contrast {
                 color: color-mix(in srgb, currentColor 90%, transparent);
+
+                @content (placeholder--high-contrast);
             }
         }
     }
@@ -288,6 +565,8 @@
     &[aria-disabled='true'],
     &[disabled] {
         cursor: not-allowed;
+
+        @content (disabled);
     }
 }
 
@@ -298,7 +577,9 @@
 ///
 @mixin snippet-input-types($includeBase: true, $includeClrs: true) {
     @if $includeBase {
-        @include snippet-input;
+        @include snippet-input using ($base_location) {
+            @content (base-#{$base_location});
+        }
     }
 
     &[type='button'],
@@ -316,9 +597,13 @@
     &[type='week'] {
         cursor: pointer;
 
+        @content (cursor-pointer);
+
         &[aria-disabled='true'],
         &[disabled] {
             cursor: not-allowed;
+
+            @content (cursor-pointer--disabled);
         }
     }
 
@@ -333,9 +618,13 @@
     &[type='week'] {
         cursor: text;
 
+        @content (cursor-text);
+
         &[aria-disabled='true'],
         &[disabled] {
             cursor: not-allowed;
+
+            @content (cursor-text--disabled);
         }
     }
 
@@ -344,24 +633,33 @@
         @include prop-display(inline-block);
         padding: 0;
         width: auto;
+
+        @content (box);
     }
 
     &[type='color'] {
         padding: 0;
         height: 2.25em;
         width: 2.25em;
+
+        @content (color);
     }
 
-    @at-root &[type='date'],
-        &[type='datetime-local'],
-        &[type='month'],
-        &[type='time'],
-        &[type='week'] {
+    &[type='date'],
+    &[type='datetime-local'],
+    &[type='month'],
+    &[type='time'],
+    &[type='week'] {
         width: auto;
+
+        @content (any-dates);
     }
 
     &[type='range'] {
+        margin-block-end: 0;
         padding: 0;
+
+        @content (range);
     }
 }
 
@@ -385,14 +683,14 @@
     $includeClrs: true
 ) {
     @include prop-display(block);
-    margin-block: #{$marginBlock};
+    margin-block: $marginBlock;
     margin-inline: 0;
-    font-weight: #{$fontWeight};
-    line-height: #{$lineHeight};
+    font-weight: $fontWeight;
+    line-height: $lineHeight;
     text-wrap: balance;
 
     @if $includeClrs {
-        color: #{$color};
+        color: $color;
     }
 
     &:has(> :where([type='checkbox'], [type='radio'])) {
@@ -400,13 +698,13 @@
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;
         align-items: baseline;
-        gap: #{$gap_checkradio};
+        gap: $gap_checkradio;
 
-        font-weight: #{$fontWeight_checkradio};
-        line-height: #{$lh_checkradio};
+        font-weight: $fontWeight_checkradio;
+        line-height: $lh_checkradio;
 
         @if $includeClrs {
-            color: #{$color_checkradio};
+            color: $color_checkradio;
         }
 
         cursor: pointer;
@@ -416,11 +714,11 @@
         }
 
         & + & {
-            margin-block-start: #{$marginBlock_innercheckradio};
+            margin-block-start: $marginBlock_innercheckradio;
         }
 
         + %input-base {
-            margin-block-start: #{var-mrg-firm('400')};
+            margin-block-start: var-mrg-firm('400');
         }
     }
 

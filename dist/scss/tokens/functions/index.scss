@@ -19,8 +19,8 @@ $page_top: 0px !default;
 /// @since 0.1.0-beta.0.draft
 ///
 @function tokens-get-at-properties($inputs, $stroke_relative, $style_flat) {
-    $focusRingOffset: '#{map.get($style_flat, focus-ring-outline-offset)}';
-    $focusRingWidth: '#{map.get($style_flat, focus-ring-outline-width)}';
+    $focusRingOffset: map.get($style_flat, focus-ring-outline-offset);
+    $focusRingWidth: map.get($style_flat, focus-ring-outline-width);
 
     @return map.ksort(
         map.merge(
@@ -94,7 +94,7 @@ $page_top: 0px !default;
                 scroll-padding-top: (
                     syntax: '<length-percentage> | <number>',
                     inherits: true,
-                    initial-value: #{$page_top},
+                    initial-value: $page_top,
                 ),
             ),
             $inputs,

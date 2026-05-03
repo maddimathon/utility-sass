@@ -7,9 +7,10 @@
  * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
+import { CssColours } from './CssColours.js';
 /**
  * Converts a JSON object to a scss list or map (as a string, to be written to a
- * .scss file).
+ * *.scss file).
  *
  * @category Utilities
  *
@@ -22,7 +23,21 @@ export var JsonToScss;
      *
      * Quasi-sanitizes output by converting to JSON and back before interpreting.
      */
-    function convert(json, _indent = '', opts = {}) {
+    function convert(json, _indent = '', _opts) {
+        const opts = {
+            alwaysQuoteKeys: false,
+            alwaysQuoteNumberKeys: true,
+            coloursAsStrings: _opts?.cssFunctionsAsStrings ?? false,
+            convertUnitStringsToNumbers: false,
+            convertZeroStringsToNumbers: false,
+            cssFunctionsAsStrings: false,
+            onlyQuoteAsNeeded: false,
+            requiredQuotesRegex: /[^a-z|0-9|\-|_]/i,
+            requiredQuotesKeyRegex: /[^a-z|0-9|\-|_]/i,
+            useStringModule: false,
+            ..._opts,
+            unquoteNumberString: (_opts?.unquoteNumberString ?? true) && (_opts?.useStringModule ?? false),
+        };
         let scss;
         switch (typeof json) {
             case 'boolean':
@@ -73,9 +88,19 @@ export var JsonToScss;
         const scss = [];
         for (const _t_key in input) {
             const _key = _t_key;
-            const _converted = convert(input[_key], '    ', opts)?.trim();
-            if (typeof _converted !== 'undefined') {
-                scss.push(`    ${convert(_key, undefined, opts)}: ${_converted}`);
+            const _convertedValue = convert(input[_key], '    ', opts)?.trim();
+            if (typeof _convertedValue !== 'undefined') {
+                const _keyType = typeof _key;
+                const _convertedKey = opts.alwaysQuoteKeys
+                    ? quote_string(_key)
+                    : convert(opts.alwaysQuoteNumberKeys && (_keyType === 'bigint' || _keyType === 'number') ? String(_key) : _key, undefined, {
+                        ...opts,
+                        convertUnitStringsToNumbers: opts.alwaysQuoteNumberKeys ? false : opts.convertUnitStringsToNumbers,
+                        convertZeroStringsToNumbers: opts.alwaysQuoteNumberKeys ? false : opts.convertZeroStringsToNumbers,
+                        requiredQuotesRegex: opts.requiredQuotesKeyRegex,
+                        useStringModule: false,
+                    });
+                scss.push(`    ${_convertedKey}: ${_convertedValue}`);
             }
         }
         // returns
@@ -88,11 +113,6 @@ export var JsonToScss;
      * Converts a string for proper scss output.
      */
     function convert_string(input, opts) {
-        // returns - no quotes
-        if (opts.convertUnitStringsToNumbers
-            && input.match(/^\s*\d[\d\.]*(%|[cm]m|deg|m?s|p[ctx]|rad|r?em|[dls]?v[wh])\s*$/i)) {
-            return `${input}`;
-        }
         // returns - if it is a colour string, it gets no quotes
         if (!opts.coloursAsStrings && (input.match(/^\s*#[0-9|A-H]{3,6}\s*$/i)
             || input.match(/^\s*hsl\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+%?\s*[,\s]\s*[\d\.]+%?\s*\)\s*$/i)
@@ -100,16 +120,60 @@ export var JsonToScss;
             || input.match(/^\s*rgb\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*\)\s*$/i))) {
             return `${input}`;
         }
+        const isUnitedNumber = input.match(/^\s*-?\d[\d\.]*(%|[cm]m|deg|m?s|p[ctx]|rad|r?em|[dls]?v[wh])\s*$/i) !== null;
+        const isZeroNumber = input.match(/^\s*-?0[0\.]*\s*$/i) !== null;
+        // returns - no quotes
+        if ((isUnitedNumber && opts.convertUnitStringsToNumbers)
+            || (isZeroNumber && opts.convertZeroStringsToNumbers)) {
+            return `${input}`;
+        }
+        // returns - maybe unquoted
+        if (isUnitedNumber
+            || isZeroNumber
+            || input.match(/^\s*-?\d[\d\.]*\s*$/i) !== null) {
+            return quote_string(input, opts.useStringModule && opts.unquoteNumberString);
+        }
+        // returns - this is a css function
+        if (!opts.cssFunctionsAsStrings
+            && input.match(/^\s*(calc|clamp|max|min|url|var)\(.+\)\s*$/i)) {
+            return `${input}`;
+        }
+        // returns - not a colour slug, not a number, & only characters that don't need quotes means no quotes
+        if (opts.onlyQuoteAsNeeded
+            && !CssColours.isSlug(input)
+            && input.match(opts.requiredQuotesRegex) === null) {
+            // returns - as an unquoted string if possible
+            switch (input) {
+                case 'currentColor':
+                case 'inherit':
+                    return `${input}`;
+                default:
+                    // returns
+                    if (CssColours.isKeyword(input)) {
+                        return quote_string(input, opts.useStringModule);
+                    }
+                    return `${input}`;
+            }
+        }
+        return quote_string(input);
+    }
+    /**
+     * Quotes the given string for scss output.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    function quote_string(input, unquote = false) {
         const hasSingleQuote = input.match(/'/) !== null;
         const hasDoubleQuote = input.match(/"/) !== null;
         // returns
         if (!hasSingleQuote) {
-            return `'${input}'`;
+            return unquote ? `string.unquote( '${input}' )` : `'${input}'`;
         }
         // returns
         if (!hasDoubleQuote) {
-            return `"${input}"`;
+            return unquote ? `string.unquote( "${input}" )` : `"${input}"`;
         }
-        return `'${input.replace(/'/gi, '\\\'')}'`;
+        input = input.replace(/'/gi, '\\\'');
+        return unquote ? `string.unquote( '${input}' )` : `'${input}'`;
     }
 })(JsonToScss || (JsonToScss = {}));

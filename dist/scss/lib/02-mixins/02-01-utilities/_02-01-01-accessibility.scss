@@ -38,7 +38,7 @@
     $args: meta.keywords($args);
 
     @if $includeQuery {
-        @media ( prefers-reduced-motion: #{if( $bool, 'no-preference', 'reduce' )} ) {
+        @media (prefers-reduced-motion: if( $bool, 'no-preference', 'reduce' )) {
             @if $parentSelectorExists {
                 @content;
             } @else {

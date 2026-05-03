@@ -26,24 +26,23 @@ $_cxPropPre: if(
 );
 
 ///
-/// @since ___PKG_VERSION___
-///
-@mixin at-property($slug, $map) {
-    @property --#{$_cxPropPre}#{$slug} {
-        @each $prop, $value in map.flatten($map) {
-            #{$prop}: $value;
-        }
-    }
-}
-
-///
 /// Prints a custom property definition.
 ///
 /// @param {string} $slug
 /// @param {any} $value
 /// @param {?string} $comment
 ///
-@mixin custom-property($slug, $value, $comment: null) {
+/// @since ___PKG_VERSION___ — Added optional $quoteString param.
+///
+@mixin custom-property($slug, $value, $comment: null, $quoteString: string.is-quoted($value)) {
+    @if meta.type-of($value) == string {
+        @if $quoteString {
+            $value: string.concat(('"', string.quote($value), '"'));
+        } @else {
+            $value: string.unquote($value);
+        }
+    }
+
     @if $comment {
         --#{$_cxPropPre}#{$slug}: #{$value}; /* #{$comment} */
     } @else {
@@ -71,16 +70,25 @@ $_cxPropPre: if(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin prop($slug, $value, $useCustom: true, $setCxProp: true, $setProp: true) {
+@mixin prop($slug, $value, $useCustom: true, $setCxProp: true, $setProp: true, $quoteString: null) {
+    @if meta.type-of($value) == string {
+        @if $quoteString {
+            $value: string.quote($value);
+        } @else {
+            $value: string.unquote($value);
+        }
+    }
+
     @if $useCustom and not config.$mx_prop_useCustom_never {
         @if $setCxProp {
-            @include custom-property($slug, $value);
+            @include custom-property($slug, $value, $quoteString: $quoteString);
         }
+
         @if $setProp {
-            #{$slug}: var(--#{$_cxPropPre}#{$slug}, #{$value});
+            #{$slug}: do-var($slug, $value);
         }
     } @else if $setProp {
-        #{$slug}: #{$value};
+        #{$slug}: $value;
     }
 }
 
@@ -93,4 +101,15 @@ $_cxPropPre: if(
 ///
 @mixin prop-display($value, $args...) {
     @include prop(display, $value, $useCustom: config.$mx_prop_useCustom_display, $args...);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin at-property($slug, $map) {
+    @property --#{$_cxPropPre}#{$slug} {
+        @each $prop, $value in map.flatten($map) {
+            #{$prop}: $value;
+        }
+    }
 }

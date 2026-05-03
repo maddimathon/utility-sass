@@ -51,6 +51,8 @@ export function sassFn_string_regexSplit(
             ] ).then(
                 async ( arr ): Promise<sass.SassList> => {
 
+                    const quoteStrings = arr[ 0 ]?.hasQuotes;
+
                     const string = arr[ 0 ]?.hasQuotes ? arr[ 0 ]?.text.replace( /^['"](.*)['"]$/g, '$1' ) : arr[ 0 ]?.text;
                     const separator = arr[ 1 ]?.hasQuotes ? arr[ 1 ]?.text.replace( /^['"](.*)['"]$/g, '$1' ) : arr[ 1 ]?.text;
                     const flags = arr[ 2 ]?.hasQuotes ? arr[ 2 ]?.text.replace( /^['"](.*)['"]$/g, '$1' ) : arr[ 2 ]?.text;
@@ -76,7 +78,7 @@ export function sassFn_string_regexSplit(
                         console.vi.log( { '[string.regex-split] string.match( regex )': string.match( regex ) }, 2, { msg: { linesIn: 0 } } );
                     }
 
-                    return jsValueToSass( string.split( regex, limit ) );
+                    return jsValueToSass( string.split( regex, limit ), { quoteStrings } );
                 }
             ),
     } as const satisfies { [ key: string ]: sass.CustomFunction<'async'>; };

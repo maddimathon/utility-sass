@@ -23,13 +23,21 @@
 ///
 /// @returns {string[]}  If $options is a list, all the list items are one of those values.
 ///
+/// @since ___PKG_VERSION___ — Added optional $separator, $unquote params.
+///
 @function config-valid-list-strings(
     $value,
     $name,
     $default,
     $options: null,
-    $allowEmptyList: true
+    $allowEmptyList: true,
+    $separator: null,
+    $unquote: false
 ) {
+    @if $separator != null {
+        $default: list.join($default, (), $separator: $separator);
+    }
+
     // returns - value is to be default
     @if $value == null {
         @return $default;
@@ -41,6 +49,10 @@
         @if string.length($value) < 1 {
             @warn "[config] $#{$name} must be a valid list (not an empty string)";
             @return $default;
+        }
+
+        @if $unquote {
+            $value: string.unquote($value);
         }
 
         $value: ($value);
@@ -63,17 +75,27 @@
 
     $valid_list: ();
 
-    $list_separator: list.separator($value);
+    $list_separator: if($separator == null, list.separator($value), $separator);
 
     $fail_return: 'FAILED_VALIDATION_1568413546dsafdgfsd354scadsvnsfgnj65';
     $i: 1;
 
     @each $item in $value {
         // validates the item
-        $valid_item: config-valid-string($item, '#{$name}.#{$i}', $fail_return, $options);
+        $valid_item: config-valid-string(
+            $item,
+            '#{$name}.#{$i}',
+            $default: $fail_return,
+            $options: $options
+        );
 
         @if $valid_item != $fail_return {
             // adds item to the valid list
+
+            @if $unquote {
+                $valid_item: string.unquote($valid_item);
+            }
+
             $valid_list: list.append($valid_list, $valid_item, $separator: $list_separator);
         }
 

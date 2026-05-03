@@ -28,6 +28,7 @@ export function sassFn_string_regexReplace({ console }) {
             sassAssertValueType('flags', 'string', args[3], false),
             sassAssertValueType('debug', 'bool', args[4], true),
         ]).then(async (arr) => {
+            const quoteStrings = arr[0]?.hasQuotes;
             const string = arr[0]?.hasQuotes ? arr[0]?.text.replace(/^['"](.*)['"]$/g, '$1') : arr[0]?.text;
             const search = arr[1]?.hasQuotes ? arr[1]?.text.replace(/^['"](.*)['"]$/g, '$1') : arr[1]?.text;
             const replace = arr[2]?.hasQuotes ? arr[2]?.text.replace(/^['"](.*)['"]$/g, '$1') : arr[2]?.text;
@@ -48,7 +49,7 @@ export function sassFn_string_regexReplace({ console }) {
                 console.vi.log({ '[string.regex-replace] regex': regex }, 2, { msg: { linesIn: 0 } });
                 console.vi.log({ '[string.regex-replace] string.match( regex )': string.match(regex) }, 2, { msg: { linesIn: 0 } });
             }
-            return jsValueToSass(string.replace(regex, replace ?? ''));
+            return jsValueToSass(string.replace(regex, replace ?? ''), { quoteStrings });
         }),
     };
 }

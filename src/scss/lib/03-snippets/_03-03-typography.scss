@@ -31,16 +31,16 @@ $_headingDefault_textTransform: none;
 /// @since 0.1.0-alpha.6 — Added optional $includeUnstyledHeadingProps prop.
 ///
 @mixin snippet-unstyled-heading($fontStyle: 'italic') {
-    margin-block: #{$_headingDefault_marginBlockStart} #{$_headingDefault_marginBlockEnd};
+    margin-block: $_headingDefault_marginBlockStart $_headingDefault_marginBlockEnd;
 
-    font-weight: #{$_headingDefault_fontWeight};
-    font-size: #{$_headingDefault_size};
-    line-height: #{$_headingDefault_lineHeight};
-    letter-spacing: #{$_headingDefault_letterSpacing};
+    font-weight: $_headingDefault_fontWeight;
+    font-size: $_headingDefault_size;
+    line-height: $_headingDefault_lineHeight;
+    letter-spacing: $_headingDefault_letterSpacing;
 
-    text-transform: #{$_headingDefault_textTransform};
+    text-transform: $_headingDefault_textTransform;
 
-    font-style: #{$_headingDefault_fontStyle};
+    font-style: $_headingDefault_fontStyle;
 
     @if $fontStyle == italic {
         font-style: normal;
@@ -100,19 +100,19 @@ $_headingDefault_textTransform: none;
     @if $slug == '1' {
         $fontWeight: 900;
         $lineHeight: var-line-height('200');
-        $marginBlockStart: #{var-mrg-soft('800')};
+        $marginBlockStart: var-mrg-soft('800');
     }
 
     @if $slug == '2' {
         $fontWeight: 800;
         $lineHeight: var-line-height('200');
-        $marginBlockStart: #{var-mrg-soft('800')};
+        $marginBlockStart: var-mrg-soft('800');
     }
 
     @if $slug == '3' {
         $fontWeight: 700;
         $lineHeight: var-line-height('200');
-        $marginBlockStart: #{var-mrg-soft('800')};
+        $marginBlockStart: var-mrg-soft('800');
     }
 
     @if $slug == '4' {
@@ -151,17 +151,17 @@ $_headingDefault_textTransform: none;
         $lineHeight: var-line-height('500');
     }
 
-    margin-block: #{$marginBlockStart} #{$marginBlockEnd};
+    margin-block: $marginBlockStart $marginBlockEnd;
 
-    font-weight: #{$fontWeight};
-    font-size: #{$size};
-    line-height: #{$lineHeight};
-    letter-spacing: #{$letterSpacing};
+    font-weight: $fontWeight;
+    font-size: $size;
+    line-height: $lineHeight;
+    letter-spacing: $letterSpacing;
 
-    text-transform: #{$textTransform};
+    text-transform: $textTransform;
     text-wrap: balance;
 
-    font-style: #{$fontStyle};
+    font-style: $fontStyle;
 
     @if $fontStyle == italic {
         em {
@@ -199,22 +199,22 @@ $_headingDefault_textTransform: none;
 
     @include prop-display($display);
 
-    margin-inline: #{$marginInline};
+    margin-inline: $marginInline;
 
     @if $includeMarginBlock {
-        margin-block: #{var-mrg-soft('400')} 0;
-        margin-block: #{var-mrg-soft('600')} calc(var-mrg-soft('600') - var-mrg-soft('400'));
+        margin-block: var-mrg-soft('400') 0;
+        margin-block: var-mrg-soft('600') calc(var-mrg-soft('600') - var-mrg-soft('400'));
     }
 
-    padding-inline-start: #{$paddingInlineStart};
+    padding-inline-start: $paddingInlineStart;
 
     @if $includeBorder {
-        border-inline-start: #{var-border-width('200')} solid currentColor;
+        border-inline-start: var-border-width('200') solid currentColor;
     }
 
     @if $includeWidth {
-        width: #{$width};
-        max-width: #{$maxWidth};
+        width: $width;
+        max-width: $maxWidth;
     }
 
     @if $_content_exists {
@@ -228,7 +228,7 @@ $_headingDefault_textTransform: none;
     @if $includeCite {
         > cite {
             @include prop-display(block);
-            margin-block: #{var-mrg-soft('400')} 0;
+            margin-block: var-mrg-soft('400') 0;
             text-align: end;
 
             @if $_content_exists {
@@ -271,22 +271,22 @@ $_headingDefault_textTransform: none;
     @include prop-display(block);
     position: relative;
 
-    margin-block: #{$marginBlock};
-    margin-inline: #{$marginInline};
+    margin-block: $marginBlock;
+    margin-inline: $marginInline;
 
-    padding-block: #{$paddingBlock};
-    padding-inline: #{$paddingInline};
+    padding-block: $paddingBlock;
+    padding-inline: $paddingInline;
 
     @if $includeBorder {
-        border: #{var-border-width('100')} solid currentColor;
+        border: var-border-width('100') solid currentColor;
     }
 
     @if $includeWidth {
-        width: #{$width};
-        max-width: #{$maxWidth};
+        width: $width;
+        max-width: $maxWidth;
     }
 
-    font-size: #{$fontSize};
+    font-size: $fontSize;
 
     overflow: auto;
 
