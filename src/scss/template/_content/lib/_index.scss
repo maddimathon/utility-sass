@@ -18,20 +18,14 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 /// @since ___PKG_VERSION___
 ///
-@function get-extend-selectors-button() {
+@function get-selectors-button() {
     @return (
-        ('::file-selector-button', file-selector-button),
-        (
-            (
-                button,
-                "[role='button']",
-                "input[type='button']",
-                "input[type='reset']",
-                "input[type='submit']",
-                'a.button[href]'
-            ),
-            button
-        )
+        button,
+        '[role=button]',
+        'input[type=button]',
+        'input[type=reset]',
+        'input[type=submit]',
+        'a.button'
     );
 }
 
@@ -129,7 +123,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
             @extend %focus-ring--visible !optional;
         }
 
-        #{config.$mx_interactiveStates_selector_focus} {
+        #{config.$selector_interactiveState_focus} {
             @extend %focus-ring !optional;
         }
     }
@@ -149,6 +143,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         hr,
         //
         /// ## Typography ==================================== ///
+        ('::selection', selection),
         ('.screen-reader-text', screen-reader-text),
         ((strong, b), strong),
         ((em, i), em),
@@ -167,13 +162,13 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         li,
         //
         /// ## Forms ==================================== ///
+        ('::file-selector-button', file-selector-button),
         label,
         fieldset,
         legend,
         input,
         select,
         textarea,
-        ('::selection', selection),
         //
         /// ## Tables ==================================== ///
         table,
@@ -189,7 +184,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         )
     );
 
-    $additional: list.join($additional, get-extend-selectors-button());
+    $additional: list.append($additional, (get-selectors-button(), button));
 
     @include extend-selectors-globals--focus-ring;
 

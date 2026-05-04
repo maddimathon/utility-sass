@@ -1,0 +1,109 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../../../../../lib';
+
+@use '../config';
+
+@use '../../../../../modules/list';
+@use '../../../../../modules/map';
+@use '../../../../../modules/meta';
+
+@use '../../../../../lib' as *;
+
+//#region - $interactive_paramPermutations
+$interactive_paramPermutations: (
+    (true, true, true, true, true),
+    (true, true, true, true, false),
+    (true, true, true, false, true),
+    (true, true, true, false, false),
+    (true, true, false, true, true),
+    (true, true, false, true, false),
+    (true, true, false, false, true),
+    (true, true, false, false, false),
+    (true, false, true, true, true),
+    (true, false, true, true, false),
+    (true, false, true, false, true),
+    (true, false, true, false, false),
+    (true, false, false, true, true),
+    (true, false, false, true, false),
+    (true, false, false, false, true),
+    (true, false, false, false, false),
+    (false, true, true, true, true),
+    (false, true, true, true, false),
+    (false, true, true, false, true),
+    (false, true, true, false, false),
+    (false, true, false, true, true),
+    (false, true, false, true, false),
+    (false, true, false, false, true),
+    (false, true, false, false, false),
+    (false, false, true, true, true),
+    (false, false, true, true, false),
+    (false, false, true, false, true),
+    (false, false, true, false, false),
+    (false, false, false, true, true),
+    (false, false, false, true, false),
+    (false, false, false, false, true),
+    (false, false, false, false, false)
+);
+//#endregion - $interactive_paramPermutations
+
+@mixin apply-interactive-mixin-iterator(
+    $active,
+    $activeWithin,
+    $hover,
+    $focus,
+    $focusWithin,
+    $args...
+) {
+    $args: meta.keywords($args);
+
+    $_trueArgsList: ();
+    $_trueArgsDumpList: ();
+
+    @if $hover {
+        $_trueArgsList: map.set($_trueArgsList, 'hover', $hover);
+        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$hover', $hover);
+    }
+
+    @if $focus {
+        $_trueArgsList: map.set($_trueArgsList, 'focus', $focus);
+        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$focus', $focus);
+    }
+
+    @if $focusWithin {
+        $_trueArgsList: map.set($_trueArgsList, 'focusWithin', $focusWithin);
+        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$focusWithin', $focusWithin);
+    }
+
+    @if $active {
+        $_trueArgsList: map.set($_trueArgsList, 'active', $active);
+        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$active', $active);
+    }
+
+    @if $activeWithin {
+        $_trueArgsList: map.set($_trueArgsList, 'activeWithin', $activeWithin);
+        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$activeWithin', $activeWithin);
+    }
+
+    $_trueArgsList: map.merge($_trueArgsList, $args);
+    $_trueArgsDumpList: map.merge($_trueArgsDumpList, $args);
+
+    $_argsList: if(
+        list.length($_trueArgsDumpList) < 1,
+        '()',
+        meta.var-dump($_trueArgsDumpList, $withType: false, $keys_neverQuote: true)
+    );
+
+    @media apply-interactive-mixin {
+        @at-root {
+            /* @include apply-interactive-mixin#{$_argsList} */
+        }
+
+        @include apply-interactive-mixin($_trueArgsList...) {
+            /* content */
+        }
+    }
+}

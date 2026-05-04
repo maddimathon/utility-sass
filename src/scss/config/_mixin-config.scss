@@ -69,15 +69,15 @@ $mx_extendSelectors_headingsByRole: true !default;
 
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks to $mx_interactiveStates_includeFallbacks
+/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks to $mx_focusVisible_includeFallbacks
 ///
-$mx_interactiveStates_includeFallbacks: true !default;
+$mx_focusVisible_includeFallbacks: true !default;
 
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks_only to $mx_interactiveStates_fallbacksOnly
+/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks_only to $mx_focusVisible_fallbacksOnly
 ///
-$mx_interactiveStates_fallbacksOnly: false !default;
+$mx_focusVisible_fallbacksOnly: false !default;
 
 ///
 /// @since ___PKG_VERSION___
@@ -85,46 +85,44 @@ $mx_interactiveStates_fallbacksOnly: false !default;
 $mx_interactiveStates_featureCheck_viaQuery: false !default;
 
 ///
-/// An additional selector to use for active states. May be declared separately from
-/// ':active' for better compatibility.
+/// An additional selector to use for active states.
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_interactiveStates_selector_active: null !default;
-$mx_interactiveStates_selector_active: config-valid-selector(
-    $mx_interactiveStates_selector_active,
-    'mx_interactiveStates_selector_active',
+$selector_interactiveState_active: null !default;
+$selector_interactiveState_active: config-valid-selector(
+    $selector_interactiveState_active,
+    'selector_interactiveState_active',
     $default: modules.$selector_null
 );
 
 ///
-/// Whether to declare $mx_interactiveStates_selector_active rules separately
-/// from ':active' for better compatibility.
+/// Whether to declare $selector_interactiveState_active rules separately
+/// from other selectors for better compatibility.
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_interactiveStates_selector_active_separate: false !default;
+$mx_interactive_isolateSelector_active: false !default;
 
 ///
-/// An additional selector to use for focus states. May be declared separately
-/// from ':focus' for better compatibility.
+/// An additional selector to use for focus states.
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_interactiveStates_selector_focus: null !default;
-$mx_interactiveStates_selector_focus: config-valid-selector(
-    $mx_interactiveStates_selector_focus,
-    'mx_interactiveStates_selector_focus',
+$selector_interactiveState_focus: null !default;
+$selector_interactiveState_focus: config-valid-selector(
+    $selector_interactiveState_focus,
+    'selector_interactiveState_focus',
     $default: modules.$selector_null
 );
 
 ///
-/// Whether to declare $mx_interactiveStates_selector_focus rules separately
-/// from ':focus' for better compatibility.
+/// Whether to declare $selector_interactiveState_focus rules separately
+/// from other selectors for better compatibility.
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_interactiveStates_selector_focus_separate: false !default;
+$mx_interactive_isolateSelector_focus: false !default;
 
 ///
 /// @since ___PKG_VERSION___

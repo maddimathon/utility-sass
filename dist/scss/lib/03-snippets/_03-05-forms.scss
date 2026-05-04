@@ -143,13 +143,13 @@
     $borderClr_active: null,
     $color_active: null,
     //
-    $includeClrs: true,
+    $includeColours: true,
     //
     $args...
 ) {
     @include _snippet-button-base($args...);
 
-    @if $includeClrs {
+    @if $includeColours {
         @include _snippet-button-colours(
             $accentClr: $accentClr,
             $background: $background,
@@ -163,7 +163,7 @@
     /// STATES ///
 
     &:hover {
-        @if $includeClrs {
+        @if $includeColours {
             @include _snippet-button-colours(
                 $state: hover,
                 $accentClr: $accentClr_hover,
@@ -177,7 +177,7 @@
     }
 
     @include focus-visible-or-within {
-        @if $includeClrs {
+        @if $includeColours {
             @include _snippet-button-colours(
                 $state: hover,
                 $accentClr: $accentClr_hover,
@@ -191,7 +191,7 @@
     }
 
     @include active {
-        @if $includeClrs {
+        @if $includeColours {
             @include _snippet-button-colours(
                 $state: active,
                 $accentClr: $accentClr_active,
@@ -215,7 +215,7 @@
 }
 
 ///
-/// Base styles for the `::file-selector-button` selector with
+/// Base styles for the `::file-selector-button` selector.
 ///
 /// If you nest this mixin, its parent should be an `input` selector.
 ///
@@ -243,7 +243,8 @@
     $marginInline: 0 var-mrg-firm('300'),
     $width: false,
     //
-    $includeClrs: true,
+    $includeColours: true,
+    $selector: '%file-selector-button',
     //
     $args...
 ) {
@@ -251,8 +252,8 @@
 
     $selector_root: if(
         $_parent_exists,
-        selector.unify(&, '::file-selector-button'),
-        '::file-selector-button'
+        selector.unify(&, $selector),
+        $selector
     );
     $selector_hover: if($_parent_exists, selector.unify(&, ':hover'), ':hover');
 
@@ -273,7 +274,7 @@
             $args...
         );
 
-        @if $includeClrs {
+        @if $includeColours {
             @include _snippet-button-colours(
                 $accentClr: $accentClr,
                 $background: $background,
@@ -288,8 +289,8 @@
     /// STATES ///
 
     @at-root #{$selector_hover} {
-        @at-root #{selector.unify(&, '%file-selector-button')} {
-            @if $includeClrs {
+        @at-root #{selector.unify(&, $selector)} {
+            @if $includeColours {
                 @include _snippet-button-colours(
                     $state: hover,
                     $accentClr: $accentClr_hover,
@@ -304,8 +305,8 @@
     }
 
     @include focus-visible-or-within {
-        @at-root #{selector.unify(&, '%file-selector-button')} {
-            @if $includeClrs {
+        @at-root #{selector.unify(&, $selector)} {
+            @if $includeColours {
                 @include _snippet-button-colours(
                     $state: hover,
                     $accentClr: $accentClr_hover,
@@ -320,8 +321,8 @@
     }
 
     @include active {
-        @at-root #{selector.unify(&, '%file-selector-button')} {
-            @if $includeClrs {
+        @at-root #{selector.unify(&, $selector)} {
+            @if $includeColours {
                 @include _snippet-button-colours(
                     $state: active,
                     $accentClr: $accentClr_active,
@@ -338,7 +339,7 @@
     /// BLOCK ///
 
     @at-root #{$selector_disabled} {
-        @at-root #{selector.unify(&, '%file-selector-button')} {
+        @at-root #{selector.unify(&, $selector)} {
             cursor: not-allowed;
 
             @content (disabled);
@@ -364,7 +365,7 @@
     $paddingBlock: var-mrg-soft('300') var-mrg-firm('300'),
     $paddingInline: var-mrg-firm('400'),
     //
-    $includeClrs: true
+    $includeColours: true
 ) {
     @include prop-display(block);
 
@@ -377,7 +378,7 @@
     border: $borderWidth solid currentColor;
     border-radius: 0;
 
-    @if $includeClrs {
+    @if $includeColours {
         border-color: $borderClr;
         background-color: $background;
         color: $color;
@@ -385,7 +386,7 @@
 
     /// STATES ///
 
-    @if $includeClrs {
+    @if $includeColours {
         @if $borderClr_hover != $borderClr {
             @include focus {
                 border-color: $borderClr_hover;
@@ -445,7 +446,7 @@
     $paddingInline: var-mrg-firm('200'),
     $width: 100%,
     //
-    $includeClrs: true,
+    $includeColours: true,
     $includeLabel: true,
     $includePlaceholder: true,
     $selector: &
@@ -467,12 +468,12 @@
 
     border-width: $borderWidth;
     border-style: solid;
-    @if $includeClrs {
+    @if $includeColours {
         border-color: $borderClr;
     }
     border-radius: 0;
 
-    @if $includeClrs {
+    @if $includeColours {
         @include cx-prop(focus-ring-outline-color, $accentClr);
         background-color: $background;
         color: $color;
@@ -483,7 +484,7 @@
 
     /// STATES ///
 
-    @if $includeClrs {
+    @if $includeColours {
         @include focus-visible-or-within {
             @include cx-prop(focus-ring-outline-color, $accentClr_hover);
             background-color: $background_hover;
@@ -539,7 +540,7 @@
     }
 
     @if $includePlaceholder {
-        $_clr: if($includeClrs, $color_placeholder, currentColor);
+        $_clr: if($includeColours, $color_placeholder, currentColor);
 
         &::placeholder {
             opacity: 1;
@@ -575,7 +576,7 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@mixin snippet-input-types($includeBase: true, $includeClrs: true) {
+@mixin snippet-input-types($includeBase: true, $includeColours: true) {
     @if $includeBase {
         @include snippet-input using ($base_location) {
             @content (base-#{$base_location});
@@ -680,7 +681,7 @@
     $marginBlock: var-mrg-soft('400') 0,
     $marginBlock_innercheckradio: var-mrg-firm('200'),
     //
-    $includeClrs: true
+    $includeColours: true
 ) {
     @include prop-display(block);
     margin-block: $marginBlock;
@@ -689,7 +690,7 @@
     line-height: $lineHeight;
     text-wrap: balance;
 
-    @if $includeClrs {
+    @if $includeColours {
         color: $color;
     }
 
@@ -703,7 +704,7 @@
         font-weight: $fontWeight_checkradio;
         line-height: $lh_checkradio;
 
-        @if $includeClrs {
+        @if $includeColours {
             color: $color_checkradio;
         }
 

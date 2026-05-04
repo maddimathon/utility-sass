@@ -9,7 +9,7 @@
  * Author: Maddi Mathon (www.maddimathon.com/web)
  * License: MIT
  */
-/* # MIXINS - INTERACTIVE
+/* # MIXINS - INTERACTIVE - Fallbacks Only ($mx_focusVisible_fallbacksOnly: true)
  * 
  * For demo, the config has been extended with:
  * $selector_interactiveState_active: "[data-state-active]"
@@ -48,29 +48,15 @@
 }
 @media focus-visible {
     /* @include focus-visible { } */
-    [data-state-focus],
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* content */
-    }
-    :focus-visible {
+    :focus,
+    [data-state-focus] {
         /* content */
     }
 }
 @media focus-visible-or-within {
     /* @include focus-visible-or-within { } */
-    [data-state-focus],
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* content */
-    }
-    :focus-visible {
+    :focus,
+    [data-state-focus] {
         /* content */
     }
     :focus-within {
@@ -82,31 +68,17 @@
 }
 @media hover-focus-visible {
     /* @include hover-focus-visible { } */
+    :focus,
     :hover,
-    [data-state-focus],
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* content */
-    }
-    :focus-visible {
+    [data-state-focus] {
         /* content */
     }
 }
 @media hover-focus-visible-or-within {
     /* @include hover-focus-visible-or-within { } */
+    :focus,
     :hover,
-    [data-state-focus],
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* content */
-    }
-    :focus-visible {
+    [data-state-focus] {
         /* content */
     }
     :focus-within {
@@ -118,35 +90,21 @@
 }
 @media active-hover-focus-visible {
     /* @include active-hover-focus-visible { } */
+    :focus,
     :hover,
     :active,
     [data-state-active],
-    [data-state-focus],
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* content */
-    }
-    :focus-visible {
+    [data-state-focus] {
         /* content */
     }
 }
 @media active-hover-focus-visible-or-within {
     /* @include active-hover-focus-visible-or-within { } */
+    :focus,
     :hover,
     :active,
     [data-state-active],
-    [data-state-focus],
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* content */
-    }
-    :focus-visible {
+    [data-state-focus] {
         /* content */
     }
     :focus-within {
@@ -192,29 +150,15 @@
 }
 @media focus-visible {
     /* @include focus-visible { } */
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) button:focus {
-        /* content */
-    }
-    button:focus-visible {
+    button:focus,
+    button[data-state-focus] {
         /* content */
     }
 }
 @media focus-visible-or-within {
     /* @include focus-visible-or-within { } */
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) button:focus {
-        /* content */
-    }
-    button:focus-visible {
+    button:focus,
+    button[data-state-focus] {
         /* content */
     }
     button:focus-within {
@@ -226,31 +170,17 @@
 }
 @media hover-focus-visible {
     /* @include hover-focus-visible { } */
+    button:focus,
     button:hover,
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) button:focus {
-        /* content */
-    }
-    button:focus-visible {
+    button[data-state-focus] {
         /* content */
     }
 }
 @media hover-focus-visible-or-within {
     /* @include hover-focus-visible-or-within { } */
+    button:focus,
     button:hover,
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) button:focus {
-        /* content */
-    }
-    button:focus-visible {
+    button[data-state-focus] {
         /* content */
     }
     button:focus-within {
@@ -262,35 +192,21 @@
 }
 @media active-hover-focus-visible {
     /* @include active-hover-focus-visible { } */
+    button:focus,
     button:hover,
     button:active,
     button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) button:focus {
-        /* content */
-    }
-    button:focus-visible {
+    button[data-state-focus] {
         /* content */
     }
 }
 @media active-hover-focus-visible-or-within {
     /* @include active-hover-focus-visible-or-within { } */
+    button:focus,
     button:hover,
     button:active,
     button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
-        /* content */
-    }
-    :where(.js__no-focusVisible) button:focus {
-        /* content */
-    }
-    button:focus-visible {
+    button[data-state-focus] {
         /* content */
     }
     button:focus-within {

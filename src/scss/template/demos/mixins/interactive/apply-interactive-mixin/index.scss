@@ -1,0 +1,35 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../config';
+@forward 'header';
+
+@use 'lib' as *;
+
+/* #region - NO PARENT */
+@each $active, $activeWithin, $hover, $focus, $focusWithin in $interactive_paramPermutations {
+    @include apply-interactive-mixin-iterator(
+        $active: $active,
+        $activeWithin: $activeWithin,
+        $hover: $hover,
+        $focus: $focus,
+        $focusWithin: $focusWithin
+    );
+}
+/* #endregion - NO PARENT */
+
+/* #region - WITH PARENT */
+button {
+    @each $active, $activeWithin, $hover, $focus, $focusWithin in $interactive_paramPermutations {
+        @include apply-interactive-mixin-iterator(
+            $active: $active,
+            $activeWithin: $activeWithin,
+            $hover: $hover,
+            $focus: $focus,
+            $focusWithin: $focusWithin
+        );
+    }
+}
+/* #endregion - WITH PARENT */

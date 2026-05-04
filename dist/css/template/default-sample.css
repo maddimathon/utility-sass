@@ -382,11 +382,7 @@ a[href] {
 a[href]:visited {
     color: var(--sys-clr-link-visited, VisitedText);
 }
-a[href]:hover {
-    text-decoration-color: transparent;
-    color: var(--sys-clr-link-hover, ActiveText);
-}
-
+a[href]:hover,
 .no-js a[href]:focus,
 .js__no-whereSelector a[href]:focus {
     text-decoration-color: transparent;
@@ -549,14 +545,14 @@ h1 input[type="reset"],
 .h1 input[type="reset"],
 h1 input[type="submit"],
 .h1 input[type="submit"],
-h1 a.button[href],
-.h1 a.button[href],
+h1 a.button,
+.h1 a.button,
 .page-title button,
 .page-title [role="button"],
 .page-title input[type="button"],
 .page-title input[type="reset"],
 .page-title input[type="submit"],
-.page-title a.button[href] {
+.page-title a.button {
     font: inherit;
     font-size: 1em;
     letter-spacing: inherit;
@@ -580,7 +576,7 @@ h1 a.button[href],
         input[type="button"],
         input[type="reset"],
         input[type="submit"],
-        a.button[href]
+        a.button
     ) {
     font: inherit;
     font-size: 1em;
@@ -610,8 +606,8 @@ h2 input[type="reset"],
 .h2 input[type="reset"],
 h2 input[type="submit"],
 .h2 input[type="submit"],
-h2 a.button[href],
-.h2 a.button[href] {
+h2 a.button,
+.h2 a.button {
     font: inherit;
     font-size: 1em;
     letter-spacing: inherit;
@@ -635,7 +631,7 @@ h2 a.button[href],
         input[type="button"],
         input[type="reset"],
         input[type="submit"],
-        a.button[href]
+        a.button
     ) {
     font: inherit;
     font-size: 1em;
@@ -665,8 +661,8 @@ h3 input[type="reset"],
 .h3 input[type="reset"],
 h3 input[type="submit"],
 .h3 input[type="submit"],
-h3 a.button[href],
-.h3 a.button[href] {
+h3 a.button,
+.h3 a.button {
     font: inherit;
     font-size: 1em;
     letter-spacing: inherit;
@@ -690,7 +686,7 @@ h3 a.button[href],
         input[type="button"],
         input[type="reset"],
         input[type="submit"],
-        a.button[href]
+        a.button
     ) {
     font: inherit;
     font-size: 1em;
@@ -728,8 +724,8 @@ h4 input[type="reset"],
 .h4 input[type="reset"],
 h4 input[type="submit"],
 .h4 input[type="submit"],
-h4 a.button[href],
-.h4 a.button[href] {
+h4 a.button,
+.h4 a.button {
     font: inherit;
     font-size: 1em;
     letter-spacing: inherit;
@@ -759,7 +755,7 @@ h4 a.button[href],
         input[type="button"],
         input[type="reset"],
         input[type="submit"],
-        a.button[href]
+        a.button
     ) {
     font: inherit;
     font-size: 1em;
@@ -797,8 +793,8 @@ h5 input[type="reset"],
 .h5 input[type="reset"],
 h5 input[type="submit"],
 .h5 input[type="submit"],
-h5 a.button[href],
-.h5 a.button[href] {
+h5 a.button,
+.h5 a.button {
     font: inherit;
     font-size: 1em;
     letter-spacing: inherit;
@@ -828,7 +824,7 @@ h5 a.button[href],
         input[type="button"],
         input[type="reset"],
         input[type="submit"],
-        a.button[href]
+        a.button
     ) {
     font: inherit;
     font-size: 1em;
@@ -866,8 +862,8 @@ h6 input[type="reset"],
 .h6 input[type="reset"],
 h6 input[type="submit"],
 .h6 input[type="submit"],
-h6 a.button[href],
-.h6 a.button[href] {
+h6 a.button,
+.h6 a.button {
     font: inherit;
     font-size: 1em;
     letter-spacing: inherit;
@@ -897,7 +893,7 @@ h6 a.button[href],
         input[type="button"],
         input[type="reset"],
         input[type="submit"],
-        a.button[href]
+        a.button
     ) {
     font: inherit;
     font-size: 1em;
@@ -921,7 +917,7 @@ h6 a.button[href],
 .h7 input[type="button"],
 .h7 input[type="reset"],
 .h7 input[type="submit"],
-.h7 a.button[href] {
+.h7 a.button {
     font: inherit;
     font-size: 1em;
     letter-spacing: inherit;
@@ -945,7 +941,7 @@ h6 a.button[href],
         input[type="button"],
         input[type="reset"],
         input[type="submit"],
-        a.button[href]
+        a.button
     ) {
     font: inherit;
     font-size: 1em;
@@ -975,7 +971,7 @@ h6 a.button[href],
 .h8 input[type="button"],
 .h8 input[type="reset"],
 .h8 input[type="submit"],
-.h8 a.button[href] {
+.h8 a.button {
     font: inherit;
     font-size: 1em;
     letter-spacing: inherit;
@@ -1005,7 +1001,7 @@ h6 a.button[href],
         input[type="button"],
         input[type="reset"],
         input[type="submit"],
-        a.button[href]
+        a.button
     ) {
     font: inherit;
     font-size: 1em;
@@ -1591,7 +1587,7 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"],
-a.button[href] {
+a.button {
     --focus-ring-outline-offset: 0.125rem;
     --display: flex;
     display: var(--display, flex);
@@ -1634,7 +1630,7 @@ button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover,
-a.button[href]:hover {
+a.button:hover {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
         SelectedItem
@@ -1649,13 +1645,13 @@ a.button[href]:hover {
 .no-js input[type="button"]:focus,
 .no-js input[type="reset"]:focus,
 .no-js input[type="submit"]:focus,
-.no-js a.button[href]:focus,
+.no-js a.button:focus,
 .js__no-whereSelector button:focus,
 .js__no-whereSelector [role="button"]:focus,
 .js__no-whereSelector input[type="button"]:focus,
 .js__no-whereSelector input[type="reset"]:focus,
 .js__no-whereSelector input[type="submit"]:focus,
-.js__no-whereSelector a.button[href]:focus {
+.js__no-whereSelector a.button:focus {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
         SelectedItem
@@ -1671,7 +1667,7 @@ a.button[href]:hover {
 :where(.js__no-focusVisible) input[type="button"]:focus,
 :where(.js__no-focusVisible) input[type="reset"]:focus,
 :where(.js__no-focusVisible) input[type="submit"]:focus,
-:where(.js__no-focusVisible) a.button[href]:focus {
+:where(.js__no-focusVisible) a.button:focus {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
         SelectedItem
@@ -1687,7 +1683,7 @@ button:focus-visible,
 input[type="button"]:focus-visible,
 input[type="reset"]:focus-visible,
 input[type="submit"]:focus-visible,
-a.button[href]:focus-visible {
+a.button:focus-visible {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
         SelectedItem
@@ -1703,7 +1699,7 @@ button:focus-within,
 input[type="button"]:focus-within,
 input[type="reset"]:focus-within,
 input[type="submit"]:focus-within,
-a.button[href]:focus-within {
+a.button:focus-within {
     --focus-ring-outline-color: var(
         --sys-clr-button-border-hover,
         SelectedItem
@@ -1719,7 +1715,7 @@ button:active,
 input[type="button"]:active,
 input[type="reset"]:active,
 input[type="submit"]:active,
-a.button[href]:active {
+a.button:active {
     --focus-ring-outline-color: var(--sys-clr-button-border-active, ButtonFace);
     border-color: var(--sys-clr-button-border-active, ButtonFace);
     background-color: var(--sys-clr-button-bg-active, ButtonFace);
@@ -1732,13 +1728,13 @@ button[aria-disabled="true"],
 input[aria-disabled="true"][type="button"],
 input[aria-disabled="true"][type="reset"],
 input[aria-disabled="true"][type="submit"],
-a[aria-disabled="true"].button[href],
+a[aria-disabled="true"].button,
 button[disabled],
 [disabled][role="button"],
 input[disabled][type="button"],
 input[disabled][type="reset"],
 input[disabled][type="submit"],
-a[disabled].button[href] {
+a[disabled].button {
     cursor: not-allowed;
 }
 
