@@ -4,4 +4,4 @@ title: Demo
 
 # List Module — Demo
 
-{@includeCode ../../../../dist/css/template/demos/modules/list.css}
+{@includeCode ../../../../dist/css/demos/modules/list.css}

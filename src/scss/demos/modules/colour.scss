@@ -1,0 +1,37 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.26
+///
+
+@forward '../config';
+@forward '../header';
+
+@use '../../modules/colour';
+// @use '../../modules/list';
+@use '../../modules/meta';
+
+// @use '../../lib';
+
+/* # MODULES - COLOUR
+ * ======================================================================== */
+
+colour.to-hsl {
+    @include meta.var-dump('colour.to-hsl( red )', colour.to-hsl(red));
+}
+
+colour.to-hsl-list {
+    @include meta.var-dump('colour.to-hsl-list( red )', colour.to-hsl-list(red));
+}
+
+colour.to-rgb {
+    @include meta.var-dump('colour.to-rgb( red )', colour.to-rgb(red));
+    @include meta.var-dump('colour.to-rgb( rgb( 10% 20% 30% ) )', colour.to-rgb(rgb(10% 20% 30%)));
+}
+
+colour.to-rgb-list {
+    @include meta.var-dump('colour.to-rgb-list( red )', colour.to-rgb-list(red));
+    @include meta.var-dump(
+        'colour.to-rgb-list( rgb( 10% 20% 30% ) )',
+        colour.to-rgb-list(rgb(10% 20% 30%))
+    );
+}

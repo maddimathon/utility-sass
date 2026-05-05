@@ -1,0 +1,70 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../_config' as config;
+
+@use 'parent-exists';
+
+///
+/// Checks if the given $haystack selector contains one of the $needle
+/// selectors, at any level.
+///
+/// @return {bool}
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function includes($haystack, $needle) {
+    $haystack: selector.parse(#{$haystack});
+    $needle: selector.parse(#{$needle});
+
+    $needle: if(list.separator($needle) == comma, $needle, ($needle));
+
+    // returns on a positive match
+    @each $haystack_single
+        in if(list.separator($haystack) == comma, $haystack, ($haystack))
+    {
+        //
+        @each $_sub_haystack in $haystack_single {
+            //
+            @each $needle_single in $needle {
+                // returns
+                @if #{$_sub_haystack} == #{$needle_single} {
+                    @return true;
+                }
+
+                // returns
+                @if selector.is-superselector($needle_single, $_sub_haystack) {
+                    @return true;
+                }
+
+                // returns
+                @if selector.is-superselector($_sub_haystack, $needle_single) {
+                    @return true;
+                }
+            }
+        }
+    }
+
+    @return false;
+}
+
+///
+/// Checks if the parent selector (if any) is a known body selector.
+///
+/// @return {bool}
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function parent-includes($needle) {
+    // returns
+    @if not parent-exists.parent-exists() {
+        @return false;
+    }
+
+    @return includes(&, $needle);
+}

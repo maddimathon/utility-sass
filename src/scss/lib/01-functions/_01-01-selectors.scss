@@ -47,7 +47,9 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 ///
 @function selector-all-headings($globalsOnly: false) {
     //
-    $list: if($globalsOnly, ('.page-title'), ('%unstyled-heading'));
+    $list: if($globalsOnly, (), '%unstyled-heading');
+
+    $list: list.append($list, '%title', $separator: comma);
 
     @each $num in token-all-heading-levels() {
         //
@@ -64,6 +66,25 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
     }
 
     @return $list;
+}
+
+$_selector_buttons: list.join(
+    (
+        button,
+        string.unquote('[role=button]'),
+        string.unquote('input[type=button]'),
+        string.unquote('input[type=reset]'),
+        string.unquote('input[type=submit]')
+    ),
+    selector.unify(config.$selector_a, '.button'),
+    $separator: comma
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+@function selector-buttons-basic() {
+    @return $_selector_buttons;
 }
 
 ///
@@ -141,7 +162,7 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 ///
 @function selector-parent-is-body() {
     // returns
-    @if not parent-exists() {
+    @if not selector.parent-exists() {
         @return false;
     }
 

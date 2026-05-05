@@ -1,0 +1,83 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../_config' as config;
+
+@use '../meta';
+
+@use 'has-root';
+@use 'is-root';
+@use 'parent-exists';
+
+///
+/// Nests the parent selector in the given selector, first checking if the
+/// parent already contains a known root selector, in which case it is added to
+/// the existing root selector.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function add-root-selector($new: null, $parentSelector: selector.parse(#{&})) {
+    $new: if($new == null, config.$selector_body, $new);
+
+    // returns
+    @if not parent-exists.parent-exists() {
+        @return $new;
+    }
+
+    // returns
+    @if is-root.is-root($parentSelector) {
+        @return selector.unify($parentSelector, $new);
+    }
+
+    $merged_selectors: ();
+
+    $parentSelector: if(
+        list.separator($parentSelector) == comma,
+        $parentSelector,
+        ($parentSelector)
+    );
+
+    // returns on a positive match
+    @each $singleSelector in $parentSelector {
+        //
+        @if has-root.has-root($singleSelector) {
+            @each $_subSel in $singleSelector {
+                @if is-root.is-root($_subSel) {
+                    // replace this sub selector with the subselector unified
+                    // with the new selector
+                    $singleSelector: selector.replace(
+                        $singleSelector,
+                        $_subSel,
+                        selector.unify($_subSel, $new)
+                    );
+                }
+            }
+        } @else {
+            $singleSelector: selector.nest($new, $singleSelector);
+        }
+
+        $merged_selectors: list.append(
+            $merged_selectors,
+            $singleSelector,
+            $separator: comma
+        );
+    }
+
+    @return $merged_selectors;
+}
+
+///
+/// Uses the `add-root-selector()` function with a content block for easier use.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin add-root-selector($args...) {
+    @at-root #{add-root-selector($args...)} {
+        @content;
+    }
+}

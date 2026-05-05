@@ -18,20 +18,6 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 /// @since ___PKG_VERSION___
 ///
-@function get-selectors-button() {
-    @return (
-        button,
-        '[role=button]',
-        'input[type=button]',
-        'input[type=reset]',
-        'input[type=submit]',
-        'a.button'
-    );
-}
-
-///
-/// @since ___PKG_VERSION___
-///
 @function get-extend-selectors-headings-global($allHeadingLevels) {
     $sels: (h1, h2, h3, h4, h5, h6);
 
@@ -43,7 +29,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
             $sels: list.append(
                 $sels,
                 (
-                    (':where( [role=heading][aria-level="#{$headingLevel}"] )'),
+                    ':where( [role=heading][aria-level="#{$headingLevel}"] )',
                     'h#{$headingLevel}--where'
                 ),
                 $separator: comma
@@ -107,8 +93,15 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 @mixin extend-selectors-globals--focus-ring {
     @at-root {
-        :focus {
-            @include feature-check.no-js {
+        @if config.$mx_interactive_isolateSelector_focus {
+            :focus {
+                @include feature-check.no-js {
+                    @extend %focus-ring--fallback !optional;
+                }
+            }
+        } @else {
+            #{config.$selector_interactiveState_focus},
+            #{selector.nest(feature-check.get-selector( null, $bool: false ), ':focus')} {
                 @extend %focus-ring--fallback !optional;
             }
         }
@@ -123,8 +116,10 @@ $_optionalDefault: if(config.$isTemplate, false, true);
             @extend %focus-ring--visible !optional;
         }
 
-        #{config.$selector_interactiveState_focus} {
-            @extend %focus-ring !optional;
+        @if config.$mx_interactive_isolateSelector_focus {
+            #{config.$selector_interactiveState_focus} {
+                @extend %focus-ring !optional;
+            }
         }
     }
 }
@@ -147,7 +142,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         ('.screen-reader-text', screen-reader-text),
         ((strong, b), strong),
         ((em, i), em),
-        ('a[href]', a),
+        (config.$selector_a, a),
         abbr,
         blockquote,
         code,
@@ -184,7 +179,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         )
     );
 
-    $additional: list.append($additional, (get-selectors-button(), button));
+    $additional: list.append($additional, (selector-buttons-basic(), button));
 
     @include extend-selectors-globals--focus-ring;
 

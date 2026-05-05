@@ -18,7 +18,7 @@ import * as sass from "sass-embedded";
  *
  * @since 0.1.0-alpha.29
  */
-export declare function sassFn_jsVarDump({ console }: {
+export declare function sassFn_jsVarDump({ console, params }: {
     config: Config.Class;
     console: Logger;
     params: CLI.Params;

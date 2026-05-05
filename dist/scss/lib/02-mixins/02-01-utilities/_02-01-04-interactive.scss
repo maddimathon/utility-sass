@@ -18,6 +18,7 @@
 
 /// # UTILITY MIXINS - Interactive
 /// ======================================================================== ///
+
 ///
 /// @since 0.1.0-beta.0.draft
 ///
@@ -306,6 +307,7 @@
     //
     $fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
     $includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $includeNoWhereSelectorFallback: true,
     //
     $separate_addSelectors: not $includeFallbacks,
     //
@@ -356,7 +358,9 @@
             ) {
                 @include feature-check.supports-not(
                     'focusVisible',
-                    $addSelectors_noJS: $addSelectors_noJS
+                    $addSelectors_noJS: $addSelectors_noJS,
+                    $includeNoWhereSelectorFallback:
+                        $includeNoWhereSelectorFallback
                 ) {
                     @content;
                 }

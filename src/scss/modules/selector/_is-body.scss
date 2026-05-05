@@ -7,16 +7,21 @@
 
 @use '../_config' as config;
 
+@use 'parent-exists';
+
 ///
-/// Checks if the given selector is a known body element selector.
+/// Checks if the given selector is a known body element selector (i.e., 'body'
+/// or config.$selector_body).
 ///
 /// @return {bool}
 ///
 /// @since 0.1.0-alpha — Moved to selector module.
 ///
 @function is-body($sel) {
+    $sel: #{$sel};
+
     // returns
-    @if $sel == body or $sel == #{config.$selector_body} {
+    @if $sel == '%body' or $sel == body or $sel == #{config.$selector_body} {
         @return true;
     }
 
@@ -30,6 +35,11 @@
         @return true;
     }
 
+    // returns
+    @if selector.is-superselector('%body', $sel) {
+        @return true;
+    }
+
     @return false;
 }
 
@@ -40,11 +50,15 @@
 ///
 /// @since 0.1.0-alpha — Moved to selector module.
 ///
-@function parent-is-body() {
-    // returns
-    @if not parent-exists() {
-        @return false;
+@function parent-is-body($parentSelector: &) {
+    @if $parentSelector == null {
+        // returns
+        @if not parent-exists.parent-exists($parentSelector) {
+            @return false;
+        }
+
+        $parentSelector: &;
     }
 
-    @return is-body(#{&});
+    @return is-body($parentSelector);
 }

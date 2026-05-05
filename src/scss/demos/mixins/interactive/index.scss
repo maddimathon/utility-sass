@@ -1,0 +1,54 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward 'config';
+@forward 'header';
+
+@use '../../../modules/meta';
+
+@use '../../../lib' as *;
+
+$_mixins: (
+    active,
+    active-within,
+    focus,
+    focus-within,
+    focus-visible,
+    focus-visible-or-within,
+    hover-focus-visible,
+    hover-focus-visible-or-within,
+    active-hover-focus-visible,
+    active-hover-focus-visible-or-within
+);
+
+/* #region - NO PARENT */
+@each $mixin in $_mixins {
+    @media #{$mixin} {
+        @at-root {
+            /* @include #{$mixin} { } */
+        }
+
+        @include meta.apply(meta.get-mixin($mixin)) {
+            /* content */
+        }
+    }
+}
+/* #endregion - NO PARENT */
+
+/* #region - WITH PARENT */
+button {
+    @each $mixin in $_mixins {
+        @media #{$mixin} {
+            @at-root {
+                /* @include #{$mixin} { } */
+            }
+
+            @include meta.apply(meta.get-mixin($mixin)) {
+                /* content */
+            }
+        }
+    }
+}
+/* #endregion - WITH PARENT */

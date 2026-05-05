@@ -1,0 +1,111 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../_config' as config;
+
+@use '../meta';
+
+@use 'has-body';
+@use 'has-root';
+@use 'is-body';
+@use 'is-root';
+@use 'parent-exists';
+
+///
+/// Nests the parent selector in the given selector, first checking if the
+/// parent already contains a known body selector, in which case it is added to
+/// the existing body selector. It also checks for known root selectors to nest
+/// underneath as applicable.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function add-body-selector(
+    $new_selector: null,
+    $parentSelector: selector.parse(#{&})
+) {
+    //
+    $new_selector: if(
+        $new_selector == null,
+        config.$selector_body,
+        $new_selector
+    );
+
+    // returns
+    @if not parent-exists.parent-exists() {
+        @return $new_selector;
+    }
+
+    // returns
+    @if is-body.is-body($parentSelector) {
+        @return selector.unify($parentSelector, $new_selector);
+    }
+
+    $merged_selectors: ();
+
+    $parentSelector: if(
+        list.separator($parentSelector) == comma,
+        $parentSelector,
+        ($parentSelector)
+    );
+
+    // returns on a positive match
+    @each $singleSelector in $parentSelector {
+        //
+        @if has-body.has-body($singleSelector) {
+            //
+            @each $_subSel in $singleSelector {
+                @if is-body.is-body($_subSel) {
+                    // replace this sub selector with the subselector unified
+                    // with the new selector
+                    $singleSelector: selector.replace(
+                        $singleSelector,
+                        $_subSel,
+                        selector.unify($_subSel, $new_selector)
+                    );
+                }
+            }
+        } @else {
+            // check for a root selector -- if it exists, we have to do weird
+            // nesting; else just a simple nest
+            @if has-root.has-root($singleSelector) {
+                @each $_subSel in $singleSelector {
+                    @if is-root.is-root($_subSel) {
+                        // replace this sub selector with the subselector nested
+                        // with the new selector
+                        $singleSelector: selector.replace(
+                            $singleSelector,
+                            $_subSel,
+                            selector.nest($_subSel, $new_selector)
+                        );
+                    }
+                }
+            } @else {
+                $singleSelector: selector.nest($new_selector, $singleSelector);
+            }
+        }
+
+        $merged_selectors: list.append(
+            $merged_selectors,
+            $singleSelector,
+            $separator: comma
+        );
+    }
+
+    @return $merged_selectors;
+}
+
+///
+/// Uses the `add-body-selector()` function with a content block for easier use.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin add-body-selector($args...) {
+    @at-root #{add-body-selector($args...)} {
+        @content;
+    }
+}

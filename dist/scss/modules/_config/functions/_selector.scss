@@ -25,6 +25,10 @@
 /// @returns {selector}  A selector.
 ///
 @function config-valid-selector($value, $name, $default) {
+    @if meta.type-of($default) == string {
+        $default: string.unquote($default);
+    }
+
     // returns - value is to be default
     @if $value == null {
         @return $default;

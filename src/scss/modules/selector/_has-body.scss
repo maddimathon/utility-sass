@@ -1,0 +1,54 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../_config' as config;
+
+@use 'is-body';
+@use 'parent-exists';
+
+///
+/// Checks if the given selector contains a known body element selector (i.e.,
+/// 'body' or config.$selector_body).
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function has-body($sel) {
+    // returns
+    @if is-body.is-body($sel) {
+        @return true;
+    }
+
+    // returns on a positive match
+    @each $singleSelector in if(list.separator($sel) == comma, $sel, ($sel)) {
+        @each $_subSel in $singleSelector {
+            @if is-body.is-body($_subSel) {
+                @return true;
+            }
+        }
+    }
+
+    @return false;
+}
+
+///
+/// Checks if the parent selector (if any) is a known body selector.
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function parent-has-body() {
+    // returns
+    @if not parent-exists.parent-exists() {
+        @return false;
+    }
+
+    @return has-body(selector.parse(#{$sel}));
+}

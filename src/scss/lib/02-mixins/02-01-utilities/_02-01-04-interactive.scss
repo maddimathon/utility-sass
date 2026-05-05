@@ -18,6 +18,7 @@
 
 /// # UTILITY MIXINS - Interactive
 /// ======================================================================== ///
+
 ///
 /// @since ___PKG_VERSION___
 ///
@@ -274,6 +275,7 @@
     //
     $fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
     $includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $includeNoWhereSelectorFallback: true,
     //
     $separate_addSelectors: not $includeFallbacks,
     //
@@ -316,7 +318,8 @@
             @include focus($selector_config: false, $addSelectors: $addSelectors, $args...) {
                 @include feature-check.supports-not(
                     'focusVisible',
-                    $addSelectors_noJS: $addSelectors_noJS
+                    $addSelectors_noJS: $addSelectors_noJS,
+                    $includeNoWhereSelectorFallback: $includeNoWhereSelectorFallback
                 ) {
                     @content;
                 }

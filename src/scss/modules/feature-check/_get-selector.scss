@@ -53,6 +53,8 @@
 /// @since 0.1.0-alpha — Moved from library to own module.
 ///
 @function get-selector($key, $bool, $addSelectors: (), $args...) {
+    // $args: meta.keywords($args);
+
     $sels: if(
         $key == null or $key == whereSelector,
         if(
@@ -64,6 +66,9 @@
     );
 
     $sels: _get-selector-nesting($sels, $args...);
+    // $sels: selector.add-root-selector($sels);
+
+    // $hasAddSels: list.length($addSelectors) > 0;
 
     $addSelsType: meta.type-of($addSelectors);
 

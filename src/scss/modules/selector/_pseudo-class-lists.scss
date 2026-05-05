@@ -12,7 +12,6 @@
 @use '../meta';
 
 @use 'parent-exists';
-@use 'parent-or-body';
 
 ///
 /// Takes given selectors (else *) and wraps them in individual
@@ -28,7 +27,7 @@
     }
 
     @if $selectors == null {
-        $selectors: if($pseudoType == 'not', config.$selector_null, ('*'));
+        $selectors: if($pseudoType == 'not', config.$selector_null, '*');
     }
 
     @if meta.type-of($selectors) != list {

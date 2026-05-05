@@ -5,6 +5,7 @@
 
 @use 'sass:list';
 @use 'sass:meta';
+@use 'sass:selector';
 @use 'sass:string';
 
 @use '../_config' as config;
@@ -16,19 +17,22 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@function parent-exists() {
-    $parentSelector: &;
+@function parent-exists($parentSelector: &) {
     $parentSelectorType: meta.type-of(&);
 
     @if $parentSelectorType != list and $parentSelectorType != string {
         @return false;
     }
 
-    @if string.length(#{&}) < 1 or list.length(&) < 1 {
+    @if list.length($parentSelector) < 1 or string.length(#{$parentSelector}) < 1 {
         @return false;
     }
 
     @if #{$parentSelector} == #{config.$selector_null} {
+        @return false;
+    }
+
+    @if selector.is-superselector(#{config.$selector_null}, #{$parentSelector}) {
         @return false;
     }
 

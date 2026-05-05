@@ -191,6 +191,45 @@
 }
 
 ///
+/// Returns the simplest selectors for the given colour mode(s), without
+/// combining them with any others.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function simple-selectors-colour-mode($modes: ()) {
+    $selector: ();
+
+    @if config.$selectorType_mode == 'attribute' {
+        @each $mode in $modes {
+            $modeType: get-colour-mode-type($mode);
+
+            $selector: list.append(
+                $selector,
+                string.unquote('[data-#{$modeType}-mode=#{$mode}]'),
+                $separator: comma
+            );
+        }
+    } @else if config.$selectorType_mode == 'class' {
+        @each $mode in $modes {
+            $modeType: get-colour-mode-type($mode);
+
+            $selector: list.append(
+                $selector,
+                string.unquote('.theme-#{$modeType}-mode-#{$mode}'),
+                $separator: comma
+            );
+        }
+    }
+
+    // returns
+    @if list.length($selector) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return $selector;
+}
+
+///
 /// Returns the selectors for the given colour modes.
 ///
 /// @param {bool} $modeArgs  Optional. Whether the colour-mode-validate-args() function has already been applied to the args. Default false.
@@ -257,54 +296,41 @@
             $prependParentSelector: true;
         }
 
-        @if not $isDefaultOnly or $isDefault {
-            $modeType: get-colour-mode-type($mode);
-
-            $selector: ();
-
-            @if config.$selectorType_mode == 'attribute' {
-                $selector: (
-                    string.unquote('[data-#{$modeType}-mode=#{$mode}]')
-                );
-            }
-
-            @if config.$selectorType_mode == 'class' {
-                $selector: (
-                    string.unquote('.theme-#{$modeType}-mode-#{$mode}')
-                );
-            }
+        @if config.$selectorType_mode !=
+            'null' and
+            (not $isDefaultOnly or $isDefault)
+        {
+            $selector: simple-selectors-colour-mode($mode);
 
             @if $debug {
                 @debug '$selector = #{meta.var-dump($selector)}';
             }
 
-            @if list.length($selector) > 0 {
-                $mergedSelectors: ();
+            $mergedSelectors: ();
 
-                @if $parentSelectorExists and not $parentIsRoot {
-                    $mergedSelectors: selector.merge(
-                        $selectorA: $parentSelector,
-                        $selectorB: $selector,
+            @if $parentSelectorExists and not $parentIsRoot {
+                $mergedSelectors: selector.merge(
+                    $selectorA: $parentSelector,
+                    $selectorB: $selector,
 
-                        $nestAinB: $nestParentSelector,
-                        $nestBinA: $wrapParentSelector,
-                        $unify: $unifyParentSelector,
+                    $nestAinB: $nestParentSelector,
+                    $nestBinA: $wrapParentSelector,
+                    $unify: $unifyParentSelector,
 
-                        $debug: $debug,
-                    );
-                } @else {
-                    $mergedSelectors: $selector;
-                }
-                @if $debug {
-                    @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
-                }
-
-                $selectorsList: list.append(
-                    $selectorsList,
-                    $mergedSelectors,
-                    $separator: comma
+                    $debug: $debug,
                 );
+            } @else {
+                $mergedSelectors: $selector;
             }
+            @if $debug {
+                @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
+            }
+
+            $selectorsList: list.join(
+                $selectorsList,
+                $mergedSelectors,
+                $separator: comma
+            );
         } @else if $debug {
             @debug 'no selectors added';
         }

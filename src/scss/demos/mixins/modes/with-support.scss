@@ -1,0 +1,228 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-pre.0
+///
+
+@forward '../../config';
+@forward '../../header';
+
+// @use '../../config';
+@use '../../../lib' as *;
+
+/* # COLOUR MODE + JS SUPPORT
+ * ======================================================================== */
+
+/* ## HAS Support ==================================== */
+/* colour-mode-js-supports */
+
+supports[js] {
+    @at-root {
+        /* ### Average, High - whereSelector ------------------ */
+
+        &.average_high {
+            @include colour-mode-js-supports((average, high), 'whereSelector', $viaQuery: false) {
+                /* @include colour-mode-js-supports((average, high), 'whereSelector', $viaQuery: false); */
+            }
+        }
+
+        /* ### Average ------------------ */
+
+        &.average {
+            @include colour-mode-js-supports(average, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(average, 'aspectRatio', $viaQuery: false); */
+            }
+        }
+
+        /* ### Maximum ------------------ */
+
+        &.max {
+            @include colour-mode-js-supports(max, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(max, 'aspectRatio', $viaQuery: false); */
+            }
+        }
+
+        /* ### Low ------------------ */
+
+        &.low {
+            @include colour-mode-js-supports(low, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(low, 'aspectRatio', $viaQuery: false); */
+            }
+        }
+
+        /* ### Forced Colors ------------------ */
+
+        &.forced-colors {
+            @include colour-mode-js-supports(forced-colors, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $viaQuery: false); */
+            }
+        }
+
+        /* ### Dark ------------------ */
+
+        &.dark {
+            @include colour-mode-js-supports(dark, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports(dark, 'aspectRatio', $viaQuery: false); */
+            }
+        }
+    }
+}
+
+/* ## NO Support ==================================== */
+/* colour-mode-js-supports-not */
+
+supports-not[js] {
+    @at-root {
+        /* ### Average, High - whereSelector ------------------ */
+
+        &.high {
+            @include colour-mode-js-supports-not(
+                (average, high),
+                'whereSelector',
+                $viaQuery: false
+            ) {
+                /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $viaQuery: false); */
+            }
+        }
+
+        /* ### Average ------------------ */
+
+        &.average {
+            @include colour-mode-js-supports-not(average, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports-not(average, 'aspectRatio', $viaQuery: false); */
+            }
+        }
+
+        /* ### Low ------------------ */
+
+        &.low {
+            @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
+            }
+        }
+
+        /* ### Forced Colors ------------------ */
+
+        &.forced-colors {
+            @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
+            }
+        }
+
+        /* ### Dark ------------------ */
+
+        &.dark {
+            @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false) {
+                /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
+            }
+        }
+    }
+}
+
+/* # COLOUR MODE + CSS SUPPORT
+ * ======================================================================== */
+
+/* ## HAS Support ==================================== */
+/* colour-mode-js-supports */
+
+supports[query] {
+    @at-root {
+        /* ### Average, High - whereSelector ------------------ */
+
+        &.average_high {
+            @include colour-mode-js-supports((average, high), 'whereSelector', $neverUseJS: true) {
+                /* @include colour-mode-js-supports((average, high), 'whereSelector', $neverUseJS: true); */
+            }
+        }
+
+        /* ### Average ------------------ */
+
+        &.average {
+            @include colour-mode-js-supports(average, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(average, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+
+        /* ### Maximum ------------------ */
+
+        &.max {
+            @include colour-mode-js-supports(max, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(max, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+
+        /* ### Low ------------------ */
+
+        &.low {
+            @include colour-mode-js-supports(low, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(low, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+
+        /* ### Forced Colors ------------------ */
+
+        &.forced-colors {
+            @include colour-mode-js-supports(forced-colors, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+
+        /* ### Dark ------------------ */
+
+        &.dark {
+            @include colour-mode-js-supports(dark, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports(dark, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+    }
+}
+
+/* ## NO Support ==================================== */
+/* colour-mode-js-supports-not */
+
+supports-not[query] {
+    @at-root {
+        /* ### Average, High - whereSelector ------------------ */
+
+        &.high {
+            @include colour-mode-js-supports-not(
+                (average, high),
+                'whereSelector',
+                $neverUseJS: true
+            ) {
+                /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $neverUseJS: true); */
+            }
+        }
+
+        /* ### Average ------------------ */
+
+        &.average {
+            @include colour-mode-js-supports-not(average, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports-not(average, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+
+        /* ### Low ------------------ */
+
+        &.low {
+            @include colour-mode-js-supports-not(low, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports-not(low, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+
+        /* ### Forced Colors ------------------ */
+
+        &.forced-colors {
+            @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+
+        /* ### Dark ------------------ */
+
+        &.dark {
+            @include colour-mode-js-supports-not(dark, 'aspectRatio', $neverUseJS: true) {
+                /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $neverUseJS: true); */
+            }
+        }
+    }
+}

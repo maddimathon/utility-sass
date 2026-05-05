@@ -1,0 +1,286 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.33
+///
+
+@forward '../config';
+@forward '../header';
+
+@use '../config';
+
+@use '../../modules/meta';
+@use '../../modules/selector';
+
+// @use '../../lib' as *;
+@use '../../template/_content/lib' as *;
+
+/* # MODULES - SELECTOR
+ * ======================================================================== */
+
+@media at-root {
+    @include meta.var-dump('selector.parent-exists()', selector.parent-exists());
+    @include meta.var-dump('selector.parent-or-body()', selector.parent-or-body());
+    @include meta.var-dump('selector.parent-or-root()', selector.parent-or-root());
+}
+
+@mixin _incl-single-var-dumps-is-body-or-root {
+    @include meta.var-dump('selector.is-body( & )', selector.is-body(&));
+    @include meta.var-dump('selector.is-root( & )', selector.is-root(&));
+    @include meta.var-dump('selector.has-body( & )', selector.has-body(&));
+    @include meta.var-dump('selector.has-root( & )', selector.has-root(&));
+}
+
+@mixin _incl-single-var-dumps($selectorString: null) {
+    @if $selectorString != null {
+        /* via #{$selectorString} */
+    }
+
+    @include meta.var-dump('selector.parent-exists()', selector.parent-exists());
+
+    @include _incl-single-var-dumps-is-body-or-root;
+
+    @include meta.var-dump('selector.parent-or-body()', selector.parent-or-body());
+    @include meta.var-dump('selector.parent-or-root()', selector.parent-or-root());
+}
+
+@mixin _incl-complex-var-dumps(
+    $selectorString: null,
+    $selector_body: '%body',
+    $selector_root: '%root',
+    $args...
+) {
+    @media #{if($selectorString , 'complex-selectors and ( via: "#{$selectorString}" )', 'complex-selectors' )} {
+        @if $selectorString != null {
+            /* via #{$selectorString} */
+        }
+        $_parentSelector: &;
+        @include meta.var-dump('&', $_parentSelector);
+        /* */
+
+        @include _incl-single-var-dumps-is-body-or-root($args...);
+
+        $_replacedBodySelector: selector.replace-body-selector(&, '[replaced-body]');
+
+        @at-root #{$_replacedBodySelector} {
+            @include meta.var-dump('&', $_parentSelector);
+
+            @include meta.var-dump(
+                'selector.replace-body-selector( &, "[replaced-body]" )',
+                $_replacedBodySelector
+            );
+        }
+
+        $_replacedRootSelector: selector.replace-root-selector(&, '[replaced-root]');
+
+        @at-root #{$_replacedRootSelector} {
+            @include meta.var-dump('&', $_parentSelector);
+
+            @include meta.var-dump(
+                'selector.replace-root-selector( &, "[replaced-root]" )',
+                $_replacedRootSelector
+            );
+        }
+
+        $_testRootNewSelector: selector.unify($selector_root, '[special-root]');
+        $_testBodyNewSelector: selector.unify($selector_body, '[special-body]');
+
+        $_addRootSelector: selector.add-root-selector($_testRootNewSelector);
+
+        @include selector.add-root-selector($_testRootNewSelector) {
+            /* @include selector.add-root-selector( #{meta.var-dump($_testRootNewSelector)} ) {} */
+
+            @include meta.var-dump(
+                'selector.add-root-selector( #{meta.var-dump($_testRootNewSelector)} )',
+                $_addRootSelector
+            );
+        }
+
+        $_addBodySelector: selector.add-body-selector($_testBodyNewSelector);
+
+        @include selector.add-body-selector($_testBodyNewSelector) {
+            /* @include selector.add-body-selector( '#{$_testBodyNewSelector}' ) {} */
+
+            @include meta.var-dump(
+                'selector.add-body-selector( #{meta.var-dump($_testBodyNewSelector)} )',
+                $_addBodySelector
+            );
+
+            $_parentSelector: &;
+            $_addRootSelector: selector.add-root-selector($_testRootNewSelector);
+
+            @include selector.add-root-selector($_testRootNewSelector) {
+                /* @include selector.add-root-selector( '#{$_testRootNewSelector}' ) {} */
+
+                @include meta.var-dump('&', $_parentSelector);
+
+                @include meta.var-dump(
+                    'selector.add-root-selector( #{meta.var-dump($_testRootNewSelector)} )',
+                    $_addRootSelector
+                );
+            }
+        }
+    }
+}
+
+@mixin _incl-var-dumps($selectorString: null, $args...) {
+    @include _incl-single-var-dumps($selectorString: $selectorString, $args...);
+
+    @include meta.var-dump(
+        'selector.parent-includes( ".has-a-class" )',
+        selector.parent-includes('.has-a-class')
+    );
+
+    &:where(.has-a-class) {
+        @include _incl-single-var-dumps(
+            $selectorString: if($selectorString, '#{$selectorString}:where(.has-a-class)', null),
+            $args...
+        );
+
+        @include meta.var-dump(
+            'selector.parent-includes( ".has-a-class" )',
+            selector.parent-includes('.has-a-class')
+        );
+    }
+}
+
+:root {
+    @include _incl-var-dumps(':root');
+}
+
+html {
+    @include _incl-var-dumps('html');
+}
+
+body {
+    @include _incl-var-dumps('body');
+}
+
+%body {
+    @include _incl-var-dumps('%body');
+}
+
+%root {
+    .child {
+        @include _incl-complex-var-dumps('%root');
+    }
+
+    &:has(.class-name) {
+        %body {
+            @include _incl-complex-var-dumps('%root %body');
+
+            .grandchild {
+                @include _incl-complex-var-dumps('%root %body');
+            }
+        }
+    }
+}
+
+#{config.$selector_root},
+#{config.$selector_body},
+#{selector.nest(config.$selector_root, config.$selector_body)},
+.not-root-or-body {
+    .child {
+        @include _incl-complex-var-dumps(
+            '#{config.$selector_root}, #{config.$selector_body}',
+            $selector_body: config.$selector_body,
+            $selector_root: config.$selector_root
+        );
+    }
+}
+
+/* ## Modules - Selector - Pseudo Class Lists ==================================== */
+
+@each $selectorName in ('has', 'is', 'not', 'where') {
+    selector.#{$selectorName} {
+        $fn: meta.get-function(#{$selectorName}-list, $module: selector);
+        $mixin: meta.get-mixin($selectorName, $module: selector);
+
+        @include meta.var-dump('selector.#{$selectorName}-list()', meta.call($fn));
+
+        &--unified {
+            @include meta.var-dump(
+                'selector.#{$selectorName}-list( $unifyParent: true )',
+                meta.call($fn, $unifyParent: true)
+            );
+        }
+
+        &--direct--unified {
+            @include meta.var-dump(
+                'selector.#{$selectorName}-list( $direct: true, $unifyParent: true )',
+                meta.call($fn, $direct: true, $unifyParent: true)
+            );
+        }
+
+        &--with-selectors {
+            @include meta.var-dump(
+                'selector.#{$selectorName}-list( ( div, p, body ) )',
+                meta.call($fn, $selectors: (div, p, body))
+            );
+        }
+
+        &--with-selectors--direct {
+            @include meta.var-dump(
+                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true )',
+                meta.call($fn, $selectors: (div, p, body), $direct: true)
+            );
+        }
+
+        &--with-selectors--direct--unified {
+            @include meta.var-dump(
+                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true, $unifyParent: true )',
+                meta.call($fn, $selectors: (div, p, body), $direct: true, $unifyParent: true)
+            );
+        }
+
+        @include meta.apply($mixin) {
+            /* @include selector.#{$selectorName}() {} */
+        }
+
+        @include meta.apply($mixin, $direct: true) {
+            /* @include selector.#{$selectorName}( $direct: true ) {} */
+        }
+
+        @include meta.apply($mixin, $unifyParent: true) {
+            /* @include selector.#{$selectorName}( $unifyParent: true ) {} */
+        }
+
+        @if $selectorName == has {
+            @include meta.apply($mixin, $unifyParent: true, $direct: true) {
+                /* @include selector.#{$selectorName}( $unifyParent: true, $direct: true ) {} */
+            }
+        }
+
+        @include meta.apply($mixin, $includeParent: false) {
+            /* @include selector.#{$selectorName}( $includeParent: false ) {} */
+        }
+
+        @include meta.apply($mixin, $selectors: (div, p, body)) {
+            /* @include selector.#{$selectorName}( ( div, p, body ) ) {} */
+        }
+
+        @include meta.apply($mixin, $selectors: (div, p, body), $direct: true) {
+            /* @include selector.#{$selectorName}( ( div, p, body ), $direct: true ) {} */
+        }
+
+        @include meta.apply($mixin, $selectors: (div, p, body), $unifyParent: true) {
+            /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true ) {} */
+        }
+
+        @if $selectorName == has {
+            @include meta.apply(
+                $mixin,
+                $selectors: (div, p, body),
+                $unifyParent: true,
+                $direct: true
+            ) {
+                /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true, $direct: true ) {} */
+            }
+        }
+    }
+}
+
+// .sample-body-extending-class {
+//     @extend body;
+// }
+
+@include extend-selectors;

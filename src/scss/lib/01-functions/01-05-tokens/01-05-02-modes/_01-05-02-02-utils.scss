@@ -19,13 +19,11 @@
 /// @since 0.1.0-pre.0
 ///
 @function filter-colour-modes-active-only($modes: (), $debug: false) {
+    $debug_vars: ();
+
     @if $debug {
-        @debug '';
-        @debug '-  -  -';
-        @debug 'filter-colour-modes-active-only()';
-        @debug '';
-        @debug '$modes = #{meta.var-dump($modes)}';
-        @debug '$debug = #{meta.var-dump($debug)}';
+        $debug_vars: map.set($debug_vars, modes, $modes);
+        $debug_vars: map.set($debug_vars, debug, $debug);
     }
 
     @if meta.type-of($modes) != list {
@@ -36,26 +34,32 @@
         }
     }
 
+    $debug_vars_activeModes: ();
+    $debug_vars_inactiveModes: ();
+
     $filtered: ();
 
     @each $mode in $modes {
         @if is-colour-mode-included($mode) {
             $filtered: list.append($filtered, $mode);
+
             @if $debug {
-                @debug 'mode active: #{$mode}';
+                $debug_vars_activeModes: list.append($debug_vars_activeModes, $mode);
             }
         } @else {
             @if $debug {
-                @debug 'mode not included: #{$mode}';
+                $debug_vars_inactiveModes: list.append($debug_vars_inactiveModes, $mode);
             }
         }
     }
 
     @if $debug {
-        @debug '';
-        @debug 'filtered modes: #{meta.var-dump($filtered)}';
-        @debug '-  -  -';
-        @debug '';
+        $debug_vars: map.set($debug_vars, 'active modes', $debug_vars_activeModes);
+        $debug_vars: map.set($debug_vars, 'inactive modes', $debug_vars_inactiveModes);
+
+        $debug_vars: map.set($debug_vars, 'filtered modes', $filtered);
+
+        $debug_vars: js-var-dump($debug_vars, 'filter-colour-modes-active-only()');
     }
     @return $filtered;
 }

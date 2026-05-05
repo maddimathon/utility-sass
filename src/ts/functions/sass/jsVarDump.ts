@@ -33,7 +33,7 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
  * @since 0.1.0-alpha.29
  */
 export function sassFn_jsVarDump(
-    { console }: {
+    { console, params }: {
         config: Config.Class,
         console: Logger,
         params: CLI.Params,
@@ -43,7 +43,7 @@ export function sassFn_jsVarDump(
     return {
         'mmutils-global-jsVarDump( $value, $name, $level )': async ( args: sass.Value[] ) => {
 
-            const [
+            let [
                 varName = 'var',
                 level = 1,
             ] = await Promise.all( [
@@ -61,14 +61,28 @@ export function sassFn_jsVarDump(
             return sassValueToJS( value ).then(
                 ( jsValue ) => {
 
-                    const inspection = VariableInspector.stringify( { [ varName ]: jsValue } );
-                    console.log( inspection, level, { maxWidth: null } );
+                    if ( params.verbose ) {
+                        level = level + 2;
+                    }
 
-                    return new sass.SassList(
-                        inspection.split( '\n' ).map(
-                            str => new sass.SassString( str )
-                        )
+                    const inspection = VariableInspector.stringify( { [ varName ]: jsValue } );
+
+                    console.log(
+                        [
+                            [ '[Sass: js-var-dump()]', { bold: true, clr: 'grey' } ],
+                            [ inspection, { clr: 'black', maxWidth: null } ],
+                        ],
+                        level,
+                        {
+                            bold: false,
+                            italic: false,
+                            joiner: '  ',
+                            linesIn: 0,
+                            linesOut: 0,
+                        },
                     );
+
+                    return new sass.SassString( `js-var-dump() - ${ varName }`, { quotes: false } );
                 }
             );
         },

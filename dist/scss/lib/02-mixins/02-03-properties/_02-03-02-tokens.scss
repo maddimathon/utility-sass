@@ -312,7 +312,7 @@ $_systemColors: get-sys-colours();
             /* #region Tokens - System Colours */
         }
 
-        :where(#{$_sel}) {
+        @include selector.where($_sel) {
             @each $slug, $list in $map {
                 $i: 1;
 

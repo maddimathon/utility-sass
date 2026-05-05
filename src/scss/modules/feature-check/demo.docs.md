@@ -4,4 +4,4 @@ title: Demo
 
 # Feature Check Module — Demo
 
-{@includeCode ../../../../dist/css/template/demos/modules/feature-check.css}
+{@includeCode ../../../../dist/css/demos/modules/feature-check.css}

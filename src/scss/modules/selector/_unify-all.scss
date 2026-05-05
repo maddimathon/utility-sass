@@ -1,0 +1,32 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:selector';
+
+@use '../_config' as config;
+
+///
+/// Unify an arbitrarily long list of selectors.
+///
+/// @since ___PKG_VERSION___
+///
+@function unify-all($selectors: (), $fallback_selector: config.$selector_null) {
+    $unified: null;
+
+    @each $selector in $selectors {
+        @if $unified == null {
+            $unified: $selector;
+        } @else {
+            $unified: selector.unify($unified, $selector);
+        }
+    }
+
+    // returns
+    @if $unified == null {
+        @return $fallback_selector;
+    }
+
+    @return $unified;
+}

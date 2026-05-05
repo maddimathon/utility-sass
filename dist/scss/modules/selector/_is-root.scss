@@ -7,6 +7,8 @@
 
 @use '../_config' as config;
 
+@use 'parent-exists';
+
 ///
 /// Checks if the given selector is a known root element selector.
 ///
@@ -18,7 +20,15 @@
     $sel: #{$sel};
 
     // returns
-    @if $sel == html or $sel == ':root' or $sel == #{config.$selector_root} {
+    @if $sel ==
+        '%root' or
+        $sel ==
+        html or
+        $sel ==
+        ':root' or
+        $sel ==
+        #{config.$selector_root}
+    {
         @return true;
     }
 
@@ -34,6 +44,11 @@
         @return true;
     }
 
+    // returns
+    @if selector.is-superselector('%root', $sel) {
+        @return true;
+    }
+
     @return false;
 }
 
@@ -44,11 +59,15 @@
 ///
 /// @since 0.1.0-alpha — Moved to selector module.
 ///
-@function parent-is-root() {
-    // returns
-    @if not parent-exists() {
-        @return false;
+@function parent-is-root($parentSelector: null) {
+    @if $parentSelector == null {
+        // returns
+        @if not parent-exists.parent-exists($parentSelector) {
+            @return false;
+        }
+
+        $parentSelector: &;
     }
 
-    @return is-root(#{&});
+    @return is-root($parentSelector);
 }

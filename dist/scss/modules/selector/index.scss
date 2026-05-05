@@ -12,10 +12,33 @@
 
 @forward 'sass:selector';
 
-@forward 'is-body';
-@forward 'is-root';
+// no deps
 @forward 'merge';
 @forward 'parent-exists';
+@forward 'pseudo-class-lists';
+@forward 'unify-all';
+
+// deps on parent-exists
+@forward 'includes';
+@forward 'is-body';
+@forward 'is-root';
 @forward 'parent-or-body';
 @forward 'parent-or-root';
-@forward 'pseudo-class-lists';
+
+// deps on is-body, parent-exists
+@forward 'has-body';
+
+// deps on is-root, parent-exists
+@forward 'has-root';
+
+// deps on has-body, has-root, is-body, is-root, parent-exists
+@forward 'add-body-selector';
+
+// deps on has-root, is-root, parent-exists
+@forward 'add-root-selector';
+
+// deps on has-body, is-body, parent-exists, unify-all
+@forward 'replace-body-selector';
+
+// deps on has-root, is-root, parent-exists, unify-all
+@forward 'replace-root-selector';

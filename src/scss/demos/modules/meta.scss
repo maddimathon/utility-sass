@@ -1,0 +1,52 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.33
+///
+
+@forward '../config';
+@forward '../header';
+
+@use '../../modules/meta';
+
+// @use '../../lib';
+
+/* # MODULES - META
+ * ======================================================================== */
+
+meta.current-version {
+    @include meta.var-dump('meta.current-version()', meta.current-version());
+}
+
+// #region $_map
+$_map: (
+    '$': default,
+
+    one: (
+        '$': default,
+        A: value,
+        B: (
+            '$': default,
+            1: value,
+        ),
+    ),
+
+    two: 'hello',
+);
+// #endregion $_map
+
+$_list: value is a list;
+
+meta.var-dump {
+    list {
+        @include meta.var-dump('meta.var-dump( $_list )', meta.var-dump($_list));
+    }
+    map {
+        @include meta.var-dump('meta.var-dump( $_map )', meta.var-dump($_map));
+    }
+    number {
+        @include meta.var-dump('meta.var-dump( 42 )', meta.var-dump(42));
+    }
+    string {
+        @include meta.var-dump('meta.var-dump( hello-there )', meta.var-dump(hello-there));
+    }
+}

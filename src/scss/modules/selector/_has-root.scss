@@ -1,0 +1,54 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../_config' as config;
+
+@use 'is-root';
+@use 'parent-exists';
+
+///
+/// Checks if the given selector contains a known root element selector (i.e.,
+/// 'root' or config.$selector_root).
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function has-root($sel) {
+    // returns
+    @if is-root.is-root($sel) {
+        @return true;
+    }
+
+    // returns on a positive match
+    @each $singleSelector in if(list.separator($sel) == comma, $sel, ($sel)) {
+        @each $_subSel in $singleSelector {
+            @if is-root.is-root($_subSel) {
+                @return true;
+            }
+        }
+    }
+
+    @return false;
+}
+
+///
+/// Checks if the parent selector (if any) is a known root selector.
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function parent-has-root() {
+    // returns
+    @if not parent-exists.parent-exists() {
+        @return false;
+    }
+
+    @return has-root(selector.parse(#{$sel}));
+}

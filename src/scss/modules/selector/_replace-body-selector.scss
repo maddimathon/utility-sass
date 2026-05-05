@@ -1,0 +1,74 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../_config' as config;
+
+@use 'has-body';
+@use 'is-body';
+@use 'parent-exists';
+@use 'unify-all';
+
+///
+/// Replaces any body selectors in the given selector with the replacement
+/// selector.
+///
+/// @since ___PKG_VERSION___
+///
+@function replace-body-selector(
+    $current_selector,
+    $replacement_selector,
+    $preserveModifiers: true
+) {
+    // returns
+    @if not parent-exists.parent-exists() {
+        @return config.$selector_null;
+    }
+
+    $current_selector: selector.parse(#{$current_selector});
+    $replacement_selector: selector.parse(#{$replacement_selector});
+
+    $replaced_selectors: ();
+
+    $current_selector: if(
+        list.separator($current_selector) == comma,
+        $current_selector,
+        ($current_selector)
+    );
+
+    // returns on a positive match
+    @each $singleSelector in $current_selector {
+        //
+        @if has-body.has-body($singleSelector) {
+            //
+            @each $_subSel in $singleSelector {
+                @if is-body.is-body($_subSel) {
+                    $_simpleSubSel: ();
+
+                    @if $preserveModifiers {
+                        @each $__subSubSel in selector.simple-selectors($_subSel) {
+                            @if is-body.is-body($__subSubSel) {
+                                $_simpleSubSel: list.append($_simpleSubSel, $__subSubSel);
+                            }
+                        }
+                    }
+
+                    // replace this sub selector with the replacement selector
+                    $singleSelector: selector.replace(
+                        $singleSelector,
+                        unify-all.unify-all($_simpleSubSel, $fallback_selector: $_subSel),
+                        $replacement_selector
+                    );
+                }
+            }
+        }
+
+        $replaced_selectors: list.append($replaced_selectors, $singleSelector, $separator: comma);
+    }
+
+    @return $replaced_selectors;
+}

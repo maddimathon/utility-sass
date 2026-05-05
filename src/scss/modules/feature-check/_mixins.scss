@@ -6,6 +6,7 @@
 @use 'sass:list';
 @use 'sass:map';
 @use 'sass:meta';
+@use 'sass:string';
 
 @use '../_config' as config;
 
@@ -173,17 +174,27 @@
             }
         }
     } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
+        $_addSelectors_noJS: if($key == whereSelector, $addSelectors, $addSelectors_noJS);
+
         @if $includeNoWhereSelectorFallback {
-            @include no-js(
-                $addSelectors: if($key == whereSelector, $addSelectors, $addSelectors_noJS),
-                $args...
-            ) {
+            @include no-js($addSelectors: $_addSelectors_noJS, $args...) {
                 @if $debug {
                     /* not ( $supportsTest and $viaQuery ) */
                     /* AND */
                     /* not $neverUseJS and not config.$featureCheck_neverUseJS */
                     /* AND */
                     /* $includeNoWhereSelectorFallback */
+                }
+                @content;
+            }
+        } @else if list.length($_addSelectors_noJS) > 0 {
+            @at-root #{$_addSelectors_noJS} {
+                @if $debug {
+                    /* not ( $supportsTest and $viaQuery ) */
+                    /* AND */
+                    /* not $neverUseJS and not config.$featureCheck_neverUseJS */
+                    /* AND */
+                    /* not $includeNoWhereSelectorFallback */
                 }
                 @content;
             }

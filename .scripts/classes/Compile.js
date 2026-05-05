@@ -93,24 +93,12 @@ export class Compile extends CompileStage {
             'template',
             'dist/css',
             {
-                ignoreGlobs: [
-                    '**/_*',
-                    '**/demos/**',
-                ],
+                // ignoreGlobs: [
+                //     '**/_*',
+                //     '**/demos/**',
+                // ],
                 maxConcurrent: 5,
                 postCSS: true,
-                srcDir: 'src/scss',
-            },
-            1,
-        );
-
-        await this.runCustomScssDirSubStage(
-            'template/demos',
-            'dist/css',
-            {
-                clearOutputDir: false,
-                maxConcurrent: 20,
-                postCSS: false,
                 srcDir: 'src/scss',
             },
             1,
@@ -123,7 +111,6 @@ export class Compile extends CompileStage {
                 ( this.params.verbose ? 3 : 2 ),
                 [ [
                     'dist/scss/template/default-sample',
-                    'dist/scss/template/demos',
                 ], ( this.params.verbose ? 3 : 2 ) ]
             );
         }

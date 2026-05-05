@@ -9,6 +9,20 @@
 /// ======================================================================== ///
 
 ///
+/// The global selector to use for a elements. This option is here in case you
+/// want to use, e.g., 'a' instead of 'a[href]' - this affects the button
+/// utility selector used for links with the `.button` class as well.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$selector_a: null !default;
+$selector_a: config-valid-selector(
+    $selector_a,
+    'selector_a',
+    $default: 'a[href]'
+);
+
+///
 /// How to select for manual overrides of theme modes (e.g., brightness, contrast).
 ///
 /// @default 'attribute'

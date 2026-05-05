@@ -150,7 +150,7 @@
 
     /// STATES ///
 
-    &:hover {
+    @include hover-focus-visible-or-within {
         @if $includeColours {
             @include _snippet-button-colours(
                 $state: hover,
@@ -161,21 +161,7 @@
             );
         }
 
-        @content (hover);
-    }
-
-    @include focus-visible-or-within {
-        @if $includeColours {
-            @include _snippet-button-colours(
-                $state: hover,
-                $accentClr: $accentClr_hover,
-                $background: $background_hover,
-                $borderClr: $borderClr_hover,
-                $color: $color_hover
-            );
-        }
-
-        @content (focus-visible-or-within);
+        @content (hover-focus-visible-or-within);
     }
 
     @include active {
@@ -469,16 +455,6 @@
     /// STATES ///
 
     @if $includeColours {
-        @include focus-visible-or-within {
-            @include cx-prop(focus-ring-outline-color, $accentClr_hover);
-            background-color: $background_hover;
-            border-color: $borderClr_hover;
-            color: $color_hover;
-            accent-color: $accentClr_hover;
-
-            @content (focus-visible-or-within);
-        }
-
         &:hover {
             @include cx-prop(focus-ring-outline-color, $accentClr_hover);
             background-color: $background_hover;
@@ -487,6 +463,16 @@
             accent-color: $accentClr_hover;
 
             @content (hover);
+        }
+
+        @include focus-visible-or-within {
+            @include cx-prop(focus-ring-outline-color, $accentClr_hover);
+            background-color: $background_hover;
+            border-color: $borderClr_hover;
+            color: $color_hover;
+            accent-color: $accentClr_hover;
+
+            @content (focus-visible-or-within);
         }
 
         @include active {
@@ -499,12 +485,12 @@
             @content (active);
         }
     } @else {
-        @include focus-visible-or-within {
-            @content (focus-visible-or-within);
-        }
-
         &:hover {
             @content (hover);
+        }
+
+        @include focus-visible-or-within {
+            @content (focus-visible-or-within);
         }
 
         @include active {

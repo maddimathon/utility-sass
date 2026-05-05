@@ -1,0 +1,165 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.33
+///
+
+@forward '../config';
+@forward '../header';
+
+@use '../../modules/feature-check';
+@use '../../modules/meta';
+
+// @use '../../lib';
+
+/* # MODULES - FEATURE CHECK
+ * ======================================================================== */
+
+feature-check.get-selector {
+    .whereSelector {
+        &--true {
+            @include meta.var-dump(
+                'feature-check.get-selector( whereSelector, $bool: true )',
+                feature-check.get-selector(whereSelector, $bool: true)
+            );
+        }
+
+        &--false {
+            @include meta.var-dump(
+                'feature-check.get-selector( whereSelector, $bool: false )',
+                feature-check.get-selector(whereSelector, $bool: false)
+            );
+        }
+
+        &--true.with-extra {
+            @include meta.var-dump(
+                'feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) )',
+                feature-check.get-selector(
+                    whereSelector,
+                    $bool: true,
+                    $addSelectors: (extra-selector)
+                )
+            );
+        }
+    }
+
+    .aspectRatio {
+        &--true {
+            @include meta.var-dump(
+                'feature-check.get-selector( aspectRatio, $bool: true )',
+                feature-check.get-selector(aspectRatio, $bool: true)
+            );
+        }
+
+        &--false {
+            @include meta.var-dump(
+                'feature-check.get-selector( aspectRatio, $bool: false )',
+                feature-check.get-selector(aspectRatio, $bool: false)
+            );
+        }
+
+        &--true.with-extra {
+            @include meta.var-dump(
+                'feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) )',
+                feature-check.get-selector(
+                    aspectRatio,
+                    $bool: true,
+                    $addSelectors: (extra-selector)
+                )
+            );
+        }
+    }
+}
+
+/* ## Modules - Feature Check - Mixins - JS ==================================== */
+
+@include feature-check.js {
+    /* @include feature-check.js */
+}
+
+@include feature-check.no-js {
+    /* @include feature-check.no-js */
+}
+
+/* ## Modules - Feature Check - Mixins - Supports ==================================== */
+
+@include feature-check.supports(whereSelector, $viaQuery: false) {
+    /* @include feature-check.supports( whereSelector, $viaQuery: false ) */
+}
+
+@include feature-check.supports(aspectRatio, $viaQuery: false) {
+    /* @include feature-check.supports( aspectRatio, $viaQuery: false ) */
+}
+
+@include feature-check.supports(aspectRatio, $addSelectors: (extra-selector), $viaQuery: false) {
+    /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: false ) */
+}
+
+/* ### Feature Check - Supports - CSS ------------------ */
+
+@include feature-check.supports(whereSelector, $viaQuery: true) {
+    /* @include feature-check.supports( whereSelector, $viaQuery: true ) */
+}
+
+@include feature-check.supports(aspectRatio, $viaQuery: true) {
+    /* @include feature-check.supports( aspectRatio, $viaQuery: true ) */
+}
+
+@include feature-check.supports(aspectRatio, $addSelectors: (extra-selector), $viaQuery: true) {
+    /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: true ) */
+}
+
+/* ## Modules - Feature Check - Mixins - Supports Not ==================================== */
+
+@include feature-check.supports-not(whereSelector, $viaQuery: false) {
+    /* @include feature-check.supports-not( whereSelector, $viaQuery: false ) */
+}
+
+@include feature-check.supports-not(aspectRatio, $viaQuery: false) {
+    /* @include feature-check.supports-not( aspectRatio, $viaQuery: false ) */
+}
+
+@include feature-check.supports-not(
+    aspectRatio,
+    $includeNoWhereSelectorFallback: false,
+    $viaQuery: false
+) {
+    /* @include feature-check.supports-not( aspectRatio, $includeNoWhereSelectorFallback: false, $viaQuery: false ) */
+}
+
+@include feature-check.supports-not(
+    aspectRatio,
+    $addSelectors: (extra-selector),
+    $viaQuery: false
+) {
+    /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: false ) */
+}
+
+/* ### Feature Check - Supports Not - CSS ------------------ */
+
+@include feature-check.supports-not(whereSelector, $viaQuery: true) {
+    /* @include feature-check.supports-not( whereSelector, $viaQuery: true ) */
+}
+
+@include feature-check.supports-not(aspectRatio, $viaQuery: true) {
+    /* @include feature-check.supports-not( aspectRatio, $viaQuery: true ) */
+}
+
+@include feature-check.supports-not(aspectRatio, $addSelectors: (extra-selector), $viaQuery: true) {
+    /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: true ) */
+}
+
+/* ## Modules - Feature Check - Mixins - Aspect Ratio (fallback) ==================================== */
+
+feature-check.aspectRatio {
+    .ar-0_5 {
+        @include feature-check.aspect-ratio(0.5, $includeComments: false) using ($location) {
+            /* feature-check.aspect-ratio( 0.5 ) using ( $location = '#{$location}' ) */
+        }
+    }
+
+    .ar-8-7 {
+        @include feature-check.aspect-ratio(8, 7, $includeComments: false) using ($location) {
+            /* feature-check.aspect-ratio( 8, 7 ) using ( $location = '#{$location}' ) */
+        }
+    }
+}

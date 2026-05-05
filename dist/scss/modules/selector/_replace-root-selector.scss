@@ -1,0 +1,86 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../_config' as config;
+
+@use 'has-root';
+@use 'is-root';
+@use 'parent-exists';
+@use 'unify-all';
+
+///
+/// Replaces any root selectors in the given selector with the replacement
+/// selector.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function replace-root-selector(
+    $current_selector,
+    $replacement_selector,
+    $preserveModifiers: true
+) {
+    // returns
+    @if not parent-exists.parent-exists() {
+        @return config.$selector_null;
+    }
+
+    $current_selector: selector.parse(#{$current_selector});
+    $replacement_selector: selector.parse(#{$replacement_selector});
+
+    $replaced_selectors: ();
+
+    $current_selector: if(
+        list.separator($current_selector) == comma,
+        $current_selector,
+        ($current_selector)
+    );
+
+    // returns on a positive match
+    @each $singleSelector in $current_selector {
+        //
+        @if has-root.has-root($singleSelector) {
+            //
+            @each $_subSel in $singleSelector {
+                @if is-root.is-root($_subSel) {
+                    $_simpleSubSel: ();
+
+                    @if $preserveModifiers {
+                        @each $__subSubSel
+                            in selector.simple-selectors($_subSel)
+                        {
+                            @if is-root.is-root($__subSubSel) {
+                                $_simpleSubSel: list.append(
+                                    $_simpleSubSel,
+                                    $__subSubSel
+                                );
+                            }
+                        }
+                    }
+
+                    // replace this sub selector with the replacement selector
+                    $singleSelector: selector.replace(
+                        $singleSelector,
+                        unify-all.unify-all(
+                            $_simpleSubSel,
+                            $fallback_selector: $_subSel
+                        ),
+                        $replacement_selector
+                    );
+                }
+            }
+        }
+
+        $replaced_selectors: list.append(
+            $replaced_selectors,
+            $singleSelector,
+            $separator: comma
+        );
+    }
+
+    @return $replaced_selectors;
+}
