@@ -6,7 +6,7 @@
 @use '../../../../modules/list';
 @use '../../../../modules/meta';
 
-// @use '../../../../config';
+@use '../../../../config';
 @use '../../../../tokens';
 
 ///
@@ -19,11 +19,11 @@
 /// @since 0.1.0-pre.0
 ///
 @function get-colour-mode-type($mode) {
-    @if list.index(tokens.$brightnessMode_all, $mode) != null {
+    @if list.index(config.$brightnessMode_options, $mode) != null {
         @return 'brightness';
     }
 
-    @if list.index(tokens.$contrastMode_all, $mode) != null {
+    @if list.index(config.$contrastMode_options, $mode) != null {
         @return 'contrast';
     }
 

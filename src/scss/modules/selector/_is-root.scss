@@ -6,6 +6,7 @@
 @use 'sass:selector';
 
 @use '../_config' as config;
+@use '../string';
 
 @use 'parent-exists';
 
@@ -16,12 +17,17 @@
 ///
 /// @since 0.1.0-alpha — Moved to selector module.
 ///
-@function is-root($sel) {
+@function is-root($sel, $checkAliases: true) {
     $sel: #{$sel};
 
     // returns
     @if $sel == '%root' or $sel == html or $sel == ':root' or $sel == #{config.$selector_root} {
         @return true;
+    }
+
+    // returns - is only a combinator
+    @if string.match($sel, '^\\s*[>~\\+\\|]\\s*$') != null {
+        @return false;
     }
 
     // returns
@@ -37,6 +43,19 @@
     // returns
     @if selector.is-superselector('%root', $sel) {
         @return true;
+    }
+
+    // returns
+    @if not $checkAliases or config.$selector_root_aliases == null {
+        @return false;
+    }
+
+    // returns on success
+    @each $_selector in config.$selector_root_aliases {
+        // returns
+        @if selector.is-superselector(#{$_selector}, $sel) {
+            @return true;
+        }
     }
 
     @return false;

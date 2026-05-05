@@ -7,6 +7,7 @@
 @use 'sass:selector';
 
 @use '../_config' as config;
+@use '../string';
 
 @use 'has-body';
 @use 'is-body';
@@ -53,12 +54,23 @@
                         @each $__subSubSel
                             in selector.simple-selectors($_subSel)
                         {
-                            @if is-body.is-body($__subSubSel) {
+                            @if is-body.is-body(
+                                $__subSubSel,
+                                $checkAliases: false
+                            )
+                            {
                                 $_simpleSubSel: list.append(
                                     $_simpleSubSel,
                                     $__subSubSel
                                 );
                             }
+                        }
+
+                        @if list.length($_simpleSubSel) < 1 {
+                            $replacement_selector: selector.unify(
+                                $_subSel,
+                                $replacement_selector
+                            );
                         }
                     }
 

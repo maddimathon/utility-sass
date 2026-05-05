@@ -662,6 +662,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
     $modes,
     $key,
     $bool,
+    $debug: false,
+    $includeNoWhereSelectorFallback: true,
     $neverUseJS: null,
     $viaQuery: null,
     $args...
@@ -691,7 +693,8 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
                 }
             }
         }
-    } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
+    } @else {
+        // } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
         $selector: #{&};
 
         $mixin: if(
@@ -700,78 +703,91 @@ $_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
             meta.get-mixin('supports-not', $module: feature-check)
         );
 
-        $hasDefaultMode: false;
+        // $hasDefaultMode: false;
 
-        @each $mode in $modes {
-            @if is-colour-mode-default($mode) {
-                $hasDefaultMode: true;
+        // @each $mode in $modes {
+        //     @if is-colour-mode-default($mode) {
+        //         $hasDefaultMode: true;
+        //     }
+        // }
+
+        @include meta.apply(
+            $mixin: $mixin,
+            $key: $key,
+            $debug: $debug,
+            $includeNoWhereSelectorFallback: $includeNoWhereSelectorFallback,
+            $neverUseJS: $neverUseJS,
+            $viaQuery: $viaQuery
+        ) {
+            @include colour-mode($modes: $modes, $args...) {
+                @content;
             }
         }
 
-        @at-root {
-            //
-            @if config.$selectorType_mode != 'null' or $hasDefaultMode {
-                $addSelectors: if(
-                    $hasDefaultMode,
-                    (
-                        feature-check.get-selector(
-                            $key: $key,
-                            $bool: $bool,
-                            $args...,
-                        )
-                    ),
-                    ()
-                );
+        // @at-root {
+        //     //
+        //     @if config.$selectorType_mode != 'null' or $hasDefaultMode {
+        //         $addSelectors: if(
+        //             $hasDefaultMode,
+        //             (
+        //                 feature-check.get-selector(
+        //                     $key: $key,
+        //                     $bool: $bool,
+        //                     $args...,
+        //                 )
+        //             ),
+        //             ()
+        //         );
 
-                $addSelectors_noJS: if(
-                    (
-                        config.$include_featureCheck and
-                            $hasDefaultMode and not
-                            $bool and
-                            $key !=
-                            whereSelector
-                    ),
-                    (
-                        feature-check.get-selector(
-                            $key: null,
-                            $bool: $bool,
-                            $args...,
-                        )
-                    ),
-                    ()
-                );
+        //         $addSelectors_noJS: if(
+        //             (
+        //                 config.$include_featureCheck and
+        //                     $hasDefaultMode and not
+        //                     $bool and
+        //                     $key !=
+        //                     whereSelector
+        //             ),
+        //             (
+        //                 feature-check.get-selector(
+        //                     $key: null,
+        //                     $bool: $bool,
+        //                     $args...,
+        //                 )
+        //             ),
+        //             ()
+        //         );
 
-                @include meta.apply(
-                    $mixin: $mixin,
-                    $key: $key,
-                    $replaceRootSelector: selectors-colour-mode(
-                            $modes: $modes,
-                            $ignoreParentSelector: true,
-                            $includeDefault: false,
-                            $args...
-                        ),
-                    $addSelectors: $addSelectors,
-                    $addSelectors_noJS: $addSelectors_noJS,
-                    $viaQuery: false,
-                    $args...
-                ) {
-                    @content;
-                }
-            }
+        //         @include meta.apply(
+        //             $mixin: $mixin,
+        //             $key: $key,
+        //             $replaceRootSelector: selectors-colour-mode(
+        //                     $modes: $modes,
+        //                     $ignoreParentSelector: true,
+        //                     $includeDefault: false,
+        //                     $args...
+        //                 ),
+        //             $addSelectors: $addSelectors,
+        //             $addSelectors_noJS: $addSelectors_noJS,
+        //             $viaQuery: false,
+        //             $args...
+        //         ) {
+        //             @content;
+        //         }
+        //     }
 
-            @include colour-mode(
-                $modes: $modes,
-                $includeSelectors: false,
-                $parentSelector: (
-                    $selector,
-                ),
-                $args...
-            ) {
-                @include meta.apply($mixin: $mixin, $key: $key, $viaQuery: false, $args...) {
-                    @content;
-                }
-            }
-        }
+        //     @include colour-mode(
+        //         $modes: $modes,
+        //         $includeSelectors: false,
+        //         $parentSelector: (
+        //             $selector,
+        //         ),
+        //         $args...
+        //     ) {
+        //         @include meta.apply($mixin: $mixin, $key: $key, $viaQuery: false, $args...) {
+        //             @content;
+        //         }
+        //     }
+        // }
     }
 }
 

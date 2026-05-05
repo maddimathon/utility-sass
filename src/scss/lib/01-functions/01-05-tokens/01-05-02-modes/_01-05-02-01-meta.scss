@@ -6,7 +6,7 @@
 @use '../../../../modules/list';
 @use '../../../../modules/meta';
 
-// @use '../../../../config';
+@use '../../../../config';
 @use '../../../../tokens';
 
 ///
@@ -19,11 +19,11 @@
 /// @since 0.1.0-pre.0
 ///
 @function get-colour-mode-type($mode) {
-    @if list.index(tokens.$brightnessMode_all, $mode) != null {
+    @if list.index(config.$brightnessMode_options, $mode) != null {
         @return 'brightness';
     }
 
-    @if list.index(tokens.$contrastMode_all, $mode) != null {
+    @if list.index(config.$contrastMode_options, $mode) != null {
         @return 'contrast';
     }
 
@@ -48,11 +48,7 @@
         $modeType: get-colour-mode-type($mode);
 
         // returns
-        @if $modeType ==
-            'brightness' and
-            $mode ==
-            tokens.$brightnessMode_default
-        {
+        @if $modeType == 'brightness' and $mode == tokens.$brightnessMode_default {
             @return true;
         }
 
@@ -76,11 +72,7 @@
 @function is-colour-mode-type-default-only($mode) {
     $modeType: get-colour-mode-type($mode);
 
-    @if $modeType ==
-        'brightness' and
-        list.length(tokens.$brightnessMode_all) <=
-        1
-    {
+    @if $modeType == 'brightness' and list.length(tokens.$brightnessMode_all) <= 1 {
         @return true;
     }
 
@@ -105,9 +97,7 @@
         @return false;
     }
 
-    @if is-colour-mode-type-default-only($mode) and not
-        is-colour-mode-default($mode)
-    {
+    @if is-colour-mode-type-default-only($mode) and not is-colour-mode-default($mode) {
         @return false;
     }
 

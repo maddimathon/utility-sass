@@ -21,13 +21,15 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function add-root-selector($new: null, $parentSelector: selector.parse(#{&})) {
+@function add-root-selector($new: null, $parentSelector: null) {
     $new: if($new == null, config.$selector_body, $new);
 
     // returns
     @if not parent-exists.parent-exists() {
         @return $new;
     }
+
+    $parentSelector: if($parentSelector == null, selector.parse(#{&}), $parentSelector);
 
     // returns
     @if is-root.is-root($parentSelector) {

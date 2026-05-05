@@ -301,29 +301,29 @@ body:where(.has-a-class) {
         /* 1: <()> ( <()> ( <S> [replaced-root] <S> .child ) ) */
     }
     [special-root]:root .child {
-        /* @include selector.add-root-selector( <()> ( <()> ( <S> %root[special-root] ) ) ) {} */
+        /* @include selector.add-root-selector( <S> "[special-root]" ) {} */
         /* 
-        selector.add-root-selector( <()> ( <()> ( <S> %root[special-root] ) ) ) is a list:
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
      */
         /* 1: <()> ( <()> ( <S> %root[special-root] <S> .child ) ) */
     }
-    :root body[special-body] .child {
-        /* @include selector.add-body-selector( '%body[special-body]' ) {} */
+    :root [special-body] .child {
+        /* @include selector.add-body-selector( '[special-body]' ) {} */
         /* 
-        selector.add-body-selector( <()> ( <()> ( <S> %body[special-body] ) ) ) is a list:
+        selector.add-body-selector( <S> "[special-body]" ) is a list:
      */
-        /* 1: <()> ( <()> ( <S> %root <S> %body[special-body] <S> .child ) ) */
+        /* 1: <()> ( <()> ( <S> %root <S> [special-body] <S> .child ) ) */
     }
-    [special-root]:root body[special-body] .child {
-        /* @include selector.add-root-selector( '%root[special-root]' ) {} */
+    [special-root]:root [special-body] .child {
+        /* @include selector.add-root-selector( '[special-root]' ) {} */
         /* 
         & is a list:
      */
-        /* 1: <()> ( <S> %root <S> %body[special-body] <S> .child ) */
+        /* 1: <()> ( <S> %root <S> [special-body] <S> .child ) */
         /* 
-        selector.add-root-selector( <()> ( <()> ( <S> %root[special-root] ) ) ) is a list:
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
      */
-        /* 1: <()> ( <()> ( <S> %root[special-root] <S> %body[special-body] <S> .child ) ) */
+        /* 1: <()> ( <()> ( <S> %root[special-root] <S> [special-body] <S> .child ) ) */
     }
 }
 @media complex-selectors and (via: "%root %body") {
@@ -368,27 +368,27 @@ body:where(.has-a-class) {
         /* 1: <()> ( <()> ( <S> [replaced-root]:has(.class-name) <S> %body ) ) */
     }
     [special-root]:has(.class-name):root body {
-        /* @include selector.add-root-selector( <()> ( <()> ( <S> %root[special-root] ) ) ) {} */
+        /* @include selector.add-root-selector( <S> "[special-root]" ) {} */
         /* 
-        selector.add-root-selector( <()> ( <()> ( <S> %root[special-root] ) ) ) is a list:
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
      */
         /* 1: <()> ( <()> ( <S> %root[special-root]:has(.class-name) <S> %body ) ) */
     }
     :has(.class-name):root body[special-body] {
-        /* @include selector.add-body-selector( '%body[special-body]' ) {} */
+        /* @include selector.add-body-selector( '[special-body]' ) {} */
         /* 
-        selector.add-body-selector( <()> ( <()> ( <S> %body[special-body] ) ) ) is a list:
+        selector.add-body-selector( <S> "[special-body]" ) is a list:
      */
         /* 1: <()> ( <S> %root:has(.class-name) <S> %body[special-body] ) */
     }
     [special-root]:has(.class-name):root body[special-body] {
-        /* @include selector.add-root-selector( '%root[special-root]' ) {} */
+        /* @include selector.add-root-selector( '[special-root]' ) {} */
         /* 
         & is a list:
      */
         /* 1: <()> ( <S> %root:has(.class-name) <S> %body[special-body] ) */
         /* 
-        selector.add-root-selector( <()> ( <()> ( <S> %root[special-root] ) ) ) is a list:
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
      */
         /* 1: <()> ( <()> ( <S> %root[special-root]:has(.class-name) <S> %body[special-body] ) ) */
     }
@@ -435,27 +435,27 @@ body:where(.has-a-class) {
         /* 1: <()> ( <()> ( <S> [replaced-root]:has(.class-name) <S> %body <S> .grandchild ) ) */
     }
     [special-root]:has(.class-name):root body .grandchild {
-        /* @include selector.add-root-selector( <()> ( <()> ( <S> %root[special-root] ) ) ) {} */
+        /* @include selector.add-root-selector( <S> "[special-root]" ) {} */
         /* 
-        selector.add-root-selector( <()> ( <()> ( <S> %root[special-root] ) ) ) is a list:
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
      */
         /* 1: <()> ( <()> ( <S> %root[special-root]:has(.class-name) <S> %body <S> .grandchild ) ) */
     }
     :has(.class-name):root body[special-body] .grandchild {
-        /* @include selector.add-body-selector( '%body[special-body]' ) {} */
+        /* @include selector.add-body-selector( '[special-body]' ) {} */
         /* 
-        selector.add-body-selector( <()> ( <()> ( <S> %body[special-body] ) ) ) is a list:
+        selector.add-body-selector( <S> "[special-body]" ) is a list:
      */
         /* 1: <()> ( <()> ( <S> %root:has(.class-name) <S> %body[special-body] <S> .grandchild ) ) */
     }
     [special-root]:has(.class-name):root body[special-body] .grandchild {
-        /* @include selector.add-root-selector( '%root[special-root]' ) {} */
+        /* @include selector.add-root-selector( '[special-root]' ) {} */
         /* 
         & is a list:
      */
         /* 1: <()> ( <S> %root:has(.class-name) <S> %body[special-body] <S> .grandchild ) */
         /* 
-        selector.add-root-selector( <()> ( <()> ( <S> %root[special-root] ) ) ) is a list:
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
      */
         /* 1: <()> ( <()> ( <S> %root[special-root]:has(.class-name) <S> %body[special-body] <S> .grandchild ) ) */
     }
@@ -527,50 +527,216 @@ body:where(.has-a-class) {
         /* 4: <()> ( <S> .not-root-or-body <S> .child ) */
     }
     [special-root]:root .child,
+    [special-root] body .child,
     [special-root]:root body .child,
-    [special-root]:root body .child,
-    [special-root]:root .not-root-or-body .child {
-        /* @include selector.add-root-selector( <()> ( <()> ( <S> [special-root]:root ) ) ) {} */
+    [special-root] .not-root-or-body .child {
+        /* @include selector.add-root-selector( <S> "[special-root]" ) {} */
         /* 
-        selector.add-root-selector( <()> ( <()> ( <S> [special-root]:root ) ) ) is a list:
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
      */
         /* 1: <()> ( <()> ( <S> [special-root]:root <S> .child ) ) */
-        /* 2: <()> ( <()> ( <S> [special-root]:root <S> body <S> .child ) ) */
+        /* 2: <()> ( <()> ( <S> [special-root] <S> body <S> .child ) ) */
         /* 3: <()> ( <()> ( <S> [special-root]:root <S> body <S> .child ) ) */
-        /* 4: <()> ( <()> ( <S> [special-root]:root <S> .not-root-or-body <S> .child ) ) */
+        /* 4: <()> ( <()> ( <S> [special-root] <S> .not-root-or-body <S> .child ) ) */
     }
-    :root body[special-body] .child,
+    :root [special-body] .child,
     body[special-body] .child,
     :root body[special-body] .child,
-    body[special-body] .not-root-or-body .child {
-        /* @include selector.add-body-selector( 'body[special-body]' ) {} */
+    [special-body] .not-root-or-body .child {
+        /* @include selector.add-body-selector( '[special-body]' ) {} */
         /* 
-        selector.add-body-selector( <()> ( <()> ( <S> body[special-body] ) ) ) is a list:
+        selector.add-body-selector( <S> "[special-body]" ) is a list:
      */
-        /* 1: <()> ( <()> ( <S> :root <S> body[special-body] <S> .child ) ) */
+        /* 1: <()> ( <()> ( <S> :root <S> [special-body] <S> .child ) ) */
         /* 2: <()> ( <()> ( <S> body[special-body] <S> .child ) ) */
         /* 3: <()> ( <()> ( <S> :root <S> body[special-body] <S> .child ) ) */
-        /* 4: <()> ( <()> ( <S> body[special-body] <S> .not-root-or-body <S> .child ) ) */
+        /* 4: <()> ( <()> ( <S> [special-body] <S> .not-root-or-body <S> .child ) ) */
     }
+    [special-root]:root [special-body] .child,
+    [special-root] body[special-body] .child,
     [special-root]:root body[special-body] .child,
-    [special-root]:root body[special-body] .child,
-    [special-root]:root body[special-body] .child,
-    [special-root]:root body[special-body] .not-root-or-body .child {
-        /* @include selector.add-root-selector( '[special-root]:root' ) {} */
+    [special-root] [special-body] .not-root-or-body .child {
+        /* @include selector.add-root-selector( '[special-root]' ) {} */
         /* 
         & is a list:
      */
-        /* 1: <()> ( <S> :root <S> body[special-body] <S> .child ) */
+        /* 1: <()> ( <S> :root <S> [special-body] <S> .child ) */
         /* 2: <()> ( <S> body[special-body] <S> .child ) */
         /* 3: <()> ( <S> :root <S> body[special-body] <S> .child ) */
-        /* 4: <()> ( <S> body[special-body] <S> .not-root-or-body <S> .child ) */
+        /* 4: <()> ( <S> [special-body] <S> .not-root-or-body <S> .child ) */
         /* 
-        selector.add-root-selector( <()> ( <()> ( <S> [special-root]:root ) ) ) is a list:
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
      */
-        /* 1: <()> ( <()> ( <S> [special-root]:root <S> body[special-body] <S> .child ) ) */
-        /* 2: <()> ( <()> ( <S> [special-root]:root <S> body[special-body] <S> .child ) ) */
+        /* 1: <()> ( <()> ( <S> [special-root]:root <S> [special-body] <S> .child ) ) */
+        /* 2: <()> ( <()> ( <S> [special-root] <S> body[special-body] <S> .child ) ) */
         /* 3: <()> ( <()> ( <S> [special-root]:root <S> body[special-body] <S> .child ) ) */
-        /* 4: <()> ( <()> ( <S> [special-root]:root <S> body[special-body] <S> .not-root-or-body <S> .child ) ) */
+        /* 4: <()> ( <()> ( <S> [special-root] <S> [special-body] <S> .not-root-or-body <S> .child ) ) */
+    }
+}
+
+@media complex-selectors and (via: ":root, body") {
+    :where(.js) .not-root-or-body {
+        /* via :root, body */
+        /* 
+        & is a list:
+     */
+        /* 1: <()> ( <S> :where(.js) <S> .not-root-or-body ) */
+        /* */
+        /* 
+        selector.is-body( & ): </> false
+     */
+        /* 
+        selector.is-root( & ): </> false
+     */
+        /* 
+        selector.has-body( & ): </> false
+     */
+        /* 
+        selector.has-root( & ): </> true
+     */
+    }
+    :where(.js) .not-root-or-body {
+        /* 
+        & is a list:
+     */
+        /* 1: <()> ( <S> :where(.js) <S> .not-root-or-body ) */
+        /* 
+        selector.replace-body-selector( &, "[replaced-body]" ) is a list:
+     */
+        /* 1: <()> ( <S> :where(.js) <S> .not-root-or-body ) */
+    }
+    [replaced-root]:where(.js) .not-root-or-body {
+        /* 
+        & is a list:
+     */
+        /* 1: <()> ( <S> :where(.js) <S> .not-root-or-body ) */
+        /* 
+        selector.replace-root-selector( &, "[replaced-root]" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> [replaced-root]:where(.js) <S> .not-root-or-body ) ) */
+    }
+    [special-root]:where(.js) .not-root-or-body {
+        /* @include selector.add-root-selector( <S> "[special-root]" ) {} */
+        /* 
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> [special-root]:where(.js) <S> .not-root-or-body ) ) */
+    }
+    :where(.js) [special-body] .not-root-or-body {
+        /* @include selector.add-body-selector( '[special-body]' ) {} */
+        /* 
+        selector.add-body-selector( <S> "[special-body]" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> :where(.js) <S> [special-body] <S> .not-root-or-body ) ) */
+    }
+    [special-root]:where(.js) [special-body] .not-root-or-body {
+        /* @include selector.add-root-selector( '[special-root]' ) {} */
+        /* 
+        & is a list:
+     */
+        /* 1: <()> ( <S> :where(.js) <S> [special-body] <S> .not-root-or-body ) */
+        /* 
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> [special-root]:where(.js) <S> [special-body] <S> .not-root-or-body ) ) */
+    }
+}
+
+@media complex-selectors and (via: ":root, body") {
+    :root:where(.js__subgrid) body .child,
+    :where(.js__subgrid) body .child,
+    :where(.js__subgrid) .not-root-or-body .child {
+        /* via :root, body */
+        /* 
+        & is a list:
+     */
+        /* 1: <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ) */
+        /* 2: <()> ( <S> :where(.js__subgrid) <S> body <S> .child ) */
+        /* 3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ) */
+        /* */
+        /* 
+        selector.is-body( & ): </> false
+     */
+        /* 
+        selector.is-root( & ): </> false
+     */
+        /* 
+        selector.has-body( & ): </> true
+     */
+        /* 
+        selector.has-root( & ): </> true
+     */
+    }
+    :root:where(.js__subgrid) [replaced-body] .child,
+    :where(.js__subgrid) [replaced-body] .child,
+    :where(.js__subgrid) .not-root-or-body .child {
+        /* 
+        & is a list:
+     */
+        /* 1: <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ) */
+        /* 2: <()> ( <S> :where(.js__subgrid) <S> body <S> .child ) */
+        /* 3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ) */
+        /* 
+        selector.replace-body-selector( &, "[replaced-body]" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> :root:where(.js__subgrid) <S> [replaced-body] <S> .child ) ) */
+        /* 2: <()> ( <()> ( <S> :where(.js__subgrid) <S> [replaced-body] <S> .child ) ) */
+        /* 3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ) */
+    }
+    [replaced-root]:where(.js__subgrid) body .child,
+    [replaced-root]:where(.js__subgrid) body .child,
+    [replaced-root]:where(.js__subgrid) .not-root-or-body .child {
+        /* 
+        & is a list:
+     */
+        /* 1: <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ) */
+        /* 2: <()> ( <S> :where(.js__subgrid) <S> body <S> .child ) */
+        /* 3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ) */
+        /* 
+        selector.replace-root-selector( &, "[replaced-root]" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> [replaced-root]:where(.js__subgrid) <S> body <S> .child ) ) */
+        /* 2: <()> ( <()> ( <S> [replaced-root]:where(.js__subgrid) <S> body <S> .child ) ) */
+        /* 3: <()> ( <()> ( <S> [replaced-root]:where(.js__subgrid) <S> .not-root-or-body <S> .child ) ) */
+    }
+    [special-root]:root:where(.js__subgrid) body .child,
+    [special-root]:where(.js__subgrid) body .child,
+    [special-root]:where(.js__subgrid) .not-root-or-body .child {
+        /* @include selector.add-root-selector( <S> "[special-root]" ) {} */
+        /* 
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> [special-root]:root:where(.js__subgrid) <S> body <S> .child ) ) */
+        /* 2: <()> ( <()> ( <S> [special-root]:where(.js__subgrid) <S> body <S> .child ) ) */
+        /* 3: <()> ( <()> ( <S> [special-root]:where(.js__subgrid) <S> .not-root-or-body <S> .child ) ) */
+    }
+    :root:where(.js__subgrid) body[special-body] .child,
+    :where(.js__subgrid) body[special-body] .child,
+    :where(.js__subgrid) [special-body] .not-root-or-body .child {
+        /* @include selector.add-body-selector( '[special-body]' ) {} */
+        /* 
+        selector.add-body-selector( <S> "[special-body]" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> :root:where(.js__subgrid) <S> body[special-body] <S> .child ) ) */
+        /* 2: <()> ( <()> ( <S> :where(.js__subgrid) <S> body[special-body] <S> .child ) ) */
+        /* 3: <()> ( <()> ( <S> :where(.js__subgrid) <S> [special-body] <S> .not-root-or-body <S> .child ) ) */
+    }
+    [special-root]:root:where(.js__subgrid) body[special-body] .child,
+    [special-root]:where(.js__subgrid) body[special-body] .child,
+    [special-root]:where(.js__subgrid) [special-body] .not-root-or-body .child {
+        /* @include selector.add-root-selector( '[special-root]' ) {} */
+        /* 
+        & is a list:
+     */
+        /* 1: <()> ( <S> :root:where(.js__subgrid) <S> body[special-body] <S> .child ) */
+        /* 2: <()> ( <S> :where(.js__subgrid) <S> body[special-body] <S> .child ) */
+        /* 3: <()> ( <S> :where(.js__subgrid) <S> [special-body] <S> .not-root-or-body <S> .child ) */
+        /* 
+        selector.add-root-selector( <S> "[special-root]" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> [special-root]:root:where(.js__subgrid) <S> body[special-body] <S> .child ) ) */
+        /* 2: <()> ( <()> ( <S> [special-root]:where(.js__subgrid) <S> body[special-body] <S> .child ) ) */
+        /* 3: <()> ( <()> ( <S> [special-root]:where(.js__subgrid) <S> [special-body] <S> .not-root-or-body <S> .child ) ) */
     }
 }
 

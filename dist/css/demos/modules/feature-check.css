@@ -15,40 +15,39 @@ feature-check.get-selector .whereSelector--true {
     /* 
       feature-check.get-selector( whereSelector, $bool: true ) is a list:
    */
-    /* 1: <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true ) */
+    /* 1: <()> ( <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true ) ) */
 }
 feature-check.get-selector .whereSelector--false {
     /* 
       feature-check.get-selector( whereSelector, $bool: false ) is a list:
    */
-    /* 1: <()> ( <S> .no-js <S> feature-check.get-selector <S> .whereSelector--false ) */
-    /* 2: <()> ( <S> .js__no-whereSelector <S> feature-check.get-selector <S> .whereSelector--false ) */
+    /* 1: <()> ( <()> ( <S> .no-js <S> feature-check.get-selector <S> .whereSelector--false ), <()> ( <S> .js__no-whereSelector <S> feature-check.get-selector <S> .whereSelector--false ) ) */
 }
 feature-check.get-selector .whereSelector--true.with-extra {
     /* 
       feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) ) is a list:
    */
     /* 1: <S> extra-selector */
-    /* 2: <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true.with-extra ) */
+    /* 2: <()> ( <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true.with-extra ) ) */
 }
 feature-check.get-selector .aspectRatio--true {
     /* 
       feature-check.get-selector( aspectRatio, $bool: true ) is a list:
    */
-    /* 1: <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true ) */
+    /* 1: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true ) ) */
 }
 feature-check.get-selector .aspectRatio--false {
     /* 
       feature-check.get-selector( aspectRatio, $bool: false ) is a list:
    */
-    /* 1: <()> ( <S> :where(.js__no-aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--false ) */
+    /* 1: <()> ( <()> ( <S> :where(.js__no-aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--false ) ) */
 }
 feature-check.get-selector .aspectRatio--true.with-extra {
     /* 
       feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) ) is a list:
    */
     /* 1: <S> extra-selector */
-    /* 2: <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true.with-extra ) */
+    /* 2: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true.with-extra ) ) */
 }
 
 /* ## Modules - Feature Check - Mixins - JS ==================================== */
@@ -181,7 +180,7 @@ feature-check.aspectRatio .ar-0_5 {
 }
 
 feature-check.aspectRatio .ar-8-7 {
-    aspect-ratio: 8/7;
+    aspect-ratio: 8 / 7;
     /* feature-check.aspect-ratio( 8, 7 ) using ( $location = 'root' ) */
 }
 .no-js feature-check.aspectRatio .ar-8-7,

@@ -14,16 +14,15 @@
 /* ## HAS Support ==================================== */
 /* colour-mode-js-supports */
 /* ### Average, High - whereSelector ------------------ */
-:where(.js) supports[js].average_high,
-[data-contrast-mode="average"]:where(.js) supports[js].average_high,
-[data-contrast-mode="high"]:where(.js) supports[js].average_high {
-    /* @include colour-mode-js-supports((average, high), 'whereSelector', $viaQuery: false); */
-}
-
 @media (prefers-contrast: more) {
     :where(.js) supports[js].average_high {
         /* @include colour-mode-js-supports((average, high), 'whereSelector', $viaQuery: false); */
     }
+}
+:where(.js) supports[js].average_high,
+[data-contrast-mode="average"]:where(.js) supports[js].average_high,
+[data-contrast-mode="high"]:where(.js) supports[js].average_high {
+    /* @include colour-mode-js-supports((average, high), 'whereSelector', $viaQuery: false); */
 }
 
 /* ### Average ------------------ */
@@ -33,64 +32,64 @@
 }
 
 /* ### Maximum ------------------ */
-/* ### Low ------------------ */
-[data-contrast-mode="low"]:where(.js__aspectRatio) supports[js].low {
-    /* @include colour-mode-js-supports(low, 'aspectRatio', $viaQuery: false); */
+[data-contrast-mode="max"]:where(.js__aspectRatio) supports[js].max {
+    /* @include colour-mode-js-supports(max, 'aspectRatio', $viaQuery: false); */
 }
 
+/* ### Low ------------------ */
 @media (prefers-contrast: less) {
     :where(.js__aspectRatio) supports[js].low {
         /* @include colour-mode-js-supports(low, 'aspectRatio', $viaQuery: false); */
     }
 }
-
-/* ### Forced Colors ------------------ */
-[data-contrast-mode="forced-colors"]:where(.js__aspectRatio)
-    supports[js].forced-colors {
-    /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $viaQuery: false); */
+[data-contrast-mode="low"]:where(.js__aspectRatio) supports[js].low {
+    /* @include colour-mode-js-supports(low, 'aspectRatio', $viaQuery: false); */
 }
 
+/* ### Forced Colors ------------------ */
 @media (forced-colors: active), (prefers-contrast: custom) {
     :where(.js__aspectRatio) supports[js].forced-colors {
         /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $viaQuery: false); */
     }
 }
-
-/* ### Dark ------------------ */
-[data-brightness-mode="dark"]:where(.js__aspectRatio) supports[js].dark {
-    /* @include colour-mode-js-supports(dark, 'aspectRatio', $viaQuery: false); */
+[data-contrast-mode="forced-colors"]:where(.js__aspectRatio)
+    supports[js].forced-colors {
+    /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $viaQuery: false); */
 }
 
+/* ### Dark ------------------ */
 @media (prefers-color-scheme: dark) {
     :where(.js__aspectRatio) supports[js].dark {
         /* @include colour-mode-js-supports(dark, 'aspectRatio', $viaQuery: false); */
     }
 }
+[data-brightness-mode="dark"]:where(.js__aspectRatio) supports[js].dark {
+    /* @include colour-mode-js-supports(dark, 'aspectRatio', $viaQuery: false); */
+}
 
 /* ## NO Support ==================================== */
 /* colour-mode-js-supports-not */
 /* ### Average, High - whereSelector ------------------ */
-.no-js supports-not[js].high,
-.js__no-whereSelector supports-not[js].high,
-[data-contrast-mode="average"].no-js supports-not[js].high,
-[data-contrast-mode="average"].js__no-whereSelector supports-not[js].high,
-[data-contrast-mode="high"].no-js supports-not[js].high,
-[data-contrast-mode="high"].js__no-whereSelector supports-not[js].high {
-    /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $viaQuery: false); */
-}
-
 @media (prefers-contrast: more) {
     .no-js supports-not[js].high,
     .js__no-whereSelector supports-not[js].high {
         /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $viaQuery: false); */
     }
 }
+.no-js supports-not[js].high,
+.js__no-whereSelector supports-not[js].high,
+.no-js[data-contrast-mode="average"] supports-not[js].high,
+.no-js[data-contrast-mode="high"] supports-not[js].high,
+.js__no-whereSelector[data-contrast-mode="average"] supports-not[js].high,
+.js__no-whereSelector[data-contrast-mode="high"] supports-not[js].high {
+    /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $viaQuery: false); */
+}
 
 /* ### Average ------------------ */
 .no-js supports-not[js].average,
 .js__no-whereSelector supports-not[js].average,
-[data-contrast-mode="average"].no-js supports-not[js].average,
-[data-contrast-mode="average"].js__no-whereSelector supports-not[js].average {
+.no-js[data-contrast-mode="average"] supports-not[js].average,
+.js__no-whereSelector[data-contrast-mode="average"] supports-not[js].average {
     /* @include colour-mode-js-supports-not(average, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -101,65 +100,68 @@
 }
 
 /* ### Low ------------------ */
-[data-contrast-mode="low"].no-js supports-not[js].low,
-[data-contrast-mode="low"].js__no-whereSelector supports-not[js].low {
-    /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
-}
-
-[data-contrast-mode="low"]:where(.js__no-aspectRatio) supports-not[js].low {
-    /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
-}
-
 @media (prefers-contrast: less) {
     .no-js supports-not[js].low,
     .js__no-whereSelector supports-not[js].low {
         /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
     }
+}
+.no-js[data-contrast-mode="low"] supports-not[js].low,
+.js__no-whereSelector[data-contrast-mode="low"] supports-not[js].low {
+    /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
+}
+
+@media (prefers-contrast: less) {
     :where(.js__no-aspectRatio) supports-not[js].low {
         /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
     }
 }
+[data-contrast-mode="low"]:where(.js__no-aspectRatio) supports-not[js].low {
+    /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
+}
 
 /* ### Forced Colors ------------------ */
-[data-contrast-mode="forced-colors"].no-js supports-not[js].forced-colors,
-[data-contrast-mode="forced-colors"].js__no-whereSelector
-    supports-not[js].forced-colors {
-    /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
-}
-
-[data-contrast-mode="forced-colors"]:where(.js__no-aspectRatio)
-    supports-not[js].forced-colors {
-    /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
-}
-
 @media (forced-colors: active), (prefers-contrast: custom) {
     .no-js supports-not[js].forced-colors,
     .js__no-whereSelector supports-not[js].forced-colors {
         /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
     }
+}
+.no-js[data-contrast-mode="forced-colors"] supports-not[js].forced-colors,
+.js__no-whereSelector[data-contrast-mode="forced-colors"]
+    supports-not[js].forced-colors {
+    /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
     :where(.js__no-aspectRatio) supports-not[js].forced-colors {
         /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
     }
 }
+[data-contrast-mode="forced-colors"]:where(.js__no-aspectRatio)
+    supports-not[js].forced-colors {
+    /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
+}
 
 /* ### Dark ------------------ */
-[data-brightness-mode="dark"].no-js supports-not[js].dark,
-[data-brightness-mode="dark"].js__no-whereSelector supports-not[js].dark {
-    /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
-}
-
-[data-brightness-mode="dark"]:where(.js__no-aspectRatio) supports-not[js].dark {
-    /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
-}
-
 @media (prefers-color-scheme: dark) {
     .no-js supports-not[js].dark,
     .js__no-whereSelector supports-not[js].dark {
         /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
     }
+}
+.no-js[data-brightness-mode="dark"] supports-not[js].dark,
+.js__no-whereSelector[data-brightness-mode="dark"] supports-not[js].dark {
+    /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
+}
+
+@media (prefers-color-scheme: dark) {
     :where(.js__no-aspectRatio) supports-not[js].dark {
         /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
     }
+}
+[data-brightness-mode="dark"]:where(.js__no-aspectRatio) supports-not[js].dark {
+    /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
 }
 
 /* # COLOUR MODE + CSS SUPPORT
@@ -189,6 +191,12 @@
 }
 
 /* ### Maximum ------------------ */
+@supports (aspect-ratio: 1 / 2) {
+    [data-contrast-mode="max"] supports[query].max {
+        /* @include colour-mode-js-supports(max, 'aspectRatio', $neverUseJS: true); */
+    }
+}
+
 /* ### Low ------------------ */
 @supports (aspect-ratio: 1 / 2) {
     @media (prefers-contrast: less) {

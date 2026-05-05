@@ -1,0 +1,120 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:selector';
+@use 'sass:string';
+
+@use '../functions' as fns;
+
+@use 'feature-check';
+
+///
+/// Selector to use for the body element.  Included here to allow
+/// lower-specificity options.
+///
+/// @default ( body )
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Moved to module config.
+///
+$selector_body: null !default;
+$selector_body: fns.config-valid-selector(
+    $selector_body,
+    'selector_body',
+    body
+);
+
+///
+/// Additional selectors to be recognized as body selectors in utility functions.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$selector_body_aliases: null !default;
+$selector_body_aliases: fns.config-valid-selector(
+    $selector_body_aliases,
+    'selector_body_aliases',
+    $default: null
+);
+
+@if $selector_body_aliases != null {
+    $selector_body_aliases: selector.parse(#{$selector_body_aliases});
+}
+
+///
+/// Selector used as a 'null' (e.g., not-output) selector within the system to
+/// avoid errors.  e.g., with the mode mixins if the targeted mode is disabled.
+///
+/// @default '%null'
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Moved to module config.
+///
+$selector_null: null !default;
+$selector_null: fns.config-valid-selector(
+    $selector_null,
+    'selector_null',
+    '%null'
+);
+
+///
+/// Selector to use for the root element.  Included here to allow
+/// lower-specificity options.
+///
+/// @default ':root'
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Moved to module config.
+///
+$selector_root: null !default;
+$selector_root: fns.config-valid-selector(
+    $selector_root,
+    'selector_root',
+    ':root'
+);
+
+///
+/// Additional selectors to be recognized as root selectors in utility functions.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$selector_root_aliases: null !default;
+$selector_root_aliases: fns.config-valid-selector(
+    $selector_root_aliases,
+    'selector_root_aliases',
+    $default: null
+);
+
+@if $selector_root_aliases != null {
+    $selector_root_aliases: selector.parse(#{$selector_root_aliases});
+} @else {
+    $selector_root_aliases: ();
+}
+
+$selector_root_aliases: list.append(
+    $selector_root_aliases,
+    '.js',
+    $separator: comma
+);
+$selector_root_aliases: list.append(
+    $selector_root_aliases,
+    '.no-js',
+    $separator: comma
+);
+
+// add feature-check classes as root selectors
+@each $key in feature-check.$featureCheck_supports {
+    $selector_root_aliases: list.append(
+        $selector_root_aliases,
+        '.js__#{$key}',
+        $separator: comma
+    );
+    $selector_root_aliases: list.append(
+        $selector_root_aliases,
+        '.js__no-#{$key}',
+        $separator: comma
+    );
+}

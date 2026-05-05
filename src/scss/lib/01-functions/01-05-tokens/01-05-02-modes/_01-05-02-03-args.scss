@@ -99,118 +99,6 @@
         selector.parent-is-body($parentSelector)
     );
 
-    // testing if parent is root or body
-    // @if $parentSelectorExists and not ($parentIsRoot and $parentIsBody) {
-    //     $_localDebug: ();
-
-    //     $simpleSels: ();
-
-    //     @each $sel in selector.parse(#{$parentSelector}) {
-    //         //
-    //         @each $_s in string.split(#{$sel}, ' ') {
-    //             //
-    //             $_isACombinator: if(
-    //                 (
-    //                     string.index(#{$_s}, '>') or
-    //                         string.index(#{$_s}, '+') or
-    //                         string.index(#{$_s}, '~') or
-    //                         (string.length(#{$_s}) < 1)
-    //                 ),
-    //                 true,
-    //                 false
-    //             );
-
-    //             $simpleSels: list.join(
-    //                 $simpleSels,
-    //                 if($_isACombinator, (#{$_s}), selector.simple-selectors($_s)),
-    //                 comma
-    //             );
-    //         }
-    //     }
-    //     @if $debug {
-    //         $_localDebug: map.set($_localDebug, '$simpleSels', $simpleSels);
-    //     }
-
-    //     @each $sel in $simpleSels {
-    //         $sel_debug: ();
-
-    //         @if $parentIsRoot {
-    //             @if $debug {
-    //                 $sel_debug: list.append(
-    //                     $sel_debug,
-    //                     '$parentIsRoot is truthy',
-    //                     $separator: comma
-    //                 );
-    //             }
-    //         } @else if string.index($sel, ':root') == 1 {
-    //             @if $debug {
-    //                 $sel_debug: list.append($sel_debug, "matched ':root'", $separator: comma);
-    //             }
-    //             $parentIsRoot: true;
-    //         } @else if string.index($sel, 'html') == 1 {
-    //             @if $debug {
-    //                 $sel_debug: list.append($sel_debug, "matched 'html'", $separator: comma);
-    //             }
-    //             $parentIsRoot: true;
-    //         } @else {
-    //             $parentIsRoot: selector.parent-is-root();
-    //         }
-
-    //         @if $parentIsBody {
-    //             @if $debug {
-    //                 $sel_debug: list.append(
-    //                     $sel_debug,
-    //                     '$parentIsBody is truthy',
-    //                     $separator: comma
-    //                 );
-    //             }
-    //         } @else if string.index($sel, 'body') == 1 {
-    //             @if $debug {
-    //                 $sel_debug: list.append($sel_debug, "matched 'body'", $separator: comma);
-    //             }
-    //             $parentIsBody: true;
-    //         } @else if string.index($sel, '[data-brightness-mode=') == 1 {
-    //             @if $debug {
-    //                 $sel_debug: list.append(
-    //                     $sel_debug,
-    //                     "matched '[data-brightness-mode='",
-    //                     $separator: comma
-    //                 );
-    //             }
-    //             $parentIsBody: true;
-    //         } @else if string.index($sel, '[data-contrast-mode=') == 1 {
-    //             @if $debug {
-    //                 $sel_debug: list.append(
-    //                     $sel_debug,
-    //                     "matched '[data-contrast-mode='",
-    //                     $separator: comma
-    //                 );
-    //             }
-    //             $parentIsBody: true;
-    //         } @else if string.index($sel, '[data-motion=') == 1 {
-    //             @if $debug {
-    //                 $sel_debug: list.append(
-    //                     $sel_debug,
-    //                     "matched '[data-motion='",
-    //                     $separator: comma
-    //                 );
-    //             }
-    //             $parentIsBody: true;
-    //         } @else {
-    //             $parentIsBody: selector.parent-is-body();
-    //         }
-
-    //         @if $debug {
-    //             $_localDebug: map.set($_localDebug, '[] $sel', $sel);
-    //             $_localDebug: map.set($_localDebug, '   $sel_debug', $sel_debug);
-    //         }
-    //     }
-
-    //     @if $debug {
-    //         $debug_vars: map.set($debug_vars, '[determining if parent is root/body]', $_localDebug);
-    //     }
-    // }
-
     @if $debug {
         $debug_vars: map.set($debug_vars, '[2] $parentIsRoot', $parentIsRoot);
         $debug_vars: map.set($debug_vars, '[2] $parentIsBody', $parentIsBody);
@@ -221,18 +109,10 @@
 
     @if $nestParentSelector == null {
         $nestParentSelector: true;
-
-        // @if $parentIsRoot {
-        //     $nestParentSelector: false;
-        // }
     }
 
     @if $unifyParentSelector == null {
         $unifyParentSelector: false;
-
-        // @if $parentIsRoot {
-        //     $unifyParentSelector: true;
-        // }
     }
 
     @if $wrapParentSelector == null {

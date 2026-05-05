@@ -85,6 +85,10 @@
     $supportsTest: if($viaQuery, map.get(config.$featureCheck_supportsQueries, $key), null);
 
     @if $supportsTest and $viaQuery {
+        @if $key != null and list.index(config.$featureCheck_supports, $key) == null {
+            @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
+        }
+
         @supports (#{$supportsTest}) {
             $_sels: parent-or-root.parent-or-root();
 
@@ -101,6 +105,10 @@
         }
     } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
         @if $key == whereSelector {
+            @if $key != null and list.index(config.$featureCheck_supports, $key) == null {
+                @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
+            }
+
             @include js($addSelectors: $addSelectors, $args...) {
                 @if $debug {
                     /* not ( $supportsTest and $viaQuery ) */
@@ -158,6 +166,10 @@
 
     @if $supportsTest and $viaQuery {
         @supports not (#{$supportsTest}) {
+            @if $key != null and list.index(config.$featureCheck_supports, $key) == null {
+                @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
+            }
+
             $_sels: parent-or-root.parent-or-root();
 
             $_addSels: if($key == whereSelector, $addSelectors_noJS, $addSelectors);
@@ -211,6 +223,10 @@
                 }
                 @content;
             }
+        } @else {
+            @if $key != null and list.index(config.$featureCheck_supports, $key) == null {
+                @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
+            }
         }
     }
 }
@@ -229,7 +245,7 @@
     $includeNoWhereSelectorFallback: config.$featureCheck_aspectRatio_includeNoWhereSelectorFallback,
     $args...
 ) {
-    aspect-ratio: if(not $h, $w, #{$w} / #{$h});
+    aspect-ratio: if(not $h, $w, list.slash($w, $h));
 
     @content (root);
 

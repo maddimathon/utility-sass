@@ -11,9 +11,6 @@
 /// # TOKENS - MODES
 /// ======================================================================== ///
 
-$_brightnessMode_options: (light, dark);
-$_contrastMode_options: (average, low, high, max, forced-colors);
-
 ///
 /// All brightness modes to include in the output stylesheet.
 ///
@@ -21,12 +18,12 @@ $_contrastMode_options: (average, low, high, max, forced-colors);
 ///
 /// @since 0.1.0-pre.0
 ///
-$brightnessMode_all: $_brightnessMode_options !default;
+$brightnessMode_all: config.$brightnessMode_options !default;
 $brightnessMode_all: config.config-valid-list-strings(
     $brightnessMode_all,
     'brightnessMode_all',
-    $_brightnessMode_options,
-    $options: $_brightnessMode_options,
+    $default: config.$brightnessMode_options,
+    $options: config.$brightnessMode_options,
     $allowEmptyList: false,
     $separator: space,
     $unquote: true
@@ -39,12 +36,12 @@ $brightnessMode_all: config.config-valid-list-strings(
 ///
 /// @since 0.1.0-pre.0
 ///
-$contrastMode_all: list.except($_contrastMode_options, 'max') !default;
+$contrastMode_all: null !default;
 $contrastMode_all: config.config-valid-list-strings(
     $contrastMode_all,
     'contrastMode_all',
-    $_contrastMode_options,
-    $options: $_contrastMode_options,
+    $default: list.except(config.$contrastMode_options, 'max'),
+    $options: config.$contrastMode_options,
     $allowEmptyList: false,
     $separator: space,
     $unquote: true

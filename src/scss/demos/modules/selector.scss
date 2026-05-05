@@ -8,6 +8,7 @@
 
 @use '../config';
 
+@use '../../modules/feature-check';
 @use '../../modules/meta';
 @use '../../modules/selector';
 
@@ -81,8 +82,8 @@
             );
         }
 
-        $_testRootNewSelector: selector.unify($selector_root, '[special-root]');
-        $_testBodyNewSelector: selector.unify($selector_body, '[special-body]');
+        $_testRootNewSelector: '[special-root]';
+        $_testBodyNewSelector: '[special-body]';
 
         $_addRootSelector: selector.add-root-selector($_testRootNewSelector);
 
@@ -185,6 +186,30 @@ body {
             $selector_body: config.$selector_body,
             $selector_root: config.$selector_root
         );
+    }
+}
+
+.not-root-or-body {
+    @include feature-check.js {
+        @include _incl-complex-var-dumps(
+            '#{config.$selector_root}, #{config.$selector_body}',
+            $selector_body: config.$selector_body,
+            $selector_root: config.$selector_root
+        );
+    }
+}
+
+#{selector.nest(config.$selector_root, config.$selector_body)},
+#{config.$selector_body},
+.not-root-or-body {
+    .child {
+        @include feature-check.supports(subgrid, $viaQuery: false) {
+            @include _incl-complex-var-dumps(
+                '#{config.$selector_root}, #{config.$selector_body}',
+                $selector_body: config.$selector_body,
+                $selector_root: config.$selector_root
+            );
+        }
     }
 }
 

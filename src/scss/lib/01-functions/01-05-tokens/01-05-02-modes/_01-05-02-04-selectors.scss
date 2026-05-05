@@ -34,14 +34,6 @@
     $includeDefault: map.get($args, 'includeDefault');
     $includeSelectors: map.get($args, 'includeSelectors');
 
-    $nestParentSelector: map.get($args, 'nestParentSelector');
-    $unifyParentSelector: map.get($args, 'unifyParentSelector');
-    $wrapParentSelector: map.get($args, 'wrapParentSelector');
-
-    $ignoreParentSelector: map.get($args, 'ignoreParentSelector');
-    $parentSelector: map.get($args, 'parentSelector');
-    $parentSelectorExists: map.get($args, 'parentSelectorExists');
-
     $anyModeIsDefault: is-colour-mode-default($modes);
 
     $debug: map.get($args, 'debug');
@@ -53,14 +45,6 @@
         @debug '';
         @debug '$modes = #{meta.var-dump($modes)}';
         @debug '$includeDefault = #{meta.var-dump($includeDefault)}';
-        @debug '';
-        @debug '$nestParentSelector = #{meta.var-dump($nestParentSelector)}';
-        @debug '$unifyParentSelector = #{meta.var-dump($unifyParentSelector)}';
-        @debug '$wrapParentSelector = #{meta.var-dump($wrapParentSelector)}';
-        @debug '';
-        @debug '$ignoreParentSelector = #{meta.var-dump($ignoreParentSelector)}';
-        @debug '$parentSelector = #{meta.var-dump($parentSelector)}';
-        @debug '$parentSelectorExists = #{meta.var-dump($parentSelectorExists)}';
         @debug '';
         @debug '$anyModeIsDefault = #{meta.var-dump($anyModeIsDefault)}';
     }
@@ -174,27 +158,31 @@
         @each $mode in $modes {
             $modeType: get-colour-mode-type($mode);
 
-            $selector: list.append(
-                $selector,
-                string.unquote('[data-#{$modeType}-mode=#{$mode}]'),
-                $separator: comma
-            );
+            @if $modeType != null {
+                $selector: list.append(
+                    $selector,
+                    string.unquote('[data-#{$modeType}-mode=#{$mode}]'),
+                    $separator: comma
+                );
+            }
         }
     } @else if config.$selectorType_mode == 'class' {
         @each $mode in $modes {
             $modeType: get-colour-mode-type($mode);
 
-            $selector: list.append(
-                $selector,
-                string.unquote('.theme-#{$modeType}-mode-#{$mode}'),
-                $separator: comma
-            );
+            @if $modeType != null {
+                $selector: list.append(
+                    $selector,
+                    string.unquote('.theme-#{$modeType}-mode-#{$mode}'),
+                    $separator: comma
+                );
+            }
         }
     }
 
     // returns
     @if list.length($selector) < 1 {
-        @return config.$selector_null;
+        @return $selector_null;
     }
 
     @return $selector;
@@ -224,7 +212,6 @@
 
     $parentIsRoot: map.get($args, 'parentIsRoot');
 
-    $ignoreParentSelector: map.get($args, 'ignoreParentSelector');
     $parentSelector: map.get($args, 'parentSelector');
     $parentSelectorExists: map.get($args, 'parentSelectorExists');
 
@@ -244,13 +231,13 @@
         @debug '$unifyParentSelector = #{meta.var-dump($unifyParentSelector)}';
         @debug '$wrapParentSelector = #{meta.var-dump($wrapParentSelector)}';
         @debug '';
-        @debug '$ignoreParentSelector = #{meta.var-dump($ignoreParentSelector)}';
         @debug '$parentSelector = #{meta.var-dump($parentSelector)}';
         @debug '$parentSelectorExists = #{meta.var-dump($parentSelectorExists)}';
     }
 
     $prependParentSelector: false;
-    $selectorsList: ();
+
+    $modesToInclude: ();
 
     @each $mode in $modes {
         $isDefaultOnly: is-colour-mode-type-default-only($mode);
@@ -267,43 +254,101 @@
             $prependParentSelector: true;
         }
 
-        @if config.$selectorType_mode != 'null' and (not $isDefaultOnly or $isDefault) {
-            $selector: simple-selectors-colour-mode($mode);
+        @if not $isDefaultOnly or $isDefault {
+            $modesToInclude: list.append($modesToInclude, $mode);
+        }
 
-            @if $debug {
-                @debug '$selector = #{meta.var-dump($selector)}';
+        // @if config.$selectorType_mode != 'null' and (not $isDefaultOnly or $isDefault) {
+        //     $selector: simple-selectors-colour-mode($mode);
+
+        //     @if $debug {
+        //         @debug '$selector = #{meta.var-dump($selector)}';
+        //     }
+
+        //     $mergedSelectors: ();
+
+        //     @if $parentSelectorExists {
+        //         @if selector.has-root($parentSelector) {
+        //             @if $nestParentSelector {
+        //                 $mergedSelectors: selector.add-root-selector($selector, $parentSelector);
+        //             }
+
+        //             $nestParentSelector: false;
+        //         }
+
+        //         $mergedSelectors: list.join(
+        //             $mergedSelectors,
+        //             selector.merge(
+        //                 $selectorA: $parentSelector,
+        //                 $selectorB: $selector,
+
+        //                 $nestAinB: $nestParentSelector,
+        //                 $nestBinA: $wrapParentSelector,
+        //                 $unify: $unifyParentSelector,
+
+        //                 $debug: $debug,
+        //             ),
+        //             $separator: comma
+        //         );
+        //     } @else {
+        //         $mergedSelectors: $selector;
+        //     }
+        //     @if $debug {
+        //         @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
+        //     }
+
+        //     $selectorsList: list.join($selectorsList, $mergedSelectors, $separator: comma);
+        // } @else if $debug {
+        //     @debug 'no selectors added';
+        // }
+    }
+
+    $selectorsList: ();
+
+    @if config.$selectorType_mode != 'null' {
+        $selector: simple-selectors-colour-mode($modesToInclude);
+
+        @if $debug {
+            @debug '$selector = #{meta.var-dump($selector)}';
+        }
+
+        @if $parentSelectorExists {
+            @if selector.has-root($parentSelector) {
+                @if $nestParentSelector {
+                    $selectorsList: selector.add-root-selector($selector, $parentSelector);
+                }
+
+                $nestParentSelector: false;
             }
 
-            $mergedSelectors: ();
+            @if not selector.is-root($parentSelector) {
+                $selectorsList: list.join(
+                    $selectorsList,
+                    selector.merge(
+                        $selectorA: $parentSelector,
+                        $selectorB: $selector,
 
-            @if $parentSelectorExists and not $parentIsRoot {
-                $mergedSelectors: selector.merge(
-                    $selectorA: $parentSelector,
-                    $selectorB: $selector,
+                        $nestAinB: $nestParentSelector,
+                        $nestBinA: $wrapParentSelector,
+                        $unify: $unifyParentSelector,
 
-                    $nestAinB: $nestParentSelector,
-                    $nestBinA: $wrapParentSelector,
-                    $unify: $unifyParentSelector,
-
-                    $debug: $debug,
+                        $debug: $debug,
+                    ),
+                    $separator: comma
                 );
-            } @else {
-                $mergedSelectors: $selector;
             }
-            @if $debug {
-                @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
-            }
-
-            $selectorsList: list.join($selectorsList, $mergedSelectors, $separator: comma);
-        } @else if $debug {
-            @debug 'no selectors added';
+        } @else {
+            $selectorsList: $selector;
+        }
+        @if $debug {
+            @debug '$selectorsList = #{meta.var-dump($selectorsList)}';
         }
     }
 
-    @if $debug {
-        @debug '';
-        @debug '$prependParentSelector = #{meta.var-dump($prependParentSelector)}';
-    }
+    // @if $debug {
+    //     @debug '';
+    //     @debug '$prependParentSelector = #{meta.var-dump($prependParentSelector)}';
+    // }
 
     @if $prependParentSelector {
         $selectorsList: list.join($parentSelector, $selectorsList, $separator: comma);
@@ -319,8 +364,8 @@
         @return config.$selector_null;
     }
 
-    @if $parentIsRoot and $parentSelectorExists {
-        @return selector.unify($parentSelector, $selectorsList);
-    }
+    // @if $parentIsRoot and $parentSelectorExists {
+    //     @return selector.unify($parentSelector, $selectorsList);
+    // }
     @return $selectorsList;
 }
