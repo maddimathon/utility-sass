@@ -1,0 +1,56 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../../../lib';
+
+// @use 'config';
+@use '../../../modules/meta';
+
+@use '../../../lib' as *;
+
+@mixin demo-each-colour-mode($includeRegion: true, $includeRegion_heading: '', $args...) {
+    @include colour-mode-each(
+            $includeRegion: $includeRegion,
+            $includeRegion_heading: $includeRegion_heading,
+            $args...
+        )
+        using ($brightness, $contrast) {
+        /* @include colour-mode-each#{meta.var-dump($args, $alwaysQuote: true, $withType: false, $keys_neverQuote: true)} { } */
+        --colour-mode-each-brightness: #{$brightness};
+        --colour-mode-each-contrast: #{$contrast};
+
+        @content;
+    }
+}
+
+@mixin demo-each-colour-mode-variations {
+    @include demo-each-colour-mode($includeRegion_heading: 'default params');
+
+    @include demo-each-colour-mode($nestModeSelectors: true, $includeRegion_heading: 'nested');
+
+    @include demo-each-colour-mode(
+        $includeForcedColors: true,
+        $nestModeSelectors: true,
+        $includeRegion_heading: 'nested with forced-colors'
+    );
+
+    @include demo-each-colour-mode(
+        $includeForcedColors: true,
+        $iterateForcedColors: true,
+        $nestModeSelectors: true,
+        $includeRegion_heading: 'nested with iterated forced-colors'
+    );
+}
+
+@mixin demo-each-colour-mode-variations-all {
+    @include demo-each-colour-mode($includeQuery: false, $includeRegion_heading: 'no queries');
+
+    @include demo-each-colour-mode(
+        $includeSelectors: false,
+        $includeRegion_heading: 'no selectors'
+    );
+
+    @include demo-each-colour-mode-variations;
+}

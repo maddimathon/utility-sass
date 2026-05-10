@@ -11,17 +11,32 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-$featureCheck_aspectRatio_includeNoWhereSelectorFallback: true !default;
+$featureCheck_aspectRatio_includeNoWhereSelectorFallback: null !default;
+$featureCheck_aspectRatio_includeNoWhereSelectorFallback: fns.config-valid-bool(
+    $featureCheck_aspectRatio_includeNoWhereSelectorFallback,
+    'featureCheck_aspectRatio_includeNoWhereSelectorFallback',
+    $default: true
+);
 
 ///
 /// @since ___PKG_VERSION___
 ///
-$featureCheck_jsOnlyAsNeeded: true !default;
+$featureCheck_jsOnlyAsNeeded: null !default;
+$featureCheck_jsOnlyAsNeeded: fns.config-valid-bool(
+    $featureCheck_jsOnlyAsNeeded,
+    'featureCheck_jsOnlyAsNeeded',
+    $default: true
+);
 
 ///
 /// @since ___PKG_VERSION___
 ///
-$featureCheck_neverUseJS: false !default;
+$featureCheck_neverUseJS: null !default;
+$featureCheck_neverUseJS: fns.config-valid-bool(
+    $featureCheck_neverUseJS,
+    'featureCheck_neverUseJS',
+    $default: false
+);
 
 ///
 /// Only applies when $featureCheck_jsOnlyAsNeeded is true AND

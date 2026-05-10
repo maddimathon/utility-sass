@@ -69,7 +69,7 @@ export function sassFn_jsVarDump(
 
                     console.log(
                         [
-                            [ '[Sass: js-var-dump()]', { bold: true, clr: 'grey' } ],
+                            [ '[Sass: meta.js-var-dump()]', { bold: true, clr: 'grey' } ],
                             [ inspection, { clr: 'black', maxWidth: null } ],
                         ],
                         level,
@@ -82,7 +82,7 @@ export function sassFn_jsVarDump(
                         },
                     );
 
-                    return new sass.SassString( `js-var-dump() - ${ varName }`, { quotes: false } );
+                    return new sass.SassString( `meta.js-var-dump() - ${ varName }`, { quotes: false } );
                 }
             );
         },

@@ -19,16 +19,16 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function has-body($sel) {
+@function has-body($sel, $args...) {
     // returns
-    @if is-body.is-body($sel) {
+    @if is-body.is-body($sel, $args...) {
         @return true;
     }
 
     // returns on a positive match
     @each $singleSelector in if(list.separator($sel) == comma, $sel, ($sel)) {
         @each $_subSel in $singleSelector {
-            @if is-body.is-body($_subSel) {
+            @if is-body.is-body($_subSel, $args...) {
                 @return true;
             }
         }
@@ -44,11 +44,15 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function parent-has-body() {
-    // returns
-    @if not parent-exists.parent-exists() {
-        @return false;
+@function parent-has-body($parentSelector: &, $args...) {
+    @if $parentSelector == null {
+        // returns
+        @if not parent-exists.parent-exists() {
+            @return false;
+        }
+
+        $parentSelector: &;
     }
 
-    @return has-body(selector.parse(#{$sel}));
+    @return has-body($parentSelector, $args...);
 }

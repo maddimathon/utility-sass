@@ -9,6 +9,7 @@
 @use '../config';
 
 @use '../../modules/feature-check';
+@use '../../modules/map';
 @use '../../modules/meta';
 @use '../../modules/selector';
 
@@ -17,6 +18,229 @@
 
 /* # MODULES - SELECTOR
  * ======================================================================== */
+
+@mixin _replace-simple-selector($args...) {
+    $_sels: selector.replace-simple-selector(&, $args...);
+
+    @at-root #{$_sels} {
+        @include meta.var-dump(
+            'selector.replace-simple-selector( &, #{meta.var-dump($args, $alwaysQuote: true, $showParens: false, $withType: false, $keys_neverQuote: true, $child_showParens: true)} )',
+            $_sels
+        );
+    }
+}
+
+@media replace-simple-selector {
+    #{config.$selector_root} .child .grandchild another.child {
+        /* STARTING SELECTOR */
+        @include _replace-simple-selector('.child', '.new-child');
+        @include _replace-simple-selector(config.$selector_root, ('html', 'custom-html'));
+        @include _replace-simple-selector('.non-existant-class', '.new-child');
+    }
+}
+
+@mixin _extend-simple-selector($args...) {
+    $_sels: selector.extend-simple-selector(&, $args...);
+
+    $debug: map.get(meta.keywords($args), debug);
+
+    $callSig: 'selector.extend-simple-selector( &, #{meta.var-dump($args, $alwaysQuote: true, $showParens: false, $withType: false, $keys_neverQuote: true, $child_showParens: true)} )';
+
+    @at-root #{$_sels} {
+        @if $debug {
+            @include meta.var-dump($callSig, $_sels);
+        } @else {
+            /* #{$callSig} */
+        }
+    }
+}
+
+// #region - $_extend_all_permutations
+// TODO - fix broken
+$_extend_all_permutations: (
+    // default
+    (true, true, false, false, false, false),
+    // single true
+    (false, true, false, false, false, false),
+    (true, false, false, false, false, false),
+    (false, false, false, true, false, false),
+    (false, false, true, false, false, false),
+    (false, false, false, false, true, false),
+    // no self, no replace
+    (false, false, false, true, true, false),
+    (false, false, true, true, false, false),
+    (false, false, true, false, true, false),
+    (false, false, true, true, true, false),
+    // with replace, no self
+    (false, true, false, false, true, false),
+    (false, true, true, false, false, false),
+    (false, true, false, true, false, false),
+    (false, true, false, true, true, false),
+    (false, true, true, false, true, false),
+    (false, true, true, true, false, false),
+    (false, true, true, true, true, false),
+    // with self, no replace
+    (true, false, false, false, true, false),
+    (true, false, false, true, false, false),
+    (true, false, false, true, true, false),
+    (true, false, true, false, false, false),
+    (true, false, true, false, true, false),
+    (true, false, true, true, false, false),
+    (true, false, true, true, true, false),
+    //
+    // with self & replace
+    (true, true, false, false, true, false),
+    (true, true, true, false, false, false),
+    (true, true, false, true, false, false),
+    (true, true, false, true, true, false),
+    (true, true, true, false, true, false),
+    (true, true, true, true, false, false),
+    (true, true, true, true, true, false)
+);
+// #endregion - $_extend_all_permutations
+
+@mixin _extend-full-tests($needles, $extending, $debug: false, $args...) {
+    $args: meta.keywords($args);
+
+    @each $self, $replace, $nest, $unify, $wrap, $single_debug in $_extend_all_permutations {
+        $_selectiveArgs: ();
+
+        @if not $self {
+            $_selectiveArgs: map.set($_selectiveArgs, 'self', $self);
+        }
+
+        @if not $replace {
+            $_selectiveArgs: map.set($_selectiveArgs, 'replace', $replace);
+        }
+
+        @if $unify {
+            $_selectiveArgs: map.set($_selectiveArgs, 'unify', $unify);
+        }
+
+        @if $nest {
+            $_selectiveArgs: map.set($_selectiveArgs, 'nest', $nest);
+        }
+
+        @if $wrap {
+            $_selectiveArgs: map.set($_selectiveArgs, 'wrap', $wrap);
+        }
+
+        @if $debug and $single_debug {
+            $_selectiveArgs: map.set($_selectiveArgs, 'debug', $single_debug);
+        }
+
+        @include _extend-simple-selector(
+            $needles,
+            $extending,
+            map.merge($_selectiveArgs, $args)...
+        );
+    }
+}
+
+@media extend-simple-selector {
+    #{config.$selector_root} .child .grandchild {
+        /* STARTING SELECTOR A */
+        @include _extend-full-tests(('.child', '.non-existant-class'), '.new-child');
+
+        @include _extend-simple-selector(('.child', '.grandchild'), '.new-child');
+        @include _extend-simple-selector(config.$selector_root, ('html', 'custom-html'));
+        @include _extend-simple-selector('.non-existant-class', '.new-child');
+
+        @at-root #{config.$selector_root} another.child .grandchild {
+            /* STARTING SELECTOR B */
+            @include _extend-full-tests(
+                ('.child', '.non-existant-class'),
+                '.new-child',
+                $debug: true
+            );
+        }
+
+        another.child {
+            /* STARTING SELECTOR C */
+            // BROKEN - @include _extend-simple-selector('.child', '.new-child');
+            @include _extend-simple-selector('.child', '.new-child', $self: false);
+            @include _extend-simple-selector('.child', '.new-child', $replace: false);
+            @include _extend-simple-selector(
+                '.child',
+                '.new-child',
+                $self: false,
+                $replace: false,
+                $unify: true
+            );
+            // BROKEN - @include _extend-simple-selector(
+            //     '.child',
+            //     '.new-child',
+            //     $self: false,
+            //     $replace: false,
+            //     $nest: true
+            // );
+            // BROKEN - @include _extend-simple-selector(
+            //     '.child',
+            //     '.new-child',
+            //     $self: false,
+            //     $replace: false,
+            //     $wrap: true
+            // );
+            // BROKEN - @include _extend-simple-selector(
+            //     '.child',
+            //     '.new-child',
+            //     // $unify: true,
+            //     // $nest: true,
+            //     // $wrap: true,
+            // );
+        }
+    }
+
+    [data-brightness-mode='light'] {
+        /* STARTING SELECTOR C */
+        @include _extend-simple-selector(
+            '[data-brightness-mode=light]',
+            '[data-contrast-mode=low]'
+        );
+
+        @include _extend-simple-selector(
+            '[data-brightness-mode=light]',
+            '[data-contrast-mode=low]',
+            $unify: true,
+            $nest: true,
+            $wrap: true
+        );
+
+        @include _extend-simple-selector(
+            '[data-brightness-mode=light]',
+            ('[data-contrast-mode=low]', '[data-contrast-mode=average]'),
+            $unify: true,
+            $nest: true,
+            $wrap: true
+        );
+
+        :root & .child {
+            /* STARTING SELECTOR D */
+            @include _extend-simple-selector(
+                '[data-brightness-mode=light]',
+                '[data-contrast-mode=low]'
+            );
+
+            @include _extend-simple-selector(
+                '[data-brightness-mode=light]',
+                '[data-contrast-mode=low]',
+                $unify: true,
+                $nest: true,
+                $wrap: true
+            );
+
+            @include _extend-simple-selector(
+                '[data-brightness-mode=light]',
+                ('[data-contrast-mode=low]', '[data-contrast-mode=average]'),
+                $unify: true,
+                $nest: true,
+                $wrap: true
+            );
+        }
+    }
+}
+
+/* ## Modules - Selector - Root & Body Utilities ==================================== */
 
 @media at-root {
     @include meta.var-dump('selector.parent-exists()', selector.parent-exists());
@@ -37,6 +261,7 @@
     }
 
     @include meta.var-dump('selector.parent-exists()', selector.parent-exists());
+    @include meta.var-dump('selector.is-simple( & )', selector.is-simple(&));
 
     @include _incl-single-var-dumps-is-body-or-root;
 

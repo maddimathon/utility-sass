@@ -13,6 +13,8 @@
 @forward 'sass:selector';
 
 // no deps
+@forward 'is-simple';
+@forward 'is-superselector-any';
 @forward 'merge';
 @forward 'parent-exists';
 @forward 'pseudo-class-lists';
@@ -24,6 +26,12 @@
 @forward 'is-root';
 @forward 'parent-or-body';
 @forward 'parent-or-root';
+
+// deps on includes, is-superselector-any, unify-all
+@forward 'replace-simple-selector';
+
+// deps on includes, is-simple, is-superselector-any, parent-exists, unify-all
+@forward 'extend-simple-selector';
 
 // deps on is-body, parent-exists
 @forward 'has-body';

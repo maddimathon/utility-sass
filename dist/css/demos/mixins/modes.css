@@ -30,22 +30,41 @@
     /* 4: <S> [data-contrast-mode=forced-colors] */
 }
 /* #region - in root parent */
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    :root {
+        --mode-mixin: "light";
+    }
+}
 :root,
-[data-brightness-mode="light"]:root {
+[data-brightness-mode="light"]:root,
+:root [data-brightness-mode="light"] {
     --mode-mixin: "light";
 }
 
 /* #endregion - in root parent */
 /* #region - in body parent */
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    body {
+        --mode-mixin: "light";
+    }
+}
 body,
-[data-brightness-mode="light"] body {
+[data-brightness-mode="light"] body,
+body [data-brightness-mode="light"],
+body[data-brightness-mode="light"] {
     --mode-mixin: "light";
 }
 
 /* #endregion - in body parent */
 /* #region - in random parent */
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    parent {
+        --mode-mixin: "light";
+    }
+}
 parent,
-[data-brightness-mode="light"] parent {
+[data-brightness-mode="light"] parent,
+parent[data-brightness-mode="light"] {
     --mode-mixin: "light";
 }
 
@@ -55,10 +74,22 @@ parent,
     --mode-mixin: "not light";
 }
 
+@media not (( prefers-color-scheme: no-preference ) or ( prefers-color-scheme: light )) {
+    :root {
+        --mode-mixin: "not light";
+    }
+}
 /* #endregion NOT light */
 /* #region light */
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    :root {
+        /* @include light { } */
+        --mode-mixin: "light";
+    }
+}
 :root,
 [data-brightness-mode="light"] {
+    /* @include light { } */
     --mode-mixin: "light";
 }
 
@@ -66,10 +97,12 @@ parent,
 /* #region dark */
 @media (prefers-color-scheme: dark) {
     :root {
+        /* @include dark { } */
         --mode-mixin: "dark";
     }
 }
 [data-brightness-mode="dark"] {
+    /* @include dark { } */
     --mode-mixin: "dark";
 }
 
@@ -77,17 +110,26 @@ parent,
 /* #region low-contrast */
 @media (prefers-contrast: less) {
     :root {
+        /* @include low-contrast { } */
         --mode-mixin: "low-contrast";
     }
 }
 [data-contrast-mode="low"] {
+    /* @include low-contrast { } */
     --mode-mixin: "low-contrast";
 }
 
 /* #endregion low-contrast */
 /* #region average-contrast */
+@media (prefers-contrast: no-preference) {
+    :root {
+        /* @include average-contrast { } */
+        --mode-mixin: "average-contrast";
+    }
+}
 :root,
 [data-contrast-mode="average"] {
+    /* @include average-contrast { } */
     --mode-mixin: "average-contrast";
 }
 
@@ -95,16 +137,19 @@ parent,
 /* #region high-contrast */
 @media (prefers-contrast: more) {
     :root {
+        /* @include high-contrast { } */
         --mode-mixin: "high-contrast";
     }
 }
 [data-contrast-mode="high"] {
+    /* @include high-contrast { } */
     --mode-mixin: "high-contrast";
 }
 
 /* #endregion high-contrast */
 /* #region max-contrast */
 [data-contrast-mode="max"] {
+    /* @include max-contrast { } */
     --mode-mixin: "max-contrast";
 }
 
@@ -112,16 +157,50 @@ parent,
 /* #region forced-colors */
 @media (forced-colors: active), (prefers-contrast: custom) {
     :root {
+        /* @include forced-colors { } */
         --mode-mixin: "forced-colors";
     }
 }
 [data-contrast-mode="forced-colors"] {
+    /* @include forced-colors { } */
     --mode-mixin: "forced-colors";
 }
 
 /* #endregion forced-colors */
+/* #region - in parent with light mode selector */
+[data-brightness-mode="light"] .child {
+    /* og selector */
+}
+@media (prefers-contrast: less) {
+    [data-brightness-mode="light"] .child {
+        /* @include low-contrast { } */
+    }
+}
+[data-brightness-mode="light"][data-contrast-mode="low"] .child,
+[data-brightness-mode="light"] [data-contrast-mode="low"] .child,
+[data-contrast-mode="low"] [data-brightness-mode="light"] .child,
+[data-brightness-mode="light"] .child[data-contrast-mode="low"] {
+    /* @include low-contrast { } */
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    [data-brightness-mode="light"] .child {
+        /* @include forced-colors { } */
+    }
+}
+[data-brightness-mode="light"][data-contrast-mode="forced-colors"] .child,
+[data-brightness-mode="light"] [data-contrast-mode="forced-colors"] .child,
+[data-contrast-mode="forced-colors"] [data-brightness-mode="light"] .child,
+[data-brightness-mode="light"] .child[data-contrast-mode="forced-colors"] {
+    /* @include forced-colors { } */
+}
+
+/* #endregion - in parent with mode selector */
 /* #region colour-mode-all */
-@media (prefers-color-scheme: dark),
+@media (prefers-color-scheme: no-preference),
+    (prefers-color-scheme: light),
+    (prefers-color-scheme: dark),
+    (prefers-contrast: no-preference),
     (prefers-contrast: less),
     (prefers-contrast: more),
     (forced-colors: active),
@@ -141,21 +220,128 @@ parent,
 }
 
 /* #endregion colour-mode-all */
+/* ## colour-mode-combo ==================================== */
+/* e.g. - `@include colour-mode-combo( light, (low, average) ) {}` */
+/* #region demo without parent - light mode + low/average contrast */
+@media (prefers-contrast: less),
+    (prefers-contrast: no-preference),
+    (prefers-color-scheme: no-preference),
+    (prefers-color-scheme: light) {
+    :root,
+    [data-brightness-mode="light"],
+    [data-contrast-mode="low"],
+    [data-contrast-mode="average"] {
+        --colour-mode-combo-brightness: light;
+        --colour-mode-combo-contrast: low, average;
+    }
+}
+:root,
+[data-brightness-mode="light"],
+[data-contrast-mode="low"],
+[data-contrast-mode="average"],
+[data-brightness-mode="light"][data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="average"],
+[data-brightness-mode="light"] [data-contrast-mode="low"],
+[data-brightness-mode="light"] [data-contrast-mode="average"],
+[data-contrast-mode="low"] [data-brightness-mode="light"],
+[data-contrast-mode="average"] [data-brightness-mode="light"] {
+    --colour-mode-combo-brightness: light;
+    --colour-mode-combo-contrast: low, average;
+}
+
+/* #endregion demo without parent - light mode + low/average contrast */
+/* #region demo with parent - light mode + low/high contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    .child {
+        --colour-mode-combo-brightness: light;
+        --colour-mode-combo-contrast: low, high;
+    }
+}
+@media (prefers-contrast: less), (prefers-contrast: more) {
+    .child,
+    [data-brightness-mode="light"] .child,
+    .child[data-brightness-mode="light"] {
+        --colour-mode-combo-brightness: light;
+        --colour-mode-combo-contrast: low, high;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="low"] .child,
+    [data-contrast-mode="high"] .child,
+    .child[data-contrast-mode="low"],
+    .child[data-contrast-mode="high"] {
+        --colour-mode-combo-brightness: light;
+        --colour-mode-combo-contrast: low, high;
+    }
+}
+[data-contrast-mode="low"] .child,
+[data-contrast-mode="high"] .child,
+.child[data-contrast-mode="low"],
+.child[data-contrast-mode="high"],
+[data-brightness-mode="light"][data-contrast-mode="low"] .child,
+[data-brightness-mode="light"][data-contrast-mode="high"] .child,
+[data-brightness-mode="light"] [data-contrast-mode="low"] .child,
+[data-brightness-mode="light"] [data-contrast-mode="high"] .child,
+[data-contrast-mode="low"] [data-brightness-mode="light"] .child,
+[data-contrast-mode="high"] [data-brightness-mode="light"] .child,
+.child[data-brightness-mode="light"][data-contrast-mode="low"],
+.child[data-brightness-mode="light"][data-contrast-mode="high"],
+[data-brightness-mode="light"] .child[data-contrast-mode="low"],
+[data-brightness-mode="light"] .child[data-contrast-mode="high"],
+[data-contrast-mode="low"] .child[data-brightness-mode="light"],
+[data-contrast-mode="high"] .child[data-brightness-mode="light"] {
+    --colour-mode-combo-brightness: light;
+    --colour-mode-combo-contrast: low, high;
+}
+
+/* #endregion demo with parent - light mode + low/high contrast */
+
 /* ## colour-mode-each ==================================== */
-/* e.g. - `@include colour-mode-each($nestModeSelectors: true) using ($brightness, $contrast) {}` */
+/* e.g. - `@include colour-mode-each using ($brightness, $contrast) {}` */
 /* #region light mode + average contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    :root,
+    [data-brightness-mode="light"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    :root,
+    [data-contrast-mode="average"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
 :root,
 [data-brightness-mode="light"],
 [data-contrast-mode="average"],
 [data-brightness-mode="light"][data-contrast-mode="average"],
-[data-contrast-mode="average"] [data-brightness-mode="light"],
-[data-brightness-mode="light"] [data-contrast-mode="average"] {
+[data-brightness-mode="light"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="light"] {
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
 }
 
 /* #endregion light mode + average contrast */
 /* #region light mode + low contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
 @media (prefers-contrast: less) {
     :root,
     [data-brightness-mode="light"] {
@@ -163,16 +349,29 @@ parent,
         --colour-mode-each-contrast: low;
     }
 }
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="low"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
 [data-contrast-mode="low"],
 [data-brightness-mode="light"][data-contrast-mode="low"],
-[data-contrast-mode="low"] [data-brightness-mode="light"],
-[data-brightness-mode="light"] [data-contrast-mode="low"] {
+[data-brightness-mode="light"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="light"] {
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
 }
 
 /* #endregion light mode + low contrast */
 /* #region light mode + high contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
 @media (prefers-contrast: more) {
     :root,
     [data-brightness-mode="light"] {
@@ -180,16 +379,34 @@ parent,
         --colour-mode-each-contrast: high;
     }
 }
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="high"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
 [data-contrast-mode="high"],
 [data-brightness-mode="light"][data-contrast-mode="high"],
-[data-contrast-mode="high"] [data-brightness-mode="light"],
-[data-brightness-mode="light"] [data-contrast-mode="high"] {
+[data-brightness-mode="light"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="light"] {
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
 }
 
 /* #endregion light mode + high contrast */
 /* #region dark mode + average contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    [data-brightness-mode="dark"] {
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
 @media (prefers-color-scheme: dark) {
     :root,
     [data-contrast-mode="average"] {
@@ -199,8 +416,8 @@ parent,
 }
 [data-brightness-mode="dark"],
 [data-brightness-mode="dark"][data-contrast-mode="average"],
-[data-contrast-mode="average"] [data-brightness-mode="dark"],
-[data-brightness-mode="dark"] [data-contrast-mode="average"] {
+[data-brightness-mode="dark"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="dark"] {
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
 }
@@ -226,8 +443,8 @@ parent,
     }
 }
 [data-brightness-mode="dark"][data-contrast-mode="low"],
-[data-contrast-mode="low"] [data-brightness-mode="dark"],
-[data-brightness-mode="dark"] [data-contrast-mode="low"] {
+[data-brightness-mode="dark"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="dark"] {
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
 }
@@ -253,8 +470,8 @@ parent,
     }
 }
 [data-brightness-mode="dark"][data-contrast-mode="high"],
-[data-contrast-mode="high"] [data-brightness-mode="dark"],
-[data-brightness-mode="dark"] [data-contrast-mode="high"] {
+[data-brightness-mode="dark"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="dark"] {
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
 }
@@ -269,4 +486,15 @@ parent,
         --colour-mode-each-contrast: forced-colors;
     }
 }
+[data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="dark"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="light"],
+[data-brightness-mode="dark"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="dark"] {
+    --colour-mode-each-brightness: light dark;
+    --colour-mode-each-contrast: forced-colors;
+}
+
 /* #endregion light/dark mode + forced-colors contrast */

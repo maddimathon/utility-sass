@@ -1,0 +1,141 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-pre.0
+///
+
+@forward 'config';
+@forward '../../header';
+
+@use 'config';
+
+@use '../../../modules/meta';
+
+@use 'lib' as *;
+
+/* # MIXINS - MODES
+ * ======================================================================== */
+
+$modeSets: (light, (light, dark), (light, dark, average, forced-colors));
+
+@media selectors {
+    @each $modeSet in $modeSets {
+        @include meta.var-dump(
+            'simple-selectors-colour-mode( #{meta.var-dump($modeSet, $withType: false)} )',
+            simple-selectors-colour-mode($modeSet)
+        );
+    }
+}
+
+@mixin _all-colour-mode-sets {
+    @include light {
+        --mode-mixin: 'light';
+    }
+    // @each $modeSet in $modeSets {
+    //     @include colour-mode($modeSet) {
+    //         /* colour-mode( #{meta.var-dump($modeSet, $withType: false)} ) */
+    //         @content;
+    //     }
+    // }
+}
+
+/* #region - in root parent */
+#{config.$selector_root} {
+    @include _all-colour-mode-sets;
+}
+/* #endregion - in root parent */
+
+/* #region - in body parent */
+#{config.$selector_body} {
+    @include _all-colour-mode-sets;
+}
+/* #endregion - in body parent */
+
+/* #region - in random parent */
+parent {
+    @include _all-colour-mode-sets;
+}
+/* #endregion - in random parent */
+
+$_mixinNotSlugs: (
+    'light',
+    // 'dark',
+    // 'low',
+    // 'average',
+    // 'high',
+    // 'max',
+     // 'forced-colors'
+);
+
+@each $_slug in $_mixinNotSlugs {
+    /* #region NOT #{$_slug} */
+    @include colour-mode-not($_slug) {
+        --mode-mixin: 'not #{$_slug}';
+    }
+    /* #endregion NOT #{$_slug} */
+}
+
+$_mixinNames: (
+    'light',
+    'dark',
+    'low-contrast',
+    'average-contrast',
+    'high-contrast',
+    'max-contrast',
+    'forced-colors'
+);
+
+@each $_mixinName in $_mixinNames {
+    $_mixin: meta.get-mixin($_mixinName);
+
+    /* #region #{$_mixinName} */
+    @include meta.apply($_mixin) {
+        /* @include #{$_mixinName} { } */
+        --mode-mixin: '#{$_mixinName}';
+    }
+    /* #endregion #{$_mixinName} */
+}
+
+/* #region - in parent with light mode selector */
+[data-brightness-mode='light'] .child {
+    /* og selector */
+
+    @include low-contrast {
+        /* @include low-contrast { } */
+        // --mode-mixin: 'low';
+    }
+
+    @include forced-colors {
+        /* @include forced-colors { } */
+        // --mode-mixin: 'forced-colors';
+    }
+}
+/* #endregion - in parent with mode selector */
+
+/* #region colour-mode-all */
+@include colour-mode-all {
+    --mode-mixin: 'colour-mode-all';
+}
+/* #endregion colour-mode-all */
+
+/* ## colour-mode-combo ==================================== */
+/* e.g. - `@include colour-mode-combo( light, (low, average) ) {}` */
+
+@include colour-mode-combo(light, (low, average), $includeRegion_heading: 'demo without parent') {
+    --colour-mode-combo-brightness: light;
+    --colour-mode-combo-contrast: low, average;
+}
+
+.child {
+    @include colour-mode-combo(light, (low, high), $includeRegion_heading: 'demo with parent') {
+        --colour-mode-combo-brightness: light;
+        --colour-mode-combo-contrast: low, high;
+    }
+}
+
+/* ## colour-mode-each ==================================== */
+/* e.g. - `@include colour-mode-each using ($brightness, $contrast) {}` */
+
+@include colour-mode-each using ($brightness, $contrast) {
+    --colour-mode-each-brightness: #{$brightness};
+    --colour-mode-each-contrast: #{$contrast};
+}

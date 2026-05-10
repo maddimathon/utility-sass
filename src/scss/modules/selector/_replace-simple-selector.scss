@@ -1,0 +1,103 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+// @use '../_config' as config;
+
+@use 'includes';
+@use 'is-superselector-any';
+@use 'unify-all';
+
+///
+/// Replaces any instance of the given simple selectors ($needle_selectors) in
+/// the given selector with the replacement selector ($replacement_selector).
+///
+/// Use with caution and always verify output. There seem to be some sass bugs
+/// that can cause selector.replace() to behave in an unpredictable way with
+/// compound selectors (e.g., nested, unified, multiple 'simple' selectors).
+///
+/// @since ___PKG_VERSION___
+///
+@function replace-simple-selector(
+    $haystack_selector,
+    $needle_selectors,
+    $replacement_selector,
+    $preserveModifiers: false
+) {
+    $haystack_selector: selector.parse(#{$haystack_selector});
+    $replacement_selector: selector.parse(#{$replacement_selector});
+
+    $replaced_selectors: ();
+
+    $haystack_selector: selector.parse($haystack_selector);
+
+    $haystack_selector: if(
+        list.separator($haystack_selector) == comma,
+        $haystack_selector,
+        ($haystack_selector)
+    );
+
+    @each $single_haystack_selector in $haystack_selector {
+        //
+        @if includes.includes($single_haystack_selector, $needle_selectors) {
+            //
+            @each $_sub_single_haystack in $single_haystack_selector {
+                //
+                @if is-superselector-any.is-superselector-any(
+                    $needle_selectors,
+                    $_sub_single_haystack
+                )
+                {
+                    $_simple_sels_to_replace: ();
+
+                    @if $preserveModifiers {
+                        //
+                        @each $__simple_sub_single_haystack
+                            in selector.simple-selectors($_sub_single_haystack)
+                        {
+                            @if is-superselector-any.is-superselector-any(
+                                $needle_selectors,
+                                $__simple_sub_single_haystack
+                            )
+                            {
+                                $_simple_sels_to_replace: list.append(
+                                    $_simple_sels_to_replace,
+                                    $__simple_sub_single_haystack
+                                );
+                            }
+                        }
+
+                        @if list.length($_simple_sels_to_replace) < 1 {
+                            $replacement_selector: selector.unify(
+                                $_sub_single_haystack,
+                                $replacement_selector
+                            );
+                        }
+                    }
+
+                    // replace this sub selector with the replacement selector
+                    $single_haystack_selector: selector.replace(
+                        $single_haystack_selector,
+                        unify-all.unify-all(
+                            $_simple_sels_to_replace,
+                            $fallback_selector: $_sub_single_haystack
+                        ),
+                        $replacement_selector
+                    );
+                }
+            }
+        }
+
+        $replaced_selectors: list.append(
+            $replaced_selectors,
+            $single_haystack_selector,
+            $separator: comma
+        );
+    }
+
+    @return $replaced_selectors;
+}

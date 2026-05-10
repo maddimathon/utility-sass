@@ -14,11 +14,17 @@ This scss "module" is meant as a replacement for the built-in `sass:selector` mo
 selector.add-body-selector(...); // added
 selector.add-root-selector(...); // added
 
+@include selector.add-body-selector(...) {} // added
+@include selector.add-root-selector(...) {} // added
+
 selector.has-body(...); // added
 selector.has-root(...); // added
 
 selector.is-body(...); // added
 selector.is-root(...); // added
+
+selector.is-simple(...); // added
+selector.is-superselector-any(...); // added
 
 selector.merge(...); // added
 
@@ -35,14 +41,12 @@ selector.parent-or-root(...); // added
 
 selector.replace-body-selector(...); // added
 selector.replace-root-selector(...); // added
+selector.replace-simple-selector(...); // added
 
 selector.has-list(...); // added
 selector.is-list(...); // added
 selector.not-list(...); // added
 selector.where-list(...); // added
-
-@include selector.add-body-selector(...) {} // added
-@include selector.add-root-selector(...) {} // added
 
 @include selector.has(...) {} // added
 @include selector.is(...) {} // added

@@ -37,7 +37,7 @@ export function sassFn_jsVarDump({ console, params }) {
                 }
                 const inspection = VariableInspector.stringify({ [varName]: jsValue });
                 console.log([
-                    ['[Sass: js-var-dump()]', { bold: true, clr: 'grey' }],
+                    ['[Sass: meta.js-var-dump()]', { bold: true, clr: 'grey' }],
                     [inspection, { clr: 'black', maxWidth: null }],
                 ], level, {
                     bold: false,
@@ -46,7 +46,7 @@ export function sassFn_jsVarDump({ console, params }) {
                     linesIn: 0,
                     linesOut: 0,
                 });
-                return new sass.SassString(`js-var-dump() - ${varName}`, { quotes: false });
+                return new sass.SassString(`meta.js-var-dump() - ${varName}`, { quotes: false });
             });
         },
     };

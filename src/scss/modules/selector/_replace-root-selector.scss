@@ -42,37 +42,53 @@
     );
 
     // returns on a positive match
-    @each $singleSelector in $current_selector {
+    @each $single_current_selector in $current_selector {
         //
-        @if has-root.has-root($singleSelector) {
+        @if has-root.has-root($single_current_selector) {
             //
-            @each $_subSel in $singleSelector {
-                @if is-root.is-root($_subSel) {
-                    $_simpleSubSel: ();
+            @each $_sub_selector_current in $single_current_selector {
+                @if is-root.is-root($_sub_selector_current) {
+                    $_simple_sels_to_replace: ();
 
                     @if $preserveModifiers {
-                        @each $__subSubSel in selector.simple-selectors($_subSel) {
-                            @if is-root.is-root($__subSubSel, $checkAliases: false) {
-                                $_simpleSubSel: list.append($_simpleSubSel, $__subSubSel);
+                        @each $_simple_sub_selector_current
+                            in selector.simple-selectors($_sub_selector_current)
+                        {
+                            @if is-root.is-root($_simple_sub_selector_current, $checkAliases: false)
+                            {
+                                $_simple_sels_to_replace: list.append(
+                                    $_simple_sels_to_replace,
+                                    $_simple_sub_selector_current
+                                );
                             }
                         }
 
-                        @if list.length($_simpleSubSel) < 1 {
-                            $replacement_selector: selector.unify($_subSel, $replacement_selector);
+                        @if list.length($_simple_sels_to_replace) < 1 {
+                            $replacement_selector: selector.unify(
+                                $_sub_selector_current,
+                                $replacement_selector
+                            );
                         }
                     }
 
                     // replace this sub selector with the replacement selector
-                    $singleSelector: selector.replace(
-                        $singleSelector,
-                        unify-all.unify-all($_simpleSubSel, $fallback_selector: $_subSel),
+                    $single_current_selector: selector.replace(
+                        $single_current_selector,
+                        unify-all.unify-all(
+                            $_simple_sels_to_replace,
+                            $fallback_selector: $_sub_selector_current
+                        ),
                         $replacement_selector
                     );
                 }
             }
         }
 
-        $replaced_selectors: list.append($replaced_selectors, $singleSelector, $separator: comma);
+        $replaced_selectors: list.append(
+            $replaced_selectors,
+            $single_current_selector,
+            $separator: comma
+        );
     }
 
     @return $replaced_selectors;

@@ -19,16 +19,16 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function has-root($sel) {
+@function has-root($sel, $args...) {
     // returns
-    @if is-root.is-root($sel) {
+    @if is-root.is-root($sel, $args...) {
         @return true;
     }
 
     // returns on a positive match
     @each $singleSelector in if(list.separator($sel) == comma, $sel, ($sel)) {
         @each $_subSel in $singleSelector {
-            @if is-root.is-root($_subSel) {
+            @if is-root.is-root($_subSel, $args...) {
                 @return true;
             }
         }
@@ -44,11 +44,15 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function parent-has-root() {
-    // returns
-    @if not parent-exists.parent-exists() {
-        @return false;
+@function parent-has-root($parentSelector: &, $args...) {
+    @if $parentSelector == null {
+        // returns
+        @if not parent-exists.parent-exists() {
+            @return false;
+        }
+
+        $parentSelector: &;
     }
 
-    @return has-root(selector.parse(#{$sel}));
+    @return has-root($parentSelector, $args...);
 }

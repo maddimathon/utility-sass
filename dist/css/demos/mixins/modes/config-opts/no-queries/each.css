@@ -1,0 +1,341 @@
+/*!
+ * Utility Sass - Demo
+ *
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ *
+ * https://maddimathon.github.io/utility-sass
+ *
+ * Author: Maddi Mathon (www.maddimathon.com/web)
+ * License: MIT
+ */
+/* # MIXINS - MODES - NO QUERIES - colour-mode-each
+ * ======================================================================== */
+/* #region default params - light mode + average contrast */
+:root {
+    /* @include colour-mode-each() { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+@media (prefers-contrast: no-preference),
+    (prefers-color-scheme: no-preference),
+    (prefers-color-scheme: light),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion default params - light mode + average contrast */
+/* #region default params - light mode + low contrast */
+@media (prefers-contrast: less),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion default params - light mode + low contrast */
+/* #region default params - light mode + high contrast */
+@media (prefers-contrast: more),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion default params - light mode + high contrast */
+/* #region default params - dark mode + average contrast */
+@media (prefers-color-scheme: dark),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion default params - dark mode + average contrast */
+/* #region default params - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion default params - dark mode + low contrast */
+/* #region default params - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion default params - dark mode + high contrast */
+/* #region default params - light/dark mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"],
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+/* #endregion default params - light/dark mode + forced-colors contrast */
+/* #region nested - light mode + average contrast */
+:root {
+    /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+@media (prefers-contrast: no-preference),
+    (prefers-color-scheme: no-preference),
+    (prefers-color-scheme: light),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion nested - light mode + average contrast */
+/* #region nested - light mode + low contrast */
+@media (prefers-contrast: less),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion nested - light mode + low contrast */
+/* #region nested - light mode + high contrast */
+@media (prefers-contrast: more),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion nested - light mode + high contrast */
+/* #region nested - dark mode + average contrast */
+@media (prefers-color-scheme: dark),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion nested - dark mode + average contrast */
+/* #region nested - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion nested - dark mode + low contrast */
+/* #region nested - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion nested - dark mode + high contrast */
+/* #region nested - light/dark mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"],
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+/* #endregion nested - light/dark mode + forced-colors contrast */
+/* #region nested with forced-colors - light mode + average contrast */
+:root {
+    /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+@media (prefers-contrast: no-preference),
+    (prefers-color-scheme: no-preference),
+    (prefers-color-scheme: light),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion nested with forced-colors - light mode + average contrast */
+/* #region nested with forced-colors - light mode + low contrast */
+@media (prefers-contrast: less),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion nested with forced-colors - light mode + low contrast */
+/* #region nested with forced-colors - light mode + high contrast */
+@media (prefers-contrast: more),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion nested with forced-colors - light mode + high contrast */
+/* #region nested with forced-colors - dark mode + average contrast */
+@media (prefers-color-scheme: dark),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion nested with forced-colors - dark mode + average contrast */
+/* #region nested with forced-colors - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion nested with forced-colors - dark mode + low contrast */
+/* #region nested with forced-colors - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion nested with forced-colors - dark mode + high contrast */
+/* #region nested with forced-colors - light/dark mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"],
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+/* #endregion nested with forced-colors - light/dark mode + forced-colors contrast */
+/* #region nested with iterated forced-colors - light mode + average contrast */
+:root {
+    /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+@media (prefers-contrast: no-preference),
+    (prefers-color-scheme: no-preference),
+    (prefers-color-scheme: light),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion nested with iterated forced-colors - light mode + average contrast */
+/* #region nested with iterated forced-colors - light mode + low contrast */
+@media (prefers-contrast: less),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion nested with iterated forced-colors - light mode + low contrast */
+/* #region nested with iterated forced-colors - light mode + high contrast */
+@media (prefers-contrast: more),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion nested with iterated forced-colors - light mode + high contrast */
+/* #region nested with iterated forced-colors - light mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+/* #endregion nested with iterated forced-colors - light mode + forced-colors contrast */
+/* #region nested with iterated forced-colors - dark mode + average contrast */
+@media (prefers-color-scheme: dark),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion nested with iterated forced-colors - dark mode + average contrast */
+/* #region nested with iterated forced-colors - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion nested with iterated forced-colors - dark mode + low contrast */
+/* #region nested with iterated forced-colors - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion nested with iterated forced-colors - dark mode + high contrast */
+/* #region nested with iterated forced-colors - dark mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+/* #endregion nested with iterated forced-colors - dark mode + forced-colors contrast */

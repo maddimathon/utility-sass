@@ -17,8 +17,9 @@
 /// @return {bool}
 ///
 /// @since 0.1.0-alpha — Moved to selector module.
+/// @since ___PKG_VERSION___ — Added optional $aliases, $checkAliases params (and better checking).
 ///
-@function is-body($sel, $checkAliases: true) {
+@function is-body($sel, $aliases: config.$selector_body_aliases, $checkAliases: true) {
     $sel: #{$sel};
 
     // returns
@@ -47,12 +48,12 @@
     }
 
     // returns
-    @if not $checkAliases or config.$selector_body_aliases == null {
+    @if not $checkAliases or $aliases == null {
         @return false;
     }
 
     // returns on success
-    @each $_selector in config.$selector_body_aliases {
+    @each $_selector in $aliases {
         // returns
         @if selector.is-superselector(#{$_selector}, $sel) {
             @return true;
@@ -69,15 +70,15 @@
 ///
 /// @since 0.1.0-alpha — Moved to selector module.
 ///
-@function parent-is-body($parentSelector: &) {
+@function parent-is-body($parentSelector: &, $args...) {
     @if $parentSelector == null {
         // returns
-        @if not parent-exists.parent-exists($parentSelector) {
+        @if not parent-exists.parent-exists() {
             @return false;
         }
 
         $parentSelector: &;
     }
 
-    @return is-body($parentSelector);
+    @return is-body($parentSelector, $args...);
 }

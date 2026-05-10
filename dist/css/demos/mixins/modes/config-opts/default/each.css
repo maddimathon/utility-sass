@@ -1,0 +1,1119 @@
+/*!
+ * Utility Sass - Demo
+ *
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ *
+ * https://maddimathon.github.io/utility-sass
+ *
+ * Author: Maddi Mathon (www.maddimathon.com/web)
+ * License: MIT
+ */
+/* # MIXINS - MODES - DEFAULT params - colour-mode-each
+ * ======================================================================== */
+/* #region no queries - light mode + average contrast */
+:root,
+[data-brightness-mode="light"],
+[data-contrast-mode="average"],
+[data-brightness-mode="light"][data-contrast-mode="average"],
+[data-brightness-mode="light"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeQuery: false ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion no queries - light mode + average contrast */
+/* #region no queries - light mode + low contrast */
+[data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="low"],
+[data-brightness-mode="light"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeQuery: false ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion no queries - light mode + low contrast */
+/* #region no queries - light mode + high contrast */
+[data-contrast-mode="high"],
+[data-brightness-mode="light"][data-contrast-mode="high"],
+[data-brightness-mode="light"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeQuery: false ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion no queries - light mode + high contrast */
+/* #region no queries - dark mode + average contrast */
+[data-brightness-mode="dark"],
+[data-brightness-mode="dark"][data-contrast-mode="average"],
+[data-brightness-mode="dark"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeQuery: false ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion no queries - dark mode + average contrast */
+/* #region no queries - dark mode + low contrast */
+[data-brightness-mode="dark"][data-contrast-mode="low"],
+[data-brightness-mode="dark"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeQuery: false ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion no queries - dark mode + low contrast */
+/* #region no queries - dark mode + high contrast */
+[data-brightness-mode="dark"][data-contrast-mode="high"],
+[data-brightness-mode="dark"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeQuery: false ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion no queries - dark mode + high contrast */
+/* #region no queries - light/dark mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"],
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeQuery: false ) { } */
+        --colour-mode-each-brightness: light dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+[data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="dark"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="light"],
+[data-brightness-mode="dark"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeQuery: false ) { } */
+    --colour-mode-each-brightness: light dark;
+    --colour-mode-each-contrast: forced-colors;
+}
+
+/* #endregion no queries - light/dark mode + forced-colors contrast */
+/* #region no selectors - light mode + average contrast */
+:root {
+    /* @include colour-mode-each( $includeSelectors: false ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+@media (prefers-contrast: no-preference),
+    (prefers-color-scheme: no-preference),
+    (prefers-color-scheme: light),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeSelectors: false ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion no selectors - light mode + average contrast */
+/* #region no selectors - light mode + low contrast */
+@media (prefers-contrast: less),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeSelectors: false ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion no selectors - light mode + low contrast */
+/* #region no selectors - light mode + high contrast */
+@media (prefers-contrast: more),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeSelectors: false ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion no selectors - light mode + high contrast */
+/* #region no selectors - dark mode + average contrast */
+@media (prefers-color-scheme: dark),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeSelectors: false ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+/* #endregion no selectors - dark mode + average contrast */
+/* #region no selectors - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeSelectors: false ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+/* #endregion no selectors - dark mode + low contrast */
+/* #region no selectors - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeSelectors: false ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+/* #endregion no selectors - dark mode + high contrast */
+/* #region no selectors - light/dark mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"],
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeSelectors: false ) { } */
+        --colour-mode-each-brightness: light dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+/* #endregion no selectors - light/dark mode + forced-colors contrast */
+/* #region default params - light mode + average contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    :root,
+    [data-contrast-mode="average"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+:root,
+[data-brightness-mode="light"],
+[data-contrast-mode="average"],
+[data-brightness-mode="light"][data-contrast-mode="average"],
+[data-brightness-mode="light"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each() { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion default params - light mode + average contrast */
+/* #region default params - light mode + low contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-contrast: less) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="low"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+[data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="low"],
+[data-brightness-mode="light"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each() { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion default params - light mode + low contrast */
+/* #region default params - light mode + high contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-contrast: more) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="high"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+[data-contrast-mode="high"],
+[data-brightness-mode="light"][data-contrast-mode="high"],
+[data-brightness-mode="light"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each() { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion default params - light mode + high contrast */
+/* #region default params - dark mode + average contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    :root,
+    [data-contrast-mode="average"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+[data-brightness-mode="dark"],
+[data-brightness-mode="dark"][data-contrast-mode="average"],
+[data-brightness-mode="dark"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each() { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion default params - dark mode + average contrast */
+/* #region default params - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-contrast: less) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="low"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="low"],
+[data-brightness-mode="dark"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each() { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion default params - dark mode + low contrast */
+/* #region default params - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-contrast: more) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="high"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="high"],
+[data-brightness-mode="dark"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each() { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion default params - dark mode + high contrast */
+/* #region default params - light/dark mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"],
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each() { } */
+        --colour-mode-each-brightness: light dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+[data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="dark"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="light"],
+[data-brightness-mode="dark"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each() { } */
+    --colour-mode-each-brightness: light dark;
+    --colour-mode-each-contrast: forced-colors;
+}
+
+/* #endregion default params - light/dark mode + forced-colors contrast */
+/* #region nested - light mode + average contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    :root,
+    [data-contrast-mode="average"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+:root,
+[data-brightness-mode="light"],
+[data-contrast-mode="average"],
+[data-brightness-mode="light"][data-contrast-mode="average"],
+[data-brightness-mode="light"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion nested - light mode + average contrast */
+/* #region nested - light mode + low contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-contrast: less) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="low"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+[data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="low"],
+[data-brightness-mode="light"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion nested - light mode + low contrast */
+/* #region nested - light mode + high contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-contrast: more) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="high"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+[data-contrast-mode="high"],
+[data-brightness-mode="light"][data-contrast-mode="high"],
+[data-brightness-mode="light"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion nested - light mode + high contrast */
+/* #region nested - dark mode + average contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    :root,
+    [data-contrast-mode="average"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+[data-brightness-mode="dark"],
+[data-brightness-mode="dark"][data-contrast-mode="average"],
+[data-brightness-mode="dark"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion nested - dark mode + average contrast */
+/* #region nested - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-contrast: less) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="low"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="low"],
+[data-brightness-mode="dark"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion nested - dark mode + low contrast */
+/* #region nested - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-contrast: more) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="high"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="high"],
+[data-brightness-mode="dark"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion nested - dark mode + high contrast */
+/* #region nested - light/dark mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"],
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+[data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="dark"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="light"],
+[data-brightness-mode="dark"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light dark;
+    --colour-mode-each-contrast: forced-colors;
+}
+
+/* #endregion nested - light/dark mode + forced-colors contrast */
+/* #region nested with forced-colors - light mode + average contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    :root,
+    [data-contrast-mode="average"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+:root,
+[data-brightness-mode="light"],
+[data-contrast-mode="average"],
+[data-brightness-mode="light"][data-contrast-mode="average"],
+[data-brightness-mode="light"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion nested with forced-colors - light mode + average contrast */
+/* #region nested with forced-colors - light mode + low contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-contrast: less) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="low"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+[data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="low"],
+[data-brightness-mode="light"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion nested with forced-colors - light mode + low contrast */
+/* #region nested with forced-colors - light mode + high contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-contrast: more) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="high"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+[data-contrast-mode="high"],
+[data-brightness-mode="light"][data-contrast-mode="high"],
+[data-brightness-mode="light"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion nested with forced-colors - light mode + high contrast */
+/* #region nested with forced-colors - dark mode + average contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    :root,
+    [data-contrast-mode="average"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+[data-brightness-mode="dark"],
+[data-brightness-mode="dark"][data-contrast-mode="average"],
+[data-brightness-mode="dark"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion nested with forced-colors - dark mode + average contrast */
+/* #region nested with forced-colors - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-contrast: less) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="low"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="low"],
+[data-brightness-mode="dark"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion nested with forced-colors - dark mode + low contrast */
+/* #region nested with forced-colors - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-contrast: more) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="high"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="high"],
+[data-brightness-mode="dark"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion nested with forced-colors - dark mode + high contrast */
+/* #region nested with forced-colors - light/dark mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"],
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+[data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="dark"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="light"],
+[data-brightness-mode="dark"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light dark;
+    --colour-mode-each-contrast: forced-colors;
+}
+
+/* #endregion nested with forced-colors - light/dark mode + forced-colors contrast */
+/* #region nested with iterated forced-colors - light mode + average contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: no-preference )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    :root,
+    [data-contrast-mode="average"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: average;
+    }
+}
+:root,
+[data-brightness-mode="light"],
+[data-contrast-mode="average"],
+[data-brightness-mode="light"][data-contrast-mode="average"],
+[data-brightness-mode="light"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion nested with iterated forced-colors - light mode + average contrast */
+/* #region nested with iterated forced-colors - light mode + low contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: less )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-contrast: less) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="low"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: low;
+    }
+}
+[data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="low"],
+[data-brightness-mode="light"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion nested with iterated forced-colors - light mode + low contrast */
+/* #region nested with iterated forced-colors - light mode + high contrast */
+@media (( prefers-color-scheme: no-preference ) and ( prefers-contrast: more )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-contrast: more) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="high"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: high;
+    }
+}
+[data-contrast-mode="high"],
+[data-brightness-mode="light"][data-contrast-mode="high"],
+[data-brightness-mode="light"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion nested with iterated forced-colors - light mode + high contrast */
+/* #region nested with iterated forced-colors - light mode + forced-colors contrast */
+@media (( prefers-color-scheme: no-preference ) and ( forced-colors: active )),
+    (( prefers-color-scheme: no-preference ) and ( prefers-contrast: custom )),
+    (( prefers-color-scheme: light ) and ( forced-colors: active )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: custom )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root,
+    [data-brightness-mode="light"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="forced-colors"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+[data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="light"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="light"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: forced-colors;
+}
+
+/* #endregion nested with iterated forced-colors - light mode + forced-colors contrast */
+/* #region nested with iterated forced-colors - dark mode + average contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    :root,
+    [data-contrast-mode="average"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: average;
+    }
+}
+[data-brightness-mode="dark"],
+[data-brightness-mode="dark"][data-contrast-mode="average"],
+[data-brightness-mode="dark"] [data-contrast-mode="average"],
+[data-contrast-mode="average"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: average;
+}
+
+/* #endregion nested with iterated forced-colors - dark mode + average contrast */
+/* #region nested with iterated forced-colors - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-contrast: less) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="low"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: low;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="low"],
+[data-brightness-mode="dark"] [data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: low;
+}
+
+/* #endregion nested with iterated forced-colors - dark mode + low contrast */
+/* #region nested with iterated forced-colors - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-contrast: more) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="high"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: high;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="high"],
+[data-brightness-mode="dark"] [data-contrast-mode="high"],
+[data-contrast-mode="high"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: high;
+}
+
+/* #endregion nested with iterated forced-colors - dark mode + high contrast */
+/* #region nested with iterated forced-colors - dark mode + forced-colors contrast */
+@media (( prefers-color-scheme: dark ) and ( forced-colors: active )),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: custom )) {
+    :root {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+@media (forced-colors: active), (prefers-contrast: custom) {
+    [data-brightness-mode="dark"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="forced-colors"] {
+        /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: forced-colors;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="forced-colors"],
+[data-brightness-mode="dark"] [data-contrast-mode="forced-colors"],
+[data-contrast-mode="forced-colors"] [data-brightness-mode="dark"] {
+    /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: forced-colors;
+}
+
+/* #endregion nested with iterated forced-colors - dark mode + forced-colors contrast */

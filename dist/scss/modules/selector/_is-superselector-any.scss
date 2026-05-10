@@ -1,0 +1,22 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:selector';
+
+///
+/// A version of the built-in function that accepts a list of selectors to test
+/// against instead of a single selector.
+///
+@function is-superselector-any($super, $sub) {
+    $super: selector.parse(#{$super});
+
+    @each $selector in $super {
+        @if selector.is-superselector($selector, $sub) {
+            @return true;
+        }
+    }
+
+    @return false;
+}

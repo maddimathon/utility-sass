@@ -7,28 +7,33 @@
 @use '../../../../modules/map';
 @use '../../../../modules/meta';
 @use '../../../../modules/selector';
-@use '../../../../modules/string';
 
 @use '../../../../config';
 // @use '../../../../tokens';
 
+@use '../../01-00-internal' as *;
+
 @use '01-05-02-01-meta' as *;
 @use '01-05-02-02-utils' as *;
+
+$_allModeOptions: list.join(config.$brightnessMode_options, config.$contrastMode_options);
+$_allModeOptions_simpleSelectors: simple-selectors-colour-mode($_allModeOptions);
 
 ///
 /// Validates and defines defaults for arguments used in multiple clr mode
 /// functions/mixins.
 ///
 /// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed params:
 ///
 @function colour-mode-validate-args(
     $modes: (),
     $includeDefault: true,
     $ignoreParentSelector: false,
 
-    $nestParentSelector: null,
-    $unifyParentSelector: null,
-    $wrapParentSelector: null,
+    $addGlobalModeSelector: null,
+    $unifySelectors: null,
+    $nestModeSelector: null,
 
     $parentIsRoot: null,
     $parentIsBody: null,
@@ -51,9 +56,9 @@
         $debug_vars: map.set($debug_vars, '$includeDefault', $includeDefault);
         $debug_vars: map.set($debug_vars, '$ignoreParentSelector', $ignoreParentSelector);
 
-        $debug_vars: map.set($debug_vars, '$nestParentSelector', $nestParentSelector);
-        $debug_vars: map.set($debug_vars, '$unifyParentSelector', $unifyParentSelector);
-        $debug_vars: map.set($debug_vars, '$wrapParentSelector', $wrapParentSelector);
+        $debug_vars: map.set($debug_vars, '$addGlobalModeSelector', $addGlobalModeSelector);
+        $debug_vars: map.set($debug_vars, '$unifySelectors', $unifySelectors);
+        $debug_vars: map.set($debug_vars, '$nestModeSelector', $nestModeSelector);
 
         $debug_vars: map.set($debug_vars, '$parentIsRoot', $parentIsRoot);
         $debug_vars: map.set($debug_vars, '$parentIsBody', $parentIsBody);
@@ -69,15 +74,17 @@
         $debug: $debug,
     );
 
-    @if $parentSelectorExists == null {
+    @if $ignoreParentSelector {
+        $parentSelectorExists: false;
+        $parentSelector: null;
+    } @else if $parentSelectorExists == null {
         $parentSelectorExists: selector.parent-exists();
     }
 
-    @if $ignoreParentSelector {
-        $parentSelectorExists: false;
-    }
+    $parentHasModeSelector: null;
+    $parentIsModeSelector: null;
 
-    @if $parentSelector == null {
+    @if not $parentSelector {
         @if $parentSelectorExists {
             $parentSelector: selector.parent-or-root();
         } @else {
@@ -86,6 +93,24 @@
             $parentIsRoot: true;
             $parentIsBody: false;
         }
+    } @else {
+        $parentSelector: selector.parse($parentSelector);
+    }
+
+    @if $parentSelector {
+        $parentHasModeSelector: selector.includes(
+            $parentSelector,
+            $_allModeOptions_simpleSelectors
+        );
+
+        @each $_subSel in $_allModeOptions_simpleSelectors {
+            @if not $parentIsModeSelector {
+                $parentIsModeSelector: selector.is-superselector($_subSel, $parentSelector);
+            }
+        }
+    } @else {
+        $parentHasModeSelector: false;
+        $parentIsModeSelector: false;
     }
 
     $parentIsRoot: if(
@@ -100,6 +125,8 @@
     );
 
     @if $debug {
+        $debug_vars: map.set($debug_vars, '$parentHasModeSelector', $parentHasModeSelector);
+
         $debug_vars: map.set($debug_vars, '[2] $parentIsRoot', $parentIsRoot);
         $debug_vars: map.set($debug_vars, '[2] $parentIsBody', $parentIsBody);
 
@@ -107,22 +134,26 @@
         $debug_vars: map.set($debug_vars, '[2] $parentSelectorExists', $parentSelectorExists);
     }
 
-    @if $nestParentSelector == null {
-        $nestParentSelector: true;
+    @if $addGlobalModeSelector == null {
+        $addGlobalModeSelector: true;
     }
 
-    @if $unifyParentSelector == null {
-        $unifyParentSelector: false;
+    @if $unifySelectors == null {
+        $unifySelectors: $parentSelectorExists and not
+            $parentIsRoot and
+            config.$fn_colourMode_selectorsAsChildren;
     }
 
-    @if $wrapParentSelector == null {
-        $wrapParentSelector: false;
+    @if $nestModeSelector == null {
+        $nestModeSelector: $parentSelectorExists and
+            config.$fn_colourMode_selectorsAsChildren and
+            ($parentIsRoot or $parentIsBody);
     }
 
     @if $debug {
-        $debug_vars: map.set($debug_vars, '[2] $nestParentSelector', $nestParentSelector);
-        $debug_vars: map.set($debug_vars, '[2] $unifyParentSelector', $unifyParentSelector);
-        $debug_vars: map.set($debug_vars, '[2] $wrapParentSelector', $wrapParentSelector);
+        $debug_vars: map.set($debug_vars, '[2] $addGlobalModeSelector', $addGlobalModeSelector);
+        $debug_vars: map.set($debug_vars, '[2] $unifySelectors', $unifySelectors);
+        $debug_vars: map.set($debug_vars, '[2] $nestModeSelector', $nestModeSelector);
     }
 
     $isClrModeDefault: false;
@@ -138,15 +169,17 @@
             modes: $modes,
             includeDefault: $includeDefault,
 
-            nestParentSelector: $nestParentSelector,
-            unifyParentSelector: $unifyParentSelector,
-            wrapParentSelector: $wrapParentSelector,
+            addGlobalModeSelector: $addGlobalModeSelector,
+            unifySelectors: $unifySelectors,
+            nestModeSelector: $nestModeSelector,
 
             parentSelector: $parentSelector,
             parentSelectorExists: $parentSelectorExists,
 
             parentIsRoot: $parentIsRoot,
             parentIsBody: $parentIsBody,
+
+            parentHasModeSelector: $parentHasModeSelector,
 
             isClrModeDefault: $isClrModeDefault,
 
@@ -158,7 +191,7 @@
     );
 
     @if $debug {
-        $debug_vars: js-var-dump($debug_vars, 'colour-mode-validate-args()');
+        $_: meta.js-var-dump($debug_vars, 'colour-mode-validate-args()');
     }
 
     @return $args;

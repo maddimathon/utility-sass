@@ -14,7 +14,12 @@
 /// @since 0.1.0-alpha.30
 /// @since 0.1.0-beta.0.draft — Renamed from $fn_debugCheckpoint to $debug_checkpoints
 ///
-$debug_checkpoints: false !default;
+$debug_checkpoints: null !default;
+$debug_checkpoints: config-valid-bool(
+    $debug_checkpoints,
+    'debug_checkpoints',
+    $default: false
+);
 
 ///
 /// Whether to output verbose debug checkpoints (e.g., to verbosely debug
@@ -23,7 +28,12 @@ $debug_checkpoints: false !default;
 /// @since 0.1.0-alpha.30
 /// @since 0.1.0-beta.0.draft — Renamed from $fn_debugCheckpoint_verbose to $debug_checkpoints_verbose
 ///
-$debug_checkpoints_verbose: false !default;
+$debug_checkpoints_verbose: null !default;
+$debug_checkpoints_verbose: config-valid-bool(
+    $debug_checkpoints_verbose,
+    'debug_checkpoints_verbose',
+    $default: false
+);
 
 ///
 /// Whether the library is being called from a stylesheet template.
@@ -31,7 +41,8 @@ $debug_checkpoints_verbose: false !default;
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Renamed from $internal_isTemplate to $isTemplate
 ///
-$isTemplate: false !default;
+$isTemplate: null !default;
+$isTemplate: config-valid-bool($isTemplate, 'isTemplate', $default: false);
 
 ///
 /// Removes the 'these styles include utility-sass' comment (for use internally
@@ -40,4 +51,9 @@ $isTemplate: false !default;
 /// @since 0.1.0-pre.0
 /// @internal
 ///
-$internal_supressCredit: $isTemplate !default;
+$internal_supressCredit: null !default;
+$internal_supressCredit: config-valid-bool(
+    $internal_supressCredit,
+    'internal_supressCredit',
+    $default: $isTemplate
+);

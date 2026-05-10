@@ -12,6 +12,399 @@
  */
 /* # MODULES - SELECTOR
  * ======================================================================== */
+@media replace-simple-selector {
+    :root .child .grandchild another.child {
+        /* STARTING SELECTOR */
+    }
+    :root .new-child .grandchild another.new-child {
+        /* 
+        selector.replace-simple-selector( &, ".child", ".new-child" ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> :root <S> .new-child <S> .grandchild <S> another.new-child ) ) */
+    }
+    html .child .grandchild another.child,
+    custom-html .child .grandchild another.child {
+        /* 
+        selector.replace-simple-selector( &, ":root", ( "html", "custom-html" ) ) is a list:
+     */
+        /* 1: <()> ( <()> ( <S> html <S> .child <S> .grandchild <S> another.child ), <()> ( <S> custom-html <S> .child <S> .grandchild <S> another.child ) ) */
+    }
+    :root .child .grandchild another.child {
+        /* 
+        selector.replace-simple-selector( &, ".non-existant-class", ".new-child" ) is a list:
+     */
+        /* 1: <()> ( <S> :root <S> .child <S> .grandchild <S> another.child ) */
+    }
+}
+@media extend-simple-selector {
+    :root .child .grandchild {
+        /* STARTING SELECTOR A */
+    }
+    :root .child .grandchild,
+    :root .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child" ) */
+    }
+    :root .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false ) */
+    }
+    :root .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false ) */
+    }
+    :root .child.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true ) */
+    }
+    :root .child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true ) */
+    }
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $wrap: true ) */
+    }
+    :root .child.new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $wrap: true ) */
+    }
+    :root .child.new-child .grandchild,
+    :root .child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true ) */
+    }
+    :root .child .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true, $wrap: true ) */
+    }
+    :root .child.new-child .grandchild,
+    :root .child .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $wrap: true ) */
+    }
+    :root .new-child .grandchild,
+    :root .child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true ) */
+    }
+    :root .new-child .grandchild,
+    :root .child.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true ) */
+    }
+    :root .new-child .grandchild,
+    :root .child.new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $wrap: true ) */
+    }
+    :root .new-child .grandchild,
+    :root .child .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true, $wrap: true ) */
+    }
+    :root .new-child .grandchild,
+    :root .child.new-child .grandchild,
+    :root .child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true ) */
+    }
+    :root .new-child .grandchild,
+    :root .child.new-child .grandchild,
+    :root .child .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root .child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $wrap: true ) */
+    }
+    :root .child .grandchild,
+    :root .child.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true ) */
+    }
+    :root .child .grandchild,
+    :root .child.new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $wrap: true ) */
+    }
+    :root .child .grandchild,
+    :root .child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true ) */
+    }
+    :root .child .grandchild,
+    :root .child .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true, $wrap: true ) */
+    }
+    :root .child .grandchild,
+    :root .child.new-child .grandchild,
+    :root .child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true ) */
+    }
+    :root .child .grandchild,
+    :root .child.new-child .grandchild,
+    :root .child .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root .child .grandchild,
+    :root .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $wrap: true ) */
+    }
+    :root .child .grandchild,
+    :root .new-child .grandchild,
+    :root .child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true ) */
+    }
+    :root .child .grandchild,
+    :root .new-child .grandchild,
+    :root .child.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true ) */
+    }
+    :root .child .grandchild,
+    :root .new-child .grandchild,
+    :root .child.new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $wrap: true ) */
+    }
+    :root .child .grandchild,
+    :root .new-child .grandchild,
+    :root .child .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true, $wrap: true ) */
+    }
+    :root .child .grandchild,
+    :root .new-child .grandchild,
+    :root .child.new-child .grandchild,
+    :root .child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true ) */
+    }
+    :root .child .grandchild,
+    :root .new-child .grandchild,
+    :root .child.new-child .grandchild,
+    :root .child .new-child .grandchild,
+    :root .new-child .child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root .child .grandchild,
+    :root .new-child .grandchild,
+    :root .child .new-child,
+    :root .new-child .new-child {
+        /* selector.extend-simple-selector( &, ( ".child", ".grandchild" ), ".new-child" ) */
+    }
+    :root .child .grandchild,
+    html .child .grandchild,
+    custom-html .child .grandchild {
+        /* selector.extend-simple-selector( &, ":root", ( "html", "custom-html" ) ) */
+    }
+    :root .child .grandchild {
+        /* selector.extend-simple-selector( &, ".non-existant-class", ".new-child" ) */
+    }
+    :root another.child .grandchild {
+        /* STARTING SELECTOR B */
+    }
+    :root another.child .grandchild,
+    :root another.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child" ) */
+    }
+    :root another.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false ) */
+    }
+    :root another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false ) */
+    }
+    :root another.child.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true ) */
+    }
+    :root another.child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true ) */
+    }
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $wrap: true ) */
+    }
+    :root another.child.new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $wrap: true ) */
+    }
+    :root another.child.new-child .grandchild,
+    :root another.child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true ) */
+    }
+    :root another.child .new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true, $wrap: true ) */
+    }
+    :root another.child.new-child .grandchild,
+    :root another.child .new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root another.new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $wrap: true ) */
+    }
+    :root another.new-child .grandchild,
+    :root another.child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true ) */
+    }
+    :root another.new-child .grandchild,
+    :root another.child.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true ) */
+    }
+    :root another.new-child .grandchild,
+    :root another.child.new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $wrap: true ) */
+    }
+    :root another.new-child .grandchild,
+    :root another.child .new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true, $wrap: true ) */
+    }
+    :root another.new-child .grandchild,
+    :root another.child.new-child .grandchild,
+    :root another.child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true ) */
+    }
+    :root another.new-child .grandchild,
+    :root another.child.new-child .grandchild,
+    :root another.child .new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root another.child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $wrap: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.child.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.child.new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $wrap: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.child .new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true, $wrap: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.child.new-child .grandchild,
+    :root another.child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.child.new-child .grandchild,
+    :root another.child .new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $wrap: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.new-child .grandchild,
+    :root another.child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.new-child .grandchild,
+    :root another.child.new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.new-child .grandchild,
+    :root another.child.new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $wrap: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.new-child .grandchild,
+    :root another.child .new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true, $wrap: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.new-child .grandchild,
+    :root another.child.new-child .grandchild,
+    :root another.child .new-child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true ) */
+    }
+    :root another.child .grandchild,
+    :root another.new-child .grandchild,
+    :root another.child.new-child .grandchild,
+    :root another.child .new-child .grandchild,
+    :root .new-child another.child .grandchild {
+        /* selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root .child .grandchild another.child {
+        /* STARTING SELECTOR C */
+    }
+    :root .new-child .grandchild another.new-child {
+        /* selector.extend-simple-selector( &, ".child", ".new-child", $self: false ) */
+    }
+    :root .child .grandchild another.child {
+        /* selector.extend-simple-selector( &, ".child", ".new-child", $replace: false ) */
+    }
+    :root .child.new-child .grandchild another.new-child.child {
+        /* selector.extend-simple-selector( &, ".child", ".new-child", $self: false, $replace: false, $unify: true ) */
+    }
+    [data-brightness-mode="light"] {
+        /* STARTING SELECTOR C */
+    }
+    [data-brightness-mode="light"],
+    [data-contrast-mode="low"] {
+        /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) */
+    }
+    [data-brightness-mode="light"],
+    [data-contrast-mode="low"],
+    [data-brightness-mode="light"][data-contrast-mode="low"],
+    [data-brightness-mode="light"] [data-contrast-mode="low"],
+    [data-contrast-mode="low"] [data-brightness-mode="light"] {
+        /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) */
+    }
+    [data-brightness-mode="light"],
+    [data-contrast-mode="low"],
+    [data-contrast-mode="average"],
+    [data-brightness-mode="light"][data-contrast-mode="low"],
+    [data-brightness-mode="light"][data-contrast-mode="average"],
+    [data-brightness-mode="light"] [data-contrast-mode="low"],
+    [data-brightness-mode="light"] [data-contrast-mode="average"],
+    [data-contrast-mode="low"] [data-brightness-mode="light"],
+    [data-contrast-mode="average"] [data-brightness-mode="light"] {
+        /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root [data-brightness-mode="light"] .child {
+        /* STARTING SELECTOR D */
+    }
+    :root [data-brightness-mode="light"] .child,
+    :root [data-contrast-mode="low"] .child {
+        /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) */
+    }
+    :root [data-brightness-mode="light"] .child,
+    :root [data-contrast-mode="low"] .child,
+    :root [data-brightness-mode="light"][data-contrast-mode="low"] .child,
+    :root [data-brightness-mode="light"] [data-contrast-mode="low"] .child,
+    :root [data-contrast-mode="low"] [data-brightness-mode="light"] .child {
+        /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) */
+    }
+    :root [data-brightness-mode="light"] .child,
+    :root [data-contrast-mode="low"] .child,
+    :root [data-contrast-mode="average"] .child,
+    :root [data-brightness-mode="light"][data-contrast-mode="low"] .child,
+    :root [data-brightness-mode="light"][data-contrast-mode="average"] .child,
+    :root [data-brightness-mode="light"] [data-contrast-mode="low"] .child,
+    :root [data-brightness-mode="light"] [data-contrast-mode="average"] .child,
+    :root [data-contrast-mode="low"] [data-brightness-mode="light"] .child,
+    :root [data-contrast-mode="average"] [data-brightness-mode="light"] .child {
+        /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) */
+    }
+}
+/* ## Modules - Selector - Root & Body Utilities ==================================== */
 @media at-root {
     /* 
       selector.parent-exists(): </> false
@@ -27,6 +420,9 @@
     /* via :root */
     /* 
       selector.parent-exists(): </> true
+   */
+    /* 
+      selector.is-simple( & ): </> true
    */
     /* 
       selector.is-body( & ): </> false
@@ -56,6 +452,9 @@
     /* via :root:where(.has-a-class) */
     /* 
       selector.parent-exists(): </> true
+   */
+    /* 
+      selector.is-simple( & ): </> false
    */
     /* 
       selector.is-body( & ): </> false
@@ -88,6 +487,9 @@ html {
       selector.parent-exists(): </> true
    */
     /* 
+      selector.is-simple( & ): </> true
+   */
+    /* 
       selector.is-body( & ): </> false
    */
     /* 
@@ -115,6 +517,9 @@ html:where(.has-a-class) {
     /* via html:where(.has-a-class) */
     /* 
       selector.parent-exists(): </> true
+   */
+    /* 
+      selector.is-simple( & ): </> false
    */
     /* 
       selector.is-body( & ): </> false
@@ -147,6 +552,9 @@ body {
       selector.parent-exists(): </> true
    */
     /* 
+      selector.is-simple( & ): </> true
+   */
+    /* 
       selector.is-body( & ): </> true
    */
     /* 
@@ -174,6 +582,9 @@ body:where(.has-a-class) {
     /* via body:where(.has-a-class) */
     /* 
       selector.parent-exists(): </> true
+   */
+    /* 
+      selector.is-simple( & ): </> false
    */
     /* 
       selector.is-body( & ): </> true
@@ -206,6 +617,9 @@ body {
       selector.parent-exists(): </> true
    */
     /* 
+      selector.is-simple( & ): </> true
+   */
+    /* 
       selector.is-body( & ): </> true
    */
     /* 
@@ -233,6 +647,9 @@ body:where(.has-a-class) {
     /* via %body:where(.has-a-class) */
     /* 
       selector.parent-exists(): </> true
+   */
+    /* 
+      selector.is-simple( & ): </> false
    */
     /* 
       selector.is-body( & ): </> true

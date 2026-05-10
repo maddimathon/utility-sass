@@ -17,13 +17,23 @@
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Renamed from $mx_colourMode_includeQuery_default to $mx_colourMode_includeQuery
 ///
-$mx_colourMode_includeQuery: true !default;
+$mx_colourMode_includeQuery: null !default;
+$mx_colourMode_includeQuery: config-valid-bool(
+    $mx_colourMode_includeQuery,
+    'mx_colourMode_includeQuery',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Renamed from $mx_colourMode_includeSelectors_default to $mx_colourMode_includeSelectors
 ///
-$mx_colourMode_includeSelectors: true !default;
+$mx_colourMode_includeSelectors: null !default;
+$mx_colourMode_includeSelectors: config-valid-bool(
+    $mx_colourMode_includeSelectors,
+    'mx_colourMode_includeSelectors',
+    $default: true
+);
 
 ///
 /// Whether to include media queries for default modes (average contrast and light).
@@ -31,16 +41,40 @@ $mx_colourMode_includeSelectors: true !default;
 /// @since 0.1.0-alpha
 /// @since 0.1.0-beta.0.draft — Renamed from $include_defaultMediaQueries to $mx_colourMode_includeLightModeQuery
 ///
-$mx_colourMode_includeLightModeQuery: false !default;
+$mx_colourMode_includeLightModeQuery: null !default;
+$mx_colourMode_includeLightModeQuery: config-valid-bool(
+    $mx_colourMode_includeLightModeQuery,
+    'mx_colourMode_includeLightModeQuery',
+    $default: false
+);
 
 ///
 /// Whether to include 'no-preference' media queries. Most relevant to
 /// brightness and contrast modes.
 ///
 /// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0.draft — Renamed from $include_noPreferenceMediaQueries to $mx_colourMode_includeNoPreferenceQueries
+/// @since 0.1.0-beta.0.draft — Renamed from $include_noPreferenceMediaQueries to $mx_colourMode_includeNoPreferenceQueries.
 ///
-$mx_colourMode_includeNoPreferenceQueries: false !default;
+$mx_colourMode_includeNoPreferenceQueries: null !default;
+$mx_colourMode_includeNoPreferenceQueries: config-valid-bool(
+    $mx_colourMode_includeNoPreferenceQueries,
+    'mx_colourMode_includeNoPreferenceQueries',
+    $default: false
+);
+
+///
+/// Whether to include the forced colours selectors in colour-mode-combo. Those
+/// selectors are unlikely to be used in most cases (since forced-colors mode
+/// cannot typically be manually toggled for a website).
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_colourModeCombo_includeForcedColorsSelectors: null !default;
+$mx_colourModeCombo_includeForcedColorsSelectors: config-valid-bool(
+    $mx_colourModeCombo_includeForcedColorsSelectors,
+    'mx_colourModeCombo_includeForcedColorsSelectors',
+    $default: false
+);
 
 ///
 /// Whether to include the forced colours selectors when looping through
@@ -51,12 +85,12 @@ $mx_colourMode_includeNoPreferenceQueries: false !default;
 /// @since 0.1.0-alpha.3
 /// @since 0.1.0-beta.0.draft — Renamed from $mx_colourModeEach_includeSelectors_forcedColors to $mx_colourModeEach_includeForcedColorsSelectors
 ///
-$mx_colourModeEach_includeForcedColorsSelectors: false !default;
-
-///
-/// @since 0.1.0-alpha.3
-///
-$mx_colourModeEach_nestModeSelectors: false !default;
+$mx_colourModeEach_includeForcedColorsSelectors: null !default;
+$mx_colourModeEach_includeForcedColorsSelectors: config-valid-bool(
+    $mx_colourModeEach_includeForcedColorsSelectors,
+    'mx_colourModeEach_includeForcedColorsSelectors',
+    $default: $mx_colourModeCombo_includeForcedColorsSelectors
+);
 
 ///
 /// Whether the extend-selectors-global mixin should include
@@ -65,24 +99,44 @@ $mx_colourModeEach_nestModeSelectors: false !default;
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Renamed from $mx_extendHeadingsByRole to $mx_extendSelectors_headingsByRole
 ///
-$mx_extendSelectors_headingsByRole: true !default;
+$mx_extendSelectors_headingsByRole: null !default;
+$mx_extendSelectors_headingsByRole: config-valid-bool(
+    $mx_extendSelectors_headingsByRole,
+    'mx_extendSelectors_headingsByRole',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Renamed from $mx_interactive_states_include_fallbacks to $mx_focusVisible_includeFallbacks
 ///
-$mx_focusVisible_includeFallbacks: true !default;
+$mx_focusVisible_includeFallbacks: null !default;
+$mx_focusVisible_includeFallbacks: config-valid-bool(
+    $mx_focusVisible_includeFallbacks,
+    'mx_focusVisible_includeFallbacks',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Renamed from $mx_interactive_states_include_fallbacks_only to $mx_focusVisible_fallbacksOnly
 ///
-$mx_focusVisible_fallbacksOnly: false !default;
+$mx_focusVisible_fallbacksOnly: null !default;
+$mx_focusVisible_fallbacksOnly: config-valid-bool(
+    $mx_focusVisible_fallbacksOnly,
+    'mx_focusVisible_fallbacksOnly',
+    $default: false
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_interactiveStates_featureCheck_viaQuery: false !default;
+$mx_interactiveStates_featureCheck_viaQuery: null !default;
+$mx_interactiveStates_featureCheck_viaQuery: config-valid-bool(
+    $mx_interactiveStates_featureCheck_viaQuery,
+    'mx_interactiveStates_featureCheck_viaQuery',
+    $default: false
+);
 
 ///
 /// An additional selector to use for active states.
@@ -102,7 +156,12 @@ $selector_interactiveState_active: config-valid-selector(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_interactive_isolateSelector_active: false !default;
+$mx_interactive_isolateSelector_active: null !default;
+$mx_interactive_isolateSelector_active: config-valid-bool(
+    $mx_interactive_isolateSelector_active,
+    'mx_interactive_isolateSelector_active',
+    $default: false
+);
 
 ///
 /// An additional selector to use for focus states.
@@ -122,47 +181,92 @@ $selector_interactiveState_focus: config-valid-selector(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_interactive_isolateSelector_focus: false !default;
+$mx_interactive_isolateSelector_focus: null !default;
+$mx_interactive_isolateSelector_focus: config-valid-bool(
+    $mx_interactive_isolateSelector_focus,
+    'mx_interactive_isolateSelector_focus',
+    $default: false
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_normalizeOrReset_codeFontFamily_usePseudo: false !default;
+$mx_normalizeOrReset_codeFontFamily_usePseudo: null !default;
+$mx_normalizeOrReset_codeFontFamily_usePseudo: config-valid-bool(
+    $mx_normalizeOrReset_codeFontFamily_usePseudo,
+    'mx_normalizeOrReset_codeFontFamily_usePseudo',
+    $default: false
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_normalizeOrReset_includeColorScheme: true !default;
+$mx_normalizeOrReset_includeColorScheme: null !default;
+$mx_normalizeOrReset_includeColorScheme: config-valid-bool(
+    $mx_normalizeOrReset_includeColorScheme,
+    'mx_normalizeOrReset_includeColorScheme',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_normalizeOrReset_includeFontFamily: true !default;
+$mx_normalizeOrReset_includeFontFamily: null !default;
+$mx_normalizeOrReset_includeFontFamily: config-valid-bool(
+    $mx_normalizeOrReset_includeFontFamily,
+    'mx_normalizeOrReset_includeFontFamily',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_normalizeOrReset_includeFontSize: true !default;
+$mx_normalizeOrReset_includeFontSize: null !default;
+$mx_normalizeOrReset_includeFontSize: config-valid-bool(
+    $mx_normalizeOrReset_includeFontSize,
+    'mx_normalizeOrReset_includeFontSize',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_normalizeOrReset_includeFontSmoothing: true !default;
+$mx_normalizeOrReset_includeFontSmoothing: null !default;
+$mx_normalizeOrReset_includeFontSmoothing: config-valid-bool(
+    $mx_normalizeOrReset_includeFontSmoothing,
+    'mx_normalizeOrReset_includeFontSmoothing',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_prop_useCustom_never: false !default;
+$mx_prop_useCustom_never: null !default;
+$mx_prop_useCustom_never: config-valid-bool(
+    $mx_prop_useCustom_never,
+    'mx_prop_useCustom_never',
+    $default: false
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_prop_useCustom_display: include.$include_html !default;
+$mx_prop_useCustom_display: null !default;
+$mx_prop_useCustom_display: config-valid-bool(
+    $mx_prop_useCustom_display,
+    'mx_prop_useCustom_display',
+    $default: include.$include_html
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$mx_reset_doUniversalBoxSizing: true !default;
+$mx_reset_doUniversalBoxSizing: null !default;
+$mx_reset_doUniversalBoxSizing: config-valid-bool(
+    $mx_reset_doUniversalBoxSizing,
+    'mx_reset_doUniversalBoxSizing',
+    $default: true
+);
 
 ///
 /// Whether font-size tokens should also print --fs-rel-[...] tokens with em
@@ -171,4 +275,9 @@ $mx_reset_doUniversalBoxSizing: true !default;
 /// @since 0.1.0-alpha.18
 /// @since 0.1.0-beta.0.draft — Renamed from $mx_tokensFontSize_printRelative to $mx_tokens_fontSize_printRelative
 ///
-$mx_tokens_fontSize_printRelative: false !default;
+$mx_tokens_fontSize_printRelative: null !default;
+$mx_tokens_fontSize_printRelative: config-valid-bool(
+    $mx_tokens_fontSize_printRelative,
+    'mx_tokens_fontSize_printRelative',
+    $default: false
+);

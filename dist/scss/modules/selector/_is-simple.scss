@@ -1,0 +1,34 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+///
+/// Esitmates if the given selector is a 'simple' selector (as determined by the
+/// return of sass' selector.simple-selectors().
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function is-simple($selector) {
+    // returns - false - has more than one item
+    @if list.length($selector) > 1 {
+        @return false;
+    }
+
+    $simple: selector.simple-selectors($selector);
+
+    // returns - false - has more than simple selector
+    @if list.length($simple) > 1 {
+        @return false;
+    }
+
+    // returns - true
+    @if #{$simple} == #{$selector} {
+        @return true;
+    }
+
+    @return false;
+}

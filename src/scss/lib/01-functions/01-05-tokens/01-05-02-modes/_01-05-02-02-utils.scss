@@ -4,9 +4,11 @@
 ///
 
 @use '../../../../modules/list';
+@use '../../../../modules/map';
 @use '../../../../modules/meta';
+@use '../../../../modules/string';
 
-// @use '../../../../config';
+@use '../../../../config';
 // @use '../../../../tokens';
 
 @use '01-05-02-01-meta' as *;
@@ -18,7 +20,7 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@function filter-colour-modes-active-only($modes: (), $debug: false) {
+@function filter-colour-modes-active-only($modes: null, $debug: false) {
     $debug_vars: ();
 
     @if $debug {
@@ -26,12 +28,9 @@
         $debug_vars: map.set($debug_vars, debug, $debug);
     }
 
-    @if meta.type-of($modes) != list {
-        @if $modes == null {
-            $modes: ();
-        } @else if meta.type-of($modes) == string {
-            $modes: ($modes);
-        }
+    // returns
+    @if $modes == null {
+        @return ();
     }
 
     $debug_vars_activeModes: ();
@@ -41,7 +40,7 @@
 
     @each $mode in $modes {
         @if is-colour-mode-included($mode) {
-            $filtered: list.append($filtered, $mode);
+            $filtered: list.append($filtered, $mode, $separator: space);
 
             @if $debug {
                 $debug_vars_activeModes: list.append($debug_vars_activeModes, $mode);
@@ -59,7 +58,50 @@
 
         $debug_vars: map.set($debug_vars, 'filtered modes', $filtered);
 
-        $debug_vars: js-var-dump($debug_vars, 'filter-colour-modes-active-only()');
+        $_: meta.js-var-dump($debug_vars, 'filter-colour-modes-active-only()');
     }
     @return $filtered;
+}
+
+///
+/// Returns the simplest selectors for the given colour mode(s), without
+/// combining them with any others.
+///
+/// @since ___PKG_VERSION___
+///
+@function simple-selectors-colour-mode($modes: ()) {
+    $selector: ();
+
+    @if config.$selectorType_mode == 'attribute' {
+        @each $mode in $modes {
+            $modeType: get-colour-mode-type($mode);
+
+            @if $modeType != null {
+                $selector: list.append(
+                    $selector,
+                    string.unquote('[data-#{$modeType}-mode=#{$mode}]'),
+                    $separator: comma
+                );
+            }
+        }
+    } @else if config.$selectorType_mode == 'class' {
+        @each $mode in $modes {
+            $modeType: get-colour-mode-type($mode);
+
+            @if $modeType != null {
+                $selector: list.append(
+                    $selector,
+                    string.unquote('.theme-#{$modeType}-mode-#{$mode}'),
+                    $separator: comma
+                );
+            }
+        }
+    }
+
+    // returns
+    @if list.length($selector) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return $selector;
 }

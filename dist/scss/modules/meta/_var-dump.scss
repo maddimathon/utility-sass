@@ -59,16 +59,19 @@
     $shortType: true,
     $alwaysQuote: false,
     $neverQuote: false,
+    $showParens: true,
     //
     $keys_withType: null,
     $keys_shortType: null,
     $keys_alwaysQuote: null,
     $keys_neverQuote: null,
+    $keys_showParens: null,
     //
     $child_withType: null,
     $child_shortType: null,
     $child_alwaysQuote: null,
-    $child_neverQuote: null
+    $child_neverQuote: null,
+    $child_showParens: null
 ) {
     $type: meta.type-of($var);
     $msg: meta.inspect($var);
@@ -86,6 +89,11 @@
                 $neverQuote,
                 $child_neverQuote
             ),
+        showParens: if(
+                $child_showParens == null,
+                $showParens,
+                $child_showParens
+            ),
     );
 
     $keyArgs: (
@@ -97,6 +105,7 @@
                 $keys_alwaysQuote
             ),
         neverQuote: if($keys_neverQuote == null, $neverQuote, $keys_neverQuote),
+        showParens: if($keys_showParens == null, $showParens, $keys_showParens),
     );
 
     @if $type == 'arglist' {
@@ -128,9 +137,17 @@
         }
 
         $msg: if(
-            list.length($msg) > 0,
-            string.unquote('( #{$msg} )'),
-            meta.inspect(())
+            $showParens,
+            if(
+                list.length($msg) > 0,
+                string.unquote('( #{$msg} )'),
+                string.unquote('()')
+            ),
+            if(
+                list.length($msg) > 0,
+                string.unquote('#{$msg}'),
+                string.unquote('')
+            )
         );
     }
     //
@@ -171,14 +188,23 @@
         $msg: if(list.length($msg) > 0, $msg, meta.inspect(()));
 
         $msg: if(
-            $bracketed,
-            string.unquote('( [ #{$msg} ] )'),
-            string.unquote('( #{$msg} )')
+            $showParens,
+            if(
+                $bracketed,
+                string.unquote('( [ #{$msg} ] )'),
+                string.unquote('( #{$msg} )')
+            ),
+            if(
+                $bracketed,
+                string.unquote('[ #{$msg} ]'),
+                string.unquote('#{$msg}')
+            )
         );
     }
     //
     @else if $type == 'map' {
         $msg: ();
+
         @each $key, $value in $var {
             $key: var-dump($key, $keyArgs...);
 
@@ -188,10 +214,19 @@
                 $separator: comma
             );
         }
+
         $msg: if(
-            list.length($msg) > 0,
-            string.unquote('( #{$msg} )'),
-            meta.inspect(())
+            $showParens,
+            if(
+                list.length($msg) > 0,
+                string.unquote('( #{$msg} )'),
+                string.unquote('()')
+            ),
+            if(
+                list.length($msg) > 0,
+                string.unquote('#{$msg}'),
+                string.unquote('')
+            )
         );
     }
     //
@@ -205,6 +240,7 @@
     }
 
     $typeToPrint: if($shortType, var-type-abbreviator($type), $type);
+
     @return if(
         $withType,
         string.unquote('<#{$typeToPrint}> #{meta.inspect( $msg )}'),
@@ -238,6 +274,10 @@
             #{$name}: #{var-dump($var, $args...)}
          */
     } @else {
+        // UPGRADE - add option to output wrapped in a media query
+        // @media var-dump and ( var: '#{$name}' ) and ( type: '#{$typeOf}' ) {
+        // }
+
         /* 
             #{$name} is a #{$typeOf}:
          */

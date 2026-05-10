@@ -12,7 +12,14 @@
 // deps on feature-check
 @forward 'selector';
 
+@use '../functions' as fns;
+
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$warnOnMissingCompilerFunctions: true !default;
+$warnOnMissingCompilerFunctions: null !default;
+$warnOnMissingCompilerFunctions: fns.config-valid-bool(
+    $warnOnMissingCompilerFunctions,
+    'warnOnMissingCompilerFunctions',
+    $default: true
+);

@@ -11,7 +11,7 @@
  */
 /* # MODULES - META
  * ======================================================================== */
-meta.current-version {
+@media current-version {
     /* 
       meta.current-version() is a map:
    */
@@ -21,24 +21,49 @@ meta.current-version {
     /* "prerelease": <-> null */
     /* "meta": <-> null */
 }
-
-meta.var-dump list {
+/* ## MODULES - META - call-global-compiler-fn() ==================================== */
+@media call-global-compiler-fn {
     /* 
-      meta.var-dump( $_list ): <S> <()> ( <S> value <S> is <S> a <S> list )
+      meta.call-global-compiler-fn( 'non-existant-fn', 'demo-functions/non-existant-fn' ): <-> null
    */
-}
-meta.var-dump map {
     /* 
-      meta.var-dump( $_map ): <S> <:> ( "$": <S> default, "one": <:> ( "$": <S> default, "A": <S> value, "B": <:> ( "$": <S> default, 1: <S> value ) ), "two": <S> "hello" )
+      meta.call-global-compiler-fn( 'mmutils-global-getCurrentVersion', 'demo-functions/getCurrentVersion' ) is a map:
    */
+    /* "major": <#> 1 */
+    /* "minor": <#> 97 */
+    /* "patch": <#> 1 */
+    /* "prerelease": <-> null */
+    /* "meta": <-> null */
 }
-meta.var-dump number {
+/* ## MODULES - META - var-dump() ==================================== */
+@media var-dump {
+    list {
+        /* 
+        meta.var-dump( $_list ): <S> <()> ( <S> value <S> is <S> a <S> list )
+     */
+    }
+    map {
+        /* 
+        meta.var-dump( $_map ): <S> <:> ( "$": <S> default, "one": <:> ( "$": <S> default, "A": <S> value, "B": <:> ( "$": <S> default, 1: <S> value ) ), "two": <S> "hello" )
+     */
+    }
+    number {
+        /* 
+        meta.var-dump( 42 ): <S> <#> 42
+     */
+    }
+    string {
+        /* 
+        meta.var-dump( hello-there ): <S> <S> hello-there
+     */
+    }
+}
+/* ## MODULES - META - js-var-dump() ==================================== */
+@media js-var-dump {
     /* 
-      meta.var-dump( 42 ): <S> <#> 42
+      meta.js-var-dump('hello'): <S> meta.js-var-dump() - demo-var-1
    */
-}
-meta.var-dump string {
     /* 
-      meta.var-dump( hello-there ): <S> <S> hello-there
+      meta.js-var-dump((this: 'is a', map: true)): <S> meta.js-var-dump() - demo-var-2
    */
 }

@@ -8,21 +8,28 @@
 
 @use '../_config' as config;
 
+@use '../string';
+
 @use 'parent-exists';
 
 ///
-/// Checks if the given $haystack selector contains one of the $needle
+/// Checks if the given $haystack selector contains one of the $needles
 /// selectors, at any level.
 ///
 /// @return {bool}
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function includes($haystack, $needle) {
-    $haystack: selector.parse(#{$haystack});
-    $needle: selector.parse(#{$needle});
+@function includes($haystack, $needles) {
+    // returns
+    @if list.length($haystack) < 1 or list.length($needles) < 1 {
+        @return false;
+    }
 
-    $needle: if(list.separator($needle) == comma, $needle, ($needle));
+    $haystack: selector.parse(#{$haystack});
+    $needles: selector.parse(#{$needles});
+
+    $needles: if(list.separator($needles) == comma, $needles, ($needles));
 
     // returns on a positive match
     @each $haystack_single
@@ -31,20 +38,32 @@
         //
         @each $_sub_haystack in $haystack_single {
             //
-            @each $needle_single in $needle {
+            @each $needle_single in $needles {
                 // returns
                 @if #{$_sub_haystack} == #{$needle_single} {
                     @return true;
                 }
 
-                // returns
-                @if selector.is-superselector($needle_single, $_sub_haystack) {
-                    @return true;
-                }
+                // is not only a combinator
+                @if string.match($_sub_haystack, '^\\s*[>~\\+\\|]\\s*$') == null
+                {
+                    // returns
+                    @if selector.is-superselector(
+                        $needle_single,
+                        $_sub_haystack
+                    )
+                    {
+                        @return true;
+                    }
 
-                // returns
-                @if selector.is-superselector($_sub_haystack, $needle_single) {
-                    @return true;
+                    // returns
+                    @if selector.is-superselector(
+                        $_sub_haystack,
+                        $needle_single
+                    )
+                    {
+                        @return true;
+                    }
                 }
             }
         }
@@ -60,11 +79,11 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function parent-includes($needle) {
+@function parent-includes($needles) {
     // returns
     @if not parent-exists.parent-exists() {
         @return false;
     }
 
-    @return includes(&, $needle);
+    @return includes(&, $needles);
 }

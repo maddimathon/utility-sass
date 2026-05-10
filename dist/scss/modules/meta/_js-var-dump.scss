@@ -1,0 +1,39 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+///
+/// @since 0.1.0-alpha.29
+/// @since 0.1.0-beta.0.draft — Moved from lib to meta module.
+///
+
+@use 'sass:meta';
+
+@use 'global-compiler-fn';
+@use 'var-dump';
+
+///
+/// Uses a global function to output a vardump to the console.
+///
+/// @since 0.1.0-alpha.29
+/// @since 0.1.0-beta.0.draft — Moved from lib to meta module.
+///
+@function js-var-dump($var, $name: 'var', $level: 1) {
+    $function: 'mmutils-global-jsVarDump';
+
+    // returns
+    @if meta.function-exists($function) {
+        @return global-compiler-fn.call-global-compiler-fn(
+            $function,
+            'meta.js-var-dump',
+            $isRequired: false,
+            //
+            $value: $var,
+            $name: $name,
+            $level: $level
+        );
+    }
+
+    $_dump: var-dump.var-dump($var);
+
+    @debug '#{$name} = #{$_dump}';
+    @return $_dump;
+}

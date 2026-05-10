@@ -13,9 +13,27 @@
 /* # MODULES - META
  * ======================================================================== */
 
-meta.current-version {
+@media current-version {
     @include meta.var-dump('meta.current-version()', meta.current-version());
 }
+
+/* ## MODULES - META - call-global-compiler-fn() ==================================== */
+
+@media call-global-compiler-fn {
+    @include meta.var-dump(
+        "meta.call-global-compiler-fn( 'non-existant-fn', 'demo-functions/non-existant-fn' )",
+        meta.call-global-compiler-fn('non-existant-fn', 'demo-functions/non-existant-fn')
+    );
+    @include meta.var-dump(
+        "meta.call-global-compiler-fn( 'mmutils-global-getCurrentVersion', 'demo-functions/getCurrentVersion' )",
+        meta.call-global-compiler-fn(
+            'mmutils-global-getCurrentVersion',
+            'demo-functions/getCurrentVersion'
+        )
+    );
+}
+
+/* ## MODULES - META - var-dump() ==================================== */
 
 // #region $_map
 $_map: (
@@ -36,7 +54,7 @@ $_map: (
 
 $_list: value is a list;
 
-meta.var-dump {
+@media var-dump {
     list {
         @include meta.var-dump('meta.var-dump( $_list )', meta.var-dump($_list));
     }
@@ -49,4 +67,24 @@ meta.var-dump {
     string {
         @include meta.var-dump('meta.var-dump( hello-there )', meta.var-dump(hello-there));
     }
+}
+
+/* ## MODULES - META - js-var-dump() ==================================== */
+
+@media js-var-dump {
+    @include meta.var-dump(
+        "meta.js-var-dump('hello')",
+        meta.js-var-dump('hello', $name: 'demo-var-1', $level: 2)
+    );
+    @include meta.var-dump(
+        "meta.js-var-dump((this: 'is a', map: true))",
+        meta.js-var-dump(
+            (
+                this: 'is a',
+                map: true,
+            ),
+            $name: 'demo-var-2',
+            $level: 2
+        )
+    );
 }

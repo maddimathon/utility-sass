@@ -1,0 +1,99 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+///
+/// @since 0.1.0-alpha.29
+/// @since 0.1.0-beta.0.draft — Moved from lib to meta module.
+///
+
+@use 'sass:meta';
+
+///
+/// Checks for a global function.  If it exists, it returns a function object.
+/// Otherwise, a warning message is output and null is returned.
+///
+/// @param {string} $function  Function to look for.
+/// @param {string} $caller  Name of the caller function to output in the error message.
+///
+/// @return {?function}
+///
+/// @since 0.1.0-alpha.29
+/// @since 0.1.0-beta.0.draft — Moved from lib to meta module. Added optional params: $includeWarning, $isCompilerFunction, $isRequired, $warnMsg. Made $caller optional.
+///
+@function get-global-compiler-fn(
+    $function,
+    $caller: null,
+    $warnMsg: null,
+    //
+    $includeWarning: true,
+    $isCompilerFunction: true,
+    $isRequired: true
+) {
+    // returns
+    @if meta.function-exists($function) {
+        @return meta.get-function($function);
+    }
+
+    @if $includeWarning {
+        @if not $warnMsg {
+            $_isRequired: if($isRequired, ' (and is required)', '');
+
+            @if $isCompilerFunction {
+                @if $caller {
+                    $warnMsg: "global compiler function '#{$function}' not found#{$_isRequired}";
+                } @else {
+                    $warnMsg: '[#{$caller}] global compiler function for #{$caller} not found#{$_isRequired}';
+                }
+            } @else if $caller {
+                $warnMsg: '[#{$caller}] global function for #{$caller} not found#{$_isRequired}';
+            } @else {
+                $warnMsg: "global function '#{$function}' not found#{$_isRequired}";
+            }
+        }
+
+        @warn $warnMsg;
+    }
+
+    @return null;
+}
+
+///
+/// Checks for and calls a global function.  If it exists, it calls the
+/// function. Otherwise, a warning message is output and null is returned.
+///
+/// @param {string} $function  Function to look for.
+/// @param {string} $caller    Name of the caller function to output in the
+/// error message.
+///
+/// @return {?any}
+///
+/// @since 0.1.0-alpha.29
+/// @since 0.1.0-beta.0.draft — Moved from lib to meta module. Added optional params: $includeWarning, $isCompilerFunction, $isRequired, $warnMsg. Made $caller optional.
+///
+@function call-global-compiler-fn(
+    $function,
+    $caller: null,
+    $warnMsg: null,
+    //
+    $includeWarning: true,
+    $isCompilerFunction: true,
+    $isRequired: true,
+    $params...
+) {
+    $fn: get-global-compiler-fn(
+        $function: $function,
+        $caller: $caller,
+        $warnMsg: $warnMsg,
+        //
+        $includeWarning: $includeWarning,
+        $isCompilerFunction: $isCompilerFunction,
+        $isRequired: $isRequired,
+    );
+
+    // returns
+    @if $fn == null or not meta.type-of($fn) == function {
+        $parsed_params: meta.keywords($params);
+        @return null;
+    }
+
+    @return meta.call($fn, $params...);
+}

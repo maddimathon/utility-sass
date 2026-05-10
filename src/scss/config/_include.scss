@@ -13,7 +13,8 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-$include_html: false !default;
+$include_html: null !default;
+$include_html: config-valid-bool($include_html, 'include_html', $default: false);
 
 ///
 /// Whether to include css for the FeatureCheck utility class (via the feature-check module).
@@ -24,4 +25,9 @@ $include_html: false !default;
 ///
 /// @since 0.1.0-pre.0
 ///
-$include_featureCheck: $include_html !default;
+$include_featureCheck: null !default;
+$include_featureCheck: config-valid-bool(
+    $include_featureCheck,
+    'include_featureCheck',
+    $default: $include_html
+);

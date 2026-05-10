@@ -7,13 +7,22 @@
 @use '../../../../modules/map';
 @use '../../../../modules/meta';
 @use '../../../../modules/selector';
-@use '../../../../modules/string';
 
 @use '../../../../config';
 // @use '../../../../tokens';
 
 @use '01-05-02-01-meta' as *;
+@use '01-05-02-02-utils' as *;
 @use '01-05-02-03-args' as *;
+
+$_allModeOptions: list.join(config.$brightnessMode_options, config.$contrastMode_options);
+$_allModeOptions_simpleSelectors: simple-selectors-colour-mode($_allModeOptions);
+
+$_rootAliasesWithAllModeOptions: list.join(
+    config.$selector_root_aliases,
+    $_allModeOptions_simpleSelectors,
+    $separator: comma
+);
 
 ///
 /// Returns the selectors for the given colour modes.
@@ -30,6 +39,8 @@
         $args: meta.keywords($args);
     }
 
+    $debug_vars: ();
+
     $modes: map.get($args, 'modes');
     $includeDefault: map.get($args, 'includeDefault');
     $includeSelectors: map.get($args, 'includeSelectors');
@@ -39,14 +50,9 @@
     $debug: map.get($args, 'debug');
 
     @if $debug {
-        @debug '';
-        @debug '=  =  =';
-        @debug 'media-queries-colour-mode()';
-        @debug '';
-        @debug '$modes = #{meta.var-dump($modes)}';
-        @debug '$includeDefault = #{meta.var-dump($includeDefault)}';
-        @debug '';
-        @debug '$anyModeIsDefault = #{meta.var-dump($anyModeIsDefault)}';
+        $debug_vars: map.set($debug_vars, '$modes', $modes);
+        $debug_vars: map.set($debug_vars, '$includeDefault', $includeDefault);
+        $debug_vars: map.set($debug_vars, '$anyModeIsDefault', $anyModeIsDefault);
     }
 
     $queries: ();
@@ -55,25 +61,30 @@
         $isClrModeDefault: false;
         $isClrModeDefaultOnly: is-colour-mode-type-default-only($mode);
 
+        $_debug_eachMode: ();
+
         @if is-colour-mode-default($mode) {
             $isClrModeDefault: true;
         }
         @if $debug {
-            @debug '';
-            @debug '$mode = #{meta.var-dump($mode)}';
-            @debug '$isClrModeDefault = #{meta.var-dump($isClrModeDefault)}';
-            @debug '$isClrModeDefaultOnly = #{meta.var-dump($isClrModeDefaultOnly)}';
+            $_debug_eachMode: map.set($_debug_eachMode, '$mode', $mode);
+            $_debug_eachMode: map.set($_debug_eachMode, '$isClrModeDefault', $isClrModeDefault);
+            $_debug_eachMode: map.set(
+                $_debug_eachMode,
+                '$isClrModeDefaultOnly',
+                $isClrModeDefaultOnly
+            );
         }
 
         @if $isClrModeDefaultOnly {
             @if $debug {
-                @debug 'skipping queries';
+                $_debug_eachMode: map.set($_debug_eachMode, 'skipping queries', true);
             }
         } @else {
             @if $mode == light or $mode == dark {
                 @if not $isClrModeDefault or not $includeDefault or not $includeSelectors {
                     @if $debug {
-                        @debug 'adding #{$mode} query';
+                        $_debug_eachMode: map.set($_debug_eachMode, 'adding #{$mode} query', true);
                     }
 
                     @if $isClrModeDefault and config.$mx_colourMode_includeNoPreferenceQueries {
@@ -92,27 +103,28 @@
                         );
                     }
                 } @else if $debug {
-                    @debug 'skipping #{$mode} query';
+                    $_debug_eachMode: map.set($_debug_eachMode, 'skipping #{$mode} query', true);
                 }
             } @else if $mode == forced-colors {
                 @if $debug {
-                    @debug 'adding #{$mode} query';
+                    $_debug_eachMode: map.set($_debug_eachMode, 'adding #{$mode} query', true);
                 }
                 $queries: list.append($queries, '( forced-colors: active )', $separator: comma);
                 $queries: list.append($queries, '( prefers-contrast: custom )', $separator: comma);
             } @else if $mode == low {
                 @if $debug {
-                    @debug 'adding #{$mode} query';
+                    $_debug_eachMode: map.set($_debug_eachMode, 'adding #{$mode} query', true);
                 }
                 $queries: list.append($queries, '( prefers-contrast: less )', $separator: comma);
             } @else if $mode == average {
                 // if this is default, then only print if we allow no preference queries
                 // OR if we are not including content as default with a selector, then we should include this query
-                @if config.$mx_colourMode_includeNoPreferenceQueries or
-                    (not $includeDefault and (not $includeSelectors or not $anyModeIsDefault))
+                @if config.$mx_colourMode_includeNoPreferenceQueries or not
+                    $includeDefault or
+                    (not $includeSelectors and not $anyModeIsDefault)
                 {
                     @if $debug {
-                        @debug 'adding #{$mode} query';
+                        $_debug_eachMode: map.set($_debug_eachMode, 'adding #{$mode} query', true);
                     }
 
                     $queries: list.append(
@@ -121,71 +133,33 @@
                         $separator: comma
                     );
                 } @else if $debug {
-                    @debug 'skipping #{$mode} query';
+                    $_debug_eachMode: map.set($_debug_eachMode, 'skipping #{$mode} query', true);
                 }
             } @else if $mode == high {
                 @if $debug {
-                    @debug 'adding #{$mode} query';
+                    $_debug_eachMode: map.set($_debug_eachMode, 'adding #{$mode} query', true);
                 }
                 $queries: list.append($queries, '( prefers-contrast: more )', $separator: comma);
             } @else {
                 @if $debug {
-                    @debug "no queries for mode '#{$mode}'";
+                    $_debug_eachMode: map.set(
+                        $_debug_eachMode,
+                        "no queries for mode '#{$mode}'",
+                        true
+                    );
                 }
             }
         }
+
+        $debug_vars: map.set($debug_vars, '[ each mode: #{$mode} ]', $_debug_eachMode);
     }
 
     @if $debug {
-        @debug '';
-        @debug '$queries = #{meta.var-dump($queries)}';
-        @debug '=  =  =';
-        @debug '';
+        $debug_vars: map.set($debug_vars, '$queries', $queries);
+
+        $_: meta.js-var-dump($debug_vars, 'selectors-colour-mode()');
     }
     @return $queries;
-}
-
-///
-/// Returns the simplest selectors for the given colour mode(s), without
-/// combining them with any others.
-///
-/// @since ___PKG_VERSION___
-///
-@function simple-selectors-colour-mode($modes: ()) {
-    $selector: ();
-
-    @if config.$selectorType_mode == 'attribute' {
-        @each $mode in $modes {
-            $modeType: get-colour-mode-type($mode);
-
-            @if $modeType != null {
-                $selector: list.append(
-                    $selector,
-                    string.unquote('[data-#{$modeType}-mode=#{$mode}]'),
-                    $separator: comma
-                );
-            }
-        }
-    } @else if config.$selectorType_mode == 'class' {
-        @each $mode in $modes {
-            $modeType: get-colour-mode-type($mode);
-
-            @if $modeType != null {
-                $selector: list.append(
-                    $selector,
-                    string.unquote('.theme-#{$modeType}-mode-#{$mode}'),
-                    $separator: comma
-                );
-            }
-        }
-    }
-
-    // returns
-    @if list.length($selector) < 1 {
-        @return $selector_null;
-    }
-
-    @return $selector;
 }
 
 ///
@@ -203,13 +177,16 @@
         $args: meta.keywords($args);
     }
 
+    $debug_vars: ();
+
     $modes: map.get($args, 'modes');
     $includeDefault: map.get($args, 'includeDefault');
 
-    $nestParentSelector: map.get($args, 'nestParentSelector');
-    $unifyParentSelector: map.get($args, 'unifyParentSelector');
-    $wrapParentSelector: map.get($args, 'wrapParentSelector');
+    $addGlobalModeSelector: map.get($args, 'addGlobalModeSelector');
+    $unifySelectors: map.get($args, 'unifySelectors');
+    $nestModeSelector: map.get($args, 'nestModeSelector');
 
+    $parentHasModeSelector: map.get($args, 'parentHasModeSelector');
     $parentIsRoot: map.get($args, 'parentIsRoot');
 
     $parentSelector: map.get($args, 'parentSelector');
@@ -218,154 +195,97 @@
     $debug: map.get($args, 'debug');
 
     @if $debug {
-        @debug '';
-        @debug '=  =  =';
-        @debug 'selectors-colour-mode()';
-        @debug '';
-        @debug 'config.$selectorType_mode = #{meta.var-dump(config.$selectorType_mode)}';
-        @debug '';
-        @debug '$modes = #{meta.var-dump($modes)}';
-        @debug '$includeDefault = #{meta.var-dump($includeDefault)}';
-        @debug '';
-        @debug '$nestParentSelector = #{meta.var-dump($nestParentSelector)}';
-        @debug '$unifyParentSelector = #{meta.var-dump($unifyParentSelector)}';
-        @debug '$wrapParentSelector = #{meta.var-dump($wrapParentSelector)}';
-        @debug '';
-        @debug '$parentSelector = #{meta.var-dump($parentSelector)}';
-        @debug '$parentSelectorExists = #{meta.var-dump($parentSelectorExists)}';
+        $debug_vars: map.set($debug_vars, 'config.$selectorType_mode', config.$selectorType_mode);
+
+        $debug_vars: map.set($debug_vars, '$modes', $modes);
+        $debug_vars: map.set($debug_vars, '$includeDefault', $includeDefault);
+
+        $debug_vars: map.set($debug_vars, '$addGlobalModeSelector', $addGlobalModeSelector);
+        $debug_vars: map.set($debug_vars, '$unifySelectors', $unifySelectors);
+        $debug_vars: map.set($debug_vars, '$nestModeSelector', $nestModeSelector);
+
+        $debug_vars: map.set($debug_vars, '$parentSelector', $parentSelector);
+        $debug_vars: map.set($debug_vars, '$parentSelectorExists', $parentSelectorExists);
     }
 
     $prependParentSelector: false;
 
-    $modesToInclude: ();
-
-    @each $mode in $modes {
-        $isDefaultOnly: is-colour-mode-type-default-only($mode);
-        $isDefault: is-colour-mode-default($mode);
-
-        @if $debug {
-            @debug '';
-            @debug '$mode = #{meta.var-dump($mode)}';
-            @debug '$isDefaultOnly = #{meta.var-dump($isDefaultOnly)}';
-            @debug '$isDefault = #{meta.var-dump($isDefault)}';
-        }
-
-        @if $includeDefault and $isDefault {
-            $prependParentSelector: true;
-        }
-
-        @if not $isDefaultOnly or $isDefault {
-            $modesToInclude: list.append($modesToInclude, $mode);
-        }
-
-        // @if config.$selectorType_mode != 'null' and (not $isDefaultOnly or $isDefault) {
-        //     $selector: simple-selectors-colour-mode($mode);
-
-        //     @if $debug {
-        //         @debug '$selector = #{meta.var-dump($selector)}';
-        //     }
-
-        //     $mergedSelectors: ();
-
-        //     @if $parentSelectorExists {
-        //         @if selector.has-root($parentSelector) {
-        //             @if $nestParentSelector {
-        //                 $mergedSelectors: selector.add-root-selector($selector, $parentSelector);
-        //             }
-
-        //             $nestParentSelector: false;
-        //         }
-
-        //         $mergedSelectors: list.join(
-        //             $mergedSelectors,
-        //             selector.merge(
-        //                 $selectorA: $parentSelector,
-        //                 $selectorB: $selector,
-
-        //                 $nestAinB: $nestParentSelector,
-        //                 $nestBinA: $wrapParentSelector,
-        //                 $unify: $unifyParentSelector,
-
-        //                 $debug: $debug,
-        //             ),
-        //             $separator: comma
-        //         );
-        //     } @else {
-        //         $mergedSelectors: $selector;
-        //     }
-        //     @if $debug {
-        //         @debug '$mergedSelectors = #{meta.var-dump($mergedSelectors)}';
-        //     }
-
-        //     $selectorsList: list.join($selectorsList, $mergedSelectors, $separator: comma);
-        // } @else if $debug {
-        //     @debug 'no selectors added';
-        // }
+    @if $includeDefault and is-colour-mode-default($modes) {
+        $prependParentSelector: true;
     }
 
-    $selectorsList: ();
+    $modesToInclude: $modes;
+
+    $selectors: ();
 
     @if config.$selectorType_mode != 'null' {
-        $selector: simple-selectors-colour-mode($modesToInclude);
+        $simple_selectors: simple-selectors-colour-mode($modesToInclude);
+
+        $selectors: $simple_selectors;
 
         @if $debug {
-            @debug '$selector = #{meta.var-dump($selector)}';
+            $debug_vars: map.set($debug_vars, '$simple_selectors', $simple_selectors);
         }
 
         @if $parentSelectorExists {
-            @if selector.has-root($parentSelector) {
-                @if $nestParentSelector {
-                    $selectorsList: selector.add-root-selector($selector, $parentSelector);
-                }
-
-                $nestParentSelector: false;
+            // extend the existing colour mode selector with the new one(s)
+            @if $parentHasModeSelector and not $parentIsRoot {
+                $selectors: selector.extend-simple-selector(
+                    $parentSelector,
+                    $_allModeOptions_simpleSelectors,
+                    $simple_selectors,
+                    $self: false,
+                    $replace: false,
+                    $unify: $addGlobalModeSelector,
+                    $nest: config.$fn_colourMode_selectorsAsChildren,
+                    $wrap: config.$fn_colourMode_selectorsAsChildren
+                );
+            } @else if $addGlobalModeSelector {
+                $selectors: selector.add-root-selector(
+                    $selectors,
+                    $parentSelector,
+                    $aliases: $_rootAliasesWithAllModeOptions
+                );
             }
 
-            @if not selector.is-root($parentSelector) {
-                $selectorsList: list.join(
-                    $selectorsList,
+            // merges the selector(s) with the parent
+            @if $nestModeSelector or $unifySelectors {
+                $selectors: list.join(
+                    $selectors,
                     selector.merge(
                         $selectorA: $parentSelector,
-                        $selectorB: $selector,
+                        $selectorB: $simple_selectors,
 
-                        $nestAinB: $nestParentSelector,
-                        $nestBinA: $wrapParentSelector,
-                        $unify: $unifyParentSelector,
+                        $nestAinB: false,
+                        $nestBinA: $nestModeSelector,
+                        $unify: $unifySelectors,
 
                         $debug: $debug,
                     ),
                     $separator: comma
                 );
             }
-        } @else {
-            $selectorsList: $selector;
         }
+
         @if $debug {
-            @debug '$selectorsList = #{meta.var-dump($selectorsList)}';
+            $debug_vars: map.set($debug_vars, '[A] $selectors', $selectors);
         }
     }
 
-    // @if $debug {
-    //     @debug '';
-    //     @debug '$prependParentSelector = #{meta.var-dump($prependParentSelector)}';
-    // }
-
     @if $prependParentSelector {
-        $selectorsList: list.join($parentSelector, $selectorsList, $separator: comma);
+        $selectors: list.join($parentSelector, $selectors, $separator: comma);
     }
 
     @if $debug {
-        @debug '';
-        @debug '$selectorsList = #{meta.var-dump($selectorsList)}';
-        @debug '=  =  =';
-        @debug '';
+        $debug_vars: map.set($debug_vars, '$prependParentSelector', $prependParentSelector);
+        $debug_vars: map.set($debug_vars, '[B] $selectors', $selectors);
+
+        $_: meta.js-var-dump($debug_vars, 'selectors-colour-mode()');
     }
-    @if list.length($selectorsList) < 1 {
+
+    @if list.length($selectors) < 1 {
         @return config.$selector_null;
     }
 
-    // @if $parentIsRoot and $parentSelectorExists {
-    //     @return selector.unify($parentSelector, $selectorsList);
-    // }
-    @return $selectorsList;
+    @return $selectors;
 }

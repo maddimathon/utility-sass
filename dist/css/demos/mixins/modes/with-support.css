@@ -14,25 +14,34 @@
 /* ## HAS Support ==================================== */
 /* colour-mode-js-supports */
 /* ### Average, High - whereSelector ------------------ */
-@media (prefers-contrast: more) {
+@media (prefers-contrast: no-preference), (prefers-contrast: more) {
     :where(.js) supports[js].average_high {
         /* @include colour-mode-js-supports((average, high), 'whereSelector', $viaQuery: false); */
     }
 }
 :where(.js) supports[js].average_high,
 [data-contrast-mode="average"]:where(.js) supports[js].average_high,
-[data-contrast-mode="high"]:where(.js) supports[js].average_high {
+[data-contrast-mode="high"]:where(.js) supports[js].average_high,
+:where(.js) supports[js].average_high[data-contrast-mode="average"],
+:where(.js) supports[js].average_high[data-contrast-mode="high"] {
     /* @include colour-mode-js-supports((average, high), 'whereSelector', $viaQuery: false); */
 }
 
 /* ### Average ------------------ */
+@media (prefers-contrast: no-preference) {
+    :where(.js__aspectRatio) supports[js].average {
+        /* @include colour-mode-js-supports(average, 'aspectRatio', $viaQuery: false); */
+    }
+}
 :where(.js__aspectRatio) supports[js].average,
-[data-contrast-mode="average"]:where(.js__aspectRatio) supports[js].average {
+[data-contrast-mode="average"]:where(.js__aspectRatio) supports[js].average,
+:where(.js__aspectRatio) supports[js].average[data-contrast-mode="average"] {
     /* @include colour-mode-js-supports(average, 'aspectRatio', $viaQuery: false); */
 }
 
 /* ### Maximum ------------------ */
-[data-contrast-mode="max"]:where(.js__aspectRatio) supports[js].max {
+[data-contrast-mode="max"]:where(.js__aspectRatio) supports[js].max,
+:where(.js__aspectRatio) supports[js].max[data-contrast-mode="max"] {
     /* @include colour-mode-js-supports(max, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -42,7 +51,8 @@
         /* @include colour-mode-js-supports(low, 'aspectRatio', $viaQuery: false); */
     }
 }
-[data-contrast-mode="low"]:where(.js__aspectRatio) supports[js].low {
+[data-contrast-mode="low"]:where(.js__aspectRatio) supports[js].low,
+:where(.js__aspectRatio) supports[js].low[data-contrast-mode="low"] {
     /* @include colour-mode-js-supports(low, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -53,7 +63,9 @@
     }
 }
 [data-contrast-mode="forced-colors"]:where(.js__aspectRatio)
-    supports[js].forced-colors {
+    supports[js].forced-colors,
+:where(.js__aspectRatio)
+    supports[js].forced-colors[data-contrast-mode="forced-colors"] {
     /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -63,14 +75,15 @@
         /* @include colour-mode-js-supports(dark, 'aspectRatio', $viaQuery: false); */
     }
 }
-[data-brightness-mode="dark"]:where(.js__aspectRatio) supports[js].dark {
+[data-brightness-mode="dark"]:where(.js__aspectRatio) supports[js].dark,
+:where(.js__aspectRatio) supports[js].dark[data-brightness-mode="dark"] {
     /* @include colour-mode-js-supports(dark, 'aspectRatio', $viaQuery: false); */
 }
 
 /* ## NO Support ==================================== */
 /* colour-mode-js-supports-not */
 /* ### Average, High - whereSelector ------------------ */
-@media (prefers-contrast: more) {
+@media (prefers-contrast: no-preference), (prefers-contrast: more) {
     .no-js supports-not[js].high,
     .js__no-whereSelector supports-not[js].high {
         /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $viaQuery: false); */
@@ -81,21 +94,40 @@
 .no-js[data-contrast-mode="average"] supports-not[js].high,
 .no-js[data-contrast-mode="high"] supports-not[js].high,
 .js__no-whereSelector[data-contrast-mode="average"] supports-not[js].high,
-.js__no-whereSelector[data-contrast-mode="high"] supports-not[js].high {
+.js__no-whereSelector[data-contrast-mode="high"] supports-not[js].high,
+.no-js supports-not[js].high[data-contrast-mode="average"],
+.no-js supports-not[js].high[data-contrast-mode="high"],
+.js__no-whereSelector supports-not[js].high[data-contrast-mode="average"],
+.js__no-whereSelector supports-not[js].high[data-contrast-mode="high"] {
     /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $viaQuery: false); */
 }
 
 /* ### Average ------------------ */
+@media (prefers-contrast: no-preference) {
+    .no-js supports-not[js].average,
+    .js__no-whereSelector supports-not[js].average {
+        /* @include colour-mode-js-supports-not(average, 'aspectRatio', $viaQuery: false); */
+    }
+}
 .no-js supports-not[js].average,
 .js__no-whereSelector supports-not[js].average,
 .no-js[data-contrast-mode="average"] supports-not[js].average,
-.js__no-whereSelector[data-contrast-mode="average"] supports-not[js].average {
+.js__no-whereSelector[data-contrast-mode="average"] supports-not[js].average,
+.no-js supports-not[js].average[data-contrast-mode="average"],
+.js__no-whereSelector supports-not[js].average[data-contrast-mode="average"] {
     /* @include colour-mode-js-supports-not(average, 'aspectRatio', $viaQuery: false); */
 }
 
+@media (prefers-contrast: no-preference) {
+    :where(.js__no-aspectRatio) supports-not[js].average {
+        /* @include colour-mode-js-supports-not(average, 'aspectRatio', $viaQuery: false); */
+    }
+}
 :where(.js__no-aspectRatio) supports-not[js].average,
 [data-contrast-mode="average"]:where(.js__no-aspectRatio)
-    supports-not[js].average {
+    supports-not[js].average,
+:where(.js__no-aspectRatio)
+    supports-not[js].average[data-contrast-mode="average"] {
     /* @include colour-mode-js-supports-not(average, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -107,7 +139,9 @@
     }
 }
 .no-js[data-contrast-mode="low"] supports-not[js].low,
-.js__no-whereSelector[data-contrast-mode="low"] supports-not[js].low {
+.js__no-whereSelector[data-contrast-mode="low"] supports-not[js].low,
+.no-js supports-not[js].low[data-contrast-mode="low"],
+.js__no-whereSelector supports-not[js].low[data-contrast-mode="low"] {
     /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -116,7 +150,8 @@
         /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
     }
 }
-[data-contrast-mode="low"]:where(.js__no-aspectRatio) supports-not[js].low {
+[data-contrast-mode="low"]:where(.js__no-aspectRatio) supports-not[js].low,
+:where(.js__no-aspectRatio) supports-not[js].low[data-contrast-mode="low"] {
     /* @include colour-mode-js-supports-not(low, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -129,7 +164,10 @@
 }
 .no-js[data-contrast-mode="forced-colors"] supports-not[js].forced-colors,
 .js__no-whereSelector[data-contrast-mode="forced-colors"]
-    supports-not[js].forced-colors {
+    supports-not[js].forced-colors,
+.no-js supports-not[js].forced-colors[data-contrast-mode="forced-colors"],
+.js__no-whereSelector
+    supports-not[js].forced-colors[data-contrast-mode="forced-colors"] {
     /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -139,7 +177,9 @@
     }
 }
 [data-contrast-mode="forced-colors"]:where(.js__no-aspectRatio)
-    supports-not[js].forced-colors {
+    supports-not[js].forced-colors,
+:where(.js__no-aspectRatio)
+    supports-not[js].forced-colors[data-contrast-mode="forced-colors"] {
     /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -151,7 +191,9 @@
     }
 }
 .no-js[data-brightness-mode="dark"] supports-not[js].dark,
-.js__no-whereSelector[data-brightness-mode="dark"] supports-not[js].dark {
+.js__no-whereSelector[data-brightness-mode="dark"] supports-not[js].dark,
+.no-js supports-not[js].dark[data-brightness-mode="dark"],
+.js__no-whereSelector supports-not[js].dark[data-brightness-mode="dark"] {
     /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -160,7 +202,8 @@
         /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
     }
 }
-[data-brightness-mode="dark"]:where(.js__no-aspectRatio) supports-not[js].dark {
+[data-brightness-mode="dark"]:where(.js__no-aspectRatio) supports-not[js].dark,
+:where(.js__no-aspectRatio) supports-not[js].dark[data-brightness-mode="dark"] {
     /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $viaQuery: false); */
 }
 
@@ -170,29 +213,38 @@
 /* colour-mode-js-supports */
 /* ### Average, High - whereSelector ------------------ */
 @supports (selector(:where(a))) {
-    @media (prefers-contrast: more) {
+    @media (prefers-contrast: no-preference), (prefers-contrast: more) {
         supports[query].average_high {
             /* @include colour-mode-js-supports((average, high), 'whereSelector', $neverUseJS: true); */
         }
     }
     supports[query].average_high,
     [data-contrast-mode="average"] supports[query].average_high,
-    [data-contrast-mode="high"] supports[query].average_high {
+    [data-contrast-mode="high"] supports[query].average_high,
+    supports[query].average_high[data-contrast-mode="average"],
+    supports[query].average_high[data-contrast-mode="high"] {
         /* @include colour-mode-js-supports((average, high), 'whereSelector', $neverUseJS: true); */
     }
 }
 
 /* ### Average ------------------ */
 @supports (aspect-ratio: 1 / 2) {
+    @media (prefers-contrast: no-preference) {
+        supports[query].average {
+            /* @include colour-mode-js-supports(average, 'aspectRatio', $neverUseJS: true); */
+        }
+    }
     supports[query].average,
-    [data-contrast-mode="average"] supports[query].average {
+    [data-contrast-mode="average"] supports[query].average,
+    supports[query].average[data-contrast-mode="average"] {
         /* @include colour-mode-js-supports(average, 'aspectRatio', $neverUseJS: true); */
     }
 }
 
 /* ### Maximum ------------------ */
 @supports (aspect-ratio: 1 / 2) {
-    [data-contrast-mode="max"] supports[query].max {
+    [data-contrast-mode="max"] supports[query].max,
+    supports[query].max[data-contrast-mode="max"] {
         /* @include colour-mode-js-supports(max, 'aspectRatio', $neverUseJS: true); */
     }
 }
@@ -204,7 +256,8 @@
             /* @include colour-mode-js-supports(low, 'aspectRatio', $neverUseJS: true); */
         }
     }
-    [data-contrast-mode="low"] supports[query].low {
+    [data-contrast-mode="low"] supports[query].low,
+    supports[query].low[data-contrast-mode="low"] {
         /* @include colour-mode-js-supports(low, 'aspectRatio', $neverUseJS: true); */
     }
 }
@@ -216,7 +269,8 @@
             /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $neverUseJS: true); */
         }
     }
-    [data-contrast-mode="forced-colors"] supports[query].forced-colors {
+    [data-contrast-mode="forced-colors"] supports[query].forced-colors,
+    supports[query].forced-colors[data-contrast-mode="forced-colors"] {
         /* @include colour-mode-js-supports(forced-colors, 'aspectRatio', $neverUseJS: true); */
     }
 }
@@ -228,7 +282,8 @@
             /* @include colour-mode-js-supports(dark, 'aspectRatio', $neverUseJS: true); */
         }
     }
-    [data-brightness-mode="dark"] supports[query].dark {
+    [data-brightness-mode="dark"] supports[query].dark,
+    supports[query].dark[data-brightness-mode="dark"] {
         /* @include colour-mode-js-supports(dark, 'aspectRatio', $neverUseJS: true); */
     }
 }
@@ -237,22 +292,30 @@
 /* colour-mode-js-supports-not */
 /* ### Average, High - whereSelector ------------------ */
 @supports not (selector(:where(a))) {
-    @media (prefers-contrast: more) {
+    @media (prefers-contrast: no-preference), (prefers-contrast: more) {
         supports-not[query].high {
             /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $neverUseJS: true); */
         }
     }
     supports-not[query].high,
     [data-contrast-mode="average"] supports-not[query].high,
-    [data-contrast-mode="high"] supports-not[query].high {
+    [data-contrast-mode="high"] supports-not[query].high,
+    supports-not[query].high[data-contrast-mode="average"],
+    supports-not[query].high[data-contrast-mode="high"] {
         /* @include colour-mode-js-supports-not((average, high), 'whereSelector', $neverUseJS: true); */
     }
 }
 
 /* ### Average ------------------ */
 @supports not (aspect-ratio: 1 / 2) {
+    @media (prefers-contrast: no-preference) {
+        supports-not[query].average {
+            /* @include colour-mode-js-supports-not(average, 'aspectRatio', $neverUseJS: true); */
+        }
+    }
     supports-not[query].average,
-    [data-contrast-mode="average"] supports-not[query].average {
+    [data-contrast-mode="average"] supports-not[query].average,
+    supports-not[query].average[data-contrast-mode="average"] {
         /* @include colour-mode-js-supports-not(average, 'aspectRatio', $neverUseJS: true); */
     }
 }
@@ -264,7 +327,8 @@
             /* @include colour-mode-js-supports-not(low, 'aspectRatio', $neverUseJS: true); */
         }
     }
-    [data-contrast-mode="low"] supports-not[query].low {
+    [data-contrast-mode="low"] supports-not[query].low,
+    supports-not[query].low[data-contrast-mode="low"] {
         /* @include colour-mode-js-supports-not(low, 'aspectRatio', $neverUseJS: true); */
     }
 }
@@ -276,7 +340,8 @@
             /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $neverUseJS: true); */
         }
     }
-    [data-contrast-mode="forced-colors"] supports-not[query].forced-colors {
+    [data-contrast-mode="forced-colors"] supports-not[query].forced-colors,
+    supports-not[query].forced-colors[data-contrast-mode="forced-colors"] {
         /* @include colour-mode-js-supports-not(forced-colors, 'aspectRatio', $neverUseJS: true); */
     }
 }
@@ -288,7 +353,8 @@
             /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $neverUseJS: true); */
         }
     }
-    [data-brightness-mode="dark"] supports-not[query].dark {
+    [data-brightness-mode="dark"] supports-not[query].dark,
+    supports-not[query].dark[data-brightness-mode="dark"] {
         /* @include colour-mode-js-supports-not(dark, 'aspectRatio', $neverUseJS: true); */
     }
 }

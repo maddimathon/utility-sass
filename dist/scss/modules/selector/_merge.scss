@@ -3,13 +3,13 @@
 /// @since 0.1.0-pre.0
 ///
 
-@use 'sass:list';
 @use 'sass:selector';
 @use 'sass:string';
 
-@use '../meta';
-
 @use '../_config' as config;
+
+@use '../list';
+@use '../meta';
 
 ///
 /// Joins given selectors together nested in both directions and unified.
@@ -26,14 +26,16 @@
 /// @return {selector}
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Changed param defaults for $nestAinB, $nestBinA, $unify to false.
 ///
 @function merge(
     $selectorA,
     $selectorB,
-    $nestAinB: true,
-    $nestBinA: true,
-    $unify: true,
-
+    //
+    $nestAinB: false,
+    $nestBinA: false,
+    $unify: false,
+    //
     $debug: false
 ) {
     @if $debug {
@@ -90,7 +92,7 @@
             @debug '-  -  -';
             @debug '';
         }
-        @return $ret_override;
+        @return list.unique(selector.parse(#{$ret_override}));
     }
 
     $selectors: ();
@@ -134,7 +136,8 @@
                 @debug #{meta.var-dump($select)};
             }
         }
-        @return $selectors;
+        @return list.unique(selector.parse(#{$selectors}));
     }
+
     @return config.$selector_null;
 }

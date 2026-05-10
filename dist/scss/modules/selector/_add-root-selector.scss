@@ -21,7 +21,7 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function add-root-selector($new: null, $parentSelector: null) {
+@function add-root-selector($new: null, $parentSelector: null, $args...) {
     $new: if($new == null, config.$selector_body, $new);
 
     // returns
@@ -36,7 +36,7 @@
     );
 
     // returns
-    @if is-root.is-root($parentSelector) {
+    @if is-root.is-root($parentSelector, $args...) {
         @return selector.unify($parentSelector, $new);
     }
 
@@ -51,9 +51,9 @@
     // returns on a positive match
     @each $singleSelector in $parentSelector {
         //
-        @if has-root.has-root($singleSelector) {
+        @if has-root.has-root($singleSelector, $args...) {
             @each $_subSel in $singleSelector {
-                @if is-root.is-root($_subSel) {
+                @if is-root.is-root($_subSel, $args...) {
                     // replace this sub selector with the subselector unified
                     // with the new selector
                     $singleSelector: selector.replace(

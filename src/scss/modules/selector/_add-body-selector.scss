@@ -24,7 +24,13 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function add-body-selector($new_selector: null, $parentSelector: selector.parse(#{&})) {
+@function add-body-selector(
+    $new_selector: null,
+    $parentSelector: selector.parse(#{&}),
+    $aliases: config.$selector_body_aliases,
+    $root_aliases: config.$selector_root_aliases,
+    $args...
+) {
     //
     $new_selector: if($new_selector == null, config.$selector_body, $new_selector);
 
@@ -34,7 +40,7 @@
     }
 
     // returns
-    @if is-body.is-body($parentSelector) {
+    @if is-body.is-body($parentSelector, $aliases: $aliases, $args...) {
         @return selector.unify($parentSelector, $new_selector);
     }
 
@@ -49,10 +55,10 @@
     // returns on a positive match
     @each $singleSelector in $parentSelector {
         //
-        @if has-body.has-body($singleSelector) {
+        @if has-body.has-body($singleSelector, $aliases: $aliases, $args...) {
             //
             @each $_subSel in $singleSelector {
-                @if is-body.is-body($_subSel) {
+                @if is-body.is-body($_subSel, $aliases: $aliases, $args...) {
                     // replace this sub selector with the subselector unified
                     // with the new selector
                     $singleSelector: selector.replace(
@@ -65,9 +71,9 @@
         } @else {
             // check for a root selector -- if it exists, we have to do weird
             // nesting; else just a simple nest
-            @if has-root.has-root($singleSelector) {
+            @if has-root.has-root($singleSelector, $aliases: $root_aliases, $args...) {
                 @each $_subSel in $singleSelector {
-                    @if is-root.is-root($_subSel) {
+                    @if is-root.is-root($_subSel, $aliases: $root_aliases, $args...) {
                         // replace this sub selector with the subselector nested
                         // with the new selector
                         $singleSelector: selector.replace(

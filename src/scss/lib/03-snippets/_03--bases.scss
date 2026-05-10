@@ -34,9 +34,11 @@
         }
 
         @if $includeColorScheme {
-            color-scheme: tokens.$brightnessMode_all;
+            $_modes: filter-colour-modes-active-only(tokens.$brightnessMode_all);
 
-            @each $mode in tokens.$brightnessMode_all {
+            color-scheme: $_modes;
+
+            @each $mode in $_modes {
                 @include colour-mode($mode, $includeDefault: false) {
                     color-scheme: $mode;
                     color-scheme: only $mode;
