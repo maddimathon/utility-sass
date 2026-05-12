@@ -13,10 +13,10 @@ children:
 
 # Sass (scss) Modules
 
-These scss "modules" are meant as replacements for the built-in sass modules.
+These scss "modules" are meant as extensions of the built-in sass modules.
 
-**Generally, do not `@forward` these modules**, unless you would also forward
-the built-in module it is meant to replace (which is generally not recommended).
+**Generally, you won’t want to `@forward` these modules**, unless you would also
+forward the built-in module it is meant to replace.
 
 For example:
 ```scss
@@ -37,3 +37,7 @@ list.nth(...); // built-in
 - [meta](./meta/index.docs.md)
 - [selector](./selector/index.docs.md)
 - [string](./string/index.docs.md)
+
+**Dependency Tree**
+
+{@include ./dependencies.svg}

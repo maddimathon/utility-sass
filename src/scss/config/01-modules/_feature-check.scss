@@ -1,0 +1,122 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+@use 'sass:map';
+
+@use 'functions' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+$featureCheck_aspectRatio_includeNoWhereSelectorFallback: null !default;
+$featureCheck_aspectRatio_includeNoWhereSelectorFallback: config-valid-bool(
+    $featureCheck_aspectRatio_includeNoWhereSelectorFallback,
+    'featureCheck_aspectRatio_includeNoWhereSelectorFallback',
+    $default: true
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$featureCheck_jsOnlyAsNeeded: null !default;
+$featureCheck_jsOnlyAsNeeded: config-valid-bool(
+    $featureCheck_jsOnlyAsNeeded,
+    'featureCheck_jsOnlyAsNeeded',
+    $default: true
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$featureCheck_neverUseJS: null !default;
+$featureCheck_neverUseJS: config-valid-bool(
+    $featureCheck_neverUseJS,
+    'featureCheck_neverUseJS',
+    $default: false
+);
+
+///
+/// Only applies when $featureCheck_jsOnlyAsNeeded is true AND
+/// $featureCheck_neverUseJS is false.
+///
+/// @since ___PKG_VERSION___
+///
+$featureCheck_defaultToJS: () !default;
+$featureCheck_defaultToJS: map.merge(
+    (
+        whereSelector: true,
+    ),
+    $featureCheck_defaultToJS
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$featureCheck_defaultToJS_supports: () !default;
+$featureCheck_defaultToJS_supports: map.merge(
+    $featureCheck_defaultToJS,
+    $featureCheck_defaultToJS_supports
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$featureCheck_defaultToJS_supports_not: () !default;
+$featureCheck_defaultToJS_supports_not: map.merge(
+    map.merge(
+        $featureCheck_defaultToJS,
+        (
+            aspectRatio: true and map.get($featureCheck_defaultToJS, aspectRatio) != false,
+            focusVisible: true and map.get($featureCheck_defaultToJS, focusVisible) != false,
+        )
+    ),
+    $featureCheck_defaultToJS_supports_not
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$featureCheck_supports: () !default;
+$featureCheck_supports: list.join(
+    (
+        aspectRatio,
+        atProperty,
+        backgroundFixed,
+        calc,
+        displayContents,
+        focusWithin,
+        focusVisible,
+        hasSelector,
+        subgrid,
+        whereSelector
+    ),
+    config-valid-list-strings(
+        $featureCheck_supports,
+        'featureCheck_supports',
+        $default: (),
+        $unquote: true
+    ),
+    $separator: comma
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$featureCheck_supportsQueries: () !default;
+$featureCheck_supportsQueries: map.merge(
+    (
+        aspectRatio: 'aspect-ratio: 1 / 2',
+        backgroundFixed: 'background-attachment: fixed',
+        calc: 'width: calc( 0.25em + 10% )',
+        displayContents: 'display: contents',
+        focusWithin: 'selector( a:focus-within )',
+        focusVisible: 'selector( a:focus-visible )',
+        hasSelector: 'selector( :has( a ) )',
+        subgrid: 'grid-template-columns: subgrid',
+        whereSelector: 'selector( :where( a ) )',
+    ),
+    $featureCheck_supportsQueries
+);

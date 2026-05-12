@@ -120,13 +120,23 @@ $_mixinNames: (
 /* ## colour-mode-combo ==================================== */
 /* e.g. - `@include colour-mode-combo( light, (low, average) ) {}` */
 
-@include colour-mode-combo(light, (low, average), $includeRegion_heading: 'demo without parent') {
+@include colour-mode-combo(
+    light,
+    (low, average),
+    $includeRegionsOrComments: true,
+    $includeRegion_heading: 'demo without parent'
+) {
     --colour-mode-combo-brightness: light;
     --colour-mode-combo-contrast: low, average;
 }
 
 .child {
-    @include colour-mode-combo(light, (low, high), $includeRegion_heading: 'demo with parent') {
+    @include colour-mode-combo(
+        light,
+        (low, high),
+        $includeRegionsOrComments: true,
+        $includeRegion_heading: 'demo with parent'
+    ) {
         --colour-mode-combo-brightness: light;
         --colour-mode-combo-contrast: low, high;
     }

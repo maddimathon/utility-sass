@@ -8,9 +8,9 @@
 @use 'sass:meta';
 @use 'sass:string';
 
-@use '../_config' as config;
+@use '../config';
 
-@use '../selector/parent-or-root';
+@use '../selector';
 
 @use 'get-selector';
 
@@ -90,7 +90,7 @@
         }
 
         @supports (#{$supportsTest}) {
-            $_sels: parent-or-root.parent-or-root();
+            $_sels: selector.parent-or-root();
 
             @if list.length($addSelectors) > 0 {
                 $_sels: list.append($_sels, $addSelectors, $separator: comma);
@@ -170,7 +170,7 @@
                 @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
             }
 
-            $_sels: parent-or-root.parent-or-root();
+            $_sels: selector.parent-or-root();
 
             $_addSels: if($key == whereSelector, $addSelectors_noJS, $addSelectors);
 

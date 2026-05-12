@@ -3,10 +3,11 @@
 /// @since ___PKG_VERSION___
 ///
 
-@use 'sass:meta';
 @use 'sass:string';
 
-@use '../_config' as config;
+@use '../config';
+
+@use '../meta';
 
 ///
 /// Uses a compiler function to use JS strings' match property to test a regexp.
@@ -18,16 +19,13 @@
 /// @since ___PKG_VERSION___
 ///
 @function match($string, $pattern, $flags: null, $debug: false) {
-    @if not meta.function-exists('mmutils-string-match') {
-        @if not config.$warnOnMissingCompilerFunctions {
-            @warn "[string.match] global compiler function for string.match not found, which is required for use";
-        }
-
-        @return ();
-    }
-
-    @return meta.call(
-        meta.get-function('mmutils-string-match'),
+    @return meta.call-global-compiler-fn(
+        'mmutils-string-match',
+        'string.match',
+        $isCompilerFunction: true,
+        $isRequired: true,
+        $fallbackValue: (),
+        //
         $string: $string,
         $pattern: string.unquote($pattern),
         $flags: $flags,

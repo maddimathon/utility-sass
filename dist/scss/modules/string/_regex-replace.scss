@@ -3,8 +3,9 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
-@use 'sass:meta';
 @use 'sass:string';
+
+@use '../meta';
 
 ///
 /// Replaces $search with $replace in $string. Replaces all though recursion.
@@ -20,16 +21,13 @@
     $flags: null,
     $debug: false
 ) {
-    @if not meta.function-exists('mmutils-string-regex-replace') {
-        @if not config.$warnOnMissingCompilerFunctions {
-            @warn "[string.regex-replace] global compiler function for string.regex-replace not found, which is required for use";
-        }
-
-        @return $string;
-    }
-
-    @return meta.call(
-        meta.get-function('mmutils-string-regex-replace'),
+    @return meta.call-global-compiler-fn(
+        'mmutils-string-regex-replace',
+        'string.regex-replace',
+        $isCompilerFunction: true,
+        $isRequired: true,
+        $fallbackValue: $string,
+        //
         $string: $string,
         $search: string.unquote($search),
         $replace: $replace,

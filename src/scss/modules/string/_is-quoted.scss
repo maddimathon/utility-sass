@@ -3,9 +3,8 @@
 /// @since ___PKG_VERSION___
 ///
 
-@use 'sass:meta';
-
-@use '../_config' as config;
+@use '../config';
+@use '../meta';
 
 ///
 /// Uses a compiler function to check if the given string is quoted.
@@ -18,14 +17,12 @@
         @return false;
     }
 
-    // returns
-    @if not meta.function-exists('mmutils-string-is-quoted') {
-        @if not config.$warnOnMissingCompilerFunctions {
-            @warn "[string.is-quoted] global compiler function for string.is-quoted not found, which is required for use";
-        }
-
-        @return null;
-    }
-
-    @return meta.call(meta.get-function('mmutils-string-is-quoted'), $str);
+    @return meta.call-global-compiler-fn(
+        'mmutils-string-is-quoted',
+        'string.is-quoted',
+        $isCompilerFunction: true,
+        $isRequired: true,
+        //
+        $str: $str
+    );
 }

@@ -4,10 +4,9 @@
 ///
 
 @use 'sass:list';
-@use 'sass:math';
 @use 'sass:meta';
 
-@use '../math/num-val';
+@use '../math';
 @use '../string';
 
 // #region $lettersLowerCase
@@ -86,12 +85,12 @@ $sortOrder: list.join(
                     $_b_isNum: meta.type-of($str_b) == number;
 
                     @if not $_a_isNum and list.index($lettersLowerCase, $str_a) == null {
-                        $str_a: num-val.num-val($str_a);
+                        $str_a: math.num-val($str_a);
                         $_a_isNum: true;
                     }
 
                     @if not $_b_isNum and list.index($lettersLowerCase, $str_b) == null {
-                        $str_b: num-val.num-val($str_b);
+                        $str_b: math.num-val($str_b);
                         $_b_isNum: true;
                     }
 

@@ -4,10 +4,10 @@
 ///
 
 @use 'sass:map';
-@use 'sass:meta';
 @use 'sass:string';
 
-@use '../_config' as config;
+@use '../config';
+@use '../meta';
 
 @function _flat-key-valid-and-add-prefix($key, $prefix) {
     $str_key: #{$key};
@@ -64,14 +64,21 @@
 /// @since 0.1.0-beta.0.draft — Added global compiler function for better performance.
 ///
 @function flatten($map, $prefix: null, $suffix: null) {
+    $return: meta.call-global-compiler-fn(
+        'mmutils-map-flatten',
+        'map.flatten',
+        $includeWarning: false,
+        $isCompilerFunction: true,
+        $isRequired: false,
+        //
+        $map: $map,
+        $prefix: $prefix,
+        $suffix: $suffix
+    );
+
     // returns
-    @if meta.function-exists('mmutils-map-flatten') {
-        @return meta.call(
-            meta.get-function('mmutils-map-flatten'),
-            $map,
-            $prefix: $prefix,
-            $suffix: $suffix
-        );
+    @if $return != null {
+        @return $return;
     }
 
     $return: ();

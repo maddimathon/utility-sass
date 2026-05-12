@@ -6,8 +6,7 @@
 @use 'sass:map';
 @use 'sass:meta';
 
-@use '../list/reverse' as list-reverse;
-@use '../list/sort' as list-sort;
+@use '../list';
 
 ///
 /// Sorts a map by the value of its keys.
@@ -21,10 +20,10 @@
 ///
 @function ksort($map, $sortAs: 'string', $recursive: false, $reverse: false) {
     // sorts the keys
-    $ordered_keys: list-sort.sort(map.keys($map), $sortAs: $sortAs);
+    $ordered_keys: list.sort(map.keys($map), $sortAs: $sortAs);
 
     @if $reverse {
-        $ordered_keys: list-reverse.reverse($ordered_keys);
+        $ordered_keys: list.reverse($ordered_keys);
     }
 
     $ordered_map: ();

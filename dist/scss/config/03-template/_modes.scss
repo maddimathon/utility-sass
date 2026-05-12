@@ -1,0 +1,44 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'functions' as *;
+
+/// # CONFIG - COLOUR MODES
+/// ======================================================================== ///
+
+$_brightnessMode_options: ('light', 'dark');
+$_contrastMode_options: ('average', 'low', 'high', 'max', 'forced-colors');
+
+///
+/// All possibly supported brightness modes.
+///
+/// @default ('light', 'dark')
+///
+/// @since 0.1.0-beta.0.draft
+///
+$brightnessMode_options: null !default;
+$brightnessMode_options: config-valid-list-strings(
+    $brightnessMode_options,
+    'brightnessMode_options',
+    $default: $_brightnessMode_options,
+    $options: $_brightnessMode_options,
+    $allowEmptyList: false
+);
+
+///
+/// All possibly supported contrast modes.
+///
+/// @default ('average', 'low', 'high', 'forced-colors')
+///
+/// @since 0.1.0-beta.0.draft
+///
+$contrastMode_options: null !default;
+$contrastMode_options: config-valid-list-strings(
+    $contrastMode_options,
+    'contrastMode_options',
+    $default: $_contrastMode_options,
+    $options: $_contrastMode_options,
+    $allowEmptyList: false
+);

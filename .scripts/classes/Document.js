@@ -16,6 +16,8 @@ import {
     DocumentStage,
 } from '@maddimathon/build-utilities';
 
+import * as mermaid from '@mermaid-js/mermaid-cli';
+
 /**
  * Extension of the built-in one.
  */
@@ -28,11 +30,28 @@ export class Document extends DocumentStage {
      * @override
      */
     subStages = [
+        // @ts-expect-error
+        'mermaid',
         'typeDoc',
         'replace',
         // @ts-expect-error
         'tidy',
     ];
+
+    /**
+     * @protected
+     */
+    async mermaid() {
+        this.console.progress( 'generating mermaid files...', 1 );
+        await this.atry(
+            mermaid.run,
+            2,
+            [
+                this.fs.pathResolve( 'src/scss/modules/dependencies.mmd' ),
+                'src/scss/modules/dependencies.svg',
+            ],
+        );
+    }
 
     /**
      * @protected

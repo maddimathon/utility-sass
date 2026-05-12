@@ -12,8 +12,9 @@
 @use '../../modules/map';
 @use '../../modules/meta';
 
-@use '../../config';
-@use '../../template/_content/config/template' as tmplConfig;
+@use '../../config/01-modules' as configModules;
+@use '../../config/02-lib' as configLib;
+@use '../../config/03-template' as configTemplate;
 
 // @use '../../lib';
 
@@ -21,18 +22,17 @@
  * This is a dump of the available vars from the config end points
  * ======================================================================== */
 
-config-vars {
-    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config'` */
-    @include meta.var-dump(
-        'meta.module-variables(config)',
-        map.ksort(meta.module-variables(config))
-    );
+modules.config-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/modules'` */
+    @include meta.var-dump('default vars', map.ksort(meta.module-variables(configModules)));
 }
 
-template-config-vars {
-    /* accessed via `@use 'pkg:@maddimathon/utility-sass/template/config'` */
-    @include meta.var-dump(
-        'meta.module-variables(tmplConfig)',
-        map.ksort(meta.module-variables(tmplConfig))
-    );
+lib.config-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/lib'` */
+    @include meta.var-dump('default vars', map.ksort(meta.module-variables(configLib)));
+}
+
+template.config-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/template'` */
+    @include meta.var-dump('default vars', map.ksort(meta.module-variables(configTemplate)));
 }

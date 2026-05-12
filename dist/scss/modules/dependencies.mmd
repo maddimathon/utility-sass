@@ -1,0 +1,22 @@
+---
+config:
+  flowchart:
+    curve: monotoneY
+---
+flowchart BT
+	Colour([colour])
+	FeatureCheck([feature-check])
+	List([list])
+	Map([map])
+	Math([math])
+	Meta([meta])
+	Selector([selector])
+	String([string])
+
+    %% from dependents to their dependencies
+    String -.-> Meta
+    List -.-> Math & String
+    Map -.-> List & Meta
+    Colour -.-> Map & Math
+    Selector -.-> List & Meta & String
+    FeatureCheck -.-> Selector

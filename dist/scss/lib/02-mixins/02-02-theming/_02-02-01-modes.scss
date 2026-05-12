@@ -218,7 +218,8 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
     //
     $includeForcedColorsSelectors:
         config.$mx_colourModeCombo_includeForcedColorsSelectors,
-    $includeRegion: true,
+    $includeRegionsOrComments: false,
+    $includeRegion: $includeRegionsOrComments,
     $includeRegion_heading: '',
     $input_args...
 ) {
@@ -290,14 +291,16 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
 
     $queries_brightness: media-queries-colour-mode($brightness_args...);
 
-    $separateForcedColorsQuery: list.index($contrast, forced-colors) != null and
-        (
-            // (list.length($contrast) == 1 and $brightnessIsDefault) or
-            (list.length($contrast) == 1 and $brightnessIsMultipleAndDefault) or
-                // (list.length($queries_brightness) > 0) or
-            // (list.length($contrast) == 1 and list.length($queries_brightness) <= 0) or
-            (not $includeSelectors) or (not $includeQuery)
-        );
+    $separateForcedColorsQuery: (
+        list.index($contrast, forced-colors) != null and
+            (
+                (not $includeSelectors) or (not $includeQuery) or
+                    (
+                        #{$contrast} == forced-colors and
+                            $brightnessIsMultipleAndDefault
+                    )
+            )
+    );
 
     $queries_contrast: media-queries-colour-mode(
         if(
@@ -331,8 +334,6 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
 
     $simple_selectors_brightness: simple-selectors-colour-mode($brightness);
     $simple_selectors_contrast: simple-selectors-colour-mode($contrast);
-
-    $includeRegionsOrComments: true;
 
     // don't display the comments when there is probably no output
     // prettier-ignore
@@ -750,6 +751,7 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
     $includeForcedColors: true,
     $includeForcedColorsSelectors:
         config.$mx_colourModeEach_includeForcedColorsSelectors,
+    $includeRegionsOrComments: true,
 
     /// @param {boolean} $iterateForcedColors  Whether to include forced-colors for each brightness mode.
     $iterateForcedColors: false,
@@ -770,6 +772,7 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
                     $brightness: $brightness,
                     $contrast: $contrast,
                     $includeQuery: $includeQuery,
+                    $includeRegionsOrComments: $includeRegionsOrComments,
                     $includeSelectors: $includeSelectors,
                     $includeForcedColorsSelectors: $includeForcedColorsSelectors,
                     $args...
@@ -788,6 +791,7 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
             $brightness: $brightness,
             $contrast: $contrast,
             $includeQuery: $includeQuery,
+            $includeRegionsOrComments: $includeRegionsOrComments,
             $includeSelectors: $includeSelectors,
             $includeForcedColorsSelectors: $includeForcedColorsSelectors,
             $args...

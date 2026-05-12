@@ -19,7 +19,7 @@ Optionally, in a configuration file, `config.scss`:
     ...
 ); // you should forward this before the template config if you want to override any vars
 
-@forward 'pkg:@maddimathon/utility-sass/template/config' with (
+@forward 'pkg:@maddimathon/utility-sass/config/template' with (
     ...
 ); // for template config vars that control output but don't affect lib functions
 ```
