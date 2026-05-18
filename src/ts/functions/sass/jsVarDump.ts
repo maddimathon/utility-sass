@@ -8,7 +8,7 @@
  * @license MIT
  */
 
-import { VariableInspector } from '@maddimathon/utility-typescript';
+// import { VariableInspector } from '@maddimathon/utility-typescript';
 
 import type {
     CLI,
@@ -21,8 +21,10 @@ import type {
 
 import * as sass from "sass-embedded";
 
-import { sassValueToJS } from '../sassValueToJS.js';
+import { SassVariableInspector } from '../../classes/SassVariableInspector.js';
+
 import { sassAssertValueType } from '../sassAssertValueType.js';
+// import { sassValueToJS } from '../sassValueToJS.js';
 
 /**
  * Returns a call signature and function to include in {@link sass.Options} that
@@ -53,38 +55,56 @@ export function sassFn_jsVarDump(
 
             const value = args[ 0 ];
 
-            // returns
-            if ( typeof value === 'undefined' ) {
-                return new sass.SassList( new sass.SassString( 'undefined' ) );
+            if ( params.verbose ) {
+                level = level + 2;
             }
 
-            return sassValueToJS( value ).then(
-                ( jsValue ) => {
+            const inspection = SassVariableInspector.stringify( { [ varName ]: value } );
 
-                    if ( params.verbose ) {
-                        level = level + 2;
-                    }
-
-                    const inspection = VariableInspector.stringify( { [ varName ]: jsValue } );
-
-                    console.log(
-                        [
-                            [ '[Sass: meta.js-var-dump()]', { bold: true, clr: 'grey' } ],
-                            [ inspection, { clr: 'black', maxWidth: null } ],
-                        ],
-                        level,
-                        {
-                            bold: false,
-                            italic: false,
-                            joiner: '  ',
-                            linesIn: 0,
-                            linesOut: 0,
-                        },
-                    );
-
-                    return new sass.SassString( `meta.js-var-dump() - ${ varName }`, { quotes: false } );
-                }
+            console.log(
+                [
+                    [ '[Sass: meta.js-var-dump()]', { bold: true, clr: 'grey' } ],
+                    [ inspection, { clr: 'black', maxWidth: null } ],
+                ],
+                level,
+                {
+                    bold: false,
+                    italic: false,
+                    joiner: '  ',
+                    linesIn: 0,
+                    linesOut: 0,
+                },
             );
+
+            return new sass.SassString( `meta.js-var-dump() - ${ varName }`, { quotes: false } );
+
+            // return sassValueToJS( value ).then(
+            //     ( jsValue ) => {
+
+            //         if ( params.verbose ) {
+            //             level = level + 2;
+            //         }
+
+            //         const inspection = VariableInspector.stringify( { [ varName ]: jsValue } );
+
+            //         console.log(
+            //             [
+            //                 [ '[Sass: meta.js-var-dump()]', { bold: true, clr: 'grey' } ],
+            //                 [ inspection, { clr: 'black', maxWidth: null } ],
+            //             ],
+            //             level,
+            //             {
+            //                 bold: false,
+            //                 italic: false,
+            //                 joiner: '  ',
+            //                 linesIn: 0,
+            //                 linesOut: 0,
+            //             },
+            //         );
+
+            //         return new sass.SassString( `meta.js-var-dump() - ${ varName }`, { quotes: false } );
+            //     }
+            // );
         },
     };
 }

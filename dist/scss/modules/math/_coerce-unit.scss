@@ -1,0 +1,66 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:math';
+
+@use '../meta';
+
+@use 'add-unit';
+@use 'num-val';
+
+///
+/// Coerces the given number to convert to the $unit number's unit.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function coerce-unit($num, $unit: 1) {
+    $num_typeof: meta.type-of($num);
+
+    // returns if it can't be converted to a number
+    @if $num_typeof != number {
+        @warn '[math.coerce-unit] $num should be a number (was the #{meta.type-of($num)} #{$num})';
+
+        // returns
+        @if $num_typeof != string {
+            @return $num;
+        }
+
+        $num: num-val.num-val($num);
+
+        // returns
+        @if meta.type-of($num) != number {
+            @return $num;
+        }
+    }
+
+    // returns
+    @if meta.type-of($unit) != number {
+        @warn '[math.coerce-unit] $unit should be a number (was #{meta.var-dump($unit)})';
+        @return $num;
+    }
+
+    // returns
+    @if math.is-unitless($unit) {
+        @return $num;
+    }
+
+    // returns
+    @if math.is-unitless($num) {
+        @return add-unit.add-unit($num, $unit);
+    }
+
+    @return add-unit.add-unit(
+        meta.call-global-compiler-fn(
+            'mmutils-math-coerce-unit',
+            'math.coerce-unit',
+            $isCompilerFunction: true,
+            $isRequired: true,
+            //
+            $num: $num,
+            $unit: $unit
+        ),
+        $unit
+    );
+}

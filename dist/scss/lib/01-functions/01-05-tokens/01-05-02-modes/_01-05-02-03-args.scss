@@ -9,7 +9,7 @@
 @use '../../../../modules/selector';
 
 @use '../../../../config';
-// @use '../../../../tokens';
+@use '../../../../tokens';
 
 @use '../../01-00-internal' as *;
 
@@ -17,8 +17,8 @@
 @use '01-05-02-02-utils' as *;
 
 $_allModeOptions: list.join(
-    config.$brightnessMode_options,
-    config.$contrastMode_options
+    tokens.$brightnessMode_options,
+    tokens.$contrastMode_options
 );
 $_allModeOptions_simpleSelectors: simple-selectors-colour-mode(
     $_allModeOptions

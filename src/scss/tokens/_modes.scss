@@ -11,6 +11,45 @@
 /// # TOKENS - MODES
 /// ======================================================================== ///
 
+$_brightnessMode_options: ('light', 'dark');
+$_contrastMode_options: ('average', 'low', 'high', 'max', 'forced-colors');
+
+///
+/// All possibly supported brightness modes.
+///
+/// @default ('light', 'dark')
+///
+/// @since ___PKG_VERSION___
+///
+$brightnessMode_options: null !default;
+$brightnessMode_options: config.config-valid-list-strings(
+    $brightnessMode_options,
+    'brightnessMode_options',
+    $default: $_brightnessMode_options,
+    $options: $_brightnessMode_options,
+    $allowEmptyList: false,
+    $separator: space,
+    $unquote: true
+);
+
+///
+/// All possibly supported contrast modes.
+///
+/// @default ('average', 'low', 'high', 'max', 'forced-colors')
+///
+/// @since ___PKG_VERSION___
+///
+$contrastMode_options: null !default;
+$contrastMode_options: config.config-valid-list-strings(
+    $contrastMode_options,
+    'contrastMode_options',
+    $default: $_contrastMode_options,
+    $options: $_contrastMode_options,
+    $allowEmptyList: false,
+    $separator: space,
+    $unquote: true
+);
+
 ///
 /// All brightness modes to include in the output stylesheet.
 ///
@@ -18,12 +57,12 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-$brightnessMode_all: config.$brightnessMode_options !default;
+$brightnessMode_all: $brightnessMode_options !default;
 $brightnessMode_all: config.config-valid-list-strings(
     $brightnessMode_all,
     'brightnessMode_all',
-    $default: config.$brightnessMode_options,
-    $options: config.$brightnessMode_options,
+    $default: $brightnessMode_options,
+    $options: $brightnessMode_options,
     $allowEmptyList: false,
     $separator: space,
     $unquote: true
@@ -31,6 +70,8 @@ $brightnessMode_all: config.config-valid-list-strings(
 
 ///
 /// All contrast modes to include in the output stylesheet.
+///
+/// Note: average and forced-colors are required.
 ///
 /// @default ('average', 'low', 'high', 'forced-colors')
 ///
@@ -40,11 +81,21 @@ $contrastMode_all: null !default;
 $contrastMode_all: config.config-valid-list-strings(
     $contrastMode_all,
     'contrastMode_all',
-    $default: list.except(config.$contrastMode_options, 'max'),
-    $options: config.$contrastMode_options,
-    $allowEmptyList: false,
+    $default: list.except($contrastMode_options, 'max'),
+    $options: $contrastMode_options,
+    $allowEmptyList: true,
     $separator: space,
     $unquote: true
+);
+
+// average and forced-colors are required
+$contrastMode_all: list.join(
+    (average),
+    list.join(
+        list.except-any($contrastMode_all, (average, forced-colors), $separator: space),
+        (forced-colors)
+    ),
+    $separator: space
 );
 
 ///

@@ -11,6 +11,66 @@
  */
 /* # MIXINS - MODES
  * ======================================================================== */
+@media config-vars {
+    /* 
+      $selectorType_mode: <S> "attribute"
+   */
+    /* 
+      $fn_colourMode_selectorsAsChildren: </> true
+   */
+    /* 
+      $mx_colourMode_includeLightModeQuery: </> true
+   */
+    /* 
+      $mx_colourMode_includeNoPreferenceQueries: </> true
+   */
+    /* 
+      $mx_colourMode_includeQuery: </> true
+   */
+    /* 
+      $mx_colourMode_includeSelectors: </> true
+   */
+    /* 
+      $mx_colourModeCombo_includeForcedColorsSelectors: </> true
+   */
+    /* 
+      $mx_colourModeEach_includeForcedColorsSelectors: </> true
+   */
+}
+@media token-vars {
+    /* 
+      $brightnessMode_options is a list:
+   */
+    /* 1: <S> light */
+    /* 2: <S> dark */
+    /* 
+      $brightnessMode_all is a list:
+   */
+    /* 1: <S> light */
+    /* 2: <S> dark */
+    /* 
+      $brightnessMode_default: <S> light
+   */
+    /* 
+      $contrastMode_options is a list:
+   */
+    /* 1: <S> average */
+    /* 2: <S> low */
+    /* 3: <S> high */
+    /* 4: <S> max */
+    /* 5: <S> forced-colors */
+    /* 
+      $contrastMode_all is a list:
+   */
+    /* 1: <S> average */
+    /* 2: <S> low */
+    /* 3: <S> high */
+    /* 4: <S> max */
+    /* 5: <S> forced-colors */
+    /* 
+      $contrastMode_default: <S> average
+   */
+}
 @media selectors {
     /* 
       simple-selectors-colour-mode( light ) is a list:
@@ -215,6 +275,7 @@ parent[data-brightness-mode="light"] {
 [data-contrast-mode="average"],
 [data-contrast-mode="low"],
 [data-contrast-mode="high"],
+[data-contrast-mode="max"],
 [data-contrast-mode="forced-colors"] {
     --mode-mixin: "colour-mode-all";
 }
@@ -394,6 +455,22 @@ parent[data-brightness-mode="light"] {
 }
 
 /* #endregion light mode + high contrast */
+/* #region light mode + max contrast */
+@media (prefers-color-scheme: no-preference), (prefers-color-scheme: light) {
+    [data-contrast-mode="max"] {
+        --colour-mode-each-brightness: light;
+        --colour-mode-each-contrast: max;
+    }
+}
+[data-contrast-mode="max"],
+[data-brightness-mode="light"][data-contrast-mode="max"],
+[data-brightness-mode="light"] [data-contrast-mode="max"],
+[data-contrast-mode="max"] [data-brightness-mode="light"] {
+    --colour-mode-each-brightness: light;
+    --colour-mode-each-contrast: max;
+}
+
+/* #endregion light mode + max contrast */
 /* #region dark mode + average contrast */
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: no-preference )) {
     :root {
@@ -477,6 +554,21 @@ parent[data-brightness-mode="light"] {
 }
 
 /* #endregion dark mode + high contrast */
+/* #region dark mode + max contrast */
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="max"] {
+        --colour-mode-each-brightness: dark;
+        --colour-mode-each-contrast: max;
+    }
+}
+[data-brightness-mode="dark"][data-contrast-mode="max"],
+[data-brightness-mode="dark"] [data-contrast-mode="max"],
+[data-contrast-mode="max"] [data-brightness-mode="dark"] {
+    --colour-mode-each-brightness: dark;
+    --colour-mode-each-contrast: max;
+}
+
+/* #endregion dark mode + max contrast */
 /* #region light/dark mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     :root,

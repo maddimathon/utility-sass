@@ -25,11 +25,11 @@
     $new: if($new == null, config.$selector_body, $new);
 
     // returns
-    @if not parent-exists.parent-exists() {
+    @if $parentSelector == null and not parent-exists.parent-exists() {
         @return $new;
     }
 
-    $parentSelector: if($parentSelector == null, selector.parse(#{&}), $parentSelector);
+    $parentSelector: selector.parse(#{&});
 
     // returns
     @if is-root.is-root($parentSelector, $args...) {

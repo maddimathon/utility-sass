@@ -286,14 +286,14 @@ export namespace JsonToScss {
             !opts.coloursAsStrings && (
                 input.match( /^\s*#[0-9|A-H]{3,6}\s*$/i )
                 || input.match( /^\s*hsl\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+%?\s*[,\s]\s*[\d\.]+%?\s*\)\s*$/i )
-                || input.match( /^\s*(ok)?l(ch|ab)\(\s*[\d\.]+%?\s+\s*[\d\.]+\s+\s*[\d\.]+(deg)?\s*\)\s*$/i )
+                || input.match( /^\s*(ok)?l(ch|ab)\(\s*[\d\.]+%?\s+\s*[\d\.]+\s+\s*[\d\.]+(deg|g?rad|turn)?\s*\)\s*$/i )
                 || input.match( /^\s*rgb\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*\)\s*$/i )
             )
         ) {
             return `${ input }`;
         }
 
-        const isUnitedNumber = input.match( /^\s*-?\d[\d\.]*(%|[cm]m|deg|m?s|p[ctx]|rad|r?em|[dls]?v[wh])\s*$/i ) !== null;
+        const isUnitedNumber = input.match( /^\s*-?\d[\d\.]*(%|[cm]m|cq(b|h|i|w|max|min)|deg|in|m?s|p[ctx]|g?rad|r?(c(ap|h)|e[mx]|ic|lh)|turn|[dls]?v(b|h|i|w|max|min)|Q)\s*$/i ) !== null;
         const isZeroNumber = input.match( /^\s*-?0[0\.]*\s*$/i ) !== null;
 
         // returns - no quotes

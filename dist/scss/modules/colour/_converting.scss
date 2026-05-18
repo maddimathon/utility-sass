@@ -54,15 +54,20 @@
 ///
 /// Converts given colour to a (rounded) hsl css function.
 ///
-/// @param {color} $clr
-/// @param {boolean} $round  Whether to round the channel values. Default true.
-///
-/// @return {string}
-///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Added optional $opacity param.
 ///
-@function to-hsl($clr, $round: true) {
-    @return string.unquote('hsl( #{to-hsl-list($clr, $round: $round)} )');
+@function to-hsl($clr, $opacity: 100%, $args...) {
+    $opacity: math.to-percent($opacity);
+
+    // returns
+    @if $opacity != 100% {
+        @return string.unquote(
+            'hsla( #{to-hsl-list($clr, $args...)}, #{$opacity} )'
+        );
+    }
+
+    @return string.unquote('hsl( #{to-hsl-list($clr, $args...)} )');
 }
 
 ///
@@ -132,7 +137,17 @@
 /// @return {string}
 ///
 /// @since 0.1.0-alpha.26
+/// @since 0.1.0-beta.0.draft — Added optional $opacity param.
 ///
-@function to-rgb($clr, $round: true) {
-    @return string.unquote('rgb( #{to-rgb-list($clr, $round: $round)} )');
+@function to-rgb($clr, $opacity: 100%, $args...) {
+    $opacity: math.to-percent($opacity);
+
+    // returns
+    @if $opacity != 100% {
+        @return string.unquote(
+            'rgba( #{to-rgb-list($clr, $args...)}, #{$opacity} )'
+        );
+    }
+
+    @return string.unquote('rgb( #{to-rgb-list($clr, $args...)} )');
 }

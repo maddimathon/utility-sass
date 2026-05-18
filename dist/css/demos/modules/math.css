@@ -88,6 +88,45 @@ math.always-one {
    */
 }
 
+math.coerce-unit {
+    /* 
+      math.coerce-unit( 72deg, 1grad ): <#> 80grad
+   */
+    /* 
+      math.coerce-unit( 72deg, 1rad ): <#> 1.2566370614359172rad
+   */
+    /* 
+      math.coerce-unit( 72deg, 1turn ): <#> 0.2turn
+   */
+    /* 
+      math.coerce-unit( 1.25rad, 1deg ): <#> 71.6197243913529deg
+   */
+    /* 
+      math.coerce-unit( 1.25rad, 1grad ): <#> 79.57747154594767grad
+   */
+    /* 
+      math.coerce-unit( 1.25rad, 1turn ): <#> 0.1989436788648692turn
+   */
+    /* 
+      math.coerce-unit( 80grad, 1deg ): <#> 72deg
+   */
+    /* 
+      math.coerce-unit( 80grad, 1rad ): <#> 1.2566370614359172rad
+   */
+    /* 
+      math.coerce-unit( 80grad, 1turn ): <#> 0.2turn
+   */
+    /* 
+      math.coerce-unit( 0.2turn, 1deg ): <#> 72deg
+   */
+    /* 
+      math.coerce-unit( 0.2turn, 1turn ): <#> 80grad
+   */
+    /* 
+      math.coerce-unit( 0.2turn, 1rad ): <#> 1.2566370614359172rad
+   */
+}
+
 math.deunit {
     /* 
       math.deunit( 123rem ): <#> 123
@@ -142,5 +181,47 @@ math.round-to-pixel {
    */
     /* 
       math.round-to-pixel( 123.5641, $factor: 1/3 ): <#> 123
+   */
+}
+
+math.to-percent {
+    /* 
+      math.to-percent( 0.735641 ): <#> 73.5641%
+   */
+    /* 
+      math.to-percent( -.26 ): <#> -26%
+   */
+    /* 
+      math.to-percent( 1 ): <#> 100%
+   */
+    /* 
+      math.to-percent( 123.5641 ): <#> 123.5641%
+   */
+    /* 
+      math.to-percent( 86% ): <#> 86%
+   */
+    /* 
+      math.to-percent( 64 ): <#> 64%
+   */
+    /* 
+      math.to-percent( 72deg ): <#> 20%
+   */
+    /* 
+      math.to-percent( 80grad ): <#> 20%
+   */
+    /* 
+      math.to-percent( 1.2566rad ): <#> 19.99941014892757%
+   */
+    /* 
+      math.to-percent( 0.2turn ): <#> 20%
+   */
+    /* 
+      math.to-percent( 167deg ): <#> 46.38888888888889%
+   */
+    /* 
+      math.to-percent( 293deg ): <#> 81.38888888888889%
+   */
+    /* 
+      math.to-percent( 450deg ): <#> 125%
    */
 }

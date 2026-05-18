@@ -39,7 +39,7 @@
     $filtered: ();
 
     @each $mode in $modes {
-        @if is-colour-mode-included($mode) {
+        @if is-colour-mode-active($mode) {
             $filtered: list.append($filtered, $mode, $separator: space);
 
             @if $debug {

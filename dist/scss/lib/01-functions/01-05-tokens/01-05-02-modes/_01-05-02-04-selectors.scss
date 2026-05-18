@@ -9,15 +9,15 @@
 @use '../../../../modules/selector';
 
 @use '../../../../config';
-// @use '../../../../tokens';
+@use '../../../../tokens';
 
 @use '01-05-02-01-meta' as *;
 @use '01-05-02-02-utils' as *;
 @use '01-05-02-03-args' as *;
 
 $_allModeOptions: list.join(
-    config.$brightnessMode_options,
-    config.$contrastMode_options
+    tokens.$brightnessMode_options,
+    tokens.$contrastMode_options
 );
 $_allModeOptions_simpleSelectors: simple-selectors-colour-mode(
     $_allModeOptions
@@ -112,6 +112,7 @@ $_rootAliasesWithAllModeOptions: list.join(
                         );
                     }
 
+                    // for brightness modes, no-preference means whichever mode we choose as default
                     @if $isClrModeDefault and
                         config.$mx_colourMode_includeNoPreferenceQueries
                     {
@@ -173,8 +174,9 @@ $_rootAliasesWithAllModeOptions: list.join(
             } @else if $mode == average {
                 // if this is default, then only print if we allow no preference queries
                 // OR if we are not including content as default with a selector, then we should include this query
-                @if config.$mx_colourMode_includeNoPreferenceQueries or not
-                    $includeDefault or
+                @if (not $isClrModeDefault) or
+                    config.$mx_colourMode_includeNoPreferenceQueries or
+                    (not $includeDefault) or
                     (not $includeSelectors and not $anyModeIsDefault)
                 {
                     @if $debug {

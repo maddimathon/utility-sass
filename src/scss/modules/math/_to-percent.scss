@@ -1,0 +1,56 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:math';
+
+@use '../meta';
+
+@use 'add-unit';
+@use 'coerce-unit';
+@use 'num-val';
+
+///
+/// Converts a number to a percentage number. This differs from the built-in
+/// `percentage` in that it tries to convert ‘intelligently’, assuming that
+/// values above and below 1/-1 are actually unitless percentages.
+///
+/// i.e.: if it is a unitless number <= 1 and >= -1, it gets treated as a
+/// fraction representing a percentage. Numbers with deg units get divided by
+/// `360deg` to create a percentage.
+///
+/// @since ___PKG_VERSION___
+///
+@function to-percent($num) {
+    $num_typeof: meta.type-of($num);
+
+    // returns if it can't be converted to a number
+    @if $num_typeof != number {
+        @warn '[math.to-percent] $num should be a number (was #{meta.var-dump($num)})';
+
+        // returns
+        @if $num_typeof != string {
+            @return $num;
+        }
+
+        $num: num-val.num-val($num);
+
+        // returns
+        @if meta.type-of($num) != number {
+            @return $num;
+        }
+    }
+
+    // returns
+    @if not math.is-unitless($num) and math.compatible(1deg, $num) {
+        @return calc((coerce-unit.coerce-unit($num, 1deg) / 360deg) * 100%);
+    }
+
+    // returns
+    @if $num <= 1 and $num >= -1 {
+        @return add-unit.add-unit($num * 100, 1%);
+    }
+
+    @return add-unit.add-unit($num, 1%);
+}

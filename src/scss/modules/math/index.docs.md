@@ -14,9 +14,11 @@ This scss "module" is meant as a replacement for the built-in `sass:math` module
 math.add-unit(...); // added
 math.always-one(...); // added
 math.clamp-font-size(...); // added
+math.coerce-unit(...); // added
 math.deunit(...); // added
 math.num-val(...); // added
 math.round-to-pixel(...); // added
+math.to-percent(...); // added
 
 math.pow(...); // built-in
 math.round(...); // built-in

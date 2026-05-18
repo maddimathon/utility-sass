@@ -4,6 +4,8 @@
 ///
 
 @forward 'config';
+@forward 'tokens';
+
 @forward '../../header';
 
 @use 'config';
@@ -14,6 +16,8 @@
 
 /* # MIXINS - MODES
  * ======================================================================== */
+
+@include demo-modes--config-dump;
 
 $modeSets: (light, (light, dark), (light, dark, average, forced-colors));
 

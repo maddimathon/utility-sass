@@ -5,10 +5,59 @@
 
 @forward '../../../lib';
 
-// @use 'config';
+@use '../../config';
+@use '../../../tokens';
+
 @use '../../../modules/meta';
 
 @use '../../../lib' as *;
+
+@mixin demo-modes--config-dump {
+    @media config-vars {
+        // @include meta.var-dump('$featureCheck_supportsQueries', config.$featureCheck_supportsQueries);
+
+        // @include meta.var-dump('$selector_null', config.$selector_null);
+        // @include meta.var-dump('$selector_root_aliases', config.$selector_root_aliases);
+        @include meta.var-dump('$selectorType_mode', config.$selectorType_mode);
+
+        @include meta.var-dump(
+            '$fn_colourMode_selectorsAsChildren',
+            config.$fn_colourMode_selectorsAsChildren
+        );
+
+        @include meta.var-dump(
+            '$mx_colourMode_includeLightModeQuery',
+            config.$mx_colourMode_includeLightModeQuery
+        );
+        @include meta.var-dump(
+            '$mx_colourMode_includeNoPreferenceQueries',
+            config.$mx_colourMode_includeNoPreferenceQueries
+        );
+        @include meta.var-dump('$mx_colourMode_includeQuery', config.$mx_colourMode_includeQuery);
+        @include meta.var-dump(
+            '$mx_colourMode_includeSelectors',
+            config.$mx_colourMode_includeSelectors
+        );
+        @include meta.var-dump(
+            '$mx_colourModeCombo_includeForcedColorsSelectors',
+            config.$mx_colourModeCombo_includeForcedColorsSelectors
+        );
+        @include meta.var-dump(
+            '$mx_colourModeEach_includeForcedColorsSelectors',
+            config.$mx_colourModeEach_includeForcedColorsSelectors
+        );
+    }
+
+    @media token-vars {
+        @include meta.var-dump('$brightnessMode_options', tokens.$brightnessMode_options);
+        @include meta.var-dump('$brightnessMode_all', tokens.$brightnessMode_all);
+        @include meta.var-dump('$brightnessMode_default', tokens.$brightnessMode_default);
+        //
+        @include meta.var-dump('$contrastMode_options', tokens.$contrastMode_options);
+        @include meta.var-dump('$contrastMode_all', tokens.$contrastMode_all);
+        @include meta.var-dump('$contrastMode_default', tokens.$contrastMode_default);
+    }
+}
 
 @mixin demo-each-colour-mode($includeRegion: true, $includeRegion_heading: '', $args...) {
     @include colour-mode-each(

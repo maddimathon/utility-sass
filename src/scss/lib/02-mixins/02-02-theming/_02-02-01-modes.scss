@@ -21,10 +21,10 @@
 /// # THEMING MIXINS - Modes
 /// ======================================================================== ///
 
-$_brightnessModes: filter-colour-modes-active-only(tokens.$brightnessMode_all);
-$_contrastModes: filter-colour-modes-active-only(tokens.$contrastMode_all);
+$_brightnessModes_all: filter-colour-modes-active-only(tokens.$brightnessMode_options);
+$_contrastModes_all: filter-colour-modes-active-only(tokens.$contrastMode_options);
 
-$_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
+// $_modes_all: list.join($_brightnessModes_all, $_contrastModes_all, $separator: space);
 
 ///
 /// Conditional rules for various colour modes.  When multiple modes are passed,
@@ -190,7 +190,7 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
 //#endregion Individual colour modes
 
 @mixin colour-mode-all($includeForcedColors: true, $args...) {
-    $allModes: list.join($_brightnessModes, $_contrastModes);
+    $allModes: list.join($_brightnessModes_all, $_contrastModes_all);
 
     @if not $includeForcedColors {
         $allModes: list.except($allModes, forced-colors);
@@ -696,9 +696,9 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
     $args: meta.keywords($args);
 
     // iterate through brightness modes
-    @each $brightness in $_brightnessModes {
+    @each $brightness in $_brightnessModes_all {
         // iterate through contrast modes
-        @each $contrast in $_contrastModes {
+        @each $contrast in $_contrastModes_all {
             @if $contrast != forced-colors or ($iterateForcedColors and $includeForcedColors) {
                 @include colour-mode-combo(
                     $brightness: $brightness,
@@ -771,7 +771,6 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
             }
         }
     } @else {
-        // } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
         $selector: #{&};
 
         $mixin: if(
@@ -779,14 +778,6 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
             meta.get-mixin('supports', $module: feature-check),
             meta.get-mixin('supports-not', $module: feature-check)
         );
-
-        // $hasDefaultMode: false;
-
-        // @each $mode in $modes {
-        //     @if is-colour-mode-default($mode) {
-        //         $hasDefaultMode: true;
-        //     }
-        // }
 
         @include meta.apply(
             $mixin: $mixin,
@@ -800,71 +791,6 @@ $_allModes: list.join($_brightnessModes, $_contrastModes, $separator: space);
                 @content;
             }
         }
-
-        // @at-root {
-        //     //
-        //     @if config.$selectorType_mode != 'null' or $hasDefaultMode {
-        //         $addSelectors: if(
-        //             $hasDefaultMode,
-        //             (
-        //                 feature-check.get-selector(
-        //                     $key: $key,
-        //                     $bool: $bool,
-        //                     $args...,
-        //                 )
-        //             ),
-        //             ()
-        //         );
-
-        //         $addSelectors_noJS: if(
-        //             (
-        //                 config.$include_featureCheck and
-        //                     $hasDefaultMode and not
-        //                     $bool and
-        //                     $key !=
-        //                     whereSelector
-        //             ),
-        //             (
-        //                 feature-check.get-selector(
-        //                     $key: null,
-        //                     $bool: $bool,
-        //                     $args...,
-        //                 )
-        //             ),
-        //             ()
-        //         );
-
-        //         @include meta.apply(
-        //             $mixin: $mixin,
-        //             $key: $key,
-        //             $replaceRootSelector: selectors-colour-mode(
-        //                     $modes: $modes,
-        //                     $ignoreParentSelector: true,
-        //                     $includeDefault: false,
-        //                     $args...
-        //                 ),
-        //             $addSelectors: $addSelectors,
-        //             $addSelectors_noJS: $addSelectors_noJS,
-        //             $viaQuery: false,
-        //             $args...
-        //         ) {
-        //             @content;
-        //         }
-        //     }
-
-        //     @include colour-mode(
-        //         $modes: $modes,
-        //         $includeSelectors: false,
-        //         $parentSelector: (
-        //             $selector,
-        //         ),
-        //         $args...
-        //     ) {
-        //         @include meta.apply($mixin: $mixin, $key: $key, $viaQuery: false, $args...) {
-        //             @content;
-        //         }
-        //     }
-        // }
     }
 }
 

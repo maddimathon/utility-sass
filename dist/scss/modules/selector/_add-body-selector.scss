@@ -26,7 +26,7 @@
 ///
 @function add-body-selector(
     $new_selector: null,
-    $parentSelector: selector.parse(#{&}),
+    $parentSelector: null,
     $aliases: config.$selector_body_aliases,
     $root_aliases: config.$selector_root_aliases,
     $args...
@@ -39,9 +39,11 @@
     );
 
     // returns
-    @if not parent-exists.parent-exists() {
+    @if $parentSelector == null and not parent-exists.parent-exists() {
         @return $new_selector;
     }
+
+    $parentSelector: selector.parse(#{&});
 
     // returns
     @if is-body.is-body($parentSelector, $aliases: $aliases, $args...) {

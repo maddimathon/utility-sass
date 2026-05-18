@@ -9,6 +9,7 @@
  */
 import { sassFn_getCurrentVersion } from './sass/getCurrentVersion.js';
 import { sassFn_jsVarDump } from './sass/jsVarDump.js';
+import { sassFn_math_coerceUnit } from './sass/math_coerceUnit.js';
 import { sassFn_string_isQuoted } from './sass/string_isQuoted.js';
 import { sassFn_string_match } from './sass/string_match.js';
 import { sassFn_string_regexReplace } from './sass/string_regexReplace.js';
@@ -28,6 +29,7 @@ export function sassCompilerFunctions(args) {
         ...sassFn_getCurrentVersion(),
         ...sassFn_debugProgressCheckpoint(args),
         ...sassFn_jsVarDump(args),
+        ...sassFn_math_coerceUnit(args),
         ...sassFn_string_isQuoted(args),
         ...sassFn_string_match(args),
         ...sassFn_string_regexReplace(args),

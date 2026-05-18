@@ -19,11 +19,11 @@
 /// @since 0.1.0-pre.0
 ///
 @function get-colour-mode-type($mode) {
-    @if list.index(config.$brightnessMode_options, $mode) != null {
+    @if list.index(tokens.$brightnessMode_options, $mode) != null {
         @return 'brightness';
     }
 
-    @if list.index(config.$contrastMode_options, $mode) != null {
+    @if list.index(tokens.$contrastMode_options, $mode) != null {
         @return 'contrast';
     }
 
@@ -97,8 +97,9 @@
 /// @param {string} $mode  Mode slug to test.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Renamed from `is-colour-mode-included` to `is-colour-mode-active`.
 ///
-@function is-colour-mode-included($mode) {
+@function is-colour-mode-active($mode) {
     $modeType: get-colour-mode-type($mode);
 
     @if $modeType == null {
@@ -111,5 +112,21 @@
         @return false;
     }
 
-    @return true;
+    @if $modeType ==
+        brightness and
+        list.index(tokens.$brightnessMode_all, $mode) !=
+        null
+    {
+        @return true;
+    }
+
+    @if $modeType ==
+        contrast and
+        list.index(tokens.$contrastMode_all, $mode) !=
+        null
+    {
+        @return true;
+    }
+
+    @return false;
 }

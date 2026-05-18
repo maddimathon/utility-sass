@@ -8,7 +8,130 @@
 @use 'sass:meta';
 @use 'sass:string';
 
+@use 'number' as *;
 @use 'string' as *;
+
+///
+/// Validates the value of a config variable that should be a list of strings.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}       $value  The variable's value.
+/// @param {string}    $name   The variable's name.
+///
+/// @param {string[]}  $default  Default value to return if $value is invalid.
+/// @param {?string[]} $options  Optional. List of allowed values, if any. Default null.
+///
+/// @param {bool}      $allowEmptyList  Optional. Whether to return empty lists as valid. Default true.
+///
+/// @returns {string[]}  If $options is a list, all the list items are one of those values.
+///
+/// @since ___PKG_VERSION___
+///
+@function config-valid-list-number(
+    $value,
+    $name,
+    $default,
+    $options: null,
+    $allowEmptyList: true,
+    $separator: null,
+    $toPercent: false,
+    $args...
+) {
+    @if $separator != null {
+        $default: list.join($default, (), $separator: $separator);
+    }
+
+    $list_separator: if($separator == null, list.separator($default), $separator);
+
+    // make defaults percentages
+    @if $toPercent and meta.type-of($default) == list {
+        $_percentList: ();
+
+        @each $_val in $default {
+            $_percentList: list.append(
+                $_percentList,
+                math.to-percent($_val),
+                $separator: $list_separator
+            );
+        }
+
+        $default: $_percentList;
+    }
+
+    // returns - value is to be default
+    @if $value == null {
+        @return $default;
+    }
+
+    // returns - if empty or value is not a list
+    @if meta.type-of($value) == number {
+        $value: config-valid-number($value, '#{$name}.1', $default: null, $args...);
+
+        // returns
+        @if $value == null {
+            @return $default;
+        }
+
+        @if $toPercent {
+            $value: math.to-percent($value);
+        }
+
+        // returns
+        @if $options and list.index($options, $value) == null {
+            @return $default;
+        }
+
+        @return ($value);
+
+        // returns - value is not a selector
+    } @else if meta.type-of($value) != list {
+        @warn "[config] $#{$varName} must be a list (was a #{meta.type-of($value)}: #{$value})";
+        @return $default;
+    }
+
+    // returns - empty list
+    @if list.length($value) < 1 {
+        // returns
+        @if $allowEmptyList {
+            @return if($allowEmptyList, $value, $default);
+        }
+
+        @warn "[config] $#{$name} cannot be an empty list";
+        @return $default;
+    }
+
+    $valid_list: ();
+
+    $fail_return: 'FAILED_VALIDATION_1568413546dsafdgfsd354scadsvnsfgnj65';
+    $i: 1;
+
+    @each $item in $value {
+        // validates the item
+        $valid_item: config-valid-number($item, '#{$name}.#{$i}', $default: $fail_return, $args...);
+
+        @if $valid_item != $fail_return {
+            // adds item to the valid list
+
+            @if $toPercent {
+                $valid_item: math.to-percent($valid_item);
+            }
+
+            @if not $options or list.index($options, $value) != null {
+                $valid_list: list.append($valid_list, $valid_item, $separator: $list_separator);
+            }
+        }
+
+        $i: $i + 1;
+    }
+
+    // returns - no items are valid
+    @if list.length($valid_list) < 1 and not $allowEmptyList {
+        @return $default;
+    }
+
+    @return $valid_list;
+}
 
 ///
 /// Validates the value of a config variable that should be a list of strings.
@@ -42,22 +165,23 @@
 
     $list_separator: if($separator == null, list.separator($default), $separator);
 
-    // returns - value is to be default
-    @if $value == null {
-        @if $unquote and meta.type-of($default) == list {
-            $_unquotedList: ();
+    // unquote defaults properly
+    @if $unquote and meta.type-of($default) == list {
+        $_unquotedList: ();
 
-            @each $_val in $default {
-                $_unquotedList: list.append(
-                    $_unquotedList,
-                    string.unquote($_val),
-                    $separator: $list_separator
-                );
-            }
-
-            @return $_unquotedList;
+        @each $_val in $default {
+            $_unquotedList: list.append(
+                $_unquotedList,
+                string.unquote($_val),
+                $separator: $list_separator
+            );
         }
 
+        $default: $_unquotedList;
+    }
+
+    // returns - value is to be default
+    @if $value == null {
         @return $default;
     }
 
@@ -77,12 +201,12 @@
 
         // returns - value is not a selector
     } @else if meta.type-of($value) != list {
-        @warn "[config] $#{$varName} must be a #{$type} (was a #{meta.type-of($value)}: #{$value})";
+        @warn "[config] $#{$varName} must be a list (was a #{meta.type-of($value)}: #{$value})";
         @return $default;
     }
 
     // returns - empty list
-    @if list.length($value) <1 {
+    @if list.length($value) < 1 {
         // returns
         @if $allowEmptyList {
             @return if($allowEmptyList, $value, $default);
@@ -120,7 +244,7 @@
     }
 
     // returns - no items are valid
-    @if list.length($valid_list) <1 and not $allowEmptyList {
+    @if list.length($valid_list) < 1 and not $allowEmptyList {
         @return $default;
     }
 
