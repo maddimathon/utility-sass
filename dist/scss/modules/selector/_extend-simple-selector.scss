@@ -143,349 +143,362 @@
             @each $sub_single_haystack in $single_haystack {
                 $_debug_eachSubHaystack: ();
 
-                @if $debug {
+                @if $sub_single_haystack == '>' {
                     $_debug_eachSubHaystack: map.set(
                         $_debug_eachSubHaystack,
-                        '$sub_single_haystack',
+                        'skipping - $sub_single_haystack',
                         $sub_single_haystack
                     );
-                }
-
-                @if selector.is-superselector(
-                    $single_needle,
-                    $sub_single_haystack
-                )
-                {
-                    //
-                    @if not map.get($to_extend, #{$sub_single_haystack}) {
-                        $to_extend: map.set(
-                            $to_extend,
-                            #{$sub_single_haystack},
-                            ()
-                        );
-                    }
-
-                    $_extension_simple: ();
-                    $_extension_compound: ();
-
-                    $_is_simple_sub_single_haystack: is-simple.is-simple(
-                        $sub_single_haystack
-                    );
-
-                    $_debug_eachSubHaystack: map.set(
-                        $_debug_eachSubHaystack,
-                        '$_is_simple_sub_single_haystack',
-                        $_is_simple_sub_single_haystack
-                    );
-
-                    $_sub_single_haystack_no_needle: if(
-                        $_is_simple_sub_single_haystack,
-                        null,
-                        unify-all.unify-all(
-                            list.except(
-                                selector.simple-selectors($sub_single_haystack),
-                                $single_needle
-                            )
-                        )
-                    );
-
-                    @if $self {
-                        $_self: $sub_single_haystack;
-
-                        $_debug_eachSubHaystack: map.set(
-                            $_debug_eachSubHaystack,
-                            'adding self',
-                            $_self
-                        );
-
-                        $_selType: if(
-                            $_is_simple_sub_single_haystack,
-                            simple,
-                            compound
-                        );
-
-                        $_current_to_extend_self: map.get(
-                            $to_extend,
-                            #{$sub_single_haystack},
-                            self,
-                            $_selType
-                        );
-
-                        $to_extend: map.set(
-                            $to_extend,
-                            #{$sub_single_haystack},
-                            self,
-                            $_selType,
-                            if(
-                                $_current_to_extend_self,
-                                list.join(
-                                    $_current_to_extend_self,
-                                    $_self,
-                                    $separator: comma
-                                ),
-                                $_self
-                            )
-                        );
-                    }
-
-                    @if $replace {
-                        $_debug_replace: true;
-
-                        $_current_to_extend_replace_compound: map.get(
-                            $to_extend,
-                            #{$sub_single_haystack},
-                            replace,
-                            compound
-                        );
-
-                        @if $_sub_single_haystack_no_needle ==
-                            null or not
-                            $preserveModifiers_replace
-                        {
-                            $_current_to_extend_replace_simple: map.get(
-                                $to_extend,
-                                #{$sub_single_haystack},
-                                replace,
-                                simple
-                            );
-
-                            $to_extend: map.set(
-                                $to_extend,
-                                #{$sub_single_haystack},
-                                replace,
-                                (
-                                    simple: if(
-                                            $_current_to_extend_replace_simple,
-                                            list.join(
-                                                $_current_to_extend_replace_simple,
-                                                $extenders_simple,
-                                                $separator: comma
-                                            ),
-                                            $extenders_simple
-                                        ),
-                                    compound: if(
-                                            $_current_to_extend_replace_compound,
-                                            list.join(
-                                                $_current_to_extend_replace_compound,
-                                                $extenders_compound,
-                                                $separator: comma
-                                            ),
-                                            $extenders_compound
-                                        ),
-                                )
-                            );
-                        } @else {
-                            $_replace: list.join(
-                                if(
-                                    list.length($extenders_simple) > 0,
-                                    selector.unify(
-                                        $extenders_simple,
-                                        $_sub_single_haystack_no_needle
-                                    ),
-                                    ()
-                                ),
-                                if(
-                                    list.length($extenders_compound) > 0,
-                                    selector.unify(
-                                        $extenders_compound,
-                                        $_sub_single_haystack_no_needle
-                                    ),
-                                    ()
-                                ),
-                                $separator: comma
-                            );
-
-                            $to_extend: map.set(
-                                $to_extend,
-                                #{$sub_single_haystack},
-                                replace,
-                                compound,
-                                if(
-                                    $_current_to_extend_replace_compound,
-                                    list.join(
-                                        $_current_to_extend_replace_compound,
-                                        $_replace,
-                                        $separator: comma
-                                    ),
-                                    $_replace
-                                )
-                            );
-
-                            $_debug_replace: $_replace;
-                        }
-
-                        $_debug_eachSubHaystack: map.set(
-                            $_debug_eachSubHaystack,
-                            'adding replace',
-                            $_debug_replace
-                        );
-                    }
-
-                    @if $unify {
-                        $_unified: selector.unify(
-                            $sub_single_haystack,
-                            $extenders
-                        );
-
-                        $_current_to_extend_unify_compound: map.get(
-                            $to_extend,
-                            #{$sub_single_haystack},
-                            unify,
-                            compound
-                        );
-
-                        $to_extend: map.set(
-                            $to_extend,
-                            #{$sub_single_haystack},
-                            unify,
-                            compound,
-                            if(
-                                $_current_to_extend_unify_compound,
-                                list.join(
-                                    $_current_to_extend_unify_compound,
-                                    $_unified,
-                                    $separator: comma
-                                ),
-                                $_unified
-                            )
-                        );
-
-                        $_debug_eachSubHaystack: map.set(
-                            $_debug_eachSubHaystack,
-                            'adding unified',
-                            $_unified
-                        );
-                    }
-
-                    @if $nest {
-                        $_debug_eachSubHaystack: map.set(
-                            $_debug_eachSubHaystack,
-                            'adding nested',
-                            selector.nest($sub_single_haystack, $extenders)
-                        );
-
-                        @if $_sub_single_haystack_no_needle ==
-                            null or not
-                            $preserveModifiers
-                        {
-                            $_extension_compound: list.join(
-                                $_extension_compound,
-                                selector.nest($sub_single_haystack, $extenders),
-                                $separator: comma
-                            );
-                        } @else {
-                            $_extension_compound: list.join(
-                                $_extension_compound,
-                                selector.nest(
-                                    $sub_single_haystack,
-                                    selector.unify(
-                                        $extenders,
-                                        $_sub_single_haystack_no_needle
-                                    )
-                                ),
-                                $separator: comma
-                            );
-                        }
-                    }
-
-                    @if $wrap {
-                        $_debug_wrap: true;
-
-                        @if $_sub_single_haystack_no_needle ==
-                            null or not
-                            $preserveModifiers
-                        {
-                            $_debug_wrap: selector.nest(
-                                $extenders,
-                                $sub_single_haystack
-                            );
-
-                            $_extension_compound: list.join(
-                                $_extension_compound,
-                                $_debug_wrap,
-                                $separator: comma
-                            );
-                        } @else {
-                            $_debug_wrap: selector.nest(
-                                selector.unify(
-                                    $extenders,
-                                    $_sub_single_haystack_no_needle
-                                ),
-                                $sub_single_haystack
-                            );
-
-                            $_extension_compound: list.join(
-                                $_extension_compound,
-                                $_debug_wrap,
-                                $separator: comma
-                            );
-                        }
-
-                        $_debug_eachSubHaystack: map.set(
-                            $_debug_eachSubHaystack,
-                            'adding wrapped',
-                            selector.nest($extenders, $sub_single_haystack)
-                        );
-                    }
-
+                } @else {
                     @if $debug {
                         $_debug_eachSubHaystack: map.set(
                             $_debug_eachSubHaystack,
-                            '$_extension_simple',
-                            $_extension_simple
-                        );
-                        $_debug_eachSubHaystack: map.set(
-                            $_debug_eachSubHaystack,
-                            '$_extension_compound',
-                            $_extension_compound
+                            '$sub_single_haystack',
+                            $sub_single_haystack
                         );
                     }
 
-                    $_current_to_extend_simple: map.get(
-                        $to_extend,
-                        #{$sub_single_haystack},
-                        simple
-                    );
+                    @if selector.is-superselector(
+                        $single_needle,
+                        $sub_single_haystack
+                    )
+                    {
+                        //
+                        @if not map.get($to_extend, #{$sub_single_haystack}) {
+                            $to_extend: map.set(
+                                $to_extend,
+                                #{$sub_single_haystack},
+                                ()
+                            );
+                        }
 
-                    $_current_to_extend_compound: map.get(
-                        $to_extend,
-                        #{$sub_single_haystack},
-                        compound
-                    );
+                        $_extension_simple: ();
+                        $_extension_compound: ();
 
-                    $to_extend: map.set(
-                        $to_extend,
-                        #{$sub_single_haystack},
-                        map.merge(
-                            map.get($to_extend, #{$sub_single_haystack}),
-                            (
-                                simple: if(
-                                        $_current_to_extend_simple,
-                                        list.join(
-                                            $_current_to_extend_simple,
-                                            $_extension_simple,
-                                            $separator: comma
-                                        ),
-                                        $_extension_simple
+                        $_is_simple_sub_single_haystack: is-simple.is-simple(
+                            $sub_single_haystack
+                        );
+
+                        $_debug_eachSubHaystack: map.set(
+                            $_debug_eachSubHaystack,
+                            '$_is_simple_sub_single_haystack',
+                            $_is_simple_sub_single_haystack
+                        );
+
+                        $_sub_single_haystack_no_needle: if(
+                            $_is_simple_sub_single_haystack,
+                            null,
+                            unify-all.unify-all(
+                                list.except(
+                                    selector.simple-selectors(
+                                        $sub_single_haystack
                                     ),
-                                compound: if(
-                                        $_current_to_extend_compound,
-                                        list.join(
-                                            $_current_to_extend_compound,
-                                            $_extension_compound,
-                                            $separator: comma
-                                        ),
-                                        $_extension_compound
-                                    ),
+                                    $single_needle
+                                )
                             )
-                        )
-                    );
-                } @else if $debug {
-                    $_debug_eachSubHaystack: map.set(
-                        $_debug_eachSubHaystack,
-                        'selector.is-superselector( $single_needle, $sub_single_haystack )',
-                        false
-                    );
+                        );
+
+                        @if $self {
+                            $_self: $sub_single_haystack;
+
+                            $_debug_eachSubHaystack: map.set(
+                                $_debug_eachSubHaystack,
+                                'adding self',
+                                $_self
+                            );
+
+                            $_selType: if(
+                                $_is_simple_sub_single_haystack,
+                                simple,
+                                compound
+                            );
+
+                            $_current_to_extend_self: map.get(
+                                $to_extend,
+                                #{$sub_single_haystack},
+                                self,
+                                $_selType
+                            );
+
+                            $to_extend: map.set(
+                                $to_extend,
+                                #{$sub_single_haystack},
+                                self,
+                                $_selType,
+                                if(
+                                    $_current_to_extend_self,
+                                    list.join(
+                                        $_current_to_extend_self,
+                                        $_self,
+                                        $separator: comma
+                                    ),
+                                    $_self
+                                )
+                            );
+                        }
+
+                        @if $replace {
+                            $_debug_replace: true;
+
+                            $_current_to_extend_replace_compound: map.get(
+                                $to_extend,
+                                #{$sub_single_haystack},
+                                replace,
+                                compound
+                            );
+
+                            @if $_sub_single_haystack_no_needle ==
+                                null or not
+                                $preserveModifiers_replace
+                            {
+                                $_current_to_extend_replace_simple: map.get(
+                                    $to_extend,
+                                    #{$sub_single_haystack},
+                                    replace,
+                                    simple
+                                );
+
+                                $to_extend: map.set(
+                                    $to_extend,
+                                    #{$sub_single_haystack},
+                                    replace,
+                                    (
+                                        simple: if(
+                                                $_current_to_extend_replace_simple,
+                                                list.join(
+                                                    $_current_to_extend_replace_simple,
+                                                    $extenders_simple,
+                                                    $separator: comma
+                                                ),
+                                                $extenders_simple
+                                            ),
+                                        compound: if(
+                                                $_current_to_extend_replace_compound,
+                                                list.join(
+                                                    $_current_to_extend_replace_compound,
+                                                    $extenders_compound,
+                                                    $separator: comma
+                                                ),
+                                                $extenders_compound
+                                            ),
+                                    )
+                                );
+                            } @else {
+                                $_replace: list.join(
+                                    if(
+                                        list.length($extenders_simple) > 0,
+                                        selector.unify(
+                                            $extenders_simple,
+                                            $_sub_single_haystack_no_needle
+                                        ),
+                                        ()
+                                    ),
+                                    if(
+                                        list.length($extenders_compound) > 0,
+                                        selector.unify(
+                                            $extenders_compound,
+                                            $_sub_single_haystack_no_needle
+                                        ),
+                                        ()
+                                    ),
+                                    $separator: comma
+                                );
+
+                                $to_extend: map.set(
+                                    $to_extend,
+                                    #{$sub_single_haystack},
+                                    replace,
+                                    compound,
+                                    if(
+                                        $_current_to_extend_replace_compound,
+                                        list.join(
+                                            $_current_to_extend_replace_compound,
+                                            $_replace,
+                                            $separator: comma
+                                        ),
+                                        $_replace
+                                    )
+                                );
+
+                                $_debug_replace: $_replace;
+                            }
+
+                            $_debug_eachSubHaystack: map.set(
+                                $_debug_eachSubHaystack,
+                                'adding replace',
+                                $_debug_replace
+                            );
+                        }
+
+                        @if $unify {
+                            $_unified: selector.unify(
+                                $sub_single_haystack,
+                                $extenders
+                            );
+
+                            $_current_to_extend_unify_compound: map.get(
+                                $to_extend,
+                                #{$sub_single_haystack},
+                                unify,
+                                compound
+                            );
+
+                            $to_extend: map.set(
+                                $to_extend,
+                                #{$sub_single_haystack},
+                                unify,
+                                compound,
+                                if(
+                                    $_current_to_extend_unify_compound,
+                                    list.join(
+                                        $_current_to_extend_unify_compound,
+                                        $_unified,
+                                        $separator: comma
+                                    ),
+                                    $_unified
+                                )
+                            );
+
+                            $_debug_eachSubHaystack: map.set(
+                                $_debug_eachSubHaystack,
+                                'adding unified',
+                                $_unified
+                            );
+                        }
+
+                        @if $nest {
+                            $_debug_eachSubHaystack: map.set(
+                                $_debug_eachSubHaystack,
+                                'adding nested',
+                                selector.nest($sub_single_haystack, $extenders)
+                            );
+
+                            @if $_sub_single_haystack_no_needle ==
+                                null or not
+                                $preserveModifiers
+                            {
+                                $_extension_compound: list.join(
+                                    $_extension_compound,
+                                    selector.nest(
+                                        $sub_single_haystack,
+                                        $extenders
+                                    ),
+                                    $separator: comma
+                                );
+                            } @else {
+                                $_extension_compound: list.join(
+                                    $_extension_compound,
+                                    selector.nest(
+                                        $sub_single_haystack,
+                                        selector.unify(
+                                            $extenders,
+                                            $_sub_single_haystack_no_needle
+                                        )
+                                    ),
+                                    $separator: comma
+                                );
+                            }
+                        }
+
+                        @if $wrap {
+                            $_debug_wrap: true;
+
+                            @if $_sub_single_haystack_no_needle ==
+                                null or not
+                                $preserveModifiers
+                            {
+                                $_debug_wrap: selector.nest(
+                                    $extenders,
+                                    $sub_single_haystack
+                                );
+
+                                $_extension_compound: list.join(
+                                    $_extension_compound,
+                                    $_debug_wrap,
+                                    $separator: comma
+                                );
+                            } @else {
+                                $_debug_wrap: selector.nest(
+                                    selector.unify(
+                                        $extenders,
+                                        $_sub_single_haystack_no_needle
+                                    ),
+                                    $sub_single_haystack
+                                );
+
+                                $_extension_compound: list.join(
+                                    $_extension_compound,
+                                    $_debug_wrap,
+                                    $separator: comma
+                                );
+                            }
+
+                            $_debug_eachSubHaystack: map.set(
+                                $_debug_eachSubHaystack,
+                                'adding wrapped',
+                                selector.nest($extenders, $sub_single_haystack)
+                            );
+                        }
+
+                        @if $debug {
+                            $_debug_eachSubHaystack: map.set(
+                                $_debug_eachSubHaystack,
+                                '$_extension_simple',
+                                $_extension_simple
+                            );
+                            $_debug_eachSubHaystack: map.set(
+                                $_debug_eachSubHaystack,
+                                '$_extension_compound',
+                                $_extension_compound
+                            );
+                        }
+
+                        $_current_to_extend_simple: map.get(
+                            $to_extend,
+                            #{$sub_single_haystack},
+                            simple
+                        );
+
+                        $_current_to_extend_compound: map.get(
+                            $to_extend,
+                            #{$sub_single_haystack},
+                            compound
+                        );
+
+                        $to_extend: map.set(
+                            $to_extend,
+                            #{$sub_single_haystack},
+                            map.merge(
+                                map.get($to_extend, #{$sub_single_haystack}),
+                                (
+                                    simple: if(
+                                            $_current_to_extend_simple,
+                                            list.join(
+                                                $_current_to_extend_simple,
+                                                $_extension_simple,
+                                                $separator: comma
+                                            ),
+                                            $_extension_simple
+                                        ),
+                                    compound: if(
+                                            $_current_to_extend_compound,
+                                            list.join(
+                                                $_current_to_extend_compound,
+                                                $_extension_compound,
+                                                $separator: comma
+                                            ),
+                                            $_extension_compound
+                                        ),
+                                )
+                            )
+                        );
+                    } @else if $debug {
+                        $_debug_eachSubHaystack: map.set(
+                            $_debug_eachSubHaystack,
+                            'selector.is-superselector( $single_needle, $sub_single_haystack )',
+                            false
+                        );
+                    }
                 }
 
                 $_debug_eachNeedle: map.set(

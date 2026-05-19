@@ -662,156 +662,80 @@
     $mixin_c: meta.get-mixin('_nothing');
 
     @if $active and $activeWithin and $hover and $focus and $focusWithin {
-        @at-root {
-            /* if 2 */
-        }
         $mixin_a: meta.get-mixin('active-hover-focus-visible-or-within');
     } @else if $active and $activeWithin and not $hover and not $focus and $focusWithin {
-        @at-root {
-            /* if 3 */
-        }
         $mixin_a: meta.get-mixin('active');
         $mixin_b: meta.get-mixin('_active-within-focus-within');
     } @else if $active and $hover and $focus and not $focusWithin {
-        @at-root {
-            /* if 4 */
-        }
         $mixin_a: meta.get-mixin('active-hover-focus-visible');
 
         @if $activeWithin {
-            @at-root {
-                /* if 4-b */
-            }
             $mixin_b: meta.get-mixin('active-within');
         }
     } @else if $active and not $hover and not $focus and not $focusWithin {
-        @at-root {
-            /* if 5 */
-        }
         $mixin_a: meta.get-mixin('active');
 
         @if $activeWithin {
             $mixin_b: meta.get-mixin('active-within');
         }
     } @else if not $active and $activeWithin and not $hover and not $focus and not $focusWithin {
-        @at-root {
-            /* if 6 */
-        }
         $mixin_a: meta.get-mixin('active-within');
     } @else if not $active and $hover and $focus and $focusWithin {
         @if $activeWithin {
-            @at-root {
-                /* if 1-a */
-            }
             $mixin_a: meta.get-mixin('hover-focus-visible');
             $mixin_b: meta.get-mixin('_active-within-focus-within');
         } @else {
-            @at-root {
-                /* if 1-b */
-            }
             $mixin_a: meta.get-mixin('hover-focus-visible-or-within');
         }
     } @else if $active and $hover and $focus and $focusWithin {
-        @at-root {
-            /* if 7 */
-        }
         $mixin_a: meta.get-mixin('active-hover-focus-visible');
         $mixin_b: meta.get-mixin('focus-within');
     } @else if not $active and $hover and $focus and not $focusWithin {
-        @at-root {
-            /* if 8 */
-        }
         $mixin_a: meta.get-mixin('hover-focus-visible');
 
         @if $activeWithin {
-            @at-root {
-                /* if 8-a */
-            }
             $mixin_b: meta.get-mixin('active-within');
         }
     } @else if $hover and not $focus {
-        @at-root {
-            /* if 9 */
-        }
         $mixin_a: meta.get-mixin('_hover');
 
         @if $active {
-            @at-root {
-                /* if 9-a */
-            }
             $mixin_a: meta.get-mixin('_active-hover');
         }
 
         @if $focusWithin and $activeWithin {
-            @at-root {
-                /* if 9-b-1 */
-            }
             $mixin_b: meta.get-mixin('_active-within-focus-within');
         } @else if $activeWithin {
-            @at-root {
-                /* if 9-b-2 */
-            }
             $mixin_b: meta.get-mixin('active-within');
         } @else if $focusWithin {
-            @at-root {
-                /* if 9-b-3 */
-            }
             $mixin_b: meta.get-mixin('focus-within');
         }
     } @else if not $active and $activeWithin and not $hover and $focus and $focusWithin {
-        @at-root {
-            /* if 10 */
-        }
         $mixin_a: meta.get-mixin('focus-visible');
         $mixin_b: meta.get-mixin('_active-within-focus-within');
     } @else if $active and $activeWithin and not $hover and $focus and $focusWithin {
-        @at-root {
-            /* if 11-c */
-        }
         $mixin_a: meta.get-mixin('_active-focus-visible');
         $mixin_b: meta.get-mixin('_active-within-focus-within');
     } @else if not $hover and $focus and $focusWithin {
-        @at-root {
-            /* if 11 */
-        }
         $mixin_a: meta.get-mixin('focus-visible');
         $mixin_b: meta.get-mixin('focus-within');
 
         @if $active {
-            @at-root {
-                /* if 11-a */
-            }
             $mixin_a: meta.get-mixin('_active-focus-visible');
         }
     } @else if not $hover and $focus and not $focusWithin {
-        @at-root {
-            /* if 12 */
-        }
         $mixin_a: meta.get-mixin('focus-visible');
 
         @if $active {
-            @at-root {
-                /* if 12-a */
-            }
             $mixin_a: meta.get-mixin('_active-focus-visible');
         }
 
         @if $activeWithin {
-            @at-root {
-                /* if 12-b */
-            }
             $mixin_c: meta.get-mixin('active-within');
         }
     } @else if not $active and $activeWithin and $focusWithin {
-        @at-root {
-            /* if 13 */
-        }
         $mixin_a: meta.get-mixin('_active-within-focus-within');
     } @else {
-        @at-root {
-            /* FINAL ELSE */
-        }
-
         @if $focusWithin {
             $mixin_a: meta.get-mixin('focus-within');
         }
