@@ -23,61 +23,150 @@
     $pseudoType,
     $selectors: null,
     $direct: false,
-    $unifyParent: false
+    $unifyParent: false,
+    $debug: false
 ) {
-    $parentExists: parent-exists.parent-exists();
-
-    @if not $parentExists {
-        $unifyParent: false;
+    @if $debug and $pseudoType == 'not' {
+        @debug ' - - - ';
+        @debug '$selectors [1] = #{meta.var-dump($selectors)}';
     }
 
+    // returns for not
     @if $selectors == null {
-        $selectors: if($pseudoType == 'not', config.$selector_null, '*');
+        // returns
+        @if $pseudoType == 'not' {
+            $_notSel: string.unquote(
+                ':#{$pseudoType}( #{config.$selector_null} )'
+            );
+
+            $_ret: if(
+                $unifyParent and parent-exists.parent-exists(),
+                selector.unify(&, $_notSel),
+                if($direct, selector.nest('>', $_notSel), $_notSel)
+            );
+
+            @if $debug {
+                @debug 'returning [A] = #{meta.var-dump($_ret)}';
+            }
+
+            @return $_ret;
+        }
+
+        $selectors: '*';
     }
 
-    @if meta.type-of($selectors) != list {
-        $selectors: selector.parse($selectors);
+    @if list.length($selectors) > 0 {
+        $selectors: selector.parse(#{$selectors});
+
+        @if list.separator($selectors) != comma {
+            $selectors: list.append((), $selectors, $separator: comma);
+        }
     }
 
-    @if list.separator($selectors) != comma {
-        //
-        $selectors: list.append(
-            (config.$selector_null),
-            $selectors,
-            $separator: comma
-        );
+    @if $debug and $pseudoType == 'not' {
+        @debug '$selectors [2] = #{meta.var-dump($selectors)}';
     }
 
     $pseudo_selector_list: ();
 
     @each $sel in $selectors {
-        @if $sel != config.$selector_null {
+        @if #{$sel} != #{config.$selector_null} and string.length(#{$sel}) > 0 {
             //
             @if $direct and $pseudoType == 'has' {
-                $sel: selector.nest('>', ($sel));
+                $sel: selector.nest('>', $sel);
             }
 
-            $pseudo_selector_list: list.append(
-                $pseudo_selector_list,
-                ':#{$pseudoType}( #{$sel} )',
-                $separator: comma
-            );
+            @if $pseudoType == 'not' {
+                $_var: '#{if(list.length($pseudo_selector_list) > 0, $pseudo_selector_list, '')}:#{$pseudoType}( #{$sel} )';
+
+                @if $debug {
+                    @debug '[building] $pseudo_selector_list = #{meta.var-dump($pseudo_selector_list)}';
+                    @debug '[building] updated = #{meta.var-dump($_var)}';
+                }
+
+                $pseudo_selector_list: $_var;
+            } @else {
+                $pseudo_selector_list: list.append(
+                    $pseudo_selector_list,
+                    ':#{$pseudoType}( #{$sel} )',
+                    $separator: comma
+                );
+            }
         }
     }
 
-    @if $pseudoType == 'not' {
-        $pseudo_selector_list: list.text-join($pseudo_selector_list, '');
+    @if $debug {
+        @debug '$pseudo_selector_list = #{meta.var-dump($pseudo_selector_list)}';
     }
 
-    @return if(
-        $unifyParent,
-        selector.unify(&, ($pseudo_selector_list)),
-        if(
-            $direct and $pseudoType != 'has',
-            selector.nest('>', ($pseudo_selector_list)),
-            $pseudo_selector_list
-        )
+    // returns
+    @if list.length($pseudo_selector_list) <
+        1 or
+        string.length(#{$pseudo_selector_list}) <
+        1
+    {
+        // returns
+        @if $pseudoType == 'not' {
+            $_notSel: string.unquote(
+                ':#{$pseudoType}( #{config.$selector_null} )'
+            );
+
+            $_ret: if(
+                $unifyParent and parent-exists.parent-exists(),
+                selector.unify(&, $_notSel),
+                if($direct, selector.nest('>', $_notSel), $_notSel)
+            );
+
+            @if $debug {
+                @debug 'returning [B] = #{meta.var-dump($_ret)}';
+            }
+
+            @return $_ret;
+        }
+
+        $_ret: config.$selector_null;
+
+        @if $debug {
+            @debug 'returning [C] = #{meta.var-dump($_ret)}';
+        }
+
+        @return $_ret;
+    }
+
+    // returns
+    @if $unifyParent and parent-exists.parent-exists() {
+        $_ret: selector.unify(&, $pseudo_selector_list);
+
+        @if $pseudoType == 'not' {
+            $_ret: ();
+
+            @each $selector in selector.parse(#{&}) {
+                $_ret: list.join(
+                    $_ret,
+                    string.unquote('#{$selector}#{$pseudo_selector_list}'),
+                    $separator: comma
+                );
+            }
+        }
+
+        @if $debug {
+            @debug 'returning [D] = #{meta.var-dump($_ret)}';
+        }
+
+        @return $_ret;
+    }
+
+    $_ret: if(
+        $direct and $pseudoType != 'has',
+        selector.nest('>', $pseudo_selector_list),
+        $pseudo_selector_list
     );
+
+    @if $debug {
+        @debug 'returning [E] = #{meta.var-dump($_ret)}';
+    }
+
+    @return $_ret;
 }
 
 ///
@@ -132,25 +221,20 @@
 ///
 @mixin _pseudo-class-content(
     $pseudoType,
-    $selectors: (string.unquote('*')),
-    $direct: false,
+    $selectors: null,
     $includeParent: true,
-    $unifyParent: false
+    $unifyParent: false,
+    $args...
 ) {
-    @if not parent-exists.parent-exists() {
-        $includeParent: false;
-        $unifyParent: false;
-    }
-
     $selectors: _pseudo-list(
         $pseudoType: $pseudoType,
         $selectors: $selectors,
-        $direct: $direct,
-        $unifyParent: $unifyParent,
+        $unifyParent: $includeParent and $unifyParent,
+        $args...,
     );
 
-    @if not $unifyParent and $includeParent {
-        $selectors: selector.nest(&, ($selectors));
+    @if not $unifyParent and $includeParent and parent-exists.parent-exists() {
+        $selectors: selector.nest(&, $selectors);
     }
 
     @at-root #{$selectors} {

@@ -88,8 +88,10 @@ $interactive_paramPermutations: (
         $_trueArgsDumpList: map.set($_trueArgsDumpList, '$activeWithin', $activeWithin);
     }
 
-    $_trueArgsList: map.merge($_trueArgsList, $args);
-    $_trueArgsDumpList: map.merge($_trueArgsDumpList, $args);
+    @each $param, $value in $args {
+        $_trueArgsList: map.set($_trueArgsList, $param, $value);
+        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$#{$param}', $value);
+    }
 
     $_argsList: if(
         list.length($_trueArgsDumpList) < 1,

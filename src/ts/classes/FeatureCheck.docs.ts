@@ -7,25 +7,34 @@ new FeatureCheck().check();
 
 
 //#region Custom
-const opts: Partial<FeatureCheck.CheckerOpts> = {
+const custom = {
 
-    // this skips the test and always disables this feature
-    whereSelector: false,
-};
-
-const customChecks: FeatureCheck.CustomChecker[] = [
-    {
-        slug: 'backgroundGradient',
+    backgroundGradient: {
         test: () => FeatureCheck.supportsCSS(
             'background: linear-gradient( to right, red, blue )'
         ),
     },
-    {
-        slug: 'exampleFeature',
+
+    // never indicate support for subgrid
+    subgrid: {
         test: false,
     },
-];
+} satisfies FeatureCheck.CustomCheckerOpts;
+
+const opts = {
+
+    checks: {
+        // this skips the test and always disables this feature
+        whereSelector: false,
+    },
+
+    custom,
+
+    // outputs each test and its results to console.info()
+    outputResults: true,
+
+} satisfies FeatureCheck.OptsInput;
 
 // run the checks and update class names
-new FeatureCheck( opts, customChecks ).check();
+new FeatureCheck( opts ).check();
 //#endregion Custom

@@ -8,6 +8,8 @@
  * @license MIT
  */
 
+import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
+
 /**
  * Utility class that uses client-side JS to test for JS and CSS feature
  * compaibility. Updates root element class names accordingly.
@@ -35,8 +37,7 @@
  * @since 0.1.0-pre.0
  */
 export class FeatureCheck<
-    T_CustomCheckerSlug extends string | never = string,
-    T_CustomChecker extends FeatureCheck.CustomChecker<T_CustomCheckerSlug> = FeatureCheck.CustomChecker<T_CustomCheckerSlug>,
+    T_CustomCheckerSlug extends string = string,
 > {
 
 
@@ -44,14 +45,87 @@ export class FeatureCheck<
     /* STATIC
      * ====================================================================== */
 
+    // when slug is js AND ignorePrefix is not false AND value is true
+    public static getClassName<T_Slug extends 'js'>(
+        featureSlug: T_Slug,
+        value: true,
+        ignorePrefix?: true,
+    ): T_Slug;
+
+    // when slug is js AND ignorePrefix is not false AND value is false
+    public static getClassName<T_Slug extends 'js'>(
+        featureSlug: T_Slug,
+        value: false,
+        ignorePrefix?: true,
+    ): `no-${ T_Slug }`;
+
+    // when slug is js AND ignorePrefix is not false
+    public static getClassName<T_Slug extends 'js'>(
+        featureSlug: T_Slug,
+        value: boolean,
+        ignorePrefix?: true,
+    ): T_Slug | `no-${ T_Slug }`;
+
+    // ignorePrefix is true AND value is true
+    public static getClassName<T_Slug extends string>(
+        featureSlug: T_Slug,
+        value: true,
+        ignorePrefix: true,
+    ): T_Slug;
+
+    // ignorePrefix is true AND value is false
+    public static getClassName<T_Slug extends string>(
+        featureSlug: T_Slug,
+        value: false,
+        ignorePrefix: true,
+    ): `no-${ T_Slug }`;
+
+    // ignorePrefix is true
+    public static getClassName<T_Slug extends string>(
+        featureSlug: T_Slug,
+        value: boolean,
+        ignorePrefix: true,
+    ): T_Slug | `no-${ T_Slug }`;
+
+    // ignorePrefix is false AND value is false
+    public static getClassName<T_Slug extends string>(
+        featureSlug: T_Slug,
+        value: false,
+        ignorePrefix?: false,
+    ): `js__${ T_Slug }`;
+
+    // ignorePrefix is false AND value is false
+    public static getClassName<T_Slug extends string>(
+        featureSlug: T_Slug,
+        value: false,
+        ignorePrefix?: false,
+    ): `js__no-${ T_Slug }`;
+
+    // ignorePrefix is false
+    public static getClassName<T_Slug extends string>(
+        featureSlug: T_Slug,
+        value: boolean,
+        ignorePrefix?: false,
+    ): `js__${ T_Slug }` | `js__no-${ T_Slug }`;
+
+    // fallback override
+    public static getClassName<T_Slug extends string>(
+        featureSlug: T_Slug,
+        value: boolean,
+        ignorePrefix?: boolean,
+    ): T_Slug | `no-${ T_Slug }` | `js__${ T_Slug }` | `js__no-${ T_Slug }`;
+
     /**
      * Builds a feature-check class name that represents the result of a
      * compatibility test.
      * 
+     * Overloaded for better (but ott) return typeing.
+     * 
+     * @since ___PKG_VERSION___ — Added overloads for better typing. Added optional ignorePrefix param.
+     * 
      * @experimental
      */
     public static getClassName<T_Slug extends string>(
-
         /**
          * Feature slug used to conduct the test.
          */
@@ -63,12 +137,23 @@ export class FeatureCheck<
          * unavailable.
          */
         value: boolean,
-    ): string {
+
+        /**
+         * Whether to exclude the 'js__' prefix. This is only used to set the
+         * 'js' and 'no-js' classes.
+         * 
+         * @since ___PKG_VERSION___
+         *
+         * @internal
+         */
+        ignorePrefix: boolean = featureSlug === 'js',
+    ): T_Slug | `no-${ T_Slug }` | `js__${ T_Slug }` | `js__no-${ T_Slug }` {
+        const prefix = ignorePrefix ? '' : 'js__' as const;
 
         return (
             value
-                ? `js__${ featureSlug }` as `js__no-${ T_Slug }`
-                : `js__no-${ featureSlug }` as `js__${ T_Slug }`
+                ? `${ prefix }${ featureSlug }` as T_Slug | `js__${ T_Slug }`
+                : `${ prefix }no-${ featureSlug }` as `no-${ T_Slug }` | `js__no-${ T_Slug }`
         );
     }
 
@@ -93,49 +178,58 @@ export class FeatureCheck<
     /* ## Static - Default Values ===================================== */
 
     /**
-     * A list of classes to add to the root element before this script loads and runs.
+     * A list of classes to add to the root element before this script loads and runs. If any tests are booleans instead of functions, those booleans also change the defaults.
      * 
      * @typeParam T_CustomChecker  Shape(s) of the custom feature checkers.
      * 
      * @experimental
      */
-    public static DEFAULT_CLASSLIST<
-        T_CustomChecker extends FeatureCheck.CustomChecker
-    >(
-        /**
-         * Custom checks to include in the class list.
-         */
-        customChecks?: T_CustomChecker[],
-    ): string {
+    public static DEFAULT_CLASSLIST<T_CustomCheckerSlug extends string>(
+        { custom }: FeatureCheck.OptsInput<T_CustomCheckerSlug> = {},
+    ): string[] {
+        custom = custom ?? {} as NonNullable<FeatureCheck.OptsInput<T_CustomCheckerSlug>[ 'custom' ]>;
 
-        const keys = Object.keys( FeatureCheck.DEFAULT_OPTS )
-            .concat( ( customChecks ?? [] ).map( _check => _check.slug ) )
-            .filter( ( v, i, a ) => a.indexOf( v ) === i );
+        const _customCheckSlugs = Object.keys( custom ) as T_CustomCheckerSlug[];
+        const _defaultCheckSlugs = Object.keys( FeatureCheck.DEFAULT_OPTS.checks ) as FeatureCheck.DefaultCheckSlug[];
 
-        return (
-            ''
-            + 'no-js '
-            + keys.map( _key => FeatureCheck.getClassName( _key, false ) ).join( ' ' )
-        );
+        const customKeys = new Set( _customCheckSlugs );
+        const defaultKeys = new Set( _defaultCheckSlugs );
+
+        const classes: string[] = [
+            FeatureCheck.getClassName( 'js', false ),
+        ];
+
+        for ( const check of [
+            ..._defaultCheckSlugs,
+            ..._customCheckSlugs,
+        ] ) {
+            // continues
+            if ( customKeys.has( check as T_CustomCheckerSlug ) ) {
+                const { test } = custom[ check as T_CustomCheckerSlug ];
+
+                classes.push( FeatureCheck.getClassName(
+                    check,
+                    typeof test === 'boolean' ? test : false,
+                ) );
+                continue;
+            }
+
+            // continues
+            if ( defaultKeys.has( check as FeatureCheck.DefaultCheckSlug ) ) {
+
+                classes.push( FeatureCheck.getClassName( check, false ) );
+                continue;
+            }
+        }
+
+        return classes;
     }
 
     /**
      * Default value for {@link FeatureCheck.opts}.
      */
     public static get DEFAULT_OPTS(): Readonly<{
-        aspectRatio: true,
-        atProperty: true,
-        backgroundFixed: true,
-        calc: true,
-        displayContents: true,
-        focusWithin: true,
-        focusVisible: true,
-        hasSelector: true,
-        subgrid: true,
-        whereSelector: true,
-    }> {
-
-        return {
+        checks: {
             aspectRatio: true,
             atProperty: true,
             backgroundFixed: true,
@@ -146,7 +240,28 @@ export class FeatureCheck<
             hasSelector: true,
             subgrid: true,
             whereSelector: true,
-        } as const satisfies FeatureCheck.CheckerOpts;
+        },
+        custom: {},
+        outputResults: false,
+    }> {
+        const checks = {
+            aspectRatio: true,
+            atProperty: true,
+            backgroundFixed: true,
+            calc: true,
+            displayContents: true,
+            focusWithin: true,
+            focusVisible: true,
+            hasSelector: true,
+            subgrid: true,
+            whereSelector: true,
+        } satisfies FeatureCheck.CheckerOpts<never>;
+
+        return {
+            checks,
+            custom: {},
+            outputResults: false,
+        } as const satisfies FeatureCheck.Opts<never>;
     }
 
 
@@ -155,18 +270,11 @@ export class FeatureCheck<
      * ====================================================================== */
 
     /**
-     * Completed copy of the built-in check options.
+     * Completed copy of the options.
      * 
-     * See {@link FeatureCheck.constructor} for details.
+     * See {@link FeatureCheck.Opts} for details.
      */
-    protected readonly customChecks: T_CustomChecker[];
-
-    /**
-     * Completed copy of the built-in check options.
-     * 
-     * See {@link FeatureCheck.CheckerOpts} for details.
-     */
-    protected readonly opts: FeatureCheck.CheckerOpts;
+    protected readonly opts: FeatureCheck.Opts<T_CustomCheckerSlug>;
 
     /**
      * The root element used for adding and removing feature-check classes.
@@ -174,6 +282,48 @@ export class FeatureCheck<
      * See {@link FeatureCheck.constructor} for details.
      */
     protected readonly root: Element | null;
+
+    /**
+     * Built from combining {@link FeatureCheck.customCheckSlugs} and the keys
+     * of {@link FeatureCheck.opts.checks}.
+     *
+     * @since ___PKG_VERSION___
+     */
+    protected readonly allCheckSlugs: ( FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug )[];
+
+    /**
+     * Built from combining the keys of {@link FeatureCheck.opts.checks}.
+     *
+     * @since ___PKG_VERSION___
+     */
+    protected readonly defaultCheckSlugs: Set<FeatureCheck.DefaultCheckSlug>;
+
+    /**
+     * Checks if the given slug is a default test.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    public isDefaultCheck( slug: string ): slug is FeatureCheck.DefaultCheckSlug {
+        return this.defaultCheckSlugs.has( slug as FeatureCheck.DefaultCheckSlug );
+    }
+
+    /**
+     * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
+     * config keys, so every key in here has a custom test.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    protected readonly customCheckSlugs: Set<T_CustomCheckerSlug>;
+
+    /**
+     * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
+     * config keys, so every key in here has a custom test.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    public isCustomCheck( slug: string ): slug is T_CustomCheckerSlug {
+        return this.customCheckSlugs.has( slug as T_CustomCheckerSlug );
+    }
 
 
 
@@ -186,12 +336,7 @@ export class FeatureCheck<
         /**
          * Partial options to override defaults.
          */
-        opts: Partial<FeatureCheck.CheckerOpts> = {},
-
-        /**
-         * Custom feature checks to include in the run.
-         */
-        customChecks?: T_CustomChecker[],
+        { checks, custom, ...opts }: FeatureCheck.OptsInput<T_CustomCheckerSlug> = {},
 
         /**
          * The root element to add feature classes to.
@@ -203,17 +348,51 @@ export class FeatureCheck<
          */
         root?: Element,
     ) {
+        const {
+            checks: defaultChecks,
+            ..._defaultOpts
+        } = FeatureCheck.DEFAULT_OPTS;
 
-        this.customChecks = customChecks ?? [];
+        const _customCheckSlugs = Object.keys( custom ?? {} ) as T_CustomCheckerSlug[];
+        const _defaultCheckSlugs = Object.keys( defaultChecks ) as FeatureCheck.DefaultCheckSlug[];
+
+        this.allCheckSlugs = [
+            ..._defaultCheckSlugs,
+            ..._customCheckSlugs,
+        ];
+
+        this.customCheckSlugs = new Set( _customCheckSlugs );
+        this.defaultCheckSlugs = new Set( _defaultCheckSlugs );
 
         this.opts = {
-            ...FeatureCheck.DEFAULT_OPTS,
-            ...opts,
+
+            checks: {
+                ...defaultChecks,
+                ...checks,
+            } satisfies FeatureCheck.CheckerOpts<T_CustomCheckerSlug>,
+
+            custom: custom ?? (
+                {} as FeatureCheck.CustomCheckerOpts<T_CustomCheckerSlug>
+            ),
+
+            outputResults: opts.outputResults ?? _defaultOpts.outputResults,
         };
 
         this.root = root ?? document.querySelector( ':root' );
 
+        this.aspectRatio = this.aspectRatio.bind( this );
+        this.atProperty = this.atProperty.bind( this );
+        this.backgroundFixed = this.backgroundFixed.bind( this );
+        this.calc = this.calc.bind( this );
         this.check = this.check.bind( this );
+        this.displayContents = this.displayContents.bind( this );
+        this.focusVisible = this.focusVisible.bind( this );
+        this.focusWithin = this.focusWithin.bind( this );
+        this.hasSelector = this.hasSelector.bind( this );
+        this.isCustomCheck = this.isCustomCheck.bind( this );
+        this.isDefaultCheck = this.isDefaultCheck.bind( this );
+        this.subgrid = this.subgrid.bind( this );
+        this.whereSelector = this.whereSelector.bind( this );
     }
 
 
@@ -229,22 +408,26 @@ export class FeatureCheck<
     public check(): void {
         if ( !this.root ) { return; }
 
-        const checkers = {
-            default: Object.keys( FeatureCheck.DEFAULT_OPTS ) as FeatureCheck.Checker[],
-            custom: ( this.customChecks ?? [] ).map( _check => _check.slug )
-        };
-
         // if this is running, js will run
         this.setFeature( 'js', true, true );
 
-        for ( const checker of checkers.default ) {
-            this.opts[ checker ] && this[ checker ]();
-        }
+        for ( const check of this.allCheckSlugs ) {
+            // continues
+            if ( this.isCustomCheck( check ) ) {
 
-        if ( this.customChecks?.length ) {
+                if ( this.opts.checks[ check ] !== false ) {
+                    this.customCheck( check );
+                }
+                continue;
+            }
 
-            for ( const check of this.customChecks ) {
-                this.customCheck( check );
+            // continues
+            if ( this.isDefaultCheck( check ) ) {
+
+                if ( this.opts.checks[ check ] ) {
+                    this[ check ]();
+                }
+                continue;
             }
         }
     }
@@ -253,19 +436,18 @@ export class FeatureCheck<
      * Runs a custom check and updates the feature slug's class names on the
      * {@link FeatureCheck.root} element.
      *
+     * @return  The test result.
+     *
      * @experimental
      */
-    protected customCheck(
-        /**
-         * A custom check to run.
-         */
-        check: T_CustomChecker,
-    ): void {
-        const { test, slug } = check;
+    protected async customCheck(
+        slug: T_CustomCheckerSlug,
+    ): Promise<boolean> {
+        const { test } = this.opts.custom[ slug ];
 
-        this.setFeature(
+        return this.setFeature(
             slug,
-            typeof test === 'function' ? test( this ) : test
+            typeof test === 'function' ? test( slug, this ) : test
         );
     }
 
@@ -273,14 +455,16 @@ export class FeatureCheck<
      * Set a feature slug's class names on the {@link FeatureCheck.root}
      * element.
      *
+     * @return  The test result.
+     * 
      * @experimental
      */
-    protected setFeature(
+    protected async setFeature(
 
         /**
          * Feature result to set.
          */
-        featureSlug: "js" | T_CustomCheckerSlug | FeatureCheck.Checker,
+        featureSlug: "js" | T_CustomCheckerSlug | FeatureCheck.DefaultCheckSlug,
 
         /**
          * If true, the feature is marked as available. Otherwise it is marked
@@ -294,21 +478,28 @@ export class FeatureCheck<
          *
          * @internal
          */
-        ignorePrefix: boolean = false,
+        ignorePrefix?: boolean,
 
-    ): void {
-        if ( !this.root ) { return; }
+    ): Promise<boolean> {
+        if ( !this.root ) { return value; }
 
-        const prefix = ignorePrefix ? '' : 'js__';
-
-        const falseSlug = `${ prefix }no-${ featureSlug }`;
-        const trueSlug = `${ prefix }${ featureSlug }`;
+        const falseSlug = FeatureCheck.getClassName( featureSlug, false, ignorePrefix );
+        const trueSlug = FeatureCheck.getClassName( featureSlug, true, ignorePrefix );
 
         const classToAdd = value ? trueSlug : falseSlug;
         const classToRemove = value ? falseSlug : trueSlug;
 
         this.root.classList.add( classToAdd );
         this.root.classList.remove( classToRemove );
+
+        if ( this.opts.outputResults ) {
+            console.info(
+                `[FeatureCheck] checked: ${ featureSlug }\n`,
+                { result: value, classToAdd, classToRemove },
+            );
+        }
+
+        return value;
     }
 
 
@@ -320,8 +511,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected aspectRatio(): void {
-        this.setFeature(
+    public async aspectRatio(): Promise<boolean> {
+        return this.setFeature(
             'aspectRatio',
             FeatureCheck.supportsCSS( 'aspect-ratio: 1 / 2' ),
         );
@@ -333,8 +524,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected atProperty(): void {
-        this.setFeature( 'atProperty', !!window.CSSPropertyRule );
+    public async atProperty(): Promise<boolean> {
+        return this.setFeature( 'atProperty', !!window.CSSPropertyRule );
     }
 
     /**
@@ -343,8 +534,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected backgroundFixed(): void {
-        this.setFeature(
+    public async backgroundFixed(): Promise<boolean> {
+        return this.setFeature(
             'backgroundFixed',
             FeatureCheck.supportsCSS( 'background-attachment: fixed' ),
         );
@@ -356,8 +547,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected calc(): void {
-        this.setFeature(
+    public async calc(): Promise<boolean> {
+        return this.setFeature(
             'calc',
             FeatureCheck.supportsCSS( 'width: calc( 0.25em + 10% )' ),
         );
@@ -369,8 +560,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected displayContents(): void {
-        this.setFeature(
+    public async displayContents(): Promise<boolean> {
+        return this.setFeature(
             'displayContents',
             FeatureCheck.supportsCSS( 'display: contents' ),
         );
@@ -382,8 +573,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected focusWithin(): void {
-        this.setFeature(
+    public async focusWithin(): Promise<boolean> {
+        return this.setFeature(
             'focusWithin',
             FeatureCheck.supportsCSS( 'selector( a:focus-within )' ),
         );
@@ -395,8 +586,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected focusVisible(): void {
-        this.setFeature(
+    public async focusVisible(): Promise<boolean> {
+        return this.setFeature(
             'focusVisible',
             FeatureCheck.supportsCSS( 'selector( a:focus-visible )' ),
         );
@@ -408,8 +599,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected hasSelector(): void {
-        this.setFeature(
+    public async hasSelector(): Promise<boolean> {
+        return this.setFeature(
             'hasSelector',
             FeatureCheck.supportsCSS( 'selector( :has( a ) )' ),
         );
@@ -421,8 +612,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected subgrid(): void {
-        this.setFeature(
+    public async subgrid(): Promise<boolean> {
+        return this.setFeature(
             'subgrid',
             FeatureCheck.supportsCSS( 'grid-template-columns: subgrid' ),
         );
@@ -434,8 +625,8 @@ export class FeatureCheck<
      * @experimental
      * @source
      */
-    protected whereSelector(): void {
-        this.setFeature(
+    public async whereSelector(): Promise<boolean> {
+        return this.setFeature(
             'whereSelector',
             FeatureCheck.supportsCSS( 'selector( :where( a ) )' ),
         );
@@ -453,8 +644,10 @@ export namespace FeatureCheck {
 
     /**
      * Built-in feature-check methods.
+     * 
+     * @since ___PKG_VERSION___ Renamed from Checker to DefaultCheckSlug.
      */
-    export type Checker =
+    export type DefaultCheckSlug =
         | "aspectRatio"
         | "atProperty"
         | "backgroundFixed"
@@ -472,26 +665,102 @@ export namespace FeatureCheck {
      * If false, the test is skipped and the feature is always marked
      * unavailable.
      */
-    export type CheckerOpts = {
-        [ S in Checker ]: boolean;
-    };
+    export type CheckerOpts<
+        /**
+         * The feature slugs to use for these tests.
+         */
+        T_CustomCheckerSlug extends string = string
+    > = {
+        [ S in DefaultCheckSlug ]: boolean;
+    } & {
+            [ S in T_CustomCheckerSlug ]?: boolean;
+        };
 
     /**
      * An additional feature test to check.
      * 
      * @typeParam T_Slug  Slugs used for custom feature checkers.
      */
-    export type CustomChecker<T_Slug extends string = string> = {
+    export type CustomCheckerOpts<
+        /**
+         * The feature slugs to use for these tests.
+         */
+        T_CustomCheckerSlug extends string = string
+    > = {
+        [ S in T_CustomCheckerSlug ]: {
+            /**
+             * The test result or the testing callback to run to determine
+             * feature availability.
+             */
+            test: boolean | (
+                (
+                    slug: DefaultCheckSlug | T_CustomCheckerSlug,
+                    inst?: FeatureCheck<T_CustomCheckerSlug>,
+                ) => boolean
+            );
+        }
+    } & {
+            [ S in DefaultCheckSlug ]?: {
+                test: boolean | (
+                    (
+                        slug: DefaultCheckSlug | T_CustomCheckerSlug,
+                        inst?: FeatureCheck<T_CustomCheckerSlug>,
+                    ) => boolean
+                );
+            };
+        };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type Opts<
+        /**
+         * The feature slugs to use for these tests.
+         */
+        T_CustomCheckerSlug extends string = string
+    > = {
 
         /**
-         * The feature slug to use for this test.
+         * Whether to include/exclude the given checks.
          */
-        slug: T_Slug;
+        checks: CheckerOpts<NoInfer<T_CustomCheckerSlug>>;
 
         /**
-         * The test result or the test result to run to determine feature
-         * availability.
+         * Configuration for custom
          */
-        test: boolean | ( ( check: FeatureCheck ) => boolean );
+        custom: CustomCheckerOpts<T_CustomCheckerSlug>;
+
+        /**
+         * Whether to output the results of each feature check as it is made.
+         */
+        outputResults: boolean;
+    };
+
+    /**
+     * Partially partialized.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    export type OptsInput<
+        /**
+         * The feature slugs to use for these tests.
+         */
+        T_CustomCheckerSlug extends string = string
+    > = {
+
+        /**
+         * Whether to include/exclude the given checks.
+         */
+        checks?: undefined | RecursivePartial<CheckerOpts<NoInfer<T_CustomCheckerSlug>>>;
+
+        /**
+         * Configuration for custom
+         */
+        custom?: CustomCheckerOpts<T_CustomCheckerSlug>;
+
+        /**
+         * Whether to output the results of each feature check as it is made.
+         */
+        outputResults?: undefined | boolean;
     };
 }

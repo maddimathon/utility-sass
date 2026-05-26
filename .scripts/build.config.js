@@ -124,9 +124,7 @@ const config = {
             },
         } ],
 
-        test: [ Test, {
-            js: false,
-        } ],
+        test: Test,
     },
 };
 

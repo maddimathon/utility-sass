@@ -11,11 +11,11 @@
 /* #region - NO PARENT */
 @each $active, $activeWithin, $hover, $focus, $focusWithin in $interactive_paramPermutations {
     @include apply-interactive-mixin-iterator(
-        $active: $active,
-        $activeWithin: $activeWithin,
         $hover: $hover,
         $focus: $focus,
-        $focusWithin: $focusWithin
+        $focusWithin: $focusWithin,
+        $active: $active,
+        $activeWithin: $activeWithin
     );
 }
 /* #endregion - NO PARENT */
@@ -24,11 +24,11 @@
 button {
     @each $active, $activeWithin, $hover, $focus, $focusWithin in $interactive_paramPermutations {
         @include apply-interactive-mixin-iterator(
-            $active: $active,
-            $activeWithin: $activeWithin,
             $hover: $hover,
             $focus: $focus,
-            $focusWithin: $focusWithin
+            $focusWithin: $focusWithin,
+            $active: $active,
+            $activeWithin: $activeWithin
         );
     }
 }

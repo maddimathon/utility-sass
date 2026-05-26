@@ -1352,21 +1352,21 @@ selector.not--with-selectors--direct--unified {
     /* 
       selector.not-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
    */
-    /* 1: <()> ( <S> selector.not--with-selectors--direct--unified:not(div):not(p):not(body) ) */
+    /* 1: <S> selector.not--with-selectors--direct--unified:not( div ):not( p ):not( body ) */
 }
-selector.not :not(*) {
+selector.not * {
     /* @include selector.not() {} */
 }
 
-selector.not > :not(*) {
+selector.not > * {
     /* @include selector.not( $direct: true ) {} */
 }
 
-selector.not:not(*) {
+selector.not {
     /* @include selector.not( $unifyParent: true ) {} */
 }
 
-:not(*) {
+* {
     /* @include selector.not( $includeParent: false ) {} */
 }
 

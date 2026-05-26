@@ -12,82 +12,118 @@
 /* # MIXINS - ACCESSIBILITY
  * ======================================================================== */
 /* #region - at root */
+/* 
+    selector-motion( true ): <S> [data-motion=no-preference]
+ */
+/* 
+    selector-motion( false ): <S> [data-motion=reduce]
+ */
 @media (prefers-reduced-motion: no-preference) {
     :root {
-        --mixin: "motion";
+        /* @include motion() */
     }
 }
 [data-motion="no-preference"] {
-    --mixin: "motion";
+    /* @include motion() */
 }
 
 @media (prefers-reduced-motion: reduce) {
     :root {
-        --mixin: "no-motion";
+        /* @include no-motion() */
     }
 }
 [data-motion="reduce"] {
-    --mixin: "no-motion";
+    /* @include no-motion() */
 }
 
 /* #endregion - at root */
 /* #region - in root parent */
+:root {
+    /* 
+      selector-motion( true ) is a list:
+   */
+    /* 1: <()> ( <S> [data-motion=no-preference]:root ) */
+    /* 
+      selector-motion( false ) is a list:
+   */
+    /* 1: <()> ( <S> [data-motion=reduce]:root ) */
+}
 @media (prefers-reduced-motion: no-preference) {
     :root {
-        --mixin: "motion";
+        /* @include motion() */
     }
 }
 [data-motion="no-preference"]:root {
-    --mixin: "motion";
+    /* @include motion() */
 }
 
 @media (prefers-reduced-motion: reduce) {
     :root {
-        --mixin: "no-motion";
+        /* @include no-motion() */
     }
 }
 [data-motion="reduce"]:root {
-    --mixin: "no-motion";
+    /* @include no-motion() */
 }
 
 /* #endregion - in root parent */
 /* #region - in body parent */
+body {
+    /* 
+      selector-motion( true ) is a list:
+   */
+    /* 1: <()> ( <()> ( <S> [data-motion=no-preference] <S> body ) ) */
+    /* 
+      selector-motion( false ) is a list:
+   */
+    /* 1: <()> ( <()> ( <S> [data-motion=reduce] <S> body ) ) */
+}
 @media (prefers-reduced-motion: no-preference) {
     body {
-        --mixin: "motion";
+        /* @include motion() */
     }
 }
 [data-motion="no-preference"] body {
-    --mixin: "motion";
+    /* @include motion() */
 }
 
 @media (prefers-reduced-motion: reduce) {
     body {
-        --mixin: "no-motion";
+        /* @include no-motion() */
     }
 }
 [data-motion="reduce"] body {
-    --mixin: "no-motion";
+    /* @include no-motion() */
 }
 
 /* #endregion - in body parent */
 /* #region - in random parent */
+parent {
+    /* 
+      selector-motion( true ) is a list:
+   */
+    /* 1: <()> ( <()> ( <S> [data-motion=no-preference] <S> parent ) ) */
+    /* 
+      selector-motion( false ) is a list:
+   */
+    /* 1: <()> ( <()> ( <S> [data-motion=reduce] <S> parent ) ) */
+}
 @media (prefers-reduced-motion: no-preference) {
     parent {
-        --mixin: "motion";
+        /* @include motion() */
     }
 }
 [data-motion="no-preference"] parent {
-    --mixin: "motion";
+    /* @include motion() */
 }
 
 @media (prefers-reduced-motion: reduce) {
     parent {
-        --mixin: "no-motion";
+        /* @include no-motion() */
     }
 }
 [data-motion="reduce"] parent {
-    --mixin: "no-motion";
+    /* @include no-motion() */
 }
 
 /* #endregion - in random parent */

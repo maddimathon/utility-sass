@@ -13,20 +13,30 @@
 /// ======================================================================== ///
 
 ///
-/// Factor for 'softening' margins for --mrg-soft-### tokens.
-///
-/// @since 0.1.0-pre.0
-///
-$margin_softener: null !default;
-$margin_softener: config.config-valid-number($margin_softener, 'margin_softener', $default: 0.75);
-
-///
 /// The base value for the 400-level margin value.
 ///
 /// @since 0.1.0-alpha.22
 ///
 $margin_base: null !default;
 $margin_base: config.config-valid-number($margin_base, 'margin_base', $default: 1.25);
+
+///
+/// @since ___PKG_VERSION___
+///
+$margin_multiplier: null !default;
+$margin_multiplier: config.config-valid-number(
+    $margin_multiplier,
+    'margin_multiplier',
+    $default: 1
+);
+
+///
+/// Factor for 'softening' margins for --mrg-soft-### tokens.
+///
+/// @since 0.1.0-pre.0
+///
+$margin_softener: null !default;
+$margin_softener: config.config-valid-number($margin_softener, 'margin_softener', $default: 0.75);
 
 ///
 /// Used for scaling various size sets relative to each other - e.g., margins,
@@ -72,7 +82,7 @@ $margin: map.ksort(
     $margin: map.set(
         $margin,
         $key,
-        math.round-to-pixel(math.pow($scaleMultiplier, $size) * $margin_base)
+        math.round-to-pixel(math.pow($scaleMultiplier * $margin_multiplier, $size) * $margin_base)
     );
 }
 

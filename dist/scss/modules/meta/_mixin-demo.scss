@@ -1,0 +1,53 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+
+@use 'var-dump';
+
+///
+/// Created for internal mixin demos - displays
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin mixin-demo($mixin, $getMixin, $args...) {
+    $args: meta.keywords($args);
+
+    $_argsList: ();
+    $_argsDumpList: ();
+
+    @each $param, $value in $args {
+        $_argsList: map.set($_argsList, $param, $value);
+        $_argsDumpList: map.set($_argsDumpList, '$#{$param}', $value);
+    }
+
+    $_varDumpArgsList: if(
+        list.length($_argsDumpList) < 1,
+        '()',
+        var-dump.var-dump(
+            $_argsDumpList,
+            $withType: false,
+            $keys_neverQuote: true
+        )
+    );
+
+    $_comment: '@include #{$mixin}#{$_varDumpArgsList}';
+
+    @if meta.accepts-content($getMixin) {
+        @include meta.apply($getMixin, $_argsList...) {
+            /* #{$_comment} */
+            @content;
+        }
+    } @else {
+        @at-root {
+            /* #{$_comment} */
+            @content;
+        }
+
+        @include meta.apply($getMixin, $_argsList...);
+    }
+}

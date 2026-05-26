@@ -8,7 +8,7 @@
 
 @use '../../modules/meta';
 
-// @use '../../lib';
+@use '../../lib';
 
 /* # MODULES - META
  * ======================================================================== */
@@ -31,6 +31,12 @@
             'demo-functions/getCurrentVersion'
         )
     );
+}
+
+/* ## MODULES - META - mixin-demo() ==================================== */
+
+mixin-demo {
+    @include meta.mixin-demo(motion, meta.get-mixin(motion, lib), $includeSelectors: true);
 }
 
 /* ## MODULES - META - var-dump() ==================================== */

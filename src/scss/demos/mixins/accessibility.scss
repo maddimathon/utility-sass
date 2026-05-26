@@ -7,49 +7,46 @@
 @forward '../header';
 
 @use '../config';
+
+@use '../../modules/meta';
+
 @use '../../lib';
 
 /* # MIXINS - ACCESSIBILITY
  * ======================================================================== */
 
+@mixin _motion-tests {
+    @include meta.var-dump('selector-motion( true )', lib.selector-motion(true));
+    @include meta.var-dump('selector-motion( false )', lib.selector-motion(false));
+
+    @include meta.mixin-demo('motion', meta.get-mixin('motion', lib));
+    @include meta.mixin-demo('no-motion', meta.get-mixin('no-motion', lib));
+    // @include lib.motion {
+    //     --mixin: 'motion';
+    // }
+    // @include lib.no-motion {
+    //     --mixin: 'no-motion';
+    // }
+}
+
 /* #region - at root */
-@include lib.motion {
-    --mixin: 'motion';
-}
-@include lib.no-motion {
-    --mixin: 'no-motion';
-}
+@include _motion-tests;
 /* #endregion - at root */
 
 /* #region - in root parent */
 #{config.$selector_root} {
-    @include lib.motion {
-        --mixin: 'motion';
-    }
-    @include lib.no-motion {
-        --mixin: 'no-motion';
-    }
+    @include _motion-tests;
 }
 /* #endregion - in root parent */
 
 /* #region - in body parent */
 #{config.$selector_body} {
-    @include lib.motion {
-        --mixin: 'motion';
-    }
-    @include lib.no-motion {
-        --mixin: 'no-motion';
-    }
+    @include _motion-tests;
 }
 /* #endregion - in body parent */
 
 /* #region - in random parent */
 parent {
-    @include lib.motion {
-        --mixin: 'motion';
-    }
-    @include lib.no-motion {
-        --mixin: 'no-motion';
-    }
+    @include _motion-tests;
 }
 /* #endregion - in random parent */

@@ -28,8 +28,8 @@ export class Test extends TestStage {
      * @override
      */
     subStages = [
-        'scss',
         'js',
+        'scss',
     ];
 
     /**

@@ -19,6 +19,9 @@ meta.get-global-compiler-fn(...); // added
 meta.var-dump(...); // added
 meta.var-type-abbreviator(...); // added
 
+@include meta.mixin-demo(...) { } // added
+@include meta.var-dump(...) { } // added
+
 meta.type-of(...); // built-in
 // etc.
 ```
