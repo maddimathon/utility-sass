@@ -3,6 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
+@use '../../modules/list';
 @use '../../modules/math';
 @use '../../modules/meta';
 @use '../../modules/selector';
@@ -127,7 +128,6 @@
 /// @since 0.1.0-pre.0
 ///
 @mixin snippet-button(
-    //
     $accentClr: null,
     $background: null,
     $borderClr: null,
@@ -149,16 +149,20 @@
 ) {
     @include _snippet-button-base($args...);
 
-    @if $includeColours {
-        @include _snippet-button-colours(
-            $accentClr: $accentClr,
-            $background: $background,
-            $borderClr: $borderClr,
-            $color: $color
-        );
-    }
-
     @content (root);
+
+    @if $includeColours {
+        @include visited {
+            @include _snippet-button-colours(
+                $accentClr: $accentClr,
+                $background: $background,
+                $borderClr: $borderClr,
+                $color: $color
+            );
+
+            @content (root-or-visited);
+        }
+    }
 
     /// STATES ///
 

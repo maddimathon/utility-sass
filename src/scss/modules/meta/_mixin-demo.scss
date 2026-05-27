@@ -10,31 +10,35 @@
 @use 'var-dump';
 
 ///
-/// Created for internal mixin demos - displays
+/// @since ___PKG_VERSION___
+///
+@function demo-args-dump($args...) {
+    $args: meta.keywords($args);
+
+    $_dumpList: ();
+
+    @each $param, $value in $args {
+        $_dumpList: map.set($_dumpList, '$#{$param}', $value);
+    }
+
+    @return if(
+        list.length($_dumpList) < 1,
+        '()',
+        var-dump.var-dump($_dumpList, $withType: false, $keys_neverQuote: true)
+    );
+}
+
+///
+/// Created for internal mixin demos - displays the function as called with a
+/// var-dump of the arguments, if any.
 ///
 /// @since ___PKG_VERSION___
 ///
 @mixin mixin-demo($mixin, $getMixin, $args...) {
-    $args: meta.keywords($args);
-
-    $_argsList: ();
-    $_argsDumpList: ();
-
-    @each $param, $value in $args {
-        $_argsList: map.set($_argsList, $param, $value);
-        $_argsDumpList: map.set($_argsDumpList, '$#{$param}', $value);
-    }
-
-    $_varDumpArgsList: if(
-        list.length($_argsDumpList) < 1,
-        '()',
-        var-dump.var-dump($_argsDumpList, $withType: false, $keys_neverQuote: true)
-    );
-
-    $_comment: '@include #{$mixin}#{$_varDumpArgsList}';
+    $_comment: '@include #{$mixin}#{demo-args-dump($args...)}';
 
     @if meta.accepts-content($getMixin) {
-        @include meta.apply($getMixin, $_argsList...) {
+        @include meta.apply($getMixin, $args...) {
             /* #{$_comment} */
             @content;
         }
@@ -44,6 +48,6 @@
             @content;
         }
 
-        @include meta.apply($getMixin, $_argsList...);
+        @include meta.apply($getMixin, $args...);
     }
 }

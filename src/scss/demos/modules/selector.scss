@@ -12,6 +12,7 @@
 @use '../../modules/map';
 @use '../../modules/meta';
 @use '../../modules/selector';
+@use '../../modules/string';
 
 // @use '../../lib' as *;
 @use '../../template/_content/lib' as *;
@@ -238,6 +239,45 @@ $_extend_all_permutations: (
             );
         }
     }
+}
+
+/* ## Modules - Selector - except() ==================================== */
+
+@mixin _except-test($args...) {
+    @media except {
+        & {
+            $sel: selector.except(
+                $haystack: &,
+                $args...,
+            );
+
+            @include meta.var-dump(
+                'selector.except#{meta.demo-args-dump($haystack: string.unquote('&'), $args...)}',
+                $sel
+            );
+
+            $callDump: 'selector.except#{meta.demo-args-dump($haystack: &, $args...)}';
+
+            @at-root #{$sel} {
+                /* #{$callDump} */
+            }
+        }
+    }
+}
+
+a,
+button {
+    @include _except-test($needles: 'button');
+    @include _except-test($needles: 'a');
+}
+
+button,
+a.special-class,
+a.class-name[data-complex='selector']:focus {
+    @include _except-test($needles: 'button');
+    @include _except-test($needles: 'a');
+    @include _except-test($needles: ':focus');
+    @include _except-test($needles: '[data-complex=selector]');
 }
 
 /* ## Modules - Selector - Root & Body Utilities ==================================== */

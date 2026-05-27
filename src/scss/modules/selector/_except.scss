@@ -1,0 +1,51 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../config';
+
+@use '../meta';
+
+@use 'parent-exists';
+
+///
+/// Removes all cases of $needles selectors in $haystack (via
+/// `selector.replace()` with the value of config.$selector_null).
+///
+/// @since ___PKG_VERSION___
+///
+@function except($haystack, $needles) {
+    // returns
+    @if list.length($haystack) < 1 or list.length($needles) < 1 {
+        @return $haystack;
+    }
+
+    $needles: selector.parse(#{$needles});
+
+    $returnHaystack: $haystack;
+
+    @each $needle_single in if(list.separator($needles) == comma, $needles, ($needles)) {
+        $returnHaystack: selector.replace($returnHaystack, $needle_single, config.$selector_null);
+    }
+
+    @return $returnHaystack;
+}
+
+///
+/// Removes all cases of $needles selectors in the parent selector (if any) (via
+/// `selector.except()`).
+///
+/// @since ___PKG_VERSION___
+///
+@function parent-except($needles, $args...) {
+    // returns
+    @if not parent-exists.parent-exists() {
+        @return config.$selector_null;
+    }
+
+    @return except(&, $needles, $args...);
+}

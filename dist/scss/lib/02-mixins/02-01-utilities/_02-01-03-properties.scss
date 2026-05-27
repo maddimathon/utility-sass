@@ -78,10 +78,12 @@ $_cxPropPre: if(
 @mixin prop(
     $slug,
     $value,
+    $comment: null,
     $useCustom: true,
     $setCxProp: true,
     $setProp: true,
-    $quoteString: null
+    $quoteString: null,
+    $args...
 ) {
     @if meta.type-of($value) == string {
         @if $quoteString {
@@ -93,15 +95,22 @@ $_cxPropPre: if(
 
     @if $useCustom and not config.$mx_prop_useCustom_never {
         @if $setCxProp {
-            @include custom-property($slug, $value, $quoteString: $quoteString);
+            @include custom-property(
+                $slug: $slug,
+                $value: $value,
+                $comment: $comment,
+                $quoteString: $quoteString
+            );
         }
 
         @if $setProp {
-            #{$slug}: do-var($slug, $value);
+            #{$slug}: do-var($slug, $value, $args...);
         }
     } @else if $setProp {
         #{$slug}: $value;
     }
+
+    $args: meta.keywords($args);
 }
 
 ///
@@ -111,11 +120,16 @@ $_cxPropPre: if(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin prop-display($value, $args...) {
+@mixin prop-display(
+    $value,
+    $onlyFallbackPrefix: config.$mx_propDisplay_onlyFallbackPrefix,
+    $args...
+) {
     @include prop(
         display,
         $value,
         $useCustom: config.$mx_prop_useCustom_display,
+        $onlyFallbackPrefix: $onlyFallbackPrefix,
         $args...
     );
 }

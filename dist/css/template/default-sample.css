@@ -382,6 +382,7 @@ a[href] {
 a[href]:visited {
     color: var(--sys-clr-link-visited, VisitedText);
 }
+
 a[href]:hover,
 .no-js a[href]:focus,
 .js__no-whereSelector a[href]:focus {
@@ -1619,12 +1620,22 @@ a[href].button {
     appearance: button;
     text-decoration: none;
     cursor: pointer;
+}
+button,
+[role="button"],
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+a[href].button,
+[role="button"]:visited,
+a[href].button:visited {
     --focus-ring-outline-color: var(--sys-clr-button-border, ButtonFace);
     border-color: var(--sys-clr-button-border, ButtonFace);
     background-color: var(--sys-clr-button-bg, ButtonFace);
     color: var(--sys-clr-button-text, ButtonText);
     accent-color: var(--sys-clr-button-border, ButtonFace);
 }
+
 button:hover,
 [role="button"]:hover,
 input[type="button"]:hover,

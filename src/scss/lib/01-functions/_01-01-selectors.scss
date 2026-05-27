@@ -39,6 +39,44 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 }
 
 ///
+/// Intended for use with parents that are links (or might be, in the case of
+/// buttons) to append the `:visited` state selector effectively (otherwise
+/// there are pseudoselector issues).
+///
+/// @param {selector} $selector          Selector to alter.
+/// @param {bool}     $appendToSelector  Whether to include the unchanged $selector in the return list.
+///
+/// @since ___PKG_VERSION___
+///
+@function selector-add-visited($selector, $appendToSelector: true) {
+    $selector: selector.parse(#{$selector});
+
+    $_visited: selector.replace-all(
+        selector.replace(
+            selector.replace(selector.unify($selector, ':visited'), '%a:visited', '%a-visited'),
+            '%button:visited',
+            '%button-visited'
+        ),
+        list.join(
+            selector.unify(
+                ('%button:visited', '%button-visited'),
+                ('[aria-disabled=true]', '[disabled]')
+            ),
+            selector.unify(
+                ('[aria-disabled=true]', '[disabled]'),
+                ('%button:visited', '%button-visited')
+            ),
+            $separator: comma
+        ),
+        '%button-disabled-visited'
+    );
+
+    @return list.unique(
+        if($appendToSelector, list.join($selector, $_visited, $separator: comma), $_visited)
+    );
+}
+
+///
 /// Gets the pseudo selectors for all headings (by heading size tokens).
 ///
 /// @return {list<selector>}

@@ -9,6 +9,16 @@
 /// ======================================================================== ///
 
 ///
+/// @since 0.1.0-beta.0.draft
+///
+$include_linkVisitedState: null !default;
+$include_linkVisitedState: config-valid-bool(
+    $include_linkVisitedState,
+    'include_linkVisitedState',
+    $default: true
+);
+
+///
 /// The global selector to use for a elements. This option is here in case you
 /// want to use, e.g., 'a' instead of 'a[href]' - this affects the button
 /// utility selector used for links with the `.button` class as well.

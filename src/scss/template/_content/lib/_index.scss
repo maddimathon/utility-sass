@@ -18,6 +18,62 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 /// @since ___PKG_VERSION___
 ///
+@function get-extend-selectors-a($selector_a: config.$selector_a) {
+    @return (
+        ($selector_a, a),
+        (selector.unify(selector.except($selector_a, (button, input)), ':visited'), a-visited)
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function get-extend-selectors-button($selector_button, $variant: null) {
+    $selector_button_visited: selector.unify(
+        selector.except($selector_button, (button, input)),
+        ':visited'
+    );
+
+    $list: ();
+
+    @if $variant == null {
+        $list: list.append($list, ($selector_button, button), $separator: comma);
+    } @else {
+        $list: list.append(
+            $list,
+            (
+                list.join($selector_button, $selector_button_visited, $separator: comma),
+                button-#{$variant}
+            ),
+            $separator: comma
+        );
+    }
+
+    $list: list.join(
+        $list,
+        (
+            ($selector_button_visited, 'button-visited'),
+            (
+                selector.unify($selector_button_visited, ('[aria-disabled=true]', '[disabled]')),
+                'button-disabled-visited'
+            )
+        ),
+        $separator: comma
+    );
+
+    @return $list;
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function get-extend-selectors-all-buttons() {
+    @return get-extend-selectors-button(selector-buttons-basic());
+}
+
+///
+/// @since ___PKG_VERSION___
+///
 @function get-extend-selectors-headings-global($allHeadingLevels) {
     $sels: (h1, h2, h3, h4, h5, h6);
 
@@ -142,7 +198,6 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         ('.screen-reader-text', screen-reader-text),
         ((strong, b), strong),
         ((em, i), em),
-        (config.$selector_a, a),
         abbr,
         blockquote,
         code,
@@ -172,6 +227,8 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         td
     );
 
+    $_global_selectors: list.join($_global_selectors, get-extend-selectors-a());
+
     $_global_selectors: list.join(
         $_global_selectors,
         get-extend-selectors-headings-global(
@@ -179,7 +236,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         )
     );
 
-    $additional: list.append($additional, (selector-buttons-basic(), button));
+    $_global_selectors: list.join($_global_selectors, get-extend-selectors-all-buttons());
 
     @include extend-selectors-globals--focus-ring;
 

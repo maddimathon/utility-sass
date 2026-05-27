@@ -22,6 +22,27 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
+@mixin visited($selector: &, $appendToSelector: true, $args...) {
+    @if config.$include_linkVisitedState {
+        @at-root #{selector-add-visited($selector, $appendToSelector: $appendToSelector, $args...)} {
+            @content;
+        }
+    } @else if $appendToSelector {
+        @content;
+    } @else {
+        #{config.$selector_null} {
+            @content;
+        }
+    }
+
+    @if not config.$include_linkVisitedState {
+        $args: meta.keywords($args);
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
 @mixin _interactive-template(
     /// The built-in pseudo class selector for this state
     $selector_pseudo,

@@ -1,0 +1,34 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../config';
+
+@use '../meta';
+
+///
+/// An extension of the build-in `selector.replace()` that allows for a list of
+/// selectors in $originals.
+///
+/// @since ___PKG_VERSION___
+///
+@function replace-all($selector, $originals, $replacement) {
+    // returns
+    @if list.length($selector) < 1 or list.length($originals) < 1 {
+        @return $selector;
+    }
+
+    $originals: selector.parse(#{$originals});
+
+    $returnHaystack: $selector;
+
+    @each $needle_single in if(list.separator($originals) == comma, $originals, ($originals)) {
+        $returnHaystack: selector.replace($returnHaystack, $needle_single, $replacement);
+    }
+
+    @return $returnHaystack;
+}

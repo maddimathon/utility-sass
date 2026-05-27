@@ -17,8 +17,14 @@ selector.add-root-selector(...); // added
 @include selector.add-body-selector(...) {} // added
 @include selector.add-root-selector(...) {} // added
 
+selector.except(...); // added
+selector.parent-except(...); // added
+
 selector.has-body(...); // added
 selector.has-root(...); // added
+
+selector.includes(...); // added
+selector.parent-includes(...); // added
 
 selector.is-body(...); // added
 selector.is-root(...); // added
@@ -38,6 +44,8 @@ selector.parent-is-root(...); // added
 
 selector.parent-or-body(...); // added
 selector.parent-or-root(...); // added
+
+selector.replace-all(...); // added
 
 selector.replace-body-selector(...); // added
 selector.replace-root-selector(...); // added
