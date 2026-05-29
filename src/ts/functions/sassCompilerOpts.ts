@@ -11,14 +11,8 @@
 import type * as sass from "sass-embedded";
 
 import type {
-    CLI,
-    Config,
     Stage,
 } from '@maddimathon/build-utilities';
-
-import type {
-    Logger,
-} from '@maddimathon/build-utilities/internal';
 
 import { sassCompilerFunctions } from './sassCompilerFunctions.js';
 
@@ -34,11 +28,7 @@ import { sassCompilerFunctions } from './sassCompilerFunctions.js';
 export function sassCompilerOpts<
     T_Partial extends Stage.Compiler.Args.Sass | Partial<Stage.Compiler.Args.Sass>
 >(
-    args: {
-        config: Config.Class,
-        console: Logger,
-        params: CLI.Params,
-    },
+    args: Stage,
     partial?: T_Partial,
 ): T_Partial & Partial<Stage.Compiler.Args.Sass> {
 

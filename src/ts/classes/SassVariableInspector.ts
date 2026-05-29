@@ -106,6 +106,7 @@ export class SassVariableInspector<
                 case 'color':
                 case 'list':
                 case 'map':
+                case 'null':
                 case 'number':
                 case 'string':
                     const wrapper = new SassVariableInspector.SassWrapper( rawValue );
@@ -233,6 +234,7 @@ export namespace SassVariableInspector {
         | sass.SassMap
         | sass.SassNumber
         | sass.SassString
+        | null
         | Collection<number | string | symbol, unknown>;
 
     /**
@@ -277,7 +279,7 @@ export namespace SassVariableInspector {
             if ( this.isImmutable ) {
                 return Object.fromEntries(
                     Array.from(
-                        ( this.value as Collection<unknown, unknown> ).entries(),
+                        ( this.value as Collection<unknown, unknown> )?.entries() ?? [],
                         ( [ key, value ] ) => [
                             makeNumber( key ) ?? key,
                             value,
@@ -293,7 +295,7 @@ export namespace SassVariableInspector {
                     case 'args':
                         return Object.fromEntries(
                             Array.from(
-                                ( this.value as sass.SassArgumentList ).keywords.entries(),
+                                ( this.value as sass.SassArgumentList )?.keywords?.entries() ?? [],
                                 ( [ key, value ] ) => [
                                     makeNumber( key ) ?? '$' + key,
                                     value,
@@ -302,7 +304,7 @@ export namespace SassVariableInspector {
                         );
 
                     case 'boolean':
-                        return ( this.value as sass.SassBoolean ).value as unknown as T_Type;
+                        return ( this.value as sass.SassBoolean )?.value as unknown as T_Type;
 
                     case 'color':
                         const _colour = this.value as sass.SassColor;
@@ -317,7 +319,7 @@ export namespace SassVariableInspector {
                     case 'list':
                         return Object.fromEntries(
                             Array.from(
-                                ( this.value as sass.SassList ).asList.values(),
+                                ( this.value as sass.SassList )?.asList?.values() ?? [],
                                 ( value, index ) => [
                                     index,
                                     value,
@@ -328,13 +330,16 @@ export namespace SassVariableInspector {
                     case 'map':
                         return Object.fromEntries(
                             Array.from(
-                                ( this.value as sass.SassMap ).contents.entries(),
+                                ( this.value as sass.SassMap )?.contents?.entries() ?? [],
                                 ( [ key, value ] ) => [
                                     sassValueToJS.sync( key as sass.SassString ),
                                     value,
                                 ] as const
                             )
                         );
+
+                    case 'null':
+                        return null as T_Type;
 
                     case 'number':
                         const _number = this.value as sass.SassNumber;

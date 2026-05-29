@@ -1,0 +1,74 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../config';
+
+@use '../meta';
+
+@use 'parent-exists';
+
+///
+/// Removes (via `selector.replace()` with the value of config.$selector_null)
+/// all cases of $needles selectors in $haystack, ONLY IF one of $needles is a
+/// superselector for the selector being tested.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function except-superselector($haystack, $needles) {
+    // returns
+    @if list.length($haystack) < 1 or list.length($needles) < 1 {
+        @return $haystack;
+    }
+
+    $haystack: selector.parse(#{$haystack});
+    $needles: selector.parse(#{$needles});
+
+    $returnHaystack: ();
+
+    @each $haystack_single
+        in if(list.separator($haystack) == comma, $haystack, ($haystack))
+    {
+        //
+        @each $needle_single
+            in if(list.separator($needles) == comma, $needles, ($needles))
+        {
+            //
+            @if selector.is-superselector($needle_single, $haystack_single) {
+                $haystack_single: selector.replace(
+                    $haystack_single,
+                    $needle_single,
+                    config.$selector_null
+                );
+            }
+        }
+
+        $returnHaystack: list.append(
+            $returnHaystack,
+            $haystack_single,
+            $separator: comma
+        );
+    }
+
+    @return selector.parse(#{$returnHaystack});
+}
+
+///
+/// Removes (via `selector.replace()` with the value of config.$selector_null)
+/// all cases of $needles selectors in the parent selector, ONLY IF one of
+/// $needles is a superselector for the selector being tested.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function parent-except-superselector($needles, $args...) {
+    // returns
+    @if not parent-exists.parent-exists() {
+        @return config.$selector_null;
+    }
+
+    @return except-superselector(&, $needles, $args...);
+}

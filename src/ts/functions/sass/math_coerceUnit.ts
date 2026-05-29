@@ -9,13 +9,8 @@
  */
 
 import type {
-    CLI,
-    Config,
+    Stage,
 } from '@maddimathon/build-utilities';
-
-import type {
-    Logger,
-} from '@maddimathon/build-utilities/internal';
 
 import * as sass from "sass-embedded";
 
@@ -30,11 +25,7 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
  * @since __PKG_VERSION___
  */
 export function sassFn_math_coerceUnit(
-    { }: {
-        config: Config.Class,
-        console: Logger,
-        params: CLI.Params,
-    },
+    { }: Stage,
 ): { 'mmutils-math-coerce-unit( $num, $unit )': sass.CustomFunction<'async'>; } {
 
     return {

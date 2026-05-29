@@ -431,6 +431,32 @@
         /* selector.except( $haystack: ( ( a ), ( button ) ), $needles: "a" ) */
     }
 }
+@media except {
+    a .should-not-stop-replacement,
+    button .should-not-stop-replacement {
+        /* 
+        selector.except( $haystack: &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> a <S> .should-not-stop-replacement ) */
+        /* 2: <()> ( <S> %null <S> .should-not-stop-replacement ) */
+    }
+    a .should-not-stop-replacement {
+        /* selector.except( $haystack: ( ( a .should-not-stop-replacement ), ( button .should-not-stop-replacement ) ), $needles: "button" ) */
+    }
+}
+@media except {
+    a .should-not-stop-replacement,
+    button .should-not-stop-replacement {
+        /* 
+        selector.except( $haystack: &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> %null <S> .should-not-stop-replacement ) */
+        /* 2: <()> ( <S> button <S> .should-not-stop-replacement ) */
+    }
+    button .should-not-stop-replacement {
+        /* selector.except( $haystack: ( ( a .should-not-stop-replacement ), ( button .should-not-stop-replacement ) ), $needles: "a" ) */
+    }
+}
 
 @media except {
     button,
@@ -493,6 +519,346 @@
     button,
     a.special-class {
         /* selector.except( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
+    }
+}
+@media except {
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+        /* 
+        selector.except( $haystack: &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> %null <S> .should-not-stop-replacement ) */
+        /* 2: <()> ( <S> a.special-class <S> .should-not-stop-replacement ) */
+        /* 3: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement ) */
+    }
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+        /* selector.except( $haystack: ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "button" ) */
+    }
+}
+@media except {
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+        /* 
+        selector.except( $haystack: &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> button <S> .should-not-stop-replacement ) */
+        /* 2: <()> ( <S> .special-class%null <S> .should-not-stop-replacement ) */
+        /* 3: <()> ( <S> .class-name[data-complex=selector]%null:focus <S> .should-not-stop-replacement ) */
+    }
+    button .should-not-stop-replacement {
+        /* selector.except( $haystack: ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "a" ) */
+    }
+}
+@media except {
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+        /* 
+        selector.except( $haystack: &, $needles: ":focus" ) is a list:
+     */
+        /* 1: <()> ( <S> button <S> .should-not-stop-replacement ) */
+        /* 2: <()> ( <S> a.special-class <S> .should-not-stop-replacement ) */
+        /* 3: <()> ( <S> a.class-name[data-complex=selector]%null <S> .should-not-stop-replacement ) */
+    }
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement {
+        /* selector.except( $haystack: ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: ":focus" ) */
+    }
+}
+@media except {
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+        /* 
+        selector.except( $haystack: &, $needles: "[data-complex=selector]" ) is a list:
+     */
+        /* 1: <()> ( <S> button <S> .should-not-stop-replacement ) */
+        /* 2: <()> ( <S> a.special-class <S> .should-not-stop-replacement ) */
+        /* 3: <()> ( <S> a.class-name%null:focus <S> .should-not-stop-replacement ) */
+    }
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement {
+        /* selector.except( $haystack: ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "[data-complex=selector]" ) */
+    }
+}
+
+/* ## Modules - Selector - except-superselector() ==================================== */
+@media except-superselector {
+    a,
+    button {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> a ) */
+        /* 2: <()> ( <S> %null ) */
+    }
+    a {
+        /* selector.except-superselector( $haystack: ( ( a ), ( button ) ), $needles: "button" ) */
+    }
+}
+@media except-superselector {
+    a,
+    button {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> %null ) */
+        /* 2: <()> ( <S> button ) */
+    }
+    button {
+        /* selector.except-superselector( $haystack: ( ( a ), ( button ) ), $needles: "a" ) */
+    }
+}
+@media except-superselector {
+    body a,
+    body button {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> body <S> a ) */
+        /* 2: <()> ( <S> body <S> %null ) */
+    }
+    body a {
+        /* selector.except-superselector( $haystack: ( ( body a ), ( body button ) ), $needles: "button" ) */
+    }
+}
+@media except-superselector {
+    body a,
+    body button {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> body <S> %null ) */
+        /* 2: <()> ( <S> body <S> button ) */
+    }
+    body button {
+        /* selector.except-superselector( $haystack: ( ( body a ), ( body button ) ), $needles: "a" ) */
+    }
+}
+@media except-superselector {
+    a .should-stop-replacement,
+    button .should-stop-replacement {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> a <S> .should-stop-replacement ) */
+        /* 2: <()> ( <S> button <S> .should-stop-replacement ) */
+    }
+    a .should-stop-replacement,
+    button .should-stop-replacement {
+        /* selector.except-superselector( $haystack: ( ( a .should-stop-replacement ), ( button .should-stop-replacement ) ), $needles: "button" ) */
+    }
+}
+@media except-superselector {
+    a .should-stop-replacement,
+    button .should-stop-replacement {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> a <S> .should-stop-replacement ) */
+        /* 2: <()> ( <S> button <S> .should-stop-replacement ) */
+    }
+    a .should-stop-replacement,
+    button .should-stop-replacement {
+        /* selector.except-superselector( $haystack: ( ( a .should-stop-replacement ), ( button .should-stop-replacement ) ), $needles: "a" ) */
+    }
+}
+
+@media except-superselector {
+    button,
+    a.special-class,
+    a.class-name[data-complex="selector"]:focus {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> %null ) */
+        /* 2: <()> ( <S> a.special-class ) */
+        /* 3: <()> ( <S> a.class-name[data-complex=selector]:focus ) */
+    }
+    a.special-class,
+    a.class-name[data-complex="selector"]:focus {
+        /* selector.except-superselector( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
+    }
+}
+@media except-superselector {
+    button,
+    a.special-class,
+    a.class-name[data-complex="selector"]:focus {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> button ) */
+        /* 2: <()> ( <S> .special-class%null ) */
+        /* 3: <()> ( <S> .class-name[data-complex=selector]%null:focus ) */
+    }
+    button {
+        /* selector.except-superselector( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "a" ) */
+    }
+}
+@media except-superselector {
+    button,
+    a.special-class,
+    a.class-name[data-complex="selector"]:focus {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: ":focus" ) is a list:
+     */
+        /* 1: <()> ( <S> button ) */
+        /* 2: <()> ( <S> a.special-class ) */
+        /* 3: <()> ( <S> a.class-name[data-complex=selector]%null ) */
+    }
+    button,
+    a.special-class {
+        /* selector.except-superselector( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: ":focus" ) */
+    }
+}
+@media except-superselector {
+    button,
+    a.special-class,
+    a.class-name[data-complex="selector"]:focus {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "[data-complex=selector]" ) is a list:
+     */
+        /* 1: <()> ( <S> button ) */
+        /* 2: <()> ( <S> a.special-class ) */
+        /* 3: <()> ( <S> a.class-name%null:focus ) */
+    }
+    button,
+    a.special-class {
+        /* selector.except-superselector( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
+    }
+}
+@media except-superselector {
+    body button,
+    body a.special-class,
+    body a.class-name[data-complex="selector"]:focus {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> body <S> %null ) */
+        /* 2: <()> ( <S> body <S> a.special-class ) */
+        /* 3: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ) */
+    }
+    body a.special-class,
+    body a.class-name[data-complex="selector"]:focus {
+        /* selector.except-superselector( $haystack: ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
+    }
+}
+@media except-superselector {
+    body button,
+    body a.special-class,
+    body a.class-name[data-complex="selector"]:focus {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> body <S> button ) */
+        /* 2: <()> ( <S> body <S> .special-class%null ) */
+        /* 3: <()> ( <S> body <S> .class-name[data-complex=selector]%null:focus ) */
+    }
+    body button {
+        /* selector.except-superselector( $haystack: ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "a" ) */
+    }
+}
+@media except-superselector {
+    body button,
+    body a.special-class,
+    body a.class-name[data-complex="selector"]:focus {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: ":focus" ) is a list:
+     */
+        /* 1: <()> ( <S> body <S> button ) */
+        /* 2: <()> ( <S> body <S> a.special-class ) */
+        /* 3: <()> ( <S> body <S> a.class-name[data-complex=selector]%null ) */
+    }
+    body button,
+    body a.special-class {
+        /* selector.except-superselector( $haystack: ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: ":focus" ) */
+    }
+}
+@media except-superselector {
+    body button,
+    body a.special-class,
+    body a.class-name[data-complex="selector"]:focus {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "[data-complex=selector]" ) is a list:
+     */
+        /* 1: <()> ( <S> body <S> button ) */
+        /* 2: <()> ( <S> body <S> a.special-class ) */
+        /* 3: <()> ( <S> body <S> a.class-name%null:focus ) */
+    }
+    body button,
+    body a.special-class {
+        /* selector.except-superselector( $haystack: ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
+    }
+}
+@media except-superselector {
+    button .should-stop-replacement,
+    a.special-class .should-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> button <S> .should-stop-replacement ) */
+        /* 2: <()> ( <S> a.special-class <S> .should-stop-replacement ) */
+        /* 3: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-stop-replacement ) */
+    }
+    button .should-stop-replacement,
+    a.special-class .should-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+        /* selector.except-superselector( $haystack: ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "button" ) */
+    }
+}
+@media except-superselector {
+    button .should-stop-replacement,
+    a.special-class .should-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> button <S> .should-stop-replacement ) */
+        /* 2: <()> ( <S> a.special-class <S> .should-stop-replacement ) */
+        /* 3: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-stop-replacement ) */
+    }
+    button .should-stop-replacement,
+    a.special-class .should-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+        /* selector.except-superselector( $haystack: ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "a" ) */
+    }
+}
+@media except-superselector {
+    button .should-stop-replacement,
+    a.special-class .should-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: ":focus" ) is a list:
+     */
+        /* 1: <()> ( <S> button <S> .should-stop-replacement ) */
+        /* 2: <()> ( <S> a.special-class <S> .should-stop-replacement ) */
+        /* 3: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-stop-replacement ) */
+    }
+    button .should-stop-replacement,
+    a.special-class .should-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+        /* selector.except-superselector( $haystack: ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: ":focus" ) */
+    }
+}
+@media except-superselector {
+    button .should-stop-replacement,
+    a.special-class .should-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+        /* 
+        selector.except-superselector( $haystack: &, $needles: "[data-complex=selector]" ) is a list:
+     */
+        /* 1: <()> ( <S> button <S> .should-stop-replacement ) */
+        /* 2: <()> ( <S> a.special-class <S> .should-stop-replacement ) */
+        /* 3: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-stop-replacement ) */
+    }
+    button .should-stop-replacement,
+    a.special-class .should-stop-replacement,
+    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+        /* selector.except-superselector( $haystack: ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "[data-complex=selector]" ) */
     }
 }
 

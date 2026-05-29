@@ -269,6 +269,11 @@ a,
 button {
     @include _except-test($needles: 'button');
     @include _except-test($needles: 'a');
+
+    .should-not-stop-replacement {
+        @include _except-test($needles: 'button');
+        @include _except-test($needles: 'a');
+    }
 }
 
 button,
@@ -278,6 +283,76 @@ a.class-name[data-complex='selector']:focus {
     @include _except-test($needles: 'a');
     @include _except-test($needles: ':focus');
     @include _except-test($needles: '[data-complex=selector]');
+
+    .should-not-stop-replacement {
+        @include _except-test($needles: 'button');
+        @include _except-test($needles: 'a');
+        @include _except-test($needles: ':focus');
+        @include _except-test($needles: '[data-complex=selector]');
+    }
+}
+
+/* ## Modules - Selector - except-superselector() ==================================== */
+
+@mixin _except-superselector-test($args...) {
+    @media except-superselector {
+        & {
+            $sel: selector.except-superselector(
+                $haystack: &,
+                $args...,
+            );
+
+            @include meta.var-dump(
+                'selector.except-superselector#{meta.demo-args-dump($haystack: string.unquote('&'), $args...)}',
+                $sel
+            );
+
+            $callDump: 'selector.except-superselector#{meta.demo-args-dump($haystack: &, $args...)}';
+
+            @at-root #{$sel} {
+                /* #{$callDump} */
+            }
+        }
+    }
+}
+
+a,
+button {
+    @include _except-superselector-test($needles: 'button');
+    @include _except-superselector-test($needles: 'a');
+
+    body & {
+        @include _except-superselector-test($needles: 'button');
+        @include _except-superselector-test($needles: 'a');
+    }
+
+    .should-stop-replacement {
+        @include _except-superselector-test($needles: 'button');
+        @include _except-superselector-test($needles: 'a');
+    }
+}
+
+button,
+a.special-class,
+a.class-name[data-complex='selector']:focus {
+    @include _except-superselector-test($needles: 'button');
+    @include _except-superselector-test($needles: 'a');
+    @include _except-superselector-test($needles: ':focus');
+    @include _except-superselector-test($needles: '[data-complex=selector]');
+
+    body & {
+        @include _except-superselector-test($needles: 'button');
+        @include _except-superselector-test($needles: 'a');
+        @include _except-superselector-test($needles: ':focus');
+        @include _except-superselector-test($needles: '[data-complex=selector]');
+    }
+
+    .should-stop-replacement {
+        @include _except-superselector-test($needles: 'button');
+        @include _except-superselector-test($needles: 'a');
+        @include _except-superselector-test($needles: ':focus');
+        @include _except-superselector-test($needles: '[data-complex=selector]');
+    }
 }
 
 /* ## Modules - Selector - Root & Body Utilities ==================================== */

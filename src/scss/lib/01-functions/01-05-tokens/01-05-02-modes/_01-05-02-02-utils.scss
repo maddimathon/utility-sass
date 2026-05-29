@@ -9,7 +9,7 @@
 @use '../../../../modules/string';
 
 @use '../../../../config';
-// @use '../../../../tokens';
+@use '../../../../tokens';
 
 @use '01-05-02-01-meta' as *;
 
@@ -104,4 +104,24 @@
     }
 
     @return $selector;
+}
+
+$_allModeOptions: list.join(tokens.$brightnessMode_options, tokens.$contrastMode_options);
+
+$_allModeOptions_simpleSelectors: simple-selectors-colour-mode($_allModeOptions);
+$_allModeOptions_simpleSelectors_activeonly: simple-selectors-colour-mode(
+    filter-colour-modes-active-only($_allModeOptions)
+);
+
+///
+/// Returns the simplest selectors for all the active colour mode(s).
+///
+/// @since ___PKG_VERSION___
+///
+@function simple-selectors-colour-mode-all($activeOnly: false) {
+    @return if(
+        $activeOnly,
+        $_allModeOptions_simpleSelectors_activeonly,
+        $_allModeOptions_simpleSelectors
+    );
 }

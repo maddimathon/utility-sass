@@ -54,8 +54,14 @@ $_contrastModes_all: filter-colour-modes-active-only(
         $args: meta.keywords($args);
     }
 
+    $debug: map.get($args, 'debug');
+
     $modes: map.get($args, 'modes');
     $parentSelector: map.get($args, 'parentSelector');
+
+    @if $debug {
+        @include meta.var-dump('[colour-mode] $args', $args);
+    }
 
     /// Setting using media queries
     @if $includeQuery {
@@ -116,9 +122,14 @@ $_contrastModes_all: filter-colour-modes-active-only(
         $args: meta.keywords($args);
     }
 
-    $modes: map.get($args, 'modes');
+    $debug: map.get($args, 'debug');
 
+    $modes: map.get($args, 'modes');
     $parentSelector: map.get($args, 'parentSelector');
+
+    @if $debug {
+        @include meta.var-dump('[colour-mode] $args', $args);
+    }
 
     /// Setting using selectors
     @if $includeSelectors {

@@ -19,20 +19,29 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
  *
  * @since 0.1.0-alpha.29
  */
-export function sassFn_jsVarDump({ console, params }) {
+export function sassFn_jsVarDump({ console, params, try: tryFn }) {
     return {
-        'mmutils-global-jsVarDump( $value, $name, $level )': async (args) => {
-            let [varName = 'var', level = 1,] = await Promise.all([
-                sassAssertValueType('name', 'string', args[1], true),
-                sassAssertValueType('level', 'number', args[2], true),
+        'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': async (args) => {
+            let [uniqueID, varName = 'var', level = 1,] = await Promise.all([
+                sassAssertValueType('uniqueID', 'string', args[0], true),
+                sassAssertValueType('name', 'string', args[2], true),
+                sassAssertValueType('level', 'number', args[3], true),
             ]);
-            const value = args[0];
+            const value = args[1];
             if (params.verbose) {
                 level = level + 2;
             }
-            const inspection = SassVariableInspector.stringify({ [varName]: value });
+            const inspection = tryFn(SassVariableInspector.stringify, level, [{ [varName]: value }], { exitProcess: false }, false);
+            const returnString = `meta.js-var-dump()${uniqueID ? ` [id: ${uniqueID}]` : ''} - ${varName}`;
+            // returns on error
+            if (!inspection) {
+                return new sass.SassString(`${returnString} [error]`, { quotes: false });
+            }
             console.log([
-                ['[Sass: meta.js-var-dump()]', { bold: true, clr: 'grey' }],
+                [
+                    `[Sass: meta.js-var-dump()]${uniqueID ? ` [id: ${uniqueID}]` : ''}`,
+                    { bold: true, clr: 'grey' },
+                ],
                 [inspection, { clr: 'black', maxWidth: null }],
             ], level, {
                 bold: false,
@@ -41,30 +50,7 @@ export function sassFn_jsVarDump({ console, params }) {
                 linesIn: 0,
                 linesOut: 0,
             });
-            return new sass.SassString(`meta.js-var-dump() - ${varName}`, { quotes: false });
-            // return sassValueToJS( value ).then(
-            //     ( jsValue ) => {
-            //         if ( params.verbose ) {
-            //             level = level + 2;
-            //         }
-            //         const inspection = VariableInspector.stringify( { [ varName ]: jsValue } );
-            //         console.log(
-            //             [
-            //                 [ '[Sass: meta.js-var-dump()]', { bold: true, clr: 'grey' } ],
-            //                 [ inspection, { clr: 'black', maxWidth: null } ],
-            //             ],
-            //             level,
-            //             {
-            //                 bold: false,
-            //                 italic: false,
-            //                 joiner: '  ',
-            //                 linesIn: 0,
-            //                 linesOut: 0,
-            //             },
-            //         );
-            //         return new sass.SassString( `meta.js-var-dump() - ${ varName }`, { quotes: false } );
-            //     }
-            // );
+            return new sass.SassString(returnString, { quotes: false });
         },
     };
 }

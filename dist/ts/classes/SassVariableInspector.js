@@ -65,6 +65,7 @@ export class SassVariableInspector extends VariableInspector {
                 case 'color':
                 case 'list':
                 case 'map':
+                case 'null':
                 case 'number':
                 case 'string':
                     const wrapper = new SassVariableInspector.SassWrapper(rawValue);
@@ -164,7 +165,7 @@ export class SassVariableInspector extends VariableInspector {
         toVariableInspection() {
             // returns
             if (this.isImmutable) {
-                return Object.fromEntries(Array.from(this.value.entries(), ([key, value]) => [
+                return Object.fromEntries(Array.from(this.value?.entries() ?? [], ([key, value]) => [
                     makeNumber(key) ?? key,
                     value,
                 ]));
@@ -173,12 +174,12 @@ export class SassVariableInspector extends VariableInspector {
             if (this.isSassValue) {
                 switch (this.typeOf) {
                     case 'args':
-                        return Object.fromEntries(Array.from(this.value.keywords.entries(), ([key, value]) => [
+                        return Object.fromEntries(Array.from(this.value?.keywords?.entries() ?? [], ([key, value]) => [
                             makeNumber(key) ?? '$' + key,
                             value,
                         ]));
                     case 'boolean':
-                        return this.value.value;
+                        return this.value?.value;
                     case 'color':
                         const _colour = this.value;
                         return {
@@ -188,15 +189,17 @@ export class SassVariableInspector extends VariableInspector {
                             'isInGamut()': _colour.isInGamut(),
                         };
                     case 'list':
-                        return Object.fromEntries(Array.from(this.value.asList.values(), (value, index) => [
+                        return Object.fromEntries(Array.from(this.value?.asList?.values() ?? [], (value, index) => [
                             index,
                             value,
                         ]));
                     case 'map':
-                        return Object.fromEntries(Array.from(this.value.contents.entries(), ([key, value]) => [
+                        return Object.fromEntries(Array.from(this.value?.contents?.entries() ?? [], ([key, value]) => [
                             sassValueToJS.sync(key),
                             value,
                         ]));
+                    case 'null':
+                        return null;
                     case 'number':
                         const _number = this.value;
                         return {

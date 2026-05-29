@@ -6,6 +6,7 @@
 ///
 
 @use 'sass:meta';
+@use 'sass:string';
 
 @use 'global-compiler-fn';
 @use 'var-dump';
@@ -14,9 +15,9 @@
 /// Uses a global function to output a vardump to the console.
 ///
 /// @since 0.1.0-alpha.29
-/// @since ___PKG_VERSION___ — Moved from lib to meta module.
+/// @since ___PKG_VERSION___ — Moved from lib to meta module. Added optional $useUniqueID param.
 ///
-@function js-var-dump($var, $name: 'var', $level: 1) {
+@function js-var-dump($var, $name: 'var', $level: 1, $useUniqueID: false) {
     $function: 'mmutils-global-jsVarDump';
 
     // returns
@@ -26,6 +27,7 @@
             'meta.js-var-dump',
             $isRequired: false,
             //
+            $uniqueID: if($useUniqueID, string.unique-id(), ''),
             $value: $var,
             $name: $name,
             $level: $level

@@ -20,6 +20,9 @@ selector.add-root-selector(...); // added
 selector.except(...); // added
 selector.parent-except(...); // added
 
+selector.except-superselector(...); // added
+selector.parent-except-superselector(...); // added
+
 selector.has-body(...); // added
 selector.has-root(...); // added
 
@@ -28,6 +31,7 @@ selector.parent-includes(...); // added
 
 selector.is-body(...); // added
 selector.is-root(...); // added
+selector.is-body-or-root(...); // added
 
 selector.is-simple(...); // added
 selector.is-superselector-any(...); // added
@@ -41,6 +45,7 @@ selector.parent-has-root(...); // added
 
 selector.parent-is-body(...); // added
 selector.parent-is-root(...); // added
+selector.parent-is-body-or-root(...); // added
 
 selector.parent-or-body(...); // added
 selector.parent-or-root(...); // added

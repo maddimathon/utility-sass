@@ -28,6 +28,14 @@ $modeSets: (light, (light, dark), (light, dark, average, forced-colors));
             simple-selectors-colour-mode($modeSet)
         );
     }
+    @include meta.var-dump(
+        'simple-selectors-colour-mode-all()',
+        simple-selectors-colour-mode-all()
+    );
+    @include meta.var-dump(
+        'simple-selectors-colour-mode-all( true )',
+        simple-selectors-colour-mode-all(true)
+    );
 }
 
 @mixin _all-colour-mode-sets {

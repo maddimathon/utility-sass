@@ -23,7 +23,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         ($selector_a, a),
         (
             selector.unify(
-                selector.except($selector_a, (button, input)),
+                selector.except-superselector($selector_a, (button, input)),
                 ':visited'
             ),
             a-visited
@@ -36,7 +36,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 @function get-extend-selectors-button($selector_button, $variant: null) {
     $selector_button_visited: selector.unify(
-        selector.except($selector_button, (button, input)),
+        selector.except-superselector($selector_button, (button, input)),
         ':visited'
     );
 

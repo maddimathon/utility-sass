@@ -15,8 +15,7 @@
 @use '01-05-02-02-utils' as *;
 @use '01-05-02-03-args' as *;
 
-$_allModeOptions: list.join(tokens.$brightnessMode_options, tokens.$contrastMode_options);
-$_allModeOptions_simpleSelectors: simple-selectors-colour-mode($_allModeOptions);
+$_allModeOptions_simpleSelectors: simple-selectors-colour-mode-all();
 
 $_rootAliasesWithAllModeOptions: list.join(
     config.$selector_root_aliases,
@@ -289,5 +288,5 @@ $_rootAliasesWithAllModeOptions: list.join(
         @return config.$selector_null;
     }
 
-    @return $selectors;
+    @return list.unique(selector.parse(#{$selectors}));
 }

@@ -9,13 +9,8 @@
  */
 
 import type {
-    CLI,
-    Config,
+    Stage,
 } from '@maddimathon/build-utilities';
-
-import type {
-    Logger,
-} from '@maddimathon/build-utilities/internal';
 
 import * as sass from "sass-embedded";
 
@@ -31,11 +26,7 @@ import { jsValueToSass } from '../jsValueToSass.js';
  * @since __PKG_VERSION___
  */
 export function sassFn_string_regexReplace(
-    { console }: {
-        config: Config.Class,
-        console: Logger,
-        params: CLI.Params,
-    },
+    { console }: Stage,
 ): { 'mmutils-string-regex-replace( $string, $search, $replace: "", $flags: null, $debug: false )': sass.CustomFunction<'async'>; } {
 
     const _emptyString = new sass.SassString();

@@ -50,11 +50,7 @@ export class Compile extends CompileStage {
                 this.compiler.args,
                 {
                     sass: sass_fn_import.sassCompilerOpts(
-                        {
-                            config: this.config,
-                            console: this.console,
-                            params: this.params,
-                        },
+                        this,
                         this.compiler.args.sass,
                     ),
                 },

@@ -7,8 +7,7 @@
  * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
-import type { CLI, Config, Stage } from '@maddimathon/build-utilities';
-import type { Logger } from '@maddimathon/build-utilities/internal';
+import type { Stage } from '@maddimathon/build-utilities';
 /**
  * Compiles the functions available from this package (intended as compiler
  * functions to support the package's modules) into a {@link sass.Options}-ready
@@ -18,8 +17,4 @@ import type { Logger } from '@maddimathon/build-utilities/internal';
  *
  * @since 0.1.0-alpha.8
  */
-export declare function sassCompilerOpts<T_Partial extends Stage.Compiler.Args.Sass | Partial<Stage.Compiler.Args.Sass>>(args: {
-    config: Config.Class;
-    console: Logger;
-    params: CLI.Params;
-}, partial?: T_Partial): T_Partial & Partial<Stage.Compiler.Args.Sass>;
+export declare function sassCompilerOpts<T_Partial extends Stage.Compiler.Args.Sass | Partial<Stage.Compiler.Args.Sass>>(args: Stage, partial?: T_Partial): T_Partial & Partial<Stage.Compiler.Args.Sass>;

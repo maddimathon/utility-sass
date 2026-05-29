@@ -77,7 +77,7 @@ export declare namespace SassVariableInspector {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type SassInputObjects = sass.SassArgumentList | sass.SassBoolean | sass.SassColor | sass.SassList | sass.SassMap | sass.SassNumber | sass.SassString | Collection<number | string | symbol, unknown>;
+    type SassInputObjects = sass.SassArgumentList | sass.SassBoolean | sass.SassColor | sass.SassList | sass.SassMap | sass.SassNumber | sass.SassString | null | Collection<number | string | symbol, unknown>;
     /**
      * @since 0.1.0-beta.0.draft
      */

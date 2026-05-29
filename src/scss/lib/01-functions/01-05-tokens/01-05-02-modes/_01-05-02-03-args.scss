@@ -16,8 +16,7 @@
 @use '01-05-02-01-meta' as *;
 @use '01-05-02-02-utils' as *;
 
-$_allModeOptions: list.join(tokens.$brightnessMode_options, tokens.$contrastMode_options);
-$_allModeOptions_simpleSelectors: simple-selectors-colour-mode($_allModeOptions);
+$_allModeOptions_simpleSelectors: simple-selectors-colour-mode-all();
 
 ///
 /// Validates and defines defaults for arguments used in multiple clr mode
@@ -139,9 +138,7 @@ $_allModeOptions_simpleSelectors: simple-selectors-colour-mode($_allModeOptions)
     }
 
     @if $unifySelectors == null {
-        $unifySelectors: $parentSelectorExists and not
-            $parentIsRoot and
-            config.$fn_colourMode_selectorsAsChildren;
+        $unifySelectors: $parentSelectorExists and config.$fn_colourMode_selectorsAsChildren;
     }
 
     @if $nestModeSelector == null {
