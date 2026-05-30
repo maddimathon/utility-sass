@@ -1,0 +1,109 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+
+@use '../config';
+@use '../string';
+
+@use 'has-body';
+@use 'has-root';
+
+///
+/// Checks if the given selector contains a known body or root element selector.
+///
+/// If there's more than one selector in a comma-separated list, they are tested
+/// individually so that, e.g., a list of `( :root, body )` will be returned
+/// true since each selector has either a root or body selector.
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function has-root-or-body(
+    $sel,
+    $body_aliases: config.$selector_body_aliases,
+    $root_aliases: config.$selector_root_aliases,
+    $args...
+) {
+    $sel: selector.parse(#{$sel});
+    $sel: if(list.separator($sel) == comma, $sel, ($sel));
+
+    // returns
+    @if list.length($sel) < 2 {
+        @return has-body.has-body($sel, $aliases: $body_aliases, $args...) or
+            has-root.has-root($sel, $aliases: $root_aliases, $args...);
+    }
+
+    // returns on first false
+    @each $_sel in $sel {
+        @if (not has-body.has-body($_sel, $aliases: $body_aliases, $args...)) and
+            (not has-root.has-root($_sel, $aliases: $root_aliases, $args...))
+        {
+            @return false;
+        }
+    }
+
+    @return true;
+}
+
+///
+/// Checks if any of the given selectors contain a known body or root selector.
+///
+/// If there's more than one selector in a comma-separated list, they are tested
+/// individually so that, e.g., a list of `( :root, body )` will be returned
+/// true since each selector has either a root or body selector.
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function has-any-root-or-body(
+    $sel,
+    $body_aliases: config.$selector_body_aliases,
+    $root_aliases: config.$selector_root_aliases,
+    $args...
+) {
+    $sel: selector.parse(#{$sel});
+    $sel: if(list.separator($sel) == comma, $sel, ($sel));
+
+    // returns
+    @if list.length($sel) < 2 {
+        @return has-body.has-body($sel, $aliases: $body_aliases, $args...) or
+            has-root.has-root($sel, $aliases: $root_aliases, $args...);
+    }
+
+    // returns on first true
+    @each $_sel in $sel {
+        @if (has-body.has-body($_sel, $aliases: $body_aliases, $args...)) or
+            (has-root.has-root($_sel, $aliases: $root_aliases, $args...))
+        {
+            @return true;
+        }
+    }
+
+    @return false;
+}
+
+///
+/// Checks if the parent selector (if any) is a known body or root selector.
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function parent-has-root-or-body($parentSelector: &, $args...) {
+    @if $parentSelector == null {
+        // returns
+        @if not parent-exists.parent-exists() {
+            @return false;
+        }
+
+        $parentSelector: &;
+    }
+
+    @return has-root-or-body($parentSelector, $args...);
+}

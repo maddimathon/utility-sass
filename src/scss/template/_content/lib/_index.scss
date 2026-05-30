@@ -19,13 +19,27 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 /// @since ___PKG_VERSION___
 ///
 @function get-extend-selectors-a($selector_a: config.$selector_a) {
-    @return (
+    $list: (
         ($selector_a, a),
-        (
-            selector.unify(selector.except-superselector($selector_a, (button, input)), ':visited'),
-            a-visited
-        )
+        //
+         //
     );
+
+    @if config.$include_linkVisitedState {
+        $list: list.append(
+            $list,
+            (
+                selector.unify(
+                    selector.except-superselector($selector_a, (button, input)),
+                    ':visited'
+                ),
+                a-visited
+            ),
+            $separator: comma
+        );
+    }
+
+    @return $list;
 }
 
 ///
@@ -45,24 +59,33 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         $list: list.append(
             $list,
             (
-                list.join($selector_button, $selector_button_visited, $separator: comma),
+                list.join(
+                    $selector_button,
+                    if(config.$include_linkVisitedState, $selector_button_visited, ()),
+                    $separator: comma
+                ),
                 button-#{$variant}
             ),
             $separator: comma
         );
     }
 
-    $list: list.join(
-        $list,
-        (
-            ($selector_button_visited, 'button-visited'),
+    @if config.$include_linkVisitedState {
+        $list: list.join(
+            $list,
             (
-                selector.unify($selector_button_visited, ('[aria-disabled=true]', '[disabled]')),
-                'button-disabled-visited'
-            )
-        ),
-        $separator: comma
-    );
+                ($selector_button_visited, 'button-visited'),
+                (
+                    selector.unify(
+                        $selector_button_visited,
+                        ('[aria-disabled=true]', '[disabled]')
+                    ),
+                    'button-disabled-visited'
+                )
+            ),
+            $separator: comma
+        );
+    }
 
     @return $list;
 }

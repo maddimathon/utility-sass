@@ -15,6 +15,10 @@
 /// Checks if the given selector contains a known body element selector (i.e.,
 /// 'body' or config.$selector_body).
 ///
+/// If there's more than one selector in a comma-separated list, they are tested
+/// individually so that every selector must contain a body selector in order to
+/// return true.
+///
 /// @return {bool}
 ///
 /// @since ___PKG_VERSION___
@@ -25,16 +29,25 @@
         @return true;
     }
 
+    $sel: selector.parse(#{$sel});
+
     // returns on a positive match
     @each $singleSelector in if(list.separator($sel) == comma, $sel, ($sel)) {
+        $result: false;
+
         @each $_subSel in $singleSelector {
             @if is-body.is-body($_subSel, $args...) {
-                @return true;
+                $result: true;
             }
+        }
+
+        // returns
+        @if not $result {
+            @return false;
         }
     }
 
-    @return false;
+    @return true;
 }
 
 ///

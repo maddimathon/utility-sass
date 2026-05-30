@@ -25,13 +25,16 @@ selector.parent-except-superselector(...); // added
 
 selector.has-body(...); // added
 selector.has-root(...); // added
+selector.has-root-or-body(...); // added
+selector.has-any-root-or-body(...); // added
 
 selector.includes(...); // added
 selector.parent-includes(...); // added
 
 selector.is-body(...); // added
 selector.is-root(...); // added
-selector.is-body-or-root(...); // added
+selector.is-root-or-body(...); // added
+selector.is-any-root-or-body(...); // added
 
 selector.is-simple(...); // added
 selector.is-superselector-any(...); // added
@@ -42,10 +45,11 @@ selector.parent-exists(...); // added
 
 selector.parent-has-body(...); // added
 selector.parent-has-root(...); // added
+selector.parent-has-root-or-body(...); // added
 
 selector.parent-is-body(...); // added
 selector.parent-is-root(...); // added
-selector.parent-is-body-or-root(...); // added
+selector.parent-is-root-or-body(...); // added
 
 selector.parent-or-body(...); // added
 selector.parent-or-root(...); // added

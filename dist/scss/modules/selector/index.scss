@@ -22,7 +22,6 @@
 @forward 'unify-all';
 
 // deps on parent-exists
-@forward 'except';
 @forward 'except-superselector';
 @forward 'includes';
 @forward 'is-body';
@@ -30,8 +29,11 @@
 @forward 'parent-or-body';
 @forward 'parent-or-root';
 
-// deps on is-body or is-root
-@forward 'is-body-or-root';
+// deps on includes, parent-exists
+@forward 'except';
+
+// deps on is-body, is-root
+@forward 'is-root-or-body';
 
 // deps on includes, is-superselector-any, unify-all
 @forward 'replace-simple-selector';
@@ -44,6 +46,9 @@
 
 // deps on is-root, parent-exists
 @forward 'has-root';
+
+// deps on has-body or has-root
+@forward 'has-root-or-body';
 
 // deps on has-body, has-root, is-body, is-root, parent-exists
 @forward 'add-body-selector';

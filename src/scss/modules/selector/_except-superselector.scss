@@ -13,9 +13,9 @@
 @use 'parent-exists';
 
 ///
-/// Removes (via `selector.replace()` with the value of config.$selector_null)
-/// all cases of $needles selectors in $haystack, ONLY IF one of $needles is a
-/// superselector for the selector being tested.
+/// Removes all cases of $needles selectors in comma-separated $haystack
+/// selectors, ONLY IF one of $needles is a superselector for the selector being
+/// tested.
 ///
 /// @since ___PKG_VERSION___
 ///
@@ -31,19 +31,22 @@
     $returnHaystack: ();
 
     @each $haystack_single in if(list.separator($haystack) == comma, $haystack, ($haystack)) {
-        //
+        $_haystack_includes_needle: false;
+
         @each $needle_single in if(list.separator($needles) == comma, $needles, ($needles)) {
-            //
             @if selector.is-superselector($needle_single, $haystack_single) {
-                $haystack_single: selector.replace(
-                    $haystack_single,
-                    $needle_single,
-                    config.$selector_null
-                );
+                $_haystack_includes_needle: true;
             }
         }
 
-        $returnHaystack: list.append($returnHaystack, $haystack_single, $separator: comma);
+        @if not $_haystack_includes_needle {
+            $returnHaystack: list.append($returnHaystack, $haystack_single, $separator: comma);
+        }
+    }
+
+    // returns
+    @if list.length($returnHaystack) < 1 {
+        @return config.$selector_null;
     }
 
     @return selector.parse(#{$returnHaystack});

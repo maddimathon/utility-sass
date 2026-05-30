@@ -363,11 +363,16 @@ a.class-name[data-complex='selector']:focus {
     @include meta.var-dump('selector.parent-or-root()', selector.parent-or-root());
 }
 
-@mixin _incl-single-var-dumps-is-body-or-root {
+@mixin _incl-single-var-dumps-is-root-or-body {
     @include meta.var-dump('selector.is-body( & )', selector.is-body(&));
     @include meta.var-dump('selector.is-root( & )', selector.is-root(&));
+    @include meta.var-dump('selector.is-root-or-body( & )', selector.is-root-or-body(&));
+    @include meta.var-dump('selector.is-any-root-or-body( & )', selector.is-any-root-or-body(&));
+    /* - - - */
     @include meta.var-dump('selector.has-body( & )', selector.has-body(&));
     @include meta.var-dump('selector.has-root( & )', selector.has-root(&));
+    @include meta.var-dump('selector.has-root-or-body( & )', selector.has-root-or-body(&));
+    @include meta.var-dump('selector.has-any-root-or-body( & )', selector.has-any-root-or-body(&));
 }
 
 @mixin _incl-single-var-dumps($selectorString: null) {
@@ -378,7 +383,7 @@ a.class-name[data-complex='selector']:focus {
     @include meta.var-dump('selector.parent-exists()', selector.parent-exists());
     @include meta.var-dump('selector.is-simple( & )', selector.is-simple(&));
 
-    @include _incl-single-var-dumps-is-body-or-root;
+    @include _incl-single-var-dumps-is-root-or-body;
 
     @include meta.var-dump('selector.parent-or-body()', selector.parent-or-body());
     @include meta.var-dump('selector.parent-or-root()', selector.parent-or-root());
@@ -398,7 +403,7 @@ a.class-name[data-complex='selector']:focus {
         @include meta.var-dump('&', $_parentSelector);
         /* */
 
-        @include _incl-single-var-dumps-is-body-or-root($args...);
+        @include _incl-single-var-dumps-is-root-or-body($args...);
 
         $_replacedBodySelector: selector.replace-body-selector(&, '[replaced-body]');
 
@@ -494,6 +499,11 @@ html {
 
 body {
     @include _incl-var-dumps('body');
+}
+
+html,
+body {
+    @include _incl-var-dumps('html, body');
 }
 
 %body {

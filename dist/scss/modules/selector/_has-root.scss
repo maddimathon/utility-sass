@@ -15,6 +15,10 @@
 /// Checks if the given selector contains a known root element selector (i.e.,
 /// 'root' or config.$selector_root).
 ///
+/// If there's more than one selector in a comma-separated list, they are tested
+/// individually so that every selector must contain a root selector in order to
+/// return true.
+///
 /// @return {bool}
 ///
 /// @since 0.1.0-beta.0.draft
@@ -25,16 +29,25 @@
         @return true;
     }
 
-    // returns on a positive match
+    $sel: selector.parse(#{$sel});
+
+    // returns on first failure
     @each $singleSelector in if(list.separator($sel) == comma, $sel, ($sel)) {
+        $result: false;
+
         @each $_subSel in $singleSelector {
             @if is-root.is-root($_subSel, $args...) {
-                @return true;
+                $result: true;
             }
+        }
+
+        // returns
+        @if not $result {
+            @return false;
         }
     }
 
-    @return false;
+    @return true;
 }
 
 ///
