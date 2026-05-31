@@ -2,6 +2,7 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since 0.1.0-pre.0
 ///
+
 @use 'sass:list';
 @use 'sass:meta';
 
@@ -38,6 +39,53 @@
         //
         @if #{$item} == #{$only} {
             //
+            $filteredList: list.append($filteredList, $item, $separator: $separator);
+        }
+    }
+
+    @return $filteredList;
+}
+
+///
+/// Compares items of a list and returns only those that match with any
+/// item in $only (as strings).
+///
+/// @param {list}         $list       To test.
+/// @param {list<string>} $only     Values to exclude from the list.
+/// @param {?string}      $separator  Optional. List separator. Default is determine via list.separator().
+/// @param {?bool}        $bracketed  Optional. Whether list is bracketed. Default is determine via list.is-bracketed().
+///
+/// @return {list}
+///
+/// @since ___PKG_VERSION___
+///
+@function only-any($list, $only, $separator: null, $bracketed: null) {
+    // returns
+    @if meta.type-of($list) != list {
+        @return $list;
+    }
+
+    $_except_type: meta.type-of($only);
+
+    // returns
+    @if $_except_type != list and $_except_type != string {
+        @warn '[list.only-any] $only should be a list (was the #{meta.type-of($only)} #{$only}); else use list.only()';
+        @return $list;
+    }
+
+    @if $bracketed == null {
+        $bracketed: list.is-bracketed($list);
+    }
+
+    @if $separator == null {
+        $separator: list.separator($list);
+    }
+
+    $filteredList: list.join((), (), $separator: $separator, $bracketed: $bracketed);
+
+    @each $item in $list {
+        //
+        @if list.index($only, #{$item}) != null {
             $filteredList: list.append($filteredList, $item, $separator: $separator);
         }
     }

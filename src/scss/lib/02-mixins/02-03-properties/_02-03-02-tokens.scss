@@ -40,7 +40,8 @@
             @each $slug, $_value in tokens.$border_width {
                 @include cx-prop(
                     border-width-#{$slug},
-                    border-width-value($slug, $multiplier: $multiplier)
+                    border-width-value($slug, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
         }
@@ -68,7 +69,8 @@
             @each $slug, $_value in tokens.$stroke_relative {
                 @include cx-prop(
                     stroke-relative-#{$slug},
-                    stroke-relative-value($slug, $multiplier: $multiplier)
+                    stroke-relative-value($slug, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
         }
@@ -95,14 +97,14 @@
         #{$_sel} {
             @each $slug, $_value in tokens.$font_size {
                 @each $value in fs-value($slug, $multiplier: $multiplier) {
-                    @include cx-prop(fs-#{$slug}, $value);
+                    @include cx-prop(fs-#{$slug}, $value, $allPrefixes: false);
                 }
             }
 
             @if config.$mx_tokens_fontSize_printRelative {
                 @each $slug, $_value in tokens.$font_size {
                     @each $value in fs-value($slug, $multiplier: $multiplier, $relative: true) {
-                        @include cx-prop(fs-rel-#{$slug}, $value);
+                        @include cx-prop(fs-rel-#{$slug}, $value, $allPrefixes: false);
                     }
                 }
             }
@@ -131,7 +133,8 @@
             @each $slug, $_value in tokens.$line_height {
                 @include cx-prop(
                     line-height-#{$slug},
-                    line-height-value($slug, $multiplier: $multiplier)
+                    line-height-value($slug, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
         }
@@ -160,13 +163,15 @@
             @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     mrg-firm-#{$level},
-                    mrg-value-firm($level, $unit: 1rem, $multiplier: $multiplier)
+                    mrg-value-firm($level, $unit: 1rem, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
             @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     pad-firm-#{$level},
-                    mrg-value-firm($level, $unit: 1em, $multiplier: $multiplier)
+                    mrg-value-firm($level, $unit: 1em, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
         }
@@ -175,13 +180,15 @@
             @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     mrg-soft-#{$level},
-                    mrg-value-soft($level, $unit: 1rem, $multiplier: $multiplier)
+                    mrg-value-soft($level, $unit: 1rem, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
             @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     pad-soft-#{$level},
-                    mrg-value-soft($level, $unit: 1em, $multiplier: $multiplier)
+                    mrg-value-soft($level, $unit: 1em, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
         }
@@ -190,13 +197,15 @@
             @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     mrg-half-#{$level},
-                    mrg-value-half($level, $unit: 1rem, $multiplier: $multiplier)
+                    mrg-value-half($level, $unit: 1rem, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
             @each $level, $_value in tokens.$margin {
                 @include cx-prop(
                     pad-half-#{$level},
-                    mrg-value-half($level, $unit: 1em, $multiplier: $multiplier)
+                    mrg-value-half($level, $unit: 1em, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
         }
@@ -226,7 +235,7 @@
                 //
                 @each $slug, $_list in $dirMap {
                     @each $value in gap-value($dir, $slug, $multiplier: $multiplier) {
-                        @include cx-prop(gap-#{$dir}-#{$slug}, $value);
+                        @include cx-prop(gap-#{$dir}-#{$slug}, $value, $allPrefixes: false);
                     }
                 }
             }
@@ -255,7 +264,7 @@
             @each $slug, $_value in tokens.$width {
                 @each $value in width-value($slug, $multiplier: $multiplier, $returnAsNumber: false)
                 {
-                    @include cx-prop(width-#{$slug}, $value);
+                    @include cx-prop(width-#{$slug}, $value, $allPrefixes: false);
                 }
             }
         }
@@ -290,10 +299,10 @@ $_systemColors: get-sys-colours();
                 @each $value in list.unique($list) {
                     @if $i > 1 {
                         @supports (color: #{$value}) {
-                            @include cx-prop(sys-clr-#{$slug}, $value);
+                            @include cx-prop(sys-clr-#{$slug}, $value, $allPrefixes: false);
                         }
                     } @else {
-                        @include cx-prop(sys-clr-#{$slug}, $value);
+                        @include cx-prop(sys-clr-#{$slug}, $value, $allPrefixes: false);
                     }
 
                     $i: $i + 1;
@@ -315,7 +324,11 @@ $_systemColors: get-sys-colours();
                     }
 
                     @each $value in $list {
-                        @include cx-prop(sys-clr-#{$slug}, #{$value} !important);
+                        @include cx-prop(
+                            sys-clr-#{$slug},
+                            #{$value} !important,
+                            $allPrefixes: false
+                        );
                     }
                 }
             }

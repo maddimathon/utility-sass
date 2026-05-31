@@ -48,7 +48,7 @@
 
 ///
 /// Compares items of a list and returns only those that don't match with any
-/// items in $except (as strings).
+/// item in $except (as strings).
 ///
 /// @param {list}         $list       To test.
 /// @param {list<string>} $except     Values to exclude from the list.
@@ -65,8 +65,10 @@
         @return $list;
     }
 
+    $_except_type: meta.type-of($except);
+
     // returns
-    @if meta.type-of($except) != list {
+    @if $_except_type != list and $_except_type != string {
         @warn '[list.except-any] $except should be a list (was the #{meta.type-of($except)} #{$except}); else use list.except()';
         @return $list;
     }
@@ -83,8 +85,7 @@
 
     @each $item in $list {
         //
-        @if not list.index($except, #{$item}) {
-            //
+        @if list.index($except, #{$item}) == null {
             $filteredList: list.append($filteredList, $item, $separator: $separator);
         }
     }

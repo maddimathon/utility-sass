@@ -5,11 +5,30 @@
 
 @use 'functions' as *;
 
+@use '../../modules/list';
 @use '../../modules/meta';
 @use '../../modules/string';
 
 /// # CONFIG - CUSTOM PROPS
 /// ======================================================================== ///
+
+///
+/// List of slugs that should default to $allPrefixes: true in the custom-property mixin.
+///
+/// @since ___PKG_VERSION___
+///
+$mx_customProperty_allPrefixesSlugs: null !default;
+$mx_customProperty_allPrefixesSlugs: config-valid-list-strings(
+    $mx_customProperty_allPrefixesSlugs,
+    'mx_customProperty_allPrefixesSlugs',
+    $default: ()
+);
+
+$mx_customProperty_allPrefixesSlugs: list.join(
+    ('display', 'focus-ring-outline-color'),
+    $mx_customProperty_allPrefixesSlugs,
+    $separator: comma
+);
 
 ///
 /// Prefix to use before all css custom properties (to avoid conflict).
@@ -47,6 +66,7 @@ $_exists_customPropertyPrefix_fallback: string.length($customPropertyPrefix_fall
     $slug,
     $fallback: null,
     $fallbackOnly: false,
+    $neverFallbackPrefix: false,
     $onlyFallbackPrefix: false,
     $quoteString: string.is-quoted($fallback)
 ) {
@@ -59,9 +79,12 @@ $_exists_customPropertyPrefix_fallback: string.length($customPropertyPrefix_fall
         }
     }
 
-    $onlyFallbackPrefix: $onlyFallbackPrefix and $_exists_customPropertyPrefix_fallback;
+    $onlyFallbackPrefix: (not $neverFallbackPrefix) and $onlyFallbackPrefix and
+        $_exists_customPropertyPrefix_fallback;
 
-    @if $onlyFallbackPrefix or (not $fallbackOnly and $_exists_customPropertyPrefix_fallback) {
+    @if (not $neverFallbackPrefix) and
+        ($onlyFallbackPrefix or (not $fallbackOnly and $_exists_customPropertyPrefix_fallback))
+    {
         $fallback: if(
             $fallback == null,
             var(--#{$customPropertyPrefix_fallback}#{$slug}),

@@ -138,6 +138,36 @@ list.only {
     /* 2: <S> one */
 }
 
+list.only-any {
+    /* 
+      $list is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> two */
+    /* 3: <S> two */
+    /* 4: <S> one */
+    /* 5: <S> A */
+    /* 6: <S> B */
+    /* 7: <S> C */
+    /* 8: <S> yet */
+    /* 9: <S> another */
+    /* 10: <S> list */
+    /* 11: <S> B */
+    /* 
+      list.only-any( $list, (one, B) ) is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> one */
+    /* 3: <S> B */
+    /* 4: <S> B */
+    /* 
+      list.only-any( $list, (C, two) ) is a list:
+   */
+    /* 1: <S> two */
+    /* 2: <S> two */
+    /* 3: <S> C */
+}
+
 list.sort {
     /* 
       $list is a list:

@@ -38,7 +38,11 @@
             }
             #{$_sel} {
                 @each $slug, $_value in $tokens {
-                    @include cx-prop(#{$slug}, style-value($slug));
+                    @include cx-prop(
+                        #{$slug},
+                        style-value($slug),
+                        $allPrefixes: false
+                    );
                 }
             }
             @if $includeRegion {

@@ -7,6 +7,7 @@
 
 @use '../../../config';
 
+@use '../../../modules/list';
 @use '../../../modules/map';
 @use '../../../modules/meta';
 @use '../../../modules/string';
@@ -25,6 +26,9 @@ $_cxPropPre: if(
     config.$customPropertyPrefix
 );
 
+$_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customPropertyPrefix_fallback})
+    and (string.length(config.$customPropertyPrefix_fallback) > 0);
+
 ///
 /// Prints a custom property definition.
 ///
@@ -32,9 +36,15 @@ $_cxPropPre: if(
 /// @param {any} $value
 /// @param {?string} $comment
 ///
-/// @since ___PKG_VERSION___ — Added optional $quoteString param.
+/// @since ___PKG_VERSION___ — Added optional $allPrefixes, $quoteString params.
 ///
-@mixin custom-property($slug, $value, $comment: null, $quoteString: string.is-quoted($value)) {
+@mixin custom-property(
+    $slug,
+    $value,
+    $comment: null,
+    $allPrefixes: null,
+    $quoteString: string.is-quoted($value)
+) {
     @if meta.type-of($value) == string {
         @if $quoteString {
             $value: string.concat(('"', string.quote($value), '"'));
@@ -43,10 +53,24 @@ $_cxPropPre: if(
         }
     }
 
-    @if $comment {
-        --#{$_cxPropPre}#{$slug}: #{$value}; /* #{$comment} */
+    @if $allPrefixes == null {
+        $allPrefixes: list.index(config.$mx_customProperty_allPrefixesSlugs, $slug) != null;
+    }
+
+    @if $allPrefixes and $_allowAllPrefixes {
+        @if $comment {
+            --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value}; /* #{$comment} */
+            --#{config.$customPropertyPrefix}#{$slug}: #{$value}; /* #{$comment} */
+        } @else {
+            --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value};
+            --#{config.$customPropertyPrefix}#{$slug}: #{$value};
+        }
     } @else {
-        --#{$_cxPropPre}#{$slug}: #{$value};
+        @if $comment {
+            --#{$_cxPropPre}#{$slug}: #{$value}; /* #{$comment} */
+        } @else {
+            --#{$_cxPropPre}#{$slug}: #{$value};
+        }
     }
 }
 
@@ -77,6 +101,7 @@ $_cxPropPre: if(
     $useCustom: true,
     $setCxProp: true,
     $setProp: true,
+    $allPrefixes: null,
     $quoteString: null,
     $args...
 ) {
@@ -94,6 +119,7 @@ $_cxPropPre: if(
                 $slug: $slug,
                 $value: $value,
                 $comment: $comment,
+                $allPrefixes: $allPrefixes,
                 $quoteString: $quoteString
             );
         }
@@ -117,6 +143,7 @@ $_cxPropPre: if(
 ///
 @mixin prop-display(
     $value,
+    $allPrefixes: config.$mx_propDisplay_allPrefixes,
     $onlyFallbackPrefix: config.$mx_propDisplay_onlyFallbackPrefix,
     $args...
 ) {
@@ -124,6 +151,7 @@ $_cxPropPre: if(
         display,
         $value,
         $useCustom: config.$mx_prop_useCustom_display,
+        $allPrefixes: $allPrefixes,
         $onlyFallbackPrefix: $onlyFallbackPrefix,
         $args...
     );

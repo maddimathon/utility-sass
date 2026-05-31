@@ -46,6 +46,18 @@ list.only {
     @include meta.var-dump('list.only( $list, one )', list.only($_list_flat, one));
 }
 
+list.only-any {
+    @include meta.var-dump('$list', $_list_flat);
+    @include meta.var-dump(
+        'list.only-any( $list, (one, B) )',
+        list.only-any($_list_flat, (one, B))
+    );
+    @include meta.var-dump(
+        'list.only-any( $list, (C, two) )',
+        list.only-any($_list_flat, (C, two))
+    );
+}
+
 list.sort {
     @include meta.var-dump('$list', $_list_flat);
     @include meta.var-dump('list.sort( $list )', list.sort($_list_flat));
