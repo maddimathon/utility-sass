@@ -3,11 +3,13 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'sass:list';
 @use 'sass:selector';
 
 @use '../config';
 @use '../string';
 
+@use 'is-superselector-any';
 @use 'parent-exists';
 
 ///
@@ -19,31 +21,25 @@
 /// @since 0.1.0-alpha — Moved to selector module.
 /// @since ___PKG_VERSION___ — Added optional $aliases, $checkAliases params (and better checking).
 ///
-@function is-body($sel, $aliases: config.$selector_body_aliases, $checkAliases: true) {
-    $sel: #{$sel};
+@function is-body($selector, $aliases: config.$selector_body_aliases, $checkAliases: true) {
+    $selector: #{$selector};
 
     // returns
-    @if $sel == '%body' or $sel == body or $sel == #{config.$selector_body} {
+    @if $selector == '%body' or $selector == body or $selector == #{config.$selector_body} {
         @return true;
     }
 
     // returns - is only a combinator
-    @if string.match($sel, '^\\s*[>~\\+\\|]\\s*$') != null {
+    @if string.match($selector, '^\\s*[>~\\+\\|]\\s*$') != null {
         @return false;
     }
 
     // returns
-    @if selector.is-superselector(body, $sel) {
-        @return true;
-    }
-
-    // returns
-    @if selector.is-superselector(#{config.$selector_body}, $sel) {
-        @return true;
-    }
-
-    // returns
-    @if selector.is-superselector('%body', $sel) {
+    @if is-superselector-any.is-superselector-any(
+        list.join(config.$selector_body, ('body', '%body'), $separator: comma),
+        $selector
+    )
+    {
         @return true;
     }
 
@@ -52,10 +48,23 @@
         @return false;
     }
 
-    // returns on success
-    @each $_selector in $aliases {
-        // returns
-        @if selector.is-superselector(#{$_selector}, $sel) {
+    @return is-superselector-any.is-superselector-any($aliases, $selector);
+}
+
+///
+/// Checks if any of the given comma-separated selectors is a known body element
+/// selector (i.e., 'body' or config.$selector_body).
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function is-any-body($selector, $args...) {
+    $selector: selector.parse(#{$selector});
+
+    // returns on first true
+    @each $_sel in if(list.separator($selector) == comma, $selector, ($selector)) {
+        @if is-body($_sel, $args...) {
             @return true;
         }
     }

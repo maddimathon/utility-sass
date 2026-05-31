@@ -51,6 +51,28 @@
 }
 
 ///
+/// Checks if any of the given comma-separated selectors is a known root element
+/// selector (i.e., 'root' or config.$selector_root).
+///
+/// @return {bool}
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function has-any-root($selector, $args...) {
+    $selector: selector.parse(#{$selector});
+    $selector: if(list.separator($selector) == comma, $selector, ($selector));
+
+    // returns on first true
+    @each $_sel in $selector {
+        @if has-root($_sel, $args...) {
+            @return true;
+        }
+    }
+
+    @return false;
+}
+
+///
 /// Checks if the parent selector (if any) is a known root selector.
 ///
 /// @return {bool}

@@ -10,6 +10,14 @@
 
 @use '../meta';
 
+@use 'has-body';
+@use 'has-root';
+@use 'has-root-or-body';
+
+@use 'is-body';
+@use 'is-root';
+@use 'is-root-or-body';
+
 @use 'includes';
 @use 'parent-exists';
 
@@ -44,6 +52,222 @@
         }
 
         @if not $_haystack_includes_needle {
+            $returnHaystack: list.append(
+                $returnHaystack,
+                $haystack_single,
+                $separator: comma
+            );
+        }
+    }
+
+    // returns
+    @if list.length($returnHaystack) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return selector.parse(#{$returnHaystack});
+}
+
+///
+/// Removes all cases of known body selectors (via `selector.has-body()`) in
+/// comma-separated $haystack selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function except-has-body($haystack, $args...) {
+    // returns
+    @if list.length($haystack) < 1 {
+        @return $haystack;
+    }
+
+    $haystack: selector.parse(#{$haystack});
+
+    $returnHaystack: ();
+
+    @each $haystack_single
+        in if(list.separator($haystack) == comma, $haystack, ($haystack))
+    {
+        @if not has-body.has-body($haystack_single, $args...) {
+            $returnHaystack: list.append(
+                $returnHaystack,
+                $haystack_single,
+                $separator: comma
+            );
+        }
+    }
+
+    // returns
+    @if list.length($returnHaystack) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return selector.parse(#{$returnHaystack});
+}
+
+///
+/// Removes all cases of known body selectors (via `selector.is-body()`) in
+/// comma-separated $haystack selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function except-is-body($haystack, $args...) {
+    // returns
+    @if list.length($haystack) < 1 {
+        @return $haystack;
+    }
+
+    $haystack: selector.parse(#{$haystack});
+
+    $returnHaystack: ();
+
+    @each $haystack_single
+        in if(list.separator($haystack) == comma, $haystack, ($haystack))
+    {
+        @if not is-body.is-body($haystack_single, $args...) {
+            $returnHaystack: list.append(
+                $returnHaystack,
+                $haystack_single,
+                $separator: comma
+            );
+        }
+    }
+
+    // returns
+    @if list.length($returnHaystack) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return selector.parse(#{$returnHaystack});
+}
+
+///
+/// Removes all cases of known root selectors (via `selector.has-root()`) in
+/// comma-separated $haystack selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function except-has-root($haystack, $args...) {
+    // returns
+    @if list.length($haystack) < 1 {
+        @return $haystack;
+    }
+
+    $haystack: selector.parse(#{$haystack});
+
+    $returnHaystack: ();
+
+    @each $haystack_single
+        in if(list.separator($haystack) == comma, $haystack, ($haystack))
+    {
+        @if not has-root.has-root($haystack_single, $args...) {
+            $returnHaystack: list.append(
+                $returnHaystack,
+                $haystack_single,
+                $separator: comma
+            );
+        }
+    }
+
+    // returns
+    @if list.length($returnHaystack) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return selector.parse(#{$returnHaystack});
+}
+
+///
+/// Removes all cases of known root selectors (via `selector.is-root()`) in
+/// comma-separated $haystack selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function except-is-root($haystack, $args...) {
+    // returns
+    @if list.length($haystack) < 1 {
+        @return $haystack;
+    }
+
+    $haystack: selector.parse(#{$haystack});
+
+    $returnHaystack: ();
+
+    @each $haystack_single
+        in if(list.separator($haystack) == comma, $haystack, ($haystack))
+    {
+        @if not is-root.is-root($haystack_single, $args...) {
+            $returnHaystack: list.append(
+                $returnHaystack,
+                $haystack_single,
+                $separator: comma
+            );
+        }
+    }
+
+    // returns
+    @if list.length($returnHaystack) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return selector.parse(#{$returnHaystack});
+}
+
+///
+/// Removes all cases of known root or body selectors (via
+/// `selector.has-root-or-body()`) in comma-separated $haystack selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function except-has-root-or-body($haystack, $args...) {
+    // returns
+    @if list.length($haystack) < 1 {
+        @return $haystack;
+    }
+
+    $haystack: selector.parse(#{$haystack});
+
+    $returnHaystack: ();
+
+    @each $haystack_single
+        in if(list.separator($haystack) == comma, $haystack, ($haystack))
+    {
+        @if not has-root-or-body.has-root-or-body($haystack_single, $args...) {
+            $returnHaystack: list.append(
+                $returnHaystack,
+                $haystack_single,
+                $separator: comma
+            );
+        }
+    }
+
+    // returns
+    @if list.length($returnHaystack) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return selector.parse(#{$returnHaystack});
+}
+
+///
+/// Removes all cases of known root or body selectors (via `selector.is-root-or-body()`) in
+/// comma-separated $haystack selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function except-is-root-or-body($haystack, $args...) {
+    // returns
+    @if list.length($haystack) < 1 {
+        @return $haystack;
+    }
+
+    $haystack: selector.parse(#{$haystack});
+
+    $returnHaystack: ();
+
+    @each $haystack_single
+        in if(list.separator($haystack) == comma, $haystack, ($haystack))
+    {
+        @if not is-root-or-body.is-root-or-body($haystack_single, $args...) {
             $returnHaystack: list.append(
                 $returnHaystack,
                 $haystack_single,

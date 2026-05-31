@@ -20,12 +20,23 @@ selector.add-root-selector(...); // added
 selector.except(...); // added
 selector.parent-except(...); // added
 
+selector.except-has-body(...); // added
+selector.except-has-root-or-body(...); // added
+selector.except-has-root(...); // added
+
+selector.except-is-body(...); // added
+selector.except-is-root-or-body(...); // added
+selector.except-is-root(...); // added
+
 selector.except-superselector(...); // added
 selector.parent-except-superselector(...); // added
 
 selector.has-body(...); // added
 selector.has-root(...); // added
 selector.has-root-or-body(...); // added
+
+selector.has-any-body(...); // added
+selector.has-any-root(...); // added
 selector.has-any-root-or-body(...); // added
 
 selector.includes(...); // added
@@ -34,6 +45,9 @@ selector.parent-includes(...); // added
 selector.is-body(...); // added
 selector.is-root(...); // added
 selector.is-root-or-body(...); // added
+
+selector.is-any-body(...); // added
+selector.is-any-root(...); // added
 selector.is-any-root-or-body(...); // added
 
 selector.is-simple(...); // added

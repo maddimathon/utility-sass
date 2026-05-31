@@ -24,16 +24,18 @@
 // deps on parent-exists
 @forward 'except-superselector';
 @forward 'includes';
-@forward 'is-body';
-@forward 'is-root';
 @forward 'parent-or-body';
 @forward 'parent-or-root';
 
-// deps on includes, parent-exists
-@forward 'except';
+// deps on parent-exists, is-superselector-any
+@forward 'is-body';
+@forward 'is-root';
 
 // deps on is-body, is-root
 @forward 'is-root-or-body';
+
+// deps on includes, is-body, is-root, is-root-or-body, parent-exists
+@forward 'except';
 
 // deps on includes, is-superselector-any, unify-all
 @forward 'replace-simple-selector';

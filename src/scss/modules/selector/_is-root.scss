@@ -3,11 +3,13 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'sass:list';
 @use 'sass:selector';
 
 @use '../config';
 @use '../string';
 
+@use 'is-superselector-any';
 @use 'parent-exists';
 
 ///
@@ -18,31 +20,29 @@
 /// @since 0.1.0-alpha — Moved to selector module.
 /// @since ___PKG_VERSION___ — Added optional $aliases, $checkAliases params (and better checking).
 ///
-@function is-root($sel, $aliases: config.$selector_root_aliases, $checkAliases: true) {
-    $sel: #{$sel};
+@function is-root($selector, $aliases: config.$selector_root_aliases, $checkAliases: true) {
+    $selector: #{$selector};
 
     // returns
-    @if $sel == '%root' or $sel == html or $sel == ':root' or $sel == #{config.$selector_root} {
+    @if ($selector == '%root') or
+        ($selector == html) or
+        ($selector == ':root') or
+        ($selector == #{config.$selector_root})
+    {
         @return true;
     }
 
     // returns - is only a combinator
-    @if string.match($sel, '^\\s*[>~\\+\\|]\\s*$') != null {
+    @if string.match($selector, '^\\s*[>~\\+\\|]\\s*$') != null {
         @return false;
     }
 
     // returns
-    @if selector.is-superselector(html, $sel) or selector.is-superselector(':root', $sel) {
-        @return true;
-    }
-
-    // returns
-    @if selector.is-superselector(#{config.$selector_root}, $sel) {
-        @return true;
-    }
-
-    // returns
-    @if selector.is-superselector('%root', $sel) {
+    @if is-superselector-any.is-superselector-any(
+        list.join(config.$selector_root, (':root', 'html', '%root'), $separator: comma),
+        $selector
+    )
+    {
         @return true;
     }
 
@@ -51,10 +51,24 @@
         @return false;
     }
 
-    // returns on success
-    @each $_selector in $aliases {
-        // returns
-        @if selector.is-superselector(#{$_selector}, $sel) {
+    @return is-superselector-any.is-superselector-any($aliases, $selector);
+}
+
+///
+/// Checks if any of the given comma-separated selectors is a known root element
+/// selector (i.e., 'root' or config.$selector_root).
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function is-any-root($selector, $args...) {
+    $selector: selector.parse(#{$selector});
+    $selector: if(list.separator($selector) == comma, $selector, ($selector));
+
+    // returns on first true
+    @each $_sel in $selector {
+        @if is-root($_sel, $args...) {
             @return true;
         }
     }

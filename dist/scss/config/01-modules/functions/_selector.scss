@@ -7,6 +7,7 @@
 
 @use 'sass:list';
 @use 'sass:meta';
+@use 'sass:selector';
 @use 'sass:string';
 
 @use 'string' as *;
@@ -24,7 +25,9 @@
 ///
 /// @returns {selector}  A selector.
 ///
-@function config-valid-selector($value, $name, $default) {
+/// @since 0.1.0-beta.0.draft — Added optional $allowEmpty param.
+///
+@function config-valid-selector($value, $name, $default, $allowEmpty: false) {
     @if meta.type-of($default) == string {
         $default: string.unquote($default);
     }
@@ -42,7 +45,7 @@
             @return $default;
         }
 
-        $value: (string.unquote(#{$value}));
+        @return selector.parse(#{$value});
 
         // returns - value is not a selector
     } @else if
@@ -58,11 +61,16 @@
 
     // returns - empty
     @if list.length($value) < 1 {
+        // returns
+        @if $allowEmpty {
+            @return selector.parse(#{$value});
+        }
+
         @warn "[config] $#{$name} must be a valid selector (not an empty list)";
         @return $default;
     }
 
-    @return $value;
+    @return selector.parse(#{$value});
 }
 
 $_selectorTypes: ('attribute', 'class', 'null');

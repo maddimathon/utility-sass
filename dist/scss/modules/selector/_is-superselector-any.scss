@@ -12,6 +12,7 @@
 @function is-superselector-any($super, $sub) {
     $super: selector.parse(#{$super});
 
+    // returns on first true
     @each $selector in $super {
         @if selector.is-superselector($selector, $sub) {
             @return true;
