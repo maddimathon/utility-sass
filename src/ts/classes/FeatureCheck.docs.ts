@@ -1,12 +1,13 @@
 import { FeatureCheck } from './FeatureCheck.js';
 
 //#region Simple
-// run the checks and update class names
+// run the checks and update root element’s class names
 new FeatureCheck().check();
 //#endregion Simple
 
 
 //#region Custom
+// create custom feature checks or replace the default tests
 const custom = {
 
     backgroundGradient: {
@@ -15,8 +16,8 @@ const custom = {
         ),
     },
 
-    // never indicate support for subgrid
     subgrid: {
+        // i.e.: never indicate support for subgrid
         test: false,
     },
 } satisfies FeatureCheck.CustomCheckerOpts;
@@ -24,17 +25,17 @@ const custom = {
 const opts = {
 
     checks: {
-        // this skips the test and always disables this feature
+        // i.e.: skip this test and never indicate support for this feature
         whereSelector: false,
     },
 
     custom,
 
-    // outputs each test and its results to console.info()
+    // logs each test and its results via console.info()
     outputResults: true,
 
 } satisfies FeatureCheck.OptsInput;
 
-// run the checks and update class names
+// run the checks (including custom) and update root element’s class names
 new FeatureCheck( opts ).check();
 //#endregion Custom

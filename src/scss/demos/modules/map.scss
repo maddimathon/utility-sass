@@ -75,7 +75,7 @@ $_inputs: (
 // #endregion $_inputs
 
 map.flatten {
-    @include meta.var-dump('map', $_map);
+    @include meta.var-dump('$map', $_map);
 
     @include meta.var-dump('map.flatten', map.flatten($_map));
 
@@ -93,20 +93,20 @@ map.flatten {
 }
 
 map.ksort {
-    @include meta.var-dump('map', $_defaults);
+    @include meta.var-dump('$map', $_defaults);
     @include meta.var-dump('map.ksort()', map.ksort($_defaults));
 }
 
 map.merge {
-    @include meta.var-dump('$_defaults', $_defaults);
-    @include meta.var-dump('$_inputs', $_inputs);
+    @include meta.var-dump('$defaults', $_defaults);
+    @include meta.var-dump('$inputs', $_inputs);
     @include meta.var-dump('map.merge( $recursive: false )', map.merge($_defaults, $_inputs));
     @include meta.var-dump('map.merge( $recursive: true )', map.merge($_defaults, $_inputs, true));
 }
 
 map.parse-args {
-    @include meta.var-dump('$_defaults', $_defaults);
-    @include meta.var-dump('$_inputs', $_inputs);
+    @include meta.var-dump('$defaults', $_defaults);
+    @include meta.var-dump('$inputs', $_inputs);
     @include meta.var-dump(
         'map.parse-args( $recursive: false )',
         map.parse-args($_defaults, $_inputs)
@@ -118,10 +118,37 @@ map.parse-args {
 }
 
 map.pick {
-    @include meta.var-dump('map', $_defaults);
+    @include meta.var-dump('$map', $_defaults);
     @include meta.var-dump('map.pick( $map, () )', map.pick($_defaults, ()));
     @include meta.var-dump(
         'map.pick( $map, ( "option1", "optionSet" ) )',
         map.pick($_defaults, ('option1', 'optionSet'))
+    );
+}
+
+map.regex-pick {
+    @include meta.var-dump('$map', $_defaults);
+    @include meta.var-dump('map.regex-pick( $map, "" )', map.regex-pick($_defaults, ''));
+    @include meta.var-dump(
+        'map.regex-pick( $map, ( "option\\\\d" ) )',
+        map.regex-pick($_defaults, ('option\\d'))
+    );
+}
+
+map.regex-remove {
+    @include meta.var-dump('$map', $_defaults);
+    @include meta.var-dump('map.regex-remove( $map, "" )', map.regex-remove($_defaults, ''));
+    @include meta.var-dump(
+        'map.regex-remove( $map, ( "option\\\\d" ) )',
+        map.regex-remove($_defaults, ('option\\d'))
+    );
+}
+
+map.regex-divide {
+    @include meta.var-dump('$map', $_defaults);
+    @include meta.var-dump('map.regex-divide( $map, "" )', map.regex-divide($_defaults, ''));
+    @include meta.var-dump(
+        'map.regex-divide( $map, ( "option\\\\d" ) )',
+        map.regex-divide($_defaults, ('option\\d'))
     );
 }

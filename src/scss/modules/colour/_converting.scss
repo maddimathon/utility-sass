@@ -21,7 +21,7 @@
 ///
 @function to-hsl-list($clr, $round: true) {
     @if meta.type-of($clr) != 'color' {
-        @warn "[colour.to-hsl-list] $clr should be a colour (was #{meta.type-of( $clr )})";
+        @warn "[colour.to-hsl-list] $clr should be a colour (was #{meta.var-dump( $clr )})";
         @return $clr;
     }
 
@@ -101,7 +101,7 @@
 ///
 @function to-rgb-list($clr, $round: true) {
     @if meta.type-of($clr) != 'color' {
-        @warn "[colour.to-rgb-list] $clr should be a colour (was #{meta.type-of( $clr )})";
+        @warn "[colour.to-rgb-list] $clr should be a colour (was #{meta.var-dump( $clr )})";
         @return $clr;
     }
 

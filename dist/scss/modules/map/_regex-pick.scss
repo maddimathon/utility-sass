@@ -1,0 +1,41 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:map';
+@use 'sass:meta';
+
+@use '../string';
+
+///
+/// Takes a map and returns a copy with only the keys that match $regex.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function regex-pick($map, $regex, $flags: 'i') {
+    // returns
+    @if meta.type-of($map) != map {
+        @if meta.type-of($map) != list or list.length($map) > 0 {
+            @warn "[map.regex-pick] $map should be a map (was #{meta.type-of($map)})";
+        }
+
+        @return map.merge((), ());
+    }
+
+    // returns if not a string or number
+    @if meta.type-of($regex) != string {
+        @warn "[map.regex-pick] $regex should be a string (was #{meta.var-dump($regex)})";
+        @return $map;
+    }
+
+    $return: map.merge((), ());
+
+    @each $key in map.keys($map) {
+        @if string.match($key, $regex, $flags: $flags) != null {
+            $return: map.set($return, $key, map.get($map, $key));
+        }
+    }
+
+    @return $return;
+}

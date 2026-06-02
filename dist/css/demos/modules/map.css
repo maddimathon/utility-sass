@@ -13,7 +13,7 @@
  * ======================================================================== */
 map.flatten {
     /* 
-      map is a map:
+      $map is a map:
    */
     /* "$": <S> default */
     /* "one": <:> ( "$": <S> default, "A": <S> value, "B": <:> ( "$": <S> default, 1: <S> value ) ) */
@@ -72,7 +72,7 @@ map.flatten > with-both {
 
 map.ksort {
     /* 
-      map is a map:
+      $map is a map:
    */
     /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
     /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
@@ -91,7 +91,7 @@ map.ksort {
 
 map.merge {
     /* 
-      $_defaults is a map:
+      $defaults is a map:
    */
     /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
     /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
@@ -99,7 +99,7 @@ map.merge {
     /* "option3": <S> C */
     /* "option2": <S> B */
     /* 
-      $_inputs is a map:
+      $inputs is a map:
    */
     /* "option3": <S> OVERRIDE */
     /* "optionList": <S> OVERRIDE */
@@ -124,7 +124,7 @@ map.merge {
 
 map.parse-args {
     /* 
-      $_defaults is a map:
+      $defaults is a map:
    */
     /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
     /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
@@ -132,7 +132,7 @@ map.parse-args {
     /* "option3": <S> C */
     /* "option2": <S> B */
     /* 
-      $_inputs is a map:
+      $inputs is a map:
    */
     /* "option3": <S> OVERRIDE */
     /* "optionList": <S> OVERRIDE */
@@ -157,7 +157,7 @@ map.parse-args {
 
 map.pick {
     /* 
-      map is a map:
+      $map is a map:
    */
     /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
     /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
@@ -172,4 +172,69 @@ map.pick {
    */
     /* "option1": <S> A */
     /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+}
+
+map.regex-pick {
+    /* 
+      $map is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+    /* "option1": <S> A */
+    /* "option3": <S> C */
+    /* "option2": <S> B */
+    /* 
+      map.regex-pick( $map, "" ) is a map:
+   */
+    /* 
+      map.regex-pick( $map, ( "option\\d" ) ) is a map:
+   */
+    /* "option1": <S> A */
+    /* "option3": <S> C */
+    /* "option2": <S> B */
+}
+
+map.regex-remove {
+    /* 
+      $map is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+    /* "option1": <S> A */
+    /* "option3": <S> C */
+    /* "option2": <S> B */
+    /* 
+      map.regex-remove( $map, "" ) is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+    /* "option1": <S> A */
+    /* "option3": <S> C */
+    /* "option2": <S> B */
+    /* 
+      map.regex-remove( $map, ( "option\\d" ) ) is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+}
+
+map.regex-divide {
+    /* 
+      $map is a map:
+   */
+    /* "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ) */
+    /* "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) */
+    /* "option1": <S> A */
+    /* "option3": <S> C */
+    /* "option2": <S> B */
+    /* 
+      map.regex-divide( $map, "" ) is a map:
+   */
+    /* "pass": <:> () */
+    /* "fail": <:> ( "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ), "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ), "option1": <S> A, "option3": <S> C, "option2": <S> B ) */
+    /* 
+      map.regex-divide( $map, ( "option\\d" ) ) is a map:
+   */
+    /* "pass": <:> ( "option1": <S> A, "option3": <S> C, "option2": <S> B ) */
+    /* "fail": <:> ( "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ), "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ) ) */
 }

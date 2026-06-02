@@ -49,8 +49,8 @@ $mx_colourMode_includeLightModeQuery: config-valid-bool(
 );
 
 ///
-/// Whether to include 'no-preference' media queries. Most relevant to
-/// brightness and contrast modes.
+/// Whether to include 'no-preference' media queries for brightness and contrast
+/// modes.
 ///
 /// @since 0.1.0-pre.0
 /// @since ___PKG_VERSION___ — Renamed from $include_noPreferenceMediaQueries to $mx_colourMode_includeNoPreferenceQueries.
@@ -97,7 +97,7 @@ $mx_colourModeEach_includeForcedColorsSelectors: config-valid-bool(
 /// :where([role='heading'][aria-level='…']) selectors for heading levels beyond 6.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $mx_extendHeadingsByRole to $mx_extendSelectors_headingsByRole
+/// @since ___PKG_VERSION___ — Renamed from $mx_extendHeadingsByRole to $mx_extendSelectors_headingsByRole.
 ///
 $mx_extendSelectors_headingsByRole: null !default;
 $mx_extendSelectors_headingsByRole: config-valid-bool(
@@ -108,7 +108,18 @@ $mx_extendSelectors_headingsByRole: config-valid-bool(
 
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks to $mx_focusVisible_includeFallbacks
+/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks_only to $mx_focusVisible_fallbacksOnly.
+///
+$mx_focusVisible_fallbacksOnly: null !default;
+$mx_focusVisible_fallbacksOnly: config-valid-bool(
+    $mx_focusVisible_fallbacksOnly,
+    'mx_focusVisible_fallbacksOnly',
+    $default: false
+);
+
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks to $mx_focusVisible_includeFallbacks.
 ///
 $mx_focusVisible_includeFallbacks: null !default;
 $mx_focusVisible_includeFallbacks: config-valid-bool(
@@ -118,14 +129,13 @@ $mx_focusVisible_includeFallbacks: config-valid-bool(
 );
 
 ///
-/// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $mx_interactive_states_include_fallbacks_only to $mx_focusVisible_fallbacksOnly
+/// @since ___PKG_VERSION___
 ///
-$mx_focusVisible_fallbacksOnly: null !default;
-$mx_focusVisible_fallbacksOnly: config-valid-bool(
-    $mx_focusVisible_fallbacksOnly,
-    'mx_focusVisible_fallbacksOnly',
-    $default: false
+$mx_focusVisible_includeNoWhereSelectorFallback: null !default;
+$mx_focusVisible_includeNoWhereSelectorFallback: config-valid-bool(
+    $mx_focusVisible_includeNoWhereSelectorFallback,
+    'mx_focusVisible_includeNoWhereSelectorFallback',
+    $default: true
 );
 
 ///

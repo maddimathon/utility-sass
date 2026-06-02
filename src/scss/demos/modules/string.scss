@@ -24,7 +24,7 @@ string.concat {
         string.concat('hello', (1, (bad: practice-to-put-maps-or-lists)), ' ', 'there')
     );
     @include meta.var-dump(
-        'string.concat( "\f139", "\f132", " ", "\f139" )',
+        'string.concat( "\\f139", "\\f132", " ", "\\f139" )',
         string.concat('\f139', '\f132', ' ', '\f139')
     );
 }
@@ -44,7 +44,7 @@ string.join {
         string.join('  —  ', 'hello', (1, (bad: practice-to-put-maps-or-lists)), ' ', 'there')
     );
     @include meta.var-dump(
-        'string.join( " + ",  "\f139", "\f132", "\f139" )',
+        'string.join( " + ",  "\\f139", "\\f132", "\\f139" )',
         string.join(' + ', '\f139', '\f132', '\f139')
     );
 }

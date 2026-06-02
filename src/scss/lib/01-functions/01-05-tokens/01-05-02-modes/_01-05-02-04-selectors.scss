@@ -57,14 +57,11 @@ $_rootAliasesWithAllModeOptions: list.join(
     $queries: ();
 
     @each $mode in $modes {
-        $isClrModeDefault: false;
+        $isClrModeDefault: is-colour-mode-default($mode);
         $isClrModeDefaultOnly: is-colour-mode-type-default-only($mode);
 
         $_debug_eachMode: ();
 
-        @if is-colour-mode-default($mode) {
-            $isClrModeDefault: true;
-        }
         @if $debug {
             $_debug_eachMode: map.set($_debug_eachMode, '$mode', $mode);
             $_debug_eachMode: map.set($_debug_eachMode, '$isClrModeDefault', $isClrModeDefault);
@@ -122,7 +119,7 @@ $_rootAliasesWithAllModeOptions: list.join(
                 @if (not $isClrModeDefault) or
                     config.$mx_colourMode_includeNoPreferenceQueries or
                     (not $includeDefault) or
-                    (not $includeSelectors and not $anyModeIsDefault)
+                    (not $includeSelectors and not $isClrModeDefault)
                 {
                     @if $debug {
                         $_debug_eachMode: map.set($_debug_eachMode, 'adding #{$mode} query', true);

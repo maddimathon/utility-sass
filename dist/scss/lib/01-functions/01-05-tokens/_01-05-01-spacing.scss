@@ -299,7 +299,7 @@ $_gaps_inline: map.get(tokens.$gap, inline);
     $dir: #{$dir};
 
     @if $dir != block and $dir != inline {
-        @warn "$dir must be either 'block' or 'inline' (was #{$dir})";
+        @warn "$dir must be either 'block' or 'inline' (was #{meta.var-dump($dir)})";
     }
 
     $map: if($dir == block, $_gaps_block, $_gaps_inline);

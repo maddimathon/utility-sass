@@ -1,0 +1,46 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:map';
+@use 'sass:meta';
+
+@use '../string';
+
+///
+/// Takes a map and returns a nested map with (1) 'pass' and (2) 'fail' keys
+/// whose values are copies of $map where (1) all keys match $regex and (2) all
+/// keys do not match $regex.
+///
+/// @since ___PKG_VERSION___
+///
+@function regex-divide($map, $regex, $flags: 'i') {
+    // returns
+    @if meta.type-of($map) != map {
+        @if meta.type-of($map) != list or list.length($map) > 0 {
+            @warn "[map.regex-divide] $map should be a map (was #{meta.type-of($map)})";
+        }
+
+        @return map.merge((), ());
+    }
+
+    // returns if not a string or number
+    @if meta.type-of($regex) != string {
+        @warn "[map.regex-divide] $regex should be a string (was #{meta.var-dump($regex)})";
+        @return $map;
+    }
+
+    $pass: map.merge((), ());
+    $fail: map.merge((), ());
+
+    @each $key in map.keys($map) {
+        @if string.match($key, $regex, $flags: $flags) != null {
+            $pass: map.set($pass, $key, map.get($map, $key));
+        } @else {
+            $fail: map.set($fail, $key, map.get($map, $key));
+        }
+    }
+
+    @return (pass: $pass, fail: $fail);
+}

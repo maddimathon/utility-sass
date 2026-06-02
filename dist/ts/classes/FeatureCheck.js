@@ -27,8 +27,9 @@
  *  and running one line:
  * {@includeCode ./FeatureCheck.docs.ts#Simple}
  *
- * The check can also be customized — this customization can mark some features
- * as never available and add on custom feature checks:
+ * If you don’t want simple, the checks can also be customized — this
+ * customization can mark some features as never available and add on custom
+ * feature checks:
  * {@includeCode ./FeatureCheck.docs.ts#Custom}
  *
  * @since 0.1.0-pre.0
