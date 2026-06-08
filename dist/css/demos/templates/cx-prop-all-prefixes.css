@@ -1,0 +1,2304 @@
+@charset "UTF-8";
+/**
+ * Utility Sass - Template - Demo - Custom Property Prefixes (with fallback)
+ * @maddimathon/utility-sass/template/demo - custom property prefixes (with fallback)@0.1.0-beta.0.draft
+ * 
+ * This is a sample stylesheet with a custom property prefix and a fallback prefix set in the config (i.e. — $customPropertyPrefix: "", $customPropertyPrefix_fallback: "fallback-").
+ * 
+ * https://maddimathon.github.io/utility-sass
+ */
+/*! START of @maddimathon/utility-sass/template/demo - custom property prefixes (with fallback) */
+/* # TOKENS & PROPERTIES
+ * ======================================================================== */
+/* #region Tokens - @property */
+@property --fallback-display {
+    syntax: "*";
+    inherits: false;
+}
+@property --fallback-focus-ring-outline-color {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: currentColor;
+}
+@property --fallback-focus-ring-outline-offset {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 0.125em;
+}
+@property --fallback-focus-ring-outline-width {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 0.125em;
+}
+@property --fallback-height-nav-primary {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 0;
+}
+@property --fallback-scroll-padding-top {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 0px;
+}
+/* #endregion Tokens - @property */
+/* #region Tokens - System Colours */
+:where(:root) {
+    --fallback-sys-clr-background: Canvas;
+    --fallback-sys-clr-text: CanvasText;
+    --fallback-sys-clr-accent-bg: CanvasText;
+}
+@supports (color: AccentColor) {
+    :where(:root) {
+        --fallback-sys-clr-accent-bg: AccentColor;
+    }
+}
+:where(:root) {
+    --fallback-sys-clr-accent-text: Canvas;
+}
+@supports (color: AccentColorText) {
+    :where(:root) {
+        --fallback-sys-clr-accent-text: AccentColorText;
+    }
+}
+:where(:root) {
+    --fallback-sys-clr-mark-bg: CanvasText;
+}
+@supports (color: AccentColor) {
+    :where(:root) {
+        --fallback-sys-clr-mark-bg: AccentColor;
+    }
+}
+@supports (color: Mark) {
+    :where(:root) {
+        --fallback-sys-clr-mark-bg: Mark;
+    }
+}
+:where(:root) {
+    --fallback-sys-clr-mark-text: Canvas;
+}
+@supports (color: AccentColorText) {
+    :where(:root) {
+        --fallback-sys-clr-mark-text: AccentColorText;
+    }
+}
+@supports (color: MarkText) {
+    :where(:root) {
+        --fallback-sys-clr-mark-text: MarkText;
+    }
+}
+:where(:root) {
+    --fallback-sys-clr-selected-bg: SelectedItem;
+    --fallback-sys-clr-selected-text: SelectedItemText;
+    --fallback-sys-clr-selection-bg: Highlight;
+    --fallback-sys-clr-selection-text: HighlightText;
+    --fallback-sys-clr-text-active: ActiveText;
+    --fallback-sys-clr-text-disabled: GrayText;
+    --fallback-sys-clr-button-bg: ButtonFace;
+    --fallback-sys-clr-button-bg-active: ButtonFace;
+    --fallback-sys-clr-button-bg-hover: SelectedItem;
+    --fallback-sys-clr-button-border: ButtonFace;
+}
+@supports (color: ButtonBorder) {
+    :where(:root) {
+        --fallback-sys-clr-button-border: ButtonBorder;
+    }
+}
+:where(:root) {
+    --fallback-sys-clr-button-border-active: ButtonFace;
+}
+@supports (color: ButtonBorder) {
+    :where(:root) {
+        --fallback-sys-clr-button-border-active: ButtonBorder;
+    }
+}
+:where(:root) {
+    --fallback-sys-clr-button-border-hover: SelectedItem;
+    --fallback-sys-clr-button-text: ButtonText;
+    --fallback-sys-clr-button-text-active: ButtonText;
+    --fallback-sys-clr-button-text-hover: SelectedItemText;
+    --fallback-sys-clr-input-bg: Field;
+    --fallback-sys-clr-input-bg-hover: Field;
+    --fallback-sys-clr-input-bg-active: Field;
+    --fallback-sys-clr-input-border: FieldText;
+    --fallback-sys-clr-input-border-hover: FieldText;
+    --fallback-sys-clr-input-border-active: FieldText;
+    --fallback-sys-clr-input-text: FieldText;
+    --fallback-sys-clr-input-text-hover: FieldText;
+    --fallback-sys-clr-input-text-active: FieldText;
+    --fallback-sys-clr-link: LinkText;
+    --fallback-sys-clr-link-active: ActiveText;
+    --fallback-sys-clr-link-hover: ActiveText;
+    --fallback-sys-clr-link-visited: VisitedText;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root {
+        --fallback-sys-clr-background: Canvas !important;
+        --fallback-sys-clr-text: CanvasText !important;
+        --fallback-sys-clr-accent-bg: CanvasText !important;
+        --fallback-sys-clr-accent-bg: AccentColor !important;
+        --fallback-sys-clr-accent-text: Canvas !important;
+        --fallback-sys-clr-accent-text: AccentColorText !important;
+        --fallback-sys-clr-mark-bg: CanvasText !important;
+        --fallback-sys-clr-mark-bg: AccentColor !important;
+        --fallback-sys-clr-mark-bg: Mark !important;
+        --fallback-sys-clr-mark-text: Canvas !important;
+        --fallback-sys-clr-mark-text: AccentColorText !important;
+        --fallback-sys-clr-mark-text: MarkText !important;
+        --fallback-sys-clr-selected-bg: SelectedItem !important;
+        --fallback-sys-clr-selected-text: SelectedItemText !important;
+        --fallback-sys-clr-selection-bg: Highlight !important;
+        --fallback-sys-clr-selection-text: HighlightText !important;
+        --fallback-sys-clr-text-active: ActiveText !important;
+        --fallback-sys-clr-text-disabled: GrayText !important;
+        --fallback-sys-clr-button-bg: ButtonFace !important;
+        --fallback-sys-clr-button-bg-active: ButtonFace !important;
+        --fallback-sys-clr-button-bg-hover: ButtonFace !important;
+        --fallback-sys-clr-button-border: ButtonFace !important;
+        --fallback-sys-clr-button-border: ButtonBorder !important;
+        --fallback-sys-clr-button-border-active: ButtonFace !important;
+        --fallback-sys-clr-button-border-active: ButtonBorder !important;
+        --fallback-sys-clr-button-border-hover: ButtonFace !important;
+        --fallback-sys-clr-button-border-hover: ButtonBorder !important;
+        --fallback-sys-clr-button-text: ButtonText !important;
+        --fallback-sys-clr-button-text-active: ButtonText !important;
+        --fallback-sys-clr-button-text-hover: ButtonText !important;
+        --fallback-sys-clr-input-bg: Field !important;
+        --fallback-sys-clr-input-bg-hover: Field !important;
+        --fallback-sys-clr-input-bg-active: Field !important;
+        --fallback-sys-clr-input-border: FieldText !important;
+        --fallback-sys-clr-input-border-hover: FieldText !important;
+        --fallback-sys-clr-input-border-active: FieldText !important;
+        --fallback-sys-clr-input-text: FieldText !important;
+        --fallback-sys-clr-input-text-hover: FieldText !important;
+        --fallback-sys-clr-input-text-active: FieldText !important;
+        --fallback-sys-clr-link: LinkText !important;
+        --fallback-sys-clr-link-active: ActiveText !important;
+        --fallback-sys-clr-link-hover: ActiveText !important;
+        --fallback-sys-clr-link-visited: VisitedText !important;
+    }
+}
+/* #endregion Tokens - System Colours */
+/* #region Tokens - Width */
+:root {
+    --fallback-width-content: 36rem;
+    --fallback-width-sidebar: 18rem;
+    --fallback-width-callout: 26.25rem;
+    --fallback-width-page: 58.6875rem;
+    --fallback-width-page: calc(
+        var(--fallback-width-content, 36rem) +
+            var(--fallback-width-sidebar, 18rem) +
+            var(--fallback-gap-inline-layout, 8vw)
+    );
+}
+
+/* #endregion Tokens - Width */
+/* #region Tokens - Gap */
+:root {
+    --fallback-gap-block-layout: 5vw;
+    --fallback-gap-block-layout: clamp(1.875rem, 5svw, 3.5rem);
+    --fallback-gap-block-layout-half: 2.5vw;
+    --fallback-gap-block-layout-half: clamp(0.9375rem, 2.5svw, 1.75rem);
+    --fallback-gap-inline-indent: 9%;
+    --fallback-gap-inline-indent: clamp(0.5rem, 9%, 4rem);
+    --fallback-gap-inline-layout: 8vw;
+    --fallback-gap-inline-layout: clamp(1.25rem, 8svw, 7.125rem);
+    --fallback-gap-inline-layout-half: 4vw;
+    --fallback-gap-inline-layout-half: clamp(0.625rem, 4svw, 3.5625rem);
+    --fallback-gap-inline-tab: 5%;
+    --fallback-gap-inline-tab: clamp(0.3125rem, 5%, 2.25rem);
+}
+
+/* #endregion Tokens - Gap */
+/* #region Tokens - Style */
+:root {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-link,
+        var(--fallback-sys-clr-link, LinkText)
+    );
+    --fallback-focus-ring-outline-offset: 0.125em;
+    --fallback-focus-ring-outline-width: clamp(0.125rem, 0.125em, 0.25rem);
+}
+
+/* #endregion Tokens - Style */
+/* # GLOBALS - ACCESSIBILITY
+ * ======================================================================== */
+.no-js :focus,
+.js__no-whereSelector :focus {
+    /* %focus-ring--fallback */
+    outline-width: var(
+        --focus-ring-outline-width,
+        var(
+            --fallback-focus-ring-outline-width,
+            var(--stroke-relative-400, 0.125em)
+        )
+    );
+    outline-style: dashed;
+    outline-color: var(
+        --fallback-focus-ring-outline-color,
+        var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+    );
+    outline-offset: var(
+        --focus-ring-outline-offset,
+        var(
+            --fallback-focus-ring-outline-offset,
+            var(--stroke-relative-400, 0.125em)
+        )
+    );
+}
+
+:where(.js__no-focusVisible) :focus {
+    /* %focus-ring--where */
+    outline-width: var(
+        --focus-ring-outline-width,
+        var(
+            --fallback-focus-ring-outline-width,
+            var(--stroke-relative-400, 0.125em)
+        )
+    );
+    outline-style: dashed;
+    outline-color: var(
+        --fallback-focus-ring-outline-color,
+        var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+    );
+    outline-offset: var(
+        --focus-ring-outline-offset,
+        var(
+            --fallback-focus-ring-outline-offset,
+            var(--stroke-relative-400, 0.125em)
+        )
+    );
+}
+
+:focus-visible {
+    /* %focus-ring--visible */
+    outline-width: var(
+        --focus-ring-outline-width,
+        var(
+            --fallback-focus-ring-outline-width,
+            var(--stroke-relative-400, 0.125em)
+        )
+    );
+    outline-style: dashed;
+    outline-color: var(
+        --fallback-focus-ring-outline-color,
+        var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+    );
+    outline-offset: var(
+        --focus-ring-outline-offset,
+        var(
+            --fallback-focus-ring-outline-offset,
+            var(--stroke-relative-400, 0.125em)
+        )
+    );
+}
+
+.screen-reader-text {
+    position: absolute !important;
+    left: -10000px !important;
+    margin: 0 !important;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden !important;
+}
+
+/* # GLOBALS - OBJECTS
+ * ======================================================================== */
+:root {
+    --fallback-scroll-padding-top: var(
+        --gap-block-layout,
+        var(--fallback-gap-block-layout, 5vw)
+    );
+    --fallback-scroll-padding-top: calc(
+        var(--height-nav-primary, var(--fallback-height-nav-primary, 0)) +
+            var(--gap-block-layout, var(--fallback-gap-block-layout, 5vw))
+    );
+}
+
+:root,
+body {
+    scroll-padding-top: var(
+        --scroll-padding-top,
+        var(
+            --fallback-scroll-padding-top,
+            var(--gap-block-layout, var(--fallback-gap-block-layout, 5vw))
+        )
+    );
+}
+
+body {
+    --fallback-display: flex;
+    --display: flex;
+    display: var(--fallback-display, flex);
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: var(--gap-block-layout, var(--fallback-gap-block-layout, 5vw))
+        var(--gap-inline-layout, var(--fallback-gap-inline-layout, 8vw));
+    margin-block: var(
+        --gap-block-layout,
+        var(--fallback-gap-block-layout, 5vw)
+    );
+    margin-inline: var(
+        --gap-inline-layout,
+        var(--fallback-gap-inline-layout, 8vw)
+    );
+}
+:where(body) > :where(*) {
+    width: min(var(--width-page, var(--fallback-width-page, 58.6875rem)), 100%);
+}
+
+hr {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    align-self: center;
+    justify-self: center;
+    margin-block: var(--mrg-firm-600, 2.25rem);
+    margin-inline: var(
+        --gap-inline-indent,
+        var(--fallback-gap-inline-indent, 9%)
+    );
+    width: 72.92%;
+    max-width: var(--width-callout, var(--fallback-width-callout, 26.25rem));
+    border: none;
+    border-block-end: currentColor solid var(--border-width-200, 0.125rem);
+}
+
+/* # GLOBALS - TYPOGRAPHY
+ * ======================================================================== */
+::selection {
+    background-color: var(
+        --sys-clr-selection-bg,
+        var(--fallback-sys-clr-selection-bg, Highlight)
+    );
+    color: var(
+        --sys-clr-selection-text,
+        var(--fallback-sys-clr-selection-text, HighlightText)
+    );
+}
+
+:root {
+    font-weight: 400;
+    line-height: var(--line-height-400, 1.6875);
+    background: var(
+        --sys-clr-background,
+        var(--fallback-sys-clr-background, Canvas)
+    );
+    color: var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+}
+@media (max-width: 24.99em) {
+    :root {
+        hyphens: auto;
+    }
+}
+
+body {
+    font-size: var(--fs-normal, 1rem);
+}
+
+/* ## Typography - Inline ==================================== */
+strong,
+b {
+    font-weight: 700;
+}
+strong strong,
+b strong {
+    font-weight: 800;
+}
+strong strong strong,
+b strong strong {
+    font-weight: 900;
+}
+
+em,
+i {
+    font-style: italic;
+}
+em em,
+i em {
+    font-style: normal;
+}
+em em em,
+i em em {
+    font-style: italic;
+}
+
+a[href] {
+    --fallback-focus-ring-outline-offset: var(--stroke-relative-200, 0.0625em);
+    --fallback-display: inline;
+    --display: inline;
+    display: var(--fallback-display, inline);
+    border: none;
+    text-decoration: underline var(--stroke-relative-200, 0.0625em);
+    text-underline-offset: var(--stroke-relative-800, 0.25em);
+    color: var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText));
+}
+a[href]:visited {
+    color: var(
+        --sys-clr-link-visited,
+        var(--fallback-sys-clr-link-visited, VisitedText)
+    );
+}
+
+a[href]:hover,
+.no-js a[href]:focus,
+.js__no-whereSelector a[href]:focus {
+    text-decoration-color: transparent;
+    color: var(
+        --sys-clr-link-hover,
+        var(--fallback-sys-clr-link-hover, ActiveText)
+    );
+}
+
+:where(.js__no-focusVisible) a[href]:focus {
+    text-decoration-color: transparent;
+    color: var(
+        --sys-clr-link-hover,
+        var(--fallback-sys-clr-link-hover, ActiveText)
+    );
+}
+
+a[href]:focus-visible {
+    text-decoration-color: transparent;
+    color: var(
+        --sys-clr-link-hover,
+        var(--fallback-sys-clr-link-hover, ActiveText)
+    );
+}
+
+a[href]:active {
+    color: var(
+        --sys-clr-link-active,
+        var(--fallback-sys-clr-link-active, ActiveText)
+    );
+}
+
+a.no-style[href] {
+    text-decoration: none;
+    font-weight: inherit;
+    color: inherit;
+}
+a[aria-disabled="true"][href] {
+    text-decoration-line: line-through;
+    color: var(
+        --sys-clr-text-disabled,
+        var(--fallback-sys-clr-text-disabled, GrayText)
+    );
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+abbr[title] {
+    text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
+    cursor: help;
+}
+
+/* ## Typography - Block ==================================== */
+p {
+    margin-block: var(--mrg-soft-400, 0.9375rem) 0;
+}
+hr + p {
+    margin-block-start: 0;
+}
+
+blockquote {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    margin-inline: var(
+        --gap-inline-indent,
+        var(--fallback-gap-inline-indent, 9%)
+    );
+    margin-block: var(--mrg-soft-400, 0.9375rem) 0;
+    margin-block: var(--mrg-soft-600, 1.875rem)
+        calc(var(--mrg-soft-600, 1.875rem) - var(--mrg-soft-400, 0.9375rem));
+    padding-inline-start: var(--mrg-firm-300, 0.8125rem);
+    border-inline-start: var(--border-width-200, 0.125rem) solid currentColor;
+    width: auto;
+    max-width: var(--width-callout, var(--fallback-width-callout, 26.25rem));
+}
+blockquote > :first-child {
+    margin-block-start: 0;
+}
+blockquote > cite {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    margin-block: var(--mrg-soft-400, 0.9375rem) 0;
+    text-align: end;
+}
+blockquote > cite::before {
+    content: "— "/"";
+}
+@media (prefers-contrast: less) {
+    blockquote > cite {
+        color: color-mix(in srgb, currentColor 75%, transparent);
+    }
+}
+blockquote > cite {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
+@media (prefers-contrast: more) {
+    blockquote > cite {
+        color: color-mix(in srgb, currentColor 87.5%, transparent);
+    }
+}
+code,
+kbd,
+pre,
+samp {
+    position: relative;
+}
+
+pre {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    position: relative;
+    margin-block: var(--mrg-firm-400, 1.25rem) var(--mrg-half-400, 0.3125rem);
+    margin-inline: 0;
+    padding-block: var(--mrg-soft-300, 0.625rem);
+    padding-inline: var(--mrg-firm-300, 0.8125rem);
+    border: var(--border-width-100, 0.0625rem) solid currentColor;
+    width: auto;
+    max-width: 100%;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+    overflow: auto;
+}
+pre > code,
+pre > kbd,
+pre > samp {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: fit-content;
+    max-width: none;
+    overflow: visible;
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:has(> :is(code, kbd, samp)) {
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:has(> :is(code, kbd, samp)) > code {
+    white-space: pre;
+    text-wrap: nowrap;
+}
+
+/* ## Typography - Headings ==================================== */
+h1,
+.h1,
+.page-title {
+    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 900;
+    font-size: var(--fs-heading-1, 2.75rem);
+    line-height: var(--line-height-200, 1.3125);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
+}
+h1 button,
+.h1 button,
+h1 [role="button"],
+.h1 [role="button"],
+h1 input[type="button"],
+.h1 input[type="button"],
+h1 input[type="reset"],
+.h1 input[type="reset"],
+h1 input[type="submit"],
+.h1 input[type="submit"],
+h1 a[href].button,
+.h1 a[href].button,
+.page-title button,
+.page-title [role="button"],
+.page-title input[type="button"],
+.page-title input[type="reset"],
+.page-title input[type="submit"],
+.page-title a[href].button {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+:where([role="heading"][aria-level="1"]) {
+    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 900;
+    font-size: var(--fs-heading-1, 2.75rem);
+    line-height: var(--line-height-200, 1.3125);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
+}
+:where([role="heading"][aria-level="1"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ) {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h2,
+.h2 {
+    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 800;
+    font-size: var(--fs-heading-2, 2.0625rem);
+    line-height: var(--line-height-200, 1.3125);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
+}
+h2 button,
+.h2 button,
+h2 [role="button"],
+.h2 [role="button"],
+h2 input[type="button"],
+.h2 input[type="button"],
+h2 input[type="reset"],
+.h2 input[type="reset"],
+h2 input[type="submit"],
+.h2 input[type="submit"],
+h2 a[href].button,
+.h2 a[href].button {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+:where([role="heading"][aria-level="2"]) {
+    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 800;
+    font-size: var(--fs-heading-2, 2.0625rem);
+    line-height: var(--line-height-200, 1.3125);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
+}
+:where([role="heading"][aria-level="2"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ) {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h3,
+.h3 {
+    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 700;
+    font-size: var(--fs-heading-3, 1.8125rem);
+    line-height: var(--line-height-200, 1.3125);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
+}
+h3 button,
+.h3 button,
+h3 [role="button"],
+.h3 [role="button"],
+h3 input[type="button"],
+.h3 input[type="button"],
+h3 input[type="reset"],
+.h3 input[type="reset"],
+h3 input[type="submit"],
+.h3 input[type="submit"],
+h3 a[href].button,
+.h3 a[href].button {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+:where([role="heading"][aria-level="3"]) {
+    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 700;
+    font-size: var(--fs-heading-3, 1.8125rem);
+    line-height: var(--line-height-200, 1.3125);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
+}
+:where([role="heading"][aria-level="3"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ) {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h4,
+.h4 {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 700;
+    font-size: var(--fs-heading-4, 1.5625rem);
+    line-height: var(--line-height-300, 1.4375);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: italic;
+}
+h4 em,
+.h4 em {
+    font-style: normal;
+}
+h4 em em,
+.h4 em em {
+    font-style: italic;
+}
+h4 button,
+.h4 button,
+h4 [role="button"],
+.h4 [role="button"],
+h4 input[type="button"],
+.h4 input[type="button"],
+h4 input[type="reset"],
+.h4 input[type="reset"],
+h4 input[type="submit"],
+.h4 input[type="submit"],
+h4 a[href].button,
+.h4 a[href].button {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+:where([role="heading"][aria-level="4"]) {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 700;
+    font-size: var(--fs-heading-4, 1.5625rem);
+    line-height: var(--line-height-300, 1.4375);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="4"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="4"]) em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="4"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ) {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h5,
+.h5 {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 600;
+    font-size: var(--fs-heading-5, 1.3125rem);
+    line-height: var(--line-height-300, 1.4375);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: italic;
+}
+h5 em,
+.h5 em {
+    font-style: normal;
+}
+h5 em em,
+.h5 em em {
+    font-style: italic;
+}
+h5 button,
+.h5 button,
+h5 [role="button"],
+.h5 [role="button"],
+h5 input[type="button"],
+.h5 input[type="button"],
+h5 input[type="reset"],
+.h5 input[type="reset"],
+h5 input[type="submit"],
+.h5 input[type="submit"],
+h5 a[href].button,
+.h5 a[href].button {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+:where([role="heading"][aria-level="5"]) {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 600;
+    font-size: var(--fs-heading-5, 1.3125rem);
+    line-height: var(--line-height-300, 1.4375);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="5"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="5"]) em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="5"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ) {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h6,
+.h6 {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 500;
+    font-size: var(--fs-heading-6, 1.1875rem);
+    line-height: var(--line-height-300, 1.4375);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: italic;
+}
+h6 em,
+.h6 em {
+    font-style: normal;
+}
+h6 em em,
+.h6 em em {
+    font-style: italic;
+}
+h6 button,
+.h6 button,
+h6 [role="button"],
+.h6 [role="button"],
+h6 input[type="button"],
+.h6 input[type="button"],
+h6 input[type="reset"],
+.h6 input[type="reset"],
+h6 input[type="submit"],
+.h6 input[type="submit"],
+h6 a[href].button,
+.h6 a[href].button {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+:where([role="heading"][aria-level="6"]) {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 500;
+    font-size: var(--fs-heading-6, 1.1875rem);
+    line-height: var(--line-height-300, 1.4375);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="6"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="6"]) em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="6"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ) {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+.h7 {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 500;
+    font-size: var(--fs-heading-7, 0.9375rem);
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: normal;
+}
+.h7 button,
+.h7 [role="button"],
+.h7 input[type="button"],
+.h7 input[type="reset"],
+.h7 input[type="submit"],
+.h7 a[href].button {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+:where([role="heading"][aria-level="7"]) {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 500;
+    font-size: var(--fs-heading-7, 0.9375rem);
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: normal;
+}
+:where([role="heading"][aria-level="7"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ) {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+.h8 {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 500;
+    font-size: var(--fs-heading-8, 0.8125rem);
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
+}
+.h8 em {
+    font-style: normal;
+}
+.h8 em em {
+    font-style: italic;
+}
+.h8 button,
+.h8 [role="button"],
+.h8 input[type="button"],
+.h8 input[type="reset"],
+.h8 input[type="submit"],
+.h8 a[href].button {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+:where([role="heading"][aria-level="8"]) {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 500;
+    font-size: var(--fs-heading-8, 0.8125rem);
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="8"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="8"]) em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="8"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ) {
+    font: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+.unstyled-heading {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 600;
+    font-size: var(--fs-normal, 1rem);
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    font-style: normal;
+}
+.unstyled-heading em {
+    font-style: italic;
+}
+.unstyled-heading em em {
+    font-style: normal;
+}
+.unstyled-heading em em em {
+    font-style: italic;
+}
+
+h1:is(.unstyled-heading),
+.h1:is(.unstyled-heading),
+h2:is(.unstyled-heading),
+.h2:is(.unstyled-heading),
+h3:is(.unstyled-heading),
+.h3:is(.unstyled-heading),
+h4:is(.unstyled-heading),
+.h4:is(.unstyled-heading),
+h5:is(.unstyled-heading),
+.h5:is(.unstyled-heading),
+h6:is(.unstyled-heading),
+.h6:is(.unstyled-heading),
+.h7:is(.unstyled-heading),
+.h8:is(.unstyled-heading) {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 600;
+    font-size: var(--fs-normal, 1rem);
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    font-style: normal;
+}
+h1:is(.unstyled-heading) em,
+.h1:is(.unstyled-heading) em,
+h2:is(.unstyled-heading) em,
+.h2:is(.unstyled-heading) em,
+h3:is(.unstyled-heading) em,
+.h3:is(.unstyled-heading) em,
+h4:is(.unstyled-heading) em,
+.h4:is(.unstyled-heading) em,
+h5:is(.unstyled-heading) em,
+.h5:is(.unstyled-heading) em,
+h6:is(.unstyled-heading) em,
+.h6:is(.unstyled-heading) em,
+.h7:is(.unstyled-heading) em,
+.h8:is(.unstyled-heading) em {
+    font-style: italic;
+}
+h1:is(.unstyled-heading) em em,
+.h1:is(.unstyled-heading) em em,
+h2:is(.unstyled-heading) em em,
+.h2:is(.unstyled-heading) em em,
+h3:is(.unstyled-heading) em em,
+.h3:is(.unstyled-heading) em em,
+h4:is(.unstyled-heading) em em,
+.h4:is(.unstyled-heading) em em,
+h5:is(.unstyled-heading) em em,
+.h5:is(.unstyled-heading) em em,
+h6:is(.unstyled-heading) em em,
+.h6:is(.unstyled-heading) em em,
+.h7:is(.unstyled-heading) em em,
+.h8:is(.unstyled-heading) em em {
+    font-style: normal;
+}
+h1:is(.unstyled-heading) em em em,
+.h1:is(.unstyled-heading) em em em,
+h2:is(.unstyled-heading) em em em,
+.h2:is(.unstyled-heading) em em em,
+h3:is(.unstyled-heading) em em em,
+.h3:is(.unstyled-heading) em em em,
+h4:is(.unstyled-heading) em em em,
+.h4:is(.unstyled-heading) em em em,
+h5:is(.unstyled-heading) em em em,
+.h5:is(.unstyled-heading) em em em,
+h6:is(.unstyled-heading) em em em,
+.h6:is(.unstyled-heading) em em em,
+.h7:is(.unstyled-heading) em em em,
+.h8:is(.unstyled-heading) em em em {
+    font-style: italic;
+}
+
+:is(.unstyled-heading):where([role="heading"][aria-level="1"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="2"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="3"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="4"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="5"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="6"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="7"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="8"]) {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 600;
+    font-size: var(--fs-normal, 1rem);
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    font-style: normal;
+}
+:is(.unstyled-heading):where([role="heading"][aria-level="1"]) em,
+:is(.unstyled-heading):where([role="heading"][aria-level="2"]) em,
+:is(.unstyled-heading):where([role="heading"][aria-level="3"]) em,
+:is(.unstyled-heading):where([role="heading"][aria-level="4"]) em,
+:is(.unstyled-heading):where([role="heading"][aria-level="5"]) em,
+:is(.unstyled-heading):where([role="heading"][aria-level="6"]) em,
+:is(.unstyled-heading):where([role="heading"][aria-level="7"]) em,
+:is(.unstyled-heading):where([role="heading"][aria-level="8"]) em {
+    font-style: italic;
+}
+:is(.unstyled-heading):where([role="heading"][aria-level="1"]) em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="2"]) em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="3"]) em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="4"]) em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="5"]) em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="6"]) em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="7"]) em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="8"]) em em {
+    font-style: normal;
+}
+:is(.unstyled-heading):where([role="heading"][aria-level="1"]) em em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="2"]) em em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="3"]) em em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="4"]) em em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="5"]) em em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="6"]) em em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="7"]) em em em,
+:is(.unstyled-heading):where([role="heading"][aria-level="8"]) em em em {
+    font-style: italic;
+}
+
+/* # GLOBALS - LISTS
+ * ======================================================================== */
+ol,
+ul {
+    margin: 0;
+    margin-inline-start: 20%;
+    padding: 0;
+    padding-inline-start: 1em;
+    margin-inline-start: var(
+        --gap-inline-tab,
+        var(--fallback-gap-inline-tab, 5%)
+    );
+    line-height: inherit;
+}
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin-block: 0;
+}
+
+ol {
+    list-style-type: decimal;
+}
+ol ol {
+    list-style-type: lower-alpha;
+}
+ol ol ol {
+    list-style-type: lower-roman;
+}
+ul {
+    list-style-type: disc;
+}
+ul ul {
+    list-style-type: circle;
+}
+ol ol ol ol,
+ul ul ul {
+    list-style-type: square; /* fallback */
+    list-style-type: "–  ";
+}
+li {
+    margin: 0;
+    margin-block-start: var(--mrg-soft-300, 0.625rem);
+    padding: 0;
+}
+li::marker {
+    font-weight: 500;
+}
+li > a:only-child {
+    --fallback-display: inline-block;
+    --display: inline-block;
+    display: var(--fallback-display, inline-block);
+    vertical-align: top;
+}
+li li li {
+    margin-block-start: var(--mrg-soft-200, 0.375rem);
+}
+li li li li {
+    font-style: italic;
+}
+li li li li em {
+    font-style: normal;
+}
+li li li li em em {
+    font-style: italic;
+}
+
+/* # GLOBALS - FORMS
+ * ======================================================================== */
+fieldset {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    margin-block: var(--mrg-firm-400, 1.25rem) var(--mrg-half-400, 0.3125rem);
+    margin-inline: 0;
+    padding-block: var(--mrg-soft-300, 0.625rem) var(--mrg-firm-300, 0.8125rem);
+    padding-inline: var(--mrg-firm-400, 1.25rem);
+    border: 0.0625rem solid currentColor;
+    border-radius: 0;
+    border-color: var(
+        --sys-clr-input-border,
+        var(--fallback-sys-clr-input-border, FieldText)
+    );
+    background-color: var(
+        --sys-clr-background,
+        var(--fallback-sys-clr-background, Canvas)
+    );
+    color: var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+}
+fieldset legend {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+}
+fieldset > :first-child {
+    margin-block-start: 0;
+    margin-block-start: calc(
+        var(--mrg-soft-400, 0.9375rem) - var(--mrg-soft-200, 0.375rem)
+    );
+}
+fieldset > legend + * {
+    margin-block-start: 0;
+}
+
+fieldset legend {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 500;
+    font-size: var(--fs-heading-7, 0.9375rem);
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: normal;
+}
+fieldset legend:is(.unstyled-heading) {
+    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    font-weight: 600;
+    font-size: var(--fs-normal, 1rem);
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+}
+fieldset legend {
+    margin-inline: calc(var(--mrg-soft-300, 0.625rem) * -1);
+    margin-block: 0 var(--mrg-soft-300, 0.625rem);
+    padding-inline: var(--mrg-soft-300, 0.625rem);
+    font-style: italic;
+}
+
+textarea,
+select,
+input {
+    --fallback-focus-ring-outline-offset: 0.125rem;
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    margin-block: var(--mrg-firm-400, 1.25rem) var(--mrg-half-400, 0.3125rem);
+    margin-inline: 0;
+    padding-block: var(--mrg-soft-200, 0.375rem);
+    padding-inline: var(--mrg-firm-200, 0.5rem);
+    width: 100%;
+    font: inherit;
+    font-size: 1em;
+    line-height: var(--line-height-200, 1.3125);
+    border-width: 0.0625rem;
+    border-style: solid;
+    border-color: var(
+        --sys-clr-input-border,
+        var(--fallback-sys-clr-input-border, FieldText)
+    );
+    border-radius: 0;
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    background-color: var(
+        --sys-clr-input-bg,
+        var(--fallback-sys-clr-input-bg, Field)
+    );
+    color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    accent-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+}
+textarea:hover,
+select:hover,
+input:hover {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    background-color: var(
+        --sys-clr-input-bg-hover,
+        var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    border-color: var(
+        --sys-clr-input-border-hover,
+        var(--fallback-sys-clr-input-border-hover, FieldText)
+    );
+    color: var(
+        --sys-clr-input-text-hover,
+        var(--fallback-sys-clr-input-text-hover, FieldText)
+    );
+    accent-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+}
+.no-js textarea:focus,
+.no-js select:focus,
+.no-js input:focus,
+.js__no-whereSelector textarea:focus,
+.js__no-whereSelector select:focus,
+.js__no-whereSelector input:focus {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    background-color: var(
+        --sys-clr-input-bg-hover,
+        var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    border-color: var(
+        --sys-clr-input-border-hover,
+        var(--fallback-sys-clr-input-border-hover, FieldText)
+    );
+    color: var(
+        --sys-clr-input-text-hover,
+        var(--fallback-sys-clr-input-text-hover, FieldText)
+    );
+    accent-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+}
+
+:where(.js__no-focusVisible) textarea:focus,
+:where(.js__no-focusVisible) select:focus,
+:where(.js__no-focusVisible) input:focus {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    background-color: var(
+        --sys-clr-input-bg-hover,
+        var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    border-color: var(
+        --sys-clr-input-border-hover,
+        var(--fallback-sys-clr-input-border-hover, FieldText)
+    );
+    color: var(
+        --sys-clr-input-text-hover,
+        var(--fallback-sys-clr-input-text-hover, FieldText)
+    );
+    accent-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+}
+
+textarea:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    background-color: var(
+        --sys-clr-input-bg-hover,
+        var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    border-color: var(
+        --sys-clr-input-border-hover,
+        var(--fallback-sys-clr-input-border-hover, FieldText)
+    );
+    color: var(
+        --sys-clr-input-text-hover,
+        var(--fallback-sys-clr-input-text-hover, FieldText)
+    );
+    accent-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+}
+
+textarea:focus-within,
+select:focus-within,
+input:focus-within {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+    background-color: var(
+        --sys-clr-input-bg-hover,
+        var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    border-color: var(
+        --sys-clr-input-border-hover,
+        var(--fallback-sys-clr-input-border-hover, FieldText)
+    );
+    color: var(
+        --sys-clr-input-text-hover,
+        var(--fallback-sys-clr-input-text-hover, FieldText)
+    );
+    accent-color: var(
+        --sys-clr-input-text,
+        var(--fallback-sys-clr-input-text, FieldText)
+    );
+}
+
+textarea:active,
+select:active,
+input:active {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-text-active,
+        var(--fallback-sys-clr-text-active, ActiveText)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-text-active,
+        var(--fallback-sys-clr-text-active, ActiveText)
+    );
+    background-color: var(
+        --sys-clr-input-bg-active,
+        var(--fallback-sys-clr-input-bg-active, Field)
+    );
+    border-color: var(
+        --sys-clr-input-border-active,
+        var(--fallback-sys-clr-input-border-active, FieldText)
+    );
+    color: var(
+        --sys-clr-input-text-active,
+        var(--fallback-sys-clr-input-text-active, FieldText)
+    );
+    accent-color: var(
+        --sys-clr-text-active,
+        var(--fallback-sys-clr-text-active, ActiveText)
+    );
+}
+
+label + textarea,
+label + select,
+label + input,
+label > textarea,
+label > select,
+label > input {
+    margin-block-start: var(--mrg-half-400, 0.3125rem);
+}
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    opacity: 1;
+    color: currentColor;
+}
+@media (prefers-contrast: less) {
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        color: color-mix(in srgb, currentColor 75%, transparent);
+    }
+}
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
+@media (prefers-contrast: more) {
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        color: color-mix(in srgb, currentColor 90%, transparent);
+    }
+}
+textarea[aria-disabled="true"],
+select[aria-disabled="true"],
+input[aria-disabled="true"],
+textarea[disabled],
+select[disabled],
+input[disabled] {
+    cursor: not-allowed;
+}
+
+input[type="button"],
+input[type="checkbox"],
+input[type="color"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="radio"],
+input[type="range"],
+input[type="reset"],
+input[type="submit"],
+input[type="time"],
+input[type="week"] {
+    cursor: pointer;
+}
+input[type="button"][aria-disabled="true"],
+input[type="button"][disabled],
+input[type="checkbox"][aria-disabled="true"],
+input[type="checkbox"][disabled],
+input[type="color"][aria-disabled="true"],
+input[type="color"][disabled],
+input[type="date"][aria-disabled="true"],
+input[type="date"][disabled],
+input[type="datetime-local"][aria-disabled="true"],
+input[type="datetime-local"][disabled],
+input[type="file"][aria-disabled="true"],
+input[type="file"][disabled],
+input[type="month"][aria-disabled="true"],
+input[type="month"][disabled],
+input[type="radio"][aria-disabled="true"],
+input[type="radio"][disabled],
+input[type="range"][aria-disabled="true"],
+input[type="range"][disabled],
+input[type="reset"][aria-disabled="true"],
+input[type="reset"][disabled],
+input[type="submit"][aria-disabled="true"],
+input[type="submit"][disabled],
+input[type="time"][aria-disabled="true"],
+input[type="time"][disabled],
+input[type="week"][aria-disabled="true"],
+input[type="week"][disabled] {
+    cursor: not-allowed;
+}
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="week"] {
+    cursor: text;
+}
+input[type="email"][aria-disabled="true"],
+input[type="email"][disabled],
+input[type="month"][aria-disabled="true"],
+input[type="month"][disabled],
+input[type="number"][aria-disabled="true"],
+input[type="number"][disabled],
+input[type="password"][aria-disabled="true"],
+input[type="password"][disabled],
+input[type="search"][aria-disabled="true"],
+input[type="search"][disabled],
+input[type="tel"][aria-disabled="true"],
+input[type="tel"][disabled],
+input[type="text"][aria-disabled="true"],
+input[type="text"][disabled],
+input[type="url"][aria-disabled="true"],
+input[type="url"][disabled],
+input[type="week"][aria-disabled="true"],
+input[type="week"][disabled] {
+    cursor: not-allowed;
+}
+input[type="checkbox"],
+input[type="radio"] {
+    --fallback-display: inline-block;
+    --display: inline-block;
+    display: var(--fallback-display, inline-block);
+    padding: 0;
+    width: auto;
+}
+input[type="color"] {
+    padding: 0;
+    height: 2.25em;
+    width: 2.25em;
+}
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"] {
+    width: auto;
+}
+input[type="range"] {
+    margin-block-end: 0;
+    padding: 0;
+}
+
+select {
+    cursor: pointer;
+}
+
+textarea {
+    cursor: text;
+}
+
+label {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    margin-block: var(--mrg-soft-400, 0.9375rem) 0;
+    margin-inline: 0;
+    font-weight: 600;
+    line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
+    color: var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+}
+label:has(> :where([type="checkbox"], [type="radio"])) {
+    --fallback-display: grid;
+    --display: grid;
+    display: var(--fallback-display, grid);
+    grid-template-columns: fit-content(0) 1fr;
+    justify-content: end;
+    align-items: baseline;
+    gap: var(--mrg-soft-300, 0.625rem);
+    font-weight: 400;
+    line-height: var(--line-height-400, 1.6875);
+    color: var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+    cursor: pointer;
+}
+label[aria-disabled="true"]:has(> :where([type="checkbox"], [type="radio"])),
+label[disabled]:has(> :where([type="checkbox"], [type="radio"])) {
+    cursor: not-allowed;
+}
+
+label:has(> :where([type="checkbox"], [type="radio"]))
+    + label:has(> :where([type="checkbox"], [type="radio"])) {
+    margin-block-start: var(--mrg-firm-200, 0.5rem);
+}
+label:has(> :where([type="checkbox"], [type="radio"])) + input,
+label:has(> :where([type="checkbox"], [type="radio"])) + select,
+label:has(> :where([type="checkbox"], [type="radio"])) + textarea {
+    margin-block-start: var(--mrg-firm-400, 1.25rem);
+}
+label > input[type="checkbox"],
+label > input[type="radio"] {
+    margin: 0;
+}
+
+/* ## Forms - Buttons ==================================== */
+button,
+[role="button"],
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+a[href].button {
+    --fallback-focus-ring-outline-offset: 0.125rem;
+    --fallback-display: flex;
+    --display: flex;
+    display: var(--fallback-display, flex);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-content: start;
+    align-items: start;
+    gap: var(--mrg-soft-300, 0.625rem) var(--mrg-firm-100, 0.3125rem);
+    margin-block: var(--mrg-firm-400, 1.25rem) var(--mrg-half-400, 0.3125rem);
+    margin-inline: 0;
+    padding-block: var(--mrg-soft-200, 0.375rem);
+    padding-inline: var(--mrg-firm-300, 0.8125rem);
+    width: fit-content;
+    font: inherit;
+    font-size: 1em;
+    line-height: var(--line-height-100, 1.1875);
+    border-width: 0.125rem;
+    border-style: solid;
+    border-radius: 0;
+    text-align: start;
+    appearance: button;
+    text-decoration: none;
+    cursor: pointer;
+}
+button,
+[role="button"],
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+a[href].button,
+[role="button"]:visited,
+a[href].button:visited {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border,
+        var(--fallback-sys-clr-button-border, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border,
+        var(--fallback-sys-clr-button-border, ButtonFace)
+    );
+    border-color: var(
+        --sys-clr-button-border,
+        var(--fallback-sys-clr-button-border, ButtonFace)
+    );
+    background-color: var(
+        --sys-clr-button-bg,
+        var(--fallback-sys-clr-button-bg, ButtonFace)
+    );
+    color: var(
+        --sys-clr-button-text,
+        var(--fallback-sys-clr-button-text, ButtonText)
+    );
+    accent-color: var(
+        --sys-clr-button-border,
+        var(--fallback-sys-clr-button-border, ButtonFace)
+    );
+}
+
+button:hover,
+[role="button"]:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover,
+a[href].button:hover,
+.no-js button:focus,
+.no-js [role="button"]:focus,
+.no-js input[type="button"]:focus,
+.no-js input[type="reset"]:focus,
+.no-js input[type="submit"]:focus,
+.no-js a[href].button:focus,
+.js__no-whereSelector button:focus,
+.js__no-whereSelector [role="button"]:focus,
+.js__no-whereSelector input[type="button"]:focus,
+.js__no-whereSelector input[type="reset"]:focus,
+.js__no-whereSelector input[type="submit"]:focus,
+.js__no-whereSelector a[href].button:focus {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    border-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    background-color: var(
+        --sys-clr-button-bg-hover,
+        var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    color: var(
+        --sys-clr-button-text-hover,
+        var(--fallback-sys-clr-button-text-hover, SelectedItemText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+}
+
+:where(.js__no-focusVisible) button:focus,
+:where(.js__no-focusVisible) [role="button"]:focus,
+:where(.js__no-focusVisible) input[type="button"]:focus,
+:where(.js__no-focusVisible) input[type="reset"]:focus,
+:where(.js__no-focusVisible) input[type="submit"]:focus,
+:where(.js__no-focusVisible) a[href].button:focus {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    border-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    background-color: var(
+        --sys-clr-button-bg-hover,
+        var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    color: var(
+        --sys-clr-button-text-hover,
+        var(--fallback-sys-clr-button-text-hover, SelectedItemText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+}
+
+button:focus-visible,
+[role="button"]:focus-visible,
+input[type="button"]:focus-visible,
+input[type="reset"]:focus-visible,
+input[type="submit"]:focus-visible,
+a[href].button:focus-visible {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    border-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    background-color: var(
+        --sys-clr-button-bg-hover,
+        var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    color: var(
+        --sys-clr-button-text-hover,
+        var(--fallback-sys-clr-button-text-hover, SelectedItemText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+}
+
+button:focus-within,
+[role="button"]:focus-within,
+input[type="button"]:focus-within,
+input[type="reset"]:focus-within,
+input[type="submit"]:focus-within,
+a[href].button:focus-within {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    border-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    background-color: var(
+        --sys-clr-button-bg-hover,
+        var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    color: var(
+        --sys-clr-button-text-hover,
+        var(--fallback-sys-clr-button-text-hover, SelectedItemText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+}
+
+button:active,
+[role="button"]:active,
+input[type="button"]:active,
+input[type="reset"]:active,
+input[type="submit"]:active,
+a[href].button:active {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-active,
+        var(--fallback-sys-clr-button-border-active, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-active,
+        var(--fallback-sys-clr-button-border-active, ButtonFace)
+    );
+    border-color: var(
+        --sys-clr-button-border-active,
+        var(--fallback-sys-clr-button-border-active, ButtonFace)
+    );
+    background-color: var(
+        --sys-clr-button-bg-active,
+        var(--fallback-sys-clr-button-bg-active, ButtonFace)
+    );
+    color: var(
+        --sys-clr-button-text-active,
+        var(--fallback-sys-clr-button-text-active, ButtonText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-active,
+        var(--fallback-sys-clr-button-border-active, ButtonFace)
+    );
+}
+
+button[aria-disabled="true"],
+[aria-disabled="true"][role="button"],
+input[aria-disabled="true"][type="button"],
+input[aria-disabled="true"][type="reset"],
+input[aria-disabled="true"][type="submit"],
+a[aria-disabled="true"][href].button,
+button[disabled],
+[disabled][role="button"],
+input[disabled][type="button"],
+input[disabled][type="reset"],
+input[disabled][type="submit"],
+a[disabled][href].button {
+    cursor: not-allowed;
+}
+
+::file-selector-button {
+    --fallback-focus-ring-outline-offset: 0.125rem;
+    margin-block: 0;
+    margin-inline: 0 var(--mrg-firm-300, 0.8125rem);
+    padding-block: var(--mrg-soft-200, 0.375rem);
+    padding-inline: var(--mrg-firm-300, 0.8125rem);
+    font: inherit;
+    font-size: 1em;
+    line-height: var(--line-height-100, 1.1875);
+    border-width: 0.125rem;
+    border-style: solid;
+    border-radius: 0;
+    text-align: start;
+    appearance: button;
+    text-decoration: none;
+    cursor: pointer;
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border,
+        var(--fallback-sys-clr-button-border, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border,
+        var(--fallback-sys-clr-button-border, ButtonFace)
+    );
+    border-color: var(
+        --sys-clr-button-border,
+        var(--fallback-sys-clr-button-border, ButtonFace)
+    );
+    background-color: var(
+        --sys-clr-button-bg,
+        var(--fallback-sys-clr-button-bg, ButtonFace)
+    );
+    color: var(
+        --sys-clr-button-text,
+        var(--fallback-sys-clr-button-text, ButtonText)
+    );
+    accent-color: var(
+        --sys-clr-button-border,
+        var(--fallback-sys-clr-button-border, ButtonFace)
+    );
+}
+
+:hover::file-selector-button {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    border-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    background-color: var(
+        --sys-clr-button-bg-hover,
+        var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    color: var(
+        --sys-clr-button-text-hover,
+        var(--fallback-sys-clr-button-text-hover, SelectedItemText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+}
+
+.no-js :focus::file-selector-button,
+.js__no-whereSelector :focus::file-selector-button {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    border-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    background-color: var(
+        --sys-clr-button-bg-hover,
+        var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    color: var(
+        --sys-clr-button-text-hover,
+        var(--fallback-sys-clr-button-text-hover, SelectedItemText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+}
+
+:where(.js__no-focusVisible) :focus::file-selector-button {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    border-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    background-color: var(
+        --sys-clr-button-bg-hover,
+        var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    color: var(
+        --sys-clr-button-text-hover,
+        var(--fallback-sys-clr-button-text-hover, SelectedItemText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+}
+
+:focus-visible::file-selector-button {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    border-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    background-color: var(
+        --sys-clr-button-bg-hover,
+        var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    color: var(
+        --sys-clr-button-text-hover,
+        var(--fallback-sys-clr-button-text-hover, SelectedItemText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+}
+
+:focus-within::file-selector-button {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    border-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+    background-color: var(
+        --sys-clr-button-bg-hover,
+        var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    color: var(
+        --sys-clr-button-text-hover,
+        var(--fallback-sys-clr-button-text-hover, SelectedItemText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-hover,
+        var(--fallback-sys-clr-button-border-hover, SelectedItem)
+    );
+}
+
+:active::file-selector-button {
+    --fallback-focus-ring-outline-color: var(
+        --sys-clr-button-border-active,
+        var(--fallback-sys-clr-button-border-active, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --sys-clr-button-border-active,
+        var(--fallback-sys-clr-button-border-active, ButtonFace)
+    );
+    border-color: var(
+        --sys-clr-button-border-active,
+        var(--fallback-sys-clr-button-border-active, ButtonFace)
+    );
+    background-color: var(
+        --sys-clr-button-bg-active,
+        var(--fallback-sys-clr-button-bg-active, ButtonFace)
+    );
+    color: var(
+        --sys-clr-button-text-active,
+        var(--fallback-sys-clr-button-text-active, ButtonText)
+    );
+    accent-color: var(
+        --sys-clr-button-border-active,
+        var(--fallback-sys-clr-button-border-active, ButtonFace)
+    );
+}
+
+[aria-disabled="true"]::file-selector-button,
+[disabled]::file-selector-button {
+    cursor: not-allowed;
+}
+
+/* # GLOBALS - TABLES
+ * ======================================================================== */
+.table-wrapper,
+table {
+    position: relative;
+    margin-block: var(--mrg-firm-400, 1.25rem) 0;
+    margin-block: var(--mrg-firm-600, 2.25rem)
+        calc(var(--mrg-soft-600, 1.875rem) - var(--mrg-soft-400, 0.9375rem));
+    background: var(
+        --sys-clr-accent-bg,
+        var(--fallback-sys-clr-accent-bg, CanvasText)
+    );
+    max-width: 100%;
+}
+
+table {
+    border-spacing: var(--border-width-200, 0.125rem);
+    line-height: inherit;
+}
+@media (forced-colors: active), (prefers-contrast: custom) {
+    table {
+        border-spacing: 0;
+    }
+    table th,
+    table td {
+        border-block-end: var(--border-width-200, 0.125rem) solid
+            var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+        border-inline-end: var(--border-width-200, 0.125rem) solid
+            var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+    }
+    table th:first-child,
+    table td:first-child {
+        border-inline-start: var(--border-width-200, 0.125rem) solid
+            var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+    }
+    table tr:first-child th,
+    table tr:first-child td {
+        border-block-start: var(--border-width-200, 0.125rem) solid
+            var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+    }
+}
+.table-wrapper {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    overflow-x: auto;
+    overscroll-behavior-x: none;
+}
+.table-wrapper > table {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    max-width: none;
+}
+
+th,
+td {
+    padding-block: var(--mrg-soft-200, 0.375rem);
+    padding-inline: var(--mrg-firm-300, 0.8125rem);
+    min-width: 10em;
+    background: var(
+        --sys-clr-background,
+        var(--fallback-sys-clr-background, Canvas)
+    );
+    vertical-align: top;
+    text-align: left;
+}
+th > :first-child,
+td > :first-child {
+    margin-top: 0;
+}
+th > :last-child,
+td > :last-child {
+    margin-bottom: 0;
+}
+
+th {
+    padding-top: var(--mrg-soft-200, 0.375rem);
+    padding-bottom: var(--mrg-soft-200, 0.375rem);
+    text-wrap: balance;
+    background: var(
+        --sys-clr-accent-bg,
+        var(--fallback-sys-clr-accent-bg, CanvasText)
+    );
+    color: var(
+        --sys-clr-accent-text,
+        var(--fallback-sys-clr-accent-text, Canvas)
+    );
+}
+
+/*! END of @maddimathon/utility-sass/template/demo - custom property prefixes (with fallback) */

@@ -17,6 +17,21 @@
     @include meta.var-dump('meta.current-version()', meta.current-version());
 }
 
+/* ## MODULES - META - arglist() ==================================== */
+
+@media arglist {
+    @include meta.var-dump('meta.arglist()', meta.arglist());
+    @include meta.var-dump('meta.arglist( one, two )', meta.arglist(one, two));
+    @include meta.var-dump(
+        'meta.arglist( $param: one, $value: two )',
+        meta.arglist($param: one, $value: two)
+    );
+    @include meta.var-dump(
+        'meta.arglist( something, $param: one, $value: two )',
+        meta.arglist(something, $param: one, $value: two)
+    );
+}
+
 /* ## MODULES - META - call-global-compiler-fn() ==================================== */
 
 @media call-global-compiler-fn {
@@ -31,6 +46,55 @@
             'demo-functions/getCurrentVersion'
         )
     );
+}
+
+/* ## MODULES - META - keywords-list() ==================================== */
+
+@media keywords-list {
+    @include meta.var-dump('meta.keywords-list()', meta.keywords-list());
+    @include meta.var-dump('meta.keywords-list( one, two )', meta.keywords-list(one, two));
+    @include meta.var-dump(
+        'meta.keywords-list( $param: one, $value: two )',
+        meta.keywords-list($param: one, $value: two)
+    );
+    @include meta.var-dump(
+        'meta.keywords-list( something, $param: one, $value: two )',
+        meta.keywords-list(something, $param: one, $value: two)
+    );
+}
+
+/* ## MODULES - META - is-truthy() ==================================== */
+
+$_truthyFalseyList: (
+    -20,
+    0,
+    1,
+    15,
+    '',
+    'text',
+    (
+        map: true,
+    ),
+    true,
+    false,
+    null,
+    // meta.arglist(),
+    meta.arglist(one, two),
+    meta.arglist(
+        $param: one,
+        $value: two,
+    ),
+    // (),
+    (list, list)
+);
+
+meta.is-truthy {
+    @each $value in $_truthyFalseyList {
+        @include meta.var-dump(
+            'meta.is-truthy#{meta.demo-args-dump($value)}',
+            meta.is-truthy($value)
+        );
+    }
 }
 
 /* ## MODULES - META - mixin-demo() ==================================== */

@@ -1,39 +1,41 @@
 @charset "UTF-8";
 /**
- * Utility Sass - Template
- * @maddimathon/utility-sass/template@0.1.0-beta.0.draft
+ * Utility Sass - Template - Demo - Custom Property Prefixes
+ * @maddimathon/utility-sass/template/demo - custom property prefixes@0.1.0-beta.0.draft
+ * 
+ * This is a sample stylesheet with a custom property prefix set in the config (i.e. — $customPropertyPrefix: "prefix-").
  * 
  * https://maddimathon.github.io/utility-sass
  */
-/*! START of @maddimathon/utility-sass/template */
+/*! START of @maddimathon/utility-sass/template/demo - custom property prefixes */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
 /* #region Tokens - @property */
-@property --display {
+@property --prefix-display {
     syntax: "*";
     inherits: false;
 }
-@property --focus-ring-outline-color {
+@property --prefix-focus-ring-outline-color {
     syntax: "<color>";
     inherits: true;
     initial-value: currentColor;
 }
-@property --focus-ring-outline-offset {
+@property --prefix-focus-ring-outline-offset {
     syntax: "<length-percentage> | <number>";
     inherits: true;
     initial-value: 0.125em;
 }
-@property --focus-ring-outline-width {
+@property --prefix-focus-ring-outline-width {
     syntax: "<length-percentage> | <number>";
     inherits: true;
     initial-value: 0.125em;
 }
-@property --height-nav-primary {
+@property --prefix-height-nav-primary {
     syntax: "<length-percentage> | <number>";
     inherits: true;
     initial-value: 0;
 }
-@property --scroll-padding-top {
+@property --prefix-scroll-padding-top {
     syntax: "<length-percentage> | <number>";
     inherits: true;
     initial-value: 0px;
@@ -41,177 +43,178 @@
 /* #endregion Tokens - @property */
 /* #region Tokens - System Colours */
 :where(:root) {
-    --sys-clr-background: Canvas;
-    --sys-clr-text: CanvasText;
-    --sys-clr-accent-bg: CanvasText;
+    --prefix-sys-clr-background: Canvas;
+    --prefix-sys-clr-text: CanvasText;
+    --prefix-sys-clr-accent-bg: CanvasText;
 }
 @supports (color: AccentColor) {
     :where(:root) {
-        --sys-clr-accent-bg: AccentColor;
+        --prefix-sys-clr-accent-bg: AccentColor;
     }
 }
 :where(:root) {
-    --sys-clr-accent-text: Canvas;
+    --prefix-sys-clr-accent-text: Canvas;
 }
 @supports (color: AccentColorText) {
     :where(:root) {
-        --sys-clr-accent-text: AccentColorText;
+        --prefix-sys-clr-accent-text: AccentColorText;
     }
 }
 :where(:root) {
-    --sys-clr-mark-bg: CanvasText;
+    --prefix-sys-clr-mark-bg: CanvasText;
 }
 @supports (color: AccentColor) {
     :where(:root) {
-        --sys-clr-mark-bg: AccentColor;
+        --prefix-sys-clr-mark-bg: AccentColor;
     }
 }
 @supports (color: Mark) {
     :where(:root) {
-        --sys-clr-mark-bg: Mark;
+        --prefix-sys-clr-mark-bg: Mark;
     }
 }
 :where(:root) {
-    --sys-clr-mark-text: Canvas;
+    --prefix-sys-clr-mark-text: Canvas;
 }
 @supports (color: AccentColorText) {
     :where(:root) {
-        --sys-clr-mark-text: AccentColorText;
+        --prefix-sys-clr-mark-text: AccentColorText;
     }
 }
 @supports (color: MarkText) {
     :where(:root) {
-        --sys-clr-mark-text: MarkText;
+        --prefix-sys-clr-mark-text: MarkText;
     }
 }
 :where(:root) {
-    --sys-clr-selected-bg: SelectedItem;
-    --sys-clr-selected-text: SelectedItemText;
-    --sys-clr-selection-bg: Highlight;
-    --sys-clr-selection-text: HighlightText;
-    --sys-clr-text-active: ActiveText;
-    --sys-clr-text-disabled: GrayText;
-    --sys-clr-button-bg: ButtonFace;
-    --sys-clr-button-bg-active: ButtonFace;
-    --sys-clr-button-bg-hover: SelectedItem;
-    --sys-clr-button-border: ButtonFace;
+    --prefix-sys-clr-selected-bg: SelectedItem;
+    --prefix-sys-clr-selected-text: SelectedItemText;
+    --prefix-sys-clr-selection-bg: Highlight;
+    --prefix-sys-clr-selection-text: HighlightText;
+    --prefix-sys-clr-text-active: ActiveText;
+    --prefix-sys-clr-text-disabled: GrayText;
+    --prefix-sys-clr-button-bg: ButtonFace;
+    --prefix-sys-clr-button-bg-active: ButtonFace;
+    --prefix-sys-clr-button-bg-hover: SelectedItem;
+    --prefix-sys-clr-button-border: ButtonFace;
 }
 @supports (color: ButtonBorder) {
     :where(:root) {
-        --sys-clr-button-border: ButtonBorder;
+        --prefix-sys-clr-button-border: ButtonBorder;
     }
 }
 :where(:root) {
-    --sys-clr-button-border-active: ButtonFace;
+    --prefix-sys-clr-button-border-active: ButtonFace;
 }
 @supports (color: ButtonBorder) {
     :where(:root) {
-        --sys-clr-button-border-active: ButtonBorder;
+        --prefix-sys-clr-button-border-active: ButtonBorder;
     }
 }
 :where(:root) {
-    --sys-clr-button-border-hover: SelectedItem;
-    --sys-clr-button-text: ButtonText;
-    --sys-clr-button-text-active: ButtonText;
-    --sys-clr-button-text-hover: SelectedItemText;
-    --sys-clr-input-bg: Field;
-    --sys-clr-input-bg-hover: Field;
-    --sys-clr-input-bg-active: Field;
-    --sys-clr-input-border: FieldText;
-    --sys-clr-input-border-hover: FieldText;
-    --sys-clr-input-border-active: FieldText;
-    --sys-clr-input-text: FieldText;
-    --sys-clr-input-text-hover: FieldText;
-    --sys-clr-input-text-active: FieldText;
-    --sys-clr-link: LinkText;
-    --sys-clr-link-active: ActiveText;
-    --sys-clr-link-hover: ActiveText;
-    --sys-clr-link-visited: VisitedText;
+    --prefix-sys-clr-button-border-hover: SelectedItem;
+    --prefix-sys-clr-button-text: ButtonText;
+    --prefix-sys-clr-button-text-active: ButtonText;
+    --prefix-sys-clr-button-text-hover: SelectedItemText;
+    --prefix-sys-clr-input-bg: Field;
+    --prefix-sys-clr-input-bg-hover: Field;
+    --prefix-sys-clr-input-bg-active: Field;
+    --prefix-sys-clr-input-border: FieldText;
+    --prefix-sys-clr-input-border-hover: FieldText;
+    --prefix-sys-clr-input-border-active: FieldText;
+    --prefix-sys-clr-input-text: FieldText;
+    --prefix-sys-clr-input-text-hover: FieldText;
+    --prefix-sys-clr-input-text-active: FieldText;
+    --prefix-sys-clr-link: LinkText;
+    --prefix-sys-clr-link-active: ActiveText;
+    --prefix-sys-clr-link-hover: ActiveText;
+    --prefix-sys-clr-link-visited: VisitedText;
 }
 
 @media (forced-colors: active), (prefers-contrast: custom) {
     :root {
-        --sys-clr-background: Canvas !important;
-        --sys-clr-text: CanvasText !important;
-        --sys-clr-accent-bg: CanvasText !important;
-        --sys-clr-accent-bg: AccentColor !important;
-        --sys-clr-accent-text: Canvas !important;
-        --sys-clr-accent-text: AccentColorText !important;
-        --sys-clr-mark-bg: CanvasText !important;
-        --sys-clr-mark-bg: AccentColor !important;
-        --sys-clr-mark-bg: Mark !important;
-        --sys-clr-mark-text: Canvas !important;
-        --sys-clr-mark-text: AccentColorText !important;
-        --sys-clr-mark-text: MarkText !important;
-        --sys-clr-selected-bg: SelectedItem !important;
-        --sys-clr-selected-text: SelectedItemText !important;
-        --sys-clr-selection-bg: Highlight !important;
-        --sys-clr-selection-text: HighlightText !important;
-        --sys-clr-text-active: ActiveText !important;
-        --sys-clr-text-disabled: GrayText !important;
-        --sys-clr-button-bg: ButtonFace !important;
-        --sys-clr-button-bg-active: ButtonFace !important;
-        --sys-clr-button-bg-hover: ButtonFace !important;
-        --sys-clr-button-border: ButtonFace !important;
-        --sys-clr-button-border: ButtonBorder !important;
-        --sys-clr-button-border-active: ButtonFace !important;
-        --sys-clr-button-border-active: ButtonBorder !important;
-        --sys-clr-button-border-hover: ButtonFace !important;
-        --sys-clr-button-border-hover: ButtonBorder !important;
-        --sys-clr-button-text: ButtonText !important;
-        --sys-clr-button-text-active: ButtonText !important;
-        --sys-clr-button-text-hover: ButtonText !important;
-        --sys-clr-input-bg: Field !important;
-        --sys-clr-input-bg-hover: Field !important;
-        --sys-clr-input-bg-active: Field !important;
-        --sys-clr-input-border: FieldText !important;
-        --sys-clr-input-border-hover: FieldText !important;
-        --sys-clr-input-border-active: FieldText !important;
-        --sys-clr-input-text: FieldText !important;
-        --sys-clr-input-text-hover: FieldText !important;
-        --sys-clr-input-text-active: FieldText !important;
-        --sys-clr-link: LinkText !important;
-        --sys-clr-link-active: ActiveText !important;
-        --sys-clr-link-hover: ActiveText !important;
-        --sys-clr-link-visited: VisitedText !important;
+        --prefix-sys-clr-background: Canvas !important;
+        --prefix-sys-clr-text: CanvasText !important;
+        --prefix-sys-clr-accent-bg: CanvasText !important;
+        --prefix-sys-clr-accent-bg: AccentColor !important;
+        --prefix-sys-clr-accent-text: Canvas !important;
+        --prefix-sys-clr-accent-text: AccentColorText !important;
+        --prefix-sys-clr-mark-bg: CanvasText !important;
+        --prefix-sys-clr-mark-bg: AccentColor !important;
+        --prefix-sys-clr-mark-bg: Mark !important;
+        --prefix-sys-clr-mark-text: Canvas !important;
+        --prefix-sys-clr-mark-text: AccentColorText !important;
+        --prefix-sys-clr-mark-text: MarkText !important;
+        --prefix-sys-clr-selected-bg: SelectedItem !important;
+        --prefix-sys-clr-selected-text: SelectedItemText !important;
+        --prefix-sys-clr-selection-bg: Highlight !important;
+        --prefix-sys-clr-selection-text: HighlightText !important;
+        --prefix-sys-clr-text-active: ActiveText !important;
+        --prefix-sys-clr-text-disabled: GrayText !important;
+        --prefix-sys-clr-button-bg: ButtonFace !important;
+        --prefix-sys-clr-button-bg-active: ButtonFace !important;
+        --prefix-sys-clr-button-bg-hover: ButtonFace !important;
+        --prefix-sys-clr-button-border: ButtonFace !important;
+        --prefix-sys-clr-button-border: ButtonBorder !important;
+        --prefix-sys-clr-button-border-active: ButtonFace !important;
+        --prefix-sys-clr-button-border-active: ButtonBorder !important;
+        --prefix-sys-clr-button-border-hover: ButtonFace !important;
+        --prefix-sys-clr-button-border-hover: ButtonBorder !important;
+        --prefix-sys-clr-button-text: ButtonText !important;
+        --prefix-sys-clr-button-text-active: ButtonText !important;
+        --prefix-sys-clr-button-text-hover: ButtonText !important;
+        --prefix-sys-clr-input-bg: Field !important;
+        --prefix-sys-clr-input-bg-hover: Field !important;
+        --prefix-sys-clr-input-bg-active: Field !important;
+        --prefix-sys-clr-input-border: FieldText !important;
+        --prefix-sys-clr-input-border-hover: FieldText !important;
+        --prefix-sys-clr-input-border-active: FieldText !important;
+        --prefix-sys-clr-input-text: FieldText !important;
+        --prefix-sys-clr-input-text-hover: FieldText !important;
+        --prefix-sys-clr-input-text-active: FieldText !important;
+        --prefix-sys-clr-link: LinkText !important;
+        --prefix-sys-clr-link-active: ActiveText !important;
+        --prefix-sys-clr-link-hover: ActiveText !important;
+        --prefix-sys-clr-link-visited: VisitedText !important;
     }
 }
 /* #endregion Tokens - System Colours */
 /* #region Tokens - Width */
 :root {
-    --width-content: 36rem;
-    --width-sidebar: 18rem;
-    --width-callout: 26.25rem;
-    --width-page: 58.6875rem;
-    --width-page: calc(
-        var(--width-content, 36rem) + var(--width-sidebar, 18rem) +
-            var(--gap-inline-layout, 8vw)
+    --prefix-width-content: 36rem;
+    --prefix-width-sidebar: 18rem;
+    --prefix-width-callout: 26.25rem;
+    --prefix-width-page: 58.6875rem;
+    --prefix-width-page: calc(
+        var(--prefix-width-content, 36rem) +
+            var(--prefix-width-sidebar, 18rem) +
+            var(--prefix-gap-inline-layout, 8vw)
     );
 }
 
 /* #endregion Tokens - Width */
 /* #region Tokens - Gap */
 :root {
-    --gap-block-layout: 5vw;
-    --gap-block-layout: max(1.875rem, min(5svw, 3.5rem));
-    --gap-block-layout-half: 2.5vw;
-    --gap-block-layout-half: max(0.9375rem, min(2.5svw, 1.75rem));
-    --gap-inline-indent: 9%;
-    --gap-inline-indent: max(0.5rem, min(9%, 4rem));
-    --gap-inline-layout: 8vw;
-    --gap-inline-layout: max(1.25rem, min(8svw, 7.125rem));
-    --gap-inline-layout-half: 4vw;
-    --gap-inline-layout-half: max(0.625rem, min(4svw, 3.5625rem));
-    --gap-inline-tab: 5%;
-    --gap-inline-tab: max(0.3125rem, min(5%, 2.25rem));
+    --prefix-gap-block-layout: 5vw;
+    --prefix-gap-block-layout: clamp(1.875rem, 5svw, 3.5rem);
+    --prefix-gap-block-layout-half: 2.5vw;
+    --prefix-gap-block-layout-half: clamp(0.9375rem, 2.5svw, 1.75rem);
+    --prefix-gap-inline-indent: 9%;
+    --prefix-gap-inline-indent: clamp(0.5rem, 9%, 4rem);
+    --prefix-gap-inline-layout: 8vw;
+    --prefix-gap-inline-layout: clamp(1.25rem, 8svw, 7.125rem);
+    --prefix-gap-inline-layout-half: 4vw;
+    --prefix-gap-inline-layout-half: clamp(0.625rem, 4svw, 3.5625rem);
+    --prefix-gap-inline-tab: 5%;
+    --prefix-gap-inline-tab: clamp(0.3125rem, 5%, 2.25rem);
 }
 
 /* #endregion Tokens - Gap */
 /* #region Tokens - Style */
 :root {
-    --focus-ring-outline-color: var(--sys-clr-link, LinkText);
-    --focus-ring-outline-offset: 0.125em;
-    --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    --prefix-focus-ring-outline-color: var(--prefix-sys-clr-link, LinkText);
+    --prefix-focus-ring-outline-offset: 0.125em;
+    --prefix-focus-ring-outline-width: clamp(0.125rem, 0.125em, 0.25rem);
 }
 
 /* #endregion Tokens - Style */
@@ -220,35 +223,35 @@
 .no-js :focus,
 .js__no-whereSelector :focus {
     /* %focus-ring--fallback */
-    outline-width: var(--focus-ring-outline-width, 0.125em);
+    outline-width: var(--prefix-focus-ring-outline-width, 0.125em);
     outline-style: dashed;
     outline-color: var(
-        --focus-ring-outline-color,
-        var(--sys-clr-link, LinkText)
+        --prefix-focus-ring-outline-color,
+        var(--prefix-sys-clr-link, LinkText)
     );
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+    outline-offset: var(--prefix-focus-ring-outline-offset, 0.125em);
 }
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
-    outline-width: var(--focus-ring-outline-width, 0.125em);
+    outline-width: var(--prefix-focus-ring-outline-width, 0.125em);
     outline-style: dashed;
     outline-color: var(
-        --focus-ring-outline-color,
-        var(--sys-clr-link, LinkText)
+        --prefix-focus-ring-outline-color,
+        var(--prefix-sys-clr-link, LinkText)
     );
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+    outline-offset: var(--prefix-focus-ring-outline-offset, 0.125em);
 }
 
 :focus-visible {
     /* %focus-ring--visible */
-    outline-width: var(--focus-ring-outline-width, 0.125em);
+    outline-width: var(--prefix-focus-ring-outline-width, 0.125em);
     outline-style: dashed;
     outline-color: var(
-        --focus-ring-outline-color,
-        var(--sys-clr-link, LinkText)
+        --prefix-focus-ring-outline-color,
+        var(--prefix-sys-clr-link, LinkText)
     );
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+    outline-offset: var(--prefix-focus-ring-outline-offset, 0.125em);
 }
 
 .screen-reader-text {
@@ -264,64 +267,61 @@
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
 :root {
-    --scroll-padding-top: var(--gap-block-layout, 5vw);
-    --scroll-padding-top: calc(
-        var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw)
+    --prefix-scroll-padding-top: var(--prefix-gap-block-layout, 5vw);
+    --prefix-scroll-padding-top: calc(
+        var(--prefix-height-nav-primary, 0) +
+            var(--prefix-gap-block-layout, 5vw)
     );
 }
 
 :root,
 body {
-    scroll-padding-top: var(--scroll-padding-top, var(--gap-block-layout, 5vw));
+    scroll-padding-top: var(
+        --prefix-scroll-padding-top,
+        var(--prefix-gap-block-layout, 5vw)
+    );
 }
 
 body {
-    --display: flex;
-    display: var(--display, flex);
+    --prefix-display: flex;
+    display: var(--prefix-display, flex);
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: var(--gap-block-layout, 5vw) var(--gap-inline-layout, 8vw);
-    margin-top: var(--gap-block-layout, 5vw);
-    margin-bottom: var(--gap-block-layout, 5vw);
-    margin-left: var(--gap-inline-layout, 8vw);
-    margin-right: var(--gap-inline-layout, 8vw);
+    gap: var(--prefix-gap-block-layout, 5vw)
+        var(--prefix-gap-inline-layout, 8vw);
+    margin-block: var(--prefix-gap-block-layout, 5vw);
+    margin-inline: var(--prefix-gap-inline-layout, 8vw);
 }
 :where(body) > :where(*) {
-    width: min(var(--width-page, 58.6875rem), 100%);
+    width: min(var(--prefix-width-page, 58.6875rem), 100%);
 }
 
 hr {
-    --display: block;
-    display: var(--display, block);
+    --prefix-display: block;
+    display: var(--prefix-display, block);
     align-self: center;
     justify-self: center;
-    margin-top: 2.25rem;
-    margin-bottom: 2.25rem;
-    margin-left: var(--gap-inline-indent, 9%);
-    margin-right: var(--gap-inline-indent, 9%);
+    margin-block: 2.25rem;
+    margin-inline: var(--prefix-gap-inline-indent, 9%);
     width: 72.92%;
-    max-width: var(--width-callout, 26.25rem);
+    max-width: var(--prefix-width-callout, 26.25rem);
     border: none;
-    border-bottom: currentColor solid 0.125rem;
+    border-block-end: currentColor solid 0.125rem;
 }
 
 /* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
-::-moz-selection {
-    background-color: var(--sys-clr-selection-bg, Highlight);
-    color: var(--sys-clr-selection-text, HighlightText);
-}
 ::selection {
-    background-color: var(--sys-clr-selection-bg, Highlight);
-    color: var(--sys-clr-selection-text, HighlightText);
+    background-color: var(--prefix-sys-clr-selection-bg, Highlight);
+    color: var(--prefix-sys-clr-selection-text, HighlightText);
 }
 
 :root {
     font-weight: 400;
     line-height: 1.6875;
-    background: var(--sys-clr-background, Canvas);
-    color: var(--sys-clr-text, CanvasText);
+    background: var(--prefix-sys-clr-background, Canvas);
+    color: var(--prefix-sys-clr-text, CanvasText);
 }
 @media (max-width: 24.99em) {
     :root {
@@ -361,38 +361,37 @@ i em em {
 }
 
 a[href] {
-    --focus-ring-outline-offset: 0.0625em;
-    --display: inline;
-    display: var(--display, inline);
+    --prefix-focus-ring-outline-offset: 0.0625em;
+    --prefix-display: inline;
+    display: var(--prefix-display, inline);
     border: none;
-    -webkit-text-decoration: underline 0.0625em;
     text-decoration: underline 0.0625em;
     text-underline-offset: 0.25em;
-    color: var(--sys-clr-link, LinkText);
+    color: var(--prefix-sys-clr-link, LinkText);
 }
 a[href]:visited {
-    color: var(--sys-clr-link-visited, VisitedText);
+    color: var(--prefix-sys-clr-link-visited, VisitedText);
 }
 
 a[href]:hover,
 .no-js a[href]:focus,
 .js__no-whereSelector a[href]:focus {
     text-decoration-color: transparent;
-    color: var(--sys-clr-link-hover, ActiveText);
+    color: var(--prefix-sys-clr-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) a[href]:focus {
     text-decoration-color: transparent;
-    color: var(--sys-clr-link-hover, ActiveText);
+    color: var(--prefix-sys-clr-link-hover, ActiveText);
 }
 
 a[href]:focus-visible {
     text-decoration-color: transparent;
-    color: var(--sys-clr-link-hover, ActiveText);
+    color: var(--prefix-sys-clr-link-hover, ActiveText);
 }
 
 a[href]:active {
-    color: var(--sys-clr-link-active, ActiveText);
+    color: var(--prefix-sys-clr-link-active, ActiveText);
 }
 
 a.no-style[href] {
@@ -402,52 +401,45 @@ a.no-style[href] {
 }
 a[aria-disabled="true"][href] {
     text-decoration-line: line-through;
-    color: var(--sys-clr-text-disabled, GrayText);
+    color: var(--prefix-sys-clr-text-disabled, GrayText);
     opacity: 1;
     cursor: not-allowed;
 }
 
 abbr[title] {
-    -webkit-text-decoration: dotted underline 0.125em;
     text-decoration: dotted underline 0.125em;
     cursor: help;
 }
 
 /* ## Typography - Block ==================================== */
 p {
-    margin-top: 0.9375rem;
-    margin-bottom: 0;
+    margin-block: 0.9375rem 0;
 }
 hr + p {
-    margin-top: 0;
+    margin-block-start: 0;
 }
 
 blockquote {
-    --display: block;
-    display: var(--display, block);
-    margin-left: var(--gap-inline-indent, 9%);
-    margin-right: var(--gap-inline-indent, 9%);
-    margin-top: 0.9375rem;
-    margin-bottom: 0;
-    margin-top: 1.875rem;
-    margin-bottom: 0.9375rem;
-    padding-left: 0.8125rem;
-    border-left: 0.125rem solid currentColor;
+    --prefix-display: block;
+    display: var(--prefix-display, block);
+    margin-inline: var(--prefix-gap-inline-indent, 9%);
+    margin-block: 0.9375rem 0;
+    margin-block: 1.875rem 0.9375rem;
+    padding-inline-start: 0.8125rem;
+    border-inline-start: 0.125rem solid currentColor;
     width: auto;
-    max-width: var(--width-callout, 26.25rem);
+    max-width: var(--prefix-width-callout, 26.25rem);
 }
 blockquote > :first-child {
-    margin-top: 0;
+    margin-block-start: 0;
 }
 blockquote > cite {
-    --display: block;
-    display: var(--display, block);
-    margin-top: 0.9375rem;
-    margin-bottom: 0;
-    text-align: right;
+    --prefix-display: block;
+    display: var(--prefix-display, block);
+    margin-block: 0.9375rem 0;
+    text-align: end;
 }
 blockquote > cite::before {
-    content: "— ";
     content: "— "/"";
 }
 @media (prefers-contrast: less) {
@@ -472,17 +464,13 @@ samp {
 }
 
 pre {
-    --display: block;
-    display: var(--display, block);
+    --prefix-display: block;
+    display: var(--prefix-display, block);
     position: relative;
-    margin-top: 1.25rem;
-    margin-bottom: 0.3125rem;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0.625rem;
-    padding-bottom: 0.625rem;
-    padding-left: 0.8125rem;
-    padding-right: 0.8125rem;
+    margin-block: 1.25rem 0.3125rem;
+    margin-inline: 0;
+    padding-block: 0.625rem;
+    padding-inline: 0.8125rem;
     border: 0.0625rem solid currentColor;
     width: auto;
     max-width: 100%;
@@ -492,12 +480,11 @@ pre {
 pre > code,
 pre > kbd,
 pre > samp {
-    --display: block;
-    display: var(--display, block);
+    --prefix-display: block;
+    display: var(--prefix-display, block);
     margin: 0;
     padding: 0;
     border: none;
-    width: -moz-fit-content;
     width: fit-content;
     max-width: none;
     overflow: visible;
@@ -517,8 +504,7 @@ pre:has(> :is(code, kbd, samp)) > code {
 h1,
 .h1,
 .page-title {
-    margin-top: 3.5rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 3.5rem 0.3125rem;
     font-weight: 900;
     font-size: 2.75rem;
     line-height: 1.3125;
@@ -551,8 +537,7 @@ h1 a[href].button,
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="1"]) {
-    margin-top: 3.5rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 3.5rem 0.3125rem;
     font-weight: 900;
     font-size: 2.75rem;
     line-height: 1.3125;
@@ -578,8 +563,7 @@ h1 a[href].button,
 
 h2,
 .h2 {
-    margin-top: 3.5rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 3.5rem 0.3125rem;
     font-weight: 800;
     font-size: 2.0625rem;
     line-height: 1.3125;
@@ -606,8 +590,7 @@ h2 a[href].button,
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="2"]) {
-    margin-top: 3.5rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 3.5rem 0.3125rem;
     font-weight: 800;
     font-size: 2.0625rem;
     line-height: 1.3125;
@@ -633,8 +616,7 @@ h2 a[href].button,
 
 h3,
 .h3 {
-    margin-top: 3.5rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 3.5rem 0.3125rem;
     font-weight: 700;
     font-size: 1.8125rem;
     line-height: 1.3125;
@@ -661,8 +643,7 @@ h3 a[href].button,
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="3"]) {
-    margin-top: 3.5rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 3.5rem 0.3125rem;
     font-weight: 700;
     font-size: 1.8125rem;
     line-height: 1.3125;
@@ -688,8 +669,7 @@ h3 a[href].button,
 
 h4,
 .h4 {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 700;
     font-size: 1.5625rem;
     line-height: 1.4375;
@@ -724,8 +704,7 @@ h4 a[href].button,
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="4"]) {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 700;
     font-size: 1.5625rem;
     line-height: 1.4375;
@@ -757,8 +736,7 @@ h4 a[href].button,
 
 h5,
 .h5 {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 600;
     font-size: 1.3125rem;
     line-height: 1.4375;
@@ -793,8 +771,7 @@ h5 a[href].button,
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="5"]) {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 600;
     font-size: 1.3125rem;
     line-height: 1.4375;
@@ -826,8 +803,7 @@ h5 a[href].button,
 
 h6,
 .h6 {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 500;
     font-size: 1.1875rem;
     line-height: 1.4375;
@@ -862,8 +838,7 @@ h6 a[href].button,
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="6"]) {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 500;
     font-size: 1.1875rem;
     line-height: 1.4375;
@@ -894,8 +869,7 @@ h6 a[href].button,
 }
 
 .h7 {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
@@ -916,8 +890,7 @@ h6 a[href].button,
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="7"]) {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
@@ -942,8 +915,7 @@ h6 a[href].button,
 }
 
 .h8 {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 500;
     font-size: 0.8125rem;
     line-height: 1.6875;
@@ -970,8 +942,7 @@ h6 a[href].button,
     text-transform: inherit;
 }
 :where([role="heading"][aria-level="8"]) {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 500;
     font-size: 0.8125rem;
     line-height: 1.6875;
@@ -1002,8 +973,7 @@ h6 a[href].button,
 }
 
 .unstyled-heading {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.6875;
@@ -1036,8 +1006,7 @@ h6:is(.unstyled-heading),
 .h6:is(.unstyled-heading),
 .h7:is(.unstyled-heading),
 .h8:is(.unstyled-heading) {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.6875;
@@ -1103,8 +1072,7 @@ h6:is(.unstyled-heading) em em em,
 :is(.unstyled-heading):where([role="heading"][aria-level="6"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="7"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="8"]) {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.6875;
@@ -1149,18 +1117,17 @@ h6:is(.unstyled-heading) em em em,
 ol,
 ul {
     margin: 0;
-    margin-left: 20%;
+    margin-inline-start: 20%;
     padding: 0;
-    padding-left: 1em;
-    margin-left: var(--gap-inline-tab, 5%);
+    padding-inline-start: 1em;
+    margin-inline-start: var(--prefix-gap-inline-tab, 5%);
     line-height: inherit;
 }
 ol ol,
 ol ul,
 ul ol,
 ul ul {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-block: 0;
 }
 
 ol {
@@ -1185,19 +1152,19 @@ ul ul ul {
 }
 li {
     margin: 0;
-    margin-top: 0.625rem;
+    margin-block-start: 0.625rem;
     padding: 0;
 }
 li::marker {
     font-weight: 500;
 }
 li > a:only-child {
-    --display: inline-block;
-    display: var(--display, inline-block);
+    --prefix-display: inline-block;
+    display: var(--prefix-display, inline-block);
     vertical-align: top;
 }
 li li li {
-    margin-top: 0.375rem;
+    margin-block-start: 0.375rem;
 }
 li li li li {
     font-style: italic;
@@ -1212,37 +1179,32 @@ li li li li em em {
 /* # GLOBALS - FORMS
  * ======================================================================== */
 fieldset {
-    --display: block;
-    display: var(--display, block);
-    margin-top: 1.25rem;
-    margin-bottom: 0.3125rem;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0.625rem;
-    padding-bottom: 0.8125rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    --prefix-display: block;
+    display: var(--prefix-display, block);
+    margin-block: 1.25rem 0.3125rem;
+    margin-inline: 0;
+    padding-block: 0.625rem 0.8125rem;
+    padding-inline: 1.25rem;
     border: 0.0625rem solid currentColor;
     border-radius: 0;
-    border-color: var(--sys-clr-input-border, FieldText);
-    background-color: var(--sys-clr-background, Canvas);
-    color: var(--sys-clr-text, CanvasText);
+    border-color: var(--prefix-sys-clr-input-border, FieldText);
+    background-color: var(--prefix-sys-clr-background, Canvas);
+    color: var(--prefix-sys-clr-text, CanvasText);
 }
 fieldset legend {
-    --display: block;
-    display: var(--display, block);
+    --prefix-display: block;
+    display: var(--prefix-display, block);
 }
 fieldset > :first-child {
-    margin-top: 0;
-    margin-top: 0.5625rem;
+    margin-block-start: 0;
+    margin-block-start: 0.5625rem;
 }
 fieldset > legend + * {
-    margin-top: 0;
+    margin-block-start: 0;
 }
 
 fieldset legend {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
@@ -1252,8 +1214,7 @@ fieldset legend {
     font-style: normal;
 }
 fieldset legend:is(.unstyled-heading) {
-    margin-top: 1.875rem;
-    margin-bottom: 0.3125rem;
+    margin-block: 1.875rem 0.3125rem;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.6875;
@@ -1262,50 +1223,49 @@ fieldset legend:is(.unstyled-heading) {
     font-style: normal;
 }
 fieldset legend {
-    margin-left: -0.625rem;
-    margin-right: -0.625rem;
-    margin-top: 0;
-    margin-bottom: 0.625rem;
-    padding-left: 0.625rem;
-    padding-right: 0.625rem;
+    margin-inline: -0.625rem;
+    margin-block: 0 0.625rem;
+    padding-inline: 0.625rem;
     font-style: italic;
 }
 
 textarea,
 select,
 input {
-    --focus-ring-outline-offset: 0.125rem;
-    --display: block;
-    display: var(--display, block);
-    margin-top: 1.25rem;
-    margin-bottom: 0.3125rem;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0.375rem;
-    padding-bottom: 0.375rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    --prefix-focus-ring-outline-offset: 0.125rem;
+    --prefix-display: block;
+    display: var(--prefix-display, block);
+    margin-block: 1.25rem 0.3125rem;
+    margin-inline: 0;
+    padding-block: 0.375rem;
+    padding-inline: 0.5rem;
     width: 100%;
     font: inherit;
     font-size: 1em;
     line-height: 1.3125;
     border-width: 0.0625rem;
     border-style: solid;
-    border-color: var(--sys-clr-input-border, FieldText);
+    border-color: var(--prefix-sys-clr-input-border, FieldText);
     border-radius: 0;
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: var(--sys-clr-input-bg, Field);
-    color: var(--sys-clr-input-text, FieldText);
-    accent-color: var(--sys-clr-input-text, FieldText);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
+        FieldText
+    );
+    background-color: var(--prefix-sys-clr-input-bg, Field);
+    color: var(--prefix-sys-clr-input-text, FieldText);
+    accent-color: var(--prefix-sys-clr-input-text, FieldText);
 }
 textarea:hover,
 select:hover,
 input:hover {
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: var(--sys-clr-input-bg-hover, Field);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-    color: var(--sys-clr-input-text-hover, FieldText);
-    accent-color: var(--sys-clr-input-text, FieldText);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
+        FieldText
+    );
+    background-color: var(--prefix-sys-clr-input-bg-hover, Field);
+    border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
+    color: var(--prefix-sys-clr-input-text-hover, FieldText);
+    accent-color: var(--prefix-sys-clr-input-text, FieldText);
 }
 .no-js textarea:focus,
 .no-js select:focus,
@@ -1313,51 +1273,66 @@ input:hover {
 .js__no-whereSelector textarea:focus,
 .js__no-whereSelector select:focus,
 .js__no-whereSelector input:focus {
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: var(--sys-clr-input-bg-hover, Field);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-    color: var(--sys-clr-input-text-hover, FieldText);
-    accent-color: var(--sys-clr-input-text, FieldText);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
+        FieldText
+    );
+    background-color: var(--prefix-sys-clr-input-bg-hover, Field);
+    border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
+    color: var(--prefix-sys-clr-input-text-hover, FieldText);
+    accent-color: var(--prefix-sys-clr-input-text, FieldText);
 }
 
 :where(.js__no-focusVisible) textarea:focus,
 :where(.js__no-focusVisible) select:focus,
 :where(.js__no-focusVisible) input:focus {
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: var(--sys-clr-input-bg-hover, Field);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-    color: var(--sys-clr-input-text-hover, FieldText);
-    accent-color: var(--sys-clr-input-text, FieldText);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
+        FieldText
+    );
+    background-color: var(--prefix-sys-clr-input-bg-hover, Field);
+    border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
+    color: var(--prefix-sys-clr-input-text-hover, FieldText);
+    accent-color: var(--prefix-sys-clr-input-text, FieldText);
 }
 
 textarea:focus-visible,
 select:focus-visible,
 input:focus-visible {
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: var(--sys-clr-input-bg-hover, Field);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-    color: var(--sys-clr-input-text-hover, FieldText);
-    accent-color: var(--sys-clr-input-text, FieldText);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
+        FieldText
+    );
+    background-color: var(--prefix-sys-clr-input-bg-hover, Field);
+    border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
+    color: var(--prefix-sys-clr-input-text-hover, FieldText);
+    accent-color: var(--prefix-sys-clr-input-text, FieldText);
 }
 
 textarea:focus-within,
 select:focus-within,
 input:focus-within {
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: var(--sys-clr-input-bg-hover, Field);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-    color: var(--sys-clr-input-text-hover, FieldText);
-    accent-color: var(--sys-clr-input-text, FieldText);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
+        FieldText
+    );
+    background-color: var(--prefix-sys-clr-input-bg-hover, Field);
+    border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
+    color: var(--prefix-sys-clr-input-text-hover, FieldText);
+    accent-color: var(--prefix-sys-clr-input-text, FieldText);
 }
 
 textarea:active,
 select:active,
 input:active {
-    --focus-ring-outline-color: var(--sys-clr-text-active, ActiveText);
-    background-color: var(--sys-clr-input-bg-active, Field);
-    border-color: var(--sys-clr-input-border-active, FieldText);
-    color: var(--sys-clr-input-text-active, FieldText);
-    accent-color: var(--sys-clr-text-active, ActiveText);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-text-active,
+        ActiveText
+    );
+    background-color: var(--prefix-sys-clr-input-bg-active, Field);
+    border-color: var(--prefix-sys-clr-input-border-active, FieldText);
+    color: var(--prefix-sys-clr-input-text-active, FieldText);
+    accent-color: var(--prefix-sys-clr-text-active, ActiveText);
 }
 
 label + textarea,
@@ -1366,13 +1341,7 @@ label + input,
 label > textarea,
 label > select,
 label > input {
-    margin-top: 0.3125rem;
-}
-textarea::-moz-placeholder,
-select::-moz-placeholder,
-input::-moz-placeholder {
-    opacity: 1;
-    color: currentColor;
+    margin-block-start: 0.3125rem;
 }
 textarea::placeholder,
 select::placeholder,
@@ -1381,21 +1350,11 @@ input::placeholder {
     color: currentColor;
 }
 @media (prefers-contrast: less) {
-    textarea::-moz-placeholder,
-    select::-moz-placeholder,
-    input::-moz-placeholder {
-        color: color-mix(in srgb, currentColor 75%, transparent);
-    }
     textarea::placeholder,
     select::placeholder,
     input::placeholder {
         color: color-mix(in srgb, currentColor 75%, transparent);
     }
-}
-textarea::-moz-placeholder,
-select::-moz-placeholder,
-input::-moz-placeholder {
-    color: color-mix(in srgb, currentColor 75%, transparent);
 }
 textarea::placeholder,
 select::placeholder,
@@ -1404,11 +1363,6 @@ input::placeholder {
 }
 
 @media (prefers-contrast: more) {
-    textarea::-moz-placeholder,
-    select::-moz-placeholder,
-    input::-moz-placeholder {
-        color: color-mix(in srgb, currentColor 90%, transparent);
-    }
     textarea::placeholder,
     select::placeholder,
     input::placeholder {
@@ -1500,8 +1454,8 @@ input[type="week"][disabled] {
 }
 input[type="checkbox"],
 input[type="radio"] {
-    --display: inline-block;
-    display: var(--display, inline-block);
+    --prefix-display: inline-block;
+    display: var(--prefix-display, inline-block);
     padding: 0;
     width: auto;
 }
@@ -1518,7 +1472,7 @@ input[type="week"] {
     width: auto;
 }
 input[type="range"] {
-    margin-bottom: 0;
+    margin-block-end: 0;
     padding: 0;
 }
 
@@ -1531,27 +1485,25 @@ textarea {
 }
 
 label {
-    --display: block;
-    display: var(--display, block);
-    margin-top: 0.9375rem;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
+    --prefix-display: block;
+    display: var(--prefix-display, block);
+    margin-block: 0.9375rem 0;
+    margin-inline: 0;
     font-weight: 600;
     line-height: 1.3125;
     text-wrap: balance;
-    color: var(--sys-clr-text, CanvasText);
+    color: var(--prefix-sys-clr-text, CanvasText);
 }
 label:has(> :where([type="checkbox"], [type="radio"])) {
-    --display: grid;
-    display: var(--display, grid);
+    --prefix-display: grid;
+    display: var(--prefix-display, grid);
     grid-template-columns: fit-content(0) 1fr;
     justify-content: end;
     align-items: baseline;
     gap: 0.625rem;
     font-weight: 400;
     line-height: 1.6875;
-    color: var(--sys-clr-text, CanvasText);
+    color: var(--prefix-sys-clr-text, CanvasText);
     cursor: pointer;
 }
 label[aria-disabled="true"]:has(> :where([type="checkbox"], [type="radio"])),
@@ -1561,12 +1513,12 @@ label[disabled]:has(> :where([type="checkbox"], [type="radio"])) {
 
 label:has(> :where([type="checkbox"], [type="radio"]))
     + label:has(> :where([type="checkbox"], [type="radio"])) {
-    margin-top: 0.5rem;
+    margin-block-start: 0.5rem;
 }
 label:has(> :where([type="checkbox"], [type="radio"])) + input,
 label:has(> :where([type="checkbox"], [type="radio"])) + select,
 label:has(> :where([type="checkbox"], [type="radio"])) + textarea {
-    margin-top: 1.25rem;
+    margin-block-start: 1.25rem;
 }
 label > input[type="checkbox"],
 label > input[type="radio"] {
@@ -1580,24 +1532,19 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"],
 a[href].button {
-    --focus-ring-outline-offset: 0.125rem;
-    --display: flex;
-    display: var(--display, flex);
+    --prefix-focus-ring-outline-offset: 0.125rem;
+    --prefix-display: flex;
+    display: var(--prefix-display, flex);
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: start;
     align-content: start;
     align-items: start;
     gap: 0.625rem 0.3125rem;
-    margin-top: 1.25rem;
-    margin-bottom: 0.3125rem;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0.375rem;
-    padding-bottom: 0.375rem;
-    padding-left: 0.8125rem;
-    padding-right: 0.8125rem;
-    width: -moz-fit-content;
+    margin-block: 1.25rem 0.3125rem;
+    margin-inline: 0;
+    padding-block: 0.375rem;
+    padding-inline: 0.8125rem;
     width: fit-content;
     font: inherit;
     font-size: 1em;
@@ -1605,9 +1552,7 @@ a[href].button {
     border-width: 0.125rem;
     border-style: solid;
     border-radius: 0;
-    text-align: left;
-    -webkit-appearance: button;
-    -moz-appearance: button;
+    text-align: start;
     appearance: button;
     text-decoration: none;
     cursor: pointer;
@@ -1620,11 +1565,14 @@ input[type="submit"],
 a[href].button,
 [role="button"]:visited,
 a[href].button:visited {
-    --focus-ring-outline-color: var(--sys-clr-button-border, ButtonFace);
-    border-color: var(--sys-clr-button-border, ButtonFace);
-    background-color: var(--sys-clr-button-bg, ButtonFace);
-    color: var(--sys-clr-button-text, ButtonText);
-    accent-color: var(--sys-clr-button-border, ButtonFace);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border,
+        ButtonFace
+    );
+    border-color: var(--prefix-sys-clr-button-border, ButtonFace);
+    background-color: var(--prefix-sys-clr-button-bg, ButtonFace);
+    color: var(--prefix-sys-clr-button-text, ButtonText);
+    accent-color: var(--prefix-sys-clr-button-border, ButtonFace);
 }
 
 button:hover,
@@ -1645,14 +1593,14 @@ a[href].button:hover,
 .js__no-whereSelector input[type="reset"]:focus,
 .js__no-whereSelector input[type="submit"]:focus,
 .js__no-whereSelector a[href].button:focus {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         SelectedItem
     );
-    border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+    border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
+    background-color: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
+    accent-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
 }
 
 :where(.js__no-focusVisible) button:focus,
@@ -1661,14 +1609,14 @@ a[href].button:hover,
 :where(.js__no-focusVisible) input[type="reset"]:focus,
 :where(.js__no-focusVisible) input[type="submit"]:focus,
 :where(.js__no-focusVisible) a[href].button:focus {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         SelectedItem
     );
-    border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+    border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
+    background-color: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
+    accent-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
 }
 
 button:focus-visible,
@@ -1677,14 +1625,14 @@ input[type="button"]:focus-visible,
 input[type="reset"]:focus-visible,
 input[type="submit"]:focus-visible,
 a[href].button:focus-visible {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         SelectedItem
     );
-    border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+    border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
+    background-color: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
+    accent-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
 }
 
 button:focus-within,
@@ -1693,14 +1641,14 @@ input[type="button"]:focus-within,
 input[type="reset"]:focus-within,
 input[type="submit"]:focus-within,
 a[href].button:focus-within {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         SelectedItem
     );
-    border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+    border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
+    background-color: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
+    accent-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
 }
 
 button:active,
@@ -1709,11 +1657,14 @@ input[type="button"]:active,
 input[type="reset"]:active,
 input[type="submit"]:active,
 a[href].button:active {
-    --focus-ring-outline-color: var(--sys-clr-button-border-active, ButtonFace);
-    border-color: var(--sys-clr-button-border-active, ButtonFace);
-    background-color: var(--sys-clr-button-bg-active, ButtonFace);
-    color: var(--sys-clr-button-text-active, ButtonText);
-    accent-color: var(--sys-clr-button-border-active, ButtonFace);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-active,
+        ButtonFace
+    );
+    border-color: var(--prefix-sys-clr-button-border-active, ButtonFace);
+    background-color: var(--prefix-sys-clr-button-bg-active, ButtonFace);
+    color: var(--prefix-sys-clr-button-text-active, ButtonText);
+    accent-color: var(--prefix-sys-clr-button-border-active, ButtonFace);
 }
 
 button[aria-disabled="true"],
@@ -1732,96 +1683,96 @@ a[disabled][href].button {
 }
 
 ::file-selector-button {
-    --focus-ring-outline-offset: 0.125rem;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0.8125rem;
-    padding-top: 0.375rem;
-    padding-bottom: 0.375rem;
-    padding-left: 0.8125rem;
-    padding-right: 0.8125rem;
+    --prefix-focus-ring-outline-offset: 0.125rem;
+    margin-block: 0;
+    margin-inline: 0 0.8125rem;
+    padding-block: 0.375rem;
+    padding-inline: 0.8125rem;
     font: inherit;
     font-size: 1em;
     line-height: 1.1875;
     border-width: 0.125rem;
     border-style: solid;
     border-radius: 0;
-    text-align: left;
-    -webkit-appearance: button;
-    -moz-appearance: button;
+    text-align: start;
     appearance: button;
     text-decoration: none;
     cursor: pointer;
-    --focus-ring-outline-color: var(--sys-clr-button-border, ButtonFace);
-    border-color: var(--sys-clr-button-border, ButtonFace);
-    background-color: var(--sys-clr-button-bg, ButtonFace);
-    color: var(--sys-clr-button-text, ButtonText);
-    accent-color: var(--sys-clr-button-border, ButtonFace);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border,
+        ButtonFace
+    );
+    border-color: var(--prefix-sys-clr-button-border, ButtonFace);
+    background-color: var(--prefix-sys-clr-button-bg, ButtonFace);
+    color: var(--prefix-sys-clr-button-text, ButtonText);
+    accent-color: var(--prefix-sys-clr-button-border, ButtonFace);
 }
 
 :hover::file-selector-button {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         SelectedItem
     );
-    border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+    border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
+    background-color: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
+    accent-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
 }
 
 .no-js :focus::file-selector-button,
 .js__no-whereSelector :focus::file-selector-button {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         SelectedItem
     );
-    border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+    border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
+    background-color: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
+    accent-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
 }
 
 :where(.js__no-focusVisible) :focus::file-selector-button {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         SelectedItem
     );
-    border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+    border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
+    background-color: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
+    accent-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
 }
 
 :focus-visible::file-selector-button {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         SelectedItem
     );
-    border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+    border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
+    background-color: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
+    accent-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
 }
 
 :focus-within::file-selector-button {
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         SelectedItem
     );
-    border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: var(--sys-clr-button-border-hover, SelectedItem);
+    border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
+    background-color: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
+    accent-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
 }
 
 :active::file-selector-button {
-    --focus-ring-outline-color: var(--sys-clr-button-border-active, ButtonFace);
-    border-color: var(--sys-clr-button-border-active, ButtonFace);
-    background-color: var(--sys-clr-button-bg-active, ButtonFace);
-    color: var(--sys-clr-button-text-active, ButtonText);
-    accent-color: var(--sys-clr-button-border-active, ButtonFace);
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-active,
+        ButtonFace
+    );
+    border-color: var(--prefix-sys-clr-button-border-active, ButtonFace);
+    background-color: var(--prefix-sys-clr-button-bg-active, ButtonFace);
+    color: var(--prefix-sys-clr-button-text-active, ButtonText);
+    accent-color: var(--prefix-sys-clr-button-border-active, ButtonFace);
 }
 
 [aria-disabled="true"]::file-selector-button,
@@ -1834,11 +1785,9 @@ a[disabled][href].button {
 .table-wrapper,
 table {
     position: relative;
-    margin-top: 1.25rem;
-    margin-bottom: 0;
-    margin-top: 2.25rem;
-    margin-bottom: 0.9375rem;
-    background: var(--sys-clr-accent-bg, CanvasText);
+    margin-block: 1.25rem 0;
+    margin-block: 2.25rem 0.9375rem;
+    background: var(--prefix-sys-clr-accent-bg, CanvasText);
     max-width: 100%;
 }
 
@@ -1852,21 +1801,23 @@ table {
     }
     table th,
     table td {
-        border-bottom: 0.125rem solid var(--sys-clr-text, CanvasText);
-        border-right: 0.125rem solid var(--sys-clr-text, CanvasText);
+        border-block-end: 0.125rem solid var(--prefix-sys-clr-text, CanvasText);
+        border-inline-end: 0.125rem solid var(--prefix-sys-clr-text, CanvasText);
     }
     table th:first-child,
     table td:first-child {
-        border-left: 0.125rem solid var(--sys-clr-text, CanvasText);
+        border-inline-start: 0.125rem solid
+            var(--prefix-sys-clr-text, CanvasText);
     }
     table tr:first-child th,
     table tr:first-child td {
-        border-top: 0.125rem solid var(--sys-clr-text, CanvasText);
+        border-block-start: 0.125rem solid
+            var(--prefix-sys-clr-text, CanvasText);
     }
 }
 .table-wrapper {
-    --display: block;
-    display: var(--display, block);
+    --prefix-display: block;
+    display: var(--prefix-display, block);
     overflow-x: auto;
     overscroll-behavior-x: none;
 }
@@ -1879,12 +1830,10 @@ table {
 
 th,
 td {
-    padding-top: 0.375rem;
-    padding-bottom: 0.375rem;
-    padding-left: 0.8125rem;
-    padding-right: 0.8125rem;
+    padding-block: 0.375rem;
+    padding-inline: 0.8125rem;
     min-width: 10em;
-    background: var(--sys-clr-background, Canvas);
+    background: var(--prefix-sys-clr-background, Canvas);
     vertical-align: top;
     text-align: left;
 }
@@ -1901,8 +1850,8 @@ th {
     padding-top: 0.375rem;
     padding-bottom: 0.375rem;
     text-wrap: balance;
-    background: var(--sys-clr-accent-bg, CanvasText);
-    color: var(--sys-clr-accent-text, Canvas);
+    background: var(--prefix-sys-clr-accent-bg, CanvasText);
+    color: var(--prefix-sys-clr-accent-text, Canvas);
 }
 
-/*! END of @maddimathon/utility-sass/template */
+/*! END of @maddimathon/utility-sass/template/demo - custom property prefixes */

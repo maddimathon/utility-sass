@@ -8,6 +8,19 @@
 @use 'sass:meta';
 @use 'sass:string';
 
+$_varType_abbreviations: (
+    'string': 'S',
+    'number': '#',
+    'color': 'C',
+    'bool': '/',
+    'list': '()',
+    'map': ':',
+    'arglist': '⋯',
+    'calculation': '+',
+    'function': '@',
+    'null': '-',
+);
+
 ///
 /// Abbreviates variable types for shorter output.
 ///
@@ -18,20 +31,9 @@
 /// @since 0.1.0-pre.0
 ///
 @function var-type-abbreviator($type) {
-    $abbrs: (
-        'string': 'S',
-        'number': '#',
-        'color': 'C',
-        'bool': '/',
-        'list': '()',
-        'map': ':',
-        'arglist': '⋯',
-        'calculation': '+',
-        'function': '@',
-        'null': '-',
-    );
-    $return: map.get($abbrs, $type);
-    @return if($return != null, string.unquote($return), string.unquote($type));
+    $abbr: map.get($_varType_abbreviations, $type);
+
+    @return string.unquote(if($abbr != null, $abbr, $type));
 }
 
 ///
@@ -269,9 +271,12 @@
     $args: map.set($args, alwaysQuote, $alwaysQuote);
     $args: map.set($args, neverQuote, $neverQuote);
 
-    @if $typeOf != list and $typeOf != map {
+    $doMultilineOutput: ($typeOf == list and list.length($var) > 0) or
+        ($typeOf == map and list.length(map.keys($var)) > 0);
+
+    @if not $doMultilineOutput {
         /* 
-            #{$name}: #{var-dump($var, $args...)}
+            #{$name} = #{var-dump($var, $args...)}
          */
     } @else {
         // UPGRADE - add option to output wrapped in a media query

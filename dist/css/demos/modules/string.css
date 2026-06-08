@@ -14,34 +14,34 @@
  * ======================================================================== */
 string.concat {
     /* 
-      string.concat( "hello", " ", "there" ): <S> "hello there"
+      string.concat( "hello", " ", "there" ) = <S> "hello there"
    */
     /* 
-      string.concat( "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ): <S> "hello1bad:practice-to-put-maps-or-lists there"
+      string.concat( "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ) = <S> "hello1bad:practice-to-put-maps-or-lists there"
    */
     /* 
-      string.concat( "\f139", "\f132", " ", "\f139" ): <S> "\f139\f132  \f139"
+      string.concat( "\f139", "\f132", " ", "\f139" ) = <S> "\f139\f132  \f139"
    */
 }
 
 string.is-quoted {
     /* 
-      string.is-quoted( "hello" ): </> true
+      string.is-quoted( "hello" ) = </> true
    */
     /* 
-      string.is-quoted( hello ): </> false
+      string.is-quoted( hello ) = </> false
    */
 }
 
 string.join {
     /* 
-      string.join( " ",  "hello", "there", "more" ): <S> "hello there more"
+      string.join( " ",  "hello", "there", "more" ) = <S> "hello there more"
    */
     /* 
-      string.join( "  —  ", "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ): <S> "hello  —  1  —  bad: practice-to-put-maps-or-lists  —     —  there"
+      string.join( "  —  ", "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ) = <S> "hello  —  1  —  bad: practice-to-put-maps-or-lists  —     —  there"
    */
     /* 
-      string.join( " + ",  "\f139", "\f132", "\f139" ): <S> "\f139  + \f132  + \f139"
+      string.join( " + ",  "\f139", "\f132", "\f139" ) = <S> "\f139  + \f132  + \f139"
    */
 }
 
@@ -51,7 +51,7 @@ string.match {
    */
     /* 1: <S> "hello" */
     /* 
-      string.match( "hello there", "^Hello" ): <-> null
+      string.match( "hello there", "^Hello" ) = <-> null
    */
     /* 
       string.match( "hello there", "^Hello", "i" ) is a list:
@@ -66,31 +66,31 @@ string.match {
 
 string.replace {
     /* 
-      string.replace( "hello there", "hello", "goodbye" ): <S> goodbye there
+      string.replace( "hello there", "hello", "goodbye" ) = <S> goodbye there
    */
     /* 
-      string.replace( "remove this part but not the rest", "remove this part " ): <S> but not the rest
+      string.replace( "remove this part but not the rest", "remove this part " ) = <S> but not the rest
    */
 }
 
 string.regex-replace {
     /* 
-      string.regex-replace( "hello there", "^hello", "goodbye" ): <S> "goodbye there"
+      string.regex-replace( "hello there", "^hello", "goodbye" ) = <S> "goodbye there"
    */
     /* 
-      string.regex-replace( "hello there", "^Hello", "goodbye" ): <S> "hello there"
+      string.regex-replace( "hello there", "^Hello", "goodbye" ) = <S> "hello there"
    */
     /* 
-      string.regex-replace( "hello there", "^Hello", "goodbye", $flags: "gi" ): <S> "goodbye there"
+      string.regex-replace( "hello there", "^Hello", "goodbye", $flags: "gi" ) = <S> "goodbye there"
    */
     /* 
-      string.regex-replace( "hello there", "^([^\\s]+)", "goodbye" ): <S> "goodbye"
+      string.regex-replace( "hello there", "^([^\\s]+)", "goodbye" ) = <S> "goodbye"
    */
     /* 
-      string.regex-replace( "hello there", "^hello\\s*(.*)$", "goodbye $1" ): <S> "goodbye there"
+      string.regex-replace( "hello there", "^hello\\s*(.*)$", "goodbye $1" ) = <S> "goodbye there"
    */
     /* 
-      string.regex-replace( "remove this part but not the rest", "^remove this part\\s+" ): <S> "but not the rest"
+      string.regex-replace( "remove this part but not the rest", "^remove this part\\s+" ) = <S> "but not the rest"
    */
 }
 
@@ -145,30 +145,30 @@ string.regex-split {
 
 string.slugify {
     /* 
-      string.slugify( "ÀÁÂÄÃÆÅĀàáâäãæåā" ): <S> aaaaaaaaaaaaaaaa
+      string.slugify( "ÀÁÂÄÃÆÅĀàáâäãæåā" ) = <S> aaaaaaaaaaaaaaaa
    */
     /* 
-      string.slugify( "ÈÉÊËĒĖĘèéêëēėę" ): <S> eeeeeeeeeeeeee
+      string.slugify( "ÈÉÊËĒĖĘèéêëēėę" ) = <S> eeeeeeeeeeeeee
    */
     /* 
-      string.slugify( "ÎÏÍĪĮÌîïíīįì" ): <S> iiiiiiiiiiii
+      string.slugify( "ÎÏÍĪĮÌîïíīįì" ) = <S> iiiiiiiiiiii
    */
     /* 
-      string.slugify( "ÔÖÒÓŒØŌÕôöòóœøōõ" ): <S> oooooooooooooooo
+      string.slugify( "ÔÖÒÓŒØŌÕôöòóœøōõ" ) = <S> oooooooooooooooo
    */
     /* 
-      string.slugify( "ÛÜÙÚŪûüùúū" ): <S> uuuuuuuuuu
+      string.slugify( "ÛÜÙÚŪûüùúū" ) = <S> uuuuuuuuuu
    */
     /* 
-      string.slugify( "ÑŃñń" ): <S> nnnn
+      string.slugify( "ÑŃñń" ) = <S> nnnn
    */
     /* 
-      string.slugify( "something & something else" ): <S> something-and-something-else
+      string.slugify( "something & something else" ) = <S> something-and-something-else
    */
     /* 
-      string.slugify( "eXamPle(-–—_:;/) 2346" ): <S> example-_-2346
+      string.slugify( "eXamPle(-–—_:;/) 2346" ) = <S> example-_-2346
    */
     /* 
-      string.slugify( "- hello – — _ : there ; / 56498d *%$#" ): <S> -hello-_-there-56498d-
+      string.slugify( "- hello – — _ : there ; / 56498d *%$#" ) = <S> -hello-_-there-56498d-
    */
 }

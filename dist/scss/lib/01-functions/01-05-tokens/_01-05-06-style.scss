@@ -5,6 +5,7 @@
 
 @use '../../../modules/list';
 @use '../../../modules/map';
+@use '../../../modules/meta';
 
 @use '../../../config';
 @use '../../../tokens';
@@ -19,10 +20,19 @@
 /// @param {string} $slug  Flattened key for the token to fetch.
 ///
 /// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0.draft — Renamed from token-value to style-value.
+/// @since 0.1.0-beta.0.draft — Renamed from token-value to style-value. Added optional $raw, $rawUnit, $asFallbackValue, $asInitialValue params.
 ///
-@function style-value($slug) {
+@function style-value(
+    $slug,
+    $raw: false,
+    $rawUnit: 1,
+    $asFallbackValue: false,
+    $asInitialValue: false,
+    $args...
+) {
     $value: map.get(tokens.$style, #{$slug});
+
+    $args: meta.keywords($args);
 
     // returns
     @if $value == null {
@@ -31,7 +41,31 @@
     }
 
     // returns
+    @if $raw {
+        @return if(
+            meta.type-of($value) == number,
+            math.add-unit($value, $unit: $rawUnit),
+            $value
+        );
+    }
+
+    @if $asInitialValue {
+        @if map.get($args, fallbackOnly) == null {
+            $args: map.set($args, fallbackOnly, true);
+        }
+
+        @if map.get($args, onlyFallbackPrefix) == null {
+            $args: map.set($args, onlyFallbackPrefix, true);
+        }
+    }
+
+    // returns
     @if $slug == focus-ring-outline-width {
+        // returns
+        @if $asFallbackValue {
+            @return var-stroke-relative($value, $args...);
+        }
+
         $sorted_border_tokenKeys: list.sort(map.keys(tokens.$border_width));
 
         $border_min: list.nth($sorted_border_tokenKeys, 1);
@@ -54,12 +88,15 @@
         }
 
         @return clamp(
-            var-border-width($border_min),
-            var-stroke-relative($value),
-            var-border-width($border_max)
+            var-border-width($border_min, $args...),
+            var-stroke-relative($value, $args...),
+            var-border-width($border_max, $args...)
         );
-    } @else if $slug == focus-ring-outline-offset {
-        @return var-stroke-relative($value);
+    }
+
+    // returns
+    @if $slug == focus-ring-outline-offset {
+        @return var-stroke-relative($value, $args...);
     }
 
     @return $value;
@@ -73,8 +110,21 @@
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0.draft — Renamed from var-token to var-style.
 ///
-@function var-style($slug, $fallback: null, $args...) {
-    $fallback: if($fallback == null, style-value($slug), $fallback);
+@function var-style(
+    $slug,
+    $fallback: null,
+    $raw: false,
+    $rawUnit: 1,
+    $args...
+) {
+    @if $fallback == null {
+        $fallback: style-value(
+            $slug,
+            $raw: $raw,
+            $rawUnit: $rawUnit,
+            $asFallbackValue: true
+        );
+    }
 
     // returns
     @if #{$fallback} == #{$slug} {

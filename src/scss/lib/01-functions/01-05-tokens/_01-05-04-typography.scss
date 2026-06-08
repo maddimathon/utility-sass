@@ -128,13 +128,13 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@function var-line-height($slug, $args...) {
+@function var-line-height($slug, $fallbackOnly: false, $args...) {
     $fallback: line-height-value($slug);
 
     @return do-var(
         line-height-#{$slug},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_lineHeight,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_lineHeight,
         $args...
     );
 }
@@ -146,7 +146,7 @@
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.18 — Added $relative param.
 ///
-@function var-fs($slug, $fallback: null, $relative: false, $args...) {
+@function var-fs($slug, $fallback: null, $fallbackOnly: false, $relative: false, $args...) {
     //
     $var_slug: if($relative, fs-rel-#{$slug}, fs-#{$slug});
 
@@ -172,5 +172,10 @@
             or $slug == normal;
     }
 
-    @return do-var($var_slug, $fallback, $fallbackOnly: $returnFallbackOnly, $args...);
+    @return do-var(
+        $var_slug,
+        $fallback,
+        $fallbackOnly: $fallbackOnly or $returnFallbackOnly,
+        $args...
+    );
 }

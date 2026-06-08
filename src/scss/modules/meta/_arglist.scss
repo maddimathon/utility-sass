@@ -1,0 +1,16 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:meta';
+
+///
+/// Takes an all input args and returns them as an arglist object.
+///
+/// @since ___PKG_VERSION___
+///
+@function arglist($args...) {
+    $_unused: meta.keywords($args);
+    @return $args;
+}

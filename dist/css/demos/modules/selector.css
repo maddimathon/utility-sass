@@ -409,48 +409,48 @@
     a,
     button {
         /* 
-        selector.except( $haystack: &, $needles: "button" ) is a list:
+        selector.except( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> a ) */
     }
     a {
-        /* selector.except( $haystack: ( ( a ), ( button ) ), $needles: "button" ) */
+        /* selector.except( ( ( a ), ( button ) ), $needles: "button" ) */
     }
 }
 @media except {
     a,
     button {
         /* 
-        selector.except( $haystack: &, $needles: "a" ) is a list:
+        selector.except( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> button ) */
     }
     button {
-        /* selector.except( $haystack: ( ( a ), ( button ) ), $needles: "a" ) */
+        /* selector.except( ( ( a ), ( button ) ), $needles: "a" ) */
     }
 }
 @media except {
     a .should-not-stop-replacement,
     button .should-not-stop-replacement {
         /* 
-        selector.except( $haystack: &, $needles: "button" ) is a list:
+        selector.except( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> a <S> .should-not-stop-replacement ) */
     }
     a .should-not-stop-replacement {
-        /* selector.except( $haystack: ( ( a .should-not-stop-replacement ), ( button .should-not-stop-replacement ) ), $needles: "button" ) */
+        /* selector.except( ( ( a .should-not-stop-replacement ), ( button .should-not-stop-replacement ) ), $needles: "button" ) */
     }
 }
 @media except {
     a .should-not-stop-replacement,
     button .should-not-stop-replacement {
         /* 
-        selector.except( $haystack: &, $needles: "a" ) is a list:
+        selector.except( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> button <S> .should-not-stop-replacement ) */
     }
     button .should-not-stop-replacement {
-        /* selector.except( $haystack: ( ( a .should-not-stop-replacement ), ( button .should-not-stop-replacement ) ), $needles: "a" ) */
+        /* selector.except( ( ( a .should-not-stop-replacement ), ( button .should-not-stop-replacement ) ), $needles: "a" ) */
     }
 }
 
@@ -459,14 +459,14 @@
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except( $haystack: &, $needles: "button" ) is a list:
+        selector.except( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> a.special-class ) */
         /* 2: <()> ( <S> a.class-name[data-complex=selector]:focus ) */
     }
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
-        /* selector.except( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
+        /* selector.except( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
     }
 }
 @media except {
@@ -474,12 +474,12 @@
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except( $haystack: &, $needles: "a" ) is a list:
+        selector.except( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> button ) */
     }
     button {
-        /* selector.except( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "a" ) */
+        /* selector.except( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "a" ) */
     }
 }
 @media except {
@@ -487,14 +487,14 @@
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except( $haystack: &, $needles: ":focus" ) is a list:
+        selector.except( &, $needles: ":focus" ) is a list:
      */
         /* 1: <()> ( <S> button ) */
         /* 2: <()> ( <S> a.special-class ) */
     }
     button,
     a.special-class {
-        /* selector.except( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: ":focus" ) */
+        /* selector.except( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: ":focus" ) */
     }
 }
 @media except {
@@ -502,14 +502,14 @@
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except( $haystack: &, $needles: "[data-complex=selector]" ) is a list:
+        selector.except( &, $needles: "[data-complex=selector]" ) is a list:
      */
         /* 1: <()> ( <S> button ) */
         /* 2: <()> ( <S> a.special-class ) */
     }
     button,
     a.special-class {
-        /* selector.except( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
+        /* selector.except( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
     }
 }
 @media except {
@@ -517,14 +517,14 @@
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
         /* 
-        selector.except( $haystack: &, $needles: "button" ) is a list:
+        selector.except( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> a.special-class <S> .should-not-stop-replacement ) */
         /* 2: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement ) */
     }
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
-        /* selector.except( $haystack: ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "button" ) */
+        /* selector.except( ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "button" ) */
     }
 }
 @media except {
@@ -532,12 +532,12 @@
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
         /* 
-        selector.except( $haystack: &, $needles: "a" ) is a list:
+        selector.except( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> button <S> .should-not-stop-replacement ) */
     }
     button .should-not-stop-replacement {
-        /* selector.except( $haystack: ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "a" ) */
+        /* selector.except( ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "a" ) */
     }
 }
 @media except {
@@ -545,14 +545,14 @@
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
         /* 
-        selector.except( $haystack: &, $needles: ":focus" ) is a list:
+        selector.except( &, $needles: ":focus" ) is a list:
      */
         /* 1: <()> ( <S> button <S> .should-not-stop-replacement ) */
         /* 2: <()> ( <S> a.special-class <S> .should-not-stop-replacement ) */
     }
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement {
-        /* selector.except( $haystack: ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: ":focus" ) */
+        /* selector.except( ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: ":focus" ) */
     }
 }
 @media except {
@@ -560,14 +560,14 @@
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
         /* 
-        selector.except( $haystack: &, $needles: "[data-complex=selector]" ) is a list:
+        selector.except( &, $needles: "[data-complex=selector]" ) is a list:
      */
         /* 1: <()> ( <S> button <S> .should-not-stop-replacement ) */
         /* 2: <()> ( <S> a.special-class <S> .should-not-stop-replacement ) */
     }
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement {
-        /* selector.except( $haystack: ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "[data-complex=selector]" ) */
+        /* selector.except( ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "[data-complex=selector]" ) */
     }
 }
 
@@ -576,76 +576,76 @@
     a,
     button {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+        selector.except-superselector( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> a ) */
     }
     a {
-        /* selector.except-superselector( $haystack: ( ( a ), ( button ) ), $needles: "button" ) */
+        /* selector.except-superselector( ( ( a ), ( button ) ), $needles: "button" ) */
     }
 }
 @media except-superselector {
     a,
     button {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+        selector.except-superselector( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> button ) */
     }
     button {
-        /* selector.except-superselector( $haystack: ( ( a ), ( button ) ), $needles: "a" ) */
+        /* selector.except-superselector( ( ( a ), ( button ) ), $needles: "a" ) */
     }
 }
 @media except-superselector {
     body a,
     body button {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+        selector.except-superselector( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> body <S> a ) */
     }
     body a {
-        /* selector.except-superselector( $haystack: ( ( body a ), ( body button ) ), $needles: "button" ) */
+        /* selector.except-superselector( ( ( body a ), ( body button ) ), $needles: "button" ) */
     }
 }
 @media except-superselector {
     body a,
     body button {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+        selector.except-superselector( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> body <S> button ) */
     }
     body button {
-        /* selector.except-superselector( $haystack: ( ( body a ), ( body button ) ), $needles: "a" ) */
+        /* selector.except-superselector( ( ( body a ), ( body button ) ), $needles: "a" ) */
     }
 }
 @media except-superselector {
     a .should-stop-replacement,
     button .should-stop-replacement {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+        selector.except-superselector( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> a <S> .should-stop-replacement ) */
         /* 2: <()> ( <S> button <S> .should-stop-replacement ) */
     }
     a .should-stop-replacement,
     button .should-stop-replacement {
-        /* selector.except-superselector( $haystack: ( ( a .should-stop-replacement ), ( button .should-stop-replacement ) ), $needles: "button" ) */
+        /* selector.except-superselector( ( ( a .should-stop-replacement ), ( button .should-stop-replacement ) ), $needles: "button" ) */
     }
 }
 @media except-superselector {
     a .should-stop-replacement,
     button .should-stop-replacement {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+        selector.except-superselector( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> a <S> .should-stop-replacement ) */
         /* 2: <()> ( <S> button <S> .should-stop-replacement ) */
     }
     a .should-stop-replacement,
     button .should-stop-replacement {
-        /* selector.except-superselector( $haystack: ( ( a .should-stop-replacement ), ( button .should-stop-replacement ) ), $needles: "a" ) */
+        /* selector.except-superselector( ( ( a .should-stop-replacement ), ( button .should-stop-replacement ) ), $needles: "a" ) */
     }
 }
 
@@ -654,14 +654,14 @@
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+        selector.except-superselector( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> a.special-class ) */
         /* 2: <()> ( <S> a.class-name[data-complex=selector]:focus ) */
     }
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
-        /* selector.except-superselector( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
+        /* selector.except-superselector( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
     }
 }
 @media except-superselector {
@@ -669,12 +669,12 @@
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+        selector.except-superselector( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> button ) */
     }
     button {
-        /* selector.except-superselector( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "a" ) */
+        /* selector.except-superselector( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "a" ) */
     }
 }
 @media except-superselector {
@@ -682,14 +682,14 @@
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except-superselector( $haystack: &, $needles: ":focus" ) is a list:
+        selector.except-superselector( &, $needles: ":focus" ) is a list:
      */
         /* 1: <()> ( <S> button ) */
         /* 2: <()> ( <S> a.special-class ) */
     }
     button,
     a.special-class {
-        /* selector.except-superselector( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: ":focus" ) */
+        /* selector.except-superselector( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: ":focus" ) */
     }
 }
 @media except-superselector {
@@ -697,14 +697,14 @@
     a.special-class,
     a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "[data-complex=selector]" ) is a list:
+        selector.except-superselector( &, $needles: "[data-complex=selector]" ) is a list:
      */
         /* 1: <()> ( <S> button ) */
         /* 2: <()> ( <S> a.special-class ) */
     }
     button,
     a.special-class {
-        /* selector.except-superselector( $haystack: ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
+        /* selector.except-superselector( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
     }
 }
 @media except-superselector {
@@ -712,14 +712,14 @@
     body a.special-class,
     body a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+        selector.except-superselector( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> body <S> a.special-class ) */
         /* 2: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ) */
     }
     body a.special-class,
     body a.class-name[data-complex="selector"]:focus {
-        /* selector.except-superselector( $haystack: ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
+        /* selector.except-superselector( ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
     }
 }
 @media except-superselector {
@@ -727,12 +727,12 @@
     body a.special-class,
     body a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+        selector.except-superselector( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> body <S> button ) */
     }
     body button {
-        /* selector.except-superselector( $haystack: ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "a" ) */
+        /* selector.except-superselector( ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "a" ) */
     }
 }
 @media except-superselector {
@@ -740,14 +740,14 @@
     body a.special-class,
     body a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except-superselector( $haystack: &, $needles: ":focus" ) is a list:
+        selector.except-superselector( &, $needles: ":focus" ) is a list:
      */
         /* 1: <()> ( <S> body <S> button ) */
         /* 2: <()> ( <S> body <S> a.special-class ) */
     }
     body button,
     body a.special-class {
-        /* selector.except-superselector( $haystack: ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: ":focus" ) */
+        /* selector.except-superselector( ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: ":focus" ) */
     }
 }
 @media except-superselector {
@@ -755,14 +755,14 @@
     body a.special-class,
     body a.class-name[data-complex="selector"]:focus {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "[data-complex=selector]" ) is a list:
+        selector.except-superselector( &, $needles: "[data-complex=selector]" ) is a list:
      */
         /* 1: <()> ( <S> body <S> button ) */
         /* 2: <()> ( <S> body <S> a.special-class ) */
     }
     body button,
     body a.special-class {
-        /* selector.except-superselector( $haystack: ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
+        /* selector.except-superselector( ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
     }
 }
 @media except-superselector {
@@ -770,7 +770,7 @@
     a.special-class .should-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-stop-replacement {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "button" ) is a list:
+        selector.except-superselector( &, $needles: "button" ) is a list:
      */
         /* 1: <()> ( <S> button <S> .should-stop-replacement ) */
         /* 2: <()> ( <S> a.special-class <S> .should-stop-replacement ) */
@@ -779,7 +779,7 @@
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-stop-replacement {
-        /* selector.except-superselector( $haystack: ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "button" ) */
+        /* selector.except-superselector( ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "button" ) */
     }
 }
 @media except-superselector {
@@ -787,7 +787,7 @@
     a.special-class .should-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-stop-replacement {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "a" ) is a list:
+        selector.except-superselector( &, $needles: "a" ) is a list:
      */
         /* 1: <()> ( <S> button <S> .should-stop-replacement ) */
         /* 2: <()> ( <S> a.special-class <S> .should-stop-replacement ) */
@@ -796,7 +796,7 @@
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-stop-replacement {
-        /* selector.except-superselector( $haystack: ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "a" ) */
+        /* selector.except-superselector( ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "a" ) */
     }
 }
 @media except-superselector {
@@ -804,7 +804,7 @@
     a.special-class .should-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-stop-replacement {
         /* 
-        selector.except-superselector( $haystack: &, $needles: ":focus" ) is a list:
+        selector.except-superselector( &, $needles: ":focus" ) is a list:
      */
         /* 1: <()> ( <S> button <S> .should-stop-replacement ) */
         /* 2: <()> ( <S> a.special-class <S> .should-stop-replacement ) */
@@ -813,7 +813,7 @@
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-stop-replacement {
-        /* selector.except-superselector( $haystack: ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: ":focus" ) */
+        /* selector.except-superselector( ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: ":focus" ) */
     }
 }
 @media except-superselector {
@@ -821,7 +821,7 @@
     a.special-class .should-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-stop-replacement {
         /* 
-        selector.except-superselector( $haystack: &, $needles: "[data-complex=selector]" ) is a list:
+        selector.except-superselector( &, $needles: "[data-complex=selector]" ) is a list:
      */
         /* 1: <()> ( <S> button <S> .should-stop-replacement ) */
         /* 2: <()> ( <S> a.special-class <S> .should-stop-replacement ) */
@@ -830,68 +830,68 @@
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex="selector"]:focus .should-stop-replacement {
-        /* selector.except-superselector( $haystack: ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "[data-complex=selector]" ) */
+        /* selector.except-superselector( ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "[data-complex=selector]" ) */
     }
 }
 
 /* ## Modules - Selector - Root & Body Utilities ==================================== */
 @media at-root {
     /* 
-      selector.parent-exists(): </> false
+      selector.parent-exists() = </> false
    */
     /* 
-      selector.parent-or-body(): <S> body
+      selector.parent-or-body() = <S> body
    */
     /* 
-      selector.parent-or-root(): <S> :root
+      selector.parent-or-root() = <S> :root
    */
 }
 :root {
     /* via :root */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> true
+      selector.is-simple( & ) = </> true
    */
     /* 
-      selector.is-body( & ): </> false
+      selector.is-body( & ) = </> false
    */
     /* 
-      selector.is-root( & ): </> true
+      selector.is-root( & ) = </> true
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> false
-   */
-    /* 
-      selector.is-any-root( & ): </> true
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> false
+      selector.is-any-body( & ) = </> false
    */
     /* 
-      selector.has-root( & ): </> true
+      selector.is-any-root( & ) = </> true
    */
     /* 
-      selector.has-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-any-body( & ): </> false
+      selector.has-body( & ) = </> false
    */
     /* 
-      selector.has-any-root( & ): </> true
+      selector.has-root( & ) = </> true
    */
     /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> false
+   */
+    /* 
+      selector.has-any-root( & ) = </> true
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
@@ -899,10 +899,10 @@
    */
     /* 1: <()> ( <S> :root ) */
     /* 
-      selector.except-is-root( & ): <S> %null
+      selector.except-is-root( & ) = <S> %null
    */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
@@ -910,10 +910,10 @@
    */
     /* 1: <()> ( <S> :root ) */
     /* 
-      selector.except-has-root( & ): <S> %null
+      selector.except-has-root( & ) = <S> %null
    */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -924,55 +924,55 @@
    */
     /* 1: <()> ( <S> :root ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> false
+      selector.parent-includes( ".has-a-class" ) = </> false
    */
 }
 :root:where(.has-a-class) {
     /* via :root:where(.has-a-class) */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> false
+      selector.is-simple( & ) = </> false
    */
     /* 
-      selector.is-body( & ): </> false
+      selector.is-body( & ) = </> false
    */
     /* 
-      selector.is-root( & ): </> true
+      selector.is-root( & ) = </> true
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> false
-   */
-    /* 
-      selector.is-any-root( & ): </> true
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> false
+      selector.is-any-body( & ) = </> false
    */
     /* 
-      selector.has-root( & ): </> true
+      selector.is-any-root( & ) = </> true
    */
     /* 
-      selector.has-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-any-body( & ): </> false
+      selector.has-body( & ) = </> false
    */
     /* 
-      selector.has-any-root( & ): </> true
+      selector.has-root( & ) = </> true
    */
     /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> false
+   */
+    /* 
+      selector.has-any-root( & ) = </> true
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
@@ -980,10 +980,10 @@
    */
     /* 1: <()> ( <S> :root:where(.has-a-class) ) */
     /* 
-      selector.except-is-root( & ): <S> %null
+      selector.except-is-root( & ) = <S> %null
    */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
@@ -991,10 +991,10 @@
    */
     /* 1: <()> ( <S> :root:where(.has-a-class) ) */
     /* 
-      selector.except-has-root( & ): <S> %null
+      selector.except-has-root( & ) = <S> %null
    */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -1005,56 +1005,56 @@
    */
     /* 1: <()> ( <S> :root:where(.has-a-class) ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> true
+      selector.parent-includes( ".has-a-class" ) = </> true
    */
 }
 
 html {
     /* via html */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> true
+      selector.is-simple( & ) = </> true
    */
     /* 
-      selector.is-body( & ): </> false
+      selector.is-body( & ) = </> false
    */
     /* 
-      selector.is-root( & ): </> true
+      selector.is-root( & ) = </> true
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> false
-   */
-    /* 
-      selector.is-any-root( & ): </> true
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> false
+      selector.is-any-body( & ) = </> false
    */
     /* 
-      selector.has-root( & ): </> true
+      selector.is-any-root( & ) = </> true
    */
     /* 
-      selector.has-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-any-body( & ): </> false
+      selector.has-body( & ) = </> false
    */
     /* 
-      selector.has-any-root( & ): </> true
+      selector.has-root( & ) = </> true
    */
     /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> false
+   */
+    /* 
+      selector.has-any-root( & ) = </> true
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
@@ -1062,10 +1062,10 @@ html {
    */
     /* 1: <()> ( <S> html ) */
     /* 
-      selector.except-is-root( & ): <S> %null
+      selector.except-is-root( & ) = <S> %null
    */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
@@ -1073,10 +1073,10 @@ html {
    */
     /* 1: <()> ( <S> html ) */
     /* 
-      selector.except-has-root( & ): <S> %null
+      selector.except-has-root( & ) = <S> %null
    */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -1087,55 +1087,55 @@ html {
    */
     /* 1: <()> ( <S> html ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> false
+      selector.parent-includes( ".has-a-class" ) = </> false
    */
 }
 html:where(.has-a-class) {
     /* via html:where(.has-a-class) */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> false
+      selector.is-simple( & ) = </> false
    */
     /* 
-      selector.is-body( & ): </> false
+      selector.is-body( & ) = </> false
    */
     /* 
-      selector.is-root( & ): </> true
+      selector.is-root( & ) = </> true
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> false
-   */
-    /* 
-      selector.is-any-root( & ): </> true
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> false
+      selector.is-any-body( & ) = </> false
    */
     /* 
-      selector.has-root( & ): </> true
+      selector.is-any-root( & ) = </> true
    */
     /* 
-      selector.has-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-any-body( & ): </> false
+      selector.has-body( & ) = </> false
    */
     /* 
-      selector.has-any-root( & ): </> true
+      selector.has-root( & ) = </> true
    */
     /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> false
+   */
+    /* 
+      selector.has-any-root( & ) = </> true
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
@@ -1143,10 +1143,10 @@ html:where(.has-a-class) {
    */
     /* 1: <()> ( <S> html:where(.has-a-class) ) */
     /* 
-      selector.except-is-root( & ): <S> %null
+      selector.except-is-root( & ) = <S> %null
    */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
@@ -1154,10 +1154,10 @@ html:where(.has-a-class) {
    */
     /* 1: <()> ( <S> html:where(.has-a-class) ) */
     /* 
-      selector.except-has-root( & ): <S> %null
+      selector.except-has-root( & ) = <S> %null
    */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -1168,78 +1168,78 @@ html:where(.has-a-class) {
    */
     /* 1: <()> ( <S> html:where(.has-a-class) ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> true
+      selector.parent-includes( ".has-a-class" ) = </> true
    */
 }
 
 body {
     /* via body */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> true
+      selector.is-simple( & ) = </> true
    */
     /* 
-      selector.is-body( & ): </> true
+      selector.is-body( & ) = </> true
    */
     /* 
-      selector.is-root( & ): </> false
+      selector.is-root( & ) = </> false
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> true
-   */
-    /* 
-      selector.is-any-root( & ): </> false
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> true
+      selector.is-any-body( & ) = </> true
    */
     /* 
-      selector.has-root( & ): </> false
+      selector.is-any-root( & ) = </> false
    */
     /* 
-      selector.has-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.has-any-body( & ): </> true
-   */
-    /* 
-      selector.has-any-root( & ): </> false
-   */
-    /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.except-is-body( & ): <S> %null
+      selector.has-body( & ) = </> true
+   */
+    /* 
+      selector.has-root( & ) = </> false
+   */
+    /* 
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> true
+   */
+    /* 
+      selector.has-any-root( & ) = </> false
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.except-is-body( & ) = <S> %null
    */
     /* 
       selector.except-is-root( & ) is a list:
    */
     /* 1: <()> ( <S> body ) */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
-      selector.except-has-body( & ): <S> %null
+      selector.except-has-body( & ) = <S> %null
    */
     /* 
       selector.except-has-root( & ) is a list:
    */
     /* 1: <()> ( <S> body ) */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -1250,77 +1250,77 @@ body {
    */
     /* 1: <()> ( <S> body ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> false
+      selector.parent-includes( ".has-a-class" ) = </> false
    */
 }
 body:where(.has-a-class) {
     /* via body:where(.has-a-class) */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> false
+      selector.is-simple( & ) = </> false
    */
     /* 
-      selector.is-body( & ): </> true
+      selector.is-body( & ) = </> true
    */
     /* 
-      selector.is-root( & ): </> false
+      selector.is-root( & ) = </> false
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> true
-   */
-    /* 
-      selector.is-any-root( & ): </> false
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> true
+      selector.is-any-body( & ) = </> true
    */
     /* 
-      selector.has-root( & ): </> false
+      selector.is-any-root( & ) = </> false
    */
     /* 
-      selector.has-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.has-any-body( & ): </> true
-   */
-    /* 
-      selector.has-any-root( & ): </> false
-   */
-    /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.except-is-body( & ): <S> %null
+      selector.has-body( & ) = </> true
+   */
+    /* 
+      selector.has-root( & ) = </> false
+   */
+    /* 
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> true
+   */
+    /* 
+      selector.has-any-root( & ) = </> false
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.except-is-body( & ) = <S> %null
    */
     /* 
       selector.except-is-root( & ) is a list:
    */
     /* 1: <()> ( <S> body:where(.has-a-class) ) */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
-      selector.except-has-body( & ): <S> %null
+      selector.except-has-body( & ) = <S> %null
    */
     /* 
       selector.except-has-root( & ) is a list:
    */
     /* 1: <()> ( <S> body:where(.has-a-class) ) */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -1331,7 +1331,7 @@ body:where(.has-a-class) {
    */
     /* 1: <()> ( <S> body:where(.has-a-class) ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> true
+      selector.parent-includes( ".has-a-class" ) = </> true
    */
 }
 
@@ -1339,49 +1339,49 @@ html,
 body {
     /* via html, body */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> false
+      selector.is-simple( & ) = </> false
    */
     /* 
-      selector.is-body( & ): </> false
+      selector.is-body( & ) = </> false
    */
     /* 
-      selector.is-root( & ): </> false
+      selector.is-root( & ) = </> false
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> true
-   */
-    /* 
-      selector.is-any-root( & ): </> true
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> false
+      selector.is-any-body( & ) = </> true
    */
     /* 
-      selector.has-root( & ): </> false
+      selector.is-any-root( & ) = </> true
    */
     /* 
-      selector.has-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-any-body( & ): </> true
+      selector.has-body( & ) = </> false
    */
     /* 
-      selector.has-any-root( & ): </> true
+      selector.has-root( & ) = </> false
    */
     /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> true
+   */
+    /* 
+      selector.has-any-root( & ) = </> true
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
@@ -1393,7 +1393,7 @@ body {
    */
     /* 1: <()> ( <S> body ) */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
@@ -1405,7 +1405,7 @@ body {
    */
     /* 1: <()> ( <S> body ) */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -1418,56 +1418,56 @@ body {
     /* 1: <()> ( <S> html ) */
     /* 2: <()> ( <S> body ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> false
+      selector.parent-includes( ".has-a-class" ) = </> false
    */
 }
 html:where(.has-a-class),
 body:where(.has-a-class) {
     /* via html, body:where(.has-a-class) */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> false
+      selector.is-simple( & ) = </> false
    */
     /* 
-      selector.is-body( & ): </> false
+      selector.is-body( & ) = </> false
    */
     /* 
-      selector.is-root( & ): </> false
+      selector.is-root( & ) = </> false
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> true
-   */
-    /* 
-      selector.is-any-root( & ): </> true
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> false
+      selector.is-any-body( & ) = </> true
    */
     /* 
-      selector.has-root( & ): </> false
+      selector.is-any-root( & ) = </> true
    */
     /* 
-      selector.has-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-any-body( & ): </> true
+      selector.has-body( & ) = </> false
    */
     /* 
-      selector.has-any-root( & ): </> true
+      selector.has-root( & ) = </> false
    */
     /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> true
+   */
+    /* 
+      selector.has-any-root( & ) = </> true
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
@@ -1479,7 +1479,7 @@ body:where(.has-a-class) {
    */
     /* 1: <()> ( <S> body:where(.has-a-class) ) */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
@@ -1491,7 +1491,7 @@ body:where(.has-a-class) {
    */
     /* 1: <()> ( <S> body:where(.has-a-class) ) */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -1504,78 +1504,78 @@ body:where(.has-a-class) {
     /* 1: <()> ( <S> html:where(.has-a-class) ) */
     /* 2: <()> ( <S> body:where(.has-a-class) ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> true
+      selector.parent-includes( ".has-a-class" ) = </> true
    */
 }
 
 body {
     /* via %body */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> true
+      selector.is-simple( & ) = </> true
    */
     /* 
-      selector.is-body( & ): </> true
+      selector.is-body( & ) = </> true
    */
     /* 
-      selector.is-root( & ): </> false
+      selector.is-root( & ) = </> false
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> true
-   */
-    /* 
-      selector.is-any-root( & ): </> false
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> true
+      selector.is-any-body( & ) = </> true
    */
     /* 
-      selector.has-root( & ): </> false
+      selector.is-any-root( & ) = </> false
    */
     /* 
-      selector.has-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.has-any-body( & ): </> true
-   */
-    /* 
-      selector.has-any-root( & ): </> false
-   */
-    /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.except-is-body( & ): <S> %null
+      selector.has-body( & ) = </> true
+   */
+    /* 
+      selector.has-root( & ) = </> false
+   */
+    /* 
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> true
+   */
+    /* 
+      selector.has-any-root( & ) = </> false
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.except-is-body( & ) = <S> %null
    */
     /* 
       selector.except-is-root( & ) is a list:
    */
     /* 1: <()> ( <S> %body ) */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
-      selector.except-has-body( & ): <S> %null
+      selector.except-has-body( & ) = <S> %null
    */
     /* 
       selector.except-has-root( & ) is a list:
    */
     /* 1: <()> ( <S> %body ) */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -1586,77 +1586,77 @@ body {
    */
     /* 1: <()> ( <S> %body ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> false
+      selector.parent-includes( ".has-a-class" ) = </> false
    */
 }
 body:where(.has-a-class) {
     /* via %body:where(.has-a-class) */
     /* 
-      selector.parent-exists(): </> true
+      selector.parent-exists() = </> true
    */
     /* 
-      selector.is-simple( & ): </> false
+      selector.is-simple( & ) = </> false
    */
     /* 
-      selector.is-body( & ): </> true
+      selector.is-body( & ) = </> true
    */
     /* 
-      selector.is-root( & ): </> false
+      selector.is-root( & ) = </> false
    */
     /* 
-      selector.is-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.is-any-body( & ): </> true
-   */
-    /* 
-      selector.is-any-root( & ): </> false
-   */
-    /* 
-      selector.is-any-root-or-body( & ): </> true
+      selector.is-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.has-body( & ): </> true
+      selector.is-any-body( & ) = </> true
    */
     /* 
-      selector.has-root( & ): </> false
+      selector.is-any-root( & ) = </> false
    */
     /* 
-      selector.has-root-or-body( & ): </> true
-   */
-    /* - - - */
-    /* 
-      selector.has-any-body( & ): </> true
-   */
-    /* 
-      selector.has-any-root( & ): </> false
-   */
-    /* 
-      selector.has-any-root-or-body( & ): </> true
+      selector.is-any-root-or-body( & ) = </> true
    */
     /* - - - */
     /* 
-      selector.except-is-body( & ): <S> %null
+      selector.has-body( & ) = </> true
+   */
+    /* 
+      selector.has-root( & ) = </> false
+   */
+    /* 
+      selector.has-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.has-any-body( & ) = </> true
+   */
+    /* 
+      selector.has-any-root( & ) = </> false
+   */
+    /* 
+      selector.has-any-root-or-body( & ) = </> true
+   */
+    /* - - - */
+    /* 
+      selector.except-is-body( & ) = <S> %null
    */
     /* 
       selector.except-is-root( & ) is a list:
    */
     /* 1: <()> ( <S> %body:where(.has-a-class) ) */
     /* 
-      selector.except-is-root-or-body( & ): <S> %null
+      selector.except-is-root-or-body( & ) = <S> %null
    */
     /* - - - */
     /* 
-      selector.except-has-body( & ): <S> %null
+      selector.except-has-body( & ) = <S> %null
    */
     /* 
       selector.except-has-root( & ) is a list:
    */
     /* 1: <()> ( <S> %body:where(.has-a-class) ) */
     /* 
-      selector.except-has-root-or-body( & ): <S> %null
+      selector.except-has-root-or-body( & ) = <S> %null
    */
     /* 
       selector.parent-or-body() is a list:
@@ -1667,7 +1667,7 @@ body:where(.has-a-class) {
    */
     /* 1: <()> ( <S> %body:where(.has-a-class) ) */
     /* 
-      selector.parent-includes( ".has-a-class" ): </> true
+      selector.parent-includes( ".has-a-class" ) = </> true
    */
 }
 
@@ -1680,43 +1680,43 @@ body:where(.has-a-class) {
         /* 1: <()> ( <S> %root <S> .child ) */
         /* */
         /* 
-        selector.is-body( & ): </> false
+        selector.is-body( & ) = </> false
      */
         /* 
-        selector.is-root( & ): </> false
+        selector.is-root( & ) = </> false
      */
         /* 
-        selector.is-root-or-body( & ): </> false
-     */
-        /* - - - */
-        /* 
-        selector.is-any-body( & ): </> false
-     */
-        /* 
-        selector.is-any-root( & ): </> false
-     */
-        /* 
-        selector.is-any-root-or-body( & ): </> false
+        selector.is-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-body( & ): </> false
+        selector.is-any-body( & ) = </> false
      */
         /* 
-        selector.has-root( & ): </> true
+        selector.is-any-root( & ) = </> false
      */
         /* 
-        selector.has-root-or-body( & ): </> true
+        selector.is-any-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-any-body( & ): </> false
+        selector.has-body( & ) = </> false
      */
         /* 
-        selector.has-any-root( & ): </> true
+        selector.has-root( & ) = </> true
      */
         /* 
-        selector.has-any-root-or-body( & ): </> true
+        selector.has-root-or-body( & ) = </> true
+     */
+        /* - - - */
+        /* 
+        selector.has-any-body( & ) = </> false
+     */
+        /* 
+        selector.has-any-root( & ) = </> true
+     */
+        /* 
+        selector.has-any-root-or-body( & ) = </> true
      */
         /* - - - */
         /* 
@@ -1737,10 +1737,10 @@ body:where(.has-a-class) {
      */
         /* 1: <()> ( <S> %root <S> .child ) */
         /* 
-        selector.except-has-root( & ): <S> %null
+        selector.except-has-root( & ) = <S> %null
      */
         /* 
-        selector.except-has-root-or-body( & ): <S> %null
+        selector.except-has-root-or-body( & ) = <S> %null
      */
     }
     :root .child {
@@ -1798,64 +1798,64 @@ body:where(.has-a-class) {
         /* 1: <()> ( <S> %root:has(.class-name) <S> %body ) */
         /* */
         /* 
-        selector.is-body( & ): </> true
+        selector.is-body( & ) = </> true
      */
         /* 
-        selector.is-root( & ): </> false
+        selector.is-root( & ) = </> false
      */
         /* 
-        selector.is-root-or-body( & ): </> true
-     */
-        /* - - - */
-        /* 
-        selector.is-any-body( & ): </> true
-     */
-        /* 
-        selector.is-any-root( & ): </> false
-     */
-        /* 
-        selector.is-any-root-or-body( & ): </> true
+        selector.is-root-or-body( & ) = </> true
      */
         /* - - - */
         /* 
-        selector.has-body( & ): </> true
+        selector.is-any-body( & ) = </> true
      */
         /* 
-        selector.has-root( & ): </> true
+        selector.is-any-root( & ) = </> false
      */
         /* 
-        selector.has-root-or-body( & ): </> true
-     */
-        /* - - - */
-        /* 
-        selector.has-any-body( & ): </> true
-     */
-        /* 
-        selector.has-any-root( & ): </> true
-     */
-        /* 
-        selector.has-any-root-or-body( & ): </> true
+        selector.is-any-root-or-body( & ) = </> true
      */
         /* - - - */
         /* 
-        selector.except-is-body( & ): <S> %null
+        selector.has-body( & ) = </> true
+     */
+        /* 
+        selector.has-root( & ) = </> true
+     */
+        /* 
+        selector.has-root-or-body( & ) = </> true
+     */
+        /* - - - */
+        /* 
+        selector.has-any-body( & ) = </> true
+     */
+        /* 
+        selector.has-any-root( & ) = </> true
+     */
+        /* 
+        selector.has-any-root-or-body( & ) = </> true
+     */
+        /* - - - */
+        /* 
+        selector.except-is-body( & ) = <S> %null
      */
         /* 
         selector.except-is-root( & ) is a list:
      */
         /* 1: <()> ( <S> %root:has(.class-name) <S> %body ) */
         /* 
-        selector.except-is-root-or-body( & ): <S> %null
+        selector.except-is-root-or-body( & ) = <S> %null
      */
         /* - - - */
         /* 
-        selector.except-has-body( & ): <S> %null
+        selector.except-has-body( & ) = <S> %null
      */
         /* 
-        selector.except-has-root( & ): <S> %null
+        selector.except-has-root( & ) = <S> %null
      */
         /* 
-        selector.except-has-root-or-body( & ): <S> %null
+        selector.except-has-root-or-body( & ) = <S> %null
      */
     }
     :has(.class-name):root [replaced-body] {
@@ -1913,43 +1913,43 @@ body:where(.has-a-class) {
         /* 1: <()> ( <S> %root:has(.class-name) <S> %body <S> .grandchild ) */
         /* */
         /* 
-        selector.is-body( & ): </> false
+        selector.is-body( & ) = </> false
      */
         /* 
-        selector.is-root( & ): </> false
+        selector.is-root( & ) = </> false
      */
         /* 
-        selector.is-root-or-body( & ): </> false
-     */
-        /* - - - */
-        /* 
-        selector.is-any-body( & ): </> false
-     */
-        /* 
-        selector.is-any-root( & ): </> false
-     */
-        /* 
-        selector.is-any-root-or-body( & ): </> false
+        selector.is-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-body( & ): </> true
+        selector.is-any-body( & ) = </> false
      */
         /* 
-        selector.has-root( & ): </> true
+        selector.is-any-root( & ) = </> false
      */
         /* 
-        selector.has-root-or-body( & ): </> true
+        selector.is-any-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-any-body( & ): </> true
+        selector.has-body( & ) = </> true
      */
         /* 
-        selector.has-any-root( & ): </> true
+        selector.has-root( & ) = </> true
      */
         /* 
-        selector.has-any-root-or-body( & ): </> true
+        selector.has-root-or-body( & ) = </> true
+     */
+        /* - - - */
+        /* 
+        selector.has-any-body( & ) = </> true
+     */
+        /* 
+        selector.has-any-root( & ) = </> true
+     */
+        /* 
+        selector.has-any-root-or-body( & ) = </> true
      */
         /* - - - */
         /* 
@@ -1966,13 +1966,13 @@ body:where(.has-a-class) {
         /* 1: <()> ( <S> %root:has(.class-name) <S> %body <S> .grandchild ) */
         /* - - - */
         /* 
-        selector.except-has-body( & ): <S> %null
+        selector.except-has-body( & ) = <S> %null
      */
         /* 
-        selector.except-has-root( & ): <S> %null
+        selector.except-has-root( & ) = <S> %null
      */
         /* 
-        selector.except-has-root-or-body( & ): <S> %null
+        selector.except-has-root-or-body( & ) = <S> %null
      */
     }
     :has(.class-name):root [replaced-body] .grandchild {
@@ -2037,43 +2037,43 @@ body:where(.has-a-class) {
         /* 4: <()> ( <S> .not-root-or-body <S> .child ) */
         /* */
         /* 
-        selector.is-body( & ): </> false
+        selector.is-body( & ) = </> false
      */
         /* 
-        selector.is-root( & ): </> false
+        selector.is-root( & ) = </> false
      */
         /* 
-        selector.is-root-or-body( & ): </> false
-     */
-        /* - - - */
-        /* 
-        selector.is-any-body( & ): </> false
-     */
-        /* 
-        selector.is-any-root( & ): </> false
-     */
-        /* 
-        selector.is-any-root-or-body( & ): </> false
+        selector.is-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-body( & ): </> false
+        selector.is-any-body( & ) = </> false
      */
         /* 
-        selector.has-root( & ): </> false
+        selector.is-any-root( & ) = </> false
      */
         /* 
-        selector.has-root-or-body( & ): </> false
+        selector.is-any-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-any-body( & ): </> true
+        selector.has-body( & ) = </> false
      */
         /* 
-        selector.has-any-root( & ): </> true
+        selector.has-root( & ) = </> false
      */
         /* 
-        selector.has-any-root-or-body( & ): </> true
+        selector.has-root-or-body( & ) = </> false
+     */
+        /* - - - */
+        /* 
+        selector.has-any-body( & ) = </> true
+     */
+        /* 
+        selector.has-any-root( & ) = </> true
+     */
+        /* 
+        selector.has-any-root-or-body( & ) = </> true
      */
         /* - - - */
         /* 
@@ -2208,43 +2208,43 @@ body:where(.has-a-class) {
         /* 1: <()> ( <S> :where(.js) <S> .not-root-or-body ) */
         /* */
         /* 
-        selector.is-body( & ): </> false
+        selector.is-body( & ) = </> false
      */
         /* 
-        selector.is-root( & ): </> false
+        selector.is-root( & ) = </> false
      */
         /* 
-        selector.is-root-or-body( & ): </> false
-     */
-        /* - - - */
-        /* 
-        selector.is-any-body( & ): </> false
-     */
-        /* 
-        selector.is-any-root( & ): </> false
-     */
-        /* 
-        selector.is-any-root-or-body( & ): </> false
+        selector.is-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-body( & ): </> false
+        selector.is-any-body( & ) = </> false
      */
         /* 
-        selector.has-root( & ): </> true
+        selector.is-any-root( & ) = </> false
      */
         /* 
-        selector.has-root-or-body( & ): </> true
+        selector.is-any-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-any-body( & ): </> false
+        selector.has-body( & ) = </> false
      */
         /* 
-        selector.has-any-root( & ): </> true
+        selector.has-root( & ) = </> true
      */
         /* 
-        selector.has-any-root-or-body( & ): </> true
+        selector.has-root-or-body( & ) = </> true
+     */
+        /* - - - */
+        /* 
+        selector.has-any-body( & ) = </> false
+     */
+        /* 
+        selector.has-any-root( & ) = </> true
+     */
+        /* 
+        selector.has-any-root-or-body( & ) = </> true
      */
         /* - - - */
         /* 
@@ -2265,10 +2265,10 @@ body:where(.has-a-class) {
      */
         /* 1: <()> ( <S> :where(.js) <S> .not-root-or-body ) */
         /* 
-        selector.except-has-root( & ): <S> %null
+        selector.except-has-root( & ) = <S> %null
      */
         /* 
-        selector.except-has-root-or-body( & ): <S> %null
+        selector.except-has-root-or-body( & ) = <S> %null
      */
     }
     :where(.js) .not-root-or-body {
@@ -2331,43 +2331,43 @@ body:where(.has-a-class) {
         /* 3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ) */
         /* */
         /* 
-        selector.is-body( & ): </> false
+        selector.is-body( & ) = </> false
      */
         /* 
-        selector.is-root( & ): </> false
+        selector.is-root( & ) = </> false
      */
         /* 
-        selector.is-root-or-body( & ): </> false
-     */
-        /* - - - */
-        /* 
-        selector.is-any-body( & ): </> false
-     */
-        /* 
-        selector.is-any-root( & ): </> false
-     */
-        /* 
-        selector.is-any-root-or-body( & ): </> false
+        selector.is-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-body( & ): </> false
+        selector.is-any-body( & ) = </> false
      */
         /* 
-        selector.has-root( & ): </> true
+        selector.is-any-root( & ) = </> false
      */
         /* 
-        selector.has-root-or-body( & ): </> true
+        selector.is-any-root-or-body( & ) = </> false
      */
         /* - - - */
         /* 
-        selector.has-any-body( & ): </> true
+        selector.has-body( & ) = </> false
      */
         /* 
-        selector.has-any-root( & ): </> true
+        selector.has-root( & ) = </> true
      */
         /* 
-        selector.has-any-root-or-body( & ): </> true
+        selector.has-root-or-body( & ) = </> true
+     */
+        /* - - - */
+        /* 
+        selector.has-any-body( & ) = </> true
+     */
+        /* 
+        selector.has-any-root( & ) = </> true
+     */
+        /* 
+        selector.has-any-root-or-body( & ) = </> true
      */
         /* - - - */
         /* 
@@ -2394,10 +2394,10 @@ body:where(.has-a-class) {
      */
         /* 1: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ) */
         /* 
-        selector.except-has-root( & ): <S> %null
+        selector.except-has-root( & ) = <S> %null
      */
         /* 
-        selector.except-has-root-or-body( & ): <S> %null
+        selector.except-has-root-or-body( & ) = <S> %null
      */
     }
     :root:where(.js__subgrid) [replaced-body] .child,
@@ -2638,7 +2638,7 @@ selector.is:is(body) {
 
 selector.not {
     /* 
-      selector.not-list(): <S> :not( %null )
+      selector.not-list() = <S> :not( %null )
    */
 }
 selector.not--unified {
@@ -2655,7 +2655,7 @@ selector.not--direct--unified {
 }
 selector.not--with-selectors {
     /* 
-      selector.not-list( ( div, p, body ) ): <S> ":not( div ):not( p ):not( body )"
+      selector.not-list( ( div, p, body ) ) = <S> ":not( div ):not( p ):not( body )"
    */
 }
 selector.not--with-selectors--direct {

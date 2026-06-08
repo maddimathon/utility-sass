@@ -260,14 +260,22 @@
         @if $includeRegion {
             /* #region Tokens - Width */
         }
+
         #{$_sel} {
             @each $slug, $_value in tokens.$width {
-                @each $value in width-value($slug, $multiplier: $multiplier, $returnAsNumber: false)
+                @each $value
+                    in width-value(
+                        $slug,
+                        $multiplier: $multiplier,
+                        $onlyFallbackPrefix: true,
+                        $returnAsNumber: false
+                    )
                 {
                     @include cx-prop(width-#{$slug}, $value, $allPrefixes: false);
                 }
             }
         }
+
         @if $includeRegion {
             /* #endregion Tokens - Width */
         }

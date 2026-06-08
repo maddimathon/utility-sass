@@ -1,0 +1,25 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:map';
+@use 'sass:meta';
+
+///
+/// Takes an all input args and returns them as an arglist object.
+///
+/// @since ___PKG_VERSION___
+///
+@function keywords-list($args...) {
+    $parsed: ();
+
+    $i: 1;
+
+    @each $arg in $args {
+        $parsed: map.set($parsed, #{$i}, $arg);
+        $i: $i + 1;
+    }
+
+    @return map.merge($parsed, meta.keywords($args));
+}

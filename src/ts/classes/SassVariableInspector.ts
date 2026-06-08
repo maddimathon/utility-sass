@@ -344,12 +344,47 @@ export namespace SassVariableInspector {
                     case 'number':
                         const _number = this.value as sass.SassNumber;
 
-                        return {
+                        const _ret: {
+                            value: number;
+                            isInt: boolean;
+                            unit?: string | string[];
+                            unitDenominator?: string | string[];
+                        } = {
                             value: _number.value,
                             isInt: _number.isInt,
-                            numeratorUnits: _number.numeratorUnits,
-                            denominatorUnits: _number.denominatorUnits,
                         };
+
+                        let numeratorUnits: undefined | string | string[];
+                        let unitDenominator: undefined | string | string[];
+
+                        if ( _number.numeratorUnits?.size ) {
+                            const _val = Array.from( _number.numeratorUnits );
+
+                            numeratorUnits = _val.length < 2 ? _val[ 0 ] : _val;
+                        }
+
+                        if ( _number.denominatorUnits?.size ) {
+                            const _val = Array.from( _number.denominatorUnits );
+
+                            unitDenominator = _val.length < 2 ? _val[ 0 ] : _val;
+                        }
+
+                        if (
+                            typeof numeratorUnits === 'string'
+                            && typeof unitDenominator === 'string'
+                        ) {
+                            _ret.unit = numeratorUnits + ' / ' + unitDenominator;
+                        } else {
+                            if ( numeratorUnits ) {
+                                _ret.unit = numeratorUnits;
+                            }
+
+                            if ( unitDenominator ) {
+                                _ret.unitDenominator = unitDenominator;
+                            }
+                        }
+
+                        return _ret;
 
                     case 'string':
                         const _string = this.value as sass.SassString;

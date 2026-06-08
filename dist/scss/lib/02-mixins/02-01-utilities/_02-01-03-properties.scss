@@ -56,7 +56,7 @@ $_allowAllPrefixes: (
         }
     }
 
-    @if $allPrefixes == null {
+    @if $allPrefixes != false {
         $allPrefixes: list.index(
                 config.$mx_customProperty_allPrefixesSlugs,
                 $slug

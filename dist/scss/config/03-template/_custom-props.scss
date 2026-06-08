@@ -6,6 +6,7 @@
 @use 'functions' as *;
 
 @use '../../modules/list';
+@use '../../modules/map';
 @use '../../modules/meta';
 @use '../../modules/string';
 
@@ -13,7 +14,8 @@
 /// ======================================================================== ///
 
 ///
-/// List of slugs that should default to $allPrefixes: true in the custom-property mixin.
+/// List of slugs that should default to $allPrefixes: true in the
+/// custom-property mixin.
 ///
 /// @since 0.1.0-beta.0.draft
 ///
@@ -27,6 +29,26 @@ $mx_customProperty_allPrefixesSlugs: config-valid-list-strings(
 $mx_customProperty_allPrefixesSlugs: list.join(
     ('display', 'focus-ring-outline-color'),
     $mx_customProperty_allPrefixesSlugs,
+    $separator: comma
+);
+
+///
+/// List of slugs that should be excluded from the default
+/// $mx_customProperty_allPrefixesSlugs list.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_customProperty_allPrefixesSlugs_except: null !default;
+$mx_customProperty_allPrefixesSlugs_except: config-valid-list-strings(
+    $mx_customProperty_allPrefixesSlugs_except,
+    'mx_customProperty_allPrefixesSlugs_except',
+    $default: (),
+    $allowEmptyList: true
+);
+
+$mx_customProperty_allPrefixesSlugs: list.except-any(
+    $mx_customProperty_allPrefixesSlugs,
+    $mx_customProperty_allPrefixesSlugs_except,
     $separator: comma
 );
 
@@ -52,27 +74,70 @@ $customPropertyPrefix_fallback: config-valid-string(
     $default: ''
 );
 
-$_exists_customPropertyPrefix: string.length($customPropertyPrefix) > 0;
 $_exists_customPropertyPrefix_fallback: string.length(
-        $customPropertyPrefix_fallback
+        #{$customPropertyPrefix_fallback}
     )
-    > 0 and $customPropertyPrefix != $customPropertyPrefix_fallback;
+    > 0 and #{$customPropertyPrefix} != #{$customPropertyPrefix_fallback};
+
+$_exists_customPropertyPrefix: string.length(#{$customPropertyPrefix}) > 0 or
+    $_exists_customPropertyPrefix_fallback;
+
+$_allowAllPrefixes: $_exists_customPropertyPrefix and
+    $_exists_customPropertyPrefix_fallback;
+
+$_allPrefixes_default: if($_allowAllPrefixes, null, false);
 
 ///
 /// Prints a var(...) value with an optional fallback. Don't include -- in the slug.
 ///
 /// @since 0.1.0-alpha.25
-/// @since 0.1.0-beta.0.draft — Added optional $fallbackOnly param.
+/// @since 0.1.0-beta.0.draft — Added optional $allPrefixes, $fallbackOnly, $neverFallbackPrefix, $onlyFallbackPrefix params.
 ///
 @function config-do-var(
     $slug,
     $fallback: null,
+    //
+    $allPrefixes: null,
+    $debug: false,
     $fallbackOnly: false,
-    $neverFallbackPrefix: false,
-    $onlyFallbackPrefix: false,
+    $neverFallbackPrefix: null,
+    $onlyFallbackPrefix: null,
     $quoteString: string.is-quoted($fallback)
 ) {
-    //
+    $_debug: ();
+
+    @if $debug {
+        @if $fallback != null {
+            $_debug: map.set($_debug, '[input] $fallback', $fallback);
+        }
+
+        @if $allPrefixes != null {
+            $_debug: map.set($_debug, '[input] $allPrefixes', $allPrefixes);
+        }
+
+        @if $neverFallbackPrefix != null {
+            $_debug: map.set(
+                $_debug,
+                '[input] $neverFallbackPrefix',
+                $neverFallbackPrefix
+            );
+        }
+
+        @if $onlyFallbackPrefix != null {
+            $_debug: map.set(
+                $_debug,
+                '[input] $onlyFallbackPrefix',
+                $onlyFallbackPrefix
+            );
+        }
+
+        @if $fallbackOnly != null {
+            $_debug: map.set($_debug, '$fallbackOnly', $fallbackOnly);
+        }
+
+        $_debug: map.set($_debug, '$quoteString', $quoteString);
+    }
+
     @if meta.type-of($fallback) == string {
         @if $quoteString {
             $fallback: string.quote($fallback);
@@ -81,15 +146,29 @@ $_exists_customPropertyPrefix_fallback: string.length(
         }
     }
 
-    $onlyFallbackPrefix: (not $neverFallbackPrefix) and $onlyFallbackPrefix and
-        $_exists_customPropertyPrefix_fallback;
+    @if $allPrefixes == null {
+        $allPrefixes: (
+                list.index($mx_customProperty_allPrefixesSlugs, $slug) == null
+            ) and
+            $_allowAllPrefixes;
+    }
 
-    @if (not $neverFallbackPrefix) and
+    @if $onlyFallbackPrefix == null {
+        $onlyFallbackPrefix: (not $allPrefixes) and
+            (not $neverFallbackPrefix) and
+            (list.index($mx_customProperty_allPrefixesSlugs, $slug) != null);
+
+        // $onlyFallbackPrefix: (not $neverFallbackPrefix) and
+        //     (list.index($mx_customProperty_allPrefixesSlugs, $slug) == null);
+    }
+
+    $includeFallbackPrefix: (not $fallbackOnly) and
         (
-            $onlyFallbackPrefix or
-                (not $fallbackOnly and $_exists_customPropertyPrefix_fallback)
-        )
-    {
+            not $neverFallbackPrefix or
+                ($onlyFallbackPrefix and $_exists_customPropertyPrefix_fallback)
+        );
+
+    @if $includeFallbackPrefix and $_exists_customPropertyPrefix_fallback {
         $fallback: if(
             $fallback == null,
             var(--#{$customPropertyPrefix_fallback}#{$slug}),
@@ -97,14 +176,71 @@ $_exists_customPropertyPrefix_fallback: string.length(
         );
     }
 
-    @return if(
-        $onlyFallbackPrefix or
-            ($fallbackOnly and not $_exists_customPropertyPrefix_fallback),
-        $fallback,
+    $includePrefix_A: (not $onlyFallbackPrefix) and
+        (
+            (not $fallbackOnly) or
+                (
+                    $_exists_customPropertyPrefix and
+                        $_exists_customPropertyPrefix_fallback
+                )
+        );
+
+    $includePrefix_B: (not $fallbackOnly) and $includeFallbackPrefix and
+        (not $_exists_customPropertyPrefix_fallback);
+
+    $includePrefix: $includePrefix_A or $includePrefix_B;
+
+    $returnValue: if(
+        $includePrefix,
         if(
             $fallback == null,
             var(--#{$customPropertyPrefix}#{$slug}),
             var(--#{$customPropertyPrefix}#{$slug}, $fallback)
-        )
+        ),
+        $fallback
     );
+
+    @if $debug {
+        $_debug: map.set($_debug, '$allPrefixes', $allPrefixes);
+
+        $_debug: map.set(
+            $_debug,
+            '$_exists_customPropertyPrefix_fallback',
+            $_exists_customPropertyPrefix_fallback
+        );
+
+        $_debug: map.set(
+            $_debug,
+            '$customPropertyPrefix',
+            $customPropertyPrefix
+        );
+
+        $_debug: map.set(
+            $_debug,
+            '$customPropertyPrefix_fallback',
+            $customPropertyPrefix_fallback
+        );
+
+        $_debug: map.set($_debug, '$neverFallbackPrefix', $neverFallbackPrefix);
+        $_debug: map.set($_debug, '$onlyFallbackPrefix', $onlyFallbackPrefix);
+
+        $_debug: map.set(
+            $_debug,
+            '$includeFallbackPrefix',
+            $includeFallbackPrefix
+        );
+        $_debug: map.set($_debug, '$includePrefix', $includePrefix);
+
+        $_debug: map.set($_debug, '$includePrefix_A', $includePrefix_A);
+        $_debug: map.set($_debug, '$includePrefix_B', $includePrefix_B);
+
+        $_debug: map.set($_debug, '$fallback', $fallback);
+        $_debug: map.set($_debug, 'return', $returnValue);
+    }
+
+    @if $debug {
+        $_: meta.js-var-dump($_debug, 'do-var( #{$slug} )');
+    }
+
+    @return $returnValue;
 }

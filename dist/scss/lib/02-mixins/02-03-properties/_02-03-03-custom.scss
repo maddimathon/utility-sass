@@ -40,7 +40,7 @@
                 @each $slug, $_value in $tokens {
                     @include cx-prop(
                         #{$slug},
-                        style-value($slug),
+                        style-value($slug, $onlyFallbackPrefix: true),
                         $allPrefixes: false
                     );
                 }

@@ -40,24 +40,13 @@ $page_top: 0px !default;
                     syntax: '<length-percentage> | <number>',
                     inherits: true,
 
-                    initial-value: config.config-do-var(
-                            stroke-relative-#{$focusRingOffset},
-                            $fallback: math.add-unit(
-                                    if(
-                                        map.has-key(
-                                            $stroke_relative,
-                                            $focusRingOffset
-                                        ),
-                                        map.get(
-                                            $stroke_relative,
-                                            $focusRingOffset
-                                        ),
-                                        map.get($stroke_relative, '200')
-                                    ),
-                                    $unit: 1em
-                                ),
-                            $fallbackOnly:
-                                config.$fn_var_replaceWithValue_strokeRelative
+                    initial-value: math.add-unit(
+                            if(
+                                map.has-key($stroke_relative, $focusRingOffset),
+                                map.get($stroke_relative, $focusRingOffset),
+                                map.get($stroke_relative, '200')
+                            ),
+                            $unit: 1em
                         ),
                 ),
 
@@ -65,24 +54,13 @@ $page_top: 0px !default;
                     syntax: '<length-percentage> | <number>',
                     inherits: true,
 
-                    initial-value: config.config-do-var(
-                            stroke-relative-#{$focusRingWidth},
-                            $fallback: math.add-unit(
-                                    if(
-                                        map.has-key(
-                                            $stroke_relative,
-                                            $focusRingWidth
-                                        ),
-                                        map.get(
-                                            $stroke_relative,
-                                            $focusRingWidth
-                                        ),
-                                        map.get($stroke_relative, '200')
-                                    ),
-                                    $unit: 1em
-                                ),
-                            $fallbackOnly:
-                                config.$fn_var_replaceWithValue_strokeRelative
+                    initial-value: math.add-unit(
+                            if(
+                                map.has-key($stroke_relative, $focusRingWidth),
+                                map.get($stroke_relative, $focusRingWidth),
+                                map.get($stroke_relative, '200')
+                            ),
+                            $unit: 1em
                         ),
                 ),
 

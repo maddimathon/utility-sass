@@ -5,7 +5,58 @@
 /// @since ___PKG_VERSION___ — Moved to module config.
 ///
 
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+
 @use 'warnings' as *;
+
+///
+/// Better checks for truthiness.
+///
+/// @since ___PKG_VERSION___
+///
+@function _is-truthy($value) {
+    $typeof: meta.type-of($value);
+
+    // returns
+    @if $typeof == arglist {
+        // returns
+        @if list.length($value) > 1 {
+            @return true;
+        }
+
+        @return list.length(map.keys(meta.keywords($value))) > 0;
+    }
+
+    // returns
+    @if $typeof == bool {
+        @return $value;
+    }
+
+    // returns
+    @if $typeof == list {
+        @return list.length($value) > 0;
+    }
+
+    // returns
+    @if $typeof == map {
+        @return list.length(map.keys($value)) > 0;
+    }
+
+    // returns
+    @if $typeof == number {
+        @return $value > 0;
+    }
+
+    // returns
+    @if $typeof == string {
+        @return string.length($value) > 0;
+    }
+
+    @return if($value, true, false);
+}
 
 ///
 /// Validates the value of a config variable that should be a boolean. Uses
@@ -18,17 +69,19 @@
 ///
 /// @since ___PKG_VERSION___ — Added $default param.
 ///
-@function config-valid-bool($value, $name, $default: null) {
+@function config-valid-bool($value, $name, $default: null, $warnOnWrongType: true) {
     // returns
     @if $value == null {
         @return $default;
     }
 
-    $typeWarn: config-enforce-type-or-warn(
-        $value: $value,
-        $type: bool,
-        $varName: $name,
-    );
+    @if $warnOnWrongType {
+        $typeWarn: config-enforce-type-or-warn(
+            $value: $value,
+            $type: bool,
+            $varName: $name,
+        );
+    }
 
-    @return if($value, true, false);
+    @return _is-truthy($value);
 }

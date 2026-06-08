@@ -99,7 +99,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
-@function width-value($slug, $multiplier: 1, $returnAsNumber: true) {
+@function width-value($slug, $multiplier: 1, $returnAsNumber: true, $args...) {
     // returns
     @if not map.has-key(tokens.$width, #{$slug}) {
         @warn "$slug '#{$slug}' was not a key in tokens.$width";
@@ -114,28 +114,32 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 
     $num: math.add-unit($num, 1rem);
 
+    $args: meta.keywords($args);
+
     // returns
-    @if config.$include_html and not $returnAsNumber and $slug == 'page' {
-        @return list.join(
+    @if config.$include_html and $slug == 'page' {
+        $args: map.merge(
+            $args,
+            (
+                multiplier: $multiplier,
+            )
+        );
+
+        @return if(
+            $returnAsNumber,
             $num,
-            calc(
-                var-width(
-                        content,
-                        $multiplier: $multiplier,
-                        $onlyFallbackPrefix: true
-                    ) +
-                    var-width(
-                        sidebar,
-                        $multiplier: $multiplier,
-                        $onlyFallbackPrefix: true
-                    ) +
-                    var-gap-inline(layout)
-            ),
-            $separator: comma
+            (
+                $num,
+                calc(
+                    var-width(content, $args...) +
+                        var-width(sidebar, $args...) +
+                        var-gap-inline(layout, $args...)
+                )
+            )
         );
     }
 
-    @return if($returnAsNumber, $num, ($num));
+    @return $num;
 }
 
 /// ## VARIABLES ==================================== ///
@@ -146,13 +150,13 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @since 0.1.0-alpha.15
 ///
-@function var-pad-firm($level, $args...) {
+@function var-pad-firm($level, $fallbackOnly: false, $args...) {
     $fallback: calc(1em * mrg-value-firm($level));
 
     @return do-var(
         pad-firm-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -163,13 +167,13 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @since 0.1.0-alpha.15
 ///
-@function var-pad-half($level, $args...) {
+@function var-pad-half($level, $fallbackOnly: false, $args...) {
     $fallback: calc(1em * mrg-value-half($level));
 
     @return do-var(
         pad-half-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -180,13 +184,13 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 ///
 /// @since 0.1.0-alpha.15
 ///
-@function var-pad-soft($level, $args...) {
+@function var-pad-soft($level, $fallbackOnly: false, $args...) {
     $fallback: calc(1em * mrg-value-soft($level));
 
     @return do-var(
         pad-soft-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -198,7 +202,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
-@function var-mrg-firm($level, $multiplier: 1, $args...) {
+@function var-mrg-firm($level, $fallbackOnly: false, $multiplier: 1, $args...) {
     $fallback: math.add-unit(
         mrg-value-firm($level, $multiplier: $multiplier),
         1rem
@@ -207,7 +211,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
     @return do-var(
         mrg-firm-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -219,7 +223,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
-@function var-mrg-half($level, $multiplier: 1, $args...) {
+@function var-mrg-half($level, $fallbackOnly: false, $multiplier: 1, $args...) {
     $fallback: math.add-unit(
         mrg-value-half($level, $multiplier: $multiplier),
         1rem
@@ -228,7 +232,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
     @return do-var(
         mrg-half-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -240,7 +244,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
-@function var-mrg-soft($level, $multiplier: 1, $args...) {
+@function var-mrg-soft($level, $fallbackOnly: false, $multiplier: 1, $args...) {
     $fallback: math.add-unit(
         mrg-value-soft($level, $multiplier: $multiplier),
         1rem
@@ -249,7 +253,7 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
     @return do-var(
         mrg-soft-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -261,21 +265,22 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 ///
-@function var-width($slug, $multiplier: 1, $args...) {
+@function var-width($slug, $fallbackOnly: false, $multiplier: 1, $args...) {
     $fallback: width-value(
         $slug,
         $multiplier: $multiplier,
-        $returnAsNumber: true
+        $returnAsNumber: true,
+        $args...
     );
 
     @if meta.type-of($fallback) == list and list.length($fallback) < 1 {
-        @return do-var(width-#{$slug});
+        @return do-var(width-#{$slug}, $args...);
     }
 
     @return do-var(
         width-#{$slug},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_width,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_width,
         $args...
     );
 }
@@ -294,6 +299,7 @@ $_gaps_inline: map.get(tokens.$gap, inline);
     $dir,
     $slug,
     $multiplier: 1,
+    $returnAsNumber: false,
     $useMarginValue: config.$fn_gapValue_useMarginValue
 ) {
     $dir: #{$dir};
@@ -342,12 +348,18 @@ $_gaps_inline: map.get(tokens.$gap, inline);
                 )
             );
 
-            @return (
-                math.add-unit($num, 1vw),
-                clamp(
-                    if($slug == layout, $_clamp_low, calc($_clamp_low/2)),
-                    math.add-unit($num, 1svw),
-                    if($slug == layout, $_clamp_high, calc($_clamp_high/2))
+            $_simpleVal: math.add-unit($num, 1vw);
+
+            @return if(
+                $returnAsNumber,
+                $_simpleVal,
+                (
+                    $_simpleVal,
+                    clamp(
+                        if($slug == layout, $_clamp_low, calc($_clamp_low/2)),
+                        math.add-unit($num, 1svw),
+                        if($slug == layout, $_clamp_high, calc($_clamp_high/2))
+                    )
                 )
             );
         }
@@ -380,9 +392,15 @@ $_gaps_inline: map.get(tokens.$gap, inline);
                 )
             );
 
-            @return (
-                math.add-unit($num, 1%),
-                clamp($_clamp_low, math.add-unit($num, 1%), $_clamp_high)
+            $_simpleVal: math.add-unit($num, 1%);
+
+            @return if(
+                $returnAsNumber,
+                $_simpleVal,
+                (
+                    $_simpleVal,
+                    clamp($_clamp_low, math.add-unit($num, 1%), $_clamp_high)
+                )
             );
         } @else if $slug == layout or $slug == layout-half {
             $_clamp_low: if(
@@ -411,12 +429,18 @@ $_gaps_inline: map.get(tokens.$gap, inline);
                 )
             );
 
-            @return (
-                math.add-unit($num, 1vw),
-                clamp(
-                    if($slug == layout, $_clamp_low, calc($_clamp_low/2)),
-                    math.add-unit($num, 1svw),
-                    if($slug == layout, $_clamp_high, calc($_clamp_high/2))
+            $_simpleVal: math.add-unit($num, 1vw);
+
+            @return if(
+                $returnAsNumber,
+                $_simpleVal,
+                (
+                    $_simpleVal,
+                    clamp(
+                        if($slug == layout, $_clamp_low, calc($_clamp_low/2)),
+                        math.add-unit($num, 1svw),
+                        if($slug == layout, $_clamp_high, calc($_clamp_high/2))
+                    )
                 )
             );
         } @else if $slug == tab {
@@ -446,14 +470,20 @@ $_gaps_inline: map.get(tokens.$gap, inline);
                 )
             );
 
-            @return (
-                math.add-unit($num, 1%),
-                clamp($_clamp_low, math.add-unit($num, 1%), $_clamp_high)
+            $_simpleVal: math.add-unit($num, 1%);
+
+            @return if(
+                $returnAsNumber,
+                $_simpleVal,
+                (
+                    $_simpleVal,
+                    clamp($_clamp_low, math.add-unit($num, 1%), $_clamp_high)
+                )
             );
         }
     }
 
-    @return ($num);
+    @return $num;
 }
 
 ///
@@ -461,12 +491,8 @@ $_gaps_inline: map.get(tokens.$gap, inline);
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 /// @since 0.1.0-alpha.21 — Added $useMarginValue param.
 ///
-@function gap-block-value(
-    $slug,
-    $multiplier: 1,
-    $useMarginValue: config.$fn_gapValue_useMarginValue
-) {
-    @return gap-value(block, $slug, $multiplier: $multiplier);
+@function gap-block-value($slug, $args...) {
+    @return gap-value(block, $slug, $args...);
 }
 
 ///
@@ -474,24 +500,36 @@ $_gaps_inline: map.get(tokens.$gap, inline);
 /// @since 0.1.0-alpha.19 — Added $multiplier param.
 /// @since 0.1.0-alpha.21 — Added $useMarginValue param.
 ///
-@function gap-inline-value(
-    $slug,
-    $multiplier: 1,
-    $useMarginValue: config.$fn_gapValue_useMarginValue
-) {
-    @return gap-value(inline, $slug, $multiplier: $multiplier);
+@function gap-inline-value($slug, $args...) {
+    @return gap-value(inline, $slug, $args...);
 }
 
 ///
 /// @since 0.1.0-pre.0
 ///
-@function var-gap($dir, $slug, $args...) {
-    $fallback: list.nth(gap-value($dir, $slug), 1);
+@function var-gap(
+    $dir,
+    $slug,
+    $fallbackOnly: false,
+    $multiplier: 1,
+    $useMarginValue: config.$fn_gapValue_useMarginValue,
+    $args...
+) {
+    $fallback: list.nth(
+        gap-value(
+            $dir,
+            $slug,
+            $multiplier: $multiplier,
+            $useMarginValue: $useMarginValue,
+            $returnAsNumber: true
+        ),
+        1
+    );
 
     @return do-var(
         gap-#{$dir}-#{$slug},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_gap,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_gap,
         $args...
     );
 }

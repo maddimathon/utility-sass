@@ -1,0 +1,35 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+
+@use '../config';
+
+@use 'keywords-list';
+
+///
+/// Better checks for truthiness.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function is-truthy($value) {
+    // returns
+    @if $value == null {
+        @return false;
+    }
+
+    // returns
+    @if meta.type-of($value) == arglist {
+        @return list.length(map.keys(keywords-list.keywords-list($value))) > 0;
+    }
+
+    @return config.config-valid-bool(
+        $value,
+        '[meta.is-truthy()] $value',
+        $warnOnWrongType: false
+    );
+}

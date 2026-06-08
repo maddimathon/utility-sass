@@ -5,20 +5,44 @@
 
 @use '../config';
 
+@use 'sass:string';
+
 @if config.$template_docBlock {
     @if config.$template_isDefault {
-        /**
-         * Utility Sass - Template
-         * @maddimathon/utility-sass/template@___CURRENT_VERSION___
-         * 
-         * ___CURRENT_URL___
-         */
+        @if string.length(#{config.$template_description}) > 0 {
+            /**
+             * Utility Sass - Template
+             * @maddimathon/utility-sass/template@___CURRENT_VERSION___
+             * 
+             * #{config.$template_description}
+             * 
+             * ___CURRENT_URL___
+             */
+        } @else {
+            /**
+             * Utility Sass - Template
+             * @maddimathon/utility-sass/template@___CURRENT_VERSION___
+             * 
+             * ___CURRENT_URL___
+             */
+        }
     } @else {
-        /**
-         * Utility Sass - Template - #{config.$template_name}
-         * @maddimathon/utility-sass/template/#{config.$template_slug}@___CURRENT_VERSION___
-         * 
-         * ___CURRENT_URL___
-         */
+        @if string.length(#{config.$template_description}) > 0 {
+            /**
+             * Utility Sass - Template - #{config.$template_name}
+             * @maddimathon/utility-sass/template/#{config.$template_slug}@___CURRENT_VERSION___
+             * 
+             * #{config.$template_description}
+             * 
+             * ___CURRENT_URL___
+             */
+        } @else {
+            /**
+             * Utility Sass - Template - #{config.$template_name}
+             * @maddimathon/utility-sass/template/#{config.$template_slug}@___CURRENT_VERSION___
+             * 
+             * ___CURRENT_URL___
+             */
+        }
     }
 }

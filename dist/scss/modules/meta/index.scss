@@ -12,8 +12,15 @@
 
 @forward 'sass:meta';
 
+@forward 'arglist';
 @forward 'current-version';
 @forward 'global-compiler-fn';
-@forward 'js-var-dump';
+@forward 'keywords-list';
 @forward 'mixin-demo';
 @forward 'var-dump';
+
+// deps on keywords-list
+@forward 'is-truthy';
+
+// deps on is-truthy, var-dump
+@forward 'js-var-dump';

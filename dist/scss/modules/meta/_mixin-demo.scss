@@ -6,25 +6,49 @@
 @use 'sass:list';
 @use 'sass:map';
 @use 'sass:meta';
+@use 'sass:string';
 
+@use 'is-truthy';
 @use 'var-dump';
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
 @function demo-args-dump($args...) {
-    $args: meta.keywords($args);
+    // $args: if(meta.type-of($args) == arglist, meta.keywords($args), $args);
 
-    $_dumpList: ();
+    $_unused: meta.keywords($args);
 
-    @each $param, $value in $args {
-        $_dumpList: map.set($_dumpList, '$#{$param}', $value);
-    }
+    // $_dumpList: ();
+
+    // @if meta.type-of($args) == arglist {
+
+    //     @each $value in $args {
+    //         $_dumpList: list.append($_dumpList, $value, $separator: comma);
+    //     }
+    // }
+
+    // @if meta.type-of($args) == map {
+    //     @each $param, $value in $args {
+    //         $_dumpList: map.set($_dumpList, '$#{$param}', $value);
+    //     }
+    // } @else {
+    //     @each $value in $args {
+    //         $_dumpList: list.append($_dumpList, $value, $separator: comma);
+    //     }
+    // }
 
     @return if(
-        list.length($_dumpList) < 1,
+        not is-truthy.is-truthy($args),
         '()',
-        var-dump.var-dump($_dumpList, $withType: false, $keys_neverQuote: true)
+        var-dump.var-dump(
+            $args,
+            $alwaysQuote: true,
+            $withType: false,
+            $child_alwaysQuote: false,
+            $keys_alwaysQuote: false,
+            $keys_neverQuote: true
+        )
     );
 }
 

@@ -251,12 +251,14 @@ $_extend_all_permutations: (
                 $args...,
             );
 
+            $args: meta.keywords($args);
+
             @include meta.var-dump(
-                'selector.except#{meta.demo-args-dump($haystack: string.unquote('&'), $args...)}',
+                'selector.except#{meta.demo-args-dump( string.unquote('&'), $args... )}',
                 $sel
             );
 
-            $callDump: 'selector.except#{meta.demo-args-dump($haystack: &, $args...)}';
+            $callDump: 'selector.except#{meta.demo-args-dump( &, $args... )}';
 
             @at-root #{$sel} {
                 /* #{$callDump} */
@@ -302,12 +304,14 @@ a.class-name[data-complex='selector']:focus {
                 $args...,
             );
 
+            $args: meta.keywords($args);
+
             @include meta.var-dump(
-                'selector.except-superselector#{meta.demo-args-dump($haystack: string.unquote('&'), $args...)}',
+                'selector.except-superselector#{meta.demo-args-dump( string.unquote('&'), $args... )}',
                 $sel
             );
 
-            $callDump: 'selector.except-superselector#{meta.demo-args-dump($haystack: &, $args...)}';
+            $callDump: 'selector.except-superselector#{meta.demo-args-dump( &, $args... )}';
 
             @at-root #{$sel} {
                 /* #{$callDump} */
