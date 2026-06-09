@@ -742,7 +742,7 @@ export declare namespace CssColours {
             }
         }
         /**
-         * For LAB strings.
+         * For LCH strings.
          *
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-lch}
@@ -833,7 +833,7 @@ export declare namespace CssColours {
             }
         }
         /**
-         * For OkLAB strings.
+         * For OkLCH strings.
          *
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-oklch}

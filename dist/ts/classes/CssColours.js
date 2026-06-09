@@ -436,7 +436,7 @@ export var CssColours;
             Match.oklab = oklab;
         })(Match = Regex.Match || (Regex.Match = {}));
         /**
-         * For LAB strings.
+         * For LCH strings.
          *
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-lch}
@@ -512,7 +512,7 @@ export var CssColours;
             Match.lch = lch;
         })(Match = Regex.Match || (Regex.Match = {}));
         /**
-         * For OkLAB strings.
+         * For OkLCH strings.
          *
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-oklch}
