@@ -39,7 +39,7 @@ export async function jsValueToSass(value, _opts) {
         case 'number':
             return new sass.SassNumber(Number(value));
         case 'string':
-            const parsedColour = CssColours.parseCssColourFunction(value);
+            const parsedColour = CssColours.parseFunction(value);
             // returns
             if (parsedColour) {
                 // returns

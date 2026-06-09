@@ -28,9 +28,31 @@ export class Test extends TestStage {
      * @override
      */
     subStages = [
+        // // @ts-expect-error
+        // 'playground',
         'js',
         'scss',
     ];
+
+    /**
+     * @param {number} level
+     * 
+     * @return {Promise<string[]>}
+     * 
+     * @override
+     * @protected
+     */
+    async tsConfigTidyPaths( level ) {
+
+        return super.tsConfigTidyPaths( level ).then(
+            arr => arr.concat( [
+                this.fs.pathResolve( 'dist/ts/**/*.test.values.d.ts' ),
+                this.fs.pathResolve( 'dist/ts/**/*.test.values.d.ts.map' ),
+                this.fs.pathResolve( 'dist/ts/**/*.test.values.js' ),
+                this.fs.pathResolve( 'dist/ts/**/*.test.values.js.map' ),
+            ] )
+        );
+    }
 
     /**
      * @override
@@ -99,6 +121,129 @@ export class Test extends TestStage {
                     'dist/scss/demos',
                 ], ( this.params.verbose ? 3 : 2 ) ]
             );
+        }
+    }
+
+    /**
+     * @protected
+     */
+    async playground() {
+        this.console.log( 'starting playground output...', 1 );
+
+        const [
+            { CssColours },
+            { colourValueFunctions },
+        ] = await Promise.all( [
+            import( '../../dist/ts/classes/CssColours.js' ),
+            import( '../../dist/ts/classes/CssColours.test.values.js' ),
+        ] ).catch(
+            err => {
+                this.handleError( err, 2, { exitProcess: this.params.packaging || this.params.releasing } );
+                return [];
+            }
+        );
+
+        for ( const oklab of [
+            'oklab(none none none/none)',
+            ...colourValueFunctions.oklab,
+            ...colourValueFunctions.oklaba,
+        ] ) {
+
+            const {
+                groups: matchGroups,
+                units: matchUnits,
+            } = CssColours.Regex.Match.oklab( oklab ) ?? {};
+
+            this.console.vi.log( {
+                [ `[oklab] current: ${ oklab }` ]: {
+                    // matches: CssColours.Regex.Match.oklab( oklab ),
+                    parsed: CssColours.parseFunction.oklab( oklab, null ),
+                    matchGroups,
+                    matchUnits,
+                }
+            }, 2, { msg: { clr: 'turquoise' } } );
+        }
+
+        for ( const lab of [
+            'lab(none none none/none)',
+            ...colourValueFunctions.lab,
+            ...colourValueFunctions.laba,
+        ] ) {
+
+            // const {
+            //     matches,
+            //     groups: matchGroups,
+            //     units: matchUnits,
+            // } = CssColours.Regex.Match.lab( lab ) ?? {};
+
+            this.console.vi.log( {
+                [ `[lab] current: ${ lab }` ]: {
+                    // matches: CssColours.Regex.Match.lab( lab ),
+                    // matchGroups,
+                    // matchUnits,
+                    parsed: CssColours.parseFunction( lab ),
+                }
+            }, 2, { msg: { clr: 'turquoise' } } );
+
+            // const {
+            //     matches: labMatches,
+            //     groups: matchGroups,
+            //     // units: matchUnits = {},
+            // } = CssColours.Regex.Match.lab( lab ) ?? {};
+
+            // if ( labMatches ) {
+            //     if ( matchGroups ) {
+
+            //         // const matchGroups = {
+            //         //     l: labMatches[ 1 ],
+            //         //     c: labMatches[ 3 ],
+            //         //     h: labMatches[ 5 ],
+            //         //     alpha: labMatches[ 7 ],
+
+            //         //     units: deleteUndefinedProps( {
+            //         //         l: labMatches[ 2 ],
+            //         //         c: labMatches[ 4 ],
+            //         //         h: labMatches[ 6 ],
+            //         //         alpha: labMatches[ 8 ],
+            //         //     } ),
+            //         // };
+
+            //         // const numbers = {
+            //         //     l: Number( matchGroups.l ),
+            //         //     c: Number( matchGroups.c ),
+            //         //     h: Number( matchGroups.h ),
+            //         //     alpha: typeof matchGroups.alpha === 'undefined' ? undefined : Number( matchGroups.alpha ),
+            //         // };
+
+            //         // const parsed = (
+            //         //     Number.isNaN( numbers.l ) || Number.isNaN( numbers.c ) || Number.isNaN( numbers.h )
+            //         // ) ? undefined : {
+            //         //     l: numbers.l * ( matchUnits.l === 'turn' ? 360 : 1 ),
+            //         //     c: numbers.c * ( matchUnits.c ? 1 : 100 ),
+            //         //     h: numbers.h * ( matchUnits.h ? 1 : 100 ),
+            //         //     alpha: numbers.alpha * ( matchUnits.alpha ? 1 : 100 ),
+            //         // };
+
+            //         this.console.vi.log( {
+            //             [ `[lab] test: ${ lab }` ]: {
+            //                 // sample: matchGroups && (
+            //                 //     matchGroups.alpha
+            //                 //         ? `lab( ${ matchGroups.l } ${ matchGroups.c } ${ matchGroups.h } / ${ matchGroups.alpha }% )`
+            //                 //         : `lab( ${ matchGroups.l } ${ matchGroups.c } ${ matchGroups.h } )`
+            //                 // ),
+            //                 parsed: CssColours.parseFunction.lab( lab, null ),
+            //                 // matches: labMatches,
+            //                 // rawMatches: lab.match( CssColours.Regex.lab2 ),
+            //                 matchGroups,
+            //             }
+            //         }, 2, { msg: { clr: 'purple' } } );
+
+            //     } else {
+            //         this.console.vi.log( { [ `[lab] test: ${ lab }` ]: lab.match( CssColours.Regex.lab ) }, 2 );
+            //     }
+            // } else {
+            //     this.console.vi.log( { [ `[lab] test: ${ lab }` ]: lab.match( CssColours.Regex.lab ) }, 2 );
+            // }
         }
     }
 }

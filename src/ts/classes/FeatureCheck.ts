@@ -145,6 +145,7 @@ export class FeatureCheck<
          * 
          * @since ___PKG_VERSION___
          *
+         * @inline
          * @internal
          */
         ignorePrefix: boolean = featureSlug === 'js',
@@ -477,6 +478,7 @@ export class FeatureCheck<
          * Whether to exclude the 'js__' prefix. This is only used to set the
          * 'js' and 'no-js' classes.
          *
+         * @inline
          * @internal
          */
         ignorePrefix?: boolean,

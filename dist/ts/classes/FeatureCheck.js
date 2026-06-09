@@ -62,6 +62,7 @@ export class FeatureCheck {
      *
      * @since 0.1.0-beta.0.draft
      *
+     * @inline
      * @internal
      */
     ignorePrefix = featureSlug === 'js') {
@@ -302,6 +303,7 @@ export class FeatureCheck {
      * Whether to exclude the 'js__' prefix. This is only used to set the
      * 'js' and 'no-js' classes.
      *
+     * @inline
      * @internal
      */
     ignorePrefix) {

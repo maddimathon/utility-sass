@@ -56,7 +56,7 @@ In your partials, `*/*.scss`:
 @use '../tokens'; // if applicable
 
 @use 'pkg:@maddimathon/utility-sass/colour'; // replaces 'sass:color'
-@use 'pkg:@maddimathon/utility-sass/feature-check';
+@use 'pkg:@maddimathon/utility-sass/feature-check'; // works with the FeatureCheck class (frontend)
 @use 'pkg:@maddimathon/utility-sass/list'; // replaces 'sass:list'
 @use 'pkg:@maddimathon/utility-sass/map'; // replaces 'sass:map'
 @use 'pkg:@maddimathon/utility-sass/math'; // replaces 'sass:math'
@@ -64,7 +64,7 @@ In your partials, `*/*.scss`:
 @use 'pkg:@maddimathon/utility-sass/selector'; // replaces 'sass:selector'
 @use 'pkg:@maddimathon/utility-sass/string'; // replaces 'sass:string'
 
-@use 'pkg:@maddimathon/utility-sass' as *;
+@use 'pkg:@maddimathon/utility-sass' as *; // if applicable, for lib functions, mixins, etc.
 
 // your styles
 ```

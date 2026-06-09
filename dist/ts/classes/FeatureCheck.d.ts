@@ -179,6 +179,7 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string = string> {
      * Whether to exclude the 'js__' prefix. This is only used to set the
      * 'js' and 'no-js' classes.
      *
+     * @inline
      * @internal
      */
     ignorePrefix?: boolean): Promise<boolean>;
