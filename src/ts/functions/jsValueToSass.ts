@@ -72,7 +72,7 @@ export async function jsValueToSass(
             return new sass.SassNumber( Number( value ) );
 
         case 'string':
-            const parsedColour = CssColours.parseFunction( value );
+            const parsedColour = CssColours.parseFunction( value, { strict: true } );
 
             // returns
             if ( parsedColour ) {

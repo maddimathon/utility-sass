@@ -73,8 +73,8 @@ export var CssColours;
              *
              * @sortStrategy source-order
              */
-            function hex(value) {
-                const matches = value.match(Regex.hex.flexible);
+            function hex(value, strict = true) {
+                const matches = value.match(strict ? Regex.hex.strict : Regex.hex.flexible);
                 // returns
                 if (!matches || !matches[0]) {
                     return null;
@@ -675,8 +675,8 @@ export var CssColours;
      * ## Format Examples
      * {@include ./CssColours.docs.md#test-all}
      */
-    function isFunction(value) {
-        return !!parseFunction(value);
+    function isFunction(value, args) {
+        return !!parseFunction(value, args);
     }
     CssColours.isFunction = isFunction;
     /**
@@ -693,8 +693,9 @@ export var CssColours;
      *
      * {@include ./CssColours.docs.md#parseFunction}
      */
-    function parseFunction(value, roundingFactor) {
-        const hex = parseFunction.hex(value);
+    function parseFunction(value, args = {}) {
+        const { roundingFactor, strict, } = args;
+        const hex = parseFunction.hex(value, strict);
         // returns
         if (hex !== false) {
             return hex ?? false;
@@ -749,8 +750,8 @@ export var CssColours;
          *
          * @since 0.1.0-beta.0.draft
          */
-        function hex(value) {
-            const hexMatches = Regex.Match.hex(value);
+        function hex(value, strict = true) {
+            const hexMatches = Regex.Match.hex(value, strict);
             // returns
             if (!hexMatches?.matches) {
                 return false;

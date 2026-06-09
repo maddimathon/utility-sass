@@ -293,7 +293,7 @@ export declare namespace CssColours {
              *
              * @sortStrategy source-order
              */
-            function hex(value: string): null | Regex.Match.Hex;
+            function hex(value: string, strict?: boolean): null | Regex.Match.Hex;
             /**
              * @since 0.1.0-beta.0.draft
              *
@@ -1026,7 +1026,7 @@ export declare namespace CssColours {
      * ## Format Examples
      * {@include ./CssColours.docs.md#test-all}
      */
-    export function isFunction(value: string): boolean;
+    export function isFunction(value: string, args?: Parameters<typeof parseFunction>[1]): boolean;
     /**
      * Parses a string and returns data for valid CSS colour codes.
      *
@@ -1041,7 +1041,10 @@ export declare namespace CssColours {
      *
      * {@include ./CssColours.docs.md#parseFunction}
      */
-    export function parseFunction(value: string, roundingFactor?: number | undefined): Functions.Parsed;
+    export function parseFunction(value: string, args?: {
+        roundingFactor?: number | undefined;
+        strict?: boolean;
+    }): Functions.Parsed;
     /**
      * Utilities for the {@link parseFunction} function.
      *
@@ -1054,7 +1057,7 @@ export declare namespace CssColours {
          *
          * @since 0.1.0-beta.0.draft
          */
-        function hex(value: string): false | null | Functions.All.Parsed.Hex;
+        function hex(value: string, strict?: boolean): false | null | Functions.All.Parsed.Hex;
         /**
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.

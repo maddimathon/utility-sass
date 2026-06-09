@@ -44,7 +44,7 @@ describe( 'CssColours.isFunction()', () => {
             ( val, index ) => test(
                 type + ( value?.length > 0 ? ` #${ index + 1 }` : '' ) + ` - ${ val }`,
                 () => {
-                    const result = CssColours.isFunction( val );
+                    const result = CssColours.isFunction( val, { strict: false } );
 
                     expect( result ).toBe( true );
 
@@ -62,14 +62,14 @@ describe( 'CssColours.isFunction()', () => {
 
     test(
         'invalid string',
-        () => expect( CssColours.isFunction( 'dasyfgbdsa' ) ).toBe( false ),
+        () => expect( CssColours.isFunction( 'dasyfgbdsa', { strict: false } ) ).toBe( false ),
     );
 
     test(
         'bad hex code',
         () => {
-            expect( CssColours.isFunction( '#ff55' ) ).toBe( false );
-            expect( CssColours.isFunction( '#ffj' ) ).toBe( false );
+            expect( CssColours.isFunction( '#ff55', { strict: false } ) ).toBe( false );
+            expect( CssColours.isFunction( '#ffj', { strict: false } ) ).toBe( false );
         },
     );
 } );
@@ -88,7 +88,7 @@ colourValueFunctionEntries.map(
                         test(
                             testName + ` - ${ val }`,
                             () => {
-                                const result = CssColours.parseFunction( val );
+                                const result = CssColours.parseFunction( val, { strict: false } );
 
                                 expect( result ).toStrictEqual( colourValuesParsed[ type ] );
 
@@ -107,7 +107,7 @@ colourValueFunctionEntries.map(
                         test(
                             testName + ` - ${ compressed }`,
                             () => expect(
-                                CssColours.parseFunction( compressed )
+                                CssColours.parseFunction( compressed, { strict: false } )
                             ).toStrictEqual( colourValuesParsed[ type ] ),
                         );
                     }
@@ -121,7 +121,7 @@ describe( 'CssColours.parseFunction() extras', () => {
 
     test(
         'hsl - none values',
-        () => expect( CssColours.parseFunction( 'hsl(none,none,none,none)' ) ).toStrictEqual(
+        () => expect( CssColours.parseFunction( 'hsl(none,none,none,none)', { strict: false } ) ).toStrictEqual(
             {
                 space: 'hsl',
                 h: 0,
@@ -133,7 +133,7 @@ describe( 'CssColours.parseFunction() extras', () => {
 
     test(
         'hwb - none values',
-        () => expect( CssColours.parseFunction( 'hwb(none,none,none,none)' ) ).toStrictEqual(
+        () => expect( CssColours.parseFunction( 'hwb(none,none,none,none)', { strict: false } ) ).toStrictEqual(
             {
                 space: 'hwb',
                 h: 0,
@@ -145,7 +145,7 @@ describe( 'CssColours.parseFunction() extras', () => {
 
     test(
         'lab - none values',
-        () => expect( CssColours.parseFunction( 'lab(none none none none)' ) ).toStrictEqual(
+        () => expect( CssColours.parseFunction( 'lab(none none none none)', { strict: false } ) ).toStrictEqual(
             {
                 space: 'lab',
                 l: 0,
@@ -157,7 +157,7 @@ describe( 'CssColours.parseFunction() extras', () => {
 
     test(
         'lch - none values',
-        () => expect( CssColours.parseFunction( 'lch(none none none none)' ) ).toStrictEqual(
+        () => expect( CssColours.parseFunction( 'lch(none none none none)', { strict: false } ) ).toStrictEqual(
             {
                 space: 'lch',
                 l: 0,
@@ -169,7 +169,7 @@ describe( 'CssColours.parseFunction() extras', () => {
 
     test(
         'oklab - none values',
-        () => expect( CssColours.parseFunction( 'oklab(none none none none)' ) ).toStrictEqual(
+        () => expect( CssColours.parseFunction( 'oklab(none none none none)', { strict: false } ) ).toStrictEqual(
             {
                 space: 'oklab',
                 l: 0,
@@ -181,7 +181,7 @@ describe( 'CssColours.parseFunction() extras', () => {
 
     test(
         'oklch - none values',
-        () => expect( CssColours.parseFunction( 'oklch(none none none none)' ) ).toStrictEqual(
+        () => expect( CssColours.parseFunction( 'oklch(none none none none)', { strict: false } ) ).toStrictEqual(
             {
                 space: 'oklch',
                 l: 0,
@@ -193,7 +193,7 @@ describe( 'CssColours.parseFunction() extras', () => {
 
     test(
         'rgb - none values',
-        () => expect( CssColours.parseFunction( 'rgb(none,none,none,none)' ) ).toStrictEqual(
+        () => expect( CssColours.parseFunction( 'rgb(none,none,none,none)', { strict: false } ) ).toStrictEqual(
             {
                 space: 'rgb',
                 r: 0,
@@ -205,14 +205,14 @@ describe( 'CssColours.parseFunction() extras', () => {
 
     test(
         'invalid string',
-        () => expect( CssColours.parseFunction( 'dasyfgbdsa' ) ).toBe( false ),
+        () => expect( CssColours.parseFunction( 'dasyfgbdsa', { strict: false } ) ).toBe( false ),
     );
 
     test(
         'bad hex code',
         () => {
-            expect( CssColours.parseFunction( '#ff55' ) ).toBe( false );
-            expect( CssColours.parseFunction( '#ffj' ) ).toBe( false );
+            expect( CssColours.parseFunction( '#ff55', { strict: false } ) ).toBe( false );
+            expect( CssColours.parseFunction( '#ffj', { strict: false } ) ).toBe( false );
         },
     );
 } );

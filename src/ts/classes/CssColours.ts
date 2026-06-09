@@ -324,8 +324,11 @@ export namespace CssColours {
              * 
              * @sortStrategy source-order
              */
-            export function hex( value: string ): null | Regex.Match.Hex {
-                const matches = value.match( Regex.hex.flexible );
+            export function hex(
+                value: string,
+                strict: boolean = true,
+            ): null | Regex.Match.Hex {
+                const matches = value.match( strict ? Regex.hex.strict : Regex.hex.flexible );
 
                 // returns
                 if ( !matches || !matches[ 0 ] ) {
@@ -1704,8 +1707,11 @@ export namespace CssColours {
      * ## Format Examples
      * {@include ./CssColours.docs.md#test-all}
      */
-    export function isFunction( value: string ): boolean {
-        return !!parseFunction( value );
+    export function isFunction(
+        value: string,
+        args?: Parameters<typeof parseFunction>[ 1 ],
+    ): boolean {
+        return !!parseFunction( value, args );
     }
 
     /**
@@ -1724,10 +1730,18 @@ export namespace CssColours {
      */
     export function parseFunction(
         value: string,
-        roundingFactor?: number | undefined,
+        args: {
+            roundingFactor?: number | undefined;
+            strict?: boolean;
+        } = {},
     ): Functions.Parsed {
 
-        const hex = parseFunction.hex( value );
+        const {
+            roundingFactor,
+            strict,
+        } = args;
+
+        const hex = parseFunction.hex( value, strict );
 
         // returns
         if ( hex !== false ) {
@@ -1801,8 +1815,9 @@ export namespace CssColours {
          */
         export function hex(
             value: string,
+            strict: boolean = true,
         ): false | null | Functions.All.Parsed.Hex {
-            const hexMatches = Regex.Match.hex( value );
+            const hexMatches = Regex.Match.hex( value, strict );
 
             // returns
             if ( !hexMatches?.matches ) {
