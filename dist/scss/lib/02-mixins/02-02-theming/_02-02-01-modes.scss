@@ -54,13 +54,20 @@ $_contrastModes_all: filter-colour-modes-active-only(
         $args: meta.keywords($args);
     }
 
+    $debug_vars: ();
+
     $debug: map.get($args, 'debug');
 
     $modes: map.get($args, 'modes');
     $parentSelector: map.get($args, 'parentSelector');
 
     @if $debug {
-        @include meta.var-dump('[colour-mode] $args', $args);
+        $id: string.unique-id();
+
+        $debug_vars: map.set($debug_vars, 'id', $id);
+        $debug_vars: map.set($debug_vars, '$args', $args);
+
+        @include meta.var-dump('[colour-mode - #{$id}] $args', $args);
     }
 
     /// Setting using media queries
@@ -96,6 +103,10 @@ $_contrastModes_all: filter-colour-modes-active-only(
             }
         }
     }
+
+    @if $debug {
+        $_: meta.js-var-dump($debug_vars, 'colour-mode');
+    }
 }
 
 ///
@@ -122,13 +133,20 @@ $_contrastModes_all: filter-colour-modes-active-only(
         $args: meta.keywords($args);
     }
 
+    $debug_vars: ();
+
     $debug: map.get($args, 'debug');
 
     $modes: map.get($args, 'modes');
     $parentSelector: map.get($args, 'parentSelector');
 
     @if $debug {
-        @include meta.var-dump('[colour-mode] $args', $args);
+        $id: string.unique-id();
+
+        $debug_vars: map.set($debug_vars, 'id', $id);
+        $debug_vars: map.set($debug_vars, '$args', $args);
+
+        @include meta.var-dump('[colour-mode - #{$id}] $args', $args);
     }
 
     /// Setting using selectors
@@ -163,6 +181,10 @@ $_contrastModes_all: filter-colour-modes-active-only(
                 }
             }
         }
+    }
+
+    @if $debug {
+        $_: meta.js-var-dump($debug_vars, 'colour-mode-not');
     }
 }
 
