@@ -157,7 +157,7 @@ export class Test extends TestStage {
             this.console.vi.log( {
                 [ `[oklab] current: ${ oklab }` ]: {
                     // matches: CssColours.Regex.Match.oklab( oklab ),
-                    parsed: CssColours.parseFunction.oklab( oklab, null ),
+                    parsed: CssColours.parseFunction.oklab( oklab ),
                     matchGroups,
                     matchUnits,
                 }

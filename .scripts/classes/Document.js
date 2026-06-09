@@ -82,6 +82,17 @@ export class Document extends DocumentStage {
 
         const md_file = [
             '<!-- this file is generated during the document build stage -->',
+            '',
+            `<!-- #region regex-hex -->`,
+            '```ts',
+            '// flexible',
+            CssColours.Regex.hex.flexible.toString(),
+            '```',
+            '```ts',
+            '// strict',
+            CssColours.Regex.hex.strict.toString(),
+            '```',
+            `<!-- #endregion regex-hex -->`,
         ];
 
         /** @type {string[]} */
@@ -92,10 +103,15 @@ export class Document extends DocumentStage {
 
         const ts_file = [
             '// this file is generated during the document build stage',
+            '',
+            `// #region hex`,
+            `export const regex_hex = ` + CssColours.Regex.hex.flexible.toString() + ';',
+            `export const regex_hex_strict = ` + CssColours.Regex.hex.strict.toString() + ';',
+            `// #endregion hex`,
         ];
 
-        /** @type {[ 'hex', 'hsl', 'hwb', 'lab', 'lch', 'oklab', 'oklch', 'rgb' ]} */
-        const functions = [ 'hex', 'hsl', 'hwb', 'lab', 'lch', 'oklab', 'oklch', 'rgb' ];
+        /** @type {[ 'hsl', 'hwb', 'lab', 'lch', 'oklab', 'oklch', 'rgb' ]} */
+        const functions = [ 'hsl', 'hwb', 'lab', 'lch', 'oklab', 'oklch', 'rgb' ];
 
         for ( const func of functions ) {
 

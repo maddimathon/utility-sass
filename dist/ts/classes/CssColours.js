@@ -59,7 +59,10 @@ export var CssColours;
          *
          * @since 0.1.0-beta.0.draft
          */
-        Regex.hex = /^\s*#?(?:([0-9a-h])([0-9a-h])([0-9a-h])|([0-9a-h]{2})([0-9a-h]{2})([0-9a-h]{2})(\d{2})?)\s*$/i;
+        Regex.hex = {
+            strict: /^\s*#(?:([0-9a-h])([0-9a-h])([0-9a-h])|([0-9a-h]{2})([0-9a-h]{2})([0-9a-h]{2})(\d{2})?)\s*$/i,
+            flexible: /^\s*#?(?:([0-9a-h])([0-9a-h])([0-9a-h])|([0-9a-h]{2})([0-9a-h]{2})([0-9a-h]{2})(\d{2})?)\s*$/i,
+        };
         let Match;
         (function (Match) {
             /**
@@ -71,7 +74,7 @@ export var CssColours;
              * @sortStrategy source-order
              */
             function hex(value) {
-                const matches = value.match(Regex.hex);
+                const matches = value.match(Regex.hex.flexible);
                 // returns
                 if (!matches || !matches[0]) {
                     return null;
@@ -690,7 +693,7 @@ export var CssColours;
      *
      * {@include ./CssColours.docs.md#parseFunction}
      */
-    function parseFunction(value, roundingFactor = null) {
+    function parseFunction(value, roundingFactor) {
         const hex = parseFunction.hex(value);
         // returns
         if (hex !== false) {

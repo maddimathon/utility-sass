@@ -280,7 +280,10 @@ export declare namespace CssColours {
          *
          * @since 0.1.0-beta.0.draft
          */
-        const hex: RegExp;
+        const hex: {
+            strict: RegExp;
+            flexible: RegExp;
+        };
         namespace Match {
             /**
              * Match input against the {@link Regex.hex} regex with a better
@@ -1038,7 +1041,7 @@ export declare namespace CssColours {
      *
      * {@include ./CssColours.docs.md#parseFunction}
      */
-    export function parseFunction(value: string, roundingFactor?: number | null): Functions.Parsed;
+    export function parseFunction(value: string, roundingFactor?: number | undefined): Functions.Parsed;
     /**
      * Utilities for the {@link parseFunction} function.
      *
@@ -1058,49 +1061,49 @@ export declare namespace CssColours {
          *
          * @since 0.1.0-beta.0.draft
          */
-        function hsl(value: string, roundingFactor: number | null): false | null | Functions.All.Parsed.HSL;
+        function hsl(value: string, roundingFactor?: number | undefined): false | null | Functions.All.Parsed.HSL;
         /**
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
          * @since 0.1.0-beta.0.draft
          */
-        function hwb(value: string, roundingFactor: number | null): false | null | Functions.All.Parsed.HWB;
+        function hwb(value: string, roundingFactor?: number | undefined): false | null | Functions.All.Parsed.HWB;
         /**
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
          * @since 0.1.0-beta.0.draft
          */
-        function lab(value: string, roundingFactor: number | null): false | null | Functions.All.Parsed.LAB;
+        function lab(value: string, roundingFactor?: number | undefined): false | null | Functions.All.Parsed.LAB;
         /**
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
          * @since 0.1.0-beta.0.draft
          */
-        function oklab(value: string, roundingFactor: number | null): false | null | Functions.All.Parsed.OKLAB;
+        function oklab(value: string, roundingFactor?: number | undefined): false | null | Functions.All.Parsed.OKLAB;
         /**
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
          * @since 0.1.0-beta.0.draft
          */
-        function lch(value: string, roundingFactor: number | null): false | null | Functions.All.Parsed.LCH;
+        function lch(value: string, roundingFactor?: number | undefined): false | null | Functions.All.Parsed.LCH;
         /**
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
          * @since 0.1.0-beta.0.draft
          */
-        function oklch(value: string, roundingFactor: number | null): false | null | Functions.All.Parsed.OKLCH;
+        function oklch(value: string, roundingFactor?: number | undefined): false | null | Functions.All.Parsed.OKLCH;
         /**
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
          * @since 0.1.0-beta.0.draft
          */
-        function rgb(value: string, roundingFactor: number | null): false | null | Functions.All.Parsed.RGB;
+        function rgb(value: string, roundingFactor?: number | undefined): false | null | Functions.All.Parsed.RGB;
     }
     /**
      * @since 0.1.0-beta.0.draft

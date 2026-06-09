@@ -3,6 +3,8 @@
 // #region hex
 export const regex_hex =
     /^\s*#?(?:([0-9a-h])([0-9a-h])([0-9a-h])|([0-9a-h]{2})([0-9a-h]{2})([0-9a-h]{2})(\d{2})?)\s*$/i;
+export const regex_hex_strict =
+    /^\s*#(?:([0-9a-h])([0-9a-h])([0-9a-h])|([0-9a-h]{2})([0-9a-h]{2})([0-9a-h]{2})(\d{2})?)\s*$/i;
 // #endregion hex
 
 // #region hsl

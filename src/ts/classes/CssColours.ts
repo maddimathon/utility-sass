@@ -306,7 +306,13 @@ export namespace CssColours {
          * 
          * @since ___PKG_VERSION___
          */
-        export const hex: RegExp = /^\s*#?(?:([0-9a-h])([0-9a-h])([0-9a-h])|([0-9a-h]{2})([0-9a-h]{2})([0-9a-h]{2})(\d{2})?)\s*$/i;
+        export const hex: {
+            strict: RegExp;
+            flexible: RegExp;
+        } = {
+            strict: /^\s*#(?:([0-9a-h])([0-9a-h])([0-9a-h])|([0-9a-h]{2})([0-9a-h]{2})([0-9a-h]{2})(\d{2})?)\s*$/i,
+            flexible: /^\s*#?(?:([0-9a-h])([0-9a-h])([0-9a-h])|([0-9a-h]{2})([0-9a-h]{2})([0-9a-h]{2})(\d{2})?)\s*$/i,
+        };
 
         export namespace Match {
 
@@ -319,7 +325,7 @@ export namespace CssColours {
              * @sortStrategy source-order
              */
             export function hex( value: string ): null | Regex.Match.Hex {
-                const matches = value.match( Regex.hex );
+                const matches = value.match( Regex.hex.flexible );
 
                 // returns
                 if ( !matches || !matches[ 0 ] ) {
@@ -1718,7 +1724,7 @@ export namespace CssColours {
      */
     export function parseFunction(
         value: string,
-        roundingFactor: number | null = null,
+        roundingFactor?: number | undefined,
     ): Functions.Parsed {
 
         const hex = parseFunction.hex( value );
@@ -1793,7 +1799,9 @@ export namespace CssColours {
          * 
          * @since ___PKG_VERSION___
          */
-        export function hex( value: string ): false | null | Functions.All.Parsed.Hex {
+        export function hex(
+            value: string,
+        ): false | null | Functions.All.Parsed.Hex {
             const hexMatches = Regex.Match.hex( value );
 
             // returns
@@ -1851,7 +1859,7 @@ export namespace CssColours {
          */
         export function hsl(
             value: string,
-            roundingFactor: number | null,
+            roundingFactor?: number | undefined,
         ): false | null | Functions.All.Parsed.HSL {
             const hslMatches = Regex.Match.hsl( value );
 
@@ -1920,7 +1928,7 @@ export namespace CssColours {
          */
         export function hwb(
             value: string,
-            roundingFactor: number | null,
+            roundingFactor?: number | undefined,
         ): false | null | Functions.All.Parsed.HWB {
             const hwbMatches = Regex.Match.hwb( value );
 
@@ -1989,7 +1997,7 @@ export namespace CssColours {
          */
         export function lab(
             value: string,
-            roundingFactor: number | null,
+            roundingFactor?: number | undefined,
         ): false | null | Functions.All.Parsed.LAB {
             const labMatches = Regex.Match.lab( value );
 
@@ -2058,7 +2066,7 @@ export namespace CssColours {
          */
         export function oklab(
             value: string,
-            roundingFactor: number | null,
+            roundingFactor?: number | undefined,
         ): false | null | Functions.All.Parsed.OKLAB {
             const oklabMatches = Regex.Match.oklab( value );
 
@@ -2127,7 +2135,7 @@ export namespace CssColours {
          */
         export function lch(
             value: string,
-            roundingFactor: number | null,
+            roundingFactor?: number | undefined,
         ): false | null | Functions.All.Parsed.LCH {
             const lchMatches = Regex.Match.lch( value );
 
@@ -2196,7 +2204,7 @@ export namespace CssColours {
          */
         export function oklch(
             value: string,
-            roundingFactor: number | null,
+            roundingFactor?: number | undefined,
         ): false | null | Functions.All.Parsed.OKLCH {
             const oklchMatches = Regex.Match.oklch( value );
 
@@ -2268,7 +2276,7 @@ export namespace CssColours {
          */
         export function rgb(
             value: string,
-            roundingFactor: number | null,
+            roundingFactor?: number | undefined,
         ): false | null | Functions.All.Parsed.RGB {
             const rgbMatches = Regex.Match.rgb( value );
 

@@ -284,7 +284,9 @@ export namespace JsonToScss {
         // returns - if it is a colour string, it gets no quotes
         if (
             !opts.coloursAsStrings && (
-                input.match( /^\s*#[0-9|A-H]{3,6}\s*$/i )
+                CssColours.parseFunction.hex( input )
+                || CssColours.parseFunction.hsl( input )
+                || CssColours.parseFunction.rgb( input )
                 || input.match( /^\s*hsl\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+%?\s*[,\s]\s*[\d\.]+%?\s*\)\s*$/i )
                 || input.match( /^\s*(ok)?l(ch|ab)\(\s*[\d\.]+%?\s+\s*[\d\.]+\s+\s*[\d\.]+(deg|g?rad|turn)?\s*\)\s*$/i )
                 || input.match( /^\s*rgb\(\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*[,\s]\s*[\d\.]+\s*\)\s*$/i )
