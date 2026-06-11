@@ -196,17 +196,41 @@
 /* #region Tokens - Gap */
 :root {
     --fallback-gap-block-layout: 5vw;
-    --fallback-gap-block-layout: clamp(1.875rem, 5svw, 3.5rem);
+    --fallback-gap-block-layout: clamp(
+        var(--mrg-soft-600, 1.875rem),
+        5svw,
+        var(--mrg-soft-800, 3.5rem)
+    );
     --fallback-gap-block-layout-half: 2.5vw;
-    --fallback-gap-block-layout-half: clamp(0.9375rem, 2.5svw, 1.75rem);
+    --fallback-gap-block-layout-half: clamp(
+        var(--mrg-soft-600, 1.875rem) / 2,
+        2.5svw,
+        var(--mrg-soft-800, 3.5rem) / 2
+    );
     --fallback-gap-inline-indent: 9%;
-    --fallback-gap-inline-indent: clamp(0.5rem, 9%, 4rem);
+    --fallback-gap-inline-indent: clamp(
+        var(--mrg-firm-200, 0.5rem),
+        9%,
+        var(--mrg-firm-800, 4rem)
+    );
     --fallback-gap-inline-layout: 8vw;
-    --fallback-gap-inline-layout: clamp(1.25rem, 8svw, 7.125rem);
+    --fallback-gap-inline-layout: clamp(
+        var(--mrg-firm-400, 1.25rem),
+        8svw,
+        var(--mrg-firm-900, 7.125rem)
+    );
     --fallback-gap-inline-layout-half: 4vw;
-    --fallback-gap-inline-layout-half: clamp(0.625rem, 4svw, 3.5625rem);
+    --fallback-gap-inline-layout-half: clamp(
+        var(--mrg-firm-400, 1.25rem) / 2,
+        4svw,
+        var(--mrg-firm-900, 7.125rem) / 2
+    );
     --fallback-gap-inline-tab: 5%;
-    --fallback-gap-inline-tab: clamp(0.3125rem, 5%, 2.25rem);
+    --fallback-gap-inline-tab: clamp(
+        var(--mrg-firm-100, 0.3125rem),
+        5%,
+        var(--mrg-firm-600, 2.25rem)
+    );
 }
 
 /* #endregion Tokens - Gap */
@@ -235,8 +259,11 @@
     );
     outline-style: dashed;
     outline-color: var(
-        --fallback-focus-ring-outline-color,
-        var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+        --focus-ring-outline-color,
+        var(
+            --fallback-focus-ring-outline-color,
+            var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+        )
     );
     outline-offset: var(
         --focus-ring-outline-offset,
@@ -258,8 +285,11 @@
     );
     outline-style: dashed;
     outline-color: var(
-        --fallback-focus-ring-outline-color,
-        var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+        --focus-ring-outline-color,
+        var(
+            --fallback-focus-ring-outline-color,
+            var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+        )
     );
     outline-offset: var(
         --focus-ring-outline-offset,
@@ -281,8 +311,11 @@
     );
     outline-style: dashed;
     outline-color: var(
-        --fallback-focus-ring-outline-color,
-        var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+        --focus-ring-outline-color,
+        var(
+            --fallback-focus-ring-outline-color,
+            var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+        )
     );
     outline-offset: var(
         --focus-ring-outline-offset,

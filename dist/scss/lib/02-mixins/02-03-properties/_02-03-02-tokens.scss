@@ -269,7 +269,13 @@
                 //
                 @each $slug, $_list in $dirMap {
                     @each $value
-                        in gap-value($dir, $slug, $multiplier: $multiplier)
+                        in gap-value(
+                            $dir,
+                            $slug,
+                            $multiplier: $multiplier,
+                            $returnAsNumber: false,
+                            $useMarginValue: true
+                        )
                     {
                         @include cx-prop(
                             gap-#{$dir}-#{$slug},

@@ -13,6 +13,28 @@
 /// # CONFIG - CUSTOM PROPS
 /// ======================================================================== ///
 
+$_doVar_allPrefixesSlugs: ('focus-ring-outline-color');
+$_customProperty_allPrefixesSlugs: ('display');
+
+///
+/// List of slugs that should default to $allPrefixes: true in the
+/// do-var function.
+///
+/// @since ___PKG_VERSION___
+///
+$fn_doVar_allPrefixesSlugs: null !default;
+$fn_doVar_allPrefixesSlugs: config-valid-list-strings(
+    $fn_doVar_allPrefixesSlugs,
+    'fn_doVar_allPrefixesSlugs',
+    $default: ()
+);
+
+$fn_doVar_allPrefixesSlugs: list.join(
+    $_doVar_allPrefixesSlugs,
+    $fn_doVar_allPrefixesSlugs,
+    $separator: comma
+);
+
 ///
 /// List of slugs that should default to $allPrefixes: true in the
 /// custom-property mixin.
@@ -27,7 +49,7 @@ $mx_customProperty_allPrefixesSlugs: config-valid-list-strings(
 );
 
 $mx_customProperty_allPrefixesSlugs: list.join(
-    ('display', 'focus-ring-outline-color'),
+    list.join($fn_doVar_allPrefixesSlugs, $_customProperty_allPrefixesSlugs, $separator: comma),
     $mx_customProperty_allPrefixesSlugs,
     $separator: comma
 );
@@ -136,17 +158,20 @@ $_allPrefixes_default: if($_allowAllPrefixes, null, false);
     }
 
     @if $allPrefixes == null {
-        $allPrefixes: (list.index($mx_customProperty_allPrefixesSlugs, $slug) == null) and
+        $allPrefixes: (
+                (list.index($mx_customProperty_allPrefixesSlugs, $slug) == null) or
+                    (list.index($fn_doVar_allPrefixesSlugs, $slug) != null)
+            ) and
             $_allowAllPrefixes;
     }
 
     @if $onlyFallbackPrefix == null {
         $onlyFallbackPrefix: (not $allPrefixes) and
             (not $neverFallbackPrefix) and
-            (list.index($mx_customProperty_allPrefixesSlugs, $slug) != null);
-
-        // $onlyFallbackPrefix: (not $neverFallbackPrefix) and
-        //     (list.index($mx_customProperty_allPrefixesSlugs, $slug) == null);
+            (
+                (list.index($mx_customProperty_allPrefixesSlugs, $slug) != null) and
+                    (list.index($fn_doVar_allPrefixesSlugs, $slug) == null)
+            );
     }
 
     $includeFallbackPrefix: (not $fallbackOnly) and
