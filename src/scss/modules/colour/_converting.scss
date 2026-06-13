@@ -2,11 +2,37 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 /// @since 0.1.0-pre.0
 ///
+
 @use 'sass:color';
 @use 'sass:meta';
 @use 'sass:string';
 
+@use '../config';
+
 @use '../math';
+
+///
+/// Rounds the given RGB channel value appropriately.
+///
+/// @param {number} $num
+/// @param {boolean} $round  Whether to round the channel values. Default true.
+///
+/// @return {number}
+///
+/// @since ___PKG_VERSION___
+///
+@function _to-hsl-value-round($num, $round, $rounding_factor) {
+    @if $round {
+        $num: math.round-to-pixel($num, $factor: $rounding_factor);
+    }
+
+    // returns
+    @if math.unit($num) == '%' {
+        @return math.clamp(0%, $num, 100%);
+    }
+
+    @return math.deunit($num);
+}
 
 ///
 /// Converts given colour to a list of its hsl values (for use in hsl(...) or
@@ -18,33 +44,41 @@
 /// @return {list}
 ///
 /// @since 0.1.0-alpha.26
+/// @since ___PKG_VERSION___ — Added optional $rounding_factor, $separator params.
 ///
-@function to-hsl-list($clr, $round: true) {
+@function to-hsl-list(
+    $clr,
+    $round: true,
+    $rounding_factor: 100,
+    $separator: config.$colour_channelLists_separator
+) {
     @if meta.type-of($clr) != 'color' {
         @warn "[colour.to-hsl-list] $clr should be a colour (was #{meta.var-dump( $clr )})";
         @return $clr;
     }
 
-    $clr: color.to-space($clr, hsl);
-
-    $rounding_factor: if($round, 1, 100);
-
-    $saturation: math.round-to-pixel(
-        color.channel($clr, 'saturation', $space: hsl),
-        $factor: $rounding_factor
+    $hue: _to-hsl-value-round(
+        math.deunit(color.channel($clr, 'hue', $space: hsl)),
+        $round: $round,
+        $rounding_factor: $rounding_factor
     );
 
-    $lightness: math.round-to-pixel(
-        color.channel($clr, 'lightness', $space: hsl),
-        $factor: $rounding_factor
+    $saturation: _to-hsl-value-round(
+        math.clamp(0%, math.add-unit(color.channel($clr, 'saturation', $space: hsl), 1%), 100%),
+        $round: $round,
+        $rounding_factor: $rounding_factor
     );
 
-    @return (
-        math.deunit(
-            math.round-to-pixel(color.channel($clr, 'hue', $space: hsl), $factor: $rounding_factor)
-        ),
-        math.clamp(0%, math.add-unit($saturation, 1%), 100%),
-        math.clamp(0%, math.add-unit($lightness, 1%), 100%)
+    $lightness: _to-hsl-value-round(
+        math.clamp(0%, math.add-unit(color.channel($clr, 'lightness', $space: hsl), 1%), 100%),
+        $round: $round,
+        $rounding_factor: $rounding_factor
+    );
+
+    @return if(
+        config.$colour_allowModernOpacitySyntax and $separator == space,
+        ($hue $saturation $lightness),
+        ($hue, $saturation, $lightness)
     );
 }
 
@@ -54,15 +88,26 @@
 /// @since 0.1.0-pre.0
 /// @since ___PKG_VERSION___ — Added optional $opacity param.
 ///
-@function to-hsl($clr, $opacity: 100%, $args...) {
+@function to-hsl($clr, $opacity: 100%, $separator: null, $args...) {
     $opacity: math.to-percent($opacity);
 
-    // returns
-    @if $opacity != 100% {
-        @return string.unquote('hsla( #{to-hsl-list($clr, $args...)}, #{$opacity} )');
+    @if $opacity >= 100% {
+        $opacity: null;
     }
 
-    @return string.unquote('hsl( #{to-hsl-list($clr, $args...)} )');
+    @if $separator == null {
+        $separator: if($opacity == null, comma, config.$colour_channelLists_separator);
+    }
+
+    $list: to-hsl-list($clr, $separator: $separator, $args...);
+
+    @return string.unquote(
+        if(
+            $opacity != null,
+            "hsla( #{$list}#{if($separator == space, ' / ', ', ')}#{$opacity} )",
+            'hsl( #{$list} )'
+        )
+    );
 }
 
 ///
@@ -75,9 +120,9 @@
 ///
 /// @since 0.1.0-alpha.26
 ///
-@function _to-rgb-value-round($num, $round: true) {
+@function _to-rgb-value-round($num, $round, $rounding_factor) {
     @if $round {
-        $num: math.round-to-pixel($num, $factor: if($round, 100, 1));
+        $num: math.round-to-pixel($num, $factor: $rounding_factor);
     }
 
     // returns
@@ -85,7 +130,7 @@
         @return math.clamp(0%, $num, 100%);
     }
 
-    @return math.clamp(0, $num, 255);
+    @return math.clamp(0, math.deunit($num), 255);
 }
 
 ///
@@ -98,19 +143,39 @@
 /// @return {list}
 ///
 /// @since 0.1.0-alpha.26
+/// @since ___PKG_VERSION___ — Added optional $rounding_factor, $separator params.
 ///
-@function to-rgb-list($clr, $round: true) {
+@function to-rgb-list(
+    $clr,
+    $round: true,
+    $rounding_factor: 100,
+    $separator: config.$colour_channelLists_separator
+) {
     @if meta.type-of($clr) != 'color' {
         @warn "[colour.to-rgb-list] $clr should be a colour (was #{meta.var-dump( $clr )})";
         @return $clr;
     }
 
-    $clr: color.to-space($clr, rgb);
+    $red: _to-rgb-value-round(
+        color.channel($clr, 'red', $space: rgb),
+        $round: $round,
+        $rounding_factor: $rounding_factor
+    );
+    $green: _to-rgb-value-round(
+        color.channel($clr, 'green', $space: rgb),
+        $round: $round,
+        $rounding_factor: $rounding_factor
+    );
+    $blue: _to-rgb-value-round(
+        color.channel($clr, 'blue', $space: rgb),
+        $round: $round,
+        $rounding_factor: $rounding_factor
+    );
 
-    @return (
-        _to-rgb-value-round(color.channel($clr, 'red', $space: rgb), $round: $round),
-        _to-rgb-value-round(color.channel($clr, 'green', $space: rgb), $round: $round),
-        _to-rgb-value-round(color.channel($clr, 'blue', $space: rgb), $round: $round)
+    @return if(
+        config.$colour_allowModernOpacitySyntax and $separator == space,
+        ($red $green $blue),
+        ($red, $green, $blue)
     );
 }
 
@@ -125,13 +190,24 @@
 /// @since 0.1.0-alpha.26
 /// @since ___PKG_VERSION___ — Added optional $opacity param.
 ///
-@function to-rgb($clr, $opacity: 100%, $args...) {
+@function to-rgb($clr, $opacity: 100%, $separator: null, $args...) {
     $opacity: math.to-percent($opacity);
 
-    // returns
-    @if $opacity != 100% {
-        @return string.unquote('rgba( #{to-rgb-list($clr, $args...)}, #{$opacity} )');
+    @if $opacity >= 100% {
+        $opacity: null;
     }
 
-    @return string.unquote('rgb( #{to-rgb-list($clr, $args...)} )');
+    @if $separator == null {
+        $separator: if($opacity == null, comma, config.$colour_channelLists_separator);
+    }
+
+    $list: to-rgb-list($clr, $separator: $separator, $args...);
+
+    @return string.unquote(
+        if(
+            $opacity != null,
+            "rgba( #{$list}#{if($separator == space, ' / ', ', ')}#{$opacity} )",
+            'rgb( #{$list} )'
+        )
+    );
 }

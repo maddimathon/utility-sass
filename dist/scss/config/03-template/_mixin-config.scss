@@ -10,6 +10,8 @@
 @use '../01-modules' as modules;
 @use '../02-lib' as lib;
 
+@use 'fn-config';
+
 /// # CONFIG - MIXINS
 /// ======================================================================== ///
 
@@ -290,4 +292,120 @@ $mx_tokens_fontSize_printRelative: config-valid-bool(
     $mx_tokens_fontSize_printRelative,
     'mx_tokens_fontSize_printRelative',
     $default: false
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_printAll: null !default;
+$mx_tokens_printAll: config-valid-bool(
+    $mx_tokens_printAll,
+    'mx_tokens_printAll',
+    $default: false
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_atProperty: null !default;
+$mx_tokens_print_atProperty: config-valid-bool(
+    $mx_tokens_print_atProperty,
+    'mx_tokens_print_atProperty',
+    $default: true
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_borderWidth: null !default;
+$mx_tokens_print_borderWidth: config-valid-bool(
+    $mx_tokens_print_borderWidth,
+    'mx_tokens_print_borderWidth',
+    $default: $mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_borderWidth
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_fontSize: null !default;
+$mx_tokens_print_fontSize: config-valid-bool(
+    $mx_tokens_print_fontSize,
+    'mx_tokens_print_fontSize',
+    $default: $mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_fontSize
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_gap: null !default;
+$mx_tokens_print_gap: config-valid-bool(
+    $mx_tokens_print_gap,
+    'mx_tokens_print_gap',
+    $default: $mx_tokens_printAll or not fn-config.$fn_var_replaceWithValue_gap
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_lineHeight: null !default;
+$mx_tokens_print_lineHeight: config-valid-bool(
+    $mx_tokens_print_lineHeight,
+    'mx_tokens_print_lineHeight',
+    $default: $mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_lineHeight
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_margin: null !default;
+$mx_tokens_print_margin: config-valid-bool(
+    $mx_tokens_print_margin,
+    'mx_tokens_print_margin',
+    $default: $mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_margin
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_strokeRelative: null !default;
+$mx_tokens_print_strokeRelative: config-valid-bool(
+    $mx_tokens_print_strokeRelative,
+    'mx_tokens_print_strokeRelative',
+    $default: $mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_strokeRelative
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_style: null !default;
+$mx_tokens_print_style: config-valid-bool(
+    $mx_tokens_print_style,
+    'mx_tokens_print_style',
+    $default: true
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_sysColours: null !default;
+$mx_tokens_print_sysColours: config-valid-bool(
+    $mx_tokens_print_sysColours,
+    'mx_tokens_print_sysColours',
+    $default: $mx_tokens_printAll or lib.$include_html
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_width: null !default;
+$mx_tokens_print_width: config-valid-bool(
+    $mx_tokens_print_width,
+    'mx_tokens_print_width',
+    $default: $mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_width
 );

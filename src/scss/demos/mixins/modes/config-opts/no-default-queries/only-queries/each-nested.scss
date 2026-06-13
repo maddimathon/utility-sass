@@ -1,0 +1,21 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward 'config';
+@forward 'tokens';
+
+@forward '../../../../../header';
+
+// @use 'config';
+@use '../../../lib' as *;
+
+/* # MIXINS - MODES - NO QUERIES - colour-mode-each (nested)
+ * ======================================================================== */
+
+@include demo-modes--config-dump;
+
+.parent {
+    @include demo-each-colour-mode-variations;
+}

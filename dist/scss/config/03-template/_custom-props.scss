@@ -114,6 +114,27 @@ $_allowAllPrefixes: $_exists_customPropertyPrefix and
 $_allPrefixes_default: if($_allowAllPrefixes, null, false);
 
 ///
+/// @since 0.1.0-beta.0.draft
+///
+@function custom-property-prefix-fallback-exists() {
+    @return $_exists_customPropertyPrefix_fallback;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function custom-property-prefix-exists() {
+    @return $_exists_customPropertyPrefix;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function custom-property-prefix-all-exists() {
+    @return $_allowAllPrefixes;
+}
+
+///
 /// Prints a var(...) value with an optional fallback. Don't include -- in the slug.
 ///
 /// @since 0.1.0-alpha.25

@@ -13,6 +13,8 @@
 @use 'string' as *;
 @use 'warnings' as *;
 
+@use '../../../modules/list/unique';
+
 ///
 /// Validates the value of a config variable that should be a selector.
 ///
@@ -45,7 +47,7 @@
             @return $default;
         }
 
-        @return selector.parse(#{$value});
+        @return unique.unique(selector.parse(#{$value}));
 
         // returns - value is not a selector
     } @else if
@@ -63,14 +65,14 @@
     @if list.length($value) < 1 {
         // returns
         @if $allowEmpty {
-            @return selector.parse(#{$value});
+            @return unique.unique(selector.parse(#{$value}));
         }
 
         @warn "[config] $#{$name} must be a valid selector (not an empty list)";
         @return $default;
     }
 
-    @return selector.parse(#{$value});
+    @return unique.unique(selector.parse(#{$value}));
 }
 
 $_selectorTypes: ('attribute', 'class', 'null');

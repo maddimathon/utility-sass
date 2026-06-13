@@ -1,0 +1,32 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'functions' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+$colour_allowModernOpacitySyntax: null !default;
+$colour_allowModernOpacitySyntax: config-valid-bool(
+    $colour_allowModernOpacitySyntax,
+    'colour_allowModernOpacitySyntax',
+    $default: false
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$colour_channelLists_separator: null !default;
+
+@if not $colour_allowModernOpacitySyntax {
+    $colour_channelLists_separator: comma;
+} @else {
+    $colour_channelLists_separator: config-valid-string(
+        $colour_channelLists_separator,
+        'colour_channelLists_separator',
+        $default: space,
+        $options: (comma, space)
+    );
+}

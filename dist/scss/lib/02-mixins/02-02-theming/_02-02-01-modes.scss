@@ -328,8 +328,10 @@ $_contrastModes_all: filter-colour-modes-active-only(
 
     $queries_brightness: media-queries-colour-mode($brightness_args...);
 
+    $includesForcedColors: list.index($contrast, forced-colors) != null;
+
     $separateForcedColorsQuery: (
-        list.index($contrast, forced-colors) != null and
+        $includesForcedColors and
             (
                 (not $includeSelectors) or (not $includeQuery) or
                     (
@@ -510,6 +512,8 @@ $_contrastModes_all: filter-colour-modes-active-only(
         }
 
         @if $includeQuery {
+            // /* CHECKPOINT: @if $includeQuery */
+
             // builds a list of queries to apply at once
             $_queries: ();
 
@@ -523,12 +527,15 @@ $_contrastModes_all: filter-colour-modes-active-only(
             // or, if there are multiple modes and one is default (e.g.,
             // forced-colors)
             @if not $includeSelectors {
+                // /* CHECKPOINT: @if $includeQuery -- @if not $includeSelectors */
+
                 @if $includeDefault and
                     $brightnessIsDefault and
                     $contrastIsDefault
                 {
                     // we need to include the defaults anyway
                     #{$parentSelector} {
+                        // --location: '@if $includeQuery - A';
                         @content;
                     }
                 }
@@ -554,8 +561,16 @@ $_contrastModes_all: filter-colour-modes-active-only(
 
             // if there are multiple modes and one is default
             // (e.g., forced-colors) we have to add in more queries
-            @if $brightnessIsMultipleAndDefault or $contrastIsMultipleAndDefault
+            @if $brightnessIsMultipleAndDefault or
+                $contrastIsMultipleAndDefault or
+                (
+                    (not $separateForcedColorsQuery) and
+                        $includesForcedColors and
+                        (list.length($queries_brightness) < 1)
+                )
             {
+                // /* CHECKPOINT: @if $includeQuery -- @if $brightnessIsMultipleAndDefault or $contrastIsMultipleAndDefault */
+
                 @if $brightnessIsDefault and list.length($_queries_contrast) > 0
                 {
                     // brightness selector + contrast queries
@@ -580,6 +595,8 @@ $_contrastModes_all: filter-colour-modes-active-only(
             //
             // adding the merged queries together, one-by-one
             @else {
+                // /* CHECKPOINT: @if $includeQuery -- @else $brightnessIsMultipleAndDefault or $contrastIsMultipleAndDefault */
+
                 @each $bright_query in $_queries_brightness {
                     @each $con_query in $_queries_contrast {
                         $_queries: list.append(
@@ -595,10 +612,13 @@ $_contrastModes_all: filter-colour-modes-active-only(
 
             // if queries exist, print them with content
             @if list.length($_queries) > 0 and string.length(#{$_queries}) > 0 {
+                // /* CHECKPOINT: @if $includeQuery -- @if list.length($_queries) > 0 */
+
                 $_queries: list.unique($_queries);
 
                 @media #{$_queries} {
                     #{$parentSelector_queries} {
+                        // --location: '@if $includeQuery - B';
                         @content;
                     }
                 }
@@ -606,6 +626,8 @@ $_contrastModes_all: filter-colour-modes-active-only(
         }
 
         @if $separateForcedColorsQuery {
+            // /* CHECKPOINT: @if $separateForcedColorsQuery */
+
             $_forced_queries: media-queries-colour-mode(
                 map.set($contrast_args, modes, forced-colors)...
             );
@@ -618,6 +640,7 @@ $_contrastModes_all: filter-colour-modes-active-only(
             {
                 @media #{$_forced_queries} {
                     #{$parentSelector_forced} {
+                        // --location: '@if $separateForcedColorsQuery';
                         @content;
                     }
                 }
@@ -627,6 +650,8 @@ $_contrastModes_all: filter-colour-modes-active-only(
         @if $includeSelectors and
             (#{$contrast} != forced-colors or $includeForcedColorsSelectors)
         {
+            // /* CHECKPOINT: @if $includeSelectors */
+
             $selectors_merged: list.join(
                 selector.extend-simple-selector(
                     $selectors_brightness,
@@ -741,6 +766,7 @@ $_contrastModes_all: filter-colour-modes-active-only(
                     // /* #{$str_contrast} contrast queries + #{$str_brightness} mode selectors */
                     @media #{$queries_contrast} {
                         #{$_sel} {
+                            // --location: '@if $includeSelectors - A';
                             @content;
                         }
                     }
@@ -757,6 +783,7 @@ $_contrastModes_all: filter-colour-modes-active-only(
                     // /* #{$str_brightness} mode queries + #{$str_contrast} contrast selectors */
                     @media #{$queries_brightness} {
                         #{$_sel} {
+                            // --location: '@if $includeSelectors - B';
                             @content;
                         }
                     }
@@ -765,6 +792,7 @@ $_contrastModes_all: filter-colour-modes-active-only(
 
             // includes default selector(s) as applicable
             #{list.unique(selector.parse(#{$selectors_merged}))} {
+                // --location: '@if $includeSelectors - C';
                 @content;
             }
         }
