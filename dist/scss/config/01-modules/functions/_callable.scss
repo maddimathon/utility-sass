@@ -1,0 +1,78 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+///
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+
+@use 'warnings' as *;
+
+///
+/// Validates the value of a config variable that should be a function.
+///
+/// @param {any}     $value  The variable's value.
+/// @param {string}  $name   The variable's name.
+///
+/// @returns {null|function}
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function config-valid-function(
+    $value,
+    $name,
+    $default: null,
+    $warnOnWrongType: true,
+    $args...
+) {
+    // returns
+    @if $value == null {
+        $args: meta.keywords($args);
+        @return $default;
+    }
+
+    @return config-enforce-type-or-warn(
+        $value: $value,
+        $type: function,
+        $varName: $name,
+        $fallback: $default,
+        $warn: $warnOnWrongType,
+        $args...
+    );
+}
+
+///
+/// Validates the value of a config variable that should be a mixin.
+///
+/// @param {any}     $value  The variable's value.
+/// @param {string}  $name   The variable's name.
+///
+/// @returns {null|mixin}
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function config-valid-mixin(
+    $value,
+    $name,
+    $default: null,
+    $warnOnWrongType: true,
+    $args...
+) {
+    // returns
+    @if $value == null {
+        $args: meta.keywords($args);
+        @return $default;
+    }
+
+    @return config-enforce-type-or-warn(
+        $value: $value,
+        $type: mixin,
+        $varName: $name,
+        $fallback: $default,
+        $warn: $warnOnWrongType,
+        $args...
+    );
+}

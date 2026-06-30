@@ -68,11 +68,11 @@ $_print_scrollPadding: map.get(config.$template_styles, scrollPadding);
 
         width: math.add-unit(
             math.round-to-pixel(
-                calc(
-                    100 *
-                        map.get(tokens.$width, callout) /
+                100 *
+                    math.div(
+                        map.get(tokens.$width, callout),
                         map.get(tokens.$width, content)
-                ),
+                    ),
                 100
             ),
             $unit: 1%

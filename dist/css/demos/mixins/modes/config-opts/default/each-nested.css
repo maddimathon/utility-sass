@@ -72,9 +72,9 @@
 }
 /* #region no queries - light mode + average contrast */
 .parent,
-[data-brightness-mode="light"] .parent,
-[data-contrast-mode="average"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='light'] .parent,
+[data-contrast-mode='average'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
@@ -82,8 +82,8 @@
 
 /* #endregion no queries - light mode + average contrast */
 /* #region no queries - light mode + low contrast */
-[data-contrast-mode="low"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="low"] .parent {
+[data-contrast-mode='low'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
@@ -91,8 +91,8 @@
 
 /* #endregion no queries - light mode + low contrast */
 /* #region no queries - light mode + high contrast */
-[data-contrast-mode="high"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="high"] .parent {
+[data-contrast-mode='high'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
@@ -100,8 +100,8 @@
 
 /* #endregion no queries - light mode + high contrast */
 /* #region no queries - dark mode + average contrast */
-[data-brightness-mode="dark"] .parent,
-[data-brightness-mode="dark"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='dark'] .parent,
+[data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
@@ -109,7 +109,7 @@
 
 /* #endregion no queries - dark mode + average contrast */
 /* #region no queries - dark mode + low contrast */
-[data-brightness-mode="dark"][data-contrast-mode="low"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
@@ -117,7 +117,7 @@
 
 /* #endregion no queries - dark mode + low contrast */
 /* #region no queries - dark mode + high contrast */
-[data-brightness-mode="dark"][data-contrast-mode="high"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
@@ -127,8 +127,8 @@
 /* #region no queries - light/dark mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     .parent,
-    [data-brightness-mode="light"] .parent,
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='light'] .parent,
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $includeQuery: false ) { } */
         --colour-mode-each-brightness: light dark;
         --colour-mode-each-contrast: forced-colors;
@@ -203,8 +203,8 @@
 /* #region no selectors - light/dark mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     .parent,
-    [data-brightness-mode="light"] .parent,
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='light'] .parent,
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $includeSelectors: false ) { } */
         --colour-mode-each-brightness: light dark;
         --colour-mode-each-contrast: forced-colors;
@@ -221,7 +221,7 @@
 }
 @media (prefers-contrast: no-preference) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: average;
@@ -229,16 +229,16 @@
 }
 @media (prefers-color-scheme: light) {
     .parent,
-    [data-contrast-mode="average"] .parent {
+    [data-contrast-mode='average'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: average;
     }
 }
 .parent,
-[data-brightness-mode="light"] .parent,
-[data-contrast-mode="average"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='light'] .parent,
+[data-contrast-mode='average'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
@@ -255,21 +255,21 @@
 }
 @media (prefers-contrast: less) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-color-scheme: light) {
-    [data-contrast-mode="low"] .parent {
+    [data-contrast-mode='low'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: low;
     }
 }
-[data-contrast-mode="low"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="low"] .parent {
+[data-contrast-mode='low'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
@@ -286,21 +286,21 @@
 }
 @media (prefers-contrast: more) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-color-scheme: light) {
-    [data-contrast-mode="high"] .parent {
+    [data-contrast-mode='high'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: high;
     }
 }
-[data-contrast-mode="high"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="high"] .parent {
+[data-contrast-mode='high'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
@@ -316,7 +316,7 @@
     }
 }
 @media (prefers-contrast: no-preference) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: average;
@@ -324,14 +324,14 @@
 }
 @media (prefers-color-scheme: dark) {
     .parent,
-    [data-contrast-mode="average"] .parent {
+    [data-contrast-mode='average'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: average;
     }
 }
-[data-brightness-mode="dark"] .parent,
-[data-brightness-mode="dark"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='dark'] .parent,
+[data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
@@ -347,20 +347,20 @@
     }
 }
 @media (prefers-contrast: less) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-color-scheme: dark) {
-    [data-contrast-mode="low"] .parent {
+    [data-contrast-mode='low'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
-[data-brightness-mode="dark"][data-contrast-mode="low"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
@@ -376,20 +376,20 @@
     }
 }
 @media (prefers-contrast: more) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-color-scheme: dark) {
-    [data-contrast-mode="high"] .parent {
+    [data-contrast-mode='high'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
-[data-brightness-mode="dark"][data-contrast-mode="high"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
@@ -399,8 +399,8 @@
 /* #region default params - light/dark mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     .parent,
-    [data-brightness-mode="light"] .parent,
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='light'] .parent,
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: light dark;
         --colour-mode-each-contrast: forced-colors;
@@ -417,7 +417,7 @@
 }
 @media (prefers-contrast: no-preference) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: average;
@@ -425,16 +425,16 @@
 }
 @media (prefers-color-scheme: light) {
     .parent,
-    [data-contrast-mode="average"] .parent {
+    [data-contrast-mode='average'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: average;
     }
 }
 .parent,
-[data-brightness-mode="light"] .parent,
-[data-contrast-mode="average"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='light'] .parent,
+[data-contrast-mode='average'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
@@ -451,21 +451,21 @@
 }
 @media (prefers-contrast: less) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-color-scheme: light) {
-    [data-contrast-mode="low"] .parent {
+    [data-contrast-mode='low'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: low;
     }
 }
-[data-contrast-mode="low"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="low"] .parent {
+[data-contrast-mode='low'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
@@ -482,21 +482,21 @@
 }
 @media (prefers-contrast: more) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-color-scheme: light) {
-    [data-contrast-mode="high"] .parent {
+    [data-contrast-mode='high'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: high;
     }
 }
-[data-contrast-mode="high"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="high"] .parent {
+[data-contrast-mode='high'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
@@ -512,7 +512,7 @@
     }
 }
 @media (prefers-contrast: no-preference) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: average;
@@ -520,14 +520,14 @@
 }
 @media (prefers-color-scheme: dark) {
     .parent,
-    [data-contrast-mode="average"] .parent {
+    [data-contrast-mode='average'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: average;
     }
 }
-[data-brightness-mode="dark"] .parent,
-[data-brightness-mode="dark"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='dark'] .parent,
+[data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
@@ -543,20 +543,20 @@
     }
 }
 @media (prefers-contrast: less) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-color-scheme: dark) {
-    [data-contrast-mode="low"] .parent {
+    [data-contrast-mode='low'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
-[data-brightness-mode="dark"][data-contrast-mode="low"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
@@ -572,20 +572,20 @@
     }
 }
 @media (prefers-contrast: more) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-color-scheme: dark) {
-    [data-contrast-mode="high"] .parent {
+    [data-contrast-mode='high'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
-[data-brightness-mode="dark"][data-contrast-mode="high"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
@@ -595,8 +595,8 @@
 /* #region nested - light/dark mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     .parent,
-    [data-brightness-mode="light"] .parent,
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='light'] .parent,
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light dark;
         --colour-mode-each-contrast: forced-colors;
@@ -613,7 +613,7 @@
 }
 @media (prefers-contrast: no-preference) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: average;
@@ -621,16 +621,16 @@
 }
 @media (prefers-color-scheme: light) {
     .parent,
-    [data-contrast-mode="average"] .parent {
+    [data-contrast-mode='average'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: average;
     }
 }
 .parent,
-[data-brightness-mode="light"] .parent,
-[data-contrast-mode="average"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='light'] .parent,
+[data-contrast-mode='average'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
@@ -647,21 +647,21 @@
 }
 @media (prefers-contrast: less) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-color-scheme: light) {
-    [data-contrast-mode="low"] .parent {
+    [data-contrast-mode='low'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: low;
     }
 }
-[data-contrast-mode="low"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="low"] .parent {
+[data-contrast-mode='low'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
@@ -678,21 +678,21 @@
 }
 @media (prefers-contrast: more) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-color-scheme: light) {
-    [data-contrast-mode="high"] .parent {
+    [data-contrast-mode='high'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: high;
     }
 }
-[data-contrast-mode="high"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="high"] .parent {
+[data-contrast-mode='high'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
@@ -708,7 +708,7 @@
     }
 }
 @media (prefers-contrast: no-preference) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: average;
@@ -716,14 +716,14 @@
 }
 @media (prefers-color-scheme: dark) {
     .parent,
-    [data-contrast-mode="average"] .parent {
+    [data-contrast-mode='average'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: average;
     }
 }
-[data-brightness-mode="dark"] .parent,
-[data-brightness-mode="dark"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='dark'] .parent,
+[data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
@@ -739,20 +739,20 @@
     }
 }
 @media (prefers-contrast: less) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-color-scheme: dark) {
-    [data-contrast-mode="low"] .parent {
+    [data-contrast-mode='low'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
-[data-brightness-mode="dark"][data-contrast-mode="low"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
@@ -768,20 +768,20 @@
     }
 }
 @media (prefers-contrast: more) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-color-scheme: dark) {
-    [data-contrast-mode="high"] .parent {
+    [data-contrast-mode='high'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
-[data-brightness-mode="dark"][data-contrast-mode="high"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
@@ -791,8 +791,8 @@
 /* #region nested with forced-colors - light/dark mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     .parent,
-    [data-brightness-mode="light"] .parent,
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='light'] .parent,
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light dark;
         --colour-mode-each-contrast: forced-colors;
@@ -809,7 +809,7 @@
 }
 @media (prefers-contrast: no-preference) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: average;
@@ -817,16 +817,16 @@
 }
 @media (prefers-color-scheme: light) {
     .parent,
-    [data-contrast-mode="average"] .parent {
+    [data-contrast-mode='average'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: average;
     }
 }
 .parent,
-[data-brightness-mode="light"] .parent,
-[data-contrast-mode="average"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='light'] .parent,
+[data-contrast-mode='average'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
@@ -843,21 +843,21 @@
 }
 @media (prefers-contrast: less) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-color-scheme: light) {
-    [data-contrast-mode="low"] .parent {
+    [data-contrast-mode='low'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: low;
     }
 }
-[data-contrast-mode="low"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="low"] .parent {
+[data-contrast-mode='low'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
@@ -874,21 +874,21 @@
 }
 @media (prefers-contrast: more) {
     .parent,
-    [data-brightness-mode="light"] .parent {
+    [data-brightness-mode='light'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-color-scheme: light) {
-    [data-contrast-mode="high"] .parent {
+    [data-contrast-mode='high'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: high;
     }
 }
-[data-contrast-mode="high"] .parent,
-[data-brightness-mode="light"][data-contrast-mode="high"] .parent {
+[data-contrast-mode='high'] .parent,
+[data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
@@ -914,7 +914,7 @@
     }
 }
 @media (prefers-contrast: no-preference) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: average;
@@ -922,14 +922,14 @@
 }
 @media (prefers-color-scheme: dark) {
     .parent,
-    [data-contrast-mode="average"] .parent {
+    [data-contrast-mode='average'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: average;
     }
 }
-[data-brightness-mode="dark"] .parent,
-[data-brightness-mode="dark"][data-contrast-mode="average"] .parent {
+[data-brightness-mode='dark'] .parent,
+[data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
@@ -945,20 +945,20 @@
     }
 }
 @media (prefers-contrast: less) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
 @media (prefers-color-scheme: dark) {
-    [data-contrast-mode="low"] .parent {
+    [data-contrast-mode='low'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: low;
     }
 }
-[data-brightness-mode="dark"][data-contrast-mode="low"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
@@ -974,20 +974,20 @@
     }
 }
 @media (prefers-contrast: more) {
-    [data-brightness-mode="dark"] .parent {
+    [data-brightness-mode='dark'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
 @media (prefers-color-scheme: dark) {
-    [data-contrast-mode="high"] .parent {
+    [data-contrast-mode='high'] .parent {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: dark;
         --colour-mode-each-contrast: high;
     }
 }
-[data-brightness-mode="dark"][data-contrast-mode="high"] .parent {
+[data-brightness-mode='dark'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;

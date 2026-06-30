@@ -5,6 +5,7 @@
 
 @use 'sass:list';
 @use 'sass:map';
+@use 'sass:math';
 @use 'sass:meta';
 @use 'sass:string';
 
@@ -304,7 +305,7 @@
             }
             content: '';
             float: left;
-            padding-top: calc((if($h == null, 1, $h) / $w) * 100%);
+            padding-top: math.div(if($h == null, 1, $h), $w) * 100%;
 
             @content (supports-not--before);
         }

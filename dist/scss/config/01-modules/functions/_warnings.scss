@@ -5,6 +5,7 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
+@use 'sass:list';
 @use 'sass:meta';
 
 ///
@@ -13,13 +14,23 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function config-enforce-type-or-warn($value, $type, $varName) {
+@function config-enforce-type-or-warn(
+    $value,
+    $type,
+    $varName,
+    $fallback: false,
+    $warn: true,
+    $prefix: '[config] '
+) {
     $_actualType: meta.type-of($value);
 
     // returns
-    @if $_actualType != $type {
-        @warn "[config] $#{$varName} must be a #{$type} (was a #{$_actualType}: #{$value})";
-        @return false;
+    @if list.index($type, $_actualType) == null {
+        @if $warn {
+            @warn "#{$prefix}$#{$varName} must be a #{$type} (was a #{$_actualType}: #{$value})";
+        }
+
+        @return $fallback;
     }
 
     @return $value;

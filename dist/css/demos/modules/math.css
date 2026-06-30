@@ -25,10 +25,10 @@ math.add-unit string-unit {
       math.add-unit( 813, "deg" ) = <S> 813deg
    */
     /* 
-      math.add-unit( 16 / 3, "rem" ) = <S> 5.3333333333rem
+      math.add-unit( math.div( 16, 3 ), "rem" ) = <S> 5.3333333333rem
    */
     /* 
-      math.add-unit( 16 / 3ch, "px" ) = <S> 5.3333333333px
+      math.add-unit( math.div( 16, 3ch ), "px" ) = <S> 5.3333333333px
    */
     /* 
       math.add-unit( 813 * 1rem, "px" ) = <S> 813px
@@ -51,10 +51,10 @@ math.add-unit number-unit {
       math.add-unit( 3ch, 1px ) = <#> 3px
    */
     /* 
-      math.add-unit( 16 / 3, 1rem ) = <#> 5.333333333333333rem
+      math.add-unit( math.div( 16, 3 ), 1rem ) = <#> 5.333333333333333rem
    */
     /* 
-      math.add-unit( 16 / 3ch, 1px ) = <#> 5.333333333333333px
+      math.add-unit( math.div( 16, 3ch ), 1px ) = <#> 5.333333333333333px
    */
     /* 
       math.add-unit( 813 * 1rem, 1px ) = <#> 813px
@@ -78,10 +78,10 @@ math.always-one {
       math.always-one( 5ch ) = <#> 1ch
    */
     /* 
-      math.always-one( 16 / 3 ) = <#> 1
+      math.always-one( math.div( 16, 3 ) ) = <#> 1
    */
     /* 
-      math.always-one( 16 / 3ch ) = <#> calc(1 / 1ch)
+      math.always-one( math.div( 16, 3ch ) ) = <#> calc(1 / 1ch)
    */
     /* 
       math.always-one( 813 * 1rem ) = <#> 1rem
@@ -141,10 +141,10 @@ math.deunit {
       math.deunit( 813 ) = <#> 813
    */
     /* 
-      math.deunit( 16 / 3 ) = <#> 5.333333333333333
+      math.deunit( math.div( 16, 3 ) ) = <#> 5.333333333333333
    */
     /* 
-      math.deunit( 16 / 3ch ) = <#> 5.333333333333333
+      math.deunit( math.div( 16, 3ch ) ) = <#> 5.333333333333333
    */
     /* 
       math.deunit( 813 * 1rem ) = <#> 813
@@ -180,7 +180,7 @@ math.round-to-pixel {
       math.round-to-pixel( 123.5641, $factor: 0.5 ) = <#> 124
    */
     /* 
-      math.round-to-pixel( 123.5641, $factor: 1/3 ) = <#> 123
+      math.round-to-pixel( 123.5641, $factor: math.div( 1, 3 ) ) = <#> 123
    */
 }
 

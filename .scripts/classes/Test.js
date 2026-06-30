@@ -76,41 +76,28 @@ export class Test extends TestStage {
             ).sass;
         }
 
-        const compiled = await this.runCustomScssDirSubStage(
+        await this.runCustomScssDirSubStage(
             'demos',
             'dist/css',
             {
                 clearOutputDir: false,
-                maxConcurrent: 20,
+                maxConcurrent: 50,
                 postCSS: false,
+                replace: true,
+                prettier: true,
                 srcDir: 'src/scss',
             },
             1,
         );
 
-        this.console.verbose( 'replacing in compiled file...', 3 );
+        // this.console.verbose( 'prettifying compiled files...', 2 );
+        // const _prettified = await this.atry( this.fs.prettier, 3, [ compiled, 'css' ] );
 
-        /** @type {( "current" | "package" )[]} */
-        const replacementTypes = [ 'current', 'package' ];
-
-        for ( const _key of replacementTypes ) {
-            this.replaceInFiles(
-                compiled,
-                _key,
-                this.params.verbose ? 3 : 2,
-                [],
-                true,
-            );
-        }
-
-        this.console.verbose( 'prettifying compiled files...', 2 );
-        const _prettified = await this.atry( this.fs.prettier, 3, [ compiled, 'css' ] );
-
-        this.console.verbose(
-            `prettified ${ _prettified.length } files`,
-            3,
-            { italic: true },
-        );
+        // this.console.verbose(
+        //     `prettified ${ _prettified.length } files`,
+        //     3,
+        //     { italic: true },
+        // );
 
         if ( this.params.packaging || this.params.releasing ) {
             this.console.verbose( 'tidying up compiled files...', 2 );

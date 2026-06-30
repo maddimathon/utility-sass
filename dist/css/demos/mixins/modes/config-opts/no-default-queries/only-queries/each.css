@@ -135,8 +135,8 @@
 /* #region default params - light/dark mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     :root,
-    [data-brightness-mode="light"],
-    [data-brightness-mode="dark"] {
+    [data-brightness-mode='light'],
+    [data-brightness-mode='dark'] {
         /* @include colour-mode-each() { } */
         --colour-mode-each-brightness: light dark;
         --colour-mode-each-contrast: forced-colors;
@@ -207,8 +207,8 @@
 /* #region nested - light/dark mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     :root,
-    [data-brightness-mode="light"],
-    [data-brightness-mode="dark"] {
+    [data-brightness-mode='light'],
+    [data-brightness-mode='dark'] {
         /* @include colour-mode-each( $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light dark;
         --colour-mode-each-contrast: forced-colors;
@@ -279,8 +279,8 @@
 /* #region nested with forced-colors - light/dark mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     :root,
-    [data-brightness-mode="light"],
-    [data-brightness-mode="dark"] {
+    [data-brightness-mode='light'],
+    [data-brightness-mode='dark'] {
         /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light dark;
         --colour-mode-each-contrast: forced-colors;
@@ -323,7 +323,7 @@
 /* #region nested with iterated forced-colors - light mode + forced-colors contrast */
 @media (forced-colors: active), (prefers-contrast: custom) {
     :root,
-    [data-brightness-mode="light"] {
+    [data-brightness-mode='light'] {
         /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
         --colour-mode-each-brightness: light;
         --colour-mode-each-contrast: forced-colors;

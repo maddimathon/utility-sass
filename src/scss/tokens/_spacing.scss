@@ -94,12 +94,12 @@ $_layoutVW_default: 8;
 $layoutVW: null !default;
 $layoutVW: config.config-valid-number($layoutVW, 'layoutVW', $default: $_layoutVW_default, $min: 2);
 
-$_gap_tab: config.config-round-to-pixel(calc($layoutVW * (5 / $_layoutVW_default)), $factor: 8);
+$_gap_tab: config.config-round-to-pixel($layoutVW * math.div(5, $_layoutVW_default), $factor: 8);
 
-$_gap_indent: config.config-round-to-pixel(calc($layoutVW * (9 / $_layoutVW_default)), $factor: 8);
+$_gap_indent: config.config-round-to-pixel($layoutVW * math.div(9, $_layoutVW_default), $factor: 8);
 
 $_gap_block_layout: config.config-round-to-pixel(
-    calc($layoutVW * (5 / $_layoutVW_default)),
+    $layoutVW * math.div(5, $_layoutVW_default),
     $factor: 8
 );
 
@@ -114,13 +114,13 @@ $gap: map.merge(
     (
         block: (
             'layout': $_gap_block_layout,
-            'layout-half': calc($_gap_block_layout / 2),
+            'layout-half': math.div($_gap_block_layout, 2),
         ),
 
         inline: (
             'indent': $_gap_indent,
             'layout': $layoutVW,
-            'layout-half': calc($layoutVW/2),
+            'layout-half': math.div($layoutVW, 2),
             'tab': $_gap_tab,
         ),
     ),

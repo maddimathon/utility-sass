@@ -21,16 +21,16 @@ math.add-unit {
         @include meta.var-dump('math.add-unit( 5.6851%, "rad" )', math.add-unit(5.6851%, 'rad'));
         @include meta.var-dump('math.add-unit( 813, "deg" )', math.add-unit(813, 'deg'));
         @include meta.var-dump(
-            'math.add-unit( 16 / 3, "rem" )',
-            math.add-unit(calc(16 / 3), 'rem')
+            'math.add-unit( math.div( 16, 3 ), "rem" )',
+            math.add-unit(math.div(16, 3), 'rem')
         );
         @include meta.var-dump(
-            'math.add-unit( 16 / 3ch, "px" )',
-            math.add-unit(calc(16 / 3ch), 'px')
+            'math.add-unit( math.div( 16, 3ch ), "px" )',
+            math.add-unit(math.div(16, 3ch), 'px')
         );
         @include meta.var-dump(
             'math.add-unit( 813 * 1rem, "px" )',
-            math.add-unit(calc(813 * 1rem), 'px')
+            math.add-unit(813 * 1rem, 'px')
         );
     }
     number-unit {
@@ -38,16 +38,16 @@ math.add-unit {
         @include meta.var-dump('math.add-unit( 1em, 1ch )', math.add-unit(1em, 1ch));
         @include meta.var-dump('math.add-unit( 5.6851%, 1rad )', math.add-unit(5.6851%, 1rad));
         @include meta.var-dump('math.add-unit( 813, 1deg )', math.add-unit(813, 1deg));
-        @include meta.var-dump('math.add-unit( 3ch, 1px )', math.add-unit(calc(3ch), 1px));
-        @include meta.var-dump('math.add-unit( 16 / 3, 1rem )', math.add-unit(calc(16 / 3), 1rem));
+        @include meta.var-dump('math.add-unit( 3ch, 1px )', math.add-unit(3ch, 1px));
         @include meta.var-dump(
-            'math.add-unit( 16 / 3ch, 1px )',
-            math.add-unit(calc(16 / 3ch), 1px)
+            'math.add-unit( math.div( 16, 3 ), 1rem )',
+            math.add-unit(math.div(16, 3), 1rem)
         );
         @include meta.var-dump(
-            'math.add-unit( 813 * 1rem, 1px )',
-            math.add-unit(calc(813 * 1rem), 1px)
+            'math.add-unit( math.div( 16, 3ch ), 1px )',
+            math.add-unit(math.div(16, 3ch), 1px)
         );
+        @include meta.var-dump('math.add-unit( 813 * 1rem, 1px )', math.add-unit(813 * 1rem, 1px));
     }
 }
 
@@ -56,10 +56,16 @@ math.always-one {
     @include meta.var-dump('math.always-one( 1em )', math.always-one(1em));
     @include meta.var-dump('math.always-one( 5.6851% )', math.always-one(5.6851%));
     @include meta.var-dump('math.always-one( 813 )', math.always-one(813));
-    @include meta.var-dump('math.always-one( 5ch )', math.always-one(calc(5ch)));
-    @include meta.var-dump('math.always-one( 16 / 3 )', math.always-one(calc(16 / 3)));
-    @include meta.var-dump('math.always-one( 16 / 3ch )', math.always-one(calc(16 / 3ch)));
-    @include meta.var-dump('math.always-one( 813 * 1rem )', math.always-one(calc(813 * 1rem)));
+    @include meta.var-dump('math.always-one( 5ch )', math.always-one(5ch));
+    @include meta.var-dump(
+        'math.always-one( math.div( 16, 3 ) )',
+        math.always-one(math.div(16, 3))
+    );
+    @include meta.var-dump(
+        'math.always-one( math.div( 16, 3ch ) )',
+        math.always-one(math.div(16, 3ch))
+    );
+    @include meta.var-dump('math.always-one( 813 * 1rem )', math.always-one(813 * 1rem));
 }
 
 math.coerce-unit {
@@ -85,9 +91,9 @@ math.deunit {
     @include meta.var-dump('math.deunit( 1em )', math.deunit(1em));
     @include meta.var-dump('math.deunit( 5.6851% )', math.deunit(5.6851%));
     @include meta.var-dump('math.deunit( 813 )', math.deunit(813));
-    @include meta.var-dump('math.deunit( 16 / 3 )', math.deunit(calc(16 / 3)));
-    @include meta.var-dump('math.deunit( 16 / 3ch )', math.deunit(calc(16 / 3ch)));
-    @include meta.var-dump('math.deunit( 813 * 1rem )', math.deunit(calc(813 * 1rem)));
+    @include meta.var-dump('math.deunit( math.div( 16, 3 ) )', math.deunit(math.div(16, 3)));
+    @include meta.var-dump('math.deunit( math.div( 16, 3ch ) )', math.deunit(math.div(16, 3ch)));
+    @include meta.var-dump('math.deunit( 813 * 1rem )', math.deunit(813 * 1rem));
 }
 
 math.num-val {
@@ -112,8 +118,8 @@ math.round-to-pixel {
         math.round-to-pixel(123.5641, $factor: 0.5)
     );
     @include meta.var-dump(
-        'math.round-to-pixel( 123.5641, $factor: 1/3 )',
-        math.round-to-pixel(123.5641, $factor: calc(1 / 3))
+        'math.round-to-pixel( 123.5641, $factor: math.div( 1, 3 ) )',
+        math.round-to-pixel(123.5641, $factor: math.div(1, 3))
     );
 }
 

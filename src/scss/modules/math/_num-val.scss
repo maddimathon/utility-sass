@@ -5,6 +5,7 @@
 
 @use 'sass:list';
 @use 'sass:map';
+@use 'sass:math';
 @use 'sass:meta';
 @use 'sass:string';
 
@@ -55,7 +56,7 @@
                 $result: $result * 10 + $charDigit;
             } @else {
                 $digits: $digits * 10;
-                $result: calc($result + $charDigit / $digits);
+                $result: $result + math.div($charDigit, $digits);
             }
         }
     }

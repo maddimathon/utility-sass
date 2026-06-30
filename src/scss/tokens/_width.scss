@@ -34,22 +34,25 @@ $width: map.merge(
         'content': $_widths_content,
         'sidebar': $_widths_sidebar,
 
-        'callout': calc(
-                if(map.has-key($width, 'content'), map.get($width, 'content'), $_widths_content) *
-                    (100 - math.deunit(map.get(spacing.$gap, inline, indent)) * 3) / 100
-            ),
+        'callout': if(
+                map.has-key($width, 'content'),
+                map.get($width, 'content'),
+                $_widths_content
+            ) *
+            math.div(100 - math.deunit(map.get(spacing.$gap, inline, indent)) * 3, 100),
     ),
     $width,
     $recursive: true
 );
 
-$_viewport_percent_minus_gutter: 1 - calc(map.get(spacing.$gap, inline, layout) / 100);
+$_viewport_percent_minus_gutter: 1 - math.div(map.get(spacing.$gap, inline, layout), 100);
 
 $width: map.set(
     $width,
     'page',
-    calc(
-        (map.get($width, 'content') + map.get($width, 'sidebar')) / $_viewport_percent_minus_gutter
+    math.div(
+        map.get($width, 'content') + map.get($width, 'sidebar'),
+        $_viewport_percent_minus_gutter
     )
 );
 

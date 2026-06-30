@@ -68,14 +68,14 @@ $_mrgValFirm_400_softened: mrg-value-firm('400');
         );
     }
 
-    $pc_soften_full: calc($_mrgValFirm_400 / $value);
-    $pc_soften_partial: calc(1 - $pc_soften_full);
+    $pc_soften_full: math.div($_mrgValFirm_400, $value);
+    $pc_soften_partial: 1 - $pc_soften_full;
 
     $_full_softener: tokens.$margin_softener;
 
     $_partial_softener: (
         tokens.$margin_softener +
-            calc((1 - tokens.$margin_softener) * tokens.$margin_softener)
+            ((1 - tokens.$margin_softener) * tokens.$margin_softener)
     );
 
     $value_half_full_soft: $value * $pc_soften_full * $_full_softener;

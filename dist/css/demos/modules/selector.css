@@ -353,54 +353,54 @@
     :root .child.new-child .grandchild another.new-child.child {
         /* selector.extend-simple-selector( &, ".child", ".new-child", $self: false, $replace: false, $unify: true ) */
     }
-    [data-brightness-mode="light"] {
+    [data-brightness-mode='light'] {
         /* STARTING SELECTOR C */
     }
-    [data-brightness-mode="light"],
-    [data-contrast-mode="low"] {
+    [data-brightness-mode='light'],
+    [data-contrast-mode='low'] {
         /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) */
     }
-    [data-brightness-mode="light"],
-    [data-contrast-mode="low"],
-    [data-brightness-mode="light"][data-contrast-mode="low"],
-    [data-brightness-mode="light"] [data-contrast-mode="low"],
-    [data-contrast-mode="low"] [data-brightness-mode="light"] {
+    [data-brightness-mode='light'],
+    [data-contrast-mode='low'],
+    [data-brightness-mode='light'][data-contrast-mode='low'],
+    [data-brightness-mode='light'] [data-contrast-mode='low'],
+    [data-contrast-mode='low'] [data-brightness-mode='light'] {
         /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) */
     }
-    [data-brightness-mode="light"],
-    [data-contrast-mode="low"],
-    [data-contrast-mode="average"],
-    [data-brightness-mode="light"][data-contrast-mode="low"],
-    [data-brightness-mode="light"][data-contrast-mode="average"],
-    [data-brightness-mode="light"] [data-contrast-mode="low"],
-    [data-brightness-mode="light"] [data-contrast-mode="average"],
-    [data-contrast-mode="low"] [data-brightness-mode="light"],
-    [data-contrast-mode="average"] [data-brightness-mode="light"] {
+    [data-brightness-mode='light'],
+    [data-contrast-mode='low'],
+    [data-contrast-mode='average'],
+    [data-brightness-mode='light'][data-contrast-mode='low'],
+    [data-brightness-mode='light'][data-contrast-mode='average'],
+    [data-brightness-mode='light'] [data-contrast-mode='low'],
+    [data-brightness-mode='light'] [data-contrast-mode='average'],
+    [data-contrast-mode='low'] [data-brightness-mode='light'],
+    [data-contrast-mode='average'] [data-brightness-mode='light'] {
         /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) */
     }
-    :root [data-brightness-mode="light"] .child {
+    :root [data-brightness-mode='light'] .child {
         /* STARTING SELECTOR D */
     }
-    :root [data-brightness-mode="light"] .child,
-    :root [data-contrast-mode="low"] .child {
+    :root [data-brightness-mode='light'] .child,
+    :root [data-contrast-mode='low'] .child {
         /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) */
     }
-    :root [data-brightness-mode="light"] .child,
-    :root [data-contrast-mode="low"] .child,
-    :root [data-brightness-mode="light"][data-contrast-mode="low"] .child,
-    :root [data-brightness-mode="light"] [data-contrast-mode="low"] .child,
-    :root [data-contrast-mode="low"] [data-brightness-mode="light"] .child {
+    :root [data-brightness-mode='light'] .child,
+    :root [data-contrast-mode='low'] .child,
+    :root [data-brightness-mode='light'][data-contrast-mode='low'] .child,
+    :root [data-brightness-mode='light'] [data-contrast-mode='low'] .child,
+    :root [data-contrast-mode='low'] [data-brightness-mode='light'] .child {
         /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) */
     }
-    :root [data-brightness-mode="light"] .child,
-    :root [data-contrast-mode="low"] .child,
-    :root [data-contrast-mode="average"] .child,
-    :root [data-brightness-mode="light"][data-contrast-mode="low"] .child,
-    :root [data-brightness-mode="light"][data-contrast-mode="average"] .child,
-    :root [data-brightness-mode="light"] [data-contrast-mode="low"] .child,
-    :root [data-brightness-mode="light"] [data-contrast-mode="average"] .child,
-    :root [data-contrast-mode="low"] [data-brightness-mode="light"] .child,
-    :root [data-contrast-mode="average"] [data-brightness-mode="light"] .child {
+    :root [data-brightness-mode='light'] .child,
+    :root [data-contrast-mode='low'] .child,
+    :root [data-contrast-mode='average'] .child,
+    :root [data-brightness-mode='light'][data-contrast-mode='low'] .child,
+    :root [data-brightness-mode='light'][data-contrast-mode='average'] .child,
+    :root [data-brightness-mode='light'] [data-contrast-mode='low'] .child,
+    :root [data-brightness-mode='light'] [data-contrast-mode='average'] .child,
+    :root [data-contrast-mode='low'] [data-brightness-mode='light'] .child,
+    :root [data-contrast-mode='average'] [data-brightness-mode='light'] .child {
         /* selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) */
     }
 }
@@ -457,7 +457,7 @@
 @media except {
     button,
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* 
         selector.except( &, $needles: "button" ) is a list:
      */
@@ -465,14 +465,14 @@
         /* 2: <()> ( <S> a.class-name[data-complex=selector]:focus ) */
     }
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* selector.except( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
     }
 }
 @media except {
     button,
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* 
         selector.except( &, $needles: "a" ) is a list:
      */
@@ -485,7 +485,7 @@
 @media except {
     button,
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* 
         selector.except( &, $needles: ":focus" ) is a list:
      */
@@ -500,7 +500,7 @@
 @media except {
     button,
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* 
         selector.except( &, $needles: "[data-complex=selector]" ) is a list:
      */
@@ -515,7 +515,7 @@
 @media except {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
         /* 
         selector.except( &, $needles: "button" ) is a list:
      */
@@ -523,14 +523,14 @@
         /* 2: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement ) */
     }
     a.special-class .should-not-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
         /* selector.except( ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "button" ) */
     }
 }
 @media except {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
         /* 
         selector.except( &, $needles: "a" ) is a list:
      */
@@ -543,7 +543,7 @@
 @media except {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
         /* 
         selector.except( &, $needles: ":focus" ) is a list:
      */
@@ -558,7 +558,7 @@
 @media except {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-not-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
         /* 
         selector.except( &, $needles: "[data-complex=selector]" ) is a list:
      */
@@ -652,7 +652,7 @@
 @media except-superselector {
     button,
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* 
         selector.except-superselector( &, $needles: "button" ) is a list:
      */
@@ -660,14 +660,14 @@
         /* 2: <()> ( <S> a.class-name[data-complex=selector]:focus ) */
     }
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* selector.except-superselector( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
     }
 }
 @media except-superselector {
     button,
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* 
         selector.except-superselector( &, $needles: "a" ) is a list:
      */
@@ -680,7 +680,7 @@
 @media except-superselector {
     button,
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* 
         selector.except-superselector( &, $needles: ":focus" ) is a list:
      */
@@ -695,7 +695,7 @@
 @media except-superselector {
     button,
     a.special-class,
-    a.class-name[data-complex="selector"]:focus {
+    a.class-name[data-complex='selector']:focus {
         /* 
         selector.except-superselector( &, $needles: "[data-complex=selector]" ) is a list:
      */
@@ -710,7 +710,7 @@
 @media except-superselector {
     body button,
     body a.special-class,
-    body a.class-name[data-complex="selector"]:focus {
+    body a.class-name[data-complex='selector']:focus {
         /* 
         selector.except-superselector( &, $needles: "button" ) is a list:
      */
@@ -718,14 +718,14 @@
         /* 2: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ) */
     }
     body a.special-class,
-    body a.class-name[data-complex="selector"]:focus {
+    body a.class-name[data-complex='selector']:focus {
         /* selector.except-superselector( ( ( body button ), ( body a.special-class ), ( body a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
     }
 }
 @media except-superselector {
     body button,
     body a.special-class,
-    body a.class-name[data-complex="selector"]:focus {
+    body a.class-name[data-complex='selector']:focus {
         /* 
         selector.except-superselector( &, $needles: "a" ) is a list:
      */
@@ -738,7 +738,7 @@
 @media except-superselector {
     body button,
     body a.special-class,
-    body a.class-name[data-complex="selector"]:focus {
+    body a.class-name[data-complex='selector']:focus {
         /* 
         selector.except-superselector( &, $needles: ":focus" ) is a list:
      */
@@ -753,7 +753,7 @@
 @media except-superselector {
     body button,
     body a.special-class,
-    body a.class-name[data-complex="selector"]:focus {
+    body a.class-name[data-complex='selector']:focus {
         /* 
         selector.except-superselector( &, $needles: "[data-complex=selector]" ) is a list:
      */
@@ -768,7 +768,7 @@
 @media except-superselector {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-stop-replacement {
         /* 
         selector.except-superselector( &, $needles: "button" ) is a list:
      */
@@ -778,14 +778,14 @@
     }
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-stop-replacement {
         /* selector.except-superselector( ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "button" ) */
     }
 }
 @media except-superselector {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-stop-replacement {
         /* 
         selector.except-superselector( &, $needles: "a" ) is a list:
      */
@@ -795,14 +795,14 @@
     }
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-stop-replacement {
         /* selector.except-superselector( ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "a" ) */
     }
 }
 @media except-superselector {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-stop-replacement {
         /* 
         selector.except-superselector( &, $needles: ":focus" ) is a list:
      */
@@ -812,14 +812,14 @@
     }
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-stop-replacement {
         /* selector.except-superselector( ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: ":focus" ) */
     }
 }
 @media except-superselector {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-stop-replacement {
         /* 
         selector.except-superselector( &, $needles: "[data-complex=selector]" ) is a list:
      */
@@ -829,8 +829,167 @@
     }
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
-    a.class-name[data-complex="selector"]:focus .should-stop-replacement {
+    a.class-name[data-complex='selector']:focus .should-stop-replacement {
         /* selector.except-superselector( ( ( button .should-stop-replacement ), ( a.special-class .should-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-stop-replacement ) ), $needles: "[data-complex=selector]" ) */
+    }
+}
+
+/* ## Modules - Selector - only() ==================================== */
+@media (selector: only) {
+    a,
+    button {
+        /* 
+        selector.only( &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> button ) */
+    }
+    button {
+        /* selector.only( ( ( a ), ( button ) ), $needles: "button" ) */
+    }
+}
+@media (selector: only) {
+    a,
+    button {
+        /* 
+        selector.only( &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> a ) */
+    }
+    a {
+        /* selector.only( ( ( a ), ( button ) ), $needles: "a" ) */
+    }
+}
+@media (selector: only) {
+    a .should-not-stop-replacement,
+    button .should-not-stop-replacement {
+        /* 
+        selector.only( &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> button <S> .should-not-stop-replacement ) */
+    }
+    button .should-not-stop-replacement {
+        /* selector.only( ( ( a .should-not-stop-replacement ), ( button .should-not-stop-replacement ) ), $needles: "button" ) */
+    }
+}
+@media (selector: only) {
+    a .should-not-stop-replacement,
+    button .should-not-stop-replacement {
+        /* 
+        selector.only( &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> a <S> .should-not-stop-replacement ) */
+    }
+    a .should-not-stop-replacement {
+        /* selector.only( ( ( a .should-not-stop-replacement ), ( button .should-not-stop-replacement ) ), $needles: "a" ) */
+    }
+}
+
+@media (selector: only) {
+    button,
+    a.special-class,
+    a.class-name[data-complex='selector']:focus {
+        /* 
+        selector.only( &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> button ) */
+    }
+    button {
+        /* selector.only( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "button" ) */
+    }
+}
+@media (selector: only) {
+    button,
+    a.special-class,
+    a.class-name[data-complex='selector']:focus {
+        /* 
+        selector.only( &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> a.special-class ) */
+        /* 2: <()> ( <S> a.class-name[data-complex=selector]:focus ) */
+    }
+    a.special-class,
+    a.class-name[data-complex='selector']:focus {
+        /* selector.only( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "a" ) */
+    }
+}
+@media (selector: only) {
+    button,
+    a.special-class,
+    a.class-name[data-complex='selector']:focus {
+        /* 
+        selector.only( &, $needles: ":focus" ) is a list:
+     */
+        /* 1: <()> ( <S> a.class-name[data-complex=selector]:focus ) */
+    }
+    a.class-name[data-complex='selector']:focus {
+        /* selector.only( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: ":focus" ) */
+    }
+}
+@media (selector: only) {
+    button,
+    a.special-class,
+    a.class-name[data-complex='selector']:focus {
+        /* 
+        selector.only( &, $needles: "[data-complex=selector]" ) is a list:
+     */
+        /* 1: <()> ( <S> a.class-name[data-complex=selector]:focus ) */
+    }
+    a.class-name[data-complex='selector']:focus {
+        /* selector.only( ( ( button ), ( a.special-class ), ( a.class-name[data-complex=selector]:focus ) ), $needles: "[data-complex=selector]" ) */
+    }
+}
+@media (selector: only) {
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
+        /* 
+        selector.only( &, $needles: "button" ) is a list:
+     */
+        /* 1: <()> ( <S> button <S> .should-not-stop-replacement ) */
+    }
+    button .should-not-stop-replacement {
+        /* selector.only( ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "button" ) */
+    }
+}
+@media (selector: only) {
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
+        /* 
+        selector.only( &, $needles: "a" ) is a list:
+     */
+        /* 1: <()> ( <S> a.special-class <S> .should-not-stop-replacement ) */
+        /* 2: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement ) */
+    }
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
+        /* selector.only( ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "a" ) */
+    }
+}
+@media (selector: only) {
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
+        /* 
+        selector.only( &, $needles: ":focus" ) is a list:
+     */
+        /* 1: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement ) */
+    }
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
+        /* selector.only( ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: ":focus" ) */
+    }
+}
+@media (selector: only) {
+    button .should-not-stop-replacement,
+    a.special-class .should-not-stop-replacement,
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
+        /* 
+        selector.only( &, $needles: "[data-complex=selector]" ) is a list:
+     */
+        /* 1: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement ) */
+    }
+    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
+        /* selector.only( ( ( button .should-not-stop-replacement ), ( a.special-class .should-not-stop-replacement ), ( a.class-name[data-complex=selector]:focus .should-not-stop-replacement ) ), $needles: "[data-complex=selector]" ) */
     }
 }
 
@@ -1671,7 +1830,7 @@ body:where(.has-a-class) {
    */
 }
 
-@media complex-selectors and (via: "%root") {
+@media complex-selectors and (via: '%root') {
     :root .child {
         /* via %root */
         /* 
@@ -1789,7 +1948,7 @@ body:where(.has-a-class) {
         /* 1: <()> ( <()> ( <S> %root[special-root] <S> [special-body] <S> .child ) ) */
     }
 }
-@media complex-selectors and (via: "%root %body") {
+@media complex-selectors and (via: '%root %body') {
     :has(.class-name):root body {
         /* via %root %body */
         /* 
@@ -1904,7 +2063,7 @@ body:where(.has-a-class) {
         /* 1: <()> ( <()> ( <S> %root[special-root]:has(.class-name) <S> %body[special-body] ) ) */
     }
 }
-@media complex-selectors and (via: "%root %body") {
+@media complex-selectors and (via: '%root %body') {
     :has(.class-name):root body .grandchild {
         /* via %root %body */
         /* 
@@ -2022,7 +2181,7 @@ body:where(.has-a-class) {
     }
 }
 
-@media complex-selectors and (via: ":root, body") {
+@media complex-selectors and (via: ':root, body') {
     :root .child,
     body .child,
     :root body .child,
@@ -2199,7 +2358,7 @@ body:where(.has-a-class) {
     }
 }
 
-@media complex-selectors and (via: ":root, body") {
+@media complex-selectors and (via: ':root, body') {
     :where(.js) .not-root-or-body {
         /* via :root, body */
         /* 
@@ -2318,7 +2477,7 @@ body:where(.has-a-class) {
     }
 }
 
-@media complex-selectors and (via: ":root, body") {
+@media complex-selectors and (via: ':root, body') {
     :root:where(.js__subgrid) body .child,
     :where(.js__subgrid) body .child,
     :where(.js__subgrid) .not-root-or-body .child {

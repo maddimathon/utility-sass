@@ -55,11 +55,11 @@ $stroke_relative: () !default;
 $stroke_relative: map.ksort(
     map.merge(
         (
-            '100': calc(0.5 / 16),
-            '200': calc(1 / 16),
-            '400': calc(2 / 16),
-            '600': calc(3 / 16),
-            '800': calc(4 / 16),
+            '100': math.div(0.5, 16),
+            '200': math.div(1, 16),
+            '400': math.div(2, 16),
+            '600': math.div(3, 16),
+            '800': math.div(4, 16),
         ),
         $stroke_relative
     )

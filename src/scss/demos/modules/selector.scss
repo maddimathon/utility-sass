@@ -359,6 +359,59 @@ a.class-name[data-complex='selector']:focus {
     }
 }
 
+/* ## Modules - Selector - only() ==================================== */
+
+@mixin _only-test($args...) {
+    @media (selector: only) {
+        & {
+            $sel: selector.only(
+                $haystack: &,
+                $args...,
+            );
+
+            $args: meta.keywords($args);
+
+            @include meta.var-dump(
+                'selector.only#{meta.demo-args-dump( string.unquote('&'), $args... )}',
+                $sel
+            );
+
+            $callDump: 'selector.only#{meta.demo-args-dump( &, $args... )}';
+
+            @at-root #{$sel} {
+                /* #{$callDump} */
+            }
+        }
+    }
+}
+
+a,
+button {
+    @include _only-test($needles: 'button');
+    @include _only-test($needles: 'a');
+
+    .should-not-stop-replacement {
+        @include _only-test($needles: 'button');
+        @include _only-test($needles: 'a');
+    }
+}
+
+button,
+a.special-class,
+a.class-name[data-complex='selector']:focus {
+    @include _only-test($needles: 'button');
+    @include _only-test($needles: 'a');
+    @include _only-test($needles: ':focus');
+    @include _only-test($needles: '[data-complex=selector]');
+
+    .should-not-stop-replacement {
+        @include _only-test($needles: 'button');
+        @include _only-test($needles: 'a');
+        @include _only-test($needles: ':focus');
+        @include _only-test($needles: '[data-complex=selector]');
+    }
+}
+
 /* ## Modules - Selector - Root & Body Utilities ==================================== */
 
 @media at-root {

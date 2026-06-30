@@ -35,28 +35,40 @@
         $value: $default;
     }
 
-    // returns - value is not a number
-    @if config-enforce-type-or-warn($value: $value, $type: number, $varName: $name) == false {
-        @return $default;
-    }
+    $value: config-enforce-type-or-warn(
+        $value: $value,
+        $type: (
+            calculation,
+            number,
+        ),
+        $varName: $name,
+        $fallback: $default,
+    );
 
-    @if not math.is-unitless($value) {
+    $isNumber: meta.type-of($value) == number;
+    $isCalc: not $isNumber;
+
+    @if $isNumber and not math.is-unitless($value) {
         $value: math.div($value, ($value * 0 + 1));
     }
 
-    @if meta.type-of($min) == number and $value < $min {
-        @warn "[config] $#{$name} should be at least #{$min} (was #{$value})";
+    @if meta.type-of($min) == number {
+        @if $isNumber and $value < $min {
+            @warn "[config] $#{$name} should be at least #{$min} (was #{$value})";
+        }
 
         $value: math.max($min, $value);
     }
 
-    @if meta.type-of($max) == number and $value > $max {
-        @warn "[config] $#{$name} should be less than #{$max} (was #{$value})";
+    @if $isNumber and meta.type-of($max) == number {
+        @if $value > $max {
+            @warn "[config] $#{$name} should be less than #{$max} (was #{$value})";
+        }
 
         $value: math.min($max, $value);
     }
 
-    @if $unit != false and meta.type-of($unit) == number {
+    @if $isNumber and $unit != false and meta.type-of($unit) == number {
         $_unit_zero: $unit * 0;
 
         $_always_one_unit: if(
@@ -65,7 +77,7 @@
             if(math.compatible($_unit_zero, 1), $_unit_zero + 1, 1)
         );
 
-        $value: calc($value * $_always_one_unit);
+        $value: $value * $_always_one_unit;
     }
 
     @return $value;

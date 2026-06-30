@@ -44,7 +44,7 @@
 
     // returns
     @if not math.is-unitless($num) and math.compatible(1deg, $num) {
-        @return calc((coerce-unit.coerce-unit($num, 1deg) / 360deg) * 100%);
+        @return math.div(coerce-unit.coerce-unit($num, 1deg), 360deg) * 100%;
     }
 
     // returns

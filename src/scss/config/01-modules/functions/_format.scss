@@ -6,5 +6,5 @@
 @use 'sass:math';
 
 @function config-round-to-pixel($num, $factor: 16) {
-    @return calc(math.round($num * $factor) / $factor);
+    @return math.div(math.round($num * $factor), $factor);
 }

@@ -19,7 +19,7 @@ $_width_content: map.get(width.$width, 'content');
 $_width_page: map.get(width.$width, 'page');
 $_width_sidebar: map.get(width.$width, 'sidebar');
 
-$_gap_percent: calc(map.get(spacing.$gap, inline, layout) / 100);
+$_gap_percent: math.div(map.get(spacing.$gap, inline, layout), 100);
 
 $_viewport_percent_minus_gutter: 1 - $_gap_percent;
 
@@ -27,7 +27,7 @@ $_viewport_percent_minus_gap: 1 -
     (config.$fn_breakpoints_gapDoubler * $_gap_percent);
 
 @function _breakpoint-maker($num) {
-    @return calc($num/$_viewport_percent_minus_gap);
+    @return math.div($num, $_viewport_percent_minus_gap);
 }
 
 ///
@@ -51,15 +51,13 @@ $breakpoints: map.merge(
         'page': _breakpoint-maker($_width_page),
         // 'sidebar': _breakpoint-maker($_width_page * config.$fn_breakpoints_sidebarMultiplier),
         'sidebar': _breakpoint-maker(
-                calc(
+                math.div(
                     (
-                            (
-                                    $_width_content *
-                                        config.$fn_breakpoints_sidebarMultiplier
-                                ) +
-                                $_width_sidebar
-                        ) /
-                        $_viewport_percent_minus_gutter
+                            $_width_content *
+                                config.$fn_breakpoints_sidebarMultiplier
+                        ) +
+                        $_width_sidebar,
+                    $_viewport_percent_minus_gutter
                 )
             ),
         'indent': _breakpoint-maker(map.get(width.$width, 'callout')),

@@ -3,6 +3,7 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
+@use 'sass:math';
 @use 'sass:meta';
 
 @use '../config';
@@ -38,8 +39,9 @@
     $size_min: $size * config.$math_clampFontSize_multiplier_min,
     //
     // via - https://www.marcbacon.com/understanding-clamp/
-    $sizeScalingSlope: calc(
-            ($size_max - $size_min) / ($max_viewport - $min_viewport)
+    $sizeScalingSlope: math.div(
+            $size_max - $size_min,
+            $max_viewport - $min_viewport
         )
 ) {
     @if meta.type-of($size) != number {
@@ -47,7 +49,7 @@
         @return add-unit.add-unit($size, $unit: $unit);
     }
 
-    $yIntersection: calc((-1 * $min_viewport * $sizeScalingSlope) + $size_min);
+    $yIntersection: (-1 * $min_viewport * $sizeScalingSlope) + $size_min;
 
     $svw_size: round-to-pixel.round-to-pixel(
         $sizeScalingSlope * 100,
