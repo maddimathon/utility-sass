@@ -78,6 +78,7 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string = string> {
             focusVisible: true;
             hasSelector: true;
             subgrid: true;
+            variableFonts: true;
             whereSelector: true;
         };
         custom: {};
@@ -247,6 +248,15 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string = string> {
      */
     subgrid(): Promise<boolean>;
     /**
+     * Checks for `grid-template-columns: subgrid` css rule support.
+     *
+     * @since 0.1.0-beta.0.draft
+     *
+     * @experimental
+     * @source
+     */
+    variableFonts(): Promise<boolean>;
+    /**
      * Checks for `:where()` css selector support.
      *
      * @experimental
@@ -267,7 +277,7 @@ export declare namespace FeatureCheck {
      *
      * @since 0.1.0-beta.0.draft Renamed from Checker to DefaultCheckSlug.
      */
-    type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid" | "whereSelector";
+    type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid" | "variableFonts" | "whereSelector";
     /**
      * An options object to allow (or disallow) built-in feature checkers.
      *

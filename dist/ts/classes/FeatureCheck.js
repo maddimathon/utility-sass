@@ -132,6 +132,7 @@ export class FeatureCheck {
             focusVisible: true,
             hasSelector: true,
             subgrid: true,
+            variableFonts: true,
             whereSelector: true,
         };
         return {
@@ -237,6 +238,7 @@ export class FeatureCheck {
         this.isCustomCheck = this.isCustomCheck.bind(this);
         this.isDefaultCheck = this.isDefaultCheck.bind(this);
         this.subgrid = this.subgrid.bind(this);
+        this.variableFonts = this.variableFonts.bind(this);
         this.whereSelector = this.whereSelector.bind(this);
     }
     /* METHODS
@@ -402,6 +404,17 @@ export class FeatureCheck {
      */
     async subgrid() {
         return this.setFeature('subgrid', FeatureCheck.supportsCSS('grid-template-columns: subgrid'));
+    }
+    /**
+     * Checks for `grid-template-columns: subgrid` css rule support.
+     *
+     * @since 0.1.0-beta.0.draft
+     *
+     * @experimental
+     * @source
+     */
+    async variableFonts() {
+        return this.setFeature('variableFonts', FeatureCheck.supportsCSS('font-variation-settings: normal'));
     }
     /**
      * Checks for `:where()` css selector support.

@@ -131,6 +131,11 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     /// Headings
     @each $headingLevel in $allHeadingLevels {
         $sels: list.append($sels, ('.h#{$headingLevel}', 'h#{$headingLevel}'));
+        $sels: list.append($sels, ('.h#{$headingLevel}__hgroup', 'h#{$headingLevel}__hgroup'));
+        $sels: list.append(
+            $sels,
+            ('.h#{$headingLevel}__subheading', 'h#{$headingLevel}__subheading')
+        );
 
         $sels: list.append(
             $sels,
@@ -287,7 +292,10 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         //
         /// ## Typography ==================================== ///
         unstyled-heading,
+        unstyled-heading__hgroup,
+        unstyled-heading__subheading,
         (page-title, title),
+        (page-title__subheading, title__subheading),
         //
         /// ## Forms ==================================== ///
         //
