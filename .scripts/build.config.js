@@ -23,7 +23,6 @@ const _defaults = {
  * @type {Config}
  */
 const config = {
-
     title: 'Utility Sass',
     launchYear: '2025',
 
