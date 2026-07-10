@@ -3,7 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
-@use 'sass:string';
+@use '../../modules/string';
 
 ///
 /// @since 0.1.0-pre.0
@@ -18,7 +18,7 @@ $template_description: '' !default;
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$template_slug: string.to-lower-case($template_name) !default;
+$template_slug: string.slugify($template_name) !default;
 
 ///
 /// @since 0.1.0-pre.0

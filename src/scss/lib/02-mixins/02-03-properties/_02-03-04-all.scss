@@ -7,6 +7,7 @@
 
 // @use '../../01-functions' as *;
 
+@use '../02-00-meta' as *;
 // @use '../02-01-utilities' as *;
 // @use '../02-02-theming' as *;
 
@@ -46,58 +47,60 @@
     //
     $includeRegion: true
 ) {
-    @if $atProperty {
-        @include tokens-at-property;
-    }
+    @include template-utility-sass {
+        @if $atProperty {
+            @include tokens-at-property;
+        }
 
-    // colours
-    @if $sysColours {
-        @include tokens-sys-colour($includeRegion: $includeRegion);
-    }
+        // colours
+        @if $sysColours {
+            @include tokens-sys-colour($includeRegion: $includeRegion);
+        }
 
-    // spacing
-    @if $width {
-        @include tokens-width($includeRegion: $includeRegion, $multiplier: $multiplier_width);
-    }
-    @if $margin {
-        @include tokens-margin($includeRegion: $includeRegion, $multiplier: $multiplier_margin);
-    }
+        // spacing
+        @if $width {
+            @include tokens-width($includeRegion: $includeRegion, $multiplier: $multiplier_width);
+        }
+        @if $margin {
+            @include tokens-margin($includeRegion: $includeRegion, $multiplier: $multiplier_margin);
+        }
 
-    // typography
-    @if $fontSize {
-        @include tokens-font-size(
-            $includeRegion: $includeRegion,
-            $multiplier: $multiplier_fontSize
-        );
-    }
-    @if $lineHeight {
-        @include tokens-line-height(
-            $includeRegion: $includeRegion,
-            $multiplier: $multiplier_lineHeight
-        );
-    }
+        // typography
+        @if $fontSize {
+            @include tokens-font-size(
+                $includeRegion: $includeRegion,
+                $multiplier: $multiplier_fontSize
+            );
+        }
+        @if $lineHeight {
+            @include tokens-line-height(
+                $includeRegion: $includeRegion,
+                $multiplier: $multiplier_lineHeight
+            );
+        }
 
-    // spacing
-    @if $gap {
-        @include tokens-gap($includeRegion: $includeRegion, $multiplier: $multiplier_gap);
-    }
+        // spacing
+        @if $gap {
+            @include tokens-gap($includeRegion: $includeRegion, $multiplier: $multiplier_gap);
+        }
 
-    // decoration
-    @if $borderWidth {
-        @include tokens-border-width(
-            $includeRegion: $includeRegion,
-            $multiplier: $multiplier_borderWidth
-        );
-    }
-    @if $strokeRelative {
-        @include tokens-stroke-relative(
-            $includeRegion: $includeRegion,
-            $multiplier: $multiplier_strokeRelative
-        );
-    }
+        // decoration
+        @if $borderWidth {
+            @include tokens-border-width(
+                $includeRegion: $includeRegion,
+                $multiplier: $multiplier_borderWidth
+            );
+        }
+        @if $strokeRelative {
+            @include tokens-stroke-relative(
+                $includeRegion: $includeRegion,
+                $multiplier: $multiplier_strokeRelative
+            );
+        }
 
-    // style
-    @if $style {
-        @include tokens-style($includeRegion: $includeRegion);
+        // style
+        @if $style {
+            @include tokens-style($includeRegion: $includeRegion);
+        }
     }
 }

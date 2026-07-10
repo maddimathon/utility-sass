@@ -1,0 +1,76 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../../config';
+// @use '../../tokens';
+
+@use '../../modules/string';
+
+// @use '../01-functions' as *;
+
+$_stylesheet_name: if(
+    config.$template_isDefault,
+    'Template',
+    'Template - #{config.$template_name}'
+);
+
+$_stylesheet_packagePath: if(
+    config.$template_isDefault,
+    '@maddimathon/utility-sass/template',
+    '@maddimathon/utility-sass/template/#{config.$template_slug}'
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-docblock-utility-sass(
+    $stylesheet_name: $_stylesheet_name,
+    $stylesheet_packagePath: $_stylesheet_packagePath
+) {
+    @if string.length(#{config.$template_description}) > 0 {
+        /**
+         * Utility Sass - #{$stylesheet_name}
+         * #{$stylesheet_packagePath}@___CURRENT_VERSION___
+         * 
+         * #{config.$template_description}
+         * 
+         * ___CURRENT_URL___
+         */
+    } @else {
+        /**
+         * Utility Sass - #{$stylesheet_name}
+         * #{$stylesheet_packagePath}@___CURRENT_VERSION___
+         * 
+         * ___CURRENT_URL___
+         */
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-start-utility-sass($stylesheet_packagePath: $_stylesheet_packagePath) {
+    @at-root {
+        /*! START of #{$stylesheet_packagePath} */
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-end-utility-sass($stylesheet_packagePath: $_stylesheet_packagePath) {
+    @at-root {
+        /*! END of #{$stylesheet_packagePath} */
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-utility-sass($stylesheet_packagePath: $_stylesheet_packagePath) {
+    @include template-start-utility-sass($stylesheet_packagePath: $stylesheet_packagePath);
+    @content;
+    @include template-end-utility-sass($stylesheet_packagePath: $stylesheet_packagePath);
+}

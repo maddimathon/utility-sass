@@ -1,22 +1,24 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
-/// @since 0.1.0-beta.0.draft
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
 ///
 
-@use '../../../modules/feature-check';
-@use '../../../modules/list';
-@use '../../../modules/meta';
-@use '../../../modules/selector';
+@use '../../config';
+// @use '../../tokens';
 
-@use '../config';
-// @use '../../../tokens';
+@use '../../modules/feature-check';
+@use '../../modules/list';
+@use '../../modules/meta';
+@use '../../modules/selector';
 
-@use '../../../lib' as *;
+@use '../01-functions' as *;
+// @use '../02-mixins' as *;
+// @use '../03-snippets' as *;
 
 $_optionalDefault: if(config.$isTemplate, false, true);
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since ___PKG_VERSION___
 ///
 @function get-extend-selectors-a($selector_a: config.$selector_a) {
     $list: (
@@ -43,7 +45,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since ___PKG_VERSION___
 ///
 @function get-extend-selectors-button($selector_button, $variant: null) {
     $selector_button_visited: selector.unify(
@@ -54,22 +56,14 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     $list: ();
 
     @if $variant == null {
-        $list: list.append(
-            $list,
-            ($selector_button, button),
-            $separator: comma
-        );
+        $list: list.append($list, ($selector_button, button), $separator: comma);
     } @else {
         $list: list.append(
             $list,
             (
                 list.join(
                     $selector_button,
-                    if(
-                        config.$include_linkVisitedState,
-                        $selector_button_visited,
-                        ()
-                    ),
+                    if(config.$include_linkVisitedState, $selector_button_visited, ()),
                     $separator: comma
                 ),
                 button-#{$variant}
@@ -99,14 +93,14 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since ___PKG_VERSION___
 ///
 @function get-extend-selectors-all-buttons() {
     @return get-extend-selectors-button(selector-buttons-basic());
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since ___PKG_VERSION___
 ///
 @function get-extend-selectors-headings-global($allHeadingLevels) {
     $sels: (h1, h2, h3, h4, h5, h6);
@@ -131,7 +125,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since ___PKG_VERSION___
 ///
 @function get-extend-selectors-headings-utils($allHeadingLevels) {
     $sels: ();
@@ -139,10 +133,8 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     /// Headings
     @each $headingLevel in $allHeadingLevels {
         $sels: list.append($sels, ('.h#{$headingLevel}', 'h#{$headingLevel}'));
-        $sels: list.append(
-            $sels,
-            ('.h#{$headingLevel}__hgroup', 'h#{$headingLevel}__hgroup')
-        );
+        $sels: list.append($sels, ('.h#{$headingLevel}--hgroup', 'h#{$headingLevel}--hgroup'));
+        $sels: list.append($sels, ('.h#{$headingLevel}__hgroup', 'h#{$headingLevel}__hgroup'));
         $sels: list.append(
             $sels,
             ('.h#{$headingLevel}__subheading', 'h#{$headingLevel}__subheading')
@@ -150,18 +142,12 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 
         $sels: list.append(
             $sels,
-            (
-                selector.unify('%h#{$headingLevel}', ':is(.unstyled-heading)'),
-                'unstyled-heading--is'
-            )
+            (selector.unify('%h#{$headingLevel}', ':is(.unstyled-heading)'), 'unstyled-heading--is')
         );
         $sels: list.append(
             $sels,
             (
-                selector.unify(
-                    '%h#{$headingLevel}--where',
-                    ':is(.unstyled-heading)'
-                ),
+                selector.unify('%h#{$headingLevel}--where', ':is(.unstyled-heading)'),
                 'unstyled-heading--where'
             )
         );
@@ -172,7 +158,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 
 ///
 /// @since 0.1.0-alpha.38 — Made public.
-/// @since 0.1.0-beta.0.draft — Moved to template directory.
+/// @since ___PKG_VERSION___ — Moved to template directory.
 ///
 @mixin extend-selectors-generic($selectors, $selector_prefix: '') {
     @each $pair in $selectors {
@@ -193,7 +179,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since ___PKG_VERSION___
 ///
 @mixin extend-selectors-globals--focus-ring {
     @at-root {
@@ -230,12 +216,9 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 
 ///
 /// @since 0.1.0-alpha.38 — Added $additional_optional param for additional selectors that are always optional.
-/// @since 0.1.0-beta.0.draft — Moved to template directory. Removed $additional_optional and $optional params.
+/// @since ___PKG_VERSION___ — Moved to template directory. Removed $additional_optional and $optional params.
 ///
-@mixin extend-selectors-globals(
-    $additional: (),
-    $allHeadingLevels: token-all-heading-levels()
-) {
+@mixin extend-selectors-globals($additional: (), $allHeadingLevels: token-all-heading-levels()) {
     $_global_selectors: (
         // ( globals, pseudo? ),
         //
@@ -287,10 +270,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         )
     );
 
-    $_global_selectors: list.join(
-        $_global_selectors,
-        get-extend-selectors-all-buttons()
-    );
+    $_global_selectors: list.join($_global_selectors, get-extend-selectors-all-buttons());
 
     @include extend-selectors-globals--focus-ring;
 
@@ -303,12 +283,9 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 
 ///
 /// @since 0.1.0-alpha.38 — Added $additional_optional param for additional selectors that are always optional.
-/// @since 0.1.0-beta.0.draft — Moved to template directory. Removed $additional_optional and $optional params.
+/// @since ___PKG_VERSION___ — Moved to template directory. Removed $additional_optional and $optional params.
 ///
-@mixin extend-selectors-utils(
-    $additional: (),
-    $allHeadingLevels: token-all-heading-levels()
-) {
+@mixin extend-selectors-utils($additional: (), $allHeadingLevels: token-all-heading-levels()) {
     $_utils_selectors: (
         // ( globals, pseudo? ),
         //
@@ -318,6 +295,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         //
         /// ## Typography ==================================== ///
         unstyled-heading,
+        unstyled-heading--hgroup,
         unstyled-heading__hgroup,
         unstyled-heading__subheading,
         (page-title, title),
@@ -345,7 +323,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 
 ///
 /// @since 0.1.0-alpha.38 — Added $add_globals_optional and $add_utils_optional params for additional selectors that are always optional.
-/// @since 0.1.0-beta.0.draft — Moved to template directory. Renamed params. Removed $add_globals_optional, $add_utils_optional, and $optional params.
+/// @since ___PKG_VERSION___ — Moved to template directory. Renamed params. Removed $add_globals_optional, $add_utils_optional, and $optional params.
 ///
 @mixin extend-selectors(
     $add_globals: (),

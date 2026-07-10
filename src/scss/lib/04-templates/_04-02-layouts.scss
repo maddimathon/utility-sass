@@ -1,0 +1,99 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../../config';
+// @use '../../tokens';
+
+@use '../../modules/map';
+@use '../../modules/meta';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+// @use '../03-snippets' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-layouts-body(
+    $print_bodyFlow: map.get(config.$template_styles, bodyFlow),
+    $print_scrollPadding: map.get(config.$template_styles, scrollPadding),
+    //
+    $css_headings: null,
+    $content_exists: null
+) {
+    $_print_any: $print_bodyFlow or $print_scrollPadding;
+
+    @if $css_headings == null {
+        @if $content_exists == null {
+            $content_exists: meta.content-exists();
+        }
+
+        $css_headings: config.$template_cssHeadings and ($content_exists or $_print_any);
+    }
+
+    @if $css_headings {
+        /* # LAYOUTS - BODY
+         * ======================================================================== */
+    }
+
+    @content (start);
+
+    @if $_print_any {
+        @include template-utility-sass {
+            @if $print_scrollPadding {
+                $_scrollPaddingFallback: var-gap-block(layout);
+
+                %root {
+                    @include cx-prop(scroll-padding-top, $_scrollPaddingFallback);
+                    @include cx-prop(scroll-padding-top, scroll-padding-top-value());
+                }
+
+                %root,
+                %body {
+                    scroll-padding-top: var-scroll-padding-top($_scrollPaddingFallback);
+                }
+            }
+            @content (scrollPadding);
+
+            @if $print_bodyFlow {
+                %body {
+                    @if config.$include_html {
+                        @include prop-display(flex);
+                        flex-direction: column;
+                        justify-content: start;
+                        align-items: center;
+
+                        gap: var-gap-block(layout) var-gap-inline(layout);
+
+                        margin-block: var-gap-block(layout);
+                        margin-inline: var-gap-inline(layout);
+
+                        :where(&) > :where(*) {
+                            width: min(var-width(page), 100%);
+                        }
+                    }
+                }
+            }
+            @content (bodyFlow);
+        }
+    } @else {
+        @content (scrollPadding);
+        @content (bodyFlow);
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-layouts(
+    $print_body: true,
+    //
+    $css_headings: null
+) {
+    @if $print_body {
+        @include template-content-layouts-body($css_headings: $css_headings);
+    }
+    @content (body);
+}

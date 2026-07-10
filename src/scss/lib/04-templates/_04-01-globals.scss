@@ -1,0 +1,884 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../../config';
+@use '../../tokens';
+
+@use '../../modules/map';
+@use '../../modules/math';
+@use '../../modules/meta';
+@use '../../modules/selector';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+@use '../03-snippets' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-abstracts(
+    $print_normalize: map.get(config.$template_styles, normalize),
+    $print_reset: map.get(config.$template_styles, reset),
+    $print_tokens: config.$template_tokens,
+    //
+    $css_headings: null
+) {
+    $_print_any_normareset: $print_normalize or $print_reset;
+    $_print_any: $_print_any_normareset or $print_tokens;
+
+    @if $css_headings == null {
+        $css_headings: config.$template_cssHeadings;
+    }
+
+    @if $print_normalize {
+        @include template-utility-sass {
+            @include normalize;
+        }
+    }
+    @content (normalize);
+
+    @if $print_reset {
+        @include template-utility-sass {
+            @include reset;
+        }
+    }
+    @content (reset);
+
+    @if $print_tokens {
+        @if $css_headings {
+            /* # TOKENS & PROPERTIES
+             * ======================================================================== */
+        }
+
+        @include tokens-all;
+    }
+    @content (tokens);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-accessibility(
+    $print_focusRing: map.get(config.$template_styles, focusRing),
+    $print_screenReaderText: map.get(config.$template_styles, screenReaderText),
+    //
+    $css_headings: null,
+    $content_exists: null
+) {
+    $_print_any: $print_focusRing or $print_screenReaderText;
+
+    @if $css_headings == null {
+        @if $content_exists == null {
+            $content_exists: meta.content-exists();
+        }
+
+        $css_headings: config.$template_cssHeadings and ($content_exists or $_print_any);
+    }
+
+    @if $css_headings {
+        /* # GLOBALS - ACCESSIBILITY
+         * ======================================================================== */
+    }
+
+    @content (start);
+
+    @if $_print_any {
+        @include template-utility-sass {
+            @if $print_focusRing {
+                @include snippet-support-focus-ring;
+            }
+            @content (focusRing);
+
+            @if $print_screenReaderText {
+                %screen-reader-text {
+                    @include snippet-screen-reader-text;
+                }
+            }
+            @content (screenReaderText);
+        }
+    } @else {
+        @content (focusRing);
+        @content (screenReaderText);
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-forms(
+    $print_buttons: map.get(config.$template_styles, buttons),
+    $print_fieldset: map.get(config.$template_styles, fieldset),
+    $print_inputs: map.get(config.$template_styles, inputs),
+    //
+    $css_headings: null,
+    $content_exists: null
+) {
+    $_print_any: $print_buttons or $print_fieldset or $print_inputs;
+
+    @if $css_headings == null {
+        @if $content_exists == null {
+            $content_exists: meta.content-exists();
+        }
+
+        $css_headings: config.$template_cssHeadings and ($content_exists or $_print_any);
+    }
+
+    @if $css_headings {
+        /* # GLOBALS - FORMS
+         * ======================================================================== */
+    }
+
+    @content (start);
+
+    @if $_print_any {
+        @include template-utility-sass {
+            @if $print_fieldset {
+                %fieldset {
+                    @include snippet-fieldset;
+
+                    > :first-child {
+                        margin-block-start: 0;
+                        margin-block-start: calc(var-mrg-soft('400') - var-mrg-soft('200'));
+                    }
+
+                    > legend + * {
+                        margin-block-start: 0;
+                    }
+                }
+
+                %legend {
+                    fieldset &,
+                    fieldset &:first-child {
+                        @include snippet-heading(7);
+
+                        margin-inline: calc(var-mrg-soft('300') * -1);
+                        margin-block: 0 var-mrg-soft('300');
+
+                        padding-inline: var-mrg-soft('300');
+
+                        font-style: italic;
+                    }
+                }
+            }
+            @content (fieldset);
+
+            @if $print_inputs {
+                %input-base {
+                    @include snippet-input;
+                }
+
+                %input {
+                    @extend %input-base;
+                    @include snippet-input-types($includeBase: false);
+                }
+
+                %select {
+                    @extend %input-base;
+                    cursor: pointer;
+                }
+
+                %textarea {
+                    @extend %input-base;
+                    cursor: text;
+                }
+
+                %label {
+                    @include snippet-label;
+                }
+            }
+            @content (inputs);
+
+            @if $print_buttons {
+                @if config.$template_cssHeadings {
+                    /* ## Forms - Buttons ==================================== */
+                }
+
+                %button {
+                    @include snippet-button;
+                }
+
+                // file-selector-button
+                @include snippet-add-pseudo-file-selector-button;
+            }
+            @content (buttons);
+        }
+    } @else {
+        @content (fieldset);
+        @content (inputs);
+        @content (buttons);
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-lists(
+    $print_lists: map.get(config.$template_styles, lists),
+    //
+    $css_headings: null,
+    $content_exists: null
+) {
+    $_print_any: $print_lists;
+
+    @if $css_headings == null {
+        @if $content_exists == null {
+            $content_exists: meta.content-exists();
+        }
+
+        $css_headings: config.$template_cssHeadings and ($content_exists or $_print_any);
+    }
+
+    @if $css_headings {
+        /* # GLOBALS - LISTS
+         * ======================================================================== */
+    }
+
+    @content (start);
+
+    @if $_print_any {
+        @include template-utility-sass {
+            @if $print_lists {
+                %ol,
+                %ul {
+                    margin: 0;
+                    margin-inline-start: 20%;
+
+                    padding: 0;
+                    padding-inline-start: 1em;
+
+                    @if config.$include_html {
+                        margin-inline-start: var-gap-inline(tab);
+                    }
+
+                    line-height: inherit;
+
+                    ol,
+                    ul {
+                        margin-block: 0;
+                    }
+                }
+
+                %ol {
+                    // /* level 1 - ol */
+                    list-style-type: decimal;
+
+                    /// BLOCK ///
+
+                    @at-root %ol-2,
+                        & ol {
+                        // /* level 2 - ol ol */
+                        list-style-type: lower-alpha;
+
+                        @at-root %ol-3,
+                            & ol {
+                            // /* level 3 - ol ol ol */
+                            list-style-type: lower-roman;
+
+                            @at-root %ol-4,
+                                & ol {
+                                // /* level 4 - ol ol ol ol */
+                                @extend %ul-3;
+
+                                @at-root %ol-5,
+                                    & ol {
+                                    // /* level 5 - ol ol ol ol ol */
+                                    @extend %ul-4;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                %ul {
+                    // /* level 1 - ul */
+                    list-style-type: disc;
+
+                    /// BLOCK ///
+
+                    @at-root %ul-2,
+                        & ul {
+                        // /* level 2 - ul ul */
+                        list-style-type: circle;
+
+                        @at-root %ul-3,
+                            & ul {
+                            // /* level 3 - ul ul ul */
+                            // /* level 4 - ol ol ol ol */
+                            list-style-type: square; /* fallback */
+                            list-style-type: '–  ';
+
+                            @at-root %ul-4,
+                                & ul {
+                                // /* level 4 - ul ul ul ul */
+                                // /* level 5 - ol ol ol ol ol */
+                            }
+                        }
+                    }
+                }
+
+                %li {
+                    margin: 0;
+                    margin-block-start: var-mrg-soft('300');
+                    padding: 0;
+
+                    &::marker {
+                        font-weight: 500;
+                    }
+
+                    > a:only-child {
+                        @include prop-display(inline-block);
+                        vertical-align: top;
+                    }
+
+                    li {
+                        li {
+                            margin-block-start: var-mrg-soft('200');
+
+                            li {
+                                font-style: italic;
+
+                                em {
+                                    font-style: normal;
+
+                                    em {
+                                        font-style: italic;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            @content (lists);
+        }
+    } @else {
+        @content (lists);
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-objects(
+    $print_hr: map.get(config.$template_styles, hr),
+    //
+    $css_headings: null,
+    $content_exists: null
+) {
+    $_print_any: $print_hr;
+
+    @if $css_headings == null {
+        @if $content_exists == null {
+            $content_exists: meta.content-exists();
+        }
+
+        $css_headings: config.$template_cssHeadings and ($content_exists or $_print_any);
+    }
+
+    @if $css_headings {
+        /* # GLOBALS - OBJECTS
+         * ======================================================================== */
+    }
+
+    @content (start);
+
+    @if $_print_any {
+        @include template-utility-sass {
+            @if $print_hr {
+                %hr {
+                    @include prop-display(block);
+                    align-self: center;
+                    justify-self: center;
+
+                    margin-block: var-mrg-firm('600');
+                    margin-inline: var-gap-inline(indent);
+
+                    width: math.add-unit(
+                        math.round-to-pixel(
+                            100 *
+                                math.div(
+                                    map.get(tokens.$width, callout),
+                                    map.get(tokens.$width, content)
+                                ),
+                            100
+                        ),
+                        $unit: 1%
+                    );
+
+                    max-width: var-width(callout);
+
+                    border: none;
+                    border-block-end: currentColor solid var-border-width('200');
+                }
+            }
+            @content (hr);
+        }
+    } @else {
+        @content (hr);
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-tables(
+    $print_table: map.get(config.$template_styles, table),
+    //
+    $css_headings: null,
+    $content_exists: null
+) {
+    $_print_any: $print_table;
+
+    @if $css_headings == null {
+        @if $content_exists == null {
+            $content_exists: meta.content-exists();
+        }
+
+        $css_headings: config.$template_cssHeadings and ($content_exists or $_print_any);
+    }
+
+    @if $css_headings {
+        /* # GLOBALS - TABLES
+         * ======================================================================== */
+    }
+
+    @content (start);
+
+    @if $print_table {
+        @include template-utility-sass {
+            %table,
+            %table-wrapper {
+                position: relative;
+                align-self: center;
+                justify-self: center;
+
+                margin-block: var-mrg-firm('400') 0;
+                margin-block: var-mrg-firm('600') calc(var-mrg-soft('600') - var-mrg-soft('400'));
+
+                background: var-sys-colour(accent-bg);
+
+                max-width: 100%;
+            }
+
+            %table {
+                border-spacing: var-border-width('200');
+                line-height: inherit;
+
+                @include forced-colors {
+                    border-spacing: 0;
+
+                    $_border: var-border-width('200') solid var-sys-colour(text);
+
+                    %th,
+                    %td {
+                        border-block-end: $_border;
+                        border-inline-end: $_border;
+
+                        &:first-child {
+                            border-inline-start: $_border;
+                        }
+                    }
+
+                    %tr {
+                        &:first-child {
+                            %th,
+                            %td {
+                                border-block-start: $_border;
+                            }
+                        }
+                    }
+                }
+            }
+
+            %table-wrapper {
+                @include prop-display(block);
+                overflow-x: auto;
+                overscroll-behavior-x: none;
+
+                /// BLOCK ///
+
+                > %table {
+                    align-self: start;
+                    justify-self: start;
+
+                    margin: 0;
+                    padding: 0;
+                    background: transparent;
+
+                    max-width: none;
+                }
+            }
+
+            %tr {
+            }
+
+            %th,
+            %td {
+                padding-block: var-mrg-soft('200');
+                padding-inline: var-mrg-firm('300');
+                min-width: 10em;
+                background: var-sys-colour(background);
+
+                vertical-align: top;
+                text-align: left;
+
+                /// BLOCK ///
+
+                > :first-child {
+                    margin-top: 0;
+                }
+                > :last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            %th {
+                padding-top: var-mrg-soft('200');
+                padding-bottom: var-mrg-soft('200');
+
+                text-wrap: balance;
+
+                background: var-sys-colour(accent-bg);
+                color: var-sys-colour(accent-text);
+            }
+
+            %td {
+            }
+        }
+    }
+    @content (table);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-typography(
+    $print_a: map.get(config.$template_styles, a),
+    $print_abbr: map.get(config.$template_styles, abbr),
+    $print_blockquote: map.get(config.$template_styles, blockquote),
+    $print_code: map.get(config.$template_styles, code),
+    $print_em: map.get(config.$template_styles, em),
+    $print_headings: map.get(config.$template_styles, headings),
+    $print_p: map.get(config.$template_styles, p),
+    $print_pre: map.get(config.$template_styles, pre),
+    $print_selection: map.get(config.$template_styles, selection),
+    $print_strong: map.get(config.$template_styles, strong),
+    $print_typeDefaults: map.get(config.$template_styles, typeDefaults),
+    //
+    $css_headings: null,
+    $css_headings_blocks: null,
+    $css_headings_inlines: null,
+    $content_exists: null
+) {
+    $_print_any_blocks: $print_blockquote or $print_code or $print_headings or $print_p or
+        $print_pre;
+    $_print_any_inlines: $print_a or $print_abbr or $print_em or $print_strong;
+
+    $_print_any: $print_typeDefaults or $_print_any_blocks or $_print_any_inlines;
+
+    @if $css_headings == null {
+        @if $content_exists == null {
+            $content_exists: meta.content-exists();
+        }
+
+        $css_headings: config.$template_cssHeadings and ($content_exists or $_print_any);
+    }
+
+    @if $css_headings_blocks == null {
+        $css_headings_blocks: $css_headings and $_print_any_blocks;
+    }
+
+    @if $css_headings_inlines == null {
+        $css_headings_inlines: $css_headings and $_print_any_inlines;
+    }
+
+    @if $css_headings {
+        /* # GLOBALS - TYPOGRAPHY
+         * ======================================================================== */
+    }
+
+    @content (start);
+
+    @if $print_selection or $print_typeDefaults {
+        @include template-utility-sass {
+            @if $print_selection {
+                %selection {
+                    background-color: var-sys-colour(selection-bg);
+                    color: var-sys-colour(selection-text);
+                }
+            }
+            @content (selection);
+
+            @if $print_typeDefaults {
+                %root {
+                    font-weight: 400;
+                    line-height: var-line-height('400');
+                    background: var-sys-colour(background);
+                    color: var-sys-colour(text);
+
+                    @if config.$include_html {
+                        @include max-width(mobile) {
+                            hyphens: auto;
+                        }
+                    }
+                }
+
+                %body {
+                    font-size: var-fs(normal);
+                }
+            }
+            @content (typeDefaults);
+        }
+    } @else {
+        @content (selection);
+        @content (typeDefaults);
+    }
+
+    @content (start-end);
+
+    @if $css_headings_inlines {
+        /* ## Typography - Inlines ==================================== */
+    }
+
+    @content (start-inlines);
+
+    @if $_print_any_inlines {
+        @include template-utility-sass {
+            @if $print_strong {
+                %strong {
+                    font-weight: 700;
+
+                    strong {
+                        font-weight: 800;
+
+                        strong {
+                            font-weight: 900;
+                        }
+                    }
+                }
+            }
+            @content (strong);
+
+            @if $print_em {
+                %em {
+                    font-style: italic;
+
+                    em {
+                        font-style: normal;
+
+                        em {
+                            font-style: italic;
+                        }
+                    }
+                }
+            }
+            @content (em);
+
+            @if $print_a {
+                %a {
+                    @include cx-prop(focus-ring-outline-offset, var-stroke-relative('200'));
+                    @include prop-display(inline);
+                    border: none;
+                    text-decoration: underline var-stroke-relative('200');
+                    text-underline-offset: var-stroke-relative('800');
+                    color: var-sys-colour(link);
+
+                    /// STATES ///
+
+                    @include visited($appendToSelector: false) {
+                        color: var-sys-colour(link-visited);
+                    }
+
+                    @include hover-focus-visible() {
+                        text-decoration-color: transparent;
+                        color: var-sys-colour(link-hover);
+                    }
+
+                    @include active {
+                        color: var-sys-colour(link-active);
+                    }
+
+                    /// EXCEPTIONS ///
+
+                    &.no-style {
+                        text-decoration: none;
+                        font-weight: inherit;
+                        color: inherit;
+                    }
+
+                    &[aria-disabled='true'] {
+                        text-decoration-line: line-through;
+                        color: var-sys-colour(text-disabled);
+                        opacity: 1;
+
+                        cursor: not-allowed;
+                    }
+                }
+            }
+            @content (a);
+
+            @if $print_abbr {
+                %abbr {
+                    &[title] {
+                        text-decoration: dotted underline var-stroke-relative('400');
+                        cursor: help;
+                    }
+                }
+            }
+            @content (abbr);
+        }
+    } @else {
+        @content (strong);
+        @content (em);
+        @content (a);
+        @content (abbr);
+    }
+
+    @content (end-inlines);
+
+    @if $css_headings_blocks {
+        /* ## Typography - Blocks ==================================== */
+    }
+
+    @content (start-blocks);
+
+    @if $_print_any_blocks {
+        @include template-utility-sass {
+            @if $print_p {
+                %p {
+                    margin-block: var-mrg-soft('400') 0;
+
+                    hr + & {
+                        margin-block-start: 0;
+                    }
+                }
+            }
+            @content (p);
+
+            @if $print_blockquote {
+                %blockquote {
+                    @include snippet-blockquote;
+                }
+            }
+            @content (blockquote);
+
+            @if $print_code {
+                %code,
+                %kbd,
+                %pre,
+                %samp {
+                    position: relative;
+                }
+            }
+            @content (code);
+
+            @if $print_pre {
+                %pre {
+                    @include snippet-pre;
+                }
+            }
+            @content (pre);
+        }
+    } @else {
+        @content (p);
+        @content (blockquote);
+        @content (code);
+        @content (pre);
+    }
+
+    @content (end-blocks);
+
+    @if $print_headings {
+        $_whereUnstyledHeadingSelectors: ();
+
+        @if config.$template_cssHeadings {
+            /* ## Typography - Headings ==================================== */
+        }
+
+        @include template-utility-sass {
+            @each $num in token-all-heading-levels() {
+                //
+                #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
+                    @include snippet-heading($num, $includeUnstyledHeadingProps: false);
+
+                    %button {
+                        font: inherit;
+                        font-size: 1em;
+                        letter-spacing: inherit;
+                        text-transform: inherit;
+                    }
+
+                    &--where {
+                        @include snippet-heading($num, $includeUnstyledHeadingProps: false);
+
+                        :where(%button) {
+                            font: inherit;
+                            font-size: 1em;
+                            letter-spacing: inherit;
+                            text-transform: inherit;
+                        }
+                    }
+                }
+            }
+
+            %unstyled-heading {
+                @include snippet-unstyled-heading;
+            }
+
+            %unstyled-heading--is {
+                @include snippet-unstyled-heading;
+            }
+
+            %unstyled-heading--where {
+                @include snippet-unstyled-heading;
+            }
+        }
+    }
+    @content (headings);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals(
+    $print_accessibility: true,
+    $print_objects: true,
+    $print_typography: true,
+    $print_lists: true,
+    $print_forms: true,
+    $print_tables: true,
+    //
+    $css_headings: null
+) {
+    @if $print_accessibility {
+        @include template-content-globals-accessibility($css_headings: $css_headings);
+    }
+    @content (accessibility);
+
+    @if $print_objects {
+        @include template-content-globals-objects($css_headings: $css_headings);
+    }
+    @content (objects);
+
+    @if $print_typography {
+        @include template-content-globals-typography($css_headings: $css_headings);
+    }
+    @content (typography);
+
+    @if $print_lists {
+        @include template-content-globals-lists($css_headings: $css_headings);
+    }
+    @content (lists);
+
+    @if $print_forms {
+        @include template-content-globals-forms($css_headings: $css_headings);
+    }
+    @content (forms);
+
+    @if $print_tables {
+        @include template-content-globals-tables($css_headings: $css_headings);
+    }
+    @content (tables);
+}

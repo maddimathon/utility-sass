@@ -4,20 +4,14 @@
 ///
 
 @forward '_header';
+@forward '../../notice';
 
-@forward '00-abstracts';
-@forward '01-globals';
-@forward '02-layouts';
-// @forward '03-utilities';
-// @forward '04-blocks';
+@use '../../config';
+@use '../../lib' as *;
 
-@forward '_footer';
-
-/// # EXTENDING SELECTORS
-/// ======================================================================== ///
-
-@use 'config';
-@use 'lib' as *;
+@include template-content-abstracts;
+@include template-content-globals;
+@include template-content-layouts;
 
 @if config.$template_extendSelectors {
     @include extend-selectors;
