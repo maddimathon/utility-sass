@@ -6,30 +6,50 @@
 @forward '../config';
 @forward 'header';
 
+@use '../../../../modules/meta';
+
 @use 'lib' as *;
 
 /* #region - NO PARENT */
-@each $active, $activeWithin, $hover, $focus, $focusWithin in $interactive_paramPermutations {
-    @include apply-interactive-mixin-iterator(
-        $hover: $hover,
-        $focus: $focus,
-        $focusWithin: $focusWithin,
-        $active: $active,
-        $activeWithin: $activeWithin
-    );
+@each $active, $activeWithin, $hover, $focus, $focusWithin, $visited,
+    $self in $interactive_paramPermutations
+{
+    @if not $self {
+        @include apply-interactive-mixin-iterator(
+            $active: $active,
+            $activeWithin: $activeWithin,
+            $focus: $focus,
+            $focusWithin: $focusWithin,
+            $hover: $hover,
+            $self: $self,
+            $visited: $visited,
+            // $debug: $self,
+             //
+        );
+    }
 }
 /* #endregion - NO PARENT */
 
 /* #region - WITH PARENT */
-button {
-    @each $active, $activeWithin, $hover, $focus, $focusWithin in $interactive_paramPermutations {
+a {
+    /* parent selector is: #{meta.var-dump(&)} */
+
+    @each $active, $activeWithin, $hover, $focus, $focusWithin, $visited,
+        $self in $interactive_paramPermutations
+    {
         @include apply-interactive-mixin-iterator(
-            $hover: $hover,
+            $active: $active,
+            $activeWithin: $activeWithin,
             $focus: $focus,
             $focusWithin: $focusWithin,
-            $active: $active,
-            $activeWithin: $activeWithin
+            $hover: $hover,
+            $self: $self,
+            $visited: $visited,
+            // $debug: $self,
+             //
         );
     }
 }
 /* #endregion - WITH PARENT */
+
+@include extend-selectors;

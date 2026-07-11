@@ -48,7 +48,21 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function selector-add-visited($selector, $appendToSelector: true) {
+@function selector-add-visited($selector: null, $appendToSelector: false) {
+    // returns
+    @if not config.$include_linkVisitedState {
+        @return if(
+            $appendToSelector and selector.parent-exists($selector),
+            $selector,
+            config.$selector_null
+        );
+    }
+
+    // returns
+    @if not $selector {
+        @return ':visited';
+    }
+
     $selector: selector.parse(#{$selector});
 
     $_visited: selector.replace-all(

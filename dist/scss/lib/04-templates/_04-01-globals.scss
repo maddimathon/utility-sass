@@ -32,19 +32,19 @@
         $css_headings: config.$template_cssHeadings;
     }
 
-    @if $print_normalize {
+    @if $_print_any_normareset {
         @include template-utility-sass {
-            @include normalize;
-        }
-    }
-    @content (normalize);
+            @if $print_normalize {
+                @include normalize;
+            }
 
-    @if $print_reset {
-        @include template-utility-sass {
-            @include reset;
+            @if $print_reset {
+                @include reset;
+            }
         }
     }
-    @content (reset);
+
+    @content (normalize-or-reset);
 
     @if $print_tokens {
         @if $css_headings {

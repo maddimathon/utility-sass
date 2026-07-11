@@ -18,6 +18,32 @@
  * ======================================================================== */
 /* #region - NO PARENT */
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    :hover,
+    :visited,
+    :active,
+    [data-state-active],
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]),
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) */
     :hover,
     :active,
@@ -37,6 +63,28 @@
         /* content */
     }
     :has([data-state-focus]),
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $visited: true ) */
+    :hover,
+    :visited,
+    :active,
+    [data-state-active],
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
     :has(:active),
     :has([data-state-active]) {
         /* content */
@@ -64,6 +112,23 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    :hover,
+    :active,
+    :visited,
+    [data-state-active] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]),
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true ) */
     :hover,
     :active,
@@ -80,12 +145,50 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $visited: true ) */
+    :hover,
+    :active,
+    :visited,
+    [data-state-active] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true ) */
     :hover,
     :active,
     [data-state-active] {
         /* content */
     }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    :visited,
+    :active,
+    [data-state-active],
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]),
     :has(:active),
     :has([data-state-active]) {
         /* content */
@@ -116,6 +219,27 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $visited: true ) */
+    :visited,
+    :active,
+    [data-state-active],
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true ) */
     :active,
     [data-state-active],
@@ -130,6 +254,22 @@
     :focus-visible {
         /* content */
     }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    :active,
+    :visited,
+    [data-state-active] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]),
     :has(:active),
     :has([data-state-active]) {
         /* content */
@@ -151,6 +291,18 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $visited: true ) */
+    :active,
+    :visited,
+    [data-state-active] {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $active: true, $activeWithin: true ) */
     :active,
     [data-state-active] {
@@ -158,6 +310,30 @@
     }
     :has(:active),
     :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $visited: true ) */
+    :hover,
+    :visited,
+    :active,
+    [data-state-active],
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]) {
         /* content */
     }
 }
@@ -185,6 +361,24 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $visited: true ) */
+    :hover,
+    :visited,
+    :active,
+    [data-state-active],
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true ) */
     :hover,
     :active,
@@ -198,6 +392,21 @@
         /* content */
     }
     :focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $visited: true ) */
+    :hover,
+    :active,
+    :visited,
+    [data-state-active] {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]) {
         /* content */
     }
 }
@@ -216,10 +425,42 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $visited: true ) */
+    :hover,
+    :active,
+    :visited,
+    [data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $active: true ) */
     :hover,
     :active,
     [data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $visited: true ) */
+    :visited,
+    :active,
+    [data-state-active],
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]) {
         /* content */
     }
 }
@@ -246,6 +487,23 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $visited: true ) */
+    :visited,
+    :active,
+    [data-state-active],
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $active: true ) */
     :active,
     [data-state-active],
@@ -258,6 +516,20 @@
         /* content */
     }
     :focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $visited: true ) */
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]) {
+        /* content */
+    }
+    :active,
+    :visited,
+    [data-state-active] {
         /* content */
     }
 }
@@ -275,9 +547,41 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $visited: true ) */
+    :active,
+    :visited,
+    [data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $active: true ) */
     :active,
     [data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $visited: true ) */
+    :hover,
+    :visited,
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]),
+    :has(:active),
+    :has([data-state-active]) {
         /* content */
     }
 }
@@ -305,6 +609,26 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $visited: true ) */
+    :hover,
+    :visited,
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true ) */
     :hover,
     [data-state-focus],
@@ -318,6 +642,21 @@
     :focus-visible {
         /* content */
     }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $visited: true ) */
+    :hover,
+    :visited {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]),
     :has(:active),
     :has([data-state-active]) {
         /* content */
@@ -338,10 +677,44 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $visited: true ) */
+    :hover,
+    :visited {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $activeWithin: true ) */
     :hover {
         /* content */
     }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $visited: true ) */
+    [data-state-focus],
+    :visited,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]),
     :has(:active),
     :has([data-state-active]) {
         /* content */
@@ -370,6 +743,25 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $visited: true ) */
+    [data-state-focus],
+    :visited,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $activeWithin: true ) */
     [data-state-focus],
     .no-js :focus,
@@ -388,6 +780,20 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $visited: true ) */
+    :visited {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]),
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true ) */
     :focus-within {
         /* content */
@@ -399,9 +805,41 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $activeWithin: true, $visited: true ) */
+    :visited {
+        /* content */
+    }
+    :has(:active),
+    :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $activeWithin: true ) */
     :has(:active),
     :has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $visited: true ) */
+    :hover,
+    :visited,
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]) {
         /* content */
     }
 }
@@ -427,6 +865,22 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $visited: true ) */
+    :hover,
+    :visited,
+    [data-state-focus],
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true ) */
     :hover,
     [data-state-focus],
@@ -438,6 +892,19 @@
         /* content */
     }
     :focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $visited: true ) */
+    :hover,
+    :visited {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]) {
         /* content */
     }
 }
@@ -454,8 +921,36 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $visited: true ) */
+    :hover,
+    :visited {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true ) */
     :hover {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $visited: true ) */
+    [data-state-focus],
+    :visited,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]) {
         /* content */
     }
 }
@@ -480,6 +975,21 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $visited: true ) */
+    [data-state-focus],
+    :visited,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* content */
+    }
+    :focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true ) */
     [data-state-focus],
     .no-js :focus,
@@ -494,11 +1004,29 @@
     }
 }
 @media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $visited: true ) */
+    :visited {
+        /* content */
+    }
+    :focus-within {
+        /* content */
+    }
+    :has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focusWithin: true ) */
     :focus-within {
         /* content */
     }
     :has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $visited: true ) */
+    :visited {
         /* content */
     }
 }
@@ -507,488 +1035,2107 @@
 }
 /* #endregion - NO PARENT */
 /* #region - WITH PARENT */
+a {
+    /* parent selector is: <()> ( <()> ( <S> a ) ) */
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    a:hover,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true ) */
+    a,
+    a:hover,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) */
-    button:hover,
-    button:active,
-    button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:hover,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]),
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $visited: true ) */
+    a:hover,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $self: true ) */
+    a,
+    a:hover,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true ) */
-    button:hover,
-    button:active,
-    button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:hover,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a:active,
+    a,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    a:hover,
+    a:active,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true ) */
+    a:hover,
+    a:active,
+    a,
+    a[data-state-active] {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true ) */
-    button:hover,
-    button:active,
-    button[data-state-active] {
+    a:hover,
+    a:active,
+    a[data-state-active] {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]),
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a:active,
+    a,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $visited: true ) */
+    a:hover,
+    a:active,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $self: true ) */
+    a:hover,
+    a:active,
+    a,
+    a[data-state-active] {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true ) */
-    button:hover,
-    button:active,
-    button[data-state-active] {
+    a:hover,
+    a:active,
+    a[data-state-active] {
         /* content */
     }
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true ) */
+    a,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true ) */
+    a,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) */
-    button:active,
-    button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]),
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $self: true, $visited: true ) */
+    a,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $visited: true ) */
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $self: true ) */
+    a,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true ) */
-    button:active,
-    button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:active,
+    a,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    a:active,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $self: true ) */
+    a:active,
+    a,
+    a[data-state-active] {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true ) */
-    button:active,
-    button[data-state-active] {
+    a:active,
+    a[data-state-active] {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]),
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:active,
+    a,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $visited: true ) */
+    a:active,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $self: true ) */
+    a:active,
+    a,
+    a[data-state-active] {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $active: true, $activeWithin: true ) */
-    button:active,
-    button[data-state-active] {
+    a:active,
+    a[data-state-active] {
         /* content */
     }
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $visited: true ) */
+    a:hover,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true ) */
+    a,
+    a:hover,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true ) */
-    button:hover,
-    button:active,
-    button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:hover,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]) {
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $visited: true ) */
+    a:hover,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $self: true ) */
+    a,
+    a:hover,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true ) */
-    button:hover,
-    button:active,
-    button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:hover,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $self: true, $visited: true ) */
+    a:hover,
+    a:active,
+    a,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $visited: true ) */
+    a:hover,
+    a:active,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $self: true ) */
+    a:hover,
+    a:active,
+    a,
+    a[data-state-active] {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true ) */
-    button:hover,
-    button:active,
-    button[data-state-active] {
+    a:hover,
+    a:active,
+    a[data-state-active] {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]) {
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $self: true, $visited: true ) */
+    a:hover,
+    a:active,
+    a,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $visited: true ) */
+    a:hover,
+    a:active,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $self: true ) */
+    a:hover,
+    a:active,
+    a,
+    a[data-state-active] {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $active: true ) */
-    button:hover,
-    button:active,
-    button[data-state-active] {
+    a:hover,
+    a:active,
+    a[data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true ) */
+    a,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $visited: true ) */
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $self: true ) */
+    a,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true ) */
-    button:active,
-    button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]) {
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $self: true, $visited: true ) */
+    a,
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $visited: true ) */
+    a:visited,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $self: true ) */
+    a,
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $active: true ) */
-    button:active,
-    button[data-state-active],
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:active,
+    a[data-state-active],
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $self: true, $visited: true ) */
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+    a:active,
+    a,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $visited: true ) */
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+    a:active,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $self: true ) */
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+    a:active,
+    a,
+    a[data-state-active] {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focusWithin: true, $active: true ) */
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]) {
+    a:has([data-state-focus]) {
         /* content */
     }
-    button:active,
-    button[data-state-active] {
+    a:active,
+    a[data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $self: true, $visited: true ) */
+    a:active,
+    a,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $visited: true ) */
+    a:active,
+    a:visited,
+    a[data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $self: true ) */
+    a:active,
+    a,
+    a[data-state-active] {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $active: true ) */
-    button:active,
-    button[data-state-active] {
+    a:active,
+    a[data-state-active] {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $visited: true ) */
+    a:hover,
+    a:visited,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $self: true ) */
+    a,
+    a:hover,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true ) */
-    button:hover,
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:hover,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]),
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $visited: true ) */
+    a:hover,
+    a:visited,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $self: true ) */
+    a,
+    a:hover,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true ) */
-    button:hover,
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:hover,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $visited: true ) */
+    a:hover,
+    a:visited {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $self: true ) */
+    a:hover,
+    a {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true ) */
-    button:hover {
+    a:hover {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]),
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $visited: true ) */
+    a:hover,
+    a:visited {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $self: true ) */
+    a:hover,
+    a {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $activeWithin: true ) */
-    button:hover {
+    a:hover {
         /* content */
     }
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $visited: true ) */
+    a[data-state-focus],
+    a,
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $visited: true ) */
+    a[data-state-focus],
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $self: true ) */
+    a,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true ) */
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]),
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $self: true, $visited: true ) */
+    a[data-state-focus],
+    a,
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $visited: true ) */
+    a[data-state-focus],
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $self: true ) */
+    a,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $activeWithin: true ) */
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $self: true, $visited: true ) */
+    a,
+    a:visited {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $visited: true ) */
+    a:visited {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $self: true ) */
+    a {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true ) */
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]),
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has([data-state-focus]),
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $activeWithin: true, $self: true, $visited: true ) */
+    a,
+    a:visited {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $activeWithin: true, $visited: true ) */
+    a:visited {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $activeWithin: true, $self: true ) */
+    a {
+        /* content */
+    }
+    a:has(:active),
+    a:has([data-state-active]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $activeWithin: true ) */
-    button:has(:active),
-    button:has([data-state-active]) {
+    a:has(:active),
+    a:has([data-state-active]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $visited: true ) */
+    a:hover,
+    a:visited,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $self: true ) */
+    a,
+    a:hover,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true ) */
-    button:hover,
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:hover,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]) {
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $visited: true ) */
+    a:hover,
+    a:visited,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $self: true ) */
+    a,
+    a:hover,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focus: true ) */
-    button:hover,
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a:hover,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $visited: true ) */
+    a:hover,
+    a:visited {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $self: true ) */
+    a:hover,
+    a {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true, $focusWithin: true ) */
-    button:hover {
+    a:hover {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]) {
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $self: true, $visited: true ) */
+    a:hover,
+    a,
+    a:visited {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $visited: true ) */
+    a:hover,
+    a:visited {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $self: true ) */
+    a:hover,
+    a {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $hover: true ) */
-    button:hover {
+    a:hover {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $self: true, $visited: true ) */
+    a[data-state-focus],
+    a,
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $visited: true ) */
+    a[data-state-focus],
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $self: true ) */
+    a,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true, $focusWithin: true ) */
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
         /* content */
     }
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]) {
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $self: true, $visited: true ) */
+    a[data-state-focus],
+    a,
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $visited: true ) */
+    a[data-state-focus],
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $self: true ) */
+    a,
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* content */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* content */
+    }
+    a:focus-visible {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focus: true ) */
-    button[data-state-focus],
-    .no-js button:focus,
-    .js__no-whereSelector button:focus {
+    a[data-state-focus],
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
         /* content */
     }
-    :where(.js__no-focusVisible) button:focus {
+    :where(.js__no-focusVisible) a:focus {
         /* content */
     }
-    button:focus-visible {
+    a:focus-visible {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $self: true, $visited: true ) */
+    a,
+    a:visited {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $visited: true ) */
+    a:visited {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $self: true ) */
+    a {
+        /* content */
+    }
+    a:focus-within {
+        /* content */
+    }
+    a:has([data-state-focus]) {
         /* content */
     }
 }
 @media apply-interactive-mixin {
     /* @include apply-interactive-mixin( $focusWithin: true ) */
-    button:focus-within {
+    a:focus-within {
         /* content */
     }
-    button:has([data-state-focus]) {
+    a:has([data-state-focus]) {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $self: true, $visited: true ) */
+    a,
+    a:visited {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $visited: true ) */
+    a:visited {
+        /* content */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $self: true ) */
+    a {
         /* content */
     }
 }

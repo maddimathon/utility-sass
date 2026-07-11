@@ -85,25 +85,19 @@
 ///
 @mixin normalize($args...) {
     /* #region Normalize */
-    /*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
+    /*! START of modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
-    /*
-    Document
-    ========
-    */
+    /* Normalize - Document ==================================== */
 
-    /**
-    Use a better box model (opinionated).
-    */
-
+    /* Use a better box model (opinionated). */
     *,
     ::before,
     ::after {
         box-sizing: border-box;
     }
 
+    /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
     #{config.$selector_root} {
-        /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
         /* font-family:
             system-ui,
             'Segoe UI',
@@ -118,33 +112,24 @@
         tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
     }
 
-    /*
-    Sections
-    ========
-    */
+    /* Normalize - Sections ==================================== */
 
     #{config.$selector_body} {
         margin: 0; /* Remove the margin in all browsers. */
     }
 
-    /*
-    Text-level semantics
-    ====================
-    */
+    /* Normalize - Text-level semantics ==================================== */
 
-    /**
-    Add the correct font weight in Chrome and Safari.
-    */
-
+    /* Add the correct font weight in Chrome and Safari. */
     b,
     strong {
         font-weight: bolder;
     }
 
-    /**
-    1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
-    2. Correct the odd 'em' font sizing in all browsers.
-    */
+    /*
+       1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+       2. Correct the odd 'em' font sizing in all browsers.
+     */
 
     code,
     kbd,
@@ -160,18 +145,12 @@
         font-size: 1em; /* 2 */
     }
 
-    /**
-    Add the correct font size in all browsers.
-    */
-
+    /* Add the correct font size in all browsers. */
     small {
-        font-size: 80%;
+        /* font-size: 80%; */
     }
 
-    /**
-    Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
-    */
-
+    /* Prevent 'sub' and 'sup' elements from affecting the line height in all browsers. */
     sub,
     sup {
         font-size: 75%;
@@ -188,29 +167,19 @@
         top: -0.5em;
     }
 
-    /*
-    Tabular data
-    ============
-    */
+    /* Normalize - Tabular data ==================================== */
 
-    /**
-    Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016)
-    */
-
+    /* Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016) */
     table {
         border-color: currentcolor;
     }
 
+    /* Normalize - Forms ==================================== */
+
     /*
-    Forms
-    =====
-    */
-
-    /**
-    1. Change the font styles in all browsers.
-    2. Remove the margin in Firefox and Safari.
-    */
-
+       1. Change the font styles in all browsers.
+       2. Remove the margin in Firefox and Safari.
+     */
     button,
     input,
     optgroup,
@@ -223,10 +192,7 @@
         margin: 0; /* 2 */
     }
 
-    /**
-    Correct the inability to style clickable types in iOS and Safari.
-    */
-
+    /* Correct the inability to style clickable types in iOS and Safari. */
     button,
     [type='button'],
     [type='reset'],
@@ -234,75 +200,59 @@
         -webkit-appearance: button;
     }
 
-    /**
-    Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
-    */
-
+    /* Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers. */
     legend {
         padding: 0;
     }
 
-    /**
-    Add the correct vertical alignment in Chrome and Firefox.
-    */
-
+    /* Add the correct vertical alignment in Chrome and Firefox. */
     progress {
         vertical-align: baseline;
     }
 
-    /**
-    Correct the cursor style of increment and decrement buttons in Safari.
-    */
-
+    /* Correct the cursor style of increment and decrement buttons in Safari. */
     ::-webkit-inner-spin-button,
     ::-webkit-outer-spin-button {
         height: auto;
     }
 
-    /**
-    1. Correct the odd appearance in Chrome and Safari.
-    2. Correct the outline style in Safari.
-    */
-
+    /*
+       1. Correct the odd appearance in Chrome and Safari.
+       2. Correct the outline style in Safari.
+     */
     [type='search'] {
         -webkit-appearance: textfield; /* 1 */
         outline-offset: -2px; /* 2 */
     }
 
-    /**
-    Remove the inner padding in Chrome and Safari on macOS.
-    */
-
+    /* Remove the inner padding in Chrome and Safari on macOS. */
     ::-webkit-search-decoration {
         -webkit-appearance: none;
     }
 
-    /**
-    1. Correct the inability to style clickable types in iOS and Safari.
-    2. Change font properties to 'inherit' in Safari.
-    */
-
+    /*
+       1. Correct the inability to style clickable types in iOS and Safari.
+       2. Change font properties to 'inherit' in Safari.
+     */
     ::-webkit-file-upload-button {
         -webkit-appearance: button; /* 1 */
         font: inherit; /* 2 */
     }
 
-    /*
-    Interactive
-    ===========
-    */
+    /* Normalize - Interactive ==================================== */
 
-    /*
-    Add the correct display in Chrome and Safari.
-    */
-
+    /* Add the correct display in Chrome and Safari. */
     summary {
         @include prop-display(list-item);
     }
 
-    /*! end of modern-normalize */
+    /*! END of modern-normalize v3.0.1 */
 
     @include _shared-base($args...);
+
+    small {
+        font-size: var-fs(smaller-1, $relative: true);
+    }
     /* #endregion Normalize */
 }
 
@@ -360,7 +310,7 @@
         }
     }
 
-    #{selector-all-headings($globalsOnly: true)} {
+    #{selector-all-headings()} {
         margin: 0;
         font: inherit;
         font-size: 1em;
