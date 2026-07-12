@@ -23,7 +23,11 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin visited($selector: &, $appendToSelector: true, $args...) {
-    @at-root #{selector-add-visited($selector, $appendToSelector: $appendToSelector, $args...)} {
+    @if config.$include_linkVisitedState {
+        @at-root #{selector-add-visited($selector, $appendToSelector: $appendToSelector, $args...)} {
+            @content;
+        }
+    } @else if $appendToSelector and selector.parent-exists() {
         @content;
     }
 }
@@ -50,6 +54,7 @@
     $separate_config: false,
     //
     $debug: false,
+    $multipleContentBlocks: false,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -128,7 +133,12 @@
                 @if $debug {
                     /* $addSelectors_visited */
                 }
-                @content;
+
+                @if $multipleContentBlocks {
+                    @content (additional-selectors-visited);
+                } @else {
+                    @content;
+                }
             }
         }
 
@@ -137,7 +147,12 @@
                 @if $debug {
                     /* $addSelectors */
                 }
-                @content;
+
+                @if $multipleContentBlocks {
+                    @content (additional-selectors);
+                } @else {
+                    @content;
+                }
             }
         }
 
@@ -146,7 +161,12 @@
                 @if $debug {
                     /* $selector_pseudo */
                 }
-                @content;
+
+                @if $multipleContentBlocks {
+                    @content (selector-pseudo);
+                } @else {
+                    @content;
+                }
             }
         }
 
@@ -155,7 +175,12 @@
                 @if $debug {
                     /* $selector_config */
                 }
-                @content;
+
+                @if $multipleContentBlocks {
+                    @content (selector-config);
+                } @else {
+                    @content;
+                }
             }
         }
     }
@@ -172,16 +197,18 @@
     $includeParentSelector: true,
     $includeSelf: false,
     $includeVisited: false,
-    $selector_config: config.$selector_interactiveState_active,
-    $separate_config: config.$mx_interactive_isolateSelector_active,
+    $multipleContentBlocks: false,
     $selector_pseudo: (),
     $args...
 ) {
+    $selector_config: config.$selector_interactiveState_active;
     $selector_pseudo: list.append(
         $selector_pseudo,
         ':active',
         $separator: comma
     );
+
+    $separate_config: config.$mx_interactive_isolateSelector_active;
 
     $includeParentSelector: $includeParentSelector and selector.parent-exists();
 
@@ -203,14 +230,20 @@
     }
 
     @include _interactive-template(
-        $addSelectors_pseudo: $addSelectors_pseudo,
-        $includeParentSelector: $includeParentSelector,
-        $selector_pseudo: $selector_pseudo,
-        $selector_config: $selector_config,
-        $separate_config: $separate_config,
-        $args...
-    ) {
-        @content;
+            $addSelectors_pseudo: $addSelectors_pseudo,
+            $includeParentSelector: $includeParentSelector,
+            $multipleContentBlocks: true,
+            $selector_pseudo: $selector_pseudo,
+            $selector_config: $selector_config,
+            $separate_config: $separate_config,
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content (active--#{$location});
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -220,9 +253,12 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin active-within(
+    $addSelectors_pseudo: (),
     $includeParentSelector: true,
     $includeSelf: false,
     $includeVisited: false,
+    $multipleContentBlocks: false,
+    $selector_pseudo: (),
     $args...
 ) {
     $args: meta.keywords($args);
@@ -233,35 +269,63 @@
         null
     );
 
-    $sel_pseudo: ':has(:active)';
-    $sel_select: selector.has-list(config.$selector_interactiveState_active);
+    $selector_pseudo: ':has(:active)';
+    $selector_config: selector.has-list(
+        config.$selector_interactiveState_active
+    );
 
     @if $selector_parent {
-        $sel_pseudo: selector.unify(&, $sel_pseudo);
-        $sel_select: selector.unify(&, $sel_select);
+        $selector_pseudo: selector.unify(&, $selector_pseudo);
+        $selector_config: selector.unify(&, $selector_config);
     }
 
     @if $includeVisited {
-        @at-root #{selector-add-visited($selector_parent, $appendToSelector: $includeSelf)} {
-            @content;
+        @include _visited(
+                $includeParentSelector: $includeParentSelector,
+                $includeSelf: $includeSelf,
+                $multipleContentBlocks: true,
+                $args...
+            )
+            using ($location) {
+            @if $multipleContentBlocks {
+                @content ($location);
+            } @else {
+                @content;
+            }
         }
     } @else if $includeSelf and selector.parent-exists() {
-        @content;
+        @if $multipleContentBlocks {
+            @content (self);
+        } @else {
+            @content;
+        }
     }
 
     @at-root {
         @if config.$mx_interactive_isolateSelector_active {
-            #{$sel_pseudo} {
-                @content;
+            #{$selector_pseudo} {
+                @if $multipleContentBlocks {
+                    @content (active-within--selector-pseudo);
+                } @else {
+                    @content;
+                }
             }
 
-            #{$sel_select} {
-                @content;
+            #{$selector_config} {
+                @if $multipleContentBlocks {
+                    @content (active-within-selector-config);
+                } @else {
+                    @content;
+                }
             }
         } @else {
-            #{$sel_pseudo},
-            #{$sel_select} {
-                @content;
+            #{$selector_pseudo},
+            #{$selector_config} {
+                @if $multipleContentBlocks {
+                    @content (active-within);
+                } @else {
+                    @content;
+                }
             }
         }
     }
@@ -280,8 +344,11 @@
     $includeParentSelector: true,
     $includeSelf: false,
     $includeVisited: false,
+    $multipleContentBlocks: false,
     $selector_config: config.$selector_interactiveState_focus,
     $separate_config: config.$mx_interactive_isolateSelector_focus,
+    //
+    $_locationName: 'focus',
     $args...
 ) {
     $selector_pseudo: ':focus';
@@ -306,14 +373,20 @@
     }
 
     @include _interactive-template(
-        $addSelectors_pseudo: $addSelectors_pseudo,
-        $includeParentSelector: $includeParentSelector,
-        $selector_pseudo: $selector_pseudo,
-        $selector_config: $selector_config,
-        $separate_config: $separate_config,
-        $args...
-    ) {
-        @content;
+            $addSelectors_pseudo: $addSelectors_pseudo,
+            $includeParentSelector: $includeParentSelector,
+            $multipleContentBlocks: true,
+            $selector_pseudo: $selector_pseudo,
+            $selector_config: $selector_config,
+            $separate_config: $separate_config,
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content (#{$_locationName}--#{$location});
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -325,6 +398,7 @@
 ///
 @mixin focus-within(
     $includeParentSelector: true,
+    $multipleContentBlocks: false,
     $selector_pseudo: (),
     $selector_config: (),
     $separate_config: null,
@@ -340,7 +414,11 @@
         }
 
         @at-root #{$sel_focus_config} {
-            @content;
+            @if $multipleContentBlocks {
+                @content (focus-within);
+            } @else {
+                @content;
+            }
         }
     } @else {
         $selector_config: list.join(
@@ -351,17 +429,23 @@
     }
 
     @include _interactive-template(
-        $includeParentSelector: $includeParentSelector,
-        $selector_pseudo: list.append(
-                $selector_pseudo,
-                ':focus-within',
-                $separator: comma
-            ),
-        $selector_config: $selector_config,
-        $separate_config: true,
-        $args...
-    ) {
-        @content;
+            $includeParentSelector: $includeParentSelector,
+            $multipleContentBlocks: true,
+            $selector_pseudo: list.append(
+                    $selector_pseudo,
+                    ':focus-within',
+                    $separator: comma
+                ),
+            $selector_config: $selector_config,
+            $separate_config: true,
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content (focus-within--#{$location});
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -386,6 +470,9 @@
     $separate_addSelectors: not $includeFallbacks,
     //
     $includeParentSelector: true,
+    $multipleContentBlocks: false,
+    //
+    $_locationName: 'focus-visible',
     $args...
 ) {
     $sel_focus_config: config.$selector_interactiveState_focus;
@@ -407,7 +494,11 @@
 
     @if config.$mx_interactive_isolateSelector_focus {
         @at-root #{$sel_focus_config} {
-            @content;
+            @if $multipleContentBlocks {
+                @content (focus);
+            } @else {
+                @content;
+            }
         }
     } @else if ($fallbacksOnly or $includeFallbacks) {
         $addSelectors_noJS: list.join(
@@ -466,11 +557,17 @@
     // :focus (with additional selectors)
     @if $fallbacksOnly {
         @include focus(
-            $selector_config: false,
-            $addSelectors: list.join($addSelectors, $addSelectors_noJS),
-            $args...
-        ) {
-            @content;
+                $selector_config: false,
+                $addSelectors: list.join($addSelectors, $addSelectors_noJS),
+                $multipleContentBlocks: true,
+                $args...
+            )
+            using ($location) {
+            @if $multipleContentBlocks {
+                @content (focus--#{$location});
+            } @else {
+                @content;
+            }
         }
     } @else {
         $selector_config: if(
@@ -481,17 +578,26 @@
 
         @if $includeFallbacks {
             @include focus(
-                $selector_config: false,
-                $addSelectors: $addSelectors,
-                $args...
-            ) {
+                    $selector_config: false,
+                    $addSelectors: $addSelectors,
+                    $multipleContentBlocks: true,
+                    $_locationName: '#{$_locationName}--fallback',
+                    $args...
+                )
+                using ($location) {
                 @include feature-check.supports-not(
-                    'focusVisible',
-                    $addSelectors_noJS: $addSelectors_noJS,
-                    $includeNoWhereSelectorFallback:
-                        $includeNoWhereSelectorFallback
-                ) {
-                    @content;
+                        'focusVisible',
+                        $addSelectors_noJS: $addSelectors_noJS,
+                        $multipleContentBlocks: true,
+                        $includeNoWhereSelectorFallback:
+                            $includeNoWhereSelectorFallback
+                    )
+                    using ($supports_location) {
+                    @if $multipleContentBlocks {
+                        @content (#{$location}--#{$supports_location});
+                    } @else {
+                        @content;
+                    }
                 }
             }
         } @else {
@@ -527,15 +633,21 @@
         }
 
         @include _interactive-template(
-            $addSelectors: $addSelectors,
-            $selector_config: $selector_config,
-            $selector_pseudo: ':focus-visible',
-            $addSelectors_visited: $sel_visited,
-            $separate_config: true,
-            $separate_addSelectors: $separate_addSelectors,
-            $args...
-        ) {
-            @content;
+                $addSelectors: $addSelectors,
+                $addSelectors_visited: $sel_visited,
+                $multipleContentBlocks: true,
+                $selector_config: $selector_config,
+                $selector_pseudo: ':focus-visible',
+                $separate_config: true,
+                $separate_addSelectors: $separate_addSelectors,
+                $args...
+            )
+            using ($location) {
+            @if $multipleContentBlocks {
+                @content (#{$_locationName}--#{$location});
+            } @else {
+                @content;
+            }
         }
     }
 }
@@ -547,13 +659,31 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@mixin focus-visible-or-within($args...) {
-    @include focus-visible($args...) {
-        @content;
+@mixin focus-visible-or-within(
+    $multipleContentBlocks: false,
+    $_locationName: 'focus-visible',
+    $args...
+) {
+    @include focus-visible(
+            $multipleContentBlocks: true,
+            $_locationName: $_locationName,
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 
-    @include focus-within($args...) {
-        @content;
+    @include focus-within($multipleContentBlocks: true, $args...) using
+        ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -565,9 +695,9 @@
     $includeParentSelector: true,
     $includeSelf: false,
     $includeVisited: false,
+    $multipleContentBlocks: false,
     $selector_config: (),
     $selector_pseudo: (),
-    // $separate_config: null,
     $args...
 ) {
     $includeParentSelector: $includeParentSelector and selector.parent-exists();
@@ -590,18 +720,24 @@
     }
 
     @include _interactive-template(
-        $addSelectors_pseudo: $addSelectors_pseudo,
-        $includeParentSelector: $includeParentSelector,
-        $selector_config: false,
-        $selector_pseudo: list.append(
-                $selector_pseudo,
-                ':hover',
-                $separator: comma
-            ),
-        // $separate_config: true,
-        $args...
-    ) {
-        @content;
+            $addSelectors_pseudo: $addSelectors_pseudo,
+            $includeParentSelector: $includeParentSelector,
+            $multipleContentBlocks: true,
+            $selector_config: false,
+            $selector_pseudo: list.append(
+                    $selector_pseudo,
+                    ':hover',
+                    $separator: comma
+                ),
+            // $separate_config: true,
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content (hover--#{$location});
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -615,6 +751,7 @@
     $includeParentSelector: true,
     $includeSelf: false,
     $includeVisited: false,
+    $multipleContentBlocks: false,
     $args...
 ) {
     $sel_hover: ':hover';
@@ -639,15 +776,22 @@
     }
 
     @include focus-visible(
-        $addSelectors_noJS: list.join(
-                ($sel_hover),
-                $addSelectors_noJS,
-                $separator: comma
-            ),
-        $includeParentSelector: $includeParentSelector,
-        $args...
-    ) {
-        @content;
+            $addSelectors_noJS: list.join(
+                    ($sel_hover),
+                    $addSelectors_noJS,
+                    $separator: comma
+                ),
+            $includeParentSelector: $includeParentSelector,
+            $multipleContentBlocks: true,
+            $_locationName: 'hover-focus-visible',
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -661,6 +805,7 @@
     $includeParentSelector: true,
     $includeSelf: false,
     $includeVisited: false,
+    $multipleContentBlocks: false,
     $args...
 ) {
     $sel_hover: ':hover';
@@ -685,15 +830,22 @@
     }
 
     @include focus-visible-or-within(
-        $addSelectors_noJS: list.join(
-                $addSelectors_noJS,
-                $sel_hover,
-                $separator: comma
-            ),
-        $includeParentSelector: $includeParentSelector,
-        $args...
-    ) {
-        @content;
+            $addSelectors_noJS: list.join(
+                    $addSelectors_noJS,
+                    $sel_hover,
+                    $separator: comma
+                ),
+            $includeParentSelector: $includeParentSelector,
+            $multipleContentBlocks: true,
+            $_focus_locationName: 'hover-focus-visible',
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -708,6 +860,7 @@
     $includeParentSelector: true,
     $includeSelf: false,
     $includeVisited: false,
+    $multipleContentBlocks: false,
     $args...
 ) {
     $sel_active_config: config.$selector_interactiveState_active;
@@ -741,7 +894,11 @@
 
     @if config.$mx_interactive_isolateSelector_active {
         @at-root #{$sel_active_config} {
-            @content;
+            @if $multipleContentBlocks {
+                @content (active);
+            } @else {
+                @content;
+            }
         }
     } @else {
         $addSelectors_noJS: list.join(
@@ -752,12 +909,24 @@
     }
 
     @include focus-visible(
-        $addSelectors: $addSelectors,
-        $addSelectors_noJS: $addSelectors_noJS,
-        $separate_addSelectors: config.$mx_interactive_isolateSelector_active,
-        $args...
-    ) {
-        @content;
+            $addSelectors: $addSelectors,
+            $addSelectors_noJS: $addSelectors_noJS,
+            $multipleContentBlocks: true,
+            $separate_addSelectors:
+                config.$mx_interactive_isolateSelector_active,
+            $_locationName: if(
+                    config.$mx_interactive_isolateSelector_active,
+                    'focus-visible',
+                    'active-focus-visible'
+                ),
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -770,6 +939,7 @@
     $addSelectors: (),
     $addSelectors_noJS: (),
     $includeParentSelector: true,
+    $multipleContentBlocks: false,
     $args...
 ) {
     $sel_active_config: config.$selector_interactiveState_active;
@@ -799,12 +969,24 @@
     }
 
     @include focus-visible-or-within(
-        $addSelectors: $addSelectors,
-        $addSelectors_noJS: $addSelectors_noJS,
-        $separate_addSelectors: config.$mx_interactive_isolateSelector_active,
-        $args...
-    ) {
-        @content;
+            $addSelectors: $addSelectors,
+            $addSelectors_noJS: $addSelectors_noJS,
+            $multipleContentBlocks: true,
+            $separate_addSelectors:
+                config.$mx_interactive_isolateSelector_active,
+            $_locationName: if(
+                    config.$mx_interactive_isolateSelector_active,
+                    'focus-visible',
+                    'active-focus-visible'
+                ),
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -813,15 +995,28 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin _active-hover($selector_pseudo: (), $args...) {
+@mixin _active-hover(
+    $multipleContentBlocks: false,
+    $selector_pseudo: (),
+    $args...
+) {
     $selector_pseudo: list.append(
         $selector_pseudo,
         ':hover',
         $separator: comma
     );
 
-    @include active($selector_pseudo: $selector_pseudo, $args...) {
-        @content;
+    @include active(
+            $multipleContentBlocks: true,
+            $selector_pseudo: $selector_pseudo,
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -834,6 +1029,7 @@
     $addSelectors: (),
     $addSelectors_noJS: (),
     $includeParentSelector: true,
+    $multipleContentBlocks: false,
     $args...
 ) {
     $sel_active_config: config.$selector_interactiveState_active;
@@ -852,7 +1048,11 @@
 
     @if config.$mx_interactive_isolateSelector_active {
         @at-root #{$sel_active_config} {
-            @content;
+            @if $multipleContentBlocks {
+                @content (active);
+            } @else {
+                @content;
+            }
         }
     } @else {
         $addSelectors_noJS: list.join(
@@ -863,12 +1063,19 @@
     }
 
     @include hover-focus-visible(
-        $addSelectors: $addSelectors,
-        $addSelectors_noJS: $addSelectors_noJS,
-        $separate_addSelectors: config.$mx_interactive_isolateSelector_active,
-        $args...
-    ) {
-        @content;
+            $addSelectors: $addSelectors,
+            $addSelectors_noJS: $addSelectors_noJS,
+            $multipleContentBlocks: true,
+            $separate_addSelectors:
+                config.$mx_interactive_isolateSelector_active,
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -881,6 +1088,7 @@
     $includeParentSelector: true,
     $includeSelf: false,
     $includeVisited: false,
+    $multipleContentBlocks: false,
     $selector_config: (),
     $args...
 ) {
@@ -892,10 +1100,18 @@
 
     @if $includeVisited {
         @at-root #{selector-add-visited(if($includeParentSelector and selector.parent-exists(), &, null), $appendToSelector: $includeSelf)} {
-            @content;
+            @if $multipleContentBlocks {
+                @content (visited);
+            } @else {
+                @content;
+            }
         }
     } @else if $includeSelf and selector.parent-exists() {
-        @content;
+        @if $multipleContentBlocks {
+            @content (self);
+        } @else {
+            @content;
+        }
     }
 
     @if not config.$mx_interactive_isolateSelector_active {
@@ -907,11 +1123,17 @@
     }
 
     @include focus-within(
-        $includeParentSelector: $includeParentSelector,
-        $selector_config: $selector_config,
-        $args...
-    ) {
-        @content;
+            $includeParentSelector: $includeParentSelector,
+            $multipleContentBlocks: true,
+            $selector_config: $selector_config,
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 
     @if config.$mx_interactive_isolateSelector_active {
@@ -920,7 +1142,11 @@
         }
 
         @at-root #{$sel_active_config} {
-            @content;
+            @if $multipleContentBlocks {
+                @content (active);
+            } @else {
+                @content;
+            }
         }
     }
 }
@@ -933,18 +1159,30 @@
 @mixin active-hover-focus-visible-or-within(
     $includeSelf: false,
     $includeVisited: false,
+    $multipleContentBlocks: false,
     $args...
 ) {
     @include active-hover-focus-visible(
-        $includeSelf: $includeSelf,
-        $includeVisited: $includeVisited,
-        $args...
-    ) {
-        @content;
+            $includeSelf: $includeSelf,
+            $includeVisited: $includeVisited,
+            $multipleContentBlocks: true,
+            $args...
+        )
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 
-    @include _active-within-focus-within($args...) {
-        @content;
+    @include _active-within-focus-within($multipleContentBlocks: true, $args...)
+        using ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -956,6 +1194,7 @@
     $includeSelf: false,
     $debug: false,
     $appendToSelector: null,
+    $multipleContentBlocks: false,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -967,21 +1206,34 @@
     );
 
     @at-root #{$selectors} {
-        @content;
+        @if $multipleContentBlocks {
+            // @include meta.var-dump('$multipleContentBlocks', $multipleContentBlocks);
+            @content (visited);
+        } @else {
+            @content;
+        }
     }
 }
 
 ///
 /// @since 0.1.0-pre.0
 ///
-@mixin _nothing($includeSelf: false, $args...) {
+@mixin _nothing($includeSelf: false, $multipleContentBlocks: false, $args...) {
     $args: meta.keywords($args);
 
     @if $includeSelf {
-        @content;
+        @if $multipleContentBlocks {
+            @content (self);
+        } @else {
+            @content;
+        }
     } @else {
         @at-root #{config.$selector_null} {
-            @content;
+            @if $multipleContentBlocks {
+                @content (nothing);
+            } @else {
+                @content;
+            }
         }
     }
 }
@@ -1005,6 +1257,7 @@
     $visited: false,
     //
     $debug: false,
+    $multipleContentBlocks: false,
     $args...
 ) {
     $mixin_a: meta.get-mixin('_nothing');
@@ -1237,39 +1490,32 @@
         }
     }
 
-    @if meta.accepts-content($mixin_a) {
-        @include meta.apply($mixin_a, $args..., $mixin_a_args...) {
-            @if $debug {
-                /* mixin A: #{meta.inspect($mixin_a)} */
+    @each $mixin,
+        $mixin_args
+            in (
+                ($mixin_a, $mixin_a_args),
+                ($mixin_b, $mixin_b_args),
+                ($mixin_c, $mixin_c_args),
+                ($mixin_d, $mixin_d_args)
+            )
+    {
+        @if meta.accepts-content($mixin) {
+            @include meta.apply(
+                    $mixin,
+                    $multipleContentBlocks: true,
+                    $args...,
+                    $mixin_args...
+                )
+                using ($location) {
+                @if $debug {
+                    /* mixin A: #{meta.inspect($mixin)} */
+                }
+                @if $multipleContentBlocks {
+                    @content ($location);
+                } @else {
+                    @content;
+                }
             }
-            @content;
-        }
-    }
-
-    @if meta.accepts-content($mixin_b) {
-        @include meta.apply($mixin_b, $args..., $mixin_b_args...) {
-            @if $debug {
-                /* mixin B: #{meta.inspect($mixin_b)} */
-            }
-            @content;
-        }
-    }
-
-    @if meta.accepts-content($mixin_c) {
-        @include meta.apply($mixin_c, $args..., $mixin_c_args...) {
-            @if $debug {
-                /* mixin C: #{meta.inspect($mixin_c)} */
-            }
-            @content;
-        }
-    }
-
-    @if meta.accepts-content($mixin_d) {
-        @include meta.apply($mixin_d, $args..., $mixin_d_args...) {
-            @if $debug {
-                /* mixin D: #{meta.inspect($mixin_d)} */
-            }
-            @content;
         }
     }
 }

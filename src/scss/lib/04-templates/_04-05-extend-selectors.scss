@@ -12,7 +12,7 @@
 @use '../../modules/selector';
 
 @use '../01-functions' as *;
-// @use '../02-mixins' as *;
+@use '../02-mixins' as *;
 // @use '../03-snippets' as *;
 
 $_optionalDefault: if(config.$isTemplate, false, true);
@@ -183,31 +183,14 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 @mixin extend-selectors-globals--focus-ring {
     @at-root {
-        @if config.$mx_interactive_isolateSelector_focus {
-            :focus {
-                @include feature-check.no-js {
-                    @extend %focus-ring--fallback !optional;
-                }
-            }
-        } @else {
-            #{config.$selector_interactiveState_focus},
-            #{selector.nest(feature-check.get-selector( null, $bool: false ), ':focus')} {
+        @include focus-visible($multipleContentBlocks: true) using ($location) {
+            @if $location == focus-visible--fallback--selector-pseudo--no-js {
                 @extend %focus-ring--fallback !optional;
-            }
-        }
-
-        :focus {
-            @at-root #{feature-check.get-selector( 'focusVisible', false )} {
+            } @else if $location == focus-visible--fallback--selector-pseudo--where-no-support {
                 @extend %focus-ring--where !optional;
-            }
-        }
-
-        :focus-visible {
-            @extend %focus-ring--visible !optional;
-        }
-
-        @if config.$mx_interactive_isolateSelector_focus {
-            #{config.$selector_interactiveState_focus} {
+            } @else if $location == focus-visible--selector-pseudo {
+                @extend %focus-ring--visible !optional;
+            } @else {
                 @extend %focus-ring !optional;
             }
         }

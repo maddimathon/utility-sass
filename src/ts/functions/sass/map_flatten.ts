@@ -9,12 +9,9 @@
  */
 
 import type {
-    CLI,
-    Config,
 } from '@maddimathon/build-utilities';
 
 import type {
-    Logger,
 } from '@maddimathon/build-utilities/internal';
 
 import Immutable from 'immutable';
@@ -31,13 +28,7 @@ import { sassValueToJS } from '../sassValueToJS.js';
  *
  * @since __PKG_VERSION___
  */
-export function sassFn_map_flatten(
-    { }: {
-        config: Config.Class,
-        console: Logger,
-        params: CLI.Params,
-    },
-): { 'mmutils-map-flatten( $map, $prefix: null, $suffix: null )': sass.CustomFunction<'async'>; } {
+export function sassFn_map_flatten(): { 'mmutils-map-flatten( $map, $prefix: null, $suffix: null, $separator: null )': sass.CustomFunction<'async'>; } {
     const _emptyMap = new sass.SassMap();
 
     const _emptyString = new sass.SassString();
@@ -47,6 +38,7 @@ export function sassFn_map_flatten(
         map: sass.SassMap,
         prefix?: string,
         suffix?: string,
+        separator: string = '-',
     ): Promise<sass.SassMap> => {
 
         // returns - empty
@@ -69,12 +61,12 @@ export function sassFn_map_flatten(
 
             // returns
             if ( typeof key === 'string' ) {
-                return new sass.SassString( _includeSuffix ? `${ stringKey }-${ suffix }` : stringKey, { quotes: false } );
+                return new sass.SassString( _includeSuffix ? `${ stringKey }${ separator }${ suffix }` : stringKey, { quotes: false } );
             }
 
             // returns
             if ( _includeSuffix ) {
-                return new sass.SassString( `${ stringKey }-${ suffix }`, { quotes: false } );
+                return new sass.SassString( `${ stringKey }${ separator }${ suffix }`, { quotes: false } );
             }
 
             return new sass.SassString( stringKey, { quotes: false } );
@@ -83,7 +75,7 @@ export function sassFn_map_flatten(
         const key_validate_addPrefix = ( key: sass.SassNumber | sass.SassString ): string => [
             prefix,
             key.equals( _rootString ) ? '' : key.toString().replace( /^['"](.*)['"]$/g, '$1' ),
-        ].filter( v => v?.length ).join( '-' );
+        ].filter( v => v?.length ).join( separator );
 
         return Promise.all(
             ( Array.from( map.contents.entries() ) as [ sass.SassNumber | sass.SassString, sass.Value ][] ).map(
@@ -98,7 +90,7 @@ export function sassFn_map_flatten(
                             return false;
 
                         case 'map':
-                            return mapFlattener( value as sass.SassMap, key, suffix ).then(
+                            return mapFlattener( value as sass.SassMap, key, suffix, separator ).then(
                                 value_flat => {
                                     // returns - empty
                                     if ( !value_flat.contents ) {
@@ -119,19 +111,20 @@ export function sassFn_map_flatten(
     };
 
     return {
-        'mmutils-map-flatten( $map, $prefix: null, $suffix: null )':
+        'mmutils-map-flatten( $map, $prefix: null, $suffix: null, $separator: null )':
             async ( args: sass.Value[] ) => Promise.all( [
                 sassAssertValueType( 'map', 'map', args[ 0 ], false, ),
                 sassAssertValueType( 'prefix', 'string', args[ 1 ], true ),
                 sassAssertValueType( 'suffix', 'string', args[ 2 ], true ),
+                sassAssertValueType( 'separator', 'string', args[ 3 ], true ),
             ] ).then(
-                ( [ map, prefix, suffix ] ) => {
+                ( [ map, prefix, suffix, separator ] ) => {
                     // returns - empty
                     if ( !map ) {
                         return _emptyMap;
                     }
 
-                    return mapFlattener( map, prefix, suffix );
+                    return mapFlattener( map, prefix, suffix, separator );
                 }
             ),
     } as const satisfies { [ key: string ]: sass.CustomFunction<'async'>; };

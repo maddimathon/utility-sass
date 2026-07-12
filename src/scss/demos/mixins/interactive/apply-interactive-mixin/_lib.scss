@@ -155,6 +155,7 @@ $interactive_paramPermutations: (
     $self,
     $visited,
     $debug: false,
+    $multipleContentBlocks: false,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -197,6 +198,14 @@ $interactive_paramPermutations: (
         $_trueArgsDumpList: map.set($_trueArgsDumpList, '$visited', $visited);
     }
 
+    @if $multipleContentBlocks {
+        $_trueArgsDumpList: map.set(
+            $_trueArgsDumpList,
+            '$multipleContentBlocks',
+            $multipleContentBlocks
+        );
+    }
+
     @if $debug {
         $_trueArgsList: map.set($_trueArgsList, 'debug', $debug);
         $_trueArgsDumpList: map.set($_trueArgsDumpList, '$debug', $debug);
@@ -218,8 +227,15 @@ $interactive_paramPermutations: (
             /* @include apply-interactive-mixin#{$_argsList} */
         }
 
-        @include apply-interactive-mixin($_trueArgsList...) {
-            /* content */
+        @if $multipleContentBlocks {
+            @include apply-interactive-mixin($multipleContentBlocks: true, $_trueArgsList...) using
+                ($location) {
+                /* content ( #{$location} ) */
+            }
+        } @else {
+            @include apply-interactive-mixin($multipleContentBlocks: false, $_trueArgsList...) {
+                /* content */
+            }
         }
     }
 }

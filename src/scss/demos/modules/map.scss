@@ -90,6 +90,13 @@ map.flatten {
     > with-both {
         @include meta.var-dump('map.flatten', map.flatten($_map, $prefix: 'pre', $suffix: 'suf'));
     }
+
+    > with-both--underscored {
+        @include meta.var-dump(
+            'map.flatten',
+            map.flatten($_map, $prefix: 'pre', $suffix: 'suf', $separator: '_')
+        );
+    }
 }
 
 map.ksort {

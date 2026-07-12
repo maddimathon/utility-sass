@@ -16,6 +16,7 @@ import type * as sass from "sass-embedded";
 
 import { sassFn_getCurrentVersion } from './sass/getCurrentVersion.js';
 import { sassFn_jsVarDump } from './sass/jsVarDump.js';
+// import { sassFn_map_flatten } from './sass/map_flatten.js';
 import { sassFn_math_coerceUnit } from './sass/math_coerceUnit.js';
 import { sassFn_string_isQuoted } from './sass/string_isQuoted.js';
 import { sassFn_string_match } from './sass/string_match.js';
@@ -38,6 +39,7 @@ export function sassCompilerFunctions(
     'mmutils-global-getCurrentVersion()': sass.CustomFunction<'async'>;
     'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': sass.CustomFunction<'async'>;
     'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': sass.CustomFunction<'async'>;
+    // 'mmutils-map-flatten( $map, $prefix: null, $suffix: null, $separator: null )': sass.CustomFunction<'async'>;
     'mmutils-math-coerce-unit( $num, $unit )': sass.CustomFunction<'async'>;
     'mmutils-string-is-quoted( $str )': sass.CustomFunction<'async'>;
     'mmutils-string-match( $string, $pattern, $flags: null, $debug: false )': sass.CustomFunction<'async'>;
@@ -49,6 +51,7 @@ export function sassCompilerFunctions(
         ...sassFn_getCurrentVersion(),
         ...sassFn_debugProgressCheckpoint( args ),
         ...sassFn_jsVarDump( args ),
+        // ...sassFn_map_flatten(),
         ...sassFn_math_coerceUnit( args ),
         ...sassFn_string_isQuoted( args ),
         ...sassFn_string_match( args ),

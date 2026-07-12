@@ -9,7 +9,7 @@
 @use '../config';
 @use '../meta';
 
-@function _flat-key-valid-and-add-prefix($key, $prefix) {
+@function _flat-key-valid-and-add-prefix($key, $prefix, $separator) {
     $str_key: #{$key};
     $str_prefix: #{$prefix};
 
@@ -22,10 +22,10 @@
         @return if($includePrefix, $str_prefix, '');
     }
 
-    @return if($includePrefix, '#{$prefix}-#{$key}', $str_key);
+    @return if($includePrefix, '#{$prefix}#{$separator}#{$key}', $str_key);
 }
 
-@function _flat-key-add-suffix($key, $suffix) {
+@function _flat-key-add-suffix($key, $suffix, $separator) {
     $str_key: #{$key};
     $str_suffix: #{$suffix};
 
@@ -36,7 +36,7 @@
         @return if($includeSuffix, $str_suffix, '');
     }
 
-    @return if($includeSuffix, '#{$key}-#{$suffix}', $str_key);
+    @return if($includeSuffix, '#{$key}#{$separator}#{$suffix}', $str_key);
 }
 
 ///
@@ -49,9 +49,9 @@
 /// @return {map}
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added global compiler function for better performance.
+/// @since ___PKG_VERSION___ — Added global compiler function for better performance. Added optional $separator param.
 ///
-@function flatten($map, $prefix: null, $suffix: null) {
+@function flatten($map, $prefix: null, $suffix: null, $separator: '-') {
     $return: meta.call-global-compiler-fn(
         'mmutils-map-flatten',
         'map.flatten',
@@ -61,7 +61,8 @@
         //
         $map: $map,
         $prefix: $prefix,
-        $suffix: $suffix
+        $suffix: $suffix,
+        $separator: $separator
     );
 
     // returns
@@ -72,17 +73,26 @@
     $return: ();
 
     @each $_key, $_value in $map {
-        $_key: _flat-key-valid-and-add-prefix($_key, $prefix);
+        $_key: _flat-key-valid-and-add-prefix($_key, $prefix: $prefix, $separator: $separator);
 
         @if meta.type-of($_value) != map {
             // just set the value plainly
-            $return: map.set($return, _flat-key-add-suffix($_key, $suffix), $_value);
+            $return: map.set(
+                $return,
+                _flat-key-add-suffix($_key, $suffix: $suffix, $separator: $separator),
+                $_value
+            );
         } @else {
             // if value is a map, then we recurse and iterate through the
             // flattened results
 
             // recursed map
-            $_value_flat: flatten($_value, $prefix: $_key, $suffix: $suffix);
+            $_value_flat: flatten(
+                $_value,
+                $prefix: $_key,
+                $suffix: $suffix,
+                $separator: $separator
+            );
 
             // and set those keys in the return
             @each $_flat_childKey, $_flat_childValue in $_value_flat {

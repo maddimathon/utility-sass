@@ -19,11 +19,11 @@ import { sassValueToJS } from '../sassValueToJS.js';
  *
  * @since __PKG_VERSION___
  */
-export function sassFn_map_flatten({}) {
+export function sassFn_map_flatten() {
     const _emptyMap = new sass.SassMap();
     const _emptyString = new sass.SassString();
     const _rootString = new sass.SassString('$');
-    const mapFlattener = async (map, prefix, suffix) => {
+    const mapFlattener = async (map, prefix, suffix, separator = '-') => {
         // returns - empty
         if (!map.contents) {
             return _emptyMap;
@@ -38,18 +38,18 @@ export function sassFn_map_flatten({}) {
             const stringKey = key.toString().replace(/^['"](.*)['"]$/g, '$1');
             // returns
             if (typeof key === 'string') {
-                return new sass.SassString(_includeSuffix ? `${stringKey}-${suffix}` : stringKey, { quotes: false });
+                return new sass.SassString(_includeSuffix ? `${stringKey}${separator}${suffix}` : stringKey, { quotes: false });
             }
             // returns
             if (_includeSuffix) {
-                return new sass.SassString(`${stringKey}-${suffix}`, { quotes: false });
+                return new sass.SassString(`${stringKey}${separator}${suffix}`, { quotes: false });
             }
             return new sass.SassString(stringKey, { quotes: false });
         };
         const key_validate_addPrefix = (key) => [
             prefix,
             key.equals(_rootString) ? '' : key.toString().replace(/^['"](.*)['"]$/g, '$1'),
-        ].filter(v => v?.length).join('-');
+        ].filter(v => v?.length).join(separator);
         return Promise.all(Array.from(map.contents.entries()).map(async ([t_key, value]) => {
             const key = key_validate_addPrefix(t_key);
             // returns
@@ -57,7 +57,7 @@ export function sassFn_map_flatten({}) {
                 case 'undefined':
                     return false;
                 case 'map':
-                    return mapFlattener(value, key, suffix).then(value_flat => {
+                    return mapFlattener(value, key, suffix, separator).then(value_flat => {
                         // returns - empty
                         if (!value_flat.contents) {
                             return [[key_addSuffix(key), _emptyMap]];
@@ -69,16 +69,17 @@ export function sassFn_map_flatten({}) {
         })).then(entries => new sass.SassMap(Immutable.OrderedMap(entries.filter(item => item !== false).flat())));
     };
     return {
-        'mmutils-map-flatten( $map, $prefix: null, $suffix: null )': async (args) => Promise.all([
+        'mmutils-map-flatten( $map, $prefix: null, $suffix: null, $separator: null )': async (args) => Promise.all([
             sassAssertValueType('map', 'map', args[0], false),
             sassAssertValueType('prefix', 'string', args[1], true),
             sassAssertValueType('suffix', 'string', args[2], true),
-        ]).then(([map, prefix, suffix]) => {
+            sassAssertValueType('separator', 'string', args[3], true),
+        ]).then(([map, prefix, suffix, separator]) => {
             // returns - empty
             if (!map) {
                 return _emptyMap;
             }
-            return mapFlattener(map, prefix, suffix);
+            return mapFlattener(map, prefix, suffix, separator);
         }),
     };
 }

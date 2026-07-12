@@ -62,7 +62,7 @@
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha — Moved from library to own module.
 /// @since 0.1.0-alpha.5 — Changed name from `js-support` to `supports`.
-/// @since ___PKG_VERSION___ — Added optional $debug, $neverUseJS, $viaQuery params to use @supports instead (via config.$featureCheck_supportsQueries).
+/// @since ___PKG_VERSION___ — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params. Now using @supports instead (via config.$featureCheck_supportsQueries).
 ///
 @mixin supports(
     $key,
@@ -70,6 +70,8 @@
     $debug: false,
     $neverUseJS: null,
     $viaQuery: null,
+    //
+    $multipleContentBlocks: false,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -101,7 +103,11 @@
                 @if $debug {
                     /* $supportsTest and $viaQuery */
                 }
-                @content;
+                @if $multipleContentBlocks {
+                    @content (support-at-rule);
+                } @else {
+                    @content;
+                }
             }
         }
     } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
@@ -118,7 +124,11 @@
                     /* AND */
                     /* $key == whereSelector */
                 }
-                @content;
+                @if $multipleContentBlocks {
+                    @content (js);
+                } @else {
+                    @content;
+                }
             }
         } @else {
             @at-root #{get-selector.get-selector( $key, true,$addSelectors:$addSelectors, $args... )} {
@@ -129,7 +139,11 @@
                     /* AND */
                     /* $key != whereSelector */
                 }
-                @content;
+                @if $multipleContentBlocks {
+                    @content (where-support);
+                } @else {
+                    @content;
+                }
             }
         }
     }
@@ -140,7 +154,7 @@
 /// @since 0.1.0-alpha — Moved from library to own module.
 /// @since 0.1.0-alpha.5 — Changed name from `js-no-support` to `supports-not`.
 /// @since 0.1.0-alpha.33 — Added $includeNoWhereSelectorFallback param, default true.
-/// @since ___PKG_VERSION___ — Added optional $debug, $neverUseJS, $viaQuery params to use @supports instead (via config.$featureCheck_supportsQueries).
+/// @since ___PKG_VERSION___ — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params to use @supports instead (via config.$featureCheck_supportsQueries).
 ///
 @mixin supports-not(
     $key,
@@ -150,6 +164,8 @@
     $includeNoWhereSelectorFallback: true,
     $neverUseJS: null,
     $viaQuery: null,
+    //
+    $multipleContentBlocks: false,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -183,7 +199,11 @@
                 @if $debug {
                     /* $supportsTest and $viaQuery */
                 }
-                @content;
+                @if $multipleContentBlocks {
+                    @content (supports-at-rule);
+                } @else {
+                    @content;
+                }
             }
         }
     } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
@@ -198,7 +218,11 @@
                     /* AND */
                     /* $includeNoWhereSelectorFallback */
                 }
-                @content;
+                @if $multipleContentBlocks {
+                    @content (no-js);
+                } @else {
+                    @content;
+                }
             }
         } @else if list.length($_addSelectors_noJS) > 0 {
             @at-root #{$_addSelectors_noJS} {
@@ -209,7 +233,11 @@
                     /* AND */
                     /* not $includeNoWhereSelectorFallback */
                 }
-                @content;
+                @if $multipleContentBlocks {
+                    @content (no-js);
+                } @else {
+                    @content;
+                }
             }
         }
 
@@ -222,12 +250,14 @@
                     /* AND */
                     /* $key != whereSelector */
                 }
-                @content;
+                @if $multipleContentBlocks {
+                    @content (where-no-support);
+                } @else {
+                    @content;
+                }
             }
-        } @else {
-            @if $key != null and list.index(config.$featureCheck_supports, $key) == null {
-                @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
-            }
+        } @else if $key != null and list.index(config.$featureCheck_supports, $key) == null {
+            @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
         }
     }
 }
