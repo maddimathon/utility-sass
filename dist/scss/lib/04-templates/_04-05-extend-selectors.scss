@@ -114,17 +114,26 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     $sels: (h1, h2, h3, h4, h5, h6);
 
     /// Headings - where
-    @if config.$mx_extendSelectors_headingsByRole {
-        // for all levels
-        @each $headingLevel in $allHeadingLevels {
-            //
+    // for all levels
+    @each $headingLevel in $allHeadingLevels {
+        //
+        $sels: list.append(
+            $sels,
+            ('hgroup %h#{$headingLevel}', 'h#{$headingLevel}--hgroup')
+        );
+
+        @if config.$mx_extendSelectors_headingsByRole {
+            $_whereSel: ':where( [role=heading][aria-level="#{$headingLevel}"] )';
+
             $sels: list.append(
                 $sels,
-                (
-                    ':where( [role=heading][aria-level="#{$headingLevel}"] )',
-                    'h#{$headingLevel}--where'
-                ),
+                ($_whereSel, 'h#{$headingLevel}--where'),
                 $separator: comma
+            );
+
+            $sels: list.append(
+                $sels,
+                ('hgroup #{$_whereSel}', 'h#{$headingLevel}--hgroup')
             );
         }
     }
@@ -136,38 +145,62 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 /// @since 0.1.0-beta.0.draft
 ///
 @function get-extend-selectors-headings-utils($allHeadingLevels) {
-    $sels: ();
+    $sels: (
+        ('.unstyled-heading', unstyled-heading),
+        ('hgroup .unstyled-heading', unstyled-heading--hgroup),
+        ('.unstyled-heading__hgroup', unstyled-heading__hgroup),
+        ('.unstyled-heading__subheading', unstyled-heading__subheading),
+        ('.page-title', title),
+        ('.page-title__subheading', title__subheading)
+    );
+
+    $_allHeadings_toIs: ();
+    $_allHeadings_toWhere: ();
 
     /// Headings
     @each $headingLevel in $allHeadingLevels {
         $sels: list.append($sels, ('.h#{$headingLevel}', 'h#{$headingLevel}'));
-        $sels: list.append(
-            $sels,
-            ('.h#{$headingLevel}--hgroup', 'h#{$headingLevel}--hgroup')
-        );
+
+        // $sels: list.append($sels, (('.h#{$headingLevel}--hgroup'), 'h#{$headingLevel}--hgroup'));
+
         $sels: list.append(
             $sels,
             ('.h#{$headingLevel}__hgroup', 'h#{$headingLevel}__hgroup')
         );
+
         $sels: list.append(
             $sels,
             ('.h#{$headingLevel}__subheading', 'h#{$headingLevel}__subheading')
         );
 
+        $_allHeadings_toIs: list.append(
+            $_allHeadings_toIs,
+            '%h#{$headingLevel}',
+            $separator: comma
+        );
+
+        $_allHeadings_toWhere: list.append(
+            $_allHeadings_toWhere,
+            '%h#{$headingLevel}--where',
+            $separator: comma
+        );
+    }
+
+    @if list.length($_allHeadings_toIs) > 0 {
         $sels: list.append(
             $sels,
             (
-                selector.unify('%h#{$headingLevel}', ':is(.unstyled-heading)'),
+                '.unstyled-heading:is(#{$_allHeadings_toIs})',
                 'unstyled-heading--is'
             )
         );
+    }
+
+    @if list.length($_allHeadings_toWhere) > 0 {
         $sels: list.append(
             $sels,
             (
-                selector.unify(
-                    '%h#{$headingLevel}--where',
-                    ':is(.unstyled-heading)'
-                ),
+                '.unstyled-heading:where(#{$_allHeadings_toWhere})',
                 'unstyled-heading--where'
             )
         );
@@ -309,12 +342,6 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         /// ## Objects ==================================== ///
         //
         /// ## Typography ==================================== ///
-        unstyled-heading,
-        unstyled-heading--hgroup,
-        unstyled-heading__hgroup,
-        unstyled-heading__subheading,
-        (page-title, title),
-        (page-title__subheading, title__subheading),
         //
         /// ## Forms ==================================== ///
         //
