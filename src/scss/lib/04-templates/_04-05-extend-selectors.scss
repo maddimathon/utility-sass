@@ -47,10 +47,16 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 /// @since ___PKG_VERSION___
 ///
-@function get-extend-selectors-button($selector_button, $variant: null) {
-    $selector_button_visited: selector.unify(
-        selector.except-superselector($selector_button, (button, input)),
-        ':visited'
+@function get-extend-selectors-button($selector_button, $variant: null, $includeVisited: true) {
+    $includeVisited: $includeVisited and config.$include_linkVisitedState;
+
+    $selector_button_visited: if(
+        $includeVisited,
+        selector.unify(
+            selector.except-superselector($selector_button, (button, input)),
+            ':visited'
+        ),
+        ()
     );
 
     $list: ();
@@ -61,18 +67,14 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         $list: list.append(
             $list,
             (
-                list.join(
-                    $selector_button,
-                    if(config.$include_linkVisitedState, $selector_button_visited, ()),
-                    $separator: comma
-                ),
+                list.join($selector_button, $selector_button_visited, $separator: comma),
                 button-#{$variant}
             ),
             $separator: comma
         );
     }
 
-    @if config.$include_linkVisitedState {
+    @if $includeVisited {
         $list: list.join(
             $list,
             (
@@ -116,7 +118,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 
             $sels: list.append($sels, ($_whereSel, 'h#{$headingLevel}--where'), $separator: comma);
 
-            $sels: list.append($sels, ('hgroup #{$_whereSel}', 'h#{$headingLevel}--hgroup'));
+            $sels: list.append($sels, ('hgroup #{$_whereSel}', 'h#{$headingLevel}--where--hgroup'));
         }
     }
 
@@ -128,10 +130,16 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 @function get-extend-selectors-headings-utils($allHeadingLevels) {
     $sels: (
+        ('hgroup %unstyled-heading', unstyled-heading--hgroup),
+        ('hgroup %unstyled-heading--is', unstyled-heading--is--hgroup),
+        ('hgroup %unstyled-heading--where', unstyled-heading--where--hgroup),
+        //
         ('.unstyled-heading', unstyled-heading),
-        ('hgroup .unstyled-heading', unstyled-heading--hgroup),
+        //
         ('.unstyled-heading__hgroup', unstyled-heading__hgroup),
+        //
         ('.unstyled-heading__subheading', unstyled-heading__subheading),
+        //
         ('.page-title', title),
         ('.page-title__subheading', title__subheading)
     );

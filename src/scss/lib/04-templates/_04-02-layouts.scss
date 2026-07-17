@@ -90,10 +90,22 @@
 @mixin template-content-layouts(
     $print_body: true,
     //
-    $css_headings: null
+    $css_headings: null,
+    $content_exists: null
 ) {
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @content (body-before);
     @if $print_body {
-        @include template-content-layouts-body($css_headings: $css_headings);
+        @include template-content-layouts-body(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($location) {
+            @content (body--#{$location});
+        }
     }
     @content (body);
 }

@@ -9,53 +9,10 @@
 @use '../../modules/map';
 @use '../../modules/math';
 @use '../../modules/meta';
-@use '../../modules/selector';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 @use '../03-snippets' as *;
-
-///
-/// @since ___PKG_VERSION___
-///
-@mixin template-content-abstracts(
-    $print_normalize: map.get(config.$template_styles, normalize),
-    $print_reset: map.get(config.$template_styles, reset),
-    $print_tokens: config.$template_tokens,
-    //
-    $css_headings: null
-) {
-    $_print_any_normareset: $print_normalize or $print_reset;
-    $_print_any: $_print_any_normareset or $print_tokens;
-
-    @if $css_headings == null {
-        $css_headings: config.$template_cssHeadings;
-    }
-
-    @if $_print_any_normareset {
-        @include template-utility-sass {
-            @if $print_normalize {
-                @include normalize;
-            }
-
-            @if $print_reset {
-                @include reset;
-            }
-        }
-    }
-
-    @content (normalize-or-reset);
-
-    @if $print_tokens {
-        @if $css_headings {
-            /* # TOKENS & PROPERTIES
-             * ======================================================================== */
-        }
-
-        @include tokens-all;
-    }
-    @content (tokens);
-}
 
 ///
 /// @since ___PKG_VERSION___
@@ -850,35 +807,82 @@
     $print_forms: true,
     $print_tables: true,
     //
-    $css_headings: null
+    $css_headings: null,
+    $content_exists: null
 ) {
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @content (accessibility-before);
     @if $print_accessibility {
-        @include template-content-globals-accessibility($css_headings: $css_headings);
+        @include template-content-globals-accessibility(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($location) {
+            @content (accessibility--#{$location});
+        }
     }
     @content (accessibility);
 
+    @content (objects-before);
     @if $print_objects {
-        @include template-content-globals-objects($css_headings: $css_headings);
+        @include template-content-globals-objects(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($location) {
+            @content (objects--#{$location});
+        }
     }
     @content (objects);
 
+    @content (typography-before);
     @if $print_typography {
-        @include template-content-globals-typography($css_headings: $css_headings);
+        @include template-content-globals-typography(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($location) {
+            @content (typography--#{$location});
+        }
     }
     @content (typography);
 
+    @content (lists-before);
     @if $print_lists {
-        @include template-content-globals-lists($css_headings: $css_headings);
+        @include template-content-globals-lists(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($location) {
+            @content (lists--#{$location});
+        }
     }
     @content (lists);
 
+    @content (forms-before);
     @if $print_forms {
-        @include template-content-globals-forms($css_headings: $css_headings);
+        @include template-content-globals-forms(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($location) {
+            @content (forms--#{$location});
+        }
     }
     @content (forms);
 
+    @content (tables-before);
     @if $print_tables {
-        @include template-content-globals-tables($css_headings: $css_headings);
+        @include template-content-globals-tables(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($location) {
+            @content (tables--#{$location});
+        }
     }
     @content (tables);
 }

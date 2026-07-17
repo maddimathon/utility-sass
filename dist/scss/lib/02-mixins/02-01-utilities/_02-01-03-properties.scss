@@ -93,6 +93,32 @@ $_allowAllPrefixes: (
 }
 
 ///
+/// Prints a many custom property definitions from a map.
+///
+/// @param {map<string, any>} $props
+/// @param {?string} $comment
+///
+@mixin cx-prop-bulk($props: (), $args...) {
+    $args: meta.keywords($args);
+
+    @each $list in map.flatten($props) {
+        $_slug: if(list.length($list) > 0, list.nth($list, 1), null);
+        $_value: if(list.length($list) > 1, list.nth($list, 2), null);
+        $_args: if(list.length($list) > 2, list.nth($list, 3), null);
+
+        @if meta.is-truthy($_slug) and $_slug != null {
+            $_args: if(
+                meta.type-of($_args) == map,
+                map.merge($args, $_args),
+                $args
+            );
+
+            @include custom-property($_slug, $_value, $_args...);
+        }
+    }
+}
+
+///
 /// Prints a custom property and uses its value to set the normal property with
 /// its same name.
 ///

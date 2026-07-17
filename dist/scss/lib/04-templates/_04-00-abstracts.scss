@@ -1,0 +1,55 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use '../../config';
+// @use '../../tokens';
+
+@use '../../modules/map';
+
+// @use '../01-functions' as *;
+@use '../02-mixins' as *;
+@use '../03-snippets' as *;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin template-content-abstracts(
+    $print_normalize: map.get(config.$template_styles, normalize),
+    $print_reset: map.get(config.$template_styles, reset),
+    $print_tokens: config.$template_tokens,
+    //
+    $css_headings: null
+) {
+    $_print_any_normareset: $print_normalize or $print_reset;
+    $_print_any: $_print_any_normareset or $print_tokens;
+
+    @if $css_headings == null {
+        $css_headings: config.$template_cssHeadings;
+    }
+
+    @if $_print_any_normareset {
+        @include template-utility-sass {
+            @if $print_normalize {
+                @include normalize;
+            }
+
+            @if $print_reset {
+                @include reset;
+            }
+        }
+    }
+
+    @content (normalize-or-reset);
+
+    @if $print_tokens {
+        @if $css_headings {
+            /* # TOKENS & PROPERTIES
+             * ======================================================================== */
+        }
+
+        @include tokens-all;
+    }
+    @content (tokens);
+}
