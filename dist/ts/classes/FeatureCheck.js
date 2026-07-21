@@ -7,6 +7,26 @@
  * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 /**
  * Utility class that uses client-side JS to test for JS and CSS feature
  * compaibility. Updates root element class names accordingly.
@@ -92,7 +112,7 @@ export class FeatureCheck {
      * @experimental
      */
     static DEFAULT_CLASSLIST({ custom } = {}) {
-        custom = custom ?? {};
+        custom = custom !== null && custom !== void 0 ? custom : {};
         const _customCheckSlugs = Object.keys(custom);
         const _defaultCheckSlugs = Object.keys(FeatureCheck.DEFAULT_OPTS.checks);
         const customKeys = new Set(_customCheckSlugs);
@@ -141,33 +161,6 @@ export class FeatureCheck {
             outputResults: false,
         };
     }
-    /* PROPERTIES
-     * ====================================================================== */
-    /**
-     * Completed copy of the options.
-     *
-     * See {@link FeatureCheck.Opts} for details.
-     */
-    opts;
-    /**
-     * The root element used for adding and removing feature-check classes.
-     *
-     * See {@link FeatureCheck.constructor} for details.
-     */
-    root;
-    /**
-     * Built from combining {@link FeatureCheck.customCheckSlugs} and the keys
-     * of {@link FeatureCheck.opts.checks}.
-     *
-     * @since 0.1.0-beta.0.draft
-     */
-    allCheckSlugs;
-    /**
-     * Built from combining the keys of {@link FeatureCheck.opts.checks}.
-     *
-     * @since 0.1.0-beta.0.draft
-     */
-    defaultCheckSlugs;
     /**
      * Checks if the given slug is a default test.
      *
@@ -176,13 +169,6 @@ export class FeatureCheck {
     isDefaultCheck(slug) {
         return this.defaultCheckSlugs.has(slug);
     }
-    /**
-     * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
-     * config keys, so every key in here has a custom test.
-     *
-     * @since 0.1.0-beta.0.draft
-     */
-    customCheckSlugs;
     /**
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
@@ -198,7 +184,7 @@ export class FeatureCheck {
     /**
      * Partial options to override defaults.
      */
-    { checks, custom, ...opts } = {}, 
+    _a = {}, 
     /**
      * The root element to add feature classes to.
      *
@@ -208,8 +194,18 @@ export class FeatureCheck {
      * ```
      */
     root) {
-        const { checks: defaultChecks, ..._defaultOpts } = FeatureCheck.DEFAULT_OPTS;
-        const _customCheckSlugs = Object.keys(custom ?? {});
+        var _b;
+        var 
+        /**
+         * Partial options to override defaults.
+         */
+        { checks, custom } = _a, opts = __rest(_a, 
+        /**
+         * Partial options to override defaults.
+         */
+        ["checks", "custom"]);
+        const _c = FeatureCheck.DEFAULT_OPTS, { checks: defaultChecks } = _c, _defaultOpts = __rest(_c, ["checks"]);
+        const _customCheckSlugs = Object.keys(custom !== null && custom !== void 0 ? custom : {});
         const _defaultCheckSlugs = Object.keys(defaultChecks);
         this.allCheckSlugs = [
             ..._defaultCheckSlugs,
@@ -218,14 +214,11 @@ export class FeatureCheck {
         this.customCheckSlugs = new Set(_customCheckSlugs);
         this.defaultCheckSlugs = new Set(_defaultCheckSlugs);
         this.opts = {
-            checks: {
-                ...defaultChecks,
-                ...checks,
-            },
-            custom: custom ?? {},
-            outputResults: opts.outputResults ?? _defaultOpts.outputResults,
+            checks: Object.assign(Object.assign({}, defaultChecks), checks),
+            custom: custom !== null && custom !== void 0 ? custom : {},
+            outputResults: (_b = opts.outputResults) !== null && _b !== void 0 ? _b : _defaultOpts.outputResults,
         };
-        this.root = root ?? document.querySelector(':root');
+        this.root = root !== null && root !== void 0 ? root : document.querySelector(':root');
         this.aspectRatio = this.aspectRatio.bind(this);
         this.atProperty = this.atProperty.bind(this);
         this.backgroundFixed = this.backgroundFixed.bind(this);
@@ -279,9 +272,11 @@ export class FeatureCheck {
      *
      * @experimental
      */
-    async customCheck(slug) {
-        const { test } = this.opts.custom[slug];
-        return this.setFeature(slug, typeof test === 'function' ? test(slug, this) : test);
+    customCheck(slug) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { test } = this.opts.custom[slug];
+            return this.setFeature(slug, typeof test === 'function' ? test(slug, this) : test);
+        });
     }
     /**
      * Set a feature slug's class names on the {@link FeatureCheck.root}
@@ -291,7 +286,7 @@ export class FeatureCheck {
      *
      * @experimental
      */
-    async setFeature(
+    setFeature(
     /**
      * Feature result to set.
      */
@@ -309,19 +304,21 @@ export class FeatureCheck {
      * @internal
      */
     ignorePrefix) {
-        if (!this.root) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this.root) {
+                return value;
+            }
+            const falseSlug = FeatureCheck.getClassName(featureSlug, false, ignorePrefix);
+            const trueSlug = FeatureCheck.getClassName(featureSlug, true, ignorePrefix);
+            const classToAdd = value ? trueSlug : falseSlug;
+            const classToRemove = value ? falseSlug : trueSlug;
+            this.root.classList.add(classToAdd);
+            this.root.classList.remove(classToRemove);
+            if (this.opts.outputResults) {
+                console.info(`[FeatureCheck] checked: ${featureSlug}\n`, { result: value, classToAdd, classToRemove });
+            }
             return value;
-        }
-        const falseSlug = FeatureCheck.getClassName(featureSlug, false, ignorePrefix);
-        const trueSlug = FeatureCheck.getClassName(featureSlug, true, ignorePrefix);
-        const classToAdd = value ? trueSlug : falseSlug;
-        const classToRemove = value ? falseSlug : trueSlug;
-        this.root.classList.add(classToAdd);
-        this.root.classList.remove(classToRemove);
-        if (this.opts.outputResults) {
-            console.info(`[FeatureCheck] checked: ${featureSlug}\n`, { result: value, classToAdd, classToRemove });
-        }
-        return value;
+        });
     }
     /* Checkers ===================================== */
     /**
@@ -330,8 +327,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async aspectRatio() {
-        return this.setFeature('aspectRatio', FeatureCheck.supportsCSS('aspect-ratio: 1 / 2'));
+    aspectRatio() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('aspectRatio', FeatureCheck.supportsCSS('aspect-ratio: 1 / 2'));
+        });
     }
     /**
      * Checks for css `@property` at-rule support.
@@ -339,8 +338,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async atProperty() {
-        return this.setFeature('atProperty', !!window.CSSPropertyRule);
+    atProperty() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('atProperty', !!window.CSSPropertyRule);
+        });
     }
     /**
      * Checks for `background-attachment: fixed` css rule support.
@@ -348,8 +349,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async backgroundFixed() {
-        return this.setFeature('backgroundFixed', FeatureCheck.supportsCSS('background-attachment: fixed'));
+    backgroundFixed() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('backgroundFixed', FeatureCheck.supportsCSS('background-attachment: fixed'));
+        });
     }
     /**
      * Checks for `calc()` css value support.
@@ -357,8 +360,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async calc() {
-        return this.setFeature('calc', FeatureCheck.supportsCSS('width: calc( 0.25em + 10% )'));
+    calc() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('calc', FeatureCheck.supportsCSS('width: calc( 0.25em + 10% )'));
+        });
     }
     /**
      * Checks for `display: contents` css rule support.
@@ -366,8 +371,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async displayContents() {
-        return this.setFeature('displayContents', FeatureCheck.supportsCSS('display: contents'));
+    displayContents() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('displayContents', FeatureCheck.supportsCSS('display: contents'));
+        });
     }
     /**
      * Checks for `:focus-within` css selector support.
@@ -375,8 +382,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async focusWithin() {
-        return this.setFeature('focusWithin', FeatureCheck.supportsCSS('selector( a:focus-within )'));
+    focusWithin() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('focusWithin', FeatureCheck.supportsCSS('selector( a:focus-within )'));
+        });
     }
     /**
      * Checks for `:focus-visible` css selector support.
@@ -384,8 +393,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async focusVisible() {
-        return this.setFeature('focusVisible', FeatureCheck.supportsCSS('selector( a:focus-visible )'));
+    focusVisible() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('focusVisible', FeatureCheck.supportsCSS('selector( a:focus-visible )'));
+        });
     }
     /**
      * Checks for `:has()` css selector support.
@@ -393,8 +404,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async hasSelector() {
-        return this.setFeature('hasSelector', FeatureCheck.supportsCSS('selector( :has( a ) )'));
+    hasSelector() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('hasSelector', FeatureCheck.supportsCSS('selector( :has( a ) )'));
+        });
     }
     /**
      * Checks for `grid-template-columns: subgrid` css rule support.
@@ -402,8 +415,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async subgrid() {
-        return this.setFeature('subgrid', FeatureCheck.supportsCSS('grid-template-columns: subgrid'));
+    subgrid() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('subgrid', FeatureCheck.supportsCSS('grid-template-columns: subgrid'));
+        });
     }
     /**
      * Checks for `grid-template-columns: subgrid` css rule support.
@@ -413,8 +428,10 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async variableFonts() {
-        return this.setFeature('variableFonts', FeatureCheck.supportsCSS('font-variation-settings: normal'));
+    variableFonts() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('variableFonts', FeatureCheck.supportsCSS('font-variation-settings: normal'));
+        });
     }
     /**
      * Checks for `:where()` css selector support.
@@ -422,7 +439,9 @@ export class FeatureCheck {
      * @experimental
      * @source
      */
-    async whereSelector() {
-        return this.setFeature('whereSelector', FeatureCheck.supportsCSS('selector( :where( a ) )'));
+    whereSelector() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.setFeature('whereSelector', FeatureCheck.supportsCSS('selector( :where( a ) )'));
+        });
     }
 }

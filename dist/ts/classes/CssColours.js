@@ -698,42 +698,42 @@ export var CssColours;
         const hex = parseFunction.hex(value, strict);
         // returns
         if (hex !== false) {
-            return hex ?? false;
+            return hex !== null && hex !== void 0 ? hex : false;
         }
         const hsl = parseFunction.hsl(value, roundingFactor);
         // returns
         if (hsl !== false) {
-            return hsl ?? false;
+            return hsl !== null && hsl !== void 0 ? hsl : false;
         }
         const rgb = parseFunction.rgb(value, roundingFactor);
         // returns
         if (rgb !== false) {
-            return rgb ?? false;
+            return rgb !== null && rgb !== void 0 ? rgb : false;
         }
         const lch = parseFunction.lch(value, roundingFactor);
         // returns
         if (lch !== false) {
-            return lch ?? false;
+            return lch !== null && lch !== void 0 ? lch : false;
         }
         const oklch = parseFunction.oklch(value, roundingFactor);
         // returns
         if (oklch !== false) {
-            return oklch ?? false;
+            return oklch !== null && oklch !== void 0 ? oklch : false;
         }
         const hwb = parseFunction.hwb(value, roundingFactor);
         // returns
         if (hwb !== false) {
-            return hwb ?? false;
+            return hwb !== null && hwb !== void 0 ? hwb : false;
         }
         const lab = parseFunction.lab(value, roundingFactor);
         // returns
         if (lab !== false) {
-            return lab ?? false;
+            return lab !== null && lab !== void 0 ? lab : false;
         }
         const oklab = parseFunction.oklab(value, roundingFactor);
         // returns
         if (oklab !== false) {
-            return oklab ?? false;
+            return oklab !== null && oklab !== void 0 ? oklab : false;
         }
         return false;
     }
@@ -753,7 +753,7 @@ export var CssColours;
         function hex(value, strict = true) {
             const hexMatches = Regex.Match.hex(value, strict);
             // returns
-            if (!hexMatches?.matches) {
+            if (!(hexMatches === null || hexMatches === void 0 ? void 0 : hexMatches.matches)) {
                 return false;
             }
             const { groups } = hexMatches;
@@ -779,7 +779,7 @@ export var CssColours;
             if (typeof numbers.alpha === 'number' && !Number.isNaN(numbers.alpha)) {
                 parsed.alpha = numbers.alpha;
             }
-            return { space: 'hex', ...parsed };
+            return Object.assign({ space: 'hex' }, parsed);
         }
         parseFunction.hex = hex;
         /**
@@ -791,7 +791,7 @@ export var CssColours;
         function hsl(value, roundingFactor) {
             const hslMatches = Regex.Match.hsl(value);
             // returns
-            if (!hslMatches?.matches) {
+            if (!(hslMatches === null || hslMatches === void 0 ? void 0 : hslMatches.matches)) {
                 return false;
             }
             // returns
@@ -817,13 +817,10 @@ export var CssColours;
             if (typeof numbers.alpha === 'number' && !Number.isNaN(numbers.alpha)) {
                 parsed.alpha = units.alpha ? numbers.alpha : numbers.alpha * 100;
             }
-            roundingFactor = roundingFactor ?? 1000;
-            return {
-                space: 'hsl',
-                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                    : entry[1]),
-            };
+            roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
+            return Object.assign({ space: 'hsl' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                : entry[1]));
         }
         parseFunction.hsl = hsl;
         /**
@@ -835,7 +832,7 @@ export var CssColours;
         function hwb(value, roundingFactor) {
             const hwbMatches = Regex.Match.hwb(value);
             // returns
-            if (!hwbMatches?.matches) {
+            if (!(hwbMatches === null || hwbMatches === void 0 ? void 0 : hwbMatches.matches)) {
                 return false;
             }
             // returns
@@ -861,13 +858,10 @@ export var CssColours;
             if (typeof numbers.alpha === 'number' && !Number.isNaN(numbers.alpha)) {
                 parsed.alpha = units.alpha ? numbers.alpha : numbers.alpha * 100;
             }
-            roundingFactor = roundingFactor ?? 1000;
-            return {
-                space: 'hwb',
-                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                    : entry[1]),
-            };
+            roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
+            return Object.assign({ space: 'hwb' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                : entry[1]));
         }
         parseFunction.hwb = hwb;
         /**
@@ -879,7 +873,7 @@ export var CssColours;
         function lab(value, roundingFactor) {
             const labMatches = Regex.Match.lab(value);
             // returns
-            if (!labMatches?.matches) {
+            if (!(labMatches === null || labMatches === void 0 ? void 0 : labMatches.matches)) {
                 return false;
             }
             // returns
@@ -905,13 +899,10 @@ export var CssColours;
             if (typeof numbers.alpha === 'number' && !Number.isNaN(numbers.alpha)) {
                 parsed.alpha = units.alpha ? numbers.alpha : (numbers.alpha * 100);
             }
-            roundingFactor = roundingFactor ?? 1000;
-            return {
-                space: 'lab',
-                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                    : entry[1]),
-            };
+            roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
+            return Object.assign({ space: 'lab' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                : entry[1]));
         }
         parseFunction.lab = lab;
         /**
@@ -923,7 +914,7 @@ export var CssColours;
         function oklab(value, roundingFactor) {
             const oklabMatches = Regex.Match.oklab(value);
             // returns
-            if (!oklabMatches?.matches) {
+            if (!(oklabMatches === null || oklabMatches === void 0 ? void 0 : oklabMatches.matches)) {
                 return false;
             }
             // returns
@@ -949,13 +940,10 @@ export var CssColours;
             if (typeof numbers.alpha === 'number' && !Number.isNaN(numbers.alpha)) {
                 parsed.alpha = units.alpha === '%' ? (numbers.alpha / 100) : numbers.alpha;
             }
-            roundingFactor = roundingFactor ?? 1000000000;
-            return {
-                space: 'oklab',
-                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                    : entry[1]),
-            };
+            roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000000000;
+            return Object.assign({ space: 'oklab' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                : entry[1]));
         }
         parseFunction.oklab = oklab;
         /**
@@ -967,7 +955,7 @@ export var CssColours;
         function lch(value, roundingFactor) {
             const lchMatches = Regex.Match.lch(value);
             // returns
-            if (!lchMatches?.matches) {
+            if (!(lchMatches === null || lchMatches === void 0 ? void 0 : lchMatches.matches)) {
                 return false;
             }
             // returns
@@ -993,13 +981,10 @@ export var CssColours;
             if (typeof numbers.alpha === 'number' && !Number.isNaN(numbers.alpha)) {
                 parsed.alpha = units.alpha ? numbers.alpha : (numbers.alpha * 100);
             }
-            roundingFactor = roundingFactor ?? 1000;
-            return {
-                space: 'lch',
-                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                    : entry[1]),
-            };
+            roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
+            return Object.assign({ space: 'lch' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                : entry[1]));
         }
         parseFunction.lch = lch;
         /**
@@ -1011,7 +996,7 @@ export var CssColours;
         function oklch(value, roundingFactor) {
             const oklchMatches = Regex.Match.oklch(value);
             // returns
-            if (!oklchMatches?.matches) {
+            if (!(oklchMatches === null || oklchMatches === void 0 ? void 0 : oklchMatches.matches)) {
                 return false;
             }
             // returns
@@ -1032,18 +1017,15 @@ export var CssColours;
             const parsed = {
                 l: units.l === '%' ? (numbers.l / 100) : numbers.l,
                 c: units.c === '%' ? (numbers.c * 0.4) : numbers.c,
-                h: Math.round((units.h === '%' ? (numbers.h * 360) : numbers.h) * (roundingFactor ?? 1000)) / (roundingFactor ?? 1000),
+                h: Math.round((units.h === '%' ? (numbers.h * 360) : numbers.h) * (roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000)) / (roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000),
             };
             if (typeof numbers.alpha === 'number' && !Number.isNaN(numbers.alpha)) {
                 parsed.alpha = units.alpha === '%' ? (numbers.alpha / 100) : numbers.alpha;
             }
-            roundingFactor = roundingFactor ?? 1000000000;
-            return {
-                space: 'oklch',
-                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                    : entry[1]),
-            };
+            roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000000000;
+            return Object.assign({ space: 'oklch' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                : entry[1]));
         }
         parseFunction.oklch = oklch;
         /**
@@ -1055,7 +1037,7 @@ export var CssColours;
         function rgb(value, roundingFactor) {
             const rgbMatches = Regex.Match.rgb(value);
             // returns
-            if (!rgbMatches?.matches) {
+            if (!(rgbMatches === null || rgbMatches === void 0 ? void 0 : rgbMatches.matches)) {
                 return false;
             }
             // returns
@@ -1081,13 +1063,10 @@ export var CssColours;
             if (typeof numbers.alpha === 'number' && !Number.isNaN(numbers.alpha)) {
                 parsed.alpha = units.alpha ? numbers.alpha : numbers.alpha * 100;
             }
-            roundingFactor = roundingFactor ?? 1000;
-            return {
-                space: 'rgb',
-                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                    : entry[1]),
-            };
+            roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
+            return Object.assign({ space: 'rgb' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                : entry[1]));
         }
         parseFunction.rgb = rgb;
     })(parseFunction = CssColours.parseFunction || (CssColours.parseFunction = {}));

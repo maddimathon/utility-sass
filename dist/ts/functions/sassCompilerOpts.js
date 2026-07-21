@@ -18,16 +18,10 @@ import { sassCompilerFunctions } from './sassCompilerFunctions.js';
  * @since 0.1.0-alpha.8
  */
 export function sassCompilerOpts(args, partial) {
+    var _a, _b;
     const silenceDeprecations = [
-        ...partial?.silenceDeprecations ?? [],
+        ...(_a = partial === null || partial === void 0 ? void 0 : partial.silenceDeprecations) !== null && _a !== void 0 ? _a : [],
         'if-function',
     ];
-    return {
-        ...partial ?? {},
-        silenceDeprecations,
-        functions: {
-            ...partial?.functions ?? {},
-            ...sassCompilerFunctions(args),
-        },
-    };
+    return Object.assign(Object.assign({}, partial !== null && partial !== void 0 ? partial : {}), { silenceDeprecations, functions: Object.assign(Object.assign({}, (_b = partial === null || partial === void 0 ? void 0 : partial.functions) !== null && _b !== void 0 ? _b : {}), sassCompilerFunctions(args)) });
 }

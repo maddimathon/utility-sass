@@ -28,6 +28,8 @@ export class Compile extends CompileStage {
      * @override
      */
     subStages = [
+        // @ts-expect-error
+        'tsconfig',
         'ts',
         'scss',
         // @ts-expect-error
@@ -110,5 +112,35 @@ export class Compile extends CompileStage {
                 ], ( this.params.verbose ? 3 : 2 ) ]
             );
         }
+    }
+
+    /**
+     * @protected
+     */
+    async tsconfig() {
+        this.console.progress( 'writing tsconfig files...', 1 );
+
+        await this.atry( this.writeTsConfig, 2, [
+            'src/ts/tsconfig.json',
+            2,
+            {
+                extends: '@maddimathon/build-utilities/tsconfig.browser',
+
+                include: [
+                    '../../src/ts/**/*',
+                    './src/ts/**/*',
+                ],
+                exclude: [
+                    './node_modules/**/*',
+                ],
+
+                compilerOptions: {
+                    declaration: true,
+                    declarationMap: false,
+                    outDir: '../../dist/ts/',
+                    rootDir: './',
+                },
+            },
+        ] );
     }
 }

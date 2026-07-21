@@ -1,16 +1,49 @@
 {
-    "extends": "@maddimathon/build-utilities/tsconfig",
-    "include": [
-        "../../src/ts/**/*",
-        "./src/ts/**/*"
-    ],
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "compilerOptions": {
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "alwaysStrict": true,
+        "composite": true,
+        "declaration": true,
+        "declarationMap": false,
+        "exactOptionalPropertyTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedDeclarations": true,
+        "isolatedModules": true,
+        "module": "ES2015",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": "../../dist/ts/",
+        "preserveSymlinks": true,
+        "pretty": true,
+        "removeComments": false,
+        "resolveJsonModule": true,
+        "rootDir": "./",
+        "skipLibCheck": true,
+        "sourceMap": false,
+        "strict": true,
+        "strictBindCallApply": true,
+        "strictBuiltinIteratorReturn": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "target": "ES2015",
+        "useUnknownInCatchVariables": true,
+        "verbatimModuleSyntax": true
+    },
     "exclude": [
         "./node_modules/**/*"
     ],
-    "compilerOptions": {
-        "declaration": true,
-        "declarationMap": false,
-        "outDir": "../../dist/ts/",
-        "rootDir": "./"
-    }
+    "include": [
+        "../../src/ts/**/*",
+        "./src/ts/**/*"
+    ]
 }

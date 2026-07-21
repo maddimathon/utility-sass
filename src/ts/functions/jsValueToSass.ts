@@ -162,6 +162,7 @@ export async function jsValueToSass(
             );
     }
 
+    // @ts-expect-error - should be unreachable
     return new sass.SassString( String( value ) );
 }
 
