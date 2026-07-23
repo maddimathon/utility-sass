@@ -137,8 +137,10 @@ export class Compile extends CompileStage {
                 compilerOptions: {
                     declaration: true,
                     declarationMap: false,
+                    module: 'ES2022',
                     outDir: '../../dist/ts/',
                     rootDir: './',
+                    target: 'ES2017',
                 },
             },
         ] );

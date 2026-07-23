@@ -7,15 +7,6 @@
  * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { DateTime } from 'luxon';
 import * as sass from "sass-embedded";
 import { sassAssertValueType } from '../sassAssertValueType.js';
@@ -29,7 +20,7 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
  */
 export function sassFn_debugProgressCheckpoint({ console, params }) {
     return {
-        'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': (args) => __awaiter(this, void 0, void 0, function* () {
+        'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': async (args) => {
             const time = DateTime.now();
             return Promise.all([
                 sassAssertValueType('location', 'number', args[2]),
@@ -51,6 +42,6 @@ export function sassFn_debugProgressCheckpoint({ console, params }) {
                 }
                 return new sass.SassString(message);
             });
-        }),
+        },
     };
 }

@@ -7,15 +7,6 @@
  * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import * as sass from "sass-embedded";
 /**
  * Translates sass values to JS values.
@@ -24,62 +15,60 @@ import * as sass from "sass-embedded";
  *
  * @since 0.1.0-alpha.29
  */
-export function sassValueToJS(sassValue_1) {
-    return __awaiter(this, arguments, void 0, function* (sassValue, _recursionCounter = 0) {
-        var _a, _b, _c;
-        // returns
-        if (sassValue === null) {
+export async function sassValueToJS(sassValue, _recursionCounter = 0) {
+    var _a, _b, _c;
+    // returns
+    if (sassValue === null) {
+        return null;
+    }
+    // returns
+    if (_recursionCounter >= 1000) {
+        throw `Recursion limit reached - recursed ${_recursionCounter} times (likely be a result of unsupported Sass values being parsed)`;
+    }
+    // returns
+    switch (sassValueToJS.typeOf(sassValue)) {
+        case 'args':
+            const keywords = sassValue.keywords;
+            // returns
+            if (!(keywords === null || keywords === void 0 ? void 0 : keywords.size)) {
+                return new Map();
+            }
+            return Promise.all(Array.from(keywords.entries()).map(([key, value]) => Promise.all([
+                key,
+                sassValueToJS(value, _recursionCounter + 1),
+            ]))).then((entries) => new Map(entries));
+        case 'boolean':
+        case 'number':
+        case 'undefined':
+            return (_a = sassValue === null || sassValue === void 0 ? void 0 : sassValue.value) !== null && _a !== void 0 ? _a : null;
+        case 'color':
+            return String(sassValue);
+        case 'map':
+            const asMap = sassValue.tryMap();
+            // returns
+            if (!(asMap === null || asMap === void 0 ? void 0 : asMap.contents.size)) {
+                return new Map();
+            }
+            return Promise.all(Array.from((_c = (_b = sassValue.tryMap().contents) === null || _b === void 0 ? void 0 : _b.entries()) !== null && _c !== void 0 ? _c : []).map(([key, value]) => Promise.all([
+                sassValueToJS(key, _recursionCounter + 1),
+                sassValueToJS(value, _recursionCounter + 1),
+            ]))).then((entries) => new Map(entries));
+        case 'null':
             return null;
-        }
-        // returns
-        if (_recursionCounter >= 1000) {
-            throw `Recursion limit reached - recursed ${_recursionCounter} times (likely be a result of unsupported Sass values being parsed)`;
-        }
-        // returns
-        switch (sassValueToJS.typeOf(sassValue)) {
-            case 'args':
-                const keywords = sassValue.keywords;
-                // returns
-                if (!(keywords === null || keywords === void 0 ? void 0 : keywords.size)) {
-                    return new Map();
-                }
-                return Promise.all(Array.from(keywords.entries()).map(([key, value]) => Promise.all([
-                    key,
-                    sassValueToJS(value, _recursionCounter + 1),
-                ]))).then((entries) => new Map(entries));
-            case 'boolean':
-            case 'number':
-            case 'undefined':
-                return (_a = sassValue === null || sassValue === void 0 ? void 0 : sassValue.value) !== null && _a !== void 0 ? _a : null;
-            case 'color':
-                return String(sassValue);
-            case 'map':
-                const asMap = sassValue.tryMap();
-                // returns
-                if (!(asMap === null || asMap === void 0 ? void 0 : asMap.contents.size)) {
-                    return new Map();
-                }
-                return Promise.all(Array.from((_c = (_b = sassValue.tryMap().contents) === null || _b === void 0 ? void 0 : _b.entries()) !== null && _c !== void 0 ? _c : []).map(([key, value]) => Promise.all([
-                    sassValueToJS(key, _recursionCounter + 1),
-                    sassValueToJS(value, _recursionCounter + 1),
-                ]))).then((entries) => new Map(entries));
-            case 'null':
-                return null;
-            case 'string':
-                const sassStr = sassValue;
-                return sassStr.hasQuotes ? sassStr.text.replace(/^['"](.*)['"]$/g, '$1') : sassStr.text;
-            case 'undefined':
-                return undefined;
-            case 'list':
-            default:
-                const asList = sassValue.asList;
-                // returns
-                if (!asList.size) {
-                    return [];
-                }
-                return Promise.all(sassValue.asList.map(_val => sassValueToJS(_val, _recursionCounter + 1)));
-        }
-    });
+        case 'string':
+            const sassStr = sassValue;
+            return sassStr.hasQuotes ? sassStr.text.replace(/^['"](.*)['"]$/g, '$1') : sassStr.text;
+        case 'undefined':
+            return undefined;
+        case 'list':
+        default:
+            const asList = sassValue.asList;
+            // returns
+            if (!asList.size) {
+                return [];
+            }
+            return Promise.all(sassValue.asList.map(_val => sassValueToJS(_val, _recursionCounter + 1)));
+    }
 }
 /**
  * Utilities for the {@link sassValueToJS} function.

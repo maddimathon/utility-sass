@@ -16,9 +16,6 @@ import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
  *
  * @category Module Support
  *
- * @typeParam T_CustomCheckerSlug  Slugs used for custom feature checkers.
- * @typeParam T_CustomChecker      Shape(s) of the custom feature checkers.
- *
  * @example
  * This class is meant to be used client-side to assess local CSS & JS 
  * compatibility.
@@ -31,18 +28,20 @@ import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
  * {@includeCode ./FeatureCheck.docs.ts#Simple}
  *
  * If you don’t want simple, the checks can also be customized — this
- * customization can mark some features as never available and add on custom
- * feature checks:
+ * customization can mark some features as never available (or always
+ * available), replace defaul testing logic, or add on additional custom feature
+ * checks:
  * {@includeCode ./FeatureCheck.docs.ts#Custom}
  *
  * @since 0.1.0-pre.0
  */
 export class FeatureCheck<
+    /**
+     * The slugs for additional custom checker functions included in the
+     * instance & its output.
+     */
     T_CustomCheckerSlug extends string = string,
 > {
-
-
-
     /* STATIC
      * ====================================================================== */
 
@@ -241,11 +240,12 @@ export class FeatureCheck<
             focusVisible: true,
             hasSelector: true,
             subgrid: true,
+            touch: true,
             variableFonts: true,
             whereSelector: true,
         },
         custom: {},
-        outputResults: false,
+        logResults: false,
     }> {
         const checks = {
             aspectRatio: true,
@@ -257,6 +257,7 @@ export class FeatureCheck<
             focusVisible: true,
             hasSelector: true,
             subgrid: true,
+            touch: true,
             variableFonts: true,
             whereSelector: true,
         } satisfies FeatureCheck.CheckerOpts<never>;
@@ -264,7 +265,7 @@ export class FeatureCheck<
         return {
             checks,
             custom: {},
-            outputResults: false,
+            logResults: false,
         } as const satisfies FeatureCheck.Opts<never>;
     }
 
@@ -379,25 +380,14 @@ export class FeatureCheck<
                 {} as FeatureCheck.CustomCheckerOpts<T_CustomCheckerSlug>
             ),
 
-            outputResults: opts.outputResults ?? _defaultOpts.outputResults,
+            logResults: opts.logResults ?? _defaultOpts.logResults,
         };
 
         this.root = root ?? document.querySelector( ':root' );
 
-        this.aspectRatio = this.aspectRatio.bind( this );
-        this.atProperty = this.atProperty.bind( this );
-        this.backgroundFixed = this.backgroundFixed.bind( this );
-        this.calc = this.calc.bind( this );
         this.check = this.check.bind( this );
-        this.displayContents = this.displayContents.bind( this );
-        this.focusVisible = this.focusVisible.bind( this );
-        this.focusWithin = this.focusWithin.bind( this );
-        this.hasSelector = this.hasSelector.bind( this );
         this.isCustomCheck = this.isCustomCheck.bind( this );
         this.isDefaultCheck = this.isDefaultCheck.bind( this );
-        this.subgrid = this.subgrid.bind( this );
-        this.variableFonts = this.variableFonts.bind( this );
-        this.whereSelector = this.whereSelector.bind( this );
     }
 
 
@@ -410,50 +400,54 @@ export class FeatureCheck<
      * 
      * @experimental
      */
-    public check(): void {
+    public async check(): Promise<void> {
         if ( !this.root ) { return; }
 
-        // if this is running, js will run
-        this.setFeature( 'js', true, true );
-
-        for ( const check of this.allCheckSlugs ) {
-            // continues
-            if ( this.isCustomCheck( check ) ) {
-
-                if ( this.opts.checks[ check ] !== false ) {
-                    this.customCheck( check );
-                }
-                continue;
-            }
-
-            // continues
-            if ( this.isDefaultCheck( check ) ) {
-
-                if ( this.opts.checks[ check ] ) {
-                    this[ check ]();
-                }
-                continue;
-            }
-        }
+        return Promise.all( [
+            this.setFeature( 'js', true, true ),
+            ...this.allCheckSlugs.map(
+                check => this.setFeature( check, this.getCheck( check ) )
+            )
+        ] ).then( () => { } );
     }
 
-    /**
-     * Runs a custom check and updates the feature slug's class names on the
-     * {@link FeatureCheck.root} element.
-     *
-     * @return  The test result.
-     *
-     * @experimental
-     */
-    protected async customCheck(
-        slug: T_CustomCheckerSlug,
-    ): Promise<boolean> {
-        const { test } = this.opts.custom[ slug ];
+    #checkCache: {
+        [ K in "js" | T_CustomCheckerSlug | FeatureCheck.DefaultCheckSlug ]?: boolean | Promise<boolean>;
+    } = {};
 
-        return this.setFeature(
-            slug,
-            typeof test === 'function' ? test( slug, this ) : test
-        );
+    /**
+     * Gets a test result, caches it, and returns the cached value if already
+     * calculated. If you're using this class for conditional JS (instead of for
+     * its body classes), use this method to get test results.
+     */
+    public async getCheck(
+        check: "js" | T_CustomCheckerSlug | FeatureCheck.DefaultCheckSlug,
+    ): Promise<boolean> {
+        // returns
+        if ( typeof this.#checkCache[ check ] !== 'undefined' ) {
+            return this.#checkCache[ check ];
+        }
+
+        // returns
+        if ( this.isCustomCheck( check ) ) {
+
+            this.#checkCache[ check ] = this.opts.checks[ check ] ? (
+                typeof this.opts.custom[ check ].test === 'function'
+                    ? this.opts.custom[ check ].test( check, this )
+                    : this.opts.custom[ check ].test
+            ) : false;
+
+            return this.#checkCache[ check ];
+        }
+
+        // returns
+        if ( this.isDefaultCheck( check ) && this.opts.checks[ check ] ) {
+            this.#checkCache[ check ] = FeatureCheck.CHECKERS[ check ]();
+            return this.#checkCache[ check ];
+        }
+
+        this.#checkCache[ check ] = false;
+        return false;
     }
 
     /**
@@ -475,7 +469,7 @@ export class FeatureCheck<
          * If true, the feature is marked as available. Otherwise it is marked
          * unavailable.
          */
-        value: boolean,
+        value: boolean | Promise<boolean>,
 
         /**
          * Whether to exclude the 'js__' prefix. This is only used to set the
@@ -489,16 +483,18 @@ export class FeatureCheck<
     ): Promise<boolean> {
         if ( !this.root ) { return value; }
 
-        const falseSlug = FeatureCheck.getClassName( featureSlug, false, ignorePrefix );
-        const trueSlug = FeatureCheck.getClassName( featureSlug, true, ignorePrefix );
+        value = await value;
 
-        const classToAdd = value ? trueSlug : falseSlug;
-        const classToRemove = value ? falseSlug : trueSlug;
+        const falseClass = FeatureCheck.getClassName( featureSlug, false, ignorePrefix );
+        const trueClass = FeatureCheck.getClassName( featureSlug, true, ignorePrefix );
 
-        this.root.classList.add( classToAdd );
+        const classToAdd = value ? trueClass : falseClass;
+        const classToRemove = value ? falseClass : trueClass;
+
         this.root.classList.remove( classToRemove );
+        this.root.classList.add( classToAdd );
 
-        if ( this.opts.outputResults ) {
+        if ( this.opts.logResults ) {
             console.info(
                 `[FeatureCheck] checked: ${ featureSlug }\n`,
                 { result: value, classToAdd, classToRemove },
@@ -506,151 +502,6 @@ export class FeatureCheck<
         }
 
         return value;
-    }
-
-
-    /* Checkers ===================================== */
-
-    /**
-     * Checks for `aspect-ratio` css property support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async aspectRatio(): Promise<boolean> {
-        return this.setFeature(
-            'aspectRatio',
-            FeatureCheck.supportsCSS( 'aspect-ratio: 1 / 2' ),
-        );
-    }
-
-    /**
-     * Checks for css `@property` at-rule support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async atProperty(): Promise<boolean> {
-        return this.setFeature( 'atProperty', !!window.CSSPropertyRule );
-    }
-
-    /**
-     * Checks for `background-attachment: fixed` css rule support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async backgroundFixed(): Promise<boolean> {
-        return this.setFeature(
-            'backgroundFixed',
-            FeatureCheck.supportsCSS( 'background-attachment: fixed' ),
-        );
-    }
-
-    /**
-     * Checks for `calc()` css value support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async calc(): Promise<boolean> {
-        return this.setFeature(
-            'calc',
-            FeatureCheck.supportsCSS( 'width: calc( 0.25em + 10% )' ),
-        );
-    }
-
-    /**
-     * Checks for `display: contents` css rule support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async displayContents(): Promise<boolean> {
-        return this.setFeature(
-            'displayContents',
-            FeatureCheck.supportsCSS( 'display: contents' ),
-        );
-    }
-
-    /**
-     * Checks for `:focus-within` css selector support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async focusWithin(): Promise<boolean> {
-        return this.setFeature(
-            'focusWithin',
-            FeatureCheck.supportsCSS( 'selector( a:focus-within )' ),
-        );
-    }
-
-    /**
-     * Checks for `:focus-visible` css selector support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async focusVisible(): Promise<boolean> {
-        return this.setFeature(
-            'focusVisible',
-            FeatureCheck.supportsCSS( 'selector( a:focus-visible )' ),
-        );
-    }
-
-    /**
-     * Checks for `:has()` css selector support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async hasSelector(): Promise<boolean> {
-        return this.setFeature(
-            'hasSelector',
-            FeatureCheck.supportsCSS( 'selector( :has( a ) )' ),
-        );
-    }
-
-    /**
-     * Checks for `grid-template-columns: subgrid` css rule support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async subgrid(): Promise<boolean> {
-        return this.setFeature(
-            'subgrid',
-            FeatureCheck.supportsCSS( 'grid-template-columns: subgrid' ),
-        );
-    }
-
-    /**
-     * Checks for `grid-template-columns: subgrid` css rule support.
-     * 
-     * @since ___PKG_VERSION___
-     * 
-     * @experimental
-     * @source
-     */
-    public async variableFonts(): Promise<boolean> {
-        return this.setFeature(
-            'variableFonts',
-            FeatureCheck.supportsCSS( 'font-variation-settings: normal' ),
-        );
-    }
-
-    /**
-     * Checks for `:where()` css selector support.
-     * 
-     * @experimental
-     * @source
-     */
-    public async whereSelector(): Promise<boolean> {
-        return this.setFeature(
-            'whereSelector',
-            FeatureCheck.supportsCSS( 'selector( :where( a ) )' ),
-        );
     }
 }
 
@@ -678,6 +529,11 @@ export namespace FeatureCheck {
         | "focusVisible"
         | "hasSelector"
         | "subgrid"
+        /** 
+         * Tries to detect if this device accepts touch input — this is useful
+         * for increasing spacing for buttons and other click targets.
+         */
+        | "touch"
         | "variableFonts"
         | "whereSelector";
 
@@ -755,7 +611,7 @@ export namespace FeatureCheck {
         /**
          * Whether to output the results of each feature check as it is made.
          */
-        outputResults: boolean;
+        logResults: boolean;
     };
 
     /**
@@ -783,6 +639,137 @@ export namespace FeatureCheck {
         /**
          * Whether to output the results of each feature check as it is made.
          */
-        outputResults?: undefined | boolean;
+        logResults?: undefined | boolean;
+    };
+
+    /**
+     * The default checker functions.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    export const CHECKERS = {
+        /**
+         * Checks for `aspect-ratio` css property support.
+         * 
+         * @experimental
+         * @source
+         */
+        aspectRatio: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'aspect-ratio: 1 / 2' ),
+
+        /**
+         * Checks for css `@property` at-rule support.
+         * 
+         * @experimental
+         * @source
+         */
+        atProperty: async (): Promise<boolean> => !!window.CSSPropertyRule,
+
+        /**
+         * Checks for `background-attachment: fixed` css rule support.
+         * 
+         * @experimental
+         * @source
+         */
+        backgroundFixed: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'background-attachment: fixed' ),
+
+        /**
+         * Checks for `calc()` css value support.
+         * 
+         * @experimental
+         * @source
+         */
+        calc: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'width: calc( 0.25em + 10% )' ),
+
+        /**
+         * Checks for `display: contents` css rule support.
+         * 
+         * @experimental
+         * @source
+         */
+        displayContents: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'display: contents' ),
+
+        /**
+         * Checks for `:focus-within` css selector support.
+         * 
+         * @experimental
+         * @source
+         */
+        focusWithin: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'selector( a:focus-within )' ),
+
+        /**
+         * Checks for `:focus-visible` css selector support.
+         * 
+         * @experimental
+         * @source
+         */
+        focusVisible: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'selector( a:focus-visible )' ),
+
+        /**
+         * Checks for `:has()` css selector support.
+         * 
+         * @experimental
+         * @source
+         */
+        hasSelector: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'selector( :has( a ) )' ),
+
+        /**
+         * Checks for `grid-template-columns: subgrid` css rule support.
+         * 
+         * @experimental
+         * @source
+         */
+        subgrid: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'grid-template-columns: subgrid' ),
+
+        /**
+         * Tries to detect if this device accepts touch input — this is useful for
+         * increasing spacing for buttons and other click targets.
+         *
+         * @experimental
+         * @source
+         */
+        touch: async (): Promise<boolean> => {
+            const _navigator = navigator as Omit<typeof navigator, 'maxTouchPoints'> & {
+                maxTouchPoints?: undefined | typeof navigator.maxTouchPoints;
+                msMaxTouchPoints?: undefined | typeof navigator.maxTouchPoints;
+            };
+
+            let testResult = false;
+
+            if (
+                typeof _navigator.maxTouchPoints !== 'undefined'
+                || typeof _navigator.msMaxTouchPoints !== 'undefined'
+            ) {
+                // use these values to test
+                testResult = !!( _navigator.maxTouchPoints || _navigator.msMaxTouchPoints );
+            } else {
+                // this is an old (pre 2014-2020) browser without that detection
+                // method available
+
+                // I consider this test more likely to return false positives (and
+                // it only has marginally better support), but this feature is
+                // important to detect for accessibly-sized touch targets
+                testResult = 'ontouchstart' in window;
+            }
+
+            return testResult;
+        },
+
+        /**
+         * Checks for `grid-template-columns: subgrid` css rule support.
+         * 
+         * @since ___PKG_VERSION___
+         * 
+         * @experimental
+         * @source
+         */
+        variableFonts: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'font-variation-settings: normal' ),
+
+        /**
+         * Checks for `:where()` css selector support.
+         * 
+         * @experimental
+         * @source
+         */
+        whereSelector: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'selector( :where( a ) )' ),
     };
 }

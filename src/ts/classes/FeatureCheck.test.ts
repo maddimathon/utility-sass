@@ -8,10 +8,16 @@
  * @license MIT
  */
 
-// import type { Test } from '@maddimathon/utility-typescript/types';
+import type { Test } from '@maddimathon/utility-typescript/types';
 import { describe, expect, test } from '@jest/globals';
 import { FeatureCheck } from './FeatureCheck.js';
 
+export type CheckerTypeTest = [
+
+    Test.Expect<Test.Satisfies<typeof FeatureCheck.CHECKERS, {
+        [ K in FeatureCheck.DefaultCheckSlug ]: () => Promise<boolean>;
+    }>>,
+];
 
 const array = [
     'aspectRatio',

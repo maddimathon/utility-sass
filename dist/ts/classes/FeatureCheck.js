@@ -7,14 +7,10 @@
  * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * @license MIT
  */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
@@ -27,14 +23,12 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+var _FeatureCheck_checkCache;
 /**
  * Utility class that uses client-side JS to test for JS and CSS feature
  * compaibility. Updates root element class names accordingly.
  *
  * @category Module Support
- *
- * @typeParam T_CustomCheckerSlug  Slugs used for custom feature checkers.
- * @typeParam T_CustomChecker      Shape(s) of the custom feature checkers.
  *
  * @example
  * This class is meant to be used client-side to assess local CSS & JS
@@ -48,8 +42,9 @@ var __rest = (this && this.__rest) || function (s, e) {
  * {@includeCode ./FeatureCheck.docs.ts#Simple}
  *
  * If you don’t want simple, the checks can also be customized — this
- * customization can mark some features as never available and add on custom
- * feature checks:
+ * customization can mark some features as never available (or always
+ * available), replace defaul testing logic, or add on additional custom feature
+ * checks:
  * {@includeCode ./FeatureCheck.docs.ts#Custom}
  *
  * @since 0.1.0-pre.0
@@ -152,13 +147,14 @@ export class FeatureCheck {
             focusVisible: true,
             hasSelector: true,
             subgrid: true,
+            touch: true,
             variableFonts: true,
             whereSelector: true,
         };
         return {
             checks,
             custom: {},
-            outputResults: false,
+            logResults: false,
         };
     }
     /**
@@ -204,6 +200,7 @@ export class FeatureCheck {
          * Partial options to override defaults.
          */
         ["checks", "custom"]);
+        _FeatureCheck_checkCache.set(this, {});
         const _c = FeatureCheck.DEFAULT_OPTS, { checks: defaultChecks } = _c, _defaultOpts = __rest(_c, ["checks"]);
         const _customCheckSlugs = Object.keys(custom !== null && custom !== void 0 ? custom : {});
         const _defaultCheckSlugs = Object.keys(defaultChecks);
@@ -216,23 +213,12 @@ export class FeatureCheck {
         this.opts = {
             checks: Object.assign(Object.assign({}, defaultChecks), checks),
             custom: custom !== null && custom !== void 0 ? custom : {},
-            outputResults: (_b = opts.outputResults) !== null && _b !== void 0 ? _b : _defaultOpts.outputResults,
+            logResults: (_b = opts.logResults) !== null && _b !== void 0 ? _b : _defaultOpts.logResults,
         };
         this.root = root !== null && root !== void 0 ? root : document.querySelector(':root');
-        this.aspectRatio = this.aspectRatio.bind(this);
-        this.atProperty = this.atProperty.bind(this);
-        this.backgroundFixed = this.backgroundFixed.bind(this);
-        this.calc = this.calc.bind(this);
         this.check = this.check.bind(this);
-        this.displayContents = this.displayContents.bind(this);
-        this.focusVisible = this.focusVisible.bind(this);
-        this.focusWithin = this.focusWithin.bind(this);
-        this.hasSelector = this.hasSelector.bind(this);
         this.isCustomCheck = this.isCustomCheck.bind(this);
         this.isDefaultCheck = this.isDefaultCheck.bind(this);
-        this.subgrid = this.subgrid.bind(this);
-        this.variableFonts = this.variableFonts.bind(this);
-        this.whereSelector = this.whereSelector.bind(this);
     }
     /* METHODS
      * ====================================================================== */
@@ -241,42 +227,39 @@ export class FeatureCheck {
      *
      * @experimental
      */
-    check() {
+    async check() {
         if (!this.root) {
             return;
         }
-        // if this is running, js will run
-        this.setFeature('js', true, true);
-        for (const check of this.allCheckSlugs) {
-            // continues
-            if (this.isCustomCheck(check)) {
-                if (this.opts.checks[check] !== false) {
-                    this.customCheck(check);
-                }
-                continue;
-            }
-            // continues
-            if (this.isDefaultCheck(check)) {
-                if (this.opts.checks[check]) {
-                    this[check]();
-                }
-                continue;
-            }
-        }
+        return Promise.all([
+            this.setFeature('js', true, true),
+            ...this.allCheckSlugs.map(check => this.setFeature(check, this.getCheck(check)))
+        ]).then(() => { });
     }
     /**
-     * Runs a custom check and updates the feature slug's class names on the
-     * {@link FeatureCheck.root} element.
-     *
-     * @return  The test result.
-     *
-     * @experimental
+     * Gets a test result, caches it, and returns the cached value if already
+     * calculated. If you're using this class for conditional JS (instead of for
+     * its body classes), use this method to get test results.
      */
-    customCheck(slug) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { test } = this.opts.custom[slug];
-            return this.setFeature(slug, typeof test === 'function' ? test(slug, this) : test);
-        });
+    async getCheck(check) {
+        // returns
+        if (typeof __classPrivateFieldGet(this, _FeatureCheck_checkCache, "f")[check] !== 'undefined') {
+            return __classPrivateFieldGet(this, _FeatureCheck_checkCache, "f")[check];
+        }
+        // returns
+        if (this.isCustomCheck(check)) {
+            __classPrivateFieldGet(this, _FeatureCheck_checkCache, "f")[check] = this.opts.checks[check] ? (typeof this.opts.custom[check].test === 'function'
+                ? this.opts.custom[check].test(check, this)
+                : this.opts.custom[check].test) : false;
+            return __classPrivateFieldGet(this, _FeatureCheck_checkCache, "f")[check];
+        }
+        // returns
+        if (this.isDefaultCheck(check) && this.opts.checks[check]) {
+            __classPrivateFieldGet(this, _FeatureCheck_checkCache, "f")[check] = FeatureCheck.CHECKERS[check]();
+            return __classPrivateFieldGet(this, _FeatureCheck_checkCache, "f")[check];
+        }
+        __classPrivateFieldGet(this, _FeatureCheck_checkCache, "f")[check] = false;
+        return false;
     }
     /**
      * Set a feature slug's class names on the {@link FeatureCheck.root}
@@ -286,7 +269,7 @@ export class FeatureCheck {
      *
      * @experimental
      */
-    setFeature(
+    async setFeature(
     /**
      * Feature result to set.
      */
@@ -304,144 +287,140 @@ export class FeatureCheck {
      * @internal
      */
     ignorePrefix) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!this.root) {
-                return value;
-            }
-            const falseSlug = FeatureCheck.getClassName(featureSlug, false, ignorePrefix);
-            const trueSlug = FeatureCheck.getClassName(featureSlug, true, ignorePrefix);
-            const classToAdd = value ? trueSlug : falseSlug;
-            const classToRemove = value ? falseSlug : trueSlug;
-            this.root.classList.add(classToAdd);
-            this.root.classList.remove(classToRemove);
-            if (this.opts.outputResults) {
-                console.info(`[FeatureCheck] checked: ${featureSlug}\n`, { result: value, classToAdd, classToRemove });
-            }
+        if (!this.root) {
             return value;
-        });
-    }
-    /* Checkers ===================================== */
-    /**
-     * Checks for `aspect-ratio` css property support.
-     *
-     * @experimental
-     * @source
-     */
-    aspectRatio() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('aspectRatio', FeatureCheck.supportsCSS('aspect-ratio: 1 / 2'));
-        });
-    }
-    /**
-     * Checks for css `@property` at-rule support.
-     *
-     * @experimental
-     * @source
-     */
-    atProperty() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('atProperty', !!window.CSSPropertyRule);
-        });
-    }
-    /**
-     * Checks for `background-attachment: fixed` css rule support.
-     *
-     * @experimental
-     * @source
-     */
-    backgroundFixed() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('backgroundFixed', FeatureCheck.supportsCSS('background-attachment: fixed'));
-        });
-    }
-    /**
-     * Checks for `calc()` css value support.
-     *
-     * @experimental
-     * @source
-     */
-    calc() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('calc', FeatureCheck.supportsCSS('width: calc( 0.25em + 10% )'));
-        });
-    }
-    /**
-     * Checks for `display: contents` css rule support.
-     *
-     * @experimental
-     * @source
-     */
-    displayContents() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('displayContents', FeatureCheck.supportsCSS('display: contents'));
-        });
-    }
-    /**
-     * Checks for `:focus-within` css selector support.
-     *
-     * @experimental
-     * @source
-     */
-    focusWithin() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('focusWithin', FeatureCheck.supportsCSS('selector( a:focus-within )'));
-        });
-    }
-    /**
-     * Checks for `:focus-visible` css selector support.
-     *
-     * @experimental
-     * @source
-     */
-    focusVisible() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('focusVisible', FeatureCheck.supportsCSS('selector( a:focus-visible )'));
-        });
-    }
-    /**
-     * Checks for `:has()` css selector support.
-     *
-     * @experimental
-     * @source
-     */
-    hasSelector() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('hasSelector', FeatureCheck.supportsCSS('selector( :has( a ) )'));
-        });
-    }
-    /**
-     * Checks for `grid-template-columns: subgrid` css rule support.
-     *
-     * @experimental
-     * @source
-     */
-    subgrid() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('subgrid', FeatureCheck.supportsCSS('grid-template-columns: subgrid'));
-        });
-    }
-    /**
-     * Checks for `grid-template-columns: subgrid` css rule support.
-     *
-     * @since 0.1.0-beta.0.draft
-     *
-     * @experimental
-     * @source
-     */
-    variableFonts() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('variableFonts', FeatureCheck.supportsCSS('font-variation-settings: normal'));
-        });
-    }
-    /**
-     * Checks for `:where()` css selector support.
-     *
-     * @experimental
-     * @source
-     */
-    whereSelector() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.setFeature('whereSelector', FeatureCheck.supportsCSS('selector( :where( a ) )'));
-        });
+        }
+        value = await value;
+        const falseClass = FeatureCheck.getClassName(featureSlug, false, ignorePrefix);
+        const trueClass = FeatureCheck.getClassName(featureSlug, true, ignorePrefix);
+        const classToAdd = value ? trueClass : falseClass;
+        const classToRemove = value ? falseClass : trueClass;
+        this.root.classList.remove(classToRemove);
+        this.root.classList.add(classToAdd);
+        if (this.opts.logResults) {
+            console.info(`[FeatureCheck] checked: ${featureSlug}\n`, { result: value, classToAdd, classToRemove });
+        }
+        return value;
     }
 }
+_FeatureCheck_checkCache = new WeakMap();
+/**
+ * Utilties for the {@link FeatureCheck} class.
+ *
+ * @category Module Support
+ *
+ * @since 0.1.0-pre.0
+ */
+(function (FeatureCheck) {
+    /**
+     * The default checker functions.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    FeatureCheck.CHECKERS = {
+        /**
+         * Checks for `aspect-ratio` css property support.
+         *
+         * @experimental
+         * @source
+         */
+        aspectRatio: async () => FeatureCheck.supportsCSS('aspect-ratio: 1 / 2'),
+        /**
+         * Checks for css `@property` at-rule support.
+         *
+         * @experimental
+         * @source
+         */
+        atProperty: async () => !!window.CSSPropertyRule,
+        /**
+         * Checks for `background-attachment: fixed` css rule support.
+         *
+         * @experimental
+         * @source
+         */
+        backgroundFixed: async () => FeatureCheck.supportsCSS('background-attachment: fixed'),
+        /**
+         * Checks for `calc()` css value support.
+         *
+         * @experimental
+         * @source
+         */
+        calc: async () => FeatureCheck.supportsCSS('width: calc( 0.25em + 10% )'),
+        /**
+         * Checks for `display: contents` css rule support.
+         *
+         * @experimental
+         * @source
+         */
+        displayContents: async () => FeatureCheck.supportsCSS('display: contents'),
+        /**
+         * Checks for `:focus-within` css selector support.
+         *
+         * @experimental
+         * @source
+         */
+        focusWithin: async () => FeatureCheck.supportsCSS('selector( a:focus-within )'),
+        /**
+         * Checks for `:focus-visible` css selector support.
+         *
+         * @experimental
+         * @source
+         */
+        focusVisible: async () => FeatureCheck.supportsCSS('selector( a:focus-visible )'),
+        /**
+         * Checks for `:has()` css selector support.
+         *
+         * @experimental
+         * @source
+         */
+        hasSelector: async () => FeatureCheck.supportsCSS('selector( :has( a ) )'),
+        /**
+         * Checks for `grid-template-columns: subgrid` css rule support.
+         *
+         * @experimental
+         * @source
+         */
+        subgrid: async () => FeatureCheck.supportsCSS('grid-template-columns: subgrid'),
+        /**
+         * Tries to detect if this device accepts touch input — this is useful for
+         * increasing spacing for buttons and other click targets.
+         *
+         * @experimental
+         * @source
+         */
+        touch: async () => {
+            const _navigator = navigator;
+            let testResult = false;
+            if (typeof _navigator.maxTouchPoints !== 'undefined'
+                || typeof _navigator.msMaxTouchPoints !== 'undefined') {
+                // use these values to test
+                testResult = !!(_navigator.maxTouchPoints || _navigator.msMaxTouchPoints);
+            }
+            else {
+                // this is an old (pre 2014-2020) browser without that detection
+                // method available
+                // I consider this test more likely to return false positives (and
+                // it only has marginally better support), but this feature is
+                // important to detect for accessibly-sized touch targets
+                testResult = 'ontouchstart' in window;
+            }
+            return testResult;
+        },
+        /**
+         * Checks for `grid-template-columns: subgrid` css rule support.
+         *
+         * @since 0.1.0-beta.0.draft
+         *
+         * @experimental
+         * @source
+         */
+        variableFonts: async () => FeatureCheck.supportsCSS('font-variation-settings: normal'),
+        /**
+         * Checks for `:where()` css selector support.
+         *
+         * @experimental
+         * @source
+         */
+        whereSelector: async () => FeatureCheck.supportsCSS('selector( :where( a ) )'),
+    };
+})(FeatureCheck || (FeatureCheck = {}));

@@ -14,9 +14,6 @@ import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
  *
  * @category Module Support
  *
- * @typeParam T_CustomCheckerSlug  Slugs used for custom feature checkers.
- * @typeParam T_CustomChecker      Shape(s) of the custom feature checkers.
- *
  * @example
  * This class is meant to be used client-side to assess local CSS & JS
  * compatibility.
@@ -29,13 +26,20 @@ import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
  * {@includeCode ./FeatureCheck.docs.ts#Simple}
  *
  * If you don’t want simple, the checks can also be customized — this
- * customization can mark some features as never available and add on custom
- * feature checks:
+ * customization can mark some features as never available (or always
+ * available), replace defaul testing logic, or add on additional custom feature
+ * checks:
  * {@includeCode ./FeatureCheck.docs.ts#Custom}
  *
  * @since 0.1.0-pre.0
  */
-export declare class FeatureCheck<T_CustomCheckerSlug extends string = string> {
+export declare class FeatureCheck<
+/**
+ * The slugs for additional custom checker functions included in the
+ * instance & its output.
+ */
+T_CustomCheckerSlug extends string = string> {
+    #private;
     static getClassName<T_Slug extends 'js'>(featureSlug: T_Slug, value: true, ignorePrefix?: true): T_Slug;
     static getClassName<T_Slug extends 'js'>(featureSlug: T_Slug, value: false, ignorePrefix?: true): `no-${T_Slug}`;
     static getClassName<T_Slug extends 'js'>(featureSlug: T_Slug, value: boolean, ignorePrefix?: true): T_Slug | `no-${T_Slug}`;
@@ -78,11 +82,12 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string = string> {
             focusVisible: true;
             hasSelector: true;
             subgrid: true;
+            touch: true;
             variableFonts: true;
             whereSelector: true;
         };
         custom: {};
-        outputResults: false;
+        logResults: false;
     }>;
     /**
      * Completed copy of the options.
@@ -148,16 +153,13 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string = string> {
      *
      * @experimental
      */
-    check(): void;
+    check(): Promise<void>;
     /**
-     * Runs a custom check and updates the feature slug's class names on the
-     * {@link FeatureCheck.root} element.
-     *
-     * @return  The test result.
-     *
-     * @experimental
+     * Gets a test result, caches it, and returns the cached value if already
+     * calculated. If you're using this class for conditional JS (instead of for
+     * its body classes), use this method to get test results.
      */
-    protected customCheck(slug: T_CustomCheckerSlug): Promise<boolean>;
+    getCheck(check: "js" | T_CustomCheckerSlug | FeatureCheck.DefaultCheckSlug): Promise<boolean>;
     /**
      * Set a feature slug's class names on the {@link FeatureCheck.root}
      * element.
@@ -175,7 +177,7 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string = string> {
      * If true, the feature is marked as available. Otherwise it is marked
      * unavailable.
      */
-    value: boolean, 
+    value: boolean | Promise<boolean>, 
     /**
      * Whether to exclude the 'js__' prefix. This is only used to set the
      * 'js' and 'no-js' classes.
@@ -184,85 +186,6 @@ export declare class FeatureCheck<T_CustomCheckerSlug extends string = string> {
      * @internal
      */
     ignorePrefix?: boolean): Promise<boolean>;
-    /**
-     * Checks for `aspect-ratio` css property support.
-     *
-     * @experimental
-     * @source
-     */
-    aspectRatio(): Promise<boolean>;
-    /**
-     * Checks for css `@property` at-rule support.
-     *
-     * @experimental
-     * @source
-     */
-    atProperty(): Promise<boolean>;
-    /**
-     * Checks for `background-attachment: fixed` css rule support.
-     *
-     * @experimental
-     * @source
-     */
-    backgroundFixed(): Promise<boolean>;
-    /**
-     * Checks for `calc()` css value support.
-     *
-     * @experimental
-     * @source
-     */
-    calc(): Promise<boolean>;
-    /**
-     * Checks for `display: contents` css rule support.
-     *
-     * @experimental
-     * @source
-     */
-    displayContents(): Promise<boolean>;
-    /**
-     * Checks for `:focus-within` css selector support.
-     *
-     * @experimental
-     * @source
-     */
-    focusWithin(): Promise<boolean>;
-    /**
-     * Checks for `:focus-visible` css selector support.
-     *
-     * @experimental
-     * @source
-     */
-    focusVisible(): Promise<boolean>;
-    /**
-     * Checks for `:has()` css selector support.
-     *
-     * @experimental
-     * @source
-     */
-    hasSelector(): Promise<boolean>;
-    /**
-     * Checks for `grid-template-columns: subgrid` css rule support.
-     *
-     * @experimental
-     * @source
-     */
-    subgrid(): Promise<boolean>;
-    /**
-     * Checks for `grid-template-columns: subgrid` css rule support.
-     *
-     * @since 0.1.0-beta.0.draft
-     *
-     * @experimental
-     * @source
-     */
-    variableFonts(): Promise<boolean>;
-    /**
-     * Checks for `:where()` css selector support.
-     *
-     * @experimental
-     * @source
-     */
-    whereSelector(): Promise<boolean>;
 }
 /**
  * Utilties for the {@link FeatureCheck} class.
@@ -277,7 +200,12 @@ export declare namespace FeatureCheck {
      *
      * @since 0.1.0-beta.0.draft Renamed from Checker to DefaultCheckSlug.
      */
-    type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid" | "variableFonts" | "whereSelector";
+    type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid"
+    /**
+     * Tries to detect if this device accepts touch input — this is useful
+     * for increasing spacing for buttons and other click targets.
+     */
+     | "touch" | "variableFonts" | "whereSelector";
     /**
      * An options object to allow (or disallow) built-in feature checkers.
      *
@@ -334,7 +262,7 @@ export declare namespace FeatureCheck {
         /**
          * Whether to output the results of each feature check as it is made.
          */
-        outputResults: boolean;
+        logResults: boolean;
     };
     /**
      * Partially partialized.
@@ -357,6 +285,100 @@ export declare namespace FeatureCheck {
         /**
          * Whether to output the results of each feature check as it is made.
          */
-        outputResults?: undefined | boolean;
+        logResults?: undefined | boolean;
+    };
+    /**
+     * The default checker functions.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    const CHECKERS: {
+        /**
+         * Checks for `aspect-ratio` css property support.
+         *
+         * @experimental
+         * @source
+         */
+        aspectRatio: () => Promise<boolean>;
+        /**
+         * Checks for css `@property` at-rule support.
+         *
+         * @experimental
+         * @source
+         */
+        atProperty: () => Promise<boolean>;
+        /**
+         * Checks for `background-attachment: fixed` css rule support.
+         *
+         * @experimental
+         * @source
+         */
+        backgroundFixed: () => Promise<boolean>;
+        /**
+         * Checks for `calc()` css value support.
+         *
+         * @experimental
+         * @source
+         */
+        calc: () => Promise<boolean>;
+        /**
+         * Checks for `display: contents` css rule support.
+         *
+         * @experimental
+         * @source
+         */
+        displayContents: () => Promise<boolean>;
+        /**
+         * Checks for `:focus-within` css selector support.
+         *
+         * @experimental
+         * @source
+         */
+        focusWithin: () => Promise<boolean>;
+        /**
+         * Checks for `:focus-visible` css selector support.
+         *
+         * @experimental
+         * @source
+         */
+        focusVisible: () => Promise<boolean>;
+        /**
+         * Checks for `:has()` css selector support.
+         *
+         * @experimental
+         * @source
+         */
+        hasSelector: () => Promise<boolean>;
+        /**
+         * Checks for `grid-template-columns: subgrid` css rule support.
+         *
+         * @experimental
+         * @source
+         */
+        subgrid: () => Promise<boolean>;
+        /**
+         * Tries to detect if this device accepts touch input — this is useful for
+         * increasing spacing for buttons and other click targets.
+         *
+         * @experimental
+         * @source
+         */
+        touch: () => Promise<boolean>;
+        /**
+         * Checks for `grid-template-columns: subgrid` css rule support.
+         *
+         * @since 0.1.0-beta.0.draft
+         *
+         * @experimental
+         * @source
+         */
+        variableFonts: () => Promise<boolean>;
+        /**
+         * Checks for `:where()` css selector support.
+         *
+         * @experimental
+         * @source
+         */
+        whereSelector: () => Promise<boolean>;
     };
 }
