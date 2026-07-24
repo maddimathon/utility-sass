@@ -3,7 +3,12 @@
 /// @since 0.1.0-pre.0
 ///
 
+// @use '../01-modules' as modules;
+
 @use 'functions' as *;
+
+@use '../../modules/list';
+@use '../../modules/selector';
 
 /// # CONFIG - SELECTORS
 /// ======================================================================== ///
@@ -31,6 +36,118 @@ $selector_a: config-valid-selector(
     'selector_a',
     $default: 'a[href]'
 );
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$selector_a_disabled: null !default;
+$selector_a_disabled: config-valid-selector(
+    $selector_a_disabled,
+    'selector_a_disabled',
+    $default: '[aria-disabled=true]'
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function selector-a-disabled($selector: &) {
+    @return selector.unify($selector, $selector_a_disabled);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin selector-a-disabled($selector: &, $is: false) {
+    $selector: selector-a-disabled($selector);
+
+    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$selector_button_disabled: null !default;
+$selector_button_disabled: config-valid-selector(
+    $selector_button_disabled,
+    'selector_button_disabled',
+    $default: ('[aria-disabled=true]', '[disabled]')
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function selector-button-disabled($selector: &) {
+    @return selector.unify($selector, $selector_button_disabled);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin selector-button-disabled($selector: &, $is: false) {
+    $selector: selector-button-disabled($selector);
+
+    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$selector_input_disabled: null !default;
+$selector_input_disabled: config-valid-selector(
+    $selector_input_disabled,
+    'selector_input_disabled',
+    $default: ('[aria-disabled=true]', '[disabled]')
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function selector-input-disabled($selector: &) {
+    @return selector.unify($selector, $selector_input_disabled);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin selector-input-disabled($selector: &, $is: false) {
+    $selector: selector-input-disabled($selector);
+
+    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$selector_input_readonly: null !default;
+$selector_input_readonly: config-valid-selector(
+    $selector_input_readonly,
+    'selector_input_readonly',
+    $default: '[readonly]'
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function selector-input-readonly($selector: &) {
+    @return selector.unify($selector, $selector_input_readonly);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin selector-input-readonly($selector: &, $is: false) {
+    $selector: selector-input-readonly($selector);
+
+    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+        @content;
+    }
+}
 
 ///
 /// How to select for manual overrides of theme modes (i.e., brightness, contrast).

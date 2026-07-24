@@ -3,7 +3,12 @@
 /// @since 0.1.0-pre.0
 ///
 
+// @use '../01-modules' as modules;
+
 @use 'functions' as *;
+
+@use '../../modules/list';
+@use '../../modules/selector';
 
 /// # CONFIG - SELECTORS
 /// ======================================================================== ///
@@ -27,6 +32,118 @@ $include_linkVisitedState: config-valid-bool(
 ///
 $selector_a: null !default;
 $selector_a: config-valid-selector($selector_a, 'selector_a', $default: 'a[href]');
+
+///
+/// @since ___PKG_VERSION___
+///
+$selector_a_disabled: null !default;
+$selector_a_disabled: config-valid-selector(
+    $selector_a_disabled,
+    'selector_a_disabled',
+    $default: '[aria-disabled=true]'
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+@function selector-a-disabled($selector: &) {
+    @return selector.unify($selector, $selector_a_disabled);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin selector-a-disabled($selector: &, $is: false) {
+    $selector: selector-a-disabled($selector);
+
+    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+        @content;
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+$selector_button_disabled: null !default;
+$selector_button_disabled: config-valid-selector(
+    $selector_button_disabled,
+    'selector_button_disabled',
+    $default: ('[aria-disabled=true]', '[disabled]')
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+@function selector-button-disabled($selector: &) {
+    @return selector.unify($selector, $selector_button_disabled);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin selector-button-disabled($selector: &, $is: false) {
+    $selector: selector-button-disabled($selector);
+
+    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+        @content;
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+$selector_input_disabled: null !default;
+$selector_input_disabled: config-valid-selector(
+    $selector_input_disabled,
+    'selector_input_disabled',
+    $default: ('[aria-disabled=true]', '[disabled]')
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+@function selector-input-disabled($selector: &) {
+    @return selector.unify($selector, $selector_input_disabled);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin selector-input-disabled($selector: &, $is: false) {
+    $selector: selector-input-disabled($selector);
+
+    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+        @content;
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+$selector_input_readonly: null !default;
+$selector_input_readonly: config-valid-selector(
+    $selector_input_readonly,
+    'selector_input_readonly',
+    $default: '[readonly]'
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+@function selector-input-readonly($selector: &) {
+    @return selector.unify($selector, $selector_input_readonly);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin selector-input-readonly($selector: &, $is: false) {
+    $selector: selector-input-readonly($selector);
+
+    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+        @content;
+    }
+}
 
 ///
 /// How to select for manual overrides of theme modes (i.e., brightness, contrast).

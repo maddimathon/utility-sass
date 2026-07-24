@@ -3816,3 +3816,81 @@ a {
 }
 
 /* #endregion - WITH PARENT */
+/* #region - EDGE CASES */
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true, $warnOnSelf: false ) */
+    a[aria-disabled='true'][data-state-active='isolated'][href] {
+        /* content ( active ) */
+    }
+    a[aria-disabled='true'][href] {
+        /* content ( self ) */
+    }
+    a[aria-disabled='true'][data-state-focus='isolated'][href] {
+        /* content ( focus ) */
+    }
+    a[aria-disabled='true'][href]:hover,
+    a[aria-disabled='true'][href]:visited,
+    a[aria-disabled='true'][href]:active,
+    .no-js a[aria-disabled='true'][href]:focus,
+    .js__no-whereSelector a[aria-disabled='true'][href]:focus {
+        /* content ( hover-focus-visible--fallback--selector-pseudo--no-js ) */
+    }
+    :where(.js__no-focusVisible) a[aria-disabled='true'][href]:focus {
+        /* content ( hover-focus-visible--fallback--selector-pseudo--where-no-support ) */
+    }
+    a[aria-disabled='true'][href]:focus-visible {
+        /* content ( hover-focus-visible--selector-pseudo ) */
+    }
+    a[aria-disabled='true'][href]:has([data-state-focus='isolated']) {
+        /* content ( focus-within ) */
+    }
+    a[aria-disabled='true'][href]:focus-within {
+        /* content ( focus-within--selector-pseudo ) */
+    }
+}
+
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true, $warnOnSelf: false ) */
+    button[aria-disabled='true'][data-state-active='isolated'],
+    button[disabled][data-state-active='isolated'] {
+        /* content ( active ) */
+    }
+    button[aria-disabled='true'],
+    button[disabled] {
+        /* content ( self ) */
+    }
+    button[aria-disabled='true'][data-state-focus='isolated'],
+    button[disabled][data-state-focus='isolated'] {
+        /* content ( focus ) */
+    }
+    button[aria-disabled='true']:hover,
+    button[disabled]:hover,
+    button[aria-disabled='true']:visited,
+    button[disabled]:visited,
+    button[aria-disabled='true']:active,
+    button[disabled]:active,
+    .no-js button[aria-disabled='true']:focus,
+    .js__no-whereSelector button[aria-disabled='true']:focus,
+    .no-js button[disabled]:focus,
+    .js__no-whereSelector button[disabled]:focus {
+        /* content ( hover-focus-visible--fallback--selector-pseudo--no-js ) */
+    }
+    :where(.js__no-focusVisible) button[aria-disabled='true']:focus,
+    :where(.js__no-focusVisible) button[disabled]:focus {
+        /* content ( hover-focus-visible--fallback--selector-pseudo--where-no-support ) */
+    }
+    button[aria-disabled='true']:focus-visible,
+    button[disabled]:focus-visible {
+        /* content ( hover-focus-visible--selector-pseudo ) */
+    }
+    button[aria-disabled='true']:has([data-state-focus='isolated']),
+    button[disabled]:has([data-state-focus='isolated']) {
+        /* content ( focus-within ) */
+    }
+    button[aria-disabled='true']:focus-within,
+    button[disabled]:focus-within {
+        /* content ( focus-within--selector-pseudo ) */
+    }
+}
+
+/* #endregion - EDGE CASES */

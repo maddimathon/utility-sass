@@ -19,6 +19,24 @@
 /// # UTILITY MIXINS - Interactive
 /// ======================================================================== ///
 
+$_includeSelfWarning: '$includeSelf is not recommended for complex selectors (especially those including pseudo-selectors) as its output may be unprediactably wrong - your decision has been overruled, sorry (turn this off with `$warnOnSelf: false`)';
+
+///
+/// Whether to include a warning about using $includeSelf.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function _include-self-warning($selector: &) {
+    // UPGRADE - make this work instead of warning?  it might be a sass issue
+
+    // returns
+    @if not selector.parent-exists($selector) {
+        @return false;
+    }
+
+    @return if(selector.is-simple($selector), false, true);
+}
+
 ///
 /// @since 0.1.0-beta.0.draft
 ///
@@ -48,7 +66,6 @@
     $addSelectors_visited: (),
     //
     $includeParentSelector: true,
-    // $includeSelf: false,
     //
     $separate_addSelectors: false,
     $separate_config: false,
@@ -199,8 +216,25 @@
     $includeVisited: false,
     $multipleContentBlocks: false,
     $selector_pseudo: (),
+    $warnOnSelf: true,
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[active] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $selector_config: config.$selector_interactiveState_active;
     $selector_pseudo: list.append(
         $selector_pseudo,
@@ -259,8 +293,25 @@
     $includeVisited: false,
     $multipleContentBlocks: false,
     $selector_pseudo: (),
+    $warnOnSelf: true,
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[active-within] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $args: meta.keywords($args);
 
     $selector_parent: if(
@@ -347,10 +398,27 @@
     $multipleContentBlocks: false,
     $selector_config: config.$selector_interactiveState_focus,
     $separate_config: config.$mx_interactive_isolateSelector_focus,
+    $warnOnSelf: true,
     //
     $_locationName: 'focus',
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[focus] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $selector_pseudo: ':focus';
 
     $includeParentSelector: $includeParentSelector and selector.parent-exists();
@@ -471,10 +539,27 @@
     //
     $includeParentSelector: true,
     $multipleContentBlocks: false,
+    $warnOnSelf: true,
     //
     $_locationName: 'focus-visible',
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[focus-visible] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $sel_focus_config: config.$selector_interactiveState_focus;
 
     $includeParentSelector: $includeParentSelector and selector.parent-exists();
@@ -698,8 +783,25 @@
     $multipleContentBlocks: false,
     $selector_config: (),
     $selector_pseudo: (),
+    $warnOnSelf: true,
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[apply-interactive-mixin] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $includeParentSelector: $includeParentSelector and selector.parent-exists();
 
     @if $includeVisited {
@@ -752,8 +854,25 @@
     $includeSelf: false,
     $includeVisited: false,
     $multipleContentBlocks: false,
+    $warnOnSelf: true,
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[hover-focus-visible] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $sel_hover: ':hover';
 
     $includeParentSelector: $includeParentSelector and selector.parent-exists();
@@ -766,13 +885,17 @@
         $sel_hover: list.join(
             $sel_hover,
             selector-add-visited(
-                if($includeParentSelector, &, null),
+                if($includeParentSelector, selector.unify(&, '*'), null),
                 $appendToSelector: $includeSelf
             ),
             $separator: comma
         );
     } @else if $includeSelf and selector.parent-exists() {
-        $sel_hover: list.join(&, $sel_hover, $separator: comma);
+        $sel_hover: list.join(
+            selector.unify(&, '*'),
+            $sel_hover,
+            $separator: comma
+        );
     }
 
     @include focus-visible(
@@ -806,8 +929,25 @@
     $includeSelf: false,
     $includeVisited: false,
     $multipleContentBlocks: false,
+    $warnOnSelf: true,
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[hover-focus-visible-or-within] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $sel_hover: ':hover';
 
     $includeParentSelector: $includeParentSelector and selector.parent-exists();
@@ -861,8 +1001,25 @@
     $includeSelf: false,
     $includeVisited: false,
     $multipleContentBlocks: false,
+    $warnOnSelf: true,
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[apply-interactive-mixin] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $sel_active_config: config.$selector_interactiveState_active;
     $sel_active_pseudo: ':active';
 
@@ -1090,8 +1247,25 @@
     $includeVisited: false,
     $multipleContentBlocks: false,
     $selector_config: (),
+    $warnOnSelf: true,
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[apply-interactive-mixin] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $selector_config: ':has(:active)';
 
     $sel_active_config: selector.has-list(
@@ -1160,8 +1334,25 @@
     $includeSelf: false,
     $includeVisited: false,
     $multipleContentBlocks: false,
+    $warnOnSelf: true,
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[active-hover-focus-visible-or-within] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     @include active-hover-focus-visible(
             $includeSelf: $includeSelf,
             $includeVisited: $includeVisited,
@@ -1195,8 +1386,25 @@
     $debug: false,
     $appendToSelector: null,
     $multipleContentBlocks: false,
+    $warnOnSelf: true,
     $args...
 ) {
+    @if $includeSelf {
+        @if _include-self-warning() {
+            @if $warnOnSelf {
+                @warn '[apply-interactive-mixin] #{$_includeSelfWarning}';
+            }
+
+            @if $multipleContentBlocks {
+                @content (self);
+            } @else {
+                @content;
+            }
+
+            $includeSelf: false;
+        }
+    }
+
     $args: meta.keywords($args);
 
     $selectors: selector-add-visited(
@@ -1490,13 +1698,13 @@
         }
     }
 
-    @each $mixin,
+    @each $letter, $mixin,
         $mixin_args
             in (
-                ($mixin_a, $mixin_a_args),
-                ($mixin_b, $mixin_b_args),
-                ($mixin_c, $mixin_c_args),
-                ($mixin_d, $mixin_d_args)
+                ('A', $mixin_a, $mixin_a_args),
+                ('B', $mixin_b, $mixin_b_args),
+                ('C', $mixin_c, $mixin_c_args),
+                ('D', $mixin_d, $mixin_d_args)
             )
     {
         @if meta.accepts-content($mixin) {
@@ -1508,7 +1716,7 @@
                 )
                 using ($location) {
                 @if $debug {
-                    /* mixin A: #{meta.inspect($mixin)} */
+                    /* mixin #{$letter}: #{meta.inspect($mixin)} */
                 }
                 @if $multipleContentBlocks {
                     @content ($location);

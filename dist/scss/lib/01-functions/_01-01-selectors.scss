@@ -65,24 +65,44 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 
     $selector: selector.parse(#{$selector});
 
+    // replace %a visited
     $_visited: selector.replace-all(
-        selector.replace(
-            selector.replace(
-                selector.unify($selector, ':visited'),
-                '%a:visited',
-                '%a-visited'
+        selector.replace-all(
+            selector.unify($selector, ':visited'),
+            '%a:visited',
+            '%a-visited'
+        ),
+        list.join(
+            ('%a-disabled:visited'),
+            list.join(
+                selector.unify('%a-visited', config.$selector_a_disabled),
+                selector.unify(config.$selector_a_disabled, '%a-visited'),
+                $separator: comma
             ),
+            $separator: comma
+        ),
+        '%a-disabled-visited'
+    );
+
+    // replace %button visited
+    $_visited: selector.replace-all(
+        selector.replace-all(
+            selector.unify($selector, ':visited'),
             '%button:visited',
             '%button-visited'
         ),
         list.join(
-            selector.unify(
-                ('%button:visited', '%button-visited'),
-                ('[aria-disabled=true]', '[disabled]')
-            ),
-            selector.unify(
-                ('[aria-disabled=true]', '[disabled]'),
-                ('%button:visited', '%button-visited')
+            ('%button-disabled:visited'),
+            list.join(
+                selector.unify(
+                    '%button-visited',
+                    config.$selector_button_disabled
+                ),
+                selector.unify(
+                    config.$selector_button_disabled,
+                    '%button-visited'
+                ),
+                $separator: comma
             ),
             $separator: comma
         ),

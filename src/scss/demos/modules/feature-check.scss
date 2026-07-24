@@ -9,6 +9,7 @@
 @use '../../modules/feature-check';
 @use '../../modules/meta';
 
+@use '../config';
 // @use '../../lib';
 
 /* # MODULES - FEATURE CHECK
@@ -78,6 +79,20 @@ feature-check.get-selector {
 
 @include feature-check.no-js {
     /* @include feature-check.no-js */
+}
+
+/* ## Modules - Feature Check - All Supports Slugs ==================================== */
+
+@each $slug in config.$featureCheck_supports {
+    /* #{$slug} ------------------ */
+
+    @include feature-check.supports($slug) {
+        /* @include feature-check.supports( #{$slug} ) */
+    }
+
+    @include feature-check.supports-not($slug) {
+        /* @include feature-check.supports-not( #{$slug} ) */
+    }
 }
 
 /* ## Modules - Feature Check - Mixins - Supports ==================================== */

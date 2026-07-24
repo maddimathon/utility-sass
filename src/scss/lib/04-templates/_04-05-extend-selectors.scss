@@ -21,23 +21,34 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 /// @since ___PKG_VERSION___
 ///
 @function get-extend-selectors-a($selector_a: config.$selector_a) {
+    $_sel_a_disabled: selector.unify($selector_a, config.$selector_a_disabled);
+
     $list: (
         ($selector_a, a),
+        ($_sel_a_disabled, a-disabled),
         //
          //
     );
 
     @if config.$include_linkVisitedState {
-        $list: list.append(
+        $list: list.join(
             $list,
             (
-                selector.unify(
-                    selector.except-superselector($selector_a, (button, input)),
-                    ':visited'
+                (
+                    selector.unify(
+                        selector.except-superselector($selector_a, (button, input)),
+                        ':visited'
+                    ),
+                    a-visited
                 ),
-                a-visited
-            ),
-            $separator: comma
+                (
+                    selector.unify(
+                        selector.except-superselector($_sel_a_disabled, (button, input)),
+                        ':visited'
+                    ),
+                    a-disabled-visited
+                )
+            )
         );
     }
 
@@ -47,7 +58,12 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 /// @since ___PKG_VERSION___
 ///
-@function get-extend-selectors-button($selector_button, $variant: null, $includeVisited: true) {
+@function get-extend-selectors-button(
+    $selector_button,
+    $variant: null,
+    $includeDisabled: true,
+    $includeVisited: true
+) {
     $includeVisited: $includeVisited and config.$include_linkVisitedState;
 
     $selector_button_visited: if(
@@ -62,33 +78,33 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     $list: ();
 
     @if $variant == null {
-        $list: list.append($list, ($selector_button, button), $separator: comma);
+        $list: list.append($list, ($selector_button, button));
     } @else {
         $list: list.append(
             $list,
-            (
-                list.join($selector_button, $selector_button_visited, $separator: comma),
-                button-#{$variant}
-            ),
-            $separator: comma
+            (list.join($selector_button, $selector_button_visited), button-#{$variant})
+        );
+    }
+
+    @if $includeDisabled {
+        $list: list.append(
+            $list,
+            (selector.unify($selector_button, config.$selector_button_disabled), 'button-disabled')
         );
     }
 
     @if $includeVisited {
-        $list: list.join(
-            $list,
-            (
-                ($selector_button_visited, 'button-visited'),
+        $list: list.append($list, ($selector_button_visited, 'button-visited'));
+
+        @if $includeDisabled {
+            $list: list.append(
+                $list,
                 (
-                    selector.unify(
-                        $selector_button_visited,
-                        ('[aria-disabled=true]', '[disabled]')
-                    ),
+                    selector.unify($selector_button_visited, config.$selector_button_disabled),
                     'button-disabled-visited'
                 )
-            ),
-            $separator: comma
-        );
+            );
+        }
     }
 
     @return $list;
@@ -111,14 +127,22 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     // for all levels
     @each $headingLevel in $allHeadingLevels {
         //
-        $sels: list.append($sels, ('hgroup %h#{$headingLevel}', 'h#{$headingLevel}--hgroup'));
+        $sels: list.append(
+            $sels,
+            ('hgroup %h#{$headingLevel}', 'h#{$headingLevel}--hgroup'),
+            $separator: comma
+        );
 
         @if config.$mx_extendSelectors_headingsByRole {
             $_whereSel: ':where( [role=heading][aria-level="#{$headingLevel}"] )';
 
             $sels: list.append($sels, ($_whereSel, 'h#{$headingLevel}--where'), $separator: comma);
 
-            $sels: list.append($sels, ('hgroup #{$_whereSel}', 'h#{$headingLevel}--where--hgroup'));
+            $sels: list.append(
+                $sels,
+                ('hgroup #{$_whereSel}', 'h#{$headingLevel}--where--hgroup'),
+                $separator: comma
+            );
         }
     }
 

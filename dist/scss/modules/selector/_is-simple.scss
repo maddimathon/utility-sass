@@ -5,6 +5,7 @@
 
 @use 'sass:list';
 @use 'sass:selector';
+@use '../string';
 
 ///
 /// Esitmates if the given selector is a 'simple' selector (as determined by the
@@ -16,6 +17,13 @@
     // returns - false - has more than one item
     @if list.length($selector) > 1 {
         @return false;
+    }
+
+    // returns on success - false - has more than one item
+    @each $sel in $selector {
+        @if list.length($sel) > 1 {
+            @return false;
+        }
     }
 
     $simple: selector.simple-selectors($selector);

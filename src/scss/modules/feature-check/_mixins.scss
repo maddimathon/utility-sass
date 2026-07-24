@@ -35,10 +35,31 @@
     }
 }
 
+///
+/// @since ___PKG_VERSION___
+///
+@function param-include-no-where-selector($key, $includeNoWhereSelectorFallback) {
+    @return if(
+        $includeNoWhereSelectorFallback != null,
+        $includeNoWhereSelectorFallback,
+        if(
+            map.has-key(config.$featureCheck_includeNoWhereSelectorFallback_supports_not, $key),
+            map.get(config.$featureCheck_includeNoWhereSelectorFallback_supports_not, $key),
+            config.$featureCheck_includeNoWhereSelectorFallback
+        )
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
 @function param-never-use-js($neverUseJS) {
     @return if($neverUseJS == null, config.$featureCheck_neverUseJS, $neverUseJS);
 }
 
+///
+/// @since ___PKG_VERSION___
+///
 @function param-via-query($key, $bool, $neverUseJS, $viaQuery) {
     @return if(
         $viaQuery == null,
@@ -161,7 +182,7 @@
     $addSelectors: (),
     $addSelectors_noJS: (),
     $debug: false,
-    $includeNoWhereSelectorFallback: true,
+    $includeNoWhereSelectorFallback: null,
     $neverUseJS: null,
     $viaQuery: null,
     //
@@ -209,7 +230,11 @@
     } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
         $_addSelectors_noJS: if($key == whereSelector, $addSelectors, $addSelectors_noJS);
 
-        @if $includeNoWhereSelectorFallback {
+        @if param-include-no-where-selector(
+            $key: $key,
+            $includeNoWhereSelectorFallback: $includeNoWhereSelectorFallback
+        )
+        {
             @include no-js($addSelectors: $_addSelectors_noJS, $args...) {
                 @if $debug {
                     /* not ( $supportsTest and $viaQuery ) */
@@ -269,22 +294,12 @@
 /// @since 0.1.0-alpha.5
 /// @since ___PKG_VERSION___ — Added $includeNoWhereSelectorFallback, $includeNoWhereSelectorFallback params with config defaults. Made $h param optional.
 ///
-@mixin aspect-ratio(
-    $w,
-    $h: null,
-    $includeComments: true,
-    $includeNoWhereSelectorFallback: config.$featureCheck_aspectRatio_includeNoWhereSelectorFallback,
-    $args...
-) {
+@mixin aspect-ratio($w, $h: null, $includeComments: true, $args...) {
     aspect-ratio: if(not $h, $w, list.slash($w, $h));
 
     @content (root);
 
-    @include supports-not(
-        aspectRatio,
-        $includeNoWhereSelectorFallback: $includeNoWhereSelectorFallback,
-        $args...
-    ) {
+    @include supports-not(aspectRatio, $args...) {
         @if $includeComments {
             /* aspect-ratio fallback */
         }

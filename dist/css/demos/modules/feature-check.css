@@ -60,6 +60,147 @@ feature-check.get-selector .aspectRatio--true.with-extra {
     /* @include feature-check.no-js */
 }
 
+/* ## Modules - Feature Check - All Supports Slugs ==================================== */
+/* aspectRatio ------------------ */
+@supports (aspect-ratio: 1 / 2) {
+    :root {
+        /* @include feature-check.supports( aspectRatio ) */
+    }
+}
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.supports-not( aspectRatio ) */
+}
+
+:where(.js__no-aspectRatio) {
+    /* @include feature-check.supports-not( aspectRatio ) */
+}
+
+/* atProperty ------------------ */
+:where(.js__atProperty) {
+    /* @include feature-check.supports( atProperty ) */
+}
+
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.supports-not( atProperty ) */
+}
+
+:where(.js__no-atProperty) {
+    /* @include feature-check.supports-not( atProperty ) */
+}
+
+/* backgroundFixed ------------------ */
+@supports (background-attachment: fixed) {
+    :root {
+        /* @include feature-check.supports( backgroundFixed ) */
+    }
+}
+@supports not (background-attachment: fixed) {
+    :root {
+        /* @include feature-check.supports-not( backgroundFixed ) */
+    }
+}
+/* calc ------------------ */
+@supports (width: calc(0.25em + 10%)) {
+    :root {
+        /* @include feature-check.supports( calc ) */
+    }
+}
+@supports not (width: calc(0.25em + 10%)) {
+    :root {
+        /* @include feature-check.supports-not( calc ) */
+    }
+}
+/* displayContents ------------------ */
+@supports (display: contents) {
+    :root {
+        /* @include feature-check.supports( displayContents ) */
+    }
+}
+@supports not (display: contents) {
+    :root {
+        /* @include feature-check.supports-not( displayContents ) */
+    }
+}
+/* focusWithin ------------------ */
+@supports (selector(a:focus-within)) {
+    :root {
+        /* @include feature-check.supports( focusWithin ) */
+    }
+}
+@supports not (selector(a:focus-within)) {
+    :root {
+        /* @include feature-check.supports-not( focusWithin ) */
+    }
+}
+/* focusVisible ------------------ */
+@supports (selector(a:focus-visible)) {
+    :root {
+        /* @include feature-check.supports( focusVisible ) */
+    }
+}
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.supports-not( focusVisible ) */
+}
+
+:where(.js__no-focusVisible) {
+    /* @include feature-check.supports-not( focusVisible ) */
+}
+
+/* hasSelector ------------------ */
+@supports (selector(:has(a))) {
+    :root {
+        /* @include feature-check.supports( hasSelector ) */
+    }
+}
+@supports not (selector(:has(a))) {
+    :root {
+        /* @include feature-check.supports-not( hasSelector ) */
+    }
+}
+/* subgrid ------------------ */
+@supports (grid-template-columns: subgrid) {
+    :root {
+        /* @include feature-check.supports( subgrid ) */
+    }
+}
+@supports not (grid-template-columns: subgrid) {
+    :root {
+        /* @include feature-check.supports-not( subgrid ) */
+    }
+}
+/* touch ------------------ */
+:where(.js__touch) {
+    /* @include feature-check.supports( touch ) */
+}
+
+:where(.js__no-touch) {
+    /* @include feature-check.supports-not( touch ) */
+}
+
+/* variableFonts ------------------ */
+@supports (font-variation-settings: normal) {
+    :root {
+        /* @include feature-check.supports( variableFonts ) */
+    }
+}
+@supports not (font-variation-settings: normal) {
+    :root {
+        /* @include feature-check.supports-not( variableFonts ) */
+    }
+}
+/* whereSelector ------------------ */
+:where(.js) {
+    /* @include feature-check.supports( whereSelector ) */
+}
+
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.supports-not( whereSelector ) */
+}
+
 /* ## Modules - Feature Check - Mixins - Supports ==================================== */
 :where(.js) {
     /* @include feature-check.supports( whereSelector, $viaQuery: false ) */

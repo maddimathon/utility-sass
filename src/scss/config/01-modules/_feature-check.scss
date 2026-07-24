@@ -11,16 +11,6 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-$featureCheck_aspectRatio_includeNoWhereSelectorFallback: null !default;
-$featureCheck_aspectRatio_includeNoWhereSelectorFallback: config-valid-bool(
-    $featureCheck_aspectRatio_includeNoWhereSelectorFallback,
-    'featureCheck_aspectRatio_includeNoWhereSelectorFallback',
-    $default: true
-);
-
-///
-/// @since ___PKG_VERSION___
-///
 $featureCheck_jsOnlyAsNeeded: null !default;
 $featureCheck_jsOnlyAsNeeded: config-valid-bool(
     $featureCheck_jsOnlyAsNeeded,
@@ -47,6 +37,7 @@ $featureCheck_neverUseJS: config-valid-bool(
 $featureCheck_defaultToJS: () !default;
 $featureCheck_defaultToJS: map.merge(
     (
+        touch: true,
         whereSelector: true,
     ),
     $featureCheck_defaultToJS
@@ -79,6 +70,32 @@ $featureCheck_defaultToJS_supports_not: map.merge(
 ///
 /// @since ___PKG_VERSION___
 ///
+$featureCheck_includeNoWhereSelectorFallback: null !default;
+$featureCheck_includeNoWhereSelectorFallback: config-valid-bool(
+    $featureCheck_includeNoWhereSelectorFallback,
+    'featureCheck_includeNoWhereSelectorFallback',
+    $default: true
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$featureCheck_includeNoWhereSelectorFallback_supports_not: () !default;
+$featureCheck_includeNoWhereSelectorFallback_supports_not: map.merge(
+    map.merge(
+        $featureCheck_includeNoWhereSelectorFallback_supports_not,
+        (
+            aspectRatio: true,
+            focusVisible: true,
+            touch: false,
+        )
+    ),
+    $featureCheck_includeNoWhereSelectorFallback_supports_not
+);
+
+///
+/// @since ___PKG_VERSION___
+///
 $featureCheck_supports: () !default;
 $featureCheck_supports: list.join(
     (
@@ -91,6 +108,7 @@ $featureCheck_supports: list.join(
         focusVisible,
         hasSelector,
         subgrid,
+        touch,
         variableFonts,
         whereSelector
     ),

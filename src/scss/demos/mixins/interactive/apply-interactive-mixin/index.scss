@@ -6,7 +6,10 @@
 @forward '../config';
 @forward 'header';
 
+@use '../config';
+
 @use '../../../../modules/meta';
+@use '../../../../modules/selector';
 
 @use 'lib' as *;
 
@@ -15,16 +18,14 @@
     $self in $interactive_paramPermutations
 {
     @if not $self {
-        @include apply-interactive-mixin-iterator(
+        @include demo--apply-interactive-mixin(
             $active: $active,
             $activeWithin: $activeWithin,
             $focus: $focus,
             $focusWithin: $focusWithin,
             $hover: $hover,
             $self: $self,
-            $visited: $visited,
-            // $debug: $self,
-             //
+            $visited: $visited
         );
     }
 }
@@ -37,7 +38,7 @@ a {
     @each $active, $activeWithin, $hover, $focus, $focusWithin, $visited,
         $self in $interactive_paramPermutations
     {
-        @include apply-interactive-mixin-iterator(
+        @include demo--apply-interactive-mixin(
             $active: $active,
             $activeWithin: $activeWithin,
             $focus: $focus,
@@ -45,12 +46,42 @@ a {
             $hover: $hover,
             $self: $self,
             $visited: $visited,
-            $multipleContentBlocks: true,
-            // $debug: $self,
-             //
+            $multipleContentBlocks: true
         );
     }
 }
 /* #endregion - WITH PARENT */
+
+/* #region - EDGE CASES */
+%a {
+    @include config.selector-a-disabled {
+        @include demo--apply-interactive-mixin(
+            $active: true,
+            $focus: true,
+            $focusWithin: true,
+            $hover: true,
+            $self: true,
+            $visited: true,
+            $multipleContentBlocks: true,
+            $warnOnSelf: false
+        );
+    }
+}
+
+button {
+    @include config.selector-button-disabled {
+        @include demo--apply-interactive-mixin(
+            $active: true,
+            $focus: true,
+            $focusWithin: true,
+            $hover: true,
+            $self: true,
+            $visited: true,
+            $multipleContentBlocks: true,
+            $warnOnSelf: false
+        );
+    }
+}
+/* #endregion - EDGE CASES */
 
 @include extend-selectors;

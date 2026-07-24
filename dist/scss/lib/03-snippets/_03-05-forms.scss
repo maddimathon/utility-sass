@@ -9,6 +9,8 @@
 @use '../../modules/selector';
 @use '../../modules/string';
 
+@use '../../config';
+
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 
@@ -196,8 +198,7 @@
 
     /// BLOCK ///
 
-    &[aria-disabled='true'],
-    &[disabled] {
+    @include config.selector-button-disabled {
         cursor: not-allowed;
 
         @content (disabled);
@@ -247,11 +248,10 @@
     );
     $selector_hover: if($_parent_exists, selector.unify(&, ':hover'), ':hover');
 
-    $selector_disabled: ('[aria-disabled=true]', '[disabled]');
     $selector_disabled: if(
         $_parent_exists,
-        selector.unify(&, $selector_disabled),
-        $selector_disabled
+        selector.unify(&, config.$selector_input_disabled),
+        config.$selector_input_disabled
     );
 
     @at-root #{$selector_root} {
@@ -553,8 +553,7 @@
         }
     }
 
-    &[aria-disabled='true'],
-    &[disabled] {
+    @include config.selector-input-disabled {
         cursor: not-allowed;
 
         @content (disabled);
@@ -590,8 +589,7 @@
 
         @content (cursor-pointer);
 
-        &[aria-disabled='true'],
-        &[disabled] {
+        @include config.selector-input-disabled {
             cursor: not-allowed;
 
             @content (cursor-pointer--disabled);
@@ -611,8 +609,7 @@
 
         @content (cursor-text);
 
-        &[aria-disabled='true'],
-        &[disabled] {
+        @include config.selector-input-disabled {
             cursor: not-allowed;
 
             @content (cursor-text--disabled);
@@ -700,7 +697,7 @@
 
         cursor: pointer;
 
-        @at-root #{selector.unify(&, ('[aria-disabled=true]', '[disabled]'))} {
+        @include config.selector-input-disabled {
             cursor: not-allowed;
         }
 

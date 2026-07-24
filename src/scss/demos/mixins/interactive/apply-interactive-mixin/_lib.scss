@@ -10,6 +10,7 @@
 @use '../../../../modules/list';
 @use '../../../../modules/map';
 @use '../../../../modules/meta';
+@use '../../../../modules/selector';
 
 @use '../../../../lib' as *;
 
@@ -146,14 +147,14 @@ $interactive_paramPermutations: (
 );
 //#endregion - $interactive_paramPermutations
 
-@mixin apply-interactive-mixin-iterator(
-    $active,
-    $activeWithin,
-    $focus,
-    $focusWithin,
-    $hover,
-    $self,
-    $visited,
+@mixin demo--apply-interactive-mixin(
+    $active: false,
+    $activeWithin: false,
+    $focus: false,
+    $focusWithin: false,
+    $hover: false,
+    $self: false,
+    $visited: false,
     $debug: false,
     $multipleContentBlocks: false,
     $args...
@@ -225,16 +226,30 @@ $interactive_paramPermutations: (
     @media apply-interactive-mixin {
         @at-root {
             /* @include apply-interactive-mixin#{$_argsList} */
+
+            @if $debug {
+                @include meta.var-dump('&', &);
+            }
         }
 
         @if $multipleContentBlocks {
             @include apply-interactive-mixin($multipleContentBlocks: true, $_trueArgsList...) using
                 ($location) {
                 /* content ( #{$location} ) */
+
+                @if $debug {
+                    @include meta.var-dump('&', &);
+                    @include meta.var-dump('selector.is-simple(&)', selector.is-simple(&));
+                }
             }
         } @else {
             @include apply-interactive-mixin($multipleContentBlocks: false, $_trueArgsList...) {
                 /* content */
+
+                @if $debug {
+                    @include meta.var-dump('&', &);
+                    @include meta.var-dump('selector.is-simple(&)', selector.is-simple(&));
+                }
             }
         }
     }

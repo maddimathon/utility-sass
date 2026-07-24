@@ -2664,3 +2664,70 @@ a {
 }
 
 /* #endregion - WITH PARENT */
+/* #region - EDGE CASES */
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true, $warnOnSelf: false ) */
+    a[aria-disabled='true'][href] {
+        /* content ( self ) */
+    }
+    a[aria-disabled='true'][href]:focus-visible {
+        /* content ( hover-focus-visible--selector-pseudo ) */
+    }
+    a[aria-disabled='true'][data-state-focus][href],
+    a[aria-disabled='true'][href]:hover,
+    a[aria-disabled='true'][href]:visited,
+    a[aria-disabled='true'][href]:active,
+    a[aria-disabled='true'][data-state-active][href] {
+        /* content ( hover-focus-visible--selector-config ) */
+    }
+    a[aria-disabled='true'][href]:focus-within {
+        /* content ( focus-within--selector-pseudo ) */
+    }
+    a[aria-disabled='true'][href]:has([data-state-focus]) {
+        /* content ( focus-within--selector-config ) */
+    }
+}
+
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true, $warnOnSelf: false ) */
+    button[aria-disabled='true'],
+    button[disabled] {
+        /* content ( self ) */
+    }
+    button[aria-disabled='true']:focus-visible,
+    button[disabled]:focus-visible {
+        /* content ( hover-focus-visible--selector-pseudo ) */
+    }
+    button[aria-disabled='true'][data-state-focus],
+    button[aria-disabled='true'][disabled][data-state-focus],
+    button[aria-disabled='true']:hover,
+    button[aria-disabled='true'][disabled]:hover,
+    button[aria-disabled='true']:visited,
+    button[aria-disabled='true'][disabled]:visited,
+    button[aria-disabled='true']:active,
+    button[aria-disabled='true'][disabled]:active,
+    button[aria-disabled='true'][data-state-active],
+    button[aria-disabled='true'][disabled][data-state-active],
+    button[disabled][aria-disabled='true'][data-state-focus],
+    button[disabled][data-state-focus],
+    button[disabled][aria-disabled='true']:hover,
+    button[disabled]:hover,
+    button[disabled][aria-disabled='true']:visited,
+    button[disabled]:visited,
+    button[disabled][aria-disabled='true']:active,
+    button[disabled]:active,
+    button[disabled][aria-disabled='true'][data-state-active],
+    button[disabled][data-state-active] {
+        /* content ( hover-focus-visible--selector-config ) */
+    }
+    button[aria-disabled='true']:focus-within,
+    button[disabled]:focus-within {
+        /* content ( focus-within--selector-pseudo ) */
+    }
+    button[aria-disabled='true']:has([data-state-focus]),
+    button[disabled]:has([data-state-focus]) {
+        /* content ( focus-within--selector-config ) */
+    }
+}
+
+/* #endregion - EDGE CASES */
