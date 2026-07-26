@@ -36,13 +36,14 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
 /// @param {any} $value
 /// @param {?string} $comment
 ///
-/// @since ___PKG_VERSION___ — Added optional $allPrefixes, $quoteString params.
+/// @since ___PKG_VERSION___ — Added optional $allPrefixes, $important, $quoteString params.
 ///
 @mixin custom-property(
     $slug,
     $value,
     $comment: null,
     $allPrefixes: null,
+    $important: false,
     $quoteString: string.is-quoted($value)
 ) {
     @if meta.type-of($value) == string {
@@ -55,6 +56,10 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
 
     @if $allPrefixes != false {
         $allPrefixes: list.index(config.$mx_customProperty_allPrefixesSlugs, $slug) != null;
+    }
+
+    @if $important {
+        $value: #{$value} !important;
     }
 
     @if $allPrefixes and $_allowAllPrefixes {
@@ -120,11 +125,13 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     $slug,
     $value,
     $comment: null,
-    $useCustom: true,
+    //
+    $allPrefixes: null,
+    $important: false,
+    $quoteString: null,
     $setCxProp: true,
     $setProp: true,
-    $allPrefixes: null,
-    $quoteString: null,
+    $useCustom: true,
     $args...
 ) {
     @if meta.type-of($value) == string {
@@ -142,15 +149,16 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
                 $value: $value,
                 $comment: $comment,
                 $allPrefixes: $allPrefixes,
+                $important: $important,
                 $quoteString: $quoteString
             );
         }
 
         @if $setProp {
-            #{$slug}: do-var($slug, $value, $args...);
+            #{$slug}: do-var($slug, $value, $args...) #{if($important, '!important', '')};
         }
     } @else if $setProp {
-        #{$slug}: $value;
+        #{$slug}: $value #{if($important, '!important', '')};
     }
 
     $args: meta.keywords($args);

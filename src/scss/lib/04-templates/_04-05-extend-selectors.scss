@@ -244,7 +244,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         @include focus-visible($multipleContentBlocks: true) using ($location) {
             @if $location == focus-visible--fallback--selector-pseudo--no-js {
                 @extend %focus-ring--fallback !optional;
-            } @else if $location == focus-visible--fallback--selector-pseudo--where-no-support {
+            } @else if $location == focus-visible--fallback--selector-pseudo--where {
                 @extend %focus-ring--where !optional;
             } @else if $location == focus-visible--selector-pseudo {
                 @extend %focus-ring--visible !optional;

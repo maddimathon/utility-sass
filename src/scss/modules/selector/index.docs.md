@@ -55,6 +55,9 @@ selector.is-superselector-any(...); // added
 
 selector.merge(...); // added
 
+selector.only-superselector(...); // added
+selector.parent-only-superselector(...); // added
+
 selector.parent-exists(...); // added
 
 selector.parent-has-body(...); // added

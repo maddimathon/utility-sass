@@ -21,7 +21,7 @@ feature-check.get-selector .whereSelector--false {
     /* 
       feature-check.get-selector( whereSelector, $bool: false ) is a list:
    */
-    /* 1: <()> ( <()> ( <S> .no-js <S> feature-check.get-selector <S> .whereSelector--false ), <()> ( <S> .js__no-whereSelector <S> feature-check.get-selector <S> .whereSelector--false ) ) */
+    /* 1: <()> ( <()> ( <S> :where(.js__no-whereSelector) <S> feature-check.get-selector <S> .whereSelector--false ) ) */
 }
 feature-check.get-selector .whereSelector--true.with-extra {
     /* 
@@ -124,18 +124,18 @@ feature-check.get-selector .aspectRatio--true.with-extra {
     }
 }
 /* focusWithin ------------------ */
-@supports (selector(a:focus-within)) {
+@supports selector(a:focus-within) {
     :root {
         /* @include feature-check.supports( focusWithin ) */
     }
 }
-@supports not (selector(a:focus-within)) {
+@supports not selector(a:focus-within) {
     :root {
         /* @include feature-check.supports-not( focusWithin ) */
     }
 }
 /* focusVisible ------------------ */
-@supports (selector(a:focus-visible)) {
+@supports selector(a:focus-visible) {
     :root {
         /* @include feature-check.supports( focusVisible ) */
     }
@@ -150,12 +150,12 @@ feature-check.get-selector .aspectRatio--true.with-extra {
 }
 
 /* hasSelector ------------------ */
-@supports (selector(:has(a))) {
+@supports selector(:has(a)) {
     :root {
         /* @include feature-check.supports( hasSelector ) */
     }
 }
-@supports not (selector(:has(a))) {
+@supports not selector(:has(a)) {
     :root {
         /* @include feature-check.supports-not( hasSelector ) */
     }
@@ -181,12 +181,12 @@ feature-check.get-selector .aspectRatio--true.with-extra {
 }
 
 /* variableFonts ------------------ */
-@supports (font-variation-settings: normal) {
+@supports font-tech(variations) {
     :root {
         /* @include feature-check.supports( variableFonts ) */
     }
 }
-@supports not (font-variation-settings: normal) {
+@supports not font-tech(variations) {
     :root {
         /* @include feature-check.supports-not( variableFonts ) */
     }
@@ -215,8 +215,19 @@ extra-selector,
     /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: false ) */
 }
 
+@supports (width: calc(0.25em + 10%)) and font-tech(variations) {
+    extra-selector,
+    :where(.js) {
+        /* @include feature-check.supports( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+    }
+}
+extra-selector,
+:where(.js__calc):where(.js__variableFonts):where(.js) {
+    /* @include feature-check.supports( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ), $viaQuery: false ) */
+}
+
 /* ### Feature Check - Supports - CSS ------------------ */
-@supports (selector(:where(a))) {
+@supports selector(:where(a)) {
     :root {
         /* @include feature-check.supports( whereSelector, $viaQuery: true ) */
     }
@@ -227,9 +238,22 @@ extra-selector,
     }
 }
 @supports (aspect-ratio: 1 / 2) {
-    :root,
-    extra-selector {
+    extra-selector,
+    :root {
         /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: true ) */
+    }
+}
+@supports (width: calc(0.25em + 10%)) and font-tech(variations) {
+    extra-selector,
+    :where(.js) {
+        /* @include feature-check.supports( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+    }
+}
+@supports (width: calc(0.25em + 10%)) and font-tech(variations) and
+    selector(:where(a)) {
+    extra-selector,
+    :root {
+        /* @include feature-check.supports( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ), $viaQuery: true ) */
     }
 }
 /* ## Modules - Feature Check - Mixins - Supports Not ==================================== */
@@ -261,8 +285,27 @@ extra-selector,
     /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: false ) */
 }
 
+@supports (not (width: calc(0.25em + 10%))) and (not font-tech(variations)) {
+    .no-js,
+    .js__no-whereSelector {
+        /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+    }
+    extra-selector,
+    :root {
+        /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+    }
+}
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ), $viaQuery: false ) */
+}
+
+extra-selector {
+    /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ), $viaQuery: false ) */
+}
+
 /* ### Feature Check - Supports Not - CSS ------------------ */
-@supports not (selector(:where(a))) {
+@supports not selector(:where(a)) {
     :root {
         /* @include feature-check.supports-not( whereSelector, $viaQuery: true ) */
     }
@@ -273,9 +316,26 @@ extra-selector,
     }
 }
 @supports not (aspect-ratio: 1 / 2) {
-    :root,
-    extra-selector {
+    extra-selector,
+    :root {
         /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: true ) */
+    }
+}
+@supports (not (width: calc(0.25em + 10%))) and (not font-tech(variations)) {
+    .no-js,
+    .js__no-whereSelector {
+        /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+    }
+    extra-selector,
+    :root {
+        /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+    }
+}
+@supports (not (width: calc(0.25em + 10%))) and (not font-tech(variations)) and
+    (not selector(:where(a))) {
+    extra-selector,
+    :root {
+        /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ), $viaQuery: true ) */
     }
 }
 /* ## Modules - Feature Check - Mixins - Aspect Ratio (fallback) ==================================== */

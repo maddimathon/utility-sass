@@ -801,57 +801,20 @@ $_contrastModes_all: filter-colour-modes-active-only(tokens.$contrastMode_option
     $modes,
     $key,
     $bool,
-    $debug: false,
-    $includeNoWhereSelectorFallback: true,
-    $neverUseJS: null,
-    $viaQuery: null,
+    // $debug: false,
+    // $neverUseJS: null,
+    $mode_args: (),
     $args...
 ) {
-    $supportsTest: map.get(config.$featureCheck_supportsQueries, #{$key});
-
-    $neverUseJS: feature-check.param-never-use-js($neverUseJS);
-
-    $viaQuery: feature-check.param-via-query(
-        $key: $key,
-        $bool: $bool,
-        $neverUseJS: $neverUseJS,
-        $viaQuery: $viaQuery,
-    );
-
-    @if $supportsTest and $viaQuery {
-        @if $bool {
-            @supports (#{$supportsTest}) {
-                @include colour-mode($modes: $modes, $args...) {
-                    @content;
-                }
-            }
-        } @else {
-            @supports not (#{$supportsTest}) {
-                @include colour-mode($modes: $modes, $args...) {
-                    @content;
-                }
-            }
-        }
-    } @else {
-        $selector: #{&};
-
-        $mixin: if(
-            $bool,
-            meta.get-mixin('supports', $module: feature-check),
-            meta.get-mixin('supports-not', $module: feature-check)
-        );
-
+    @include colour-mode($modes: $modes, $mode_args...) {
         @include meta.apply(
-            $mixin: $mixin,
+            $mixin: meta.get-mixin(if($bool, 'supports', 'supports-not'), $module: feature-check),
             $key: $key,
-            $debug: $debug,
-            $includeNoWhereSelectorFallback: $includeNoWhereSelectorFallback,
-            $neverUseJS: $neverUseJS,
-            $viaQuery: $viaQuery
+            // $debug: true,
+            $selectorFallback: false,
+            $args...
         ) {
-            @include colour-mode($modes: $modes, $args...) {
-                @content;
-            }
+            @content;
         }
     }
 }
@@ -862,8 +825,19 @@ $_contrastModes_all: filter-colour-modes-active-only(tokens.$contrastMode_option
     }
 }
 
-@mixin colour-mode-js-supports-not($modes, $key, $args...) {
-    @include _colour-mode-js-any-support($modes: $modes, $key: $key, $bool: false, $args...) {
+// UPGRADE - fix, it's broken :(
+@mixin colour-mode-js-supports-not($modes, $key, $warn: true, $args...) {
+    @if $warn {
+        @warn 'sorry, this doesn’t work yet';
+    }
+
+    $args: meta.keywords($args);
+
+    #{config.$selector_null} {
         @content;
     }
+
+    // @include _colour-mode-js-any-support($modes: $modes, $key: $key, $bool: false, $args...) {
+    //     @content;
+    // }
 }

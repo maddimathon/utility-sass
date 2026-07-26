@@ -109,6 +109,21 @@ feature-check.get-selector {
     /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: false ) */
 }
 
+@include feature-check.supports(
+    (calc, variableFonts, whereSelector),
+    $addSelectors: (extra-selector)
+) {
+    /* @include feature-check.supports( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+}
+
+@include feature-check.supports(
+    (calc, variableFonts, whereSelector),
+    $addSelectors: (extra-selector),
+    $viaQuery: false
+) {
+    /* @include feature-check.supports( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ), $viaQuery: false ) */
+}
+
 /* ### Feature Check - Supports - CSS ------------------ */
 
 @include feature-check.supports(whereSelector, $viaQuery: true) {
@@ -121,6 +136,21 @@ feature-check.get-selector {
 
 @include feature-check.supports(aspectRatio, $addSelectors: (extra-selector), $viaQuery: true) {
     /* @include feature-check.supports( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: true ) */
+}
+
+@include feature-check.supports(
+    (calc, variableFonts, whereSelector),
+    $addSelectors: (extra-selector)
+) {
+    /* @include feature-check.supports( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+}
+
+@include feature-check.supports(
+    (calc, variableFonts, whereSelector),
+    $addSelectors: (extra-selector),
+    $viaQuery: true
+) {
+    /* @include feature-check.supports( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ), $viaQuery: true ) */
 }
 
 /* ## Modules - Feature Check - Mixins - Supports Not ==================================== */
@@ -149,6 +179,21 @@ feature-check.get-selector {
     /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: false ) */
 }
 
+@include feature-check.supports-not(
+    (calc, variableFonts, whereSelector),
+    $addSelectors: (extra-selector)
+) {
+    /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+}
+
+@include feature-check.supports-not(
+    (calc, variableFonts, whereSelector),
+    $addSelectors: (extra-selector),
+    $viaQuery: false
+) {
+    /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ), $viaQuery: false ) */
+}
+
 /* ### Feature Check - Supports Not - CSS ------------------ */
 
 @include feature-check.supports-not(whereSelector, $viaQuery: true) {
@@ -161,6 +206,21 @@ feature-check.get-selector {
 
 @include feature-check.supports-not(aspectRatio, $addSelectors: (extra-selector), $viaQuery: true) {
     /* @include feature-check.supports-not( aspectRatio, $addSelectors: ( extra-selector ), $viaQuery: true ) */
+}
+
+@include feature-check.supports-not(
+    (calc, variableFonts, whereSelector),
+    $addSelectors: (extra-selector)
+) {
+    /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ) ) */
+}
+
+@include feature-check.supports-not(
+    (calc, variableFonts, whereSelector),
+    $addSelectors: (extra-selector),
+    $viaQuery: true
+) {
+    /* @include feature-check.supports-not( ( calc, variableFonts, whereSelector ), $addSelectors: ( extra-selector ), $viaQuery: true ) */
 }
 
 /* ## Modules - Feature Check - Mixins - Aspect Ratio (fallback) ==================================== */

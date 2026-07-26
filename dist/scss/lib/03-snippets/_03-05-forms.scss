@@ -427,6 +427,7 @@
     //
     $display: block,
     $lineHeight: var-line-height('200'),
+    $borderRadius: 0,
     $borderWidth: 0.0625rem,
     $focusOffset: 0.125rem,
     $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
@@ -437,14 +438,19 @@
     $width: 100%,
     //
     $includeColours: true,
+    $includeDisabled: true,
     $includeLabel: true,
+    $includeMarginBlock: true,
     $includePlaceholder: true,
+    $includeReadonly: true,
     $selector: &
 ) {
     @include cx-prop(focus-ring-outline-offset, $focusOffset);
     @include prop-display($display);
 
-    margin-block: $marginBlock;
+    @if $includeMarginBlock {
+        margin-block: $marginBlock;
+    }
     margin-inline: $marginInline;
 
     padding-block: $paddingBlock;
@@ -461,7 +467,7 @@
     @if $includeColours {
         border-color: $borderClr;
     }
-    border-radius: 0;
+    border-radius: $borderRadius;
 
     @if $includeColours {
         @include cx-prop(focus-ring-outline-color, $accentClr);
@@ -553,10 +559,18 @@
         }
     }
 
-    @include config.selector-input-disabled {
-        cursor: not-allowed;
+    @if $includeReadonly {
+        @include config.selector-input-readonly {
+            @content (readonly);
+        }
+    }
 
-        @content (disabled);
+    @if $includeDisabled {
+        @include config.selector-input-disabled {
+            cursor: not-allowed;
+
+            @content (disabled);
+        }
     }
 }
 
@@ -564,8 +578,16 @@
 /// Base styles for the types of an element. Uses the & as input.
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft — Added optional $color_height, $color_width, $includeDisabled, $includeReadonly params.
 ///
-@mixin snippet-input-types($includeBase: true, $includeColours: true) {
+@mixin snippet-input-types(
+    $color_height: 2.25em,
+    $color_width: 2.25em,
+    $includeBase: true,
+    $includeColours: true,
+    $includeDisabled: true,
+    $includeReadonly: true
+) {
     @if $includeBase {
         @include snippet-input using ($base_location) {
             @content (base-#{$base_location});
@@ -589,10 +611,20 @@
 
         @content (cursor-pointer);
 
-        @include config.selector-input-disabled {
-            cursor: not-allowed;
+        @if $includeDisabled {
+            @include config.selector-input-readonly {
+                cursor: auto;
 
-            @content (cursor-pointer--disabled);
+                @content (cursor-pointer--readonly);
+            }
+        }
+
+        @if $includeDisabled {
+            @include config.selector-input-disabled {
+                cursor: not-allowed;
+
+                @content (cursor-pointer--disabled);
+            }
         }
     }
 
@@ -609,10 +641,12 @@
 
         @content (cursor-text);
 
-        @include config.selector-input-disabled {
-            cursor: not-allowed;
+        @if $includeDisabled {
+            @include config.selector-input-disabled {
+                cursor: not-allowed;
 
-            @content (cursor-text--disabled);
+                @content (cursor-text--disabled);
+            }
         }
     }
 
@@ -627,8 +661,8 @@
 
     &[type='color'] {
         padding: 0;
-        height: 2.25em;
-        width: 2.25em;
+        height: $color_height;
+        width: $color_width;
 
         @content (color);
     }
@@ -668,10 +702,23 @@
     $marginBlock: var-mrg-soft('400') 0,
     $marginBlock_innercheckradio: var-mrg-firm('200'),
     //
-    $includeColours: true
+    $includeColours: true,
+    $includeDisabled: true,
+    $includeMarginBlock: true,
+    $includeReadonly: true,
+    $multipleContentBlocks: false,
+    $selector_boxes: (
+        '[type=checkbox]',
+        '[type=radio]',
+    ),
+    $selector_boxes_has: ':where( #{$selector_boxes} )'
 ) {
     @include prop-display(block);
-    margin-block: $marginBlock;
+
+    @if $includeMarginBlock {
+        margin-block: $marginBlock;
+    }
+
     margin-inline: 0;
     font-weight: $fontWeight;
     line-height: $lineHeight;
@@ -681,7 +728,15 @@
         color: $color;
     }
 
-    &:has(> :where([type='checkbox'], [type='radio'])) {
+    @if $multipleContentBlocks {
+        @content (root);
+    } @else {
+        @content;
+    }
+
+    $_sels_boxes_has_direct: selector.nest('>', $selector_boxes_has);
+
+    &:has(#{$_sels_boxes_has_direct}) {
         @include prop-display(grid);
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;
@@ -697,21 +752,66 @@
 
         cursor: pointer;
 
-        @include config.selector-input-disabled {
-            cursor: not-allowed;
-        }
-
-        & + & {
-            margin-block-start: $marginBlock_innercheckradio;
-        }
-
-        + %input-base {
-            margin-block-start: var-mrg-firm('400');
+        @if $multipleContentBlocks {
+            @content (has-box);
         }
     }
 
-    > input[type='checkbox'],
-    > input[type='radio'] {
+    @if $includeReadonly {
+        &:has(
+            #{selector.nest( '>', config.selector-input-readonly($selector_boxes_has) )}
+        ) {
+            cursor: auto;
+
+            @if $multipleContentBlocks {
+                @content (has-box--readonly);
+            }
+        }
+    }
+
+    @if $includeDisabled {
+        &:has(
+            #{selector.nest( '>', config.selector-input-disabled($selector_boxes_has) )}
+        ) {
+            cursor: not-allowed;
+
+            @if $multipleContentBlocks {
+                @content (has-box--disabled);
+            }
+        }
+    }
+
+    &:has(#{$_sels_boxes_has_direct}) {
+        & + & {
+            @if $includeMarginBlock {
+                margin-block-start: $marginBlock_innercheckradio;
+            }
+
+            @if $multipleContentBlocks {
+                @content (has-box--direct-sibling--box);
+            }
+        }
+
+        + %input-base {
+            @if $includeMarginBlock {
+                margin-block-start: var-mrg-firm('400');
+            }
+
+            @if $multipleContentBlocks {
+                @content (has-box--direct-sibling--input);
+            }
+        }
+
+        @if $multipleContentBlocks {
+            @content (has-box--children-end);
+        }
+    }
+
+    #{selector.nest( '>', $selector_boxes )} {
         margin: 0;
+
+        @if $multipleContentBlocks {
+            @content (box);
+        }
     }
 }

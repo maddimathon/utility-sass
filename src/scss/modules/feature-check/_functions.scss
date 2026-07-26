@@ -1,0 +1,97 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha
+///
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:string';
+
+@use '../config';
+
+@use '../meta';
+@use '../selector';
+
+///
+/// @since ___PKG_VERSION___
+///
+@function param-include-no-where-selector($key, $includeNoWhereSelectorFallback) {
+    @return if(
+        $includeNoWhereSelectorFallback != null,
+        $includeNoWhereSelectorFallback,
+        if(
+            map.has-key(config.$featureCheck_includeNoWhereSelectorFallback_supports_not, $key),
+            map.get(config.$featureCheck_includeNoWhereSelectorFallback_supports_not, $key),
+            config.$featureCheck_includeNoWhereSelectorFallback
+        )
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function param-never-use-js($neverUseJS) {
+    @return if($neverUseJS == null, config.$featureCheck_neverUseJS, $neverUseJS);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function param-via-query($key, $bool, $neverUseJS, $viaQuery) {
+    @return if(
+        $viaQuery == null,
+        $neverUseJS or config.$featureCheck_neverUseJS or
+            (
+                config.$featureCheck_jsOnlyAsNeeded and not
+                    map.get(
+                        if(
+                            $bool,
+                            config.$featureCheck_defaultToJS_supports,
+                            config.$featureCheck_defaultToJS_supports_not
+                        ),
+                        $key
+                    )
+            ),
+        $viaQuery
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function get-query($key, $bool, $neverUseJS: null, $viaQuery: null) {
+    // returns
+    @if not
+        param-via-query($key: $key, $bool: $bool, $neverUseJS: $neverUseJS, $viaQuery: $viaQuery)
+    {
+        @return null;
+    }
+
+    $query: map.get(config.$featureCheck_supportsQueries, $key);
+
+    @return if(meta.is-truthy($query), if($bool, $query, 'not #{$query}'), null);
+}
+
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-alpha — Moved from library to own module.
+///
+@function get-selector($key, $bool, $addSelectors: (), $ignoreParentSelector: false, $args...) {
+    $args: meta.keywords($args);
+
+    @if $key != null and list.index(config.$featureCheck_supports, $key) == null {
+        @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
+    }
+
+    $sels: if(
+        $key == null or ($bool and $key == whereSelector),
+        if($bool, ':where( .js )', ('.no-js', '.js__no-whereSelector')),
+        ':where( .js__#{if( $bool, '', 'no-' )}#{$key} )'
+    );
+
+    @if not $ignoreParentSelector {
+        $sels: selector.add-root-selector($sels);
+    }
+
+    @return list.join($addSelectors, $sels, $separator: comma);
+}

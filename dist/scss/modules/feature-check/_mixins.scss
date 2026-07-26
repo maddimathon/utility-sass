@@ -3,24 +3,24 @@
 /// @since 0.1.0-alpha
 ///
 
-@use 'sass:list';
 @use 'sass:map';
 @use 'sass:math';
-@use 'sass:meta';
 @use 'sass:string';
 
 @use '../config';
 
+@use '../list';
+@use '../meta';
 @use '../selector';
 
-@use 'get-selector';
+@use 'functions';
 
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha — Moved from library to own module.
 ///
 @mixin js($args...) {
-    @at-root #{get-selector.get-selector( $key: null, $bool: true, $args... )} {
+    @at-root #{functions.get-selector( $key: null, $bool: true, $args... )} {
         @content;
     }
 }
@@ -30,7 +30,7 @@
 /// @since 0.1.0-alpha — Moved from library to own module.
 ///
 @mixin no-js($args...) {
-    @at-root #{get-selector.get-selector( $key: null, $bool: false, $args... )} {
+    @at-root #{functions.get-selector( $key: null, $bool: false, $args... )} {
         @content;
     }
 }
@@ -38,159 +38,318 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function param-include-no-where-selector(
+@function get-query-or-selector(
     $key,
-    $includeNoWhereSelectorFallback
+    $bool,
+    $debug: false,
+    $ignoreParentSelector: false,
+    $includeNoWhereSelectorFallback: null,
+    $neverUseJS: null,
+    $viaQuery: null,
+    $args...
 ) {
-    @return if(
-        $includeNoWhereSelectorFallback != null,
-        $includeNoWhereSelectorFallback,
-        if(
-            map.has-key(
-                config.$featureCheck_includeNoWhereSelectorFallback_supports_not,
-                $key
-            ),
-            map.get(
-                config.$featureCheck_includeNoWhereSelectorFallback_supports_not,
-                $key
-            ),
-            config.$featureCheck_includeNoWhereSelectorFallback
-        )
-    );
-}
+    $allQueries: ();
+    $allSelectors: ();
+    $allSelectors_noJS: ();
 
-///
-/// @since 0.1.0-beta.0.draft
-///
-@function param-never-use-js($neverUseJS) {
-    @return if(
-        $neverUseJS == null,
-        config.$featureCheck_neverUseJS,
-        $neverUseJS
-    );
-}
+    $neverUseJS: functions.param-never-use-js($neverUseJS);
 
-///
-/// @since 0.1.0-beta.0.draft
-///
-@function param-via-query($key, $bool, $neverUseJS, $viaQuery) {
-    @return if(
-        $viaQuery == null,
-        $neverUseJS or config.$featureCheck_neverUseJS or
-            (
-                config.$featureCheck_jsOnlyAsNeeded and not
-                    map.get(
-                        if(
-                            $bool,
-                            config.$featureCheck_defaultToJS_supports,
-                            config.$featureCheck_defaultToJS_supports_not
-                        ),
-                        $key
+    $hasMoreThanOneKey: list.length($key) > 1;
+
+    $skipNonWhereSelectors: false;
+
+    @if $hasMoreThanOneKey and not $bool {
+        $skipNonWhereSelectors: list.index($key, whereSelector) != null;
+    }
+
+    $include_noJS: false;
+    $includes_whereSelector: false;
+
+    @each $_key in $key {
+        $_query: functions.get-query(
+            $_key,
+            $bool,
+            $neverUseJS: $neverUseJS,
+            $viaQuery: $viaQuery
+        );
+
+        @if meta.is-truthy($_query) {
+            @if $_key !=
+                null and
+                list.index(config.$featureCheck_supports, $_key) ==
+                null
+            {
+                @warn "[feature-check.get-selector] $key '#{$_key}' is not an item in config.$featureCheck_supports";
+            }
+
+            $allQueries: list.append($allQueries, $_query, $separator: comma);
+        } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
+            $_skipThis: false;
+
+            @if $_key == whereSelector {
+                @if $_key !=
+                    null and
+                    list.index(config.$featureCheck_supports, $_key) ==
+                    null
+                {
+                    @warn "[feature-check.get-selector] $key '#{$_key}' is not an item in config.$featureCheck_supports";
+                }
+            } @else if $skipNonWhereSelectors {
+                $_skipThis: true;
+            }
+
+            @if not $_skipThis {
+                @if not $bool {
+                    @if functions.param-include-no-where-selector(
+                        $key: $_key,
+                        $includeNoWhereSelectorFallback:
+                            $includeNoWhereSelectorFallback
                     )
+                    {
+                        $include_noJS: true;
+                    }
+                }
+
+                @if (not $bool) and $_key == whereSelector {
+                    $include_noJS: true;
+                } @else {
+                    $_sel: functions.get-selector(
+                        if(
+                            (not $hasMoreThanOneKey) and
+                                ($_key == whereSelector),
+                            null,
+                            $_key
+                        ),
+                        $bool: $bool,
+                        $ignoreParentSelector: true,
+                        $args...
+                    );
+
+                    @if meta.is-truthy($_sel) {
+                        $allSelectors: if(
+                            meta.is-truthy($allSelectors),
+                            selector.unify($allSelectors, $_sel),
+                            $_sel
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    @if not $ignoreParentSelector {
+        @if meta.is-truthy($allSelectors) {
+            $allSelectors: selector.add-root-selector($allSelectors);
+        }
+
+        @if meta.is-truthy($allSelectors_noJS) {
+            $allSelectors_noJS: selector.add-root-selector(
+                #{$allSelectors_noJS}
+            );
+        }
+    }
+
+    $allSelectors_noJS: list.join(
+        $allSelectors_noJS,
+        if(
+            $include_noJS,
+            functions.get-selector(
+                null,
+                $bool: $bool,
+                $ignoreParentSelector: $ignoreParentSelector,
+                $args...
             ),
-        $viaQuery
+            ()
+        ),
+        $separator: comma
     );
+
+    $_args: meta.keywords($args);
+
+    @return (
+        query: $allQueries,
+        selector: $allSelectors,
+        selector_noJS: $allSelectors_noJS
+    );
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function prepare-query-and-selector(
+    $key,
+    $bool,
+    $addSelectors: (),
+    $addSelectors_noJS: (),
+    $ignoreParentSelector: false,
+    $selectorFallback: null,
+    $args...
+) {
+    $_queryOrSelector: get-query-or-selector(
+        $key: $key,
+        $bool: $bool,
+        $ignoreParentSelector: $ignoreParentSelector,
+        $args...,
+    );
+
+    $allQueries: map.get($_queryOrSelector, query);
+    $allSelectors: map.get($_queryOrSelector, selector);
+    $allSelectors_noJS: map.get($_queryOrSelector, selector_noJS);
+
+    @if $selectorFallback == null {
+        $selectorFallback: (list.length($allQueries) > 0) and
+            (not $ignoreParentSelector);
+    }
+
+    @if meta.is-truthy($allQueries) {
+        @if list.length($allQueries) > 1 {
+            @if $bool {
+                $allQueries: list.text-join($allQueries, ' and ');
+            } @else {
+                $allQueries: '(#{list.text-join($allQueries, ") and (")})';
+            }
+        } @else {
+            $allQueries: #{$allQueries};
+        }
+    } @else {
+        $allQueries: ();
+    }
+
+    $allSelectors: if(
+        list.length($allSelectors) > 0,
+        $allSelectors,
+        if($selectorFallback, selector.parent-or-root(), ())
+    );
+
+    @if list.length($addSelectors) > 0 {
+        $allSelectors: list.join(
+            $addSelectors,
+            $allSelectors,
+            $separator: comma
+        );
+    }
+
+    @if list.length($addSelectors_noJS) > 0 {
+        $allSelectors_noJS: list.join(
+            $addSelectors_noJS,
+            $allSelectors_noJS,
+            $separator: comma
+        );
+    }
+
+    @return (
+        query: $allQueries,
+        selector: $allSelectors,
+        selector_noJS: $allSelectors_noJS
+    );
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin at-supports-if-any($queries: ()) {
+    @if meta.is-truthy($queries) {
+        @supports #{$queries} {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin _supports-template($key, $bool, $debug: false, $args...) {
+    $_queryOrSelector: prepare-query-and-selector(
+        $key: $key,
+        $bool: $bool,
+        $debug: $debug,
+        $args...,
+    );
+
+    $query: map.get($_queryOrSelector, query);
+    $selector: map.get($_queryOrSelector, selector);
+    $selector_noJS: map.get($_queryOrSelector, selector_noJS);
+
+    @at-root {
+        @if $debug {
+            /* #{if($bool, supports, supports-not)}#{meta.demo-args-dump($args...)} */
+            @include meta.var-dump('$query', $query);
+            @include meta.var-dump('$selector', $selector);
+            @include meta.var-dump('$selector_noJS', $selector_noJS);
+
+            $args: meta.keywords($args);
+
+            @include meta.var-dump('$neverUseJS', map.get($args, neverUseJS));
+            @include meta.var-dump('$viaQuery', map.get($args, viaQuery));
+            @include meta.var-dump(
+                '$includeNoWhereSelectorFallback',
+                map.get($args, includeNoWhereSelectorFallback)
+            );
+
+            @include meta.var-dump(
+                'functions.param-never-use-js()',
+                functions.param-never-use-js(map.get($args, neverUseJS))
+            );
+
+            @each $_key in $key {
+                @include meta.var-dump(
+                    'functions.param-via-query( #{$_key} )',
+                    functions.param-via-query(
+                        $key: $_key,
+                        $bool: $bool,
+                        $neverUseJS: map.get($args, neverUseJS),
+                        $viaQuery: map.get($args, viaQuery)
+                    )
+                );
+            }
+
+            @each $_key in $key {
+                @include meta.var-dump(
+                    'functions.param-include-no-where-selector( #{$_key} )',
+                    functions.param-include-no-where-selector(
+                        $key: $_key,
+                        $includeNoWhereSelectorFallback: map.get(
+                                $args,
+                                includeNoWhereSelectorFallback
+                            )
+                    )
+                );
+            }
+        }
+        @include at-supports-if-any($query) {
+            @if meta.is-truthy($selector_noJS) {
+                #{$selector_noJS} {
+                    @if $debug {
+                        /* [noJS] */
+                    }
+                    @content (if(meta.is-truthy($query), at-supports--no-js, no-js));
+                }
+            }
+
+            @if meta.is-truthy($selector) {
+                #{$selector} {
+                    @content (if(meta.is-truthy($query), at-supports, where));
+                }
+            }
+        }
+    }
 }
 
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha — Moved from library to own module.
 /// @since 0.1.0-alpha.5 — Changed name from `js-support` to `supports`.
-/// @since 0.1.0-beta.0.draft — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params. Now using @supports instead (via config.$featureCheck_supportsQueries).
+/// @since 0.1.0-beta.0.draft — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params. Added list support to $key. Now using @supports instead (via config.$featureCheck_supportsQueries).
 ///
-@mixin supports(
-    $key,
-    $addSelectors: (),
-    $debug: false,
-    $neverUseJS: null,
-    $viaQuery: null,
-    //
-    $multipleContentBlocks: false,
-    $args...
-) {
-    $args: meta.keywords($args);
-
-    $neverUseJS: param-never-use-js($neverUseJS);
-
-    $viaQuery: param-via-query(
-        $key: $key,
-        $bool: true,
-        $neverUseJS: $neverUseJS,
-        $viaQuery: $viaQuery,
-    );
-
-    $supportsTest: if(
-        $viaQuery,
-        map.get(config.$featureCheck_supportsQueries, $key),
-        null
-    );
-
-    @if $supportsTest and $viaQuery {
-        @if $key !=
-            null and
-            list.index(config.$featureCheck_supports, $key) ==
-            null
-        {
-            @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
-        }
-
-        @supports (#{$supportsTest}) {
-            $_sels: selector.parent-or-root();
-
-            @if list.length($addSelectors) > 0 {
-                $_sels: list.append($_sels, $addSelectors, $separator: comma);
-            }
-
-            @at-root #{$_sels} {
-                @if $debug {
-                    /* $supportsTest and $viaQuery */
-                }
-                @if $multipleContentBlocks {
-                    @content (support-at-rule);
-                } @else {
-                    @content;
-                }
-            }
-        }
-    } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
-        @if $key == whereSelector {
-            @if $key !=
-                null and
-                list.index(config.$featureCheck_supports, $key) ==
-                null
-            {
-                @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
-            }
-
-            @include js($addSelectors: $addSelectors, $args...) {
-                @if $debug {
-                    /* not ( $supportsTest and $viaQuery ) */
-                    /* AND */
-                    /* not $neverUseJS and not config.$featureCheck_neverUseJS */
-                    /* AND */
-                    /* $key == whereSelector */
-                }
-                @if $multipleContentBlocks {
-                    @content (js);
-                } @else {
-                    @content;
-                }
-            }
+@mixin supports($key, $multipleContentBlocks: false, $args...) {
+    @include _supports-template($key: $key, $bool: true, $args...) using
+        ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
         } @else {
-            @at-root #{get-selector.get-selector( $key, true,$addSelectors:$addSelectors, $args... )} {
-                @if $debug {
-                    /* not ( $supportsTest and $viaQuery ) */
-                    /* AND */
-                    /* not $neverUseJS and not config.$featureCheck_neverUseJS */
-                    /* AND */
-                    /* $key != whereSelector */
-                }
-                @if $multipleContentBlocks {
-                    @content (where-support);
-                } @else {
-                    @content;
-                }
-            }
+            @content;
         }
     }
 }
@@ -200,135 +359,15 @@
 /// @since 0.1.0-alpha — Moved from library to own module.
 /// @since 0.1.0-alpha.5 — Changed name from `js-no-support` to `supports-not`.
 /// @since 0.1.0-alpha.33 — Added $includeNoWhereSelectorFallback param, default true.
-/// @since 0.1.0-beta.0.draft — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params to use @supports instead (via config.$featureCheck_supportsQueries).
+/// @since 0.1.0-beta.0.draft — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params to use @supports instead (via config.$featureCheck_supportsQueries). Added list support to $key.
 ///
-@mixin supports-not(
-    $key,
-    $addSelectors: (),
-    $addSelectors_noJS: (),
-    $debug: false,
-    $includeNoWhereSelectorFallback: null,
-    $neverUseJS: null,
-    $viaQuery: null,
-    //
-    $multipleContentBlocks: false,
-    $args...
-) {
-    $args: meta.keywords($args);
-
-    $neverUseJS: param-never-use-js($neverUseJS);
-
-    $viaQuery: param-via-query(
-        $key: $key,
-        $bool: false,
-        $neverUseJS: $neverUseJS,
-        $viaQuery: $viaQuery,
-    );
-
-    $supportsTest: if(
-        $viaQuery,
-        map.get(config.$featureCheck_supportsQueries, $key),
-        null
-    );
-
-    @if $supportsTest and $viaQuery {
-        @supports not (#{$supportsTest}) {
-            @if $key !=
-                null and
-                list.index(config.$featureCheck_supports, $key) ==
-                null
-            {
-                @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
-            }
-
-            $_sels: selector.parent-or-root();
-
-            $_addSels: if(
-                $key == whereSelector,
-                $addSelectors_noJS,
-                $addSelectors
-            );
-
-            @if list.length($_addSels) > 0 {
-                $_sels: list.append($_sels, $_addSels, $separator: comma);
-            }
-
-            @at-root #{$_sels} {
-                @if $debug {
-                    /* $supportsTest and $viaQuery */
-                }
-                @if $multipleContentBlocks {
-                    @content (supports-at-rule);
-                } @else {
-                    @content;
-                }
-            }
-        }
-    } @else if not $neverUseJS and not config.$featureCheck_neverUseJS {
-        $_addSelectors_noJS: if(
-            $key == whereSelector,
-            $addSelectors,
-            $addSelectors_noJS
-        );
-
-        @if param-include-no-where-selector(
-            $key: $key,
-            $includeNoWhereSelectorFallback: $includeNoWhereSelectorFallback
-        )
-        {
-            @include no-js($addSelectors: $_addSelectors_noJS, $args...) {
-                @if $debug {
-                    /* not ( $supportsTest and $viaQuery ) */
-                    /* AND */
-                    /* not $neverUseJS and not config.$featureCheck_neverUseJS */
-                    /* AND */
-                    /* $includeNoWhereSelectorFallback */
-                }
-                @if $multipleContentBlocks {
-                    @content (no-js);
-                } @else {
-                    @content;
-                }
-            }
-        } @else if list.length($_addSelectors_noJS) > 0 {
-            @at-root #{$_addSelectors_noJS} {
-                @if $debug {
-                    /* not ( $supportsTest and $viaQuery ) */
-                    /* AND */
-                    /* not $neverUseJS and not config.$featureCheck_neverUseJS */
-                    /* AND */
-                    /* not $includeNoWhereSelectorFallback */
-                }
-                @if $multipleContentBlocks {
-                    @content (no-js);
-                } @else {
-                    @content;
-                }
-            }
-        }
-
-        @if $key != whereSelector {
-            @at-root #{get-selector.get-selector( $key, false, $addSelectors: $addSelectors, $args... )} {
-                @if $debug {
-                    /* not ( $supportsTest and $viaQuery ) */
-                    /* AND */
-                    /* not $neverUseJS and not config.$featureCheck_neverUseJS */
-                    /* AND */
-                    /* $key != whereSelector */
-                }
-                @if $multipleContentBlocks {
-                    @content (where-no-support);
-                } @else {
-                    @content;
-                }
-            }
-        } @else if
-            $key !=
-            null and
-            list.index(config.$featureCheck_supports, $key) ==
-            null
-        {
-            @warn "[feature-check.get-selector] $key '#{$key}' is not an item in config.$featureCheck_supports";
+@mixin supports-not($key, $multipleContentBlocks: false, $args...) {
+    @include _supports-template($key: $key, $bool: false, $args...) using
+        ($location) {
+        @if $multipleContentBlocks {
+            @content ($location);
+        } @else {
+            @content;
         }
     }
 }

@@ -127,15 +127,15 @@ $featureCheck_supports: list.join(
 $featureCheck_supportsQueries: () !default;
 $featureCheck_supportsQueries: map.merge(
     (
-        aspectRatio: 'aspect-ratio: 1 / 2',
-        backgroundFixed: 'background-attachment: fixed',
-        calc: 'width: calc( 0.25em + 10% )',
-        displayContents: 'display: contents',
+        aspectRatio: '( aspect-ratio: 1 / 2 )',
+        backgroundFixed: '( background-attachment: fixed )',
+        calc: '( width: calc( 0.25em + 10% ) )',
+        displayContents: '( display: contents )',
         focusWithin: 'selector( a:focus-within )',
         focusVisible: 'selector( a:focus-visible )',
         hasSelector: 'selector( :has( a ) )',
-        subgrid: 'grid-template-columns: subgrid',
-        variableFonts: 'font-variation-settings: normal',
+        subgrid: '( grid-template-columns: subgrid )',
+        variableFonts: 'font-tech( variations )',
         whereSelector: 'selector( :where( a ) )',
     ),
     $featureCheck_supportsQueries

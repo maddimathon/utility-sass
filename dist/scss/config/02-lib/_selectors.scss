@@ -40,6 +40,38 @@ $selector_a: config-valid-selector(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
+$selector_a_current: null !default;
+$selector_a_current: config-valid-selector(
+    $selector_a_current,
+    'selector_a_current',
+    $default: '[aria-current]'
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function selector-a-current($selector: &) {
+    @return selector.unify($selector, $selector_a_current);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin selector-a-current($selector: &, $appendToSelector: false, $is: false) {
+    $all_selectors: selector-a-current($selector);
+
+    @if $appendToSelector {
+        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
+    }
+
+    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
 $selector_a_disabled: null !default;
 $selector_a_disabled: config-valid-selector(
     $selector_a_disabled,
@@ -57,10 +89,14 @@ $selector_a_disabled: config-valid-selector(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin selector-a-disabled($selector: &, $is: false) {
-    $selector: selector-a-disabled($selector);
+@mixin selector-a-disabled($selector: &, $appendToSelector: false, $is: false) {
+    $all_selectors: selector-a-disabled($selector);
 
-    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+    @if $appendToSelector {
+        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
+    }
+
+    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
         @content;
     }
 }
@@ -85,10 +121,18 @@ $selector_button_disabled: config-valid-selector(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin selector-button-disabled($selector: &, $is: false) {
-    $selector: selector-button-disabled($selector);
+@mixin selector-button-disabled(
+    $selector: &,
+    $appendToSelector: false,
+    $is: false
+) {
+    $all_selectors: selector-button-disabled($selector);
 
-    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+    @if $appendToSelector {
+        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
+    }
+
+    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
         @content;
     }
 }
@@ -113,10 +157,18 @@ $selector_input_disabled: config-valid-selector(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin selector-input-disabled($selector: &, $is: false) {
-    $selector: selector-input-disabled($selector);
+@mixin selector-input-disabled(
+    $selector: &,
+    $appendToSelector: false,
+    $is: false
+) {
+    $all_selectors: selector-input-disabled($selector);
 
-    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+    @if $appendToSelector {
+        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
+    }
+
+    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
         @content;
     }
 }
@@ -141,10 +193,18 @@ $selector_input_readonly: config-valid-selector(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin selector-input-readonly($selector: &, $is: false) {
-    $selector: selector-input-readonly($selector);
+@mixin selector-input-readonly(
+    $selector: &,
+    $appendToSelector: false,
+    $is: false
+) {
+    $all_selectors: selector-input-readonly($selector);
 
-    @at-root #{if($is, ':is(#{$selector})', $selector)} {
+    @if $appendToSelector {
+        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
+    }
+
+    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
         @content;
     }
 }

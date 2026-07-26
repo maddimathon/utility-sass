@@ -13,13 +13,13 @@
 @use 'parent-exists';
 
 ///
-/// Removes all cases of $needles selectors in comma-separated $haystack
+/// Includes all cases of $needles selectors in comma-separated $haystack
 /// selectors, ONLY IF one of $needles is a superselector for the selector being
 /// tested.
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function except-superselector($haystack, $needles) {
+@function only-superselector($haystack, $needles) {
     // returns
     @if list.length($haystack) < 1 or list.length($needles) < 1 {
         @return $haystack;
@@ -43,7 +43,7 @@
             }
         }
 
-        @if not $_haystack_includes_needle {
+        @if $_haystack_includes_needle {
             $returnHaystack: list.append(
                 $returnHaystack,
                 $haystack_single,
@@ -61,28 +61,28 @@
 }
 
 ///
-/// Removes all cases of $needles selectors in the parent selector, ONLY IF one
+/// Includes all cases of $needles selectors in the parent selector, ONLY IF one
 /// of $needles is a superselector for the parent selector being tested.
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function parent-except-superselector($needles, $args...) {
+@function parent-only-superselector($needles, $args...) {
     // returns
     @if not parent-exists.parent-exists() {
         @return config.$selector_null;
     }
 
-    @return except-superselector(&, $needles, $args...);
+    @return only-superselector(&, $needles, $args...);
 }
 
 ///
-/// Removes all cases of $needles selectors in the parent selector, ONLY IF one
+/// Includes all cases of $needles selectors in the parent selector, ONLY IF one
 /// of $needles is a superselector for the parent selector being tested.
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin parent-except-superselector($needles, $args...) {
-    @at-root #{parent-except-superselector($needles, $args...)} {
+@mixin parent-only-superselector($needles, $args...) {
+    @at-root #{parent-only-superselector($needles, $args...)} {
         @content;
     }
 }
