@@ -396,8 +396,9 @@ $_systemColors: get-sys-colours();
                     @each $value in $list {
                         @include cx-prop(
                             sys-clr-#{$slug},
-                            #{$value} !important,
-                            $allPrefixes: false
+                            $value,
+                            $allPrefixes: false,
+                            $important: true
                         );
                     }
                 }

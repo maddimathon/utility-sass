@@ -23,6 +23,7 @@
     $pseudoType,
     $selectors: null,
     $direct: false,
+    $split: true,
     $unifyParent: false,
     $debug: false
 ) {
@@ -67,7 +68,7 @@
 
     $pseudo_selector_list: ();
 
-    @each $sel in $selectors {
+    @each $sel in if($split, $selectors, #{$selectors}) {
         @if #{$sel} != #{config.$selector_null} and string.length(#{$sel}) > 0 {
             //
             @if $direct and $pseudoType == 'has' {

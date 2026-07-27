@@ -33,3 +33,21 @@
         $warnOnWrongType: false
     );
 }
+
+///
+/// If $if is not null, it is returned, otherwise $else is returned.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function defined-else($if, $else) {
+    @return if($if != null, $if, $else);
+}
+
+///
+/// If $ifTruthy is truthy, it is returned, otherwise $else is returned.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function truthy-else($ifTruthy, $else) {
+    @return if(is-truthy($ifTruthy), $ifTruthy, $else);
+}

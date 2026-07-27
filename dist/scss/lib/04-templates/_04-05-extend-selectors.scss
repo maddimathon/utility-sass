@@ -174,7 +174,10 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function get-extend-selectors-headings-utils($allHeadingLevels) {
+@function get-extend-selectors-headings-utils(
+    $allHeadingLevels,
+    $unstyledHGroupExtender: 'unstyled-heading--where'
+) {
     $sels: (
         ('hgroup %unstyled-heading', unstyled-heading--hgroup),
         ('hgroup %unstyled-heading--is', unstyled-heading--is--hgroup),
@@ -182,9 +185,12 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         //
         ('.unstyled-heading', unstyled-heading),
         //
-        ('.unstyled-heading__hgroup', unstyled-heading__hgroup),
+        ('.unstyled-heading__hgroup', #{$unstyledHGroupExtender}__hgroup),
         //
-        ('.unstyled-heading__subheading', unstyled-heading__subheading),
+        (
+                '.unstyled-heading__subheading',
+                #{$unstyledHGroupExtender}__subheading
+            ),
         //
         ('.page-title', title),
         ('.page-title__subheading', title__subheading)

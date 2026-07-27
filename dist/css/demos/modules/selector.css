@@ -2869,6 +2869,10 @@ selector.has--with-selectors {
     /* 1: <S> ":has( div )" */
     /* 2: <S> ":has( p )" */
     /* 3: <S> ":has( body )" */
+    /* 
+      selector.has-list( ( div, p, body ), $split: false ) is a list:
+   */
+    /* 1: <S> ":has( div, p, body )" */
 }
 selector.has--with-selectors--direct {
     /* 
@@ -2877,6 +2881,10 @@ selector.has--with-selectors--direct {
     /* 1: <S> ":has( > div )" */
     /* 2: <S> ":has( > p )" */
     /* 3: <S> ":has( > body )" */
+    /* 
+      selector.has-list( ( div, p, body ), $direct: true, $split: false ) is a list:
+   */
+    /* 1: <S> ":has( > div, > p, > body )" */
 }
 selector.has--with-selectors--direct--unified {
     /* 
@@ -2885,6 +2893,10 @@ selector.has--with-selectors--direct--unified {
     /* 1: <()> ( <S> selector.has--with-selectors--direct--unified:has(> div) ) */
     /* 2: <()> ( <S> selector.has--with-selectors--direct--unified:has(> p) ) */
     /* 3: <()> ( <S> selector.has--with-selectors--direct--unified:has(> body) ) */
+    /* 
+      selector.has-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.has--with-selectors--direct--unified:has(> div, > p, > body) ) */
 }
 selector.has :has(*) {
     /* @include selector.has() {} */
@@ -2912,10 +2924,18 @@ selector.has :has(body) {
     /* @include selector.has( ( div, p, body ) ) {} */
 }
 
+selector.has :has(div, p, body) {
+    /* @include selector.has( ( div, p, body ), $split: false ) {} */
+}
+
 selector.has :has(> div),
 selector.has :has(> p),
 selector.has :has(> body) {
     /* @include selector.has( ( div, p, body ), $direct: true ) {} */
+}
+
+selector.has :has(> div, > p, > body) {
+    /* @include selector.has( ( div, p, body ), $direct: true, $split: false ) {} */
 }
 
 selector.has:has(div),
@@ -2924,9 +2944,17 @@ selector.has:has(body) {
     /* @include selector.has( ( div, p, body ), $unifyParent: true ) {} */
 }
 
+selector.has:has(div, p, body) {
+    /* @include selector.has( ( div, p, body ), $split: false, $unifyParent: true ) {} */
+}
+
 selector.has:has(> div),
 selector.has:has(> p),
 selector.has:has(> body) {
+    /* @include selector.has( ( div, p, body ), $unifyParent: true, $direct: true ) {} */
+}
+
+selector.has:has(> div, > p, > body) {
     /* @include selector.has( ( div, p, body ), $unifyParent: true, $direct: true ) {} */
 }
 
@@ -2955,6 +2983,10 @@ selector.is--with-selectors {
     /* 1: <S> ":is( div )" */
     /* 2: <S> ":is( p )" */
     /* 3: <S> ":is( body )" */
+    /* 
+      selector.is-list( ( div, p, body ), $split: false ) is a list:
+   */
+    /* 1: <S> ":is( div, p, body )" */
 }
 selector.is--with-selectors--direct {
     /* 
@@ -2963,6 +2995,10 @@ selector.is--with-selectors--direct {
     /* 1: <()> ( <S> > <S> :is(div) ) */
     /* 2: <()> ( <S> > <S> :is(p) ) */
     /* 3: <()> ( <S> > <S> :is(body) ) */
+    /* 
+      selector.is-list( ( div, p, body ), $direct: true, $split: false ) is a list:
+   */
+    /* 1: <()> ( <S> > <S> :is(div, p, body) ) */
 }
 selector.is--with-selectors--direct--unified {
     /* 
@@ -2971,6 +3007,10 @@ selector.is--with-selectors--direct--unified {
     /* 1: <()> ( <S> selector.is--with-selectors--direct--unified:is(div) ) */
     /* 2: <()> ( <S> selector.is--with-selectors--direct--unified:is(p) ) */
     /* 3: <()> ( <S> selector.is--with-selectors--direct--unified:is(body) ) */
+    /* 
+      selector.is-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.is--with-selectors--direct--unified:is(div, p, body) ) */
 }
 selector.is :is(*) {
     /* @include selector.is() {} */
@@ -2994,16 +3034,28 @@ selector.is :is(body) {
     /* @include selector.is( ( div, p, body ) ) {} */
 }
 
+selector.is :is(div, p, body) {
+    /* @include selector.is( ( div, p, body ), $split: false ) {} */
+}
+
 selector.is > :is(div),
 selector.is > :is(p),
 selector.is > :is(body) {
     /* @include selector.is( ( div, p, body ), $direct: true ) {} */
 }
 
+selector.is > :is(div, p, body) {
+    /* @include selector.is( ( div, p, body ), $direct: true, $split: false ) {} */
+}
+
 selector.is:is(div),
 selector.is:is(p),
 selector.is:is(body) {
     /* @include selector.is( ( div, p, body ), $unifyParent: true ) {} */
+}
+
+selector.is:is(div, p, body) {
+    /* @include selector.is( ( div, p, body ), $split: false, $unifyParent: true ) {} */
 }
 
 selector.not {
@@ -3027,18 +3079,29 @@ selector.not--with-selectors {
     /* 
       selector.not-list( ( div, p, body ) ) = <S> ":not( div ):not( p ):not( body )"
    */
+    /* 
+      selector.not-list( ( div, p, body ), $split: false ) = <S> ":not( div, p, body )"
+   */
 }
 selector.not--with-selectors--direct {
     /* 
       selector.not-list( ( div, p, body ), $direct: true ) is a list:
    */
     /* 1: <()> ( <S> > <S> :not(div):not(p):not(body) ) */
+    /* 
+      selector.not-list( ( div, p, body ), $direct: true, $split: false ) is a list:
+   */
+    /* 1: <()> ( <S> > <S> :not(div, p, body) ) */
 }
 selector.not--with-selectors--direct--unified {
     /* 
       selector.not-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
    */
     /* 1: <S> selector.not--with-selectors--direct--unified:not( div ):not( p ):not( body ) */
+    /* 
+      selector.not-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) is a list:
+   */
+    /* 1: <S> selector.not--with-selectors--direct--unified:not( div, p, body ) */
 }
 selector.not * {
     /* @include selector.not() {} */
@@ -3060,12 +3123,24 @@ selector.not :not(div):not(p):not(body) {
     /* @include selector.not( ( div, p, body ) ) {} */
 }
 
+selector.not :not(div, p, body) {
+    /* @include selector.not( ( div, p, body ), $split: false ) {} */
+}
+
 selector.not > :not(div):not(p):not(body) {
     /* @include selector.not( ( div, p, body ), $direct: true ) {} */
 }
 
+selector.not > :not(div, p, body) {
+    /* @include selector.not( ( div, p, body ), $direct: true, $split: false ) {} */
+}
+
 selector.not:not(div):not(p):not(body) {
     /* @include selector.not( ( div, p, body ), $unifyParent: true ) {} */
+}
+
+selector.not:not(div, p, body) {
+    /* @include selector.not( ( div, p, body ), $split: false, $unifyParent: true ) {} */
 }
 
 selector.where {
@@ -3093,6 +3168,10 @@ selector.where--with-selectors {
     /* 1: <S> ":where( div )" */
     /* 2: <S> ":where( p )" */
     /* 3: <S> ":where( body )" */
+    /* 
+      selector.where-list( ( div, p, body ), $split: false ) is a list:
+   */
+    /* 1: <S> ":where( div, p, body )" */
 }
 selector.where--with-selectors--direct {
     /* 
@@ -3101,6 +3180,10 @@ selector.where--with-selectors--direct {
     /* 1: <()> ( <S> > <S> :where(div) ) */
     /* 2: <()> ( <S> > <S> :where(p) ) */
     /* 3: <()> ( <S> > <S> :where(body) ) */
+    /* 
+      selector.where-list( ( div, p, body ), $direct: true, $split: false ) is a list:
+   */
+    /* 1: <()> ( <S> > <S> :where(div, p, body) ) */
 }
 selector.where--with-selectors--direct--unified {
     /* 
@@ -3109,6 +3192,10 @@ selector.where--with-selectors--direct--unified {
     /* 1: <()> ( <S> selector.where--with-selectors--direct--unified:where(div) ) */
     /* 2: <()> ( <S> selector.where--with-selectors--direct--unified:where(p) ) */
     /* 3: <()> ( <S> selector.where--with-selectors--direct--unified:where(body) ) */
+    /* 
+      selector.where-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) is a list:
+   */
+    /* 1: <()> ( <S> selector.where--with-selectors--direct--unified:where(div, p, body) ) */
 }
 selector.where :where(*) {
     /* @include selector.where() {} */
@@ -3132,14 +3219,26 @@ selector.where :where(body) {
     /* @include selector.where( ( div, p, body ) ) {} */
 }
 
+selector.where :where(div, p, body) {
+    /* @include selector.where( ( div, p, body ), $split: false ) {} */
+}
+
 selector.where > :where(div),
 selector.where > :where(p),
 selector.where > :where(body) {
     /* @include selector.where( ( div, p, body ), $direct: true ) {} */
 }
 
+selector.where > :where(div, p, body) {
+    /* @include selector.where( ( div, p, body ), $direct: true, $split: false ) {} */
+}
+
 selector.where:where(div),
 selector.where:where(p),
 selector.where:where(body) {
     /* @include selector.where( ( div, p, body ), $unifyParent: true ) {} */
+}
+
+selector.where:where(div, p, body) {
+    /* @include selector.where( ( div, p, body ), $split: false, $unifyParent: true ) {} */
 }

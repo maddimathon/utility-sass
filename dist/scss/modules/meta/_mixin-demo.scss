@@ -15,28 +15,7 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @function demo-args-dump($args...) {
-    // $args: if(meta.type-of($args) == arglist, meta.keywords($args), $args);
-
     $_unused: meta.keywords($args);
-
-    // $_dumpList: ();
-
-    // @if meta.type-of($args) == arglist {
-
-    //     @each $value in $args {
-    //         $_dumpList: list.append($_dumpList, $value, $separator: comma);
-    //     }
-    // }
-
-    // @if meta.type-of($args) == map {
-    //     @each $param, $value in $args {
-    //         $_dumpList: map.set($_dumpList, '$#{$param}', $value);
-    //     }
-    // } @else {
-    //     @each $value in $args {
-    //         $_dumpList: list.append($_dumpList, $value, $separator: comma);
-    //     }
-    // }
 
     @return if(
         not is-truthy.is-truthy($args),

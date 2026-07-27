@@ -29,3 +29,21 @@
 
     @return config.config-valid-bool($value, '[meta.is-truthy()] $value', $warnOnWrongType: false);
 }
+
+///
+/// If $if is not null, it is returned, otherwise $else is returned.
+///
+/// @since ___PKG_VERSION___
+///
+@function defined-else($if, $else) {
+    @return if($if != null, $if, $else);
+}
+
+///
+/// If $ifTruthy is truthy, it is returned, otherwise $else is returned.
+///
+/// @since ___PKG_VERSION___
+///
+@function truthy-else($ifTruthy, $else) {
+    @return if(is-truthy($ifTruthy), $ifTruthy, $else);
+}

@@ -732,6 +732,10 @@ body {
                 'selector.#{$selectorName}-list( ( div, p, body ) )',
                 meta.call($fn, $selectors: (div, p, body))
             );
+            @include meta.var-dump(
+                'selector.#{$selectorName}-list( ( div, p, body ), $split: false )',
+                meta.call($fn, $selectors: (div, p, body), $split: false)
+            );
         }
 
         &--with-selectors--direct {
@@ -739,12 +743,26 @@ body {
                 'selector.#{$selectorName}-list( ( div, p, body ), $direct: true )',
                 meta.call($fn, $selectors: (div, p, body), $direct: true)
             );
+            @include meta.var-dump(
+                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true, $split: false )',
+                meta.call($fn, $selectors: (div, p, body), $direct: true, $split: false)
+            );
         }
 
         &--with-selectors--direct--unified {
             @include meta.var-dump(
                 'selector.#{$selectorName}-list( ( div, p, body ), $direct: true, $unifyParent: true )',
                 meta.call($fn, $selectors: (div, p, body), $direct: true, $unifyParent: true)
+            );
+            @include meta.var-dump(
+                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true )',
+                meta.call(
+                    $fn,
+                    $selectors: (div, p, body),
+                    $direct: true,
+                    $split: false,
+                    $unifyParent: true
+                )
             );
         }
 
@@ -774,20 +792,42 @@ body {
             /* @include selector.#{$selectorName}( ( div, p, body ) ) {} */
         }
 
+        @include meta.apply($mixin, $selectors: (div, p, body), $split: false) {
+            /* @include selector.#{$selectorName}( ( div, p, body ), $split: false ) {} */
+        }
+
         @include meta.apply($mixin, $selectors: (div, p, body), $direct: true) {
             /* @include selector.#{$selectorName}( ( div, p, body ), $direct: true ) {} */
+        }
+
+        @include meta.apply($mixin, $selectors: (div, p, body), $direct: true, $split: false) {
+            /* @include selector.#{$selectorName}( ( div, p, body ), $direct: true, $split: false ) {} */
         }
 
         @include meta.apply($mixin, $selectors: (div, p, body), $unifyParent: true) {
             /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true ) {} */
         }
 
+        @include meta.apply($mixin, $selectors: (div, p, body), $split: false, $unifyParent: true) {
+            /* @include selector.#{$selectorName}( ( div, p, body ), $split: false, $unifyParent: true ) {} */
+        }
+
         @if $selectorName == has {
             @include meta.apply(
                 $mixin,
                 $selectors: (div, p, body),
-                $unifyParent: true,
-                $direct: true
+                $direct: true,
+                $unifyParent: true
+            ) {
+                /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true, $direct: true ) {} */
+            }
+
+            @include meta.apply(
+                $mixin,
+                $selectors: (div, p, body),
+                $direct: true,
+                $split: false,
+                $unifyParent: true
             ) {
                 /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true, $direct: true ) {} */
             }
