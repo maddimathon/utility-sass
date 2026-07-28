@@ -34,11 +34,13 @@ $_viewport_percent_minus_gap: 1 -
 /// @since 0.1.0-beta.0.draft
 ///
 $breakpoint_nav: null !default;
-$breakpoint_nav: config.config-valid-number(
-    $breakpoint_nav,
-    'breakpoint_nav',
-    $default: null
-);
+@if $breakpoint_nav != null {
+    $breakpoint_nav: config.config-valid-number(
+        $breakpoint_nav,
+        'breakpoint_nav',
+        $default: null
+    );
+}
 
 ///
 /// A map (merged with the defaults) of breakpoints used with the breakpoint
