@@ -18,11 +18,13 @@
 /// :#{$pseudoType}() selectors.
 ///
 /// @since 0.1.0-alpha.37
+/// @since ___PKG_VERSION___ — Added optional $parentSelector, $split params.
 ///
 @function _pseudo-list(
     $pseudoType,
     $selectors: null,
     $direct: false,
+    $parentSelector: null,
     $split: true,
     $unifyParent: false,
     $debug: false
@@ -32,6 +34,12 @@
         @debug '$selectors [1] = #{meta.var-dump($selectors)}';
     }
 
+    @if $parentSelector == null and parent-exists.parent-exists() {
+        $parentSelector: &;
+    } @else if not parent-exists.parent-exists($parentSelector) {
+        $parentSelector: null;
+    }
+
     // returns for not
     @if $selectors == null {
         // returns
@@ -39,8 +47,8 @@
             $_notSel: string.unquote(':#{$pseudoType}( #{config.$selector_null} )');
 
             $_ret: if(
-                $unifyParent and parent-exists.parent-exists(),
-                selector.unify(&, $_notSel),
+                $unifyParent and $parentSelector != null,
+                selector.unify($parentSelector, $_notSel),
                 if($direct, selector.nest('>', $_notSel), $_notSel)
             );
 
@@ -105,8 +113,8 @@
             $_notSel: string.unquote(':#{$pseudoType}( #{config.$selector_null} )');
 
             $_ret: if(
-                $unifyParent and parent-exists.parent-exists(),
-                selector.unify(&, $_notSel),
+                $unifyParent and $parentSelector != null,
+                selector.unify($parentSelector, $_notSel),
                 if($direct, selector.nest('>', $_notSel), $_notSel)
             );
 
@@ -127,13 +135,13 @@
     }
 
     // returns
-    @if $unifyParent and parent-exists.parent-exists() {
-        $_ret: selector.unify(&, $pseudo_selector_list);
+    @if $unifyParent and $parentSelector != null {
+        $_ret: selector.unify($parentSelector, $pseudo_selector_list);
 
         @if $pseudoType == 'not' {
             $_ret: ();
 
-            @each $selector in selector.parse(#{&}) {
+            @each $selector in selector.parse(#{$parentSelector}) {
                 $_ret: list.join(
                     $_ret,
                     string.unquote('#{$selector}#{$pseudo_selector_list}'),

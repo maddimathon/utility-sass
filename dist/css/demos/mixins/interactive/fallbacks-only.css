@@ -25,8 +25,7 @@
 }
 @media active-within {
     /* @include active-within { } */
-    :has(:active),
-    :has([data-state-active]) {
+    :has(:is(:active, [data-state-active])) {
         /* content */
     }
 }
@@ -110,9 +109,7 @@
     :focus-within {
         /* content */
     }
-    :has([data-state-focus]),
-    :has(:active),
-    :has([data-state-active]) {
+    :has(:is([data-state-focus], :active, [data-state-active])) {
         /* content */
     }
 }
@@ -127,8 +124,7 @@
 }
 @media active-within {
     /* @include active-within { } */
-    button:has(:active),
-    button:has([data-state-active]) {
+    button:has(:is(:active, [data-state-active])) {
         /* content */
     }
 }
@@ -212,9 +208,7 @@
     button:focus-within {
         /* content */
     }
-    button:has([data-state-focus]),
-    button:has(:active),
-    button:has([data-state-active]) {
+    button:has(:is([data-state-focus], :active, [data-state-active])) {
         /* content */
     }
 }

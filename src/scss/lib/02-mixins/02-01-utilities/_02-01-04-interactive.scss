@@ -65,6 +65,11 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     $addSelectors_pseudo: (),
     $addSelectors_visited: (),
     //
+    $config_asHas: false,
+    $pseudo_asHas: false,
+    $config_asHas_is: list.length($selector_config) > 1,
+    $pseudo_asHas_is: list.length($selector_pseudo) > 1,
+    //
     $includeParentSelector: true,
     //
     $separate_addSelectors: false,
@@ -76,12 +81,27 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ) {
     $args: meta.keywords($args);
 
-    @if $includeParentSelector and selector.parent-exists() {
-        @if $selector_pseudo != false and list.length($selector_pseudo) > 0 {
-            $selector_pseudo: selector.unify(&, $selector_pseudo);
+    $_length_pseudo: list.length($selector_pseudo);
+    $_length_config: list.length($selector_config);
+
+    @if $selector_pseudo != false and $_length_pseudo > 0 {
+        @if $pseudo_asHas {
+            $selector_pseudo: if($pseudo_asHas_is, ':is( #{$selector_pseudo} )', $selector_pseudo);
+            $selector_pseudo: ':has( #{$selector_pseudo} )';
         }
 
-        @if $selector_config != false and list.length($selector_config) > 0 {
+        @if $includeParentSelector and selector.parent-exists() {
+            $selector_pseudo: selector.unify(&, $selector_pseudo);
+        }
+    }
+
+    @if $selector_config != false and $_length_config > 0 {
+        @if $config_asHas {
+            $selector_config: if($config_asHas_is, ':is( #{$selector_config} )', $selector_config);
+            $selector_config: ':has( #{$selector_config} )';
+        }
+
+        @if $includeParentSelector and selector.parent-exists() {
             $selector_config: selector.unify(&, $selector_config);
         }
     }
@@ -297,14 +317,10 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 
     $args: meta.keywords($args);
 
-    $selector_parent: if($includeParentSelector and selector.parent-exists(), &, null);
+    $selector: ':has( :is( :active, #{config.$selector_interactiveState_active} ) )';
 
-    $selector_pseudo: ':has(:active)';
-    $selector_config: selector.has-list(config.$selector_interactiveState_active);
-
-    @if $selector_parent {
-        $selector_pseudo: selector.unify(&, $selector_pseudo);
-        $selector_config: selector.unify(&, $selector_config);
+    @if $includeParentSelector and selector.parent-exists() {
+        $selector: selector.unify(&, $selector);
     }
 
     @if $includeVisited {
@@ -330,30 +346,11 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     }
 
     @at-root {
-        @if config.$mx_interactive_isolateSelector_active {
-            #{$selector_pseudo} {
-                @if $multipleContentBlocks {
-                    @content (active-within--selector-pseudo);
-                } @else {
-                    @content;
-                }
-            }
-
-            #{$selector_config} {
-                @if $multipleContentBlocks {
-                    @content (active-within-selector-config);
-                } @else {
-                    @content;
-                }
-            }
-        } @else {
-            #{$selector_pseudo},
-            #{$selector_config} {
-                @if $multipleContentBlocks {
-                    @content (active-within);
-                } @else {
-                    @content;
-                }
+        #{$selector} {
+            @if $multipleContentBlocks {
+                @content (active-within);
+            } @else {
+                @content;
             }
         }
     }
@@ -443,32 +440,28 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     $selector_pseudo: (),
     $selector_config: (),
     $separate_config: null,
+    $fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
     $args...
 ) {
-    $sel_focus_config: selector.has-list(config.$selector_interactiveState_focus);
+    $sel_focus_config: config.$selector_interactiveState_focus;
 
-    @if config.$mx_interactive_isolateSelector_focus {
-        @if $includeParentSelector and selector.parent-exists() {
-            $sel_focus_config: selector.unify(&, $sel_focus_config);
-        }
-
-        @at-root #{$sel_focus_config} {
-            @if $multipleContentBlocks {
-                @content (focus-within);
-            } @else {
-                @content;
-            }
-        }
+    @if config.$mx_focusWithin_useHas {
+        $sel_focus_config: list.join(
+            (if($fallbacksOnly, ':focus', ':focus-visible')),
+            $sel_focus_config,
+            $separator: comma
+        );
     } @else {
-        $selector_config: list.join($sel_focus_config, $selector_config, $separator: comma);
+        $selector_pseudo: list.append($selector_pseudo, ':focus-within', $separator: comma);
     }
 
     @include _interactive-template(
             $includeParentSelector: $includeParentSelector,
             $multipleContentBlocks: true,
-            $selector_pseudo: list.append($selector_pseudo, ':focus-within', $separator: comma),
-            $selector_config: $selector_config,
+            $selector_pseudo: $selector_pseudo,
+            $selector_config: list.join($sel_focus_config, $selector_config, $separator: comma),
             $separate_config: true,
+            $config_asHas: true,
             $args...
         )
         using ($location) {
@@ -1128,9 +1121,9 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
         }
     }
 
-    $selector_config: ':has(:active)';
+    $selector_config: ':active';
 
-    $sel_active_config: selector.has-list(config.$selector_interactiveState_active);
+    $sel_active_config: config.$selector_interactiveState_active;
 
     @if $includeVisited {
         @at-root #{selector-add-visited(if($includeParentSelector and selector.parent-exists(), &, null), $appendToSelector: $includeSelf)} {
@@ -1148,9 +1141,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
         }
     }
 
-    @if not config.$mx_interactive_isolateSelector_active {
-        $selector_config: list.join($selector_config, $sel_active_config, $separator: comma);
-    }
+    $selector_config: list.join($selector_config, $sel_active_config, $separator: comma);
 
     @include focus-within(
             $includeParentSelector: $includeParentSelector,
@@ -1163,20 +1154,6 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             @content ($location);
         } @else {
             @content;
-        }
-    }
-
-    @if config.$mx_interactive_isolateSelector_active {
-        @if $includeParentSelector and selector.parent-exists() {
-            $sel_active_config: selector.unify(&, $sel_active_config);
-        }
-
-        @at-root #{$sel_active_config} {
-            @if $multipleContentBlocks {
-                @content (active);
-            } @else {
-                @content;
-            }
         }
     }
 }

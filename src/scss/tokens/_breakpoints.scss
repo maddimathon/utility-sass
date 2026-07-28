@@ -30,6 +30,12 @@ $_viewport_percent_minus_gap: 1 - (config.$fn_breakpoints_gapDoubler * $_gap_per
 }
 
 ///
+/// @since ___PKG_VERSION___
+///
+$breakpoint_nav: null !default;
+$breakpoint_nav: config.config-valid-number($breakpoint_nav, 'breakpoint_nav', $default: null);
+
+///
 /// A map (merged with the defaults) of breakpoints used with the breakpoint
 /// mixins and --width-X properties.
 ///
@@ -60,6 +66,10 @@ $breakpoints: map.merge(
     $breakpoints,
     $recursive: true
 );
+
+@if $breakpoint_nav != null and not map.get($breakpoints, nav) {
+    $breakpoints: map.set($breakpoints, nav, $breakpoint_nav);
+}
 
 @each $key, $value in $breakpoints {
     $breakpoints: map.set(
