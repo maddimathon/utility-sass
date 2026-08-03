@@ -154,31 +154,30 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 ///
 @function get-extend-selectors-headings-utils(
     $allHeadingLevels,
-    $unstyledHGroupExtender: 'unstyled-heading--where'
+    $unstyledHGroupExtender: 'unstyled-heading'
 ) {
     $sels: (
+        ('.unstyled-heading', unstyled-heading--class),
+        ('hgroup .unstyled-heading', unstyled-heading--class--hgroup),
+        //
         ('hgroup %unstyled-heading', unstyled-heading--hgroup),
-        ('hgroup %unstyled-heading--is', unstyled-heading--is--hgroup),
         ('hgroup %unstyled-heading--where', unstyled-heading--where--hgroup),
         //
         ('.unstyled-heading', unstyled-heading),
         //
         ('.unstyled-heading__hgroup', #{$unstyledHGroupExtender}__hgroup),
-        //
         ('.unstyled-heading__subheading', #{$unstyledHGroupExtender}__subheading),
         //
         ('.page-title', title),
         ('.page-title__subheading', title__subheading)
     );
 
-    $_allHeadings_toIs: ();
+    $_allHeadings_toUnstyle: ();
     $_allHeadings_toWhere: ();
 
     /// Headings
     @each $headingLevel in $allHeadingLevels {
         $sels: list.append($sels, ('.h#{$headingLevel}', 'h#{$headingLevel}'));
-
-        // $sels: list.append($sels, (('.h#{$headingLevel}--hgroup'), 'h#{$headingLevel}--hgroup'));
 
         $sels: list.append($sels, ('.h#{$headingLevel}__hgroup', 'h#{$headingLevel}__hgroup'));
 
@@ -187,11 +186,13 @@ $_optionalDefault: if(config.$isTemplate, false, true);
             ('.h#{$headingLevel}__subheading', 'h#{$headingLevel}__subheading')
         );
 
-        $_allHeadings_toIs: list.append(
-            $_allHeadings_toIs,
-            '%h#{$headingLevel}',
-            $separator: comma
-        );
+        @if $headingLevel > 0 and $headingLevel < 7 {
+            $_allHeadings_toUnstyle: list.append(
+                $_allHeadings_toUnstyle,
+                'h#{$headingLevel}',
+                $separator: comma
+            );
+        }
 
         $_allHeadings_toWhere: list.append(
             $_allHeadings_toWhere,
@@ -200,12 +201,10 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         );
     }
 
-    @if list.length($_allHeadings_toIs) > 0 {
-        $sels: list.append(
-            $sels,
-            ('.unstyled-heading:is(#{$_allHeadings_toIs})', 'unstyled-heading--is')
-        );
-    }
+    $sels: list.append(
+        $sels,
+        (selector.unify($_allHeadings_toUnstyle, '.unstyled-heading'), 'unstyled-heading')
+    );
 
     @if list.length($_allHeadings_toWhere) > 0 {
         $sels: list.append(
