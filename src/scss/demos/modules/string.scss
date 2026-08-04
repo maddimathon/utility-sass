@@ -168,3 +168,20 @@ string.slugify {
         @include meta.var-dump('string.slugify( "#{$input}" )', string.slugify(#{$input}));
     }
 }
+
+string.soft-wrap {
+    @include meta.var-dump('string.soft-wrap( "hello there" )', string.soft-wrap('hello there'));
+    @include meta.var-dump(
+        'string.soft-wrap( "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis non vulputate a, tempor aliquam ex." )',
+        string.soft-wrap(
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis non vulputate a, tempor aliquam ex.'
+        )
+    );
+    @include meta.var-dump(
+        'string.soft-wrap( "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis non.", 42 )',
+        string.soft-wrap(
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis non.',
+            42
+        )
+    );
+}

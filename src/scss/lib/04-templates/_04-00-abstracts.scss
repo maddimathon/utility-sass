@@ -30,14 +30,12 @@
     }
 
     @if $_print_any_normareset {
-        @include template-utility-sass {
-            @if $print_normalize {
-                @include normalize;
-            }
+        @if $print_normalize {
+            @include normalize;
+        }
 
-            @if $print_reset {
-                @include reset;
-            }
+        @if $print_reset {
+            @include reset($includeBase: not $print_normalize);
         }
     }
 

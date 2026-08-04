@@ -127,7 +127,7 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 ///
 @function selector-all-headings($globalsOnly: false, $withUnstyled: true) {
     //
-    $list: if($globalsOnly, (), if($withUnstyled, '%unstyled-heading', ()));
+    $list: if($globalsOnly, (), if($withUnstyled, '.unstyled-heading', ()));
 
     $list: list.append($list, '%title', $separator: comma);
 

@@ -1,15 +1,339 @@
 @charset "UTF-8";
 /**
- * Utility Sass - Template - Demo - Custom Property Prefixes (with fallback)
- * @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback-@0.1.0-beta.0.draft
+ * Utility Sass - Template Demo - Custom Property Prefixes (with fallback)
+ * @maddimathon/utility-sass/template@0.1.0-beta.0.draft
  * 
- * This is a sample stylesheet with a custom property prefix and a fallback prefix set in the config (i.e. — $customPropertyPrefix: "", $customPropertyPrefix_fallback: "fallback-").
+ * This is a sample stylesheet with a custom property prefix and a fallback
+ * prefix set in the config (i.e. — $customPropertyPrefix: "prefix-",
+ * $customPropertyPrefix_fallback: "fallback-").
  * 
  * https://maddimathon.github.io/utility-sass
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
  */
+/* #region Normalize */
+/*! START of modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
+/* Normalize - Document ==================================== */
+/* Use a better box model (opinionated). */
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+/* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+:root {
+    /* font-family:
+      system-ui,
+      'Segoe UI',
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji'; */
+    line-height: 1.15; /* 1. Correct the line height in all browsers. */
+    -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+    tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
+}
+
+/* Normalize - Sections ==================================== */
+body {
+    margin: 0; /* Remove the margin in all browsers. */
+}
+
+/* Normalize - Text-level semantics ==================================== */
+/* Add the correct font weight in Chrome and Safari. */
+b,
+strong {
+    font-weight: bolder;
+}
+
+/*
+   1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+   2. Correct the odd 'em' font sizing in all browsers.
+ */
+code,
+kbd,
+samp,
+pre {
+    /* font-family:
+      ui-monospace,
+      SFMono-Regular,
+      Consolas,
+      'Liberation Mono',
+      Menlo,
+      monospace; */ /* 1 */
+    font-size: 1em; /* 2 */
+}
+
+/* Add the correct font size in all browsers. */
+small {
+    /* font-size: 80%; */
+}
+
+/* Prevent 'sub' and 'sup' elements from affecting the line height in all browsers. */
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+/* Normalize - Tabular data ==================================== */
+/* Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016) */
+table {
+    border-color: currentcolor;
+}
+
+/* Normalize - Forms ==================================== */
+/*
+   1. Change the font styles in all browsers.
+   2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit; /* 1 */
+    font-size: 1em;
+    line-height: 1.15; /* 1 */
+    margin: 0; /* 2 */
+}
+
+/* Correct the inability to style clickable types in iOS and Safari. */
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+    -webkit-appearance: button;
+}
+
+/* Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers. */
+legend {
+    padding: 0;
+}
+
+/* Add the correct vertical alignment in Chrome and Firefox. */
+progress {
+    vertical-align: baseline;
+}
+
+/* Correct the cursor style of increment and decrement buttons in Safari. */
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    height: auto;
+}
+
+/*
+   1. Correct the odd appearance in Chrome and Safari.
+   2. Correct the outline style in Safari.
+ */
+[type='search'] {
+    -webkit-appearance: textfield; /* 1 */
+    outline-offset: -2px; /* 2 */
+}
+
+/* Remove the inner padding in Chrome and Safari on macOS. */
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/*
+   1. Correct the inability to style clickable types in iOS and Safari.
+   2. Change font properties to 'inherit' in Safari.
+ */
+::-webkit-file-upload-button {
+    -webkit-appearance: button; /* 1 */
+    font: inherit; /* 2 */
+}
+
+/* Normalize - Interactive ==================================== */
+/* Add the correct display in Chrome and Safari. */
+summary {
+    --fallback-display: list-item;
+    --prefix-display: list-item;
+    display: var(--fallback-display, list-item);
+}
+
+/*! END of modern-normalize v3.0.1 */
+/*! START of @maddimathon/utility-sass/template */
+:root {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    color-scheme: light dark;
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+        color-scheme: only light;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        color-scheme: only dark;
+    }
+}
+:root {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        'Helvetica Neue',
+        Helvetica,
+        Arial,
+        sans-serif,
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Segoe UI Symbol';
+    font-size: 115%;
+}
+@media (min-width: 50em) {
+    :root {
+        font-size: 105%;
+    }
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo,
+        monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+small {
+    font-size: var(--prefix-fs-rel-smaller-1, 0.9375em);
+}
+
+/*! END of @maddimathon/utility-sass/template */
+/* #endregion Normalize */
+/* #region Reset */
+/*! START of @maddimathon/utility-sass/template */
+:root,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    text-align: left; /* fallback */
+    text-align: start;
+}
+
+::placeholder,
+a,
+blockquote,
+button,
+cite,
+code,
+dd,
+dl,
+figure,
+input,
+kbd,
+ol,
+optgroup,
+pre,
+samp,
+select,
+small,
+td,
+textarea,
+th,
+ul {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font: inherit;
+    font-size: 1em;
+}
+
+td,
+th {
+    vertical-align: top;
+}
+
+p {
+    margin: 0;
+}
+
+embed,
+iframe,
+img,
+object,
+picture,
+svg,
+video {
+    --fallback-display: block;
+    --prefix-display: block;
+    display: var(--fallback-display, block);
+    max-width: 100%;
+}
+
+img {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+hr {
+    margin: 0;
+    border: none;
+    border-block: currentColor solid 1px;
+}
+
+input,
+label,
+pre,
+pre > code {
+    --fallback-display: block;
+    --prefix-display: block;
+    display: var(--fallback-display, block);
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+/*! END of @maddimathon/utility-sass/template */
+/* #endregion Reset */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 /* #region Tokens - @property */
 @property --fallback-display {
     syntax: '*';
@@ -193,85 +517,217 @@
 }
 
 /* #endregion Tokens - Width */
+/* #region Tokens - Margin */
+:root {
+    --fallback-mrg-firm-100: 0.3125rem;
+    --fallback-mrg-firm-200: 0.5rem;
+    --fallback-mrg-firm-300: 0.8125rem;
+    --fallback-mrg-firm-400: 1.25rem;
+    --fallback-mrg-firm-500: 1.6875rem;
+    --fallback-mrg-firm-600: 2.25rem;
+    --fallback-mrg-firm-800: 4rem;
+    --fallback-mrg-firm-900: 7.125rem;
+    --fallback-pad-firm-100: 0.3125em;
+    --fallback-pad-firm-200: 0.5em;
+    --fallback-pad-firm-300: 0.8125em;
+    --fallback-pad-firm-400: 1.25em;
+    --fallback-pad-firm-500: 1.6875em;
+    --fallback-pad-firm-600: 2.25em;
+    --fallback-pad-firm-800: 4em;
+    --fallback-pad-firm-900: 7.125em;
+}
+
+:root {
+    --fallback-mrg-soft-100: 0.25rem;
+    --fallback-mrg-soft-200: 0.375rem;
+    --fallback-mrg-soft-300: 0.625rem;
+    --fallback-mrg-soft-400: 0.9375rem;
+    --fallback-mrg-soft-500: 1.375rem;
+    --fallback-mrg-soft-600: 1.875rem;
+    --fallback-mrg-soft-800: 3.5rem;
+    --fallback-mrg-soft-900: 6.4375rem;
+    --fallback-pad-soft-100: 0.25em;
+    --fallback-pad-soft-200: 0.375em;
+    --fallback-pad-soft-300: 0.625em;
+    --fallback-pad-soft-400: 0.9375em;
+    --fallback-pad-soft-500: 1.375em;
+    --fallback-pad-soft-600: 1.875em;
+    --fallback-pad-soft-800: 3.5em;
+    --fallback-pad-soft-900: 6.4375em;
+}
+
+:root {
+    --fallback-mrg-half-100: 0.0625rem;
+    --fallback-mrg-half-200: 0.125rem;
+    --fallback-mrg-half-300: 0.1875rem;
+    --fallback-mrg-half-400: 0.3125rem;
+    --fallback-mrg-half-500: 0.3125rem;
+    --fallback-mrg-half-600: 0.375rem;
+    --fallback-mrg-half-800: 0.5rem;
+    --fallback-mrg-half-900: 0.6875rem;
+    --fallback-pad-half-100: 0.0625em;
+    --fallback-pad-half-200: 0.125em;
+    --fallback-pad-half-300: 0.1875em;
+    --fallback-pad-half-400: 0.3125em;
+    --fallback-pad-half-500: 0.3125em;
+    --fallback-pad-half-600: 0.375em;
+    --fallback-pad-half-800: 0.5em;
+    --fallback-pad-half-900: 0.6875em;
+}
+
+/* #endregion Tokens - Margin */
+/* #region Tokens - Font Size */
+:root {
+    --fallback-fs-heading-1: 2.75rem;
+    --fallback-fs-heading-1: clamp(2.5625rem, 0.90625svw + 2.375rem, 3.4375rem);
+    --fallback-fs-heading-2: 2.0625rem;
+    --fallback-fs-heading-2: clamp(1.9375rem, 0.6875svw + 1.75rem, 2.5625rem);
+    --fallback-fs-heading-3: 1.8125rem;
+    --fallback-fs-heading-3: clamp(1.6875rem, 0.59375svw + 1.5625rem, 2.25rem);
+    --fallback-fs-heading-4: 1.5625rem;
+    --fallback-fs-heading-4: clamp(1.4375rem, 0.5svw + 1.3125rem, 1.9375rem);
+    --fallback-fs-heading-5: 1.3125rem;
+    --fallback-fs-heading-5: clamp(1.25rem, 0.4375svw + 1.125rem, 1.625rem);
+    --fallback-fs-heading-6: 1.1875rem;
+    --fallback-fs-heading-6: clamp(1.125rem, 0.40625svw + 1rem, 1.5rem);
+    --fallback-fs-heading-7: 0.9375rem;
+    --fallback-fs-heading-7: clamp(0.875rem, 0.3125svw + 0.8125rem, 1.1875rem);
+    --fallback-fs-heading-8: 0.8125rem;
+    --fallback-fs-heading-8: clamp(0.75rem, 0.28125svw + 0.6875rem, 1rem);
+    --fallback-fs-smaller-2: 0.8125rem;
+    --fallback-fs-smaller-1: 0.9375rem;
+    --fallback-fs-normal: 1rem;
+    --fallback-fs-bigger-7: 2.75rem;
+    --fallback-fs-bigger-7: clamp(2.5625rem, 0.90625svw + 2.375rem, 3.4375rem);
+    --fallback-fs-bigger-8: 3.1875rem;
+    --fallback-fs-bigger-8: clamp(3rem, 1.0625svw + 2.75rem, 4rem);
+    --fallback-fs-bigger-9: 3.6875rem;
+    --fallback-fs-bigger-9: clamp(3.4375rem, 1.21875svw + 3.125rem, 4.625rem);
+}
+
+/* #endregion Tokens - Font Size */
+/* #region Tokens - Line Heights */
+:root {
+    --fallback-line-height-100: 1.1875;
+    --fallback-line-height-200: 1.3125;
+    --fallback-line-height-300: 1.4375;
+    --fallback-line-height-400: 1.6875;
+    --fallback-line-height-500: 1.9375;
+    --fallback-line-height-600: 2.1875;
+}
+
+/* #endregion Tokens - Line Heights */
 /* #region Tokens - Gap */
 :root {
     --fallback-gap-block-layout: 5vw;
     --fallback-gap-block-layout: clamp(
-        var(--mrg-soft-600, 1.875rem),
+        var(--prefix-mrg-soft-600, 1.875rem),
         5svw,
-        var(--mrg-soft-800, 3.5rem)
+        var(--prefix-mrg-soft-800, 3.5rem)
     );
     --fallback-gap-block-layout-half: 2.5vw;
     --fallback-gap-block-layout-half: clamp(
-        var(--mrg-soft-600, 1.875rem) / 2,
+        var(--prefix-mrg-soft-600, 1.875rem) / 2,
         2.5svw,
-        var(--mrg-soft-800, 3.5rem) / 2
+        var(--prefix-mrg-soft-800, 3.5rem) / 2
     );
     --fallback-gap-inline-indent: 9%;
     --fallback-gap-inline-indent: clamp(
-        var(--mrg-firm-200, 0.5rem),
+        var(--prefix-mrg-firm-200, 0.5rem),
         9%,
-        var(--mrg-firm-800, 4rem)
+        var(--prefix-mrg-firm-800, 4rem)
     );
     --fallback-gap-inline-layout: 8vw;
     --fallback-gap-inline-layout: clamp(
-        var(--mrg-firm-400, 1.25rem),
+        var(--prefix-mrg-firm-400, 1.25rem),
         8svw,
-        var(--mrg-firm-900, 7.125rem)
+        var(--prefix-mrg-firm-900, 7.125rem)
     );
     --fallback-gap-inline-layout-half: 4vw;
     --fallback-gap-inline-layout-half: clamp(
-        var(--mrg-firm-400, 1.25rem) / 2,
+        var(--prefix-mrg-firm-400, 1.25rem) / 2,
         4svw,
-        var(--mrg-firm-900, 7.125rem) / 2
+        var(--prefix-mrg-firm-900, 7.125rem) / 2
     );
     --fallback-gap-inline-tab: 5%;
     --fallback-gap-inline-tab: clamp(
-        var(--mrg-firm-100, 0.3125rem),
+        var(--prefix-mrg-firm-100, 0.3125rem),
         5%,
-        var(--mrg-firm-600, 2.25rem)
+        var(--prefix-mrg-firm-600, 2.25rem)
     );
 }
 
 /* #endregion Tokens - Gap */
+/* #region Tokens - Border Width */
+:root {
+    --fallback-border-width-100: 0.0625rem;
+    --fallback-border-width-200: 0.125rem;
+    --fallback-border-width-300: 0.1875rem;
+    --fallback-border-width-400: 0.25rem;
+}
+
+/* #endregion Tokens - Border Width */
+/* #region Tokens - Stroke Relative */
+:root {
+    --fallback-stroke-relative-100: 0.0625em;
+    --fallback-stroke-relative-200: 0.0625em;
+    --fallback-stroke-relative-400: 0.125em;
+    --fallback-stroke-relative-600: 0.1875em;
+    --fallback-stroke-relative-800: 0.25em;
+}
+
+/* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Style */
 :root {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-link,
+        --prefix-sys-clr-link,
         var(--fallback-sys-clr-link, LinkText)
     );
-    --fallback-focus-ring-outline-offset: 0.125em;
-    --fallback-focus-ring-outline-width: clamp(0.125rem, 0.125em, 0.25rem);
+    --fallback-focus-ring-outline-offset: var(
+        --fallback-stroke-relative-400,
+        0.125em
+    );
+    --fallback-focus-ring-outline-width: clamp(
+        var(--fallback-border-width-200, 0.125rem),
+        var(--fallback-stroke-relative-400, 0.125em),
+        var(--fallback-border-width-400, 0.25rem)
+    );
 }
 
 /* #endregion Tokens - Style */
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - ACCESSIBILITY
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 .no-js :focus,
 .js__no-whereSelector :focus {
     /* %focus-ring--fallback */
     outline-width: var(
-        --focus-ring-outline-width,
+        --prefix-focus-ring-outline-width,
         var(
             --fallback-focus-ring-outline-width,
-            var(--stroke-relative-400, 0.125em)
+            var(
+                --prefix-stroke-relative-400,
+                var(--fallback-stroke-relative-400, 0.125em)
+            )
         )
     );
     outline-style: dashed;
     outline-color: var(
-        --focus-ring-outline-color,
+        --prefix-focus-ring-outline-color,
         var(
             --fallback-focus-ring-outline-color,
-            var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+            var(--prefix-sys-clr-link, var(--fallback-sys-clr-link, LinkText))
         )
     );
     outline-offset: var(
-        --focus-ring-outline-offset,
+        --prefix-focus-ring-outline-offset,
         var(
             --fallback-focus-ring-outline-offset,
-            var(--stroke-relative-400, 0.125em)
+            var(
+                --prefix-stroke-relative-400,
+                var(--fallback-stroke-relative-400, 0.125em)
+            )
         )
     );
 }
@@ -279,25 +735,31 @@
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
     outline-width: var(
-        --focus-ring-outline-width,
+        --prefix-focus-ring-outline-width,
         var(
             --fallback-focus-ring-outline-width,
-            var(--stroke-relative-400, 0.125em)
+            var(
+                --prefix-stroke-relative-400,
+                var(--fallback-stroke-relative-400, 0.125em)
+            )
         )
     );
     outline-style: dashed;
     outline-color: var(
-        --focus-ring-outline-color,
+        --prefix-focus-ring-outline-color,
         var(
             --fallback-focus-ring-outline-color,
-            var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+            var(--prefix-sys-clr-link, var(--fallback-sys-clr-link, LinkText))
         )
     );
     outline-offset: var(
-        --focus-ring-outline-offset,
+        --prefix-focus-ring-outline-offset,
         var(
             --fallback-focus-ring-outline-offset,
-            var(--stroke-relative-400, 0.125em)
+            var(
+                --prefix-stroke-relative-400,
+                var(--fallback-stroke-relative-400, 0.125em)
+            )
         )
     );
 }
@@ -305,25 +767,31 @@
 :focus-visible {
     /* %focus-ring--visible */
     outline-width: var(
-        --focus-ring-outline-width,
+        --prefix-focus-ring-outline-width,
         var(
             --fallback-focus-ring-outline-width,
-            var(--stroke-relative-400, 0.125em)
+            var(
+                --prefix-stroke-relative-400,
+                var(--fallback-stroke-relative-400, 0.125em)
+            )
         )
     );
     outline-style: dashed;
     outline-color: var(
-        --focus-ring-outline-color,
+        --prefix-focus-ring-outline-color,
         var(
             --fallback-focus-ring-outline-color,
-            var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText))
+            var(--prefix-sys-clr-link, var(--fallback-sys-clr-link, LinkText))
         )
     );
     outline-offset: var(
-        --focus-ring-outline-offset,
+        --prefix-focus-ring-outline-offset,
         var(
             --fallback-focus-ring-outline-offset,
-            var(--stroke-relative-400, 0.125em)
+            var(
+                --prefix-stroke-relative-400,
+                var(--fallback-stroke-relative-400, 0.125em)
+            )
         )
     );
 }
@@ -338,50 +806,63 @@
     overflow: hidden !important;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 hr {
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
     align-self: center;
     justify-self: center;
-    margin-block: var(--mrg-firm-600, 2.25rem);
+    margin-block: var(
+        --prefix-mrg-firm-600,
+        var(--fallback-mrg-firm-600, 2.25rem)
+    );
     margin-inline: var(
-        --gap-inline-indent,
+        --prefix-gap-inline-indent,
         var(--fallback-gap-inline-indent, 9%)
     );
     width: 72.92%;
-    max-width: var(--width-callout, var(--fallback-width-callout, 26.25rem));
+    max-width: var(
+        --prefix-width-callout,
+        var(--fallback-width-callout, 26.25rem)
+    );
     border: none;
-    border-block-end: currentColor solid var(--border-width-200, 0.125rem);
+    border-block-end: currentColor solid
+        var(
+            --prefix-border-width-200,
+            var(--fallback-border-width-200, 0.125rem)
+        );
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 ::selection {
     background-color: var(
-        --sys-clr-selection-bg,
+        --prefix-sys-clr-selection-bg,
         var(--fallback-sys-clr-selection-bg, Highlight)
     );
     color: var(
-        --sys-clr-selection-text,
+        --prefix-sys-clr-selection-text,
         var(--fallback-sys-clr-selection-text, HighlightText)
     );
 }
 
 :root {
     font-weight: 400;
-    line-height: var(--line-height-400, 1.6875);
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
     background: var(
-        --sys-clr-background,
+        --prefix-sys-clr-background,
         var(--fallback-sys-clr-background, Canvas)
     );
-    color: var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+    color: var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
 }
 @media (max-width: 24.99em) {
     :root {
@@ -390,12 +871,12 @@ hr {
 }
 
 body {
-    font-size: var(--fs-normal, 1rem);
+    font-size: var(--prefix-fs-normal, var(--fallback-fs-normal, 1rem));
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* ## Typography - Inlines ==================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 strong,
 b {
     font-weight: 700;
@@ -423,18 +904,28 @@ i em em {
 }
 
 a[href] {
-    --fallback-focus-ring-outline-offset: var(--stroke-relative-200, 0.0625em);
+    --fallback-focus-ring-outline-offset: var(
+        --prefix-stroke-relative-200,
+        var(--fallback-stroke-relative-200, 0.0625em)
+    );
     --fallback-display: inline;
-    --display: inline;
+    --prefix-display: inline;
     display: var(--fallback-display, inline);
     border: none;
-    text-decoration: underline var(--stroke-relative-200, 0.0625em);
-    text-underline-offset: var(--stroke-relative-800, 0.25em);
-    color: var(--sys-clr-link, var(--fallback-sys-clr-link, LinkText));
+    text-decoration: underline
+        var(
+            --prefix-stroke-relative-200,
+            var(--fallback-stroke-relative-200, 0.0625em)
+        );
+    text-underline-offset: var(
+        --prefix-stroke-relative-800,
+        var(--fallback-stroke-relative-800, 0.25em)
+    );
+    color: var(--prefix-sys-clr-link, var(--fallback-sys-clr-link, LinkText));
 }
 a[href]:visited {
     color: var(
-        --sys-clr-link-visited,
+        --prefix-sys-clr-link-visited,
         var(--fallback-sys-clr-link-visited, VisitedText)
     );
 }
@@ -444,7 +935,7 @@ a[href]:hover,
 .js__no-whereSelector a[href]:focus {
     text-decoration-color: transparent;
     color: var(
-        --sys-clr-link-hover,
+        --prefix-sys-clr-link-hover,
         var(--fallback-sys-clr-link-hover, ActiveText)
     );
 }
@@ -452,7 +943,7 @@ a[href]:hover,
 :where(.js__no-focusVisible) a[href]:focus {
     text-decoration-color: transparent;
     color: var(
-        --sys-clr-link-hover,
+        --prefix-sys-clr-link-hover,
         var(--fallback-sys-clr-link-hover, ActiveText)
     );
 }
@@ -460,14 +951,14 @@ a[href]:hover,
 a[href]:focus-visible {
     text-decoration-color: transparent;
     color: var(
-        --sys-clr-link-hover,
+        --prefix-sys-clr-link-hover,
         var(--fallback-sys-clr-link-hover, ActiveText)
     );
 }
 
 a[href]:active {
     color: var(
-        --sys-clr-link-active,
+        --prefix-sys-clr-link-active,
         var(--fallback-sys-clr-link-active, ActiveText)
     );
 }
@@ -480,7 +971,7 @@ a.no-style[href] {
 a[aria-disabled='true'][href] {
     text-decoration-line: line-through;
     color: var(
-        --sys-clr-text-disabled,
+        --prefix-sys-clr-text-disabled,
         var(--fallback-sys-clr-text-disabled, GrayText)
     );
     opacity: 1;
@@ -488,15 +979,23 @@ a[aria-disabled='true'][href] {
 }
 
 abbr[title] {
-    text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
+    text-decoration: dotted underline
+        var(
+            --prefix-stroke-relative-400,
+            var(--fallback-stroke-relative-400, 0.125em)
+        );
     cursor: help;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* ## Typography - Blocks ==================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 p {
-    margin-block: var(--mrg-soft-400, 0.9375rem) 0;
+    margin-block: var(
+            --prefix-mrg-soft-400,
+            var(--fallback-mrg-soft-400, 0.9375rem)
+        )
+        0;
 }
 hr + p {
     margin-block-start: 0;
@@ -504,28 +1003,57 @@ hr + p {
 
 blockquote {
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
     margin-inline: var(
-        --gap-inline-indent,
+        --prefix-gap-inline-indent,
         var(--fallback-gap-inline-indent, 9%)
     );
-    margin-block: var(--mrg-soft-400, 0.9375rem) 0;
-    margin-block: var(--mrg-soft-600, 1.875rem)
-        calc(var(--mrg-soft-600, 1.875rem) - var(--mrg-soft-400, 0.9375rem));
-    padding-inline-start: var(--mrg-firm-300, 0.8125rem);
-    border-inline-start: var(--border-width-200, 0.125rem) solid currentColor;
+    margin-block: var(
+            --prefix-mrg-soft-400,
+            var(--fallback-mrg-soft-400, 0.9375rem)
+        )
+        0;
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        calc(
+            var(
+                    --prefix-mrg-soft-600,
+                    var(--fallback-mrg-soft-600, 1.875rem)
+                ) - var(
+                    --prefix-mrg-soft-400,
+                    var(--fallback-mrg-soft-400, 0.9375rem)
+                )
+        );
+    padding-inline-start: var(
+        --prefix-mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
+    border-inline-start: var(
+            --prefix-border-width-200,
+            var(--fallback-border-width-200, 0.125rem)
+        )
+        solid currentColor;
     width: auto;
-    max-width: var(--width-callout, var(--fallback-width-callout, 26.25rem));
+    max-width: var(
+        --prefix-width-callout,
+        var(--fallback-width-callout, 26.25rem)
+    );
 }
 blockquote > :first-child {
     margin-block-start: 0;
 }
 blockquote > cite {
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
-    margin-block: var(--mrg-soft-400, 0.9375rem) 0;
+    margin-block: var(
+            --prefix-mrg-soft-400,
+            var(--fallback-mrg-soft-400, 0.9375rem)
+        )
+        0;
     text-align: end;
 }
 blockquote > cite::before {
@@ -554,24 +1082,41 @@ samp {
 
 pre {
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
     position: relative;
-    margin-block: var(--mrg-firm-400, 1.25rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-firm-400,
+            var(--fallback-mrg-firm-400, 1.25rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     margin-inline: 0;
-    padding-block: var(--mrg-soft-300, 0.625rem);
-    padding-inline: var(--mrg-firm-300, 0.8125rem);
-    border: var(--border-width-100, 0.0625rem) solid currentColor;
+    padding-block: var(
+        --prefix-mrg-soft-300,
+        var(--fallback-mrg-soft-300, 0.625rem)
+    );
+    padding-inline: var(
+        --prefix-mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
+    border: var(
+            --prefix-border-width-100,
+            var(--fallback-border-width-100, 0.0625rem)
+        )
+        solid currentColor;
     width: auto;
     max-width: 100%;
-    font-size: var(--fs-smaller-1, 0.9375rem);
+    font-size: var(
+        --prefix-fs-smaller-1,
+        var(--fallback-fs-smaller-1, 0.9375rem)
+    );
     overflow: auto;
 }
 pre > code,
 pre > kbd,
 pre > samp {
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
     margin: 0;
     padding: 0;
@@ -591,16 +1136,26 @@ pre:has(> :is(code, kbd, samp)) > code {
     text-wrap: nowrap;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* ## Typography - Headings ==================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 .h1,
 h1,
 .page-title {
-    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-800,
+            var(--fallback-mrg-soft-800, 3.5rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 900;
-    font-size: var(--fs-heading-1, 2.75rem);
-    line-height: var(--line-height-200, 1.3125);
+    font-size: var(
+        --prefix-fs-heading-1,
+        var(--fallback-fs-heading-1, 2.75rem)
+    );
+    line-height: var(
+        --prefix-line-height-200,
+        var(--fallback-line-height-200, 1.3125)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -630,10 +1185,20 @@ h1 a[href].button,
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='1']) {
-    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-800,
+            var(--fallback-mrg-soft-800, 3.5rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 900;
-    font-size: var(--fs-heading-1, 2.75rem);
-    line-height: var(--line-height-200, 1.3125);
+    font-size: var(
+        --prefix-fs-heading-1,
+        var(--fallback-fs-heading-1, 2.75rem)
+    );
+    line-height: var(
+        --prefix-line-height-200,
+        var(--fallback-line-height-200, 1.3125)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -656,10 +1221,20 @@ h1 a[href].button,
 
 .h2,
 h2 {
-    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-800,
+            var(--fallback-mrg-soft-800, 3.5rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 800;
-    font-size: var(--fs-heading-2, 2.0625rem);
-    line-height: var(--line-height-200, 1.3125);
+    font-size: var(
+        --prefix-fs-heading-2,
+        var(--fallback-fs-heading-2, 2.0625rem)
+    );
+    line-height: var(
+        --prefix-line-height-200,
+        var(--fallback-line-height-200, 1.3125)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -683,10 +1258,20 @@ h2 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='2']) {
-    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-800,
+            var(--fallback-mrg-soft-800, 3.5rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 800;
-    font-size: var(--fs-heading-2, 2.0625rem);
-    line-height: var(--line-height-200, 1.3125);
+    font-size: var(
+        --prefix-fs-heading-2,
+        var(--fallback-fs-heading-2, 2.0625rem)
+    );
+    line-height: var(
+        --prefix-line-height-200,
+        var(--fallback-line-height-200, 1.3125)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -709,10 +1294,20 @@ h2 a[href].button {
 
 .h3,
 h3 {
-    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-800,
+            var(--fallback-mrg-soft-800, 3.5rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 700;
-    font-size: var(--fs-heading-3, 1.8125rem);
-    line-height: var(--line-height-200, 1.3125);
+    font-size: var(
+        --prefix-fs-heading-3,
+        var(--fallback-fs-heading-3, 1.8125rem)
+    );
+    line-height: var(
+        --prefix-line-height-200,
+        var(--fallback-line-height-200, 1.3125)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -736,10 +1331,20 @@ h3 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='3']) {
-    margin-block: var(--mrg-soft-800, 3.5rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-800,
+            var(--fallback-mrg-soft-800, 3.5rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 700;
-    font-size: var(--fs-heading-3, 1.8125rem);
-    line-height: var(--line-height-200, 1.3125);
+    font-size: var(
+        --prefix-fs-heading-3,
+        var(--fallback-fs-heading-3, 1.8125rem)
+    );
+    line-height: var(
+        --prefix-line-height-200,
+        var(--fallback-line-height-200, 1.3125)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -762,10 +1367,20 @@ h3 a[href].button {
 
 .h4,
 h4 {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 700;
-    font-size: var(--fs-heading-4, 1.5625rem);
-    line-height: var(--line-height-300, 1.4375);
+    font-size: var(
+        --prefix-fs-heading-4,
+        var(--fallback-fs-heading-4, 1.5625rem)
+    );
+    line-height: var(
+        --prefix-line-height-300,
+        var(--fallback-line-height-300, 1.4375)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -797,10 +1412,20 @@ h4 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='4']) {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 700;
-    font-size: var(--fs-heading-4, 1.5625rem);
-    line-height: var(--line-height-300, 1.4375);
+    font-size: var(
+        --prefix-fs-heading-4,
+        var(--fallback-fs-heading-4, 1.5625rem)
+    );
+    line-height: var(
+        --prefix-line-height-300,
+        var(--fallback-line-height-300, 1.4375)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -829,10 +1454,20 @@ h4 a[href].button {
 
 .h5,
 h5 {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 600;
-    font-size: var(--fs-heading-5, 1.3125rem);
-    line-height: var(--line-height-300, 1.4375);
+    font-size: var(
+        --prefix-fs-heading-5,
+        var(--fallback-fs-heading-5, 1.3125rem)
+    );
+    line-height: var(
+        --prefix-line-height-300,
+        var(--fallback-line-height-300, 1.4375)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -864,10 +1499,20 @@ h5 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='5']) {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 600;
-    font-size: var(--fs-heading-5, 1.3125rem);
-    line-height: var(--line-height-300, 1.4375);
+    font-size: var(
+        --prefix-fs-heading-5,
+        var(--fallback-fs-heading-5, 1.3125rem)
+    );
+    line-height: var(
+        --prefix-line-height-300,
+        var(--fallback-line-height-300, 1.4375)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -896,10 +1541,20 @@ h5 a[href].button {
 
 .h6,
 h6 {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 500;
-    font-size: var(--fs-heading-6, 1.1875rem);
-    line-height: var(--line-height-300, 1.4375);
+    font-size: var(
+        --prefix-fs-heading-6,
+        var(--fallback-fs-heading-6, 1.1875rem)
+    );
+    line-height: var(
+        --prefix-line-height-300,
+        var(--fallback-line-height-300, 1.4375)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -931,10 +1586,20 @@ h6 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='6']) {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 500;
-    font-size: var(--fs-heading-6, 1.1875rem);
-    line-height: var(--line-height-300, 1.4375);
+    font-size: var(
+        --prefix-fs-heading-6,
+        var(--fallback-fs-heading-6, 1.1875rem)
+    );
+    line-height: var(
+        --prefix-line-height-300,
+        var(--fallback-line-height-300, 1.4375)
+    );
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -962,10 +1627,20 @@ h6 a[href].button {
 }
 
 .h7 {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 500;
-    font-size: var(--fs-heading-7, 0.9375rem);
-    line-height: var(--line-height-400, 1.6875);
+    font-size: var(
+        --prefix-fs-heading-7,
+        var(--fallback-fs-heading-7, 0.9375rem)
+    );
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -983,10 +1658,20 @@ h6 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='7']) {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 500;
-    font-size: var(--fs-heading-7, 0.9375rem);
-    line-height: var(--line-height-400, 1.6875);
+    font-size: var(
+        --prefix-fs-heading-7,
+        var(--fallback-fs-heading-7, 0.9375rem)
+    );
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -1008,10 +1693,20 @@ h6 a[href].button {
 }
 
 .h8 {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 500;
-    font-size: var(--fs-heading-8, 0.8125rem);
-    line-height: var(--line-height-400, 1.6875);
+    font-size: var(
+        --prefix-fs-heading-8,
+        var(--fallback-fs-heading-8, 0.8125rem)
+    );
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -1035,10 +1730,20 @@ h6 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='8']) {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 500;
-    font-size: var(--fs-heading-8, 0.8125rem);
-    line-height: var(--line-height-400, 1.6875);
+    font-size: var(
+        --prefix-fs-heading-8,
+        var(--fallback-fs-heading-8, 0.8125rem)
+    );
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -1072,10 +1777,17 @@ h4.unstyled-heading,
 h5.unstyled-heading,
 h6.unstyled-heading,
 .unstyled-heading {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 600;
-    font-size: var(--fs-normal, 1rem);
-    line-height: var(--line-height-400, 1.6875);
+    font-size: var(--prefix-fs-normal, var(--fallback-fs-normal, 1rem));
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
     letter-spacing: normal;
     text-transform: none;
     font-style: normal;
@@ -1101,10 +1813,17 @@ h6.unstyled-heading,
     [role='heading'][aria-level='7'],
     [role='heading'][aria-level='8']
 ) {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 600;
-    font-size: var(--fs-normal, 1rem);
-    line-height: var(--line-height-400, 1.6875);
+    font-size: var(--prefix-fs-normal, var(--fallback-fs-normal, 1rem));
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
     letter-spacing: normal;
     text-transform: none;
     font-style: normal;
@@ -1153,10 +1872,10 @@ h6.unstyled-heading,
     font-style: italic;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - LISTS
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 ol,
 ul {
     margin: 0;
@@ -1164,7 +1883,7 @@ ul {
     padding: 0;
     padding-inline-start: 1em;
     margin-inline-start: var(
-        --gap-inline-tab,
+        --prefix-gap-inline-tab,
         var(--fallback-gap-inline-tab, 5%)
     );
     line-height: inherit;
@@ -1198,7 +1917,10 @@ ul ul ul {
 }
 li {
     margin: 0;
-    margin-block-start: var(--mrg-soft-300, 0.625rem);
+    margin-block-start: var(
+        --prefix-mrg-soft-300,
+        var(--fallback-mrg-soft-300, 0.625rem)
+    );
     padding: 0;
 }
 li::marker {
@@ -1206,12 +1928,15 @@ li::marker {
 }
 li > a:only-child {
     --fallback-display: inline-block;
-    --display: inline-block;
+    --prefix-display: inline-block;
     display: var(--fallback-display, inline-block);
     vertical-align: top;
 }
 li li li {
-    margin-block-start: var(--mrg-soft-200, 0.375rem);
+    margin-block-start: var(
+        --prefix-mrg-soft-200,
+        var(--fallback-mrg-soft-200, 0.375rem)
+    );
 }
 li li li li {
     font-style: italic;
@@ -1223,39 +1948,56 @@ li li li li em em {
     font-style: italic;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - FORMS
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 fieldset {
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
-    margin-block: var(--mrg-firm-400, 1.25rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-firm-400,
+            var(--fallback-mrg-firm-400, 1.25rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     margin-inline: 0;
-    padding-block: var(--mrg-soft-300, 0.625rem) var(--mrg-firm-300, 0.8125rem);
-    padding-inline: var(--mrg-firm-400, 1.25rem);
+    padding-block: var(
+            --prefix-mrg-soft-300,
+            var(--fallback-mrg-soft-300, 0.625rem)
+        )
+        var(--prefix-mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem));
+    padding-inline: var(
+        --prefix-mrg-firm-400,
+        var(--fallback-mrg-firm-400, 1.25rem)
+    );
     border: 0.0625rem solid currentColor;
     border-radius: 0;
     border-color: var(
-        --sys-clr-input-border,
+        --prefix-sys-clr-input-border,
         var(--fallback-sys-clr-input-border, FieldText)
     );
     background-color: var(
-        --sys-clr-background,
+        --prefix-sys-clr-background,
         var(--fallback-sys-clr-background, Canvas)
     );
-    color: var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+    color: var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
 }
 fieldset legend {
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
 }
 fieldset > :first-child {
     margin-block-start: 0;
     margin-block-start: calc(
-        var(--mrg-soft-400, 0.9375rem) - var(--mrg-soft-200, 0.375rem)
+        var(
+                --prefix-mrg-soft-400,
+                var(--fallback-mrg-soft-400, 0.9375rem)
+            ) - var(
+                --prefix-mrg-soft-200,
+                var(--fallback-mrg-soft-200, 0.375rem)
+            )
     );
 }
 fieldset > legend + * {
@@ -1263,10 +2005,20 @@ fieldset > legend + * {
 }
 
 fieldset legend {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 500;
-    font-size: var(--fs-heading-7, 0.9375rem);
-    line-height: var(--line-height-400, 1.6875);
+    font-size: var(
+        --prefix-fs-heading-7,
+        var(--fallback-fs-heading-7, 0.9375rem)
+    );
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -1282,18 +2034,31 @@ fieldset
         h6.unstyled-heading,
         .unstyled-heading
     ) {
-    margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-soft-600,
+            var(--fallback-mrg-soft-600, 1.875rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     font-weight: 600;
-    font-size: var(--fs-normal, 1rem);
-    line-height: var(--line-height-400, 1.6875);
+    font-size: var(--prefix-fs-normal, var(--fallback-fs-normal, 1rem));
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
     letter-spacing: normal;
     text-transform: none;
     font-style: normal;
 }
 fieldset legend {
-    margin-inline: calc(var(--mrg-soft-300, 0.625rem) * -1);
-    margin-block: 0 var(--mrg-soft-300, 0.625rem);
-    padding-inline: var(--mrg-soft-300, 0.625rem);
+    margin-inline: calc(
+        var(--prefix-mrg-soft-300, var(--fallback-mrg-soft-300, 0.625rem)) * -1
+    );
+    margin-block: 0
+        var(--prefix-mrg-soft-300, var(--fallback-mrg-soft-300, 0.625rem));
+    padding-inline: var(
+        --prefix-mrg-soft-300,
+        var(--fallback-mrg-soft-300, 0.625rem)
+    );
     font-style: italic;
 }
 
@@ -1302,41 +2067,54 @@ select,
 input {
     --fallback-focus-ring-outline-offset: 0.125rem;
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
-    margin-block: var(--mrg-firm-400, 1.25rem) var(--mrg-half-400, 0.3125rem);
+    margin-block: var(
+            --prefix-mrg-firm-400,
+            var(--fallback-mrg-firm-400, 1.25rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     margin-inline: 0;
-    padding-block: var(--mrg-soft-200, 0.375rem);
-    padding-inline: var(--mrg-firm-200, 0.5rem);
+    padding-block: var(
+        --prefix-mrg-soft-200,
+        var(--fallback-mrg-soft-200, 0.375rem)
+    );
+    padding-inline: var(
+        --prefix-mrg-firm-200,
+        var(--fallback-mrg-firm-200, 0.5rem)
+    );
     width: 100%;
     font: inherit;
     font-size: 1em;
-    line-height: var(--line-height-200, 1.3125);
+    line-height: var(
+        --prefix-line-height-200,
+        var(--fallback-line-height-200, 1.3125)
+    );
     border-width: 0.0625rem;
     border-style: solid;
     border-color: var(
-        --sys-clr-input-border,
+        --prefix-sys-clr-input-border,
         var(--fallback-sys-clr-input-border, FieldText)
     );
     border-radius: 0;
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-input-text,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
     background-color: var(
-        --sys-clr-input-bg,
+        --prefix-sys-clr-input-bg,
         var(--fallback-sys-clr-input-bg, Field)
     );
     color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
     accent-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
 }
@@ -1344,27 +2122,27 @@ textarea:hover,
 select:hover,
 input:hover {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-input-text,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
     background-color: var(
-        --sys-clr-input-bg-hover,
+        --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
     );
     border-color: var(
-        --sys-clr-input-border-hover,
+        --prefix-sys-clr-input-border-hover,
         var(--fallback-sys-clr-input-border-hover, FieldText)
     );
     color: var(
-        --sys-clr-input-text-hover,
+        --prefix-sys-clr-input-text-hover,
         var(--fallback-sys-clr-input-text-hover, FieldText)
     );
     accent-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
 }
@@ -1375,27 +2153,27 @@ input:hover {
 .js__no-whereSelector select:focus,
 .js__no-whereSelector input:focus {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-input-text,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
     background-color: var(
-        --sys-clr-input-bg-hover,
+        --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
     );
     border-color: var(
-        --sys-clr-input-border-hover,
+        --prefix-sys-clr-input-border-hover,
         var(--fallback-sys-clr-input-border-hover, FieldText)
     );
     color: var(
-        --sys-clr-input-text-hover,
+        --prefix-sys-clr-input-text-hover,
         var(--fallback-sys-clr-input-text-hover, FieldText)
     );
     accent-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
 }
@@ -1404,27 +2182,27 @@ input:hover {
 :where(.js__no-focusVisible) select:focus,
 :where(.js__no-focusVisible) input:focus {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-input-text,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
     background-color: var(
-        --sys-clr-input-bg-hover,
+        --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
     );
     border-color: var(
-        --sys-clr-input-border-hover,
+        --prefix-sys-clr-input-border-hover,
         var(--fallback-sys-clr-input-border-hover, FieldText)
     );
     color: var(
-        --sys-clr-input-text-hover,
+        --prefix-sys-clr-input-text-hover,
         var(--fallback-sys-clr-input-text-hover, FieldText)
     );
     accent-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
 }
@@ -1433,27 +2211,27 @@ textarea:focus-visible,
 select:focus-visible,
 input:focus-visible {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-input-text,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
     background-color: var(
-        --sys-clr-input-bg-hover,
+        --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
     );
     border-color: var(
-        --sys-clr-input-border-hover,
+        --prefix-sys-clr-input-border-hover,
         var(--fallback-sys-clr-input-border-hover, FieldText)
     );
     color: var(
-        --sys-clr-input-text-hover,
+        --prefix-sys-clr-input-text-hover,
         var(--fallback-sys-clr-input-text-hover, FieldText)
     );
     accent-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
 }
@@ -1462,27 +2240,27 @@ textarea:focus-within,
 select:focus-within,
 input:focus-within {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-input-text,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
     background-color: var(
-        --sys-clr-input-bg-hover,
+        --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
     );
     border-color: var(
-        --sys-clr-input-border-hover,
+        --prefix-sys-clr-input-border-hover,
         var(--fallback-sys-clr-input-border-hover, FieldText)
     );
     color: var(
-        --sys-clr-input-text-hover,
+        --prefix-sys-clr-input-text-hover,
         var(--fallback-sys-clr-input-text-hover, FieldText)
     );
     accent-color: var(
-        --sys-clr-input-text,
+        --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
 }
@@ -1491,27 +2269,27 @@ textarea:active,
 select:active,
 input:active {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-text-active,
+        --prefix-sys-clr-text-active,
         var(--fallback-sys-clr-text-active, ActiveText)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-text-active,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-text-active,
         var(--fallback-sys-clr-text-active, ActiveText)
     );
     background-color: var(
-        --sys-clr-input-bg-active,
+        --prefix-sys-clr-input-bg-active,
         var(--fallback-sys-clr-input-bg-active, Field)
     );
     border-color: var(
-        --sys-clr-input-border-active,
+        --prefix-sys-clr-input-border-active,
         var(--fallback-sys-clr-input-border-active, FieldText)
     );
     color: var(
-        --sys-clr-input-text-active,
+        --prefix-sys-clr-input-text-active,
         var(--fallback-sys-clr-input-text-active, FieldText)
     );
     accent-color: var(
-        --sys-clr-text-active,
+        --prefix-sys-clr-text-active,
         var(--fallback-sys-clr-text-active, ActiveText)
     );
 }
@@ -1522,7 +2300,10 @@ label + input,
 label > textarea,
 label > select,
 label > input {
-    margin-block-start: var(--mrg-half-400, 0.3125rem);
+    margin-block-start: var(
+        --prefix-mrg-half-400,
+        var(--fallback-mrg-half-400, 0.3125rem)
+    );
 }
 textarea::placeholder,
 select::placeholder,
@@ -1654,7 +2435,7 @@ input[type='week'][disabled] {
 input[type='checkbox'],
 input[type='radio'] {
     --fallback-display: inline-block;
-    --display: inline-block;
+    --prefix-display: inline-block;
     display: var(--fallback-display, inline-block);
     padding: 0;
     width: auto;
@@ -1686,26 +2467,36 @@ textarea {
 
 label {
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
-    margin-block: var(--mrg-soft-400, 0.9375rem) 0;
+    margin-block: var(
+            --prefix-mrg-soft-400,
+            var(--fallback-mrg-soft-400, 0.9375rem)
+        )
+        0;
     margin-inline: 0;
     font-weight: 600;
-    line-height: var(--line-height-200, 1.3125);
+    line-height: var(
+        --prefix-line-height-200,
+        var(--fallback-line-height-200, 1.3125)
+    );
     text-wrap: balance;
-    color: var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+    color: var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
 }
 label:has(> :where([type='checkbox'], [type='radio'])) {
     --fallback-display: grid;
-    --display: grid;
+    --prefix-display: grid;
     display: var(--fallback-display, grid);
     grid-template-columns: fit-content(0) 1fr;
     justify-content: end;
     align-items: baseline;
-    gap: var(--mrg-soft-300, 0.625rem);
+    gap: var(--prefix-mrg-soft-300, var(--fallback-mrg-soft-300, 0.625rem));
     font-weight: 400;
-    line-height: var(--line-height-400, 1.6875);
-    color: var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+    line-height: var(
+        --prefix-line-height-400,
+        var(--fallback-line-height-400, 1.6875)
+    );
+    color: var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
     cursor: pointer;
 }
 label:has(> [readonly]:where([type='checkbox'], [type='radio'])) {
@@ -1719,12 +2510,18 @@ label:has(
 }
 label:has(> :where([type='checkbox'], [type='radio']))
     + label:has(> :where([type='checkbox'], [type='radio'])) {
-    margin-block-start: var(--mrg-firm-200, 0.5rem);
+    margin-block-start: var(
+        --prefix-mrg-firm-200,
+        var(--fallback-mrg-firm-200, 0.5rem)
+    );
 }
 label:has(> :where([type='checkbox'], [type='radio'])) + input,
 label:has(> :where([type='checkbox'], [type='radio'])) + select,
 label:has(> :where([type='checkbox'], [type='radio'])) + textarea {
-    margin-block-start: var(--mrg-firm-400, 1.25rem);
+    margin-block-start: var(
+        --prefix-mrg-firm-400,
+        var(--fallback-mrg-firm-400, 1.25rem)
+    );
 }
 label > [type='checkbox'],
 label > [type='radio'] {
@@ -1740,22 +2537,36 @@ input[type='submit'],
 a[href].button {
     --fallback-focus-ring-outline-offset: 0.125rem;
     --fallback-display: flex;
-    --display: flex;
+    --prefix-display: flex;
     display: var(--fallback-display, flex);
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: start;
     align-content: start;
     align-items: start;
-    gap: var(--mrg-soft-300, 0.625rem) var(--mrg-firm-100, 0.3125rem);
-    margin-block: var(--mrg-firm-400, 1.25rem) var(--mrg-half-400, 0.3125rem);
+    gap: var(--prefix-mrg-soft-300, var(--fallback-mrg-soft-300, 0.625rem))
+        var(--prefix-mrg-firm-100, var(--fallback-mrg-firm-100, 0.3125rem));
+    margin-block: var(
+            --prefix-mrg-firm-400,
+            var(--fallback-mrg-firm-400, 1.25rem)
+        )
+        var(--prefix-mrg-half-400, var(--fallback-mrg-half-400, 0.3125rem));
     margin-inline: 0;
-    padding-block: var(--mrg-soft-200, 0.375rem);
-    padding-inline: var(--mrg-firm-300, 0.8125rem);
+    padding-block: var(
+        --prefix-mrg-soft-200,
+        var(--fallback-mrg-soft-200, 0.375rem)
+    );
+    padding-inline: var(
+        --prefix-mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
     width: fit-content;
     font: inherit;
     font-size: 1em;
-    line-height: var(--line-height-100, 1.1875);
+    line-height: var(
+        --prefix-line-height-100,
+        var(--fallback-line-height-100, 1.1875)
+    );
     border-width: 0.125rem;
     border-style: solid;
     border-radius: 0;
@@ -1773,27 +2584,27 @@ a[href].button,
 [role='button']:visited,
 a[href].button:visited {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border,
+        --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
     border-color: var(
-        --sys-clr-button-border,
+        --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
     background-color: var(
-        --sys-clr-button-bg,
+        --prefix-sys-clr-button-bg,
         var(--fallback-sys-clr-button-bg, ButtonFace)
     );
     color: var(
-        --sys-clr-button-text,
+        --prefix-sys-clr-button-text,
         var(--fallback-sys-clr-button-text, ButtonText)
     );
     accent-color: var(
-        --sys-clr-button-border,
+        --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
 }
@@ -1817,27 +2628,27 @@ a[href].button:hover,
 .js__no-whereSelector input[type='submit']:focus,
 .js__no-whereSelector a[href].button:focus {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     border-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     background-color: var(
-        --sys-clr-button-bg-hover,
+        --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(
-        --sys-clr-button-text-hover,
+        --prefix-sys-clr-button-text-hover,
         var(--fallback-sys-clr-button-text-hover, SelectedItemText)
     );
     accent-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
 }
@@ -1849,27 +2660,27 @@ a[href].button:hover,
 :where(.js__no-focusVisible) input[type='submit']:focus,
 :where(.js__no-focusVisible) a[href].button:focus {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     border-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     background-color: var(
-        --sys-clr-button-bg-hover,
+        --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(
-        --sys-clr-button-text-hover,
+        --prefix-sys-clr-button-text-hover,
         var(--fallback-sys-clr-button-text-hover, SelectedItemText)
     );
     accent-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
 }
@@ -1881,27 +2692,27 @@ input[type='reset']:focus-visible,
 input[type='submit']:focus-visible,
 a[href].button:focus-visible {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     border-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     background-color: var(
-        --sys-clr-button-bg-hover,
+        --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(
-        --sys-clr-button-text-hover,
+        --prefix-sys-clr-button-text-hover,
         var(--fallback-sys-clr-button-text-hover, SelectedItemText)
     );
     accent-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
 }
@@ -1913,27 +2724,27 @@ input[type='reset']:focus-within,
 input[type='submit']:focus-within,
 a[href].button:focus-within {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     border-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     background-color: var(
-        --sys-clr-button-bg-hover,
+        --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(
-        --sys-clr-button-text-hover,
+        --prefix-sys-clr-button-text-hover,
         var(--fallback-sys-clr-button-text-hover, SelectedItemText)
     );
     accent-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
 }
@@ -1945,27 +2756,27 @@ input[type='reset']:active,
 input[type='submit']:active,
 a[href].button:active {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-active,
+        --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-active,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
     border-color: var(
-        --sys-clr-button-border-active,
+        --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
     background-color: var(
-        --sys-clr-button-bg-active,
+        --prefix-sys-clr-button-bg-active,
         var(--fallback-sys-clr-button-bg-active, ButtonFace)
     );
     color: var(
-        --sys-clr-button-text-active,
+        --prefix-sys-clr-button-text-active,
         var(--fallback-sys-clr-button-text-active, ButtonText)
     );
     accent-color: var(
-        --sys-clr-button-border-active,
+        --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
 }
@@ -1988,12 +2799,22 @@ a[disabled][href].button {
 ::file-selector-button {
     --fallback-focus-ring-outline-offset: 0.125rem;
     margin-block: 0;
-    margin-inline: 0 var(--mrg-firm-300, 0.8125rem);
-    padding-block: var(--mrg-soft-200, 0.375rem);
-    padding-inline: var(--mrg-firm-300, 0.8125rem);
+    margin-inline: 0
+        var(--prefix-mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem));
+    padding-block: var(
+        --prefix-mrg-soft-200,
+        var(--fallback-mrg-soft-200, 0.375rem)
+    );
+    padding-inline: var(
+        --prefix-mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
     font: inherit;
     font-size: 1em;
-    line-height: var(--line-height-100, 1.1875);
+    line-height: var(
+        --prefix-line-height-100,
+        var(--fallback-line-height-100, 1.1875)
+    );
     border-width: 0.125rem;
     border-style: solid;
     border-radius: 0;
@@ -2002,54 +2823,54 @@ a[disabled][href].button {
     text-decoration: none;
     cursor: pointer;
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border,
+        --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
     border-color: var(
-        --sys-clr-button-border,
+        --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
     background-color: var(
-        --sys-clr-button-bg,
+        --prefix-sys-clr-button-bg,
         var(--fallback-sys-clr-button-bg, ButtonFace)
     );
     color: var(
-        --sys-clr-button-text,
+        --prefix-sys-clr-button-text,
         var(--fallback-sys-clr-button-text, ButtonText)
     );
     accent-color: var(
-        --sys-clr-button-border,
+        --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
 }
 
 :hover::file-selector-button {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     border-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     background-color: var(
-        --sys-clr-button-bg-hover,
+        --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(
-        --sys-clr-button-text-hover,
+        --prefix-sys-clr-button-text-hover,
         var(--fallback-sys-clr-button-text-hover, SelectedItemText)
     );
     accent-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
 }
@@ -2057,135 +2878,135 @@ a[disabled][href].button {
 .no-js :focus::file-selector-button,
 .js__no-whereSelector :focus::file-selector-button {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     border-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     background-color: var(
-        --sys-clr-button-bg-hover,
+        --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(
-        --sys-clr-button-text-hover,
+        --prefix-sys-clr-button-text-hover,
         var(--fallback-sys-clr-button-text-hover, SelectedItemText)
     );
     accent-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
 }
 
 :where(.js__no-focusVisible) :focus::file-selector-button {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     border-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     background-color: var(
-        --sys-clr-button-bg-hover,
+        --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(
-        --sys-clr-button-text-hover,
+        --prefix-sys-clr-button-text-hover,
         var(--fallback-sys-clr-button-text-hover, SelectedItemText)
     );
     accent-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
 }
 
 :focus-visible::file-selector-button {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     border-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     background-color: var(
-        --sys-clr-button-bg-hover,
+        --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(
-        --sys-clr-button-text-hover,
+        --prefix-sys-clr-button-text-hover,
         var(--fallback-sys-clr-button-text-hover, SelectedItemText)
     );
     accent-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
 }
 
 :focus-within::file-selector-button {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-hover,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     border-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
     background-color: var(
-        --sys-clr-button-bg-hover,
+        --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(
-        --sys-clr-button-text-hover,
+        --prefix-sys-clr-button-text-hover,
         var(--fallback-sys-clr-button-text-hover, SelectedItemText)
     );
     accent-color: var(
-        --sys-clr-button-border-hover,
+        --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
 }
 
 :active::file-selector-button {
     --fallback-focus-ring-outline-color: var(
-        --sys-clr-button-border-active,
+        --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
-    --focus-ring-outline-color: var(
-        --sys-clr-button-border-active,
+    --prefix-focus-ring-outline-color: var(
+        --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
     border-color: var(
-        --sys-clr-button-border-active,
+        --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
     background-color: var(
-        --sys-clr-button-bg-active,
+        --prefix-sys-clr-button-bg-active,
         var(--fallback-sys-clr-button-bg-active, ButtonFace)
     );
     color: var(
-        --sys-clr-button-text-active,
+        --prefix-sys-clr-button-text-active,
         var(--fallback-sys-clr-button-text-active, ButtonText)
     );
     accent-color: var(
-        --sys-clr-button-border-active,
+        --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
 }
@@ -2195,27 +3016,45 @@ a[disabled][href].button {
     cursor: not-allowed;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - TABLES
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 table,
 .table-wrapper {
     position: relative;
     align-self: center;
     justify-self: center;
-    margin-block: var(--mrg-firm-400, 1.25rem) 0;
-    margin-block: var(--mrg-firm-600, 2.25rem)
-        calc(var(--mrg-soft-600, 1.875rem) - var(--mrg-soft-400, 0.9375rem));
+    margin-block: var(
+            --prefix-mrg-firm-400,
+            var(--fallback-mrg-firm-400, 1.25rem)
+        )
+        0;
+    margin-block: var(
+            --prefix-mrg-firm-600,
+            var(--fallback-mrg-firm-600, 2.25rem)
+        )
+        calc(
+            var(
+                    --prefix-mrg-soft-600,
+                    var(--fallback-mrg-soft-600, 1.875rem)
+                ) - var(
+                    --prefix-mrg-soft-400,
+                    var(--fallback-mrg-soft-400, 0.9375rem)
+                )
+        );
     background: var(
-        --sys-clr-accent-bg,
+        --prefix-sys-clr-accent-bg,
         var(--fallback-sys-clr-accent-bg, CanvasText)
     );
     max-width: 100%;
 }
 
 table {
-    border-spacing: var(--border-width-200, 0.125rem);
+    border-spacing: var(
+        --prefix-border-width-200,
+        var(--fallback-border-width-200, 0.125rem)
+    );
     line-height: inherit;
 }
 @media (forced-colors: active), (prefers-contrast: custom) {
@@ -2224,25 +3063,41 @@ table {
     }
     table th,
     table td {
-        border-block-end: var(--border-width-200, 0.125rem) solid
-            var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
-        border-inline-end: var(--border-width-200, 0.125rem) solid
-            var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+        border-block-end: var(
+                --prefix-border-width-200,
+                var(--fallback-border-width-200, 0.125rem)
+            )
+            solid
+            var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+        border-inline-end: var(
+                --prefix-border-width-200,
+                var(--fallback-border-width-200, 0.125rem)
+            )
+            solid
+            var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
     }
     table th:first-child,
     table td:first-child {
-        border-inline-start: var(--border-width-200, 0.125rem) solid
-            var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+        border-inline-start: var(
+                --prefix-border-width-200,
+                var(--fallback-border-width-200, 0.125rem)
+            )
+            solid
+            var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
     }
     table tr:first-child th,
     table tr:first-child td {
-        border-block-start: var(--border-width-200, 0.125rem) solid
-            var(--sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
+        border-block-start: var(
+                --prefix-border-width-200,
+                var(--fallback-border-width-200, 0.125rem)
+            )
+            solid
+            var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
     }
 }
 .table-wrapper {
     --fallback-display: block;
-    --display: block;
+    --prefix-display: block;
     display: var(--fallback-display, block);
     overflow-x: auto;
     overscroll-behavior-x: none;
@@ -2258,11 +3113,17 @@ table {
 
 th,
 td {
-    padding-block: var(--mrg-soft-200, 0.375rem);
-    padding-inline: var(--mrg-firm-300, 0.8125rem);
+    padding-block: var(
+        --prefix-mrg-soft-200,
+        var(--fallback-mrg-soft-200, 0.375rem)
+    );
+    padding-inline: var(
+        --prefix-mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
     min-width: 10em;
     background: var(
-        --sys-clr-background,
+        --prefix-sys-clr-background,
         var(--fallback-sys-clr-background, Canvas)
     );
     vertical-align: top;
@@ -2278,65 +3139,83 @@ td > :last-child {
 }
 
 th {
-    padding-top: var(--mrg-soft-200, 0.375rem);
-    padding-bottom: var(--mrg-soft-200, 0.375rem);
+    padding-top: var(
+        --prefix-mrg-soft-200,
+        var(--fallback-mrg-soft-200, 0.375rem)
+    );
+    padding-bottom: var(
+        --prefix-mrg-soft-200,
+        var(--fallback-mrg-soft-200, 0.375rem)
+    );
     text-wrap: balance;
     background: var(
-        --sys-clr-accent-bg,
+        --prefix-sys-clr-accent-bg,
         var(--fallback-sys-clr-accent-bg, CanvasText)
     );
     color: var(
-        --sys-clr-accent-text,
+        --prefix-sys-clr-accent-text,
         var(--fallback-sys-clr-accent-text, Canvas)
     );
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */
 /* # LAYOUTS - BODY
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! START of @maddimathon/utility-sass/template */
 :root {
     --fallback-scroll-padding-top: var(
-        --gap-block-layout,
+        --prefix-gap-block-layout,
         var(--fallback-gap-block-layout, 5vw)
     );
     --fallback-scroll-padding-top: calc(
-        var(--height-nav-primary, var(--fallback-height-nav-primary, 0)) +
-            var(--gap-block-layout, var(--fallback-gap-block-layout, 5vw))
+        var(
+                --prefix-height-nav-primary,
+                var(--fallback-height-nav-primary, 0)
+            ) +
+            var(
+                --prefix-gap-block-layout,
+                var(--fallback-gap-block-layout, 5vw)
+            )
     );
 }
 
 :root,
 body {
     scroll-padding-top: var(
-        --scroll-padding-top,
+        --prefix-scroll-padding-top,
         var(
             --fallback-scroll-padding-top,
-            var(--gap-block-layout, var(--fallback-gap-block-layout, 5vw))
+            var(
+                --prefix-gap-block-layout,
+                var(--fallback-gap-block-layout, 5vw)
+            )
         )
     );
 }
 
 body {
     --fallback-display: flex;
-    --display: flex;
+    --prefix-display: flex;
     display: var(--fallback-display, flex);
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: var(--gap-block-layout, var(--fallback-gap-block-layout, 5vw))
-        var(--gap-inline-layout, var(--fallback-gap-inline-layout, 8vw));
+    gap: var(--prefix-gap-block-layout, var(--fallback-gap-block-layout, 5vw))
+        var(--prefix-gap-inline-layout, var(--fallback-gap-inline-layout, 8vw));
     margin-block: var(
-        --gap-block-layout,
+        --prefix-gap-block-layout,
         var(--fallback-gap-block-layout, 5vw)
     );
     margin-inline: var(
-        --gap-inline-layout,
+        --prefix-gap-inline-layout,
         var(--fallback-gap-inline-layout, 8vw)
     );
 }
 :where(body) > :where(*) {
-    width: min(var(--width-page, var(--fallback-width-page, 58.6875rem)), 100%);
+    width: min(
+        var(--prefix-width-page, var(--fallback-width-page, 58.6875rem)),
+        100%
+    );
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes-with-fallback- */
+/*! END of @maddimathon/utility-sass/template */

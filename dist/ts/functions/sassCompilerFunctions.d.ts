@@ -22,9 +22,11 @@ export declare function sassCompilerFunctions(args: Stage): Readonly<{
     'mmutils-global-getCurrentVersion()': sass.CustomFunction<'async'>;
     'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': sass.CustomFunction<'async'>;
     'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': sass.CustomFunction<'async'>;
+    'mmutils-list-slice( $list, $start: 1, $end: null )': sass.CustomFunction<'async'>;
     'mmutils-math-coerce-unit( $num, $unit )': sass.CustomFunction<'async'>;
     'mmutils-string-is-quoted( $str )': sass.CustomFunction<'async'>;
     'mmutils-string-match( $string, $pattern, $flags: null, $debug: false )': sass.CustomFunction<'async'>;
     'mmutils-string-regex-replace( $string, $search, $replace: "", $flags: null, $debug: false )': sass.CustomFunction<'async'>;
     'mmutils-string-regex-split( $string, $separator, $flags: null, $limit: null, $debug: false )': sass.CustomFunction<'async'>;
+    'mmutils-string-soft-wrap( $string, $width: null )': sass.CustomFunction<'async'>;
 }>;

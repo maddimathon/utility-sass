@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /*!
  * Utility Sass - Demo
- *
+ * 
  * This stylesheet demonstrates the output of functions and mixins included in
  * this library.
- *
+ * 
  * https://maddimathon.github.io/utility-sass
- *
- * Author: Maddi Mathon (www.maddimathon.com/web)
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
  * License: MIT
  */
 /* # MODULES - STRING
@@ -171,4 +171,25 @@ string.slugify {
     /* 
       string.slugify( "- hello – — _ : there ; / 56498d *%$#" ) = <S> -hello-_-there-56498d-
    */
+}
+
+string.soft-wrap {
+    /* 
+      string.soft-wrap( "hello there" ) is a list:
+   */
+    /* 1: <S> "hello there" */
+    /* 
+      string.soft-wrap( "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis non vulputate a, tempor aliquam ex." ) is a list:
+   */
+    /* 1: <S> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna" */
+    /* 2: <S> "eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis" */
+    /* 3: <S> "non vulputate a, tempor aliquam ex." */
+    /* 
+      string.soft-wrap( "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis non.", 42 ) is a list:
+   */
+    /* 1: <S> "Lorem ipsum dolor sit amet, consectetur" */
+    /* 2: <S> "adipiscing elit. Aenean molestie magna eu" */
+    /* 3: <S> "nisl dignissim, ut feugiat eros" */
+    /* 4: <S> "scelerisque. Praesent purus neque," */
+    /* 5: <S> "convallis non." */
 }

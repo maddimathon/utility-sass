@@ -3,7 +3,7 @@
 // @ts-check
 /*
  * @package @maddimathon/utility-sass
- * @author Maddi Mathon (www.maddimathon.com/web)
+ * @author Maddi Mathon (https://www.maddimathon.com/web)
  * 
  * @license MIT
  */

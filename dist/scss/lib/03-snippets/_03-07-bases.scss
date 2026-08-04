@@ -8,6 +8,9 @@
 @use '../../config';
 @use '../../tokens';
 
+@use '../../modules/list';
+@use '../../modules/map';
+
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 
@@ -22,6 +25,8 @@
     $includeFontSize: config.$mx_normalizeOrReset_includeFontSize,
     $includeFontSmoothing: config.$mx_normalizeOrReset_includeFontSmoothing
 ) {
+    $_modes: filter-colour-modes-active-only(tokens.$brightnessMode_all);
+
     #{config.$selector_root} {
         @if $includeFontSmoothing {
             -moz-text-size-adjust: none;
@@ -33,10 +38,6 @@
         }
 
         @if $includeColorScheme {
-            $_modes: filter-colour-modes-active-only(
-                tokens.$brightnessMode_all
-            );
-
             color-scheme: $_modes;
 
             @each $mode in $_modes {
@@ -86,7 +87,7 @@
 ///
 /// @since 0.1.0-pre.0
 ///
-@mixin normalize($args...) {
+@mixin normalize($includeBase: true, $args...) {
     /* #region Normalize */
     /*! START of modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
@@ -251,10 +252,14 @@
 
     /*! END of modern-normalize v3.0.1 */
 
-    @include _shared-base($args...);
+    @include template-utility-sass {
+        @if $includeBase {
+            @include _shared-base($args...);
+        }
 
-    small {
-        font-size: var-fs(smaller-1, $relative: true);
+        small {
+            font-size: var-fs(smaller-1, $relative: true);
+        }
     }
     /* #endregion Normalize */
 }
@@ -265,146 +270,165 @@
 /// @since 0.1.0-pre.0
 ///
 @mixin reset(
+    $includeBase: not map.get(config.$template_styles, normalize),
     $doUniversalBoxSizing: config.$mx_reset_doUniversalBoxSizing,
+    $headingsByRole: config.$mx_reset_headingsByRole,
+    $useHeadingPseudo: config.$mx_reset_useHeadingPseudo,
     $args...
 ) {
     /* #region Reset */
+    @include template-utility-sass {
+        #{config.$selector_root},
+        #{config.$selector_body} {
+            margin: 0;
+            padding: 0;
 
-    #{config.$selector_root},
-    #{config.$selector_body} {
-        margin: 0;
-        padding: 0;
+            @if not $doUniversalBoxSizing {
+                box-sizing: border-box;
+            }
+        }
 
-        @if not $doUniversalBoxSizing {
-            box-sizing: border-box;
+        button {
+            text-align: left; /* fallback */
+            text-align: start;
+        }
+
+        ::placeholder,
+        a,
+        blockquote,
+        button,
+        cite,
+        code,
+        dd,
+        dl,
+        figure,
+        input,
+        kbd,
+        ol,
+        optgroup,
+        pre,
+        samp,
+        select,
+        small,
+        td,
+        textarea,
+        th,
+        ul {
+            margin: 0;
+            padding: 0;
+            font: inherit;
+            font-size: 1em;
+
+            @if not $doUniversalBoxSizing {
+                box-sizing: border-box;
+            }
+        }
+
+        $_headingSels: if(
+            $useHeadingPseudo,
+            selector-all-headings(),
+            'h1, h2, h3, h4, h5, h6'
+        );
+
+        @if $headingsByRole {
+            $_headingSels: list.append(
+                $_headingSels,
+                '[role=heading]',
+                $separator: comma
+            );
+        }
+
+        #{$_headingSels} {
+            margin: 0;
+            font: inherit;
+            font-size: 1em;
+
+            @if not $doUniversalBoxSizing {
+                box-sizing: border-box;
+            }
+        }
+
+        td,
+        th {
+            vertical-align: top;
+        }
+
+        li {
+            @if not $doUniversalBoxSizing {
+                box-sizing: border-box;
+            }
+        }
+
+        p {
+            margin: 0;
+
+            @if not $doUniversalBoxSizing {
+                box-sizing: border-box;
+            }
+        }
+
+        embed,
+        iframe,
+        img,
+        object,
+        picture,
+        svg,
+        video {
+            @include prop-display(block);
+            max-width: 100%;
+
+            @if not $doUniversalBoxSizing {
+                box-sizing: border-box;
+            }
+        }
+
+        embed,
+        iframe,
+        img,
+        object,
+        picture,
+        video {
+            // height: auto;
+        }
+
+        img {
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+
+        hr {
+            margin: 0;
+            border: none;
+            border-block: currentColor solid 1px;
+
+            @if not $doUniversalBoxSizing {
+                box-sizing: border-box;
+            }
+        }
+
+        input,
+        label,
+        pre,
+        pre > code {
+            @include prop-display(block);
+
+            @if not $doUniversalBoxSizing {
+                box-sizing: border-box;
+            }
+        }
+
+        @if $doUniversalBoxSizing {
+            *,
+            ::before,
+            ::after {
+                box-sizing: border-box;
+            }
+        }
+
+        @if $includeBase {
+            @include _shared-base($args...);
         }
     }
-
-    button {
-        text-align: left; /* fallback */
-        text-align: start;
-    }
-
-    ::placeholder,
-    a,
-    blockquote,
-    button,
-    cite,
-    code,
-    dd,
-    dl,
-    figure,
-    input,
-    kbd,
-    ol,
-    optgroup,
-    pre,
-    samp,
-    select,
-    small,
-    td,
-    textarea,
-    th,
-    ul {
-        margin: 0;
-        padding: 0;
-        font: inherit;
-        font-size: 1em;
-
-        @if not $doUniversalBoxSizing {
-            box-sizing: border-box;
-        }
-    }
-
-    #{selector-all-headings($globalsOnly: true, $withUnstyled: false)} {
-        margin: 0;
-        font: inherit;
-        font-size: 1em;
-
-        @if not $doUniversalBoxSizing {
-            box-sizing: border-box;
-        }
-    }
-
-    td,
-    th {
-        vertical-align: top;
-    }
-
-    li {
-        @if not $doUniversalBoxSizing {
-            box-sizing: border-box;
-        }
-    }
-
-    p {
-        margin: 0;
-
-        @if not $doUniversalBoxSizing {
-            box-sizing: border-box;
-        }
-    }
-
-    embed,
-    iframe,
-    img,
-    object,
-    picture,
-    svg,
-    video {
-        @include prop-display(block);
-        max-width: 100%;
-
-        @if not $doUniversalBoxSizing {
-            box-sizing: border-box;
-        }
-    }
-
-    embed,
-    iframe,
-    img,
-    object,
-    picture,
-    video {
-        // height: auto;
-    }
-
-    img {
-        width: auto;
-        height: auto;
-        object-fit: cover;
-    }
-
-    hr {
-        margin: 0;
-        border: none;
-        border-block: currentColor solid 1px;
-
-        @if not $doUniversalBoxSizing {
-            box-sizing: border-box;
-        }
-    }
-
-    input,
-    label,
-    pre,
-    pre > code {
-        @include prop-display(block);
-
-        @if not $doUniversalBoxSizing {
-            box-sizing: border-box;
-        }
-    }
-
-    @if $doUniversalBoxSizing {
-        *,
-        ::before,
-        ::after {
-            box-sizing: border-box;
-        }
-    }
-
-    @include _shared-base($args...);
-
     /* #endregion Reset */
 }

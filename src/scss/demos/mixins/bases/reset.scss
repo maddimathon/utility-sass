@@ -1,0 +1,20 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../../config' with (
+    $template_styles: (
+        normalize: false,
+    )
+);
+@forward '../../header';
+
+@use '../../../modules/meta';
+
+@use '../../../lib';
+
+/* # MIXINS - BASES - Reset
+ * ======================================================================== */
+
+@include meta.mixin-demo('reset', meta.get-mixin('reset', lib));

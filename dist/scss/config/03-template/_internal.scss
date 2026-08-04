@@ -3,17 +3,47 @@
 /// @since 0.1.0-pre.0
 ///
 
+@use 'functions' as *;
+
 @use '../../modules/string';
 
 ///
 /// @since 0.1.0-pre.0
 ///
-$template_name: 'Default' !default;
+$template_name: null !default;
+$template_name: config-valid-string(
+    $template_name,
+    'template_name',
+    $default: 'Default'
+) !default;
 
+///
+/// Supports a string or a list of strings up to 4 items long.
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$template_description: '' !default;
+$template_softWrap_description: null !default;
+$template_softWrap_description: config-valid-bool(
+    $template_softWrap_description,
+    'template_softWrap_description',
+    $default: false
+) !default;
+
+///
+/// Supports a string or a list of strings up to 6 lines long.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$template_description: null !default;
+$template_description: config-valid-string(
+    $template_description,
+    'template_description',
+    $default: ''
+) !default;
+
+@if $template_softWrap_description {
+    $template_description: string.soft-wrap($template_description, 77);
+}
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -24,3 +54,40 @@ $template_slug: string.slugify($template_name) !default;
 /// @since 0.1.0-pre.0
 ///
 $template_isDefault: $template_slug == default !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$template_title_base: null !default;
+$template_title_base: config-valid-string(
+    $template_title_base,
+    'template_title_base',
+    $default: 'Template'
+) !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$template_title: null !default;
+$template_title: config-valid-string(
+    $template_title,
+    'template_title',
+    $default: if(
+            $template_isDefault,
+            $template_title_base,
+            '#{$template_title_base} - #{$template_name}'
+        )
+) !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$internal_utilitySass_stylesheetPath: null !default;
+
+@if $internal_utilitySass_stylesheetPath != false {
+    $internal_utilitySass_stylesheetPath: config-valid-string(
+        $internal_utilitySass_stylesheetPath,
+        'internal_utilitySass_stylesheetPath',
+        $default: if($template_isDefault, '', $template_slug)
+    ) !default;
+}

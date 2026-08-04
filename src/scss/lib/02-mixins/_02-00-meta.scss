@@ -6,71 +6,360 @@
 @use '../../config';
 // @use '../../tokens';
 
+@use '../../modules/list';
+@use '../../modules/meta';
 @use '../../modules/string';
 
 // @use '../01-functions' as *;
 
-$_stylesheet_name: if(
-    config.$template_isDefault,
-    'Template',
-    'Template - #{config.$template_name}'
+$_pkgBase_template: '@maddimathon/utility-sass/template';
+
+$_pkgBase: if(config.$isTemplate, $_pkgBase_template, '@maddimathon/utility-sass');
+
+$_path_template: if(
+    (config.$internal_utilitySass_stylesheetPath == false) or
+        (not meta.is-truthy(config.$internal_utilitySass_stylesheetPath)),
+    $_pkgBase_template,
+    '#{$_pkgBase_template}/#{config.$internal_utilitySass_stylesheetPath}'
 );
 
-$_stylesheet_packagePath: if(
-    config.$template_isDefault,
-    '@maddimathon/utility-sass/template',
-    '@maddimathon/utility-sass/template/#{config.$template_slug}'
-);
+///
+/// Supports up to 15 lines.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin docblock-printer($lines, $resistMinimize: false) {
+    $_listLength: list.length($lines);
+    $_secondChar: if($resistMinimize, '!', '*');
+
+    @if $_listLength <= 0 {
+        // do nothing
+    } @else if $_listLength <= 1 {
+        /*#{$_secondChar}
+         * #{$lines}
+         */
+    } @else if $_listLength <= 2 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         */
+    } @else if $_listLength <= 3 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         */
+    } @else if $_listLength <= 4 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         */
+    } @else if $_listLength <= 5 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         */
+    } @else if $_listLength <= 6 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         */
+    } @else if $_listLength <= 7 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         * #{list.nth( $lines, 7 )}
+         */
+    } @else if $_listLength <= 8 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         * #{list.nth( $lines, 7 )}
+         * #{list.nth( $lines, 8 )}
+         */
+    } @else if $_listLength <= 9 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         * #{list.nth( $lines, 7 )}
+         * #{list.nth( $lines, 8 )}
+         * #{list.nth( $lines, 9 )}
+         */
+    } @else if $_listLength <= 10 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         * #{list.nth( $lines, 7 )}
+         * #{list.nth( $lines, 8 )}
+         * #{list.nth( $lines, 9 )}
+         * #{list.nth( $lines, 10 )}
+         */
+    } @else if $_listLength <= 11 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         * #{list.nth( $lines, 7 )}
+         * #{list.nth( $lines, 8 )}
+         * #{list.nth( $lines, 9 )}
+         * #{list.nth( $lines, 10 )}
+         * #{list.nth( $lines, 11 )}
+         */
+    } @else if $_listLength <= 12 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         * #{list.nth( $lines, 7 )}
+         * #{list.nth( $lines, 8 )}
+         * #{list.nth( $lines, 9 )}
+         * #{list.nth( $lines, 10 )}
+         * #{list.nth( $lines, 11 )}
+         * #{list.nth( $lines, 12 )}
+         */
+    } @else if $_listLength <= 13 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         * #{list.nth( $lines, 7 )}
+         * #{list.nth( $lines, 8 )}
+         * #{list.nth( $lines, 9 )}
+         * #{list.nth( $lines, 10 )}
+         * #{list.nth( $lines, 11 )}
+         * #{list.nth( $lines, 12 )}
+         * #{list.nth( $lines, 13 )}
+         */
+    } @else if $_listLength <= 14 {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         * #{list.nth( $lines, 7 )}
+         * #{list.nth( $lines, 8 )}
+         * #{list.nth( $lines, 9 )}
+         * #{list.nth( $lines, 10 )}
+         * #{list.nth( $lines, 11 )}
+         * #{list.nth( $lines, 12 )}
+         * #{list.nth( $lines, 13 )}
+         * #{list.nth( $lines, 14 )}
+         */
+    } @else {
+        /*#{$_secondChar}
+         * #{list.nth( $lines, 1 )}
+         * #{list.nth( $lines, 2 )}
+         * #{list.nth( $lines, 3 )}
+         * #{list.nth( $lines, 4 )}
+         * #{list.nth( $lines, 5 )}
+         * #{list.nth( $lines, 6 )}
+         * #{list.nth( $lines, 7 )}
+         * #{list.nth( $lines, 8 )}
+         * #{list.nth( $lines, 9 )}
+         * #{list.nth( $lines, 10 )}
+         * #{list.nth( $lines, 11 )}
+         * #{list.nth( $lines, 12 )}
+         * #{list.nth( $lines, 13 )}
+         * #{list.nth( $lines, 14 )}
+         * #{list.text-join( list.slice( $lines, 15 ), $joiner: ' ' )}
+         */
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-docblock(
+    $libraryName,
+    $author: false,
+    $license: false,
+    $path: false,
+    $title: false,
+    $url: '___CURRENT_URL___',
+    $version: '___CURRENT_VERSION___',
+    $args...
+) {
+    $all_lines: ();
+
+    $_line_title: ();
+    @if meta.is-truthy($libraryName) {
+        $_line_title: list.append($_line_title, $libraryName);
+    }
+    @if meta.is-truthy($title) {
+        $_line_title: list.append($_line_title, $title);
+    }
+    @if list.length($_line_title) > 0 {
+        $all_lines: list.append($all_lines, list.text-join($_line_title, ' - '));
+    }
+
+    $_line_path: ();
+    @if meta.is-truthy($path) {
+        $_line_path: list.append($_line_path, $path);
+    }
+    @if meta.is-truthy($version) {
+        $_line_path: list.append($_line_path, $version);
+    }
+    @if list.length($_line_path) > 0 {
+        $all_lines: list.append($all_lines, list.text-join($_line_path, '@'));
+    }
+
+    // add description lines
+    @if string.length(#{config.$template_description}) > 0 {
+        $all_lines: list.append($all_lines, '');
+
+        @if list.length(config.$template_description) <= 6 {
+            $all_lines: list.join($all_lines, config.$template_description);
+        } @else {
+            // turn all lines after 5 into a single line
+            $all_lines: list.join(
+                $all_lines,
+                list.join(
+                    list.split(config.$template_description, 1, 6),
+                    list.text-join(list.split(config.$template_description, 6), ' ')
+                )
+            );
+        }
+    }
+
+    @if meta.is-truthy($url) {
+        $all_lines: list.append($all_lines, '');
+        $all_lines: list.append($all_lines, $url);
+    }
+
+    $_include_author: meta.is-truthy($author);
+    @if $_include_author {
+        $all_lines: list.append($all_lines, '');
+        $all_lines: list.append($all_lines, 'Author: #{$author}');
+    }
+
+    @if meta.is-truthy($license) {
+        @if not $_include_author {
+            $all_lines: list.append($all_lines, '');
+        }
+
+        $all_lines: list.append($all_lines, 'License: #{$license}');
+    }
+
+    @include docblock-printer($all_lines, $args...);
+}
 
 ///
 /// @since ___PKG_VERSION___
 ///
 @mixin template-docblock-utility-sass(
-    $stylesheet_name: $_stylesheet_name,
-    $stylesheet_packagePath: $_stylesheet_packagePath
+    $title: config.$template_title,
+    $author: true,
+    $license: true,
+    $path: true,
+    $url: true,
+    $version: true,
+    $args...
 ) {
-    @if string.length(#{config.$template_description}) > 0 {
-        /**
-         * Utility Sass - #{$stylesheet_name}
-         * #{$stylesheet_packagePath}@___CURRENT_VERSION___
-         * 
-         * #{config.$template_description}
-         * 
-         * ___CURRENT_URL___
-         */
-    } @else {
-        /**
-         * Utility Sass - #{$stylesheet_name}
-         * #{$stylesheet_packagePath}@___CURRENT_VERSION___
-         * 
-         * ___CURRENT_URL___
-         */
+    @include template-docblock(
+        'Utility Sass',
+        $author: if($author, 'Maddi Mathon (https://www.maddimathon.com/web)', false),
+        $license: if($license, 'MIT', false),
+        $path: if(
+                $path,
+                if(
+                    (config.$internal_utilitySass_stylesheetPath == false) or
+                        (not meta.is-truthy(config.$internal_utilitySass_stylesheetPath)),
+                    $_pkgBase,
+                    '#{$_pkgBase}/#{config.$internal_utilitySass_stylesheetPath}'
+                ),
+                false
+            ),
+        $title: $title,
+        $url: if($url, '___CURRENT_URL___', false),
+        $version: if($version, '___CURRENT_VERSION___', false),
+        $args...
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin _template-start-or-end($dir, $path: false, $at_root: true) {
+    @if meta.is-truthy($path) {
+        @if $at_root {
+            @at-root {
+                /*! #{$dir} of #{$path} */
+            }
+        } @else {
+            /*! #{$dir} of #{$path} */
+        }
     }
 }
 
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin template-start-utility-sass($stylesheet_packagePath: $_stylesheet_packagePath) {
-    @at-root {
-        /*! START of #{$stylesheet_packagePath} */
-    }
+@mixin template-start($path: false, $args...) {
+    @include _template-start-or-end('START', $path: $path, $args...);
 }
 
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin template-end-utility-sass($stylesheet_packagePath: $_stylesheet_packagePath) {
-    @at-root {
-        /*! END of #{$stylesheet_packagePath} */
-    }
+@mixin template-end($path: false, $args...) {
+    @include _template-start-or-end('END', $path: $path, $args...);
 }
 
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin template-utility-sass($stylesheet_packagePath: $_stylesheet_packagePath) {
-    @include template-start-utility-sass($stylesheet_packagePath: $stylesheet_packagePath);
+@mixin template-start-utility-sass($args...) {
+    @include template-start($path: $_path_template, $args...);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-end-utility-sass($args...) {
+    @include template-end($path: $_path_template, $args...);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-utility-sass($region_at_root: true, $args...) {
+    @include template-start-utility-sass($at_root: $region_at_root, $args...);
     @content;
-    @include template-end-utility-sass($stylesheet_packagePath: $stylesheet_packagePath);
+    @include template-end-utility-sass($at_root: $region_at_root, $args...);
 }

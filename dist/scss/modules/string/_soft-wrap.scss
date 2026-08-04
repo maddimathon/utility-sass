@@ -1,0 +1,32 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:string';
+
+@use '../config';
+
+@use '../meta';
+
+///
+/// Uses a compiler function to soft-wrap a string into a list of strings.
+///
+/// @param {string[]} $strings...
+///
+/// @return {string}
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function soft-wrap($string, $width: null) {
+    @return meta.call-global-compiler-fn(
+        'mmutils-string-soft-wrap',
+        'string.soft-wrap',
+        $isCompilerFunction: true,
+        $isRequired: true,
+        $fallbackValue: $string,
+        //
+        $string: $string,
+        $width: $width
+    );
+}

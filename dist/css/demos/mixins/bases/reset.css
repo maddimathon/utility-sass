@@ -1,0 +1,178 @@
+/*!
+ * Utility Sass - Demo
+ * 
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ * 
+ * https://maddimathon.github.io/utility-sass
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
+ */
+/* # MIXINS - BASES - Reset
+ * ======================================================================== */
+/* @include reset() */
+/* #region Reset */
+/*! START of @maddimathon/utility-sass/template */
+:root,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    text-align: left; /* fallback */
+    text-align: start;
+}
+
+::placeholder,
+a,
+blockquote,
+button,
+cite,
+code,
+dd,
+dl,
+figure,
+input,
+kbd,
+ol,
+optgroup,
+pre,
+samp,
+select,
+small,
+td,
+textarea,
+th,
+ul {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font: inherit;
+    font-size: 1em;
+}
+
+td,
+th {
+    vertical-align: top;
+}
+
+p {
+    margin: 0;
+}
+
+embed,
+iframe,
+img,
+object,
+picture,
+svg,
+video {
+    --display: block;
+    display: var(--display, block);
+    max-width: 100%;
+}
+
+img {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+hr {
+    margin: 0;
+    border: none;
+    border-block: currentColor solid 1px;
+}
+
+input,
+label,
+pre,
+pre > code {
+    --display: block;
+    display: var(--display, block);
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+:root {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    color-scheme: light dark;
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+        color-scheme: only light;
+    }
+}
+[data-brightness-mode='light']:root {
+    color-scheme: light;
+    color-scheme: only light;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        color-scheme: only dark;
+    }
+}
+[data-brightness-mode='dark']:root {
+    color-scheme: dark;
+    color-scheme: only dark;
+}
+
+:root {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        'Helvetica Neue',
+        Helvetica,
+        Arial,
+        sans-serif,
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Segoe UI Symbol';
+    font-size: 115%;
+}
+@media (min-width: 50em) {
+    :root {
+        font-size: 105%;
+    }
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo,
+        monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+/*! END of @maddimathon/utility-sass/template */
+/* #endregion Reset */

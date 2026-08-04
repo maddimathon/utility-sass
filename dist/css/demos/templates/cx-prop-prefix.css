@@ -1,15 +1,335 @@
 @charset "UTF-8";
 /**
- * Utility Sass - Template - Demo - Custom Property Prefixes
- * @maddimathon/utility-sass/template/demo-custom-property-prefixes@0.1.0-beta.0.draft
+ * Utility Sass - Template Demo - Custom Property Prefixes
+ * @maddimathon/utility-sass/template@0.1.0-beta.0.draft
  * 
- * This is a sample stylesheet with a custom property prefix set in the config (i.e. — $customPropertyPrefix: "prefix-").
+ * This is a sample stylesheet with a custom property prefix set in the config
+ * (i.e. — $customPropertyPrefix: "prefix-").
  * 
  * https://maddimathon.github.io/utility-sass
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
  */
+/* #region Normalize */
+/*! START of modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
+/* Normalize - Document ==================================== */
+/* Use a better box model (opinionated). */
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+/* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+:root {
+    /* font-family:
+      system-ui,
+      'Segoe UI',
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji'; */
+    line-height: 1.15; /* 1. Correct the line height in all browsers. */
+    -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+    tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
+}
+
+/* Normalize - Sections ==================================== */
+body {
+    margin: 0; /* Remove the margin in all browsers. */
+}
+
+/* Normalize - Text-level semantics ==================================== */
+/* Add the correct font weight in Chrome and Safari. */
+b,
+strong {
+    font-weight: bolder;
+}
+
+/*
+   1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+   2. Correct the odd 'em' font sizing in all browsers.
+ */
+code,
+kbd,
+samp,
+pre {
+    /* font-family:
+      ui-monospace,
+      SFMono-Regular,
+      Consolas,
+      'Liberation Mono',
+      Menlo,
+      monospace; */ /* 1 */
+    font-size: 1em; /* 2 */
+}
+
+/* Add the correct font size in all browsers. */
+small {
+    /* font-size: 80%; */
+}
+
+/* Prevent 'sub' and 'sup' elements from affecting the line height in all browsers. */
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+/* Normalize - Tabular data ==================================== */
+/* Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016) */
+table {
+    border-color: currentcolor;
+}
+
+/* Normalize - Forms ==================================== */
+/*
+   1. Change the font styles in all browsers.
+   2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit; /* 1 */
+    font-size: 1em;
+    line-height: 1.15; /* 1 */
+    margin: 0; /* 2 */
+}
+
+/* Correct the inability to style clickable types in iOS and Safari. */
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+    -webkit-appearance: button;
+}
+
+/* Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers. */
+legend {
+    padding: 0;
+}
+
+/* Add the correct vertical alignment in Chrome and Firefox. */
+progress {
+    vertical-align: baseline;
+}
+
+/* Correct the cursor style of increment and decrement buttons in Safari. */
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    height: auto;
+}
+
+/*
+   1. Correct the odd appearance in Chrome and Safari.
+   2. Correct the outline style in Safari.
+ */
+[type='search'] {
+    -webkit-appearance: textfield; /* 1 */
+    outline-offset: -2px; /* 2 */
+}
+
+/* Remove the inner padding in Chrome and Safari on macOS. */
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/*
+   1. Correct the inability to style clickable types in iOS and Safari.
+   2. Change font properties to 'inherit' in Safari.
+ */
+::-webkit-file-upload-button {
+    -webkit-appearance: button; /* 1 */
+    font: inherit; /* 2 */
+}
+
+/* Normalize - Interactive ==================================== */
+/* Add the correct display in Chrome and Safari. */
+summary {
+    --prefix-display: list-item;
+    display: var(--prefix-display, list-item);
+}
+
+/*! END of modern-normalize v3.0.1 */
+/*! START of @maddimathon/utility-sass/template */
+:root {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    color-scheme: light dark;
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+        color-scheme: only light;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        color-scheme: only dark;
+    }
+}
+:root {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        'Helvetica Neue',
+        Helvetica,
+        Arial,
+        sans-serif,
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Segoe UI Symbol';
+    font-size: 115%;
+}
+@media (min-width: 50em) {
+    :root {
+        font-size: 105%;
+    }
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo,
+        monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+small {
+    font-size: 0.9375em;
+}
+
+/*! END of @maddimathon/utility-sass/template */
+/* #endregion Normalize */
+/* #region Reset */
+/*! START of @maddimathon/utility-sass/template */
+:root,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    text-align: left; /* fallback */
+    text-align: start;
+}
+
+::placeholder,
+a,
+blockquote,
+button,
+cite,
+code,
+dd,
+dl,
+figure,
+input,
+kbd,
+ol,
+optgroup,
+pre,
+samp,
+select,
+small,
+td,
+textarea,
+th,
+ul {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font: inherit;
+    font-size: 1em;
+}
+
+td,
+th {
+    vertical-align: top;
+}
+
+p {
+    margin: 0;
+}
+
+embed,
+iframe,
+img,
+object,
+picture,
+svg,
+video {
+    --prefix-display: block;
+    display: var(--prefix-display, block);
+    max-width: 100%;
+}
+
+img {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+hr {
+    margin: 0;
+    border: none;
+    border-block: currentColor solid 1px;
+}
+
+input,
+label,
+pre,
+pre > code {
+    --prefix-display: block;
+    display: var(--prefix-display, block);
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+/*! END of @maddimathon/utility-sass/template */
+/* #endregion Reset */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 /* #region Tokens - @property */
 @property --prefix-display {
     syntax: '*';
@@ -193,6 +513,106 @@
 }
 
 /* #endregion Tokens - Width */
+/* #region Tokens - Margin */
+:root {
+    --prefix-mrg-firm-100: 0.3125rem;
+    --prefix-mrg-firm-200: 0.5rem;
+    --prefix-mrg-firm-300: 0.8125rem;
+    --prefix-mrg-firm-400: 1.25rem;
+    --prefix-mrg-firm-500: 1.6875rem;
+    --prefix-mrg-firm-600: 2.25rem;
+    --prefix-mrg-firm-800: 4rem;
+    --prefix-mrg-firm-900: 7.125rem;
+    --prefix-pad-firm-100: 0.3125em;
+    --prefix-pad-firm-200: 0.5em;
+    --prefix-pad-firm-300: 0.8125em;
+    --prefix-pad-firm-400: 1.25em;
+    --prefix-pad-firm-500: 1.6875em;
+    --prefix-pad-firm-600: 2.25em;
+    --prefix-pad-firm-800: 4em;
+    --prefix-pad-firm-900: 7.125em;
+}
+
+:root {
+    --prefix-mrg-soft-100: 0.25rem;
+    --prefix-mrg-soft-200: 0.375rem;
+    --prefix-mrg-soft-300: 0.625rem;
+    --prefix-mrg-soft-400: 0.9375rem;
+    --prefix-mrg-soft-500: 1.375rem;
+    --prefix-mrg-soft-600: 1.875rem;
+    --prefix-mrg-soft-800: 3.5rem;
+    --prefix-mrg-soft-900: 6.4375rem;
+    --prefix-pad-soft-100: 0.25em;
+    --prefix-pad-soft-200: 0.375em;
+    --prefix-pad-soft-300: 0.625em;
+    --prefix-pad-soft-400: 0.9375em;
+    --prefix-pad-soft-500: 1.375em;
+    --prefix-pad-soft-600: 1.875em;
+    --prefix-pad-soft-800: 3.5em;
+    --prefix-pad-soft-900: 6.4375em;
+}
+
+:root {
+    --prefix-mrg-half-100: 0.0625rem;
+    --prefix-mrg-half-200: 0.125rem;
+    --prefix-mrg-half-300: 0.1875rem;
+    --prefix-mrg-half-400: 0.3125rem;
+    --prefix-mrg-half-500: 0.3125rem;
+    --prefix-mrg-half-600: 0.375rem;
+    --prefix-mrg-half-800: 0.5rem;
+    --prefix-mrg-half-900: 0.6875rem;
+    --prefix-pad-half-100: 0.0625em;
+    --prefix-pad-half-200: 0.125em;
+    --prefix-pad-half-300: 0.1875em;
+    --prefix-pad-half-400: 0.3125em;
+    --prefix-pad-half-500: 0.3125em;
+    --prefix-pad-half-600: 0.375em;
+    --prefix-pad-half-800: 0.5em;
+    --prefix-pad-half-900: 0.6875em;
+}
+
+/* #endregion Tokens - Margin */
+/* #region Tokens - Font Size */
+:root {
+    --prefix-fs-heading-1: 2.75rem;
+    --prefix-fs-heading-1: clamp(2.5625rem, 0.90625svw + 2.375rem, 3.4375rem);
+    --prefix-fs-heading-2: 2.0625rem;
+    --prefix-fs-heading-2: clamp(1.9375rem, 0.6875svw + 1.75rem, 2.5625rem);
+    --prefix-fs-heading-3: 1.8125rem;
+    --prefix-fs-heading-3: clamp(1.6875rem, 0.59375svw + 1.5625rem, 2.25rem);
+    --prefix-fs-heading-4: 1.5625rem;
+    --prefix-fs-heading-4: clamp(1.4375rem, 0.5svw + 1.3125rem, 1.9375rem);
+    --prefix-fs-heading-5: 1.3125rem;
+    --prefix-fs-heading-5: clamp(1.25rem, 0.4375svw + 1.125rem, 1.625rem);
+    --prefix-fs-heading-6: 1.1875rem;
+    --prefix-fs-heading-6: clamp(1.125rem, 0.40625svw + 1rem, 1.5rem);
+    --prefix-fs-heading-7: 0.9375rem;
+    --prefix-fs-heading-7: clamp(0.875rem, 0.3125svw + 0.8125rem, 1.1875rem);
+    --prefix-fs-heading-8: 0.8125rem;
+    --prefix-fs-heading-8: clamp(0.75rem, 0.28125svw + 0.6875rem, 1rem);
+    --prefix-fs-smaller-2: 0.8125rem;
+    --prefix-fs-smaller-1: 0.9375rem;
+    --prefix-fs-normal: 1rem;
+    --prefix-fs-bigger-7: 2.75rem;
+    --prefix-fs-bigger-7: clamp(2.5625rem, 0.90625svw + 2.375rem, 3.4375rem);
+    --prefix-fs-bigger-8: 3.1875rem;
+    --prefix-fs-bigger-8: clamp(3rem, 1.0625svw + 2.75rem, 4rem);
+    --prefix-fs-bigger-9: 3.6875rem;
+    --prefix-fs-bigger-9: clamp(3.4375rem, 1.21875svw + 3.125rem, 4.625rem);
+}
+
+/* #endregion Tokens - Font Size */
+/* #region Tokens - Line Heights */
+:root {
+    --prefix-line-height-100: 1.1875;
+    --prefix-line-height-200: 1.3125;
+    --prefix-line-height-300: 1.4375;
+    --prefix-line-height-400: 1.6875;
+    --prefix-line-height-500: 1.9375;
+    --prefix-line-height-600: 2.1875;
+}
+
+/* #endregion Tokens - Line Heights */
 /* #region Tokens - Gap */
 :root {
     --prefix-gap-block-layout: 5vw;
@@ -210,50 +630,94 @@
 }
 
 /* #endregion Tokens - Gap */
+/* #region Tokens - Border Width */
+:root {
+    --prefix-border-width-100: 0.0625rem;
+    --prefix-border-width-200: 0.125rem;
+    --prefix-border-width-300: 0.1875rem;
+    --prefix-border-width-400: 0.25rem;
+}
+
+/* #endregion Tokens - Border Width */
+/* #region Tokens - Stroke Relative */
+:root {
+    --prefix-stroke-relative-100: 0.0625em;
+    --prefix-stroke-relative-200: 0.0625em;
+    --prefix-stroke-relative-400: 0.125em;
+    --prefix-stroke-relative-600: 0.1875em;
+    --prefix-stroke-relative-800: 0.25em;
+}
+
+/* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Style */
 :root {
     --prefix-focus-ring-outline-color: var(--prefix-sys-clr-link, LinkText);
-    --prefix-focus-ring-outline-offset: 0.125em;
-    --prefix-focus-ring-outline-width: clamp(0.125rem, 0.125em, 0.25rem);
+    --prefix-focus-ring-outline-offset: var(
+        --prefix-stroke-relative-400,
+        0.125em
+    );
+    --prefix-focus-ring-outline-width: clamp(
+        var(--prefix-border-width-200, 0.125rem),
+        var(--prefix-stroke-relative-400, 0.125em),
+        var(--prefix-border-width-400, 0.25rem)
+    );
 }
 
 /* #endregion Tokens - Style */
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - ACCESSIBILITY
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 .no-js :focus,
 .js__no-whereSelector :focus {
     /* %focus-ring--fallback */
-    outline-width: var(--prefix-focus-ring-outline-width, 0.125em);
+    outline-width: var(
+        --prefix-focus-ring-outline-width,
+        var(--prefix-stroke-relative-400, 0.125em)
+    );
     outline-style: dashed;
     outline-color: var(
         --prefix-focus-ring-outline-color,
         var(--prefix-sys-clr-link, LinkText)
     );
-    outline-offset: var(--prefix-focus-ring-outline-offset, 0.125em);
+    outline-offset: var(
+        --prefix-focus-ring-outline-offset,
+        var(--prefix-stroke-relative-400, 0.125em)
+    );
 }
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
-    outline-width: var(--prefix-focus-ring-outline-width, 0.125em);
+    outline-width: var(
+        --prefix-focus-ring-outline-width,
+        var(--prefix-stroke-relative-400, 0.125em)
+    );
     outline-style: dashed;
     outline-color: var(
         --prefix-focus-ring-outline-color,
         var(--prefix-sys-clr-link, LinkText)
     );
-    outline-offset: var(--prefix-focus-ring-outline-offset, 0.125em);
+    outline-offset: var(
+        --prefix-focus-ring-outline-offset,
+        var(--prefix-stroke-relative-400, 0.125em)
+    );
 }
 
 :focus-visible {
     /* %focus-ring--visible */
-    outline-width: var(--prefix-focus-ring-outline-width, 0.125em);
+    outline-width: var(
+        --prefix-focus-ring-outline-width,
+        var(--prefix-stroke-relative-400, 0.125em)
+    );
     outline-style: dashed;
     outline-color: var(
         --prefix-focus-ring-outline-color,
         var(--prefix-sys-clr-link, LinkText)
     );
-    outline-offset: var(--prefix-focus-ring-outline-offset, 0.125em);
+    outline-offset: var(
+        --prefix-focus-ring-outline-offset,
+        var(--prefix-stroke-relative-400, 0.125em)
+    );
 }
 
 .screen-reader-text {
@@ -266,27 +730,28 @@
     overflow: hidden !important;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 hr {
     --prefix-display: block;
     display: var(--prefix-display, block);
     align-self: center;
     justify-self: center;
-    margin-block: 2.25rem;
+    margin-block: var(--prefix-mrg-firm-600, 2.25rem);
     margin-inline: var(--prefix-gap-inline-indent, 9%);
     width: 72.92%;
     max-width: var(--prefix-width-callout, 26.25rem);
     border: none;
-    border-block-end: currentColor solid 0.125rem;
+    border-block-end: currentColor solid
+        var(--prefix-border-width-200, 0.125rem);
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 ::selection {
     background-color: var(--prefix-sys-clr-selection-bg, Highlight);
     color: var(--prefix-sys-clr-selection-text, HighlightText);
@@ -294,7 +759,7 @@ hr {
 
 :root {
     font-weight: 400;
-    line-height: 1.6875;
+    line-height: var(--prefix-line-height-400, 1.6875);
     background: var(--prefix-sys-clr-background, Canvas);
     color: var(--prefix-sys-clr-text, CanvasText);
 }
@@ -305,12 +770,12 @@ hr {
 }
 
 body {
-    font-size: 1rem;
+    font-size: var(--prefix-fs-normal, 1rem);
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* ## Typography - Inlines ==================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 strong,
 b {
     font-weight: 700;
@@ -338,12 +803,15 @@ i em em {
 }
 
 a[href] {
-    --prefix-focus-ring-outline-offset: 0.0625em;
+    --prefix-focus-ring-outline-offset: var(
+        --prefix-stroke-relative-200,
+        0.0625em
+    );
     --prefix-display: inline;
     display: var(--prefix-display, inline);
     border: none;
-    text-decoration: underline 0.0625em;
-    text-underline-offset: 0.25em;
+    text-decoration: underline var(--prefix-stroke-relative-200, 0.0625em);
+    text-underline-offset: var(--prefix-stroke-relative-800, 0.25em);
     color: var(--prefix-sys-clr-link, LinkText);
 }
 a[href]:visited {
@@ -384,15 +852,15 @@ a[aria-disabled='true'][href] {
 }
 
 abbr[title] {
-    text-decoration: dotted underline 0.125em;
+    text-decoration: dotted underline var(--prefix-stroke-relative-400, 0.125em);
     cursor: help;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* ## Typography - Blocks ==================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 p {
-    margin-block: 0.9375rem 0;
+    margin-block: var(--prefix-mrg-soft-400, 0.9375rem) 0;
 }
 hr + p {
     margin-block-start: 0;
@@ -402,10 +870,17 @@ blockquote {
     --prefix-display: block;
     display: var(--prefix-display, block);
     margin-inline: var(--prefix-gap-inline-indent, 9%);
-    margin-block: 0.9375rem 0;
-    margin-block: 1.875rem 0.9375rem;
-    padding-inline-start: 0.8125rem;
-    border-inline-start: 0.125rem solid currentColor;
+    margin-block: var(--prefix-mrg-soft-400, 0.9375rem) 0;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        calc(
+            var(--prefix-mrg-soft-600, 1.875rem) - var(
+                    --prefix-mrg-soft-400,
+                    0.9375rem
+                )
+        );
+    padding-inline-start: var(--prefix-mrg-firm-300, 0.8125rem);
+    border-inline-start: var(--prefix-border-width-200, 0.125rem) solid
+        currentColor;
     width: auto;
     max-width: var(--prefix-width-callout, 26.25rem);
 }
@@ -415,7 +890,7 @@ blockquote > :first-child {
 blockquote > cite {
     --prefix-display: block;
     display: var(--prefix-display, block);
-    margin-block: 0.9375rem 0;
+    margin-block: var(--prefix-mrg-soft-400, 0.9375rem) 0;
     text-align: end;
 }
 blockquote > cite::before {
@@ -446,14 +921,15 @@ pre {
     --prefix-display: block;
     display: var(--prefix-display, block);
     position: relative;
-    margin-block: 1.25rem 0.3125rem;
+    margin-block: var(--prefix-mrg-firm-400, 1.25rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     margin-inline: 0;
-    padding-block: 0.625rem;
-    padding-inline: 0.8125rem;
-    border: 0.0625rem solid currentColor;
+    padding-block: var(--prefix-mrg-soft-300, 0.625rem);
+    padding-inline: var(--prefix-mrg-firm-300, 0.8125rem);
+    border: var(--prefix-border-width-100, 0.0625rem) solid currentColor;
     width: auto;
     max-width: 100%;
-    font-size: 0.9375rem;
+    font-size: var(--prefix-fs-smaller-1, 0.9375rem);
     overflow: auto;
 }
 pre > code,
@@ -479,16 +955,17 @@ pre:has(> :is(code, kbd, samp)) > code {
     text-wrap: nowrap;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* ## Typography - Headings ==================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 .h1,
 h1,
 .page-title {
-    margin-block: 3.5rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-800, 3.5rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 900;
-    font-size: 2.75rem;
-    line-height: 1.3125;
+    font-size: var(--prefix-fs-heading-1, 2.75rem);
+    line-height: var(--prefix-line-height-200, 1.3125);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -518,10 +995,11 @@ h1 a[href].button,
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='1']) {
-    margin-block: 3.5rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-800, 3.5rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 900;
-    font-size: 2.75rem;
-    line-height: 1.3125;
+    font-size: var(--prefix-fs-heading-1, 2.75rem);
+    line-height: var(--prefix-line-height-200, 1.3125);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -544,10 +1022,11 @@ h1 a[href].button,
 
 .h2,
 h2 {
-    margin-block: 3.5rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-800, 3.5rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 800;
-    font-size: 2.0625rem;
-    line-height: 1.3125;
+    font-size: var(--prefix-fs-heading-2, 2.0625rem);
+    line-height: var(--prefix-line-height-200, 1.3125);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -571,10 +1050,11 @@ h2 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='2']) {
-    margin-block: 3.5rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-800, 3.5rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 800;
-    font-size: 2.0625rem;
-    line-height: 1.3125;
+    font-size: var(--prefix-fs-heading-2, 2.0625rem);
+    line-height: var(--prefix-line-height-200, 1.3125);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -597,10 +1077,11 @@ h2 a[href].button {
 
 .h3,
 h3 {
-    margin-block: 3.5rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-800, 3.5rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 700;
-    font-size: 1.8125rem;
-    line-height: 1.3125;
+    font-size: var(--prefix-fs-heading-3, 1.8125rem);
+    line-height: var(--prefix-line-height-200, 1.3125);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -624,10 +1105,11 @@ h3 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='3']) {
-    margin-block: 3.5rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-800, 3.5rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 700;
-    font-size: 1.8125rem;
-    line-height: 1.3125;
+    font-size: var(--prefix-fs-heading-3, 1.8125rem);
+    line-height: var(--prefix-line-height-200, 1.3125);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -650,10 +1132,11 @@ h3 a[href].button {
 
 .h4,
 h4 {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 700;
-    font-size: 1.5625rem;
-    line-height: 1.4375;
+    font-size: var(--prefix-fs-heading-4, 1.5625rem);
+    line-height: var(--prefix-line-height-300, 1.4375);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -685,10 +1168,11 @@ h4 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='4']) {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 700;
-    font-size: 1.5625rem;
-    line-height: 1.4375;
+    font-size: var(--prefix-fs-heading-4, 1.5625rem);
+    line-height: var(--prefix-line-height-300, 1.4375);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -717,10 +1201,11 @@ h4 a[href].button {
 
 .h5,
 h5 {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 600;
-    font-size: 1.3125rem;
-    line-height: 1.4375;
+    font-size: var(--prefix-fs-heading-5, 1.3125rem);
+    line-height: var(--prefix-line-height-300, 1.4375);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -752,10 +1237,11 @@ h5 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='5']) {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 600;
-    font-size: 1.3125rem;
-    line-height: 1.4375;
+    font-size: var(--prefix-fs-heading-5, 1.3125rem);
+    line-height: var(--prefix-line-height-300, 1.4375);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -784,10 +1270,11 @@ h5 a[href].button {
 
 .h6,
 h6 {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 500;
-    font-size: 1.1875rem;
-    line-height: 1.4375;
+    font-size: var(--prefix-fs-heading-6, 1.1875rem);
+    line-height: var(--prefix-line-height-300, 1.4375);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -819,10 +1306,11 @@ h6 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='6']) {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 500;
-    font-size: 1.1875rem;
-    line-height: 1.4375;
+    font-size: var(--prefix-fs-heading-6, 1.1875rem);
+    line-height: var(--prefix-line-height-300, 1.4375);
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
@@ -850,10 +1338,11 @@ h6 a[href].button {
 }
 
 .h7 {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 500;
-    font-size: 0.9375rem;
-    line-height: 1.6875;
+    font-size: var(--prefix-fs-heading-7, 0.9375rem);
+    line-height: var(--prefix-line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -871,10 +1360,11 @@ h6 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='7']) {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 500;
-    font-size: 0.9375rem;
-    line-height: 1.6875;
+    font-size: var(--prefix-fs-heading-7, 0.9375rem);
+    line-height: var(--prefix-line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -896,10 +1386,11 @@ h6 a[href].button {
 }
 
 .h8 {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 500;
-    font-size: 0.8125rem;
-    line-height: 1.6875;
+    font-size: var(--prefix-fs-heading-8, 0.8125rem);
+    line-height: var(--prefix-line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -923,10 +1414,11 @@ h6 a[href].button {
     text-transform: inherit;
 }
 :where([role='heading'][aria-level='8']) {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 500;
-    font-size: 0.8125rem;
-    line-height: 1.6875;
+    font-size: var(--prefix-fs-heading-8, 0.8125rem);
+    line-height: var(--prefix-line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -960,10 +1452,11 @@ h4.unstyled-heading,
 h5.unstyled-heading,
 h6.unstyled-heading,
 .unstyled-heading {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.6875;
+    font-size: var(--prefix-fs-normal, 1rem);
+    line-height: var(--prefix-line-height-400, 1.6875);
     letter-spacing: normal;
     text-transform: none;
     font-style: normal;
@@ -989,10 +1482,11 @@ h6.unstyled-heading,
     [role='heading'][aria-level='7'],
     [role='heading'][aria-level='8']
 ) {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.6875;
+    font-size: var(--prefix-fs-normal, 1rem);
+    line-height: var(--prefix-line-height-400, 1.6875);
     letter-spacing: normal;
     text-transform: none;
     font-style: normal;
@@ -1041,10 +1535,10 @@ h6.unstyled-heading,
     font-style: italic;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - LISTS
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 ol,
 ul {
     margin: 0;
@@ -1083,7 +1577,7 @@ ul ul ul {
 }
 li {
     margin: 0;
-    margin-block-start: 0.625rem;
+    margin-block-start: var(--prefix-mrg-soft-300, 0.625rem);
     padding: 0;
 }
 li::marker {
@@ -1095,7 +1589,7 @@ li > a:only-child {
     vertical-align: top;
 }
 li li li {
-    margin-block-start: 0.375rem;
+    margin-block-start: var(--prefix-mrg-soft-200, 0.375rem);
 }
 li li li li {
     font-style: italic;
@@ -1107,17 +1601,19 @@ li li li li em em {
     font-style: italic;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - FORMS
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 fieldset {
     --prefix-display: block;
     display: var(--prefix-display, block);
-    margin-block: 1.25rem 0.3125rem;
+    margin-block: var(--prefix-mrg-firm-400, 1.25rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     margin-inline: 0;
-    padding-block: 0.625rem 0.8125rem;
-    padding-inline: 1.25rem;
+    padding-block: var(--prefix-mrg-soft-300, 0.625rem)
+        var(--prefix-mrg-firm-300, 0.8125rem);
+    padding-inline: var(--prefix-mrg-firm-400, 1.25rem);
     border: 0.0625rem solid currentColor;
     border-radius: 0;
     border-color: var(--prefix-sys-clr-input-border, FieldText);
@@ -1130,17 +1626,23 @@ fieldset legend {
 }
 fieldset > :first-child {
     margin-block-start: 0;
-    margin-block-start: 0.5625rem;
+    margin-block-start: calc(
+        var(--prefix-mrg-soft-400, 0.9375rem) - var(
+                --prefix-mrg-soft-200,
+                0.375rem
+            )
+    );
 }
 fieldset > legend + * {
     margin-block-start: 0;
 }
 
 fieldset legend {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 500;
-    font-size: 0.9375rem;
-    line-height: 1.6875;
+    font-size: var(--prefix-fs-heading-7, 0.9375rem);
+    line-height: var(--prefix-line-height-400, 1.6875);
     letter-spacing: 0.0625em;
     text-transform: uppercase;
     text-wrap: balance;
@@ -1156,18 +1658,19 @@ fieldset
         h6.unstyled-heading,
         .unstyled-heading
     ) {
-    margin-block: 1.875rem 0.3125rem;
+    margin-block: var(--prefix-mrg-soft-600, 1.875rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.6875;
+    font-size: var(--prefix-fs-normal, 1rem);
+    line-height: var(--prefix-line-height-400, 1.6875);
     letter-spacing: normal;
     text-transform: none;
     font-style: normal;
 }
 fieldset legend {
-    margin-inline: -0.625rem;
-    margin-block: 0 0.625rem;
-    padding-inline: 0.625rem;
+    margin-inline: calc(var(--prefix-mrg-soft-300, 0.625rem) * -1);
+    margin-block: 0 var(--prefix-mrg-soft-300, 0.625rem);
+    padding-inline: var(--prefix-mrg-soft-300, 0.625rem);
     font-style: italic;
 }
 
@@ -1177,14 +1680,15 @@ input {
     --prefix-focus-ring-outline-offset: 0.125rem;
     --prefix-display: block;
     display: var(--prefix-display, block);
-    margin-block: 1.25rem 0.3125rem;
+    margin-block: var(--prefix-mrg-firm-400, 1.25rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     margin-inline: 0;
-    padding-block: 0.375rem;
-    padding-inline: 0.5rem;
+    padding-block: var(--prefix-mrg-soft-200, 0.375rem);
+    padding-inline: var(--prefix-mrg-firm-200, 0.5rem);
     width: 100%;
     font: inherit;
     font-size: 1em;
-    line-height: 1.3125;
+    line-height: var(--prefix-line-height-200, 1.3125);
     border-width: 0.0625rem;
     border-style: solid;
     border-color: var(--prefix-sys-clr-input-border, FieldText);
@@ -1283,7 +1787,7 @@ label + input,
 label > textarea,
 label > select,
 label > input {
-    margin-block-start: 0.3125rem;
+    margin-block-start: var(--prefix-mrg-half-400, 0.3125rem);
 }
 textarea::placeholder,
 select::placeholder,
@@ -1447,10 +1951,10 @@ textarea {
 label {
     --prefix-display: block;
     display: var(--prefix-display, block);
-    margin-block: 0.9375rem 0;
+    margin-block: var(--prefix-mrg-soft-400, 0.9375rem) 0;
     margin-inline: 0;
     font-weight: 600;
-    line-height: 1.3125;
+    line-height: var(--prefix-line-height-200, 1.3125);
     text-wrap: balance;
     color: var(--prefix-sys-clr-text, CanvasText);
 }
@@ -1460,9 +1964,9 @@ label:has(> :where([type='checkbox'], [type='radio'])) {
     grid-template-columns: fit-content(0) 1fr;
     justify-content: end;
     align-items: baseline;
-    gap: 0.625rem;
+    gap: var(--prefix-mrg-soft-300, 0.625rem);
     font-weight: 400;
-    line-height: 1.6875;
+    line-height: var(--prefix-line-height-400, 1.6875);
     color: var(--prefix-sys-clr-text, CanvasText);
     cursor: pointer;
 }
@@ -1477,12 +1981,12 @@ label:has(
 }
 label:has(> :where([type='checkbox'], [type='radio']))
     + label:has(> :where([type='checkbox'], [type='radio'])) {
-    margin-block-start: 0.5rem;
+    margin-block-start: var(--prefix-mrg-firm-200, 0.5rem);
 }
 label:has(> :where([type='checkbox'], [type='radio'])) + input,
 label:has(> :where([type='checkbox'], [type='radio'])) + select,
 label:has(> :where([type='checkbox'], [type='radio'])) + textarea {
-    margin-block-start: 1.25rem;
+    margin-block-start: var(--prefix-mrg-firm-400, 1.25rem);
 }
 label > [type='checkbox'],
 label > [type='radio'] {
@@ -1504,15 +2008,17 @@ a[href].button {
     justify-content: start;
     align-content: start;
     align-items: start;
-    gap: 0.625rem 0.3125rem;
-    margin-block: 1.25rem 0.3125rem;
+    gap: var(--prefix-mrg-soft-300, 0.625rem)
+        var(--prefix-mrg-firm-100, 0.3125rem);
+    margin-block: var(--prefix-mrg-firm-400, 1.25rem)
+        var(--prefix-mrg-half-400, 0.3125rem);
     margin-inline: 0;
-    padding-block: 0.375rem;
-    padding-inline: 0.8125rem;
+    padding-block: var(--prefix-mrg-soft-200, 0.375rem);
+    padding-inline: var(--prefix-mrg-firm-300, 0.8125rem);
     width: fit-content;
     font: inherit;
     font-size: 1em;
-    line-height: 1.1875;
+    line-height: var(--prefix-line-height-100, 1.1875);
     border-width: 0.125rem;
     border-style: solid;
     border-radius: 0;
@@ -1649,12 +2155,12 @@ a[disabled][href].button {
 ::file-selector-button {
     --prefix-focus-ring-outline-offset: 0.125rem;
     margin-block: 0;
-    margin-inline: 0 0.8125rem;
-    padding-block: 0.375rem;
-    padding-inline: 0.8125rem;
+    margin-inline: 0 var(--prefix-mrg-firm-300, 0.8125rem);
+    padding-block: var(--prefix-mrg-soft-200, 0.375rem);
+    padding-inline: var(--prefix-mrg-firm-300, 0.8125rem);
     font: inherit;
     font-size: 1em;
-    line-height: 1.1875;
+    line-height: var(--prefix-line-height-100, 1.1875);
     border-width: 0.125rem;
     border-style: solid;
     border-radius: 0;
@@ -1744,23 +2250,29 @@ a[disabled][href].button {
     cursor: not-allowed;
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* # GLOBALS - TABLES
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 table,
 .table-wrapper {
     position: relative;
     align-self: center;
     justify-self: center;
-    margin-block: 1.25rem 0;
-    margin-block: 2.25rem 0.9375rem;
+    margin-block: var(--prefix-mrg-firm-400, 1.25rem) 0;
+    margin-block: var(--prefix-mrg-firm-600, 2.25rem)
+        calc(
+            var(--prefix-mrg-soft-600, 1.875rem) - var(
+                    --prefix-mrg-soft-400,
+                    0.9375rem
+                )
+        );
     background: var(--prefix-sys-clr-accent-bg, CanvasText);
     max-width: 100%;
 }
 
 table {
-    border-spacing: 0.125rem;
+    border-spacing: var(--prefix-border-width-200, 0.125rem);
     line-height: inherit;
 }
 @media (forced-colors: active), (prefers-contrast: custom) {
@@ -1769,17 +2281,19 @@ table {
     }
     table th,
     table td {
-        border-block-end: 0.125rem solid var(--prefix-sys-clr-text, CanvasText);
-        border-inline-end: 0.125rem solid var(--prefix-sys-clr-text, CanvasText);
+        border-block-end: var(--prefix-border-width-200, 0.125rem) solid
+            var(--prefix-sys-clr-text, CanvasText);
+        border-inline-end: var(--prefix-border-width-200, 0.125rem) solid
+            var(--prefix-sys-clr-text, CanvasText);
     }
     table th:first-child,
     table td:first-child {
-        border-inline-start: 0.125rem solid
+        border-inline-start: var(--prefix-border-width-200, 0.125rem) solid
             var(--prefix-sys-clr-text, CanvasText);
     }
     table tr:first-child th,
     table tr:first-child td {
-        border-block-start: 0.125rem solid
+        border-block-start: var(--prefix-border-width-200, 0.125rem) solid
             var(--prefix-sys-clr-text, CanvasText);
     }
 }
@@ -1800,8 +2314,8 @@ table {
 
 th,
 td {
-    padding-block: 0.375rem;
-    padding-inline: 0.8125rem;
+    padding-block: var(--prefix-mrg-soft-200, 0.375rem);
+    padding-inline: var(--prefix-mrg-firm-300, 0.8125rem);
     min-width: 10em;
     background: var(--prefix-sys-clr-background, Canvas);
     vertical-align: top;
@@ -1817,17 +2331,17 @@ td > :last-child {
 }
 
 th {
-    padding-top: 0.375rem;
-    padding-bottom: 0.375rem;
+    padding-top: var(--prefix-mrg-soft-200, 0.375rem);
+    padding-bottom: var(--prefix-mrg-soft-200, 0.375rem);
     text-wrap: balance;
     background: var(--prefix-sys-clr-accent-bg, CanvasText);
     color: var(--prefix-sys-clr-accent-text, Canvas);
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */
 /* # LAYOUTS - BODY
  * ======================================================================== */
-/*! START of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! START of @maddimathon/utility-sass/template */
 :root {
     --prefix-scroll-padding-top: var(--prefix-gap-block-layout, 5vw);
     --prefix-scroll-padding-top: calc(
@@ -1859,4 +2373,4 @@ body {
     width: min(var(--prefix-width-page, 58.6875rem), 100%);
 }
 
-/*! END of @maddimathon/utility-sass/template/demo-custom-property-prefixes */
+/*! END of @maddimathon/utility-sass/template */

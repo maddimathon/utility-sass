@@ -1,0 +1,33 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+
+@use '../config';
+
+@use '../meta';
+
+///
+/// Uses a compiler function to slice and return part of a list.
+///
+/// @param {list[]} $strings...
+///
+/// @return {list}
+///
+/// @since ___PKG_VERSION___
+///
+@function slice($list, $start: 1, $end: null) {
+    @return meta.call-global-compiler-fn(
+        'mmutils-list-slice',
+        'list.slice',
+        $isCompilerFunction: true,
+        $isRequired: true,
+        $fallbackValue: (),
+        //
+        $list: $list,
+        $start: $start,
+        $end: $end
+    );
+}

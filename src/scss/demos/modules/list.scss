@@ -58,6 +58,21 @@ list.only-any {
     );
 }
 
+list.slice {
+    @include meta.var-dump('$list', $_list_flat);
+
+    // this should slice the whole list
+    @include meta.var-dump('list.slice( $list )', list.slice($_list_flat));
+
+    // check that this splits the list in two capturing all items
+    @include meta.var-dump('list.slice( $list, 1, 6 )', list.slice($_list_flat, 1, 6));
+    @include meta.var-dump('list.slice( $list, 6 )', list.slice($_list_flat, 6));
+
+    @include meta.var-dump('list.slice( $list, 2 )', list.slice($_list_flat, 2));
+    @include meta.var-dump('list.slice( $list, 2, 6 )', list.slice($_list_flat, 2, 6));
+    @include meta.var-dump('list.slice( $list, 2, -4 )', list.slice($_list_flat, 2, -4));
+}
+
 list.sort {
     @include meta.var-dump('$list', $_list_flat);
     @include meta.var-dump('list.sort( $list )', list.sort($_list_flat));

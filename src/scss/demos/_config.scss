@@ -3,20 +3,28 @@
 /// @since 0.1.0-pre.0
 ///
 
-@forward '../config' with (
+@forward '../template/default/config' with (
     $internal_supressCredit: true,
 
     $include_html: true !default,
+    $isTemplate: false !default,
 
     $template_globals: true !default,
     $template_tokens: true !default,
     $template_utils: true !default,
+
+    $template_description:
+        'This stylesheet demonstrates the output of functions and mixins included in this library.'
+        !default,
+    $template_title_base: 'Demo' !default,
 
     $template_styles: (
         normalize: true,
     )
     !default,
 
-    $selectorType_mode: 'attribute',
-    $selectorType_motion: 'attribute'
+    $internal_utilitySass_stylesheetPath: false !default,
+
+    $selectorType_mode: 'attribute' !default,
+    $selectorType_motion: 'attribute' !default
 );

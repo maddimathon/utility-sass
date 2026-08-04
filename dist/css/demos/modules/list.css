@@ -1,12 +1,12 @@
 /*!
  * Utility Sass - Demo
- *
+ * 
  * This stylesheet demonstrates the output of functions and mixins included in
  * this library.
- *
+ * 
  * https://maddimathon.github.io/utility-sass
- *
- * Author: Maddi Mathon (www.maddimathon.com/web)
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
  * License: MIT
  */
 /* # MODULES - LIST
@@ -166,6 +166,83 @@ list.only-any {
     /* 1: <S> two */
     /* 2: <S> two */
     /* 3: <S> C */
+}
+
+list.slice {
+    /* 
+      $list is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> two */
+    /* 3: <S> two */
+    /* 4: <S> one */
+    /* 5: <S> A */
+    /* 6: <S> B */
+    /* 7: <S> C */
+    /* 8: <S> yet */
+    /* 9: <S> another */
+    /* 10: <S> list */
+    /* 11: <S> B */
+    /* 
+      list.slice( $list ) is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> two */
+    /* 3: <S> two */
+    /* 4: <S> one */
+    /* 5: <S> A */
+    /* 6: <S> B */
+    /* 7: <S> C */
+    /* 8: <S> yet */
+    /* 9: <S> another */
+    /* 10: <S> list */
+    /* 11: <S> B */
+    /* 
+      list.slice( $list, 1, 6 ) is a list:
+   */
+    /* 1: <S> one */
+    /* 2: <S> two */
+    /* 3: <S> two */
+    /* 4: <S> one */
+    /* 5: <S> A */
+    /* 
+      list.slice( $list, 6 ) is a list:
+   */
+    /* 1: <S> B */
+    /* 2: <S> C */
+    /* 3: <S> yet */
+    /* 4: <S> another */
+    /* 5: <S> list */
+    /* 6: <S> B */
+    /* 
+      list.slice( $list, 2 ) is a list:
+   */
+    /* 1: <S> two */
+    /* 2: <S> two */
+    /* 3: <S> one */
+    /* 4: <S> A */
+    /* 5: <S> B */
+    /* 6: <S> C */
+    /* 7: <S> yet */
+    /* 8: <S> another */
+    /* 9: <S> list */
+    /* 10: <S> B */
+    /* 
+      list.slice( $list, 2, 6 ) is a list:
+   */
+    /* 1: <S> two */
+    /* 2: <S> two */
+    /* 3: <S> one */
+    /* 4: <S> A */
+    /* 
+      list.slice( $list, 2, -4 ) is a list:
+   */
+    /* 1: <S> two */
+    /* 2: <S> two */
+    /* 3: <S> one */
+    /* 4: <S> A */
+    /* 5: <S> B */
+    /* 6: <S> C */
 }
 
 list.sort {
