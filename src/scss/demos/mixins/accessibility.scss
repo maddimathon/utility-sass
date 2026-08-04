@@ -10,17 +10,17 @@
 
 @use '../../modules/meta';
 
-@use '../../lib';
+@use '../../lib' as *;
 
 /* # MIXINS - ACCESSIBILITY
  * ======================================================================== */
 
 @mixin _motion-tests {
-    @include meta.var-dump('selector-motion( true )', lib.selector-motion(true));
-    @include meta.var-dump('selector-motion( false )', lib.selector-motion(false));
+    @include meta.demo-function('selector-motion', meta.get-function('selector-motion'), true);
+    @include meta.demo-function('selector-motion', meta.get-function('selector-motion'), false);
 
-    @include meta.mixin-demo('motion', meta.get-mixin('motion', lib));
-    @include meta.mixin-demo('no-motion', meta.get-mixin('no-motion', lib));
+    @include meta.demo-mixin('motion', meta.get-mixin('motion'));
+    @include meta.demo-mixin('no-motion', meta.get-mixin('no-motion'));
 }
 
 /* #region - at root */

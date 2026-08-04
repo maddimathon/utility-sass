@@ -3,26 +3,93 @@
 /// @since 0.1.0-pre.0
 ///
 
-@forward '../config';
+@forward '../config' with (
+    $selector_headingsByRole: true
+);
 @forward '../header';
 
 @use '../../modules/meta';
 
 @use '../../lib' as *;
 
+@mixin _demo-function($name, $args...) {
+    @include meta.demo-function($name, meta.get-function($name), $args...);
+}
+
+@mixin _demo-mixin($name, $args...) {
+    @include meta.demo-mixin($name, meta.get-mixin($name), $args...) {
+        @content;
+    }
+}
+
 /* # FUNCTIONS - token-all-heading-levels()
  * ======================================================================== */
 
 all-heading-levels {
-    @include meta.var-dump('token-all-heading-levels()', token-all-heading-levels());
+    @include _demo-function('token-all-heading-levels');
+}
+
+/* # FUNCTIONS - selector-all-headings()
+ * ======================================================================== */
+
+@media selector-all-headings--base {
+    @include _demo-function('selector-all-headings--base');
+    @include _demo-function('selector-all-headings--base', $usePseudo: false);
+}
+
+@media selector-all-headings--where {
+    @include _demo-function('selector-all-headings--where');
+    @include _demo-function('selector-all-headings--where', $usePseudo: false);
+}
+
+@media (function: selector-all-headings) {
+    @include _demo-function('selector-all-headings');
+    @include _demo-function('selector-all-headings', $usePseudo: false);
+
+    @include _demo-function('selector-all-headings', $where: true);
+    @include _demo-function('selector-all-headings', $where: true, $usePseudo: false);
+
+    @include _demo-function('selector-all-headings', $base: true, $where: true);
+    @include _demo-function('selector-all-headings', $base: true, $where: true, $usePseudo: false);
+}
+
+@mixin _demo-mixin-selector-all-headings($args...) {
+    @media (mixin: selector-all-headings) {
+        @include _demo-mixin('selector-all-headings', $demo_separateSignature: true, $args...) {
+            @include meta.var-dump('&', &);
+        }
+    }
+}
+
+@include _demo-mixin-selector-all-headings;
+@include _demo-mixin-selector-all-headings($usePseudo: false);
+
+parent {
+    @include _demo-mixin-selector-all-headings($direct: true);
+    @include _demo-mixin-selector-all-headings($direct: true, $usePseudo: false);
+}
+
+@include _demo-mixin-selector-all-headings($base: false);
+@include _demo-mixin-selector-all-headings($base: false, $usePseudo: false);
+
+parent {
+    @include _demo-mixin-selector-all-headings($base: false, $direct: true);
+    @include _demo-mixin-selector-all-headings($base: false, $direct: true, $usePseudo: false);
+}
+
+@include _demo-mixin-selector-all-headings($where: false);
+@include _demo-mixin-selector-all-headings($where: false, $usePseudo: false);
+
+parent {
+    @include _demo-mixin-selector-all-headings($where: false, $direct: true);
+    @include _demo-mixin-selector-all-headings($where: false, $direct: true, $usePseudo: false);
 }
 
 /* # FUNCTIONS - debug-checkpoint()
  * ======================================================================== */
 
 debug-checkpoint {
-    @include meta.var-dump(
-        "debug-checkpoint-fn( $location: 'demo-debug-checkpoint', $level: 2 )",
-        debug-checkpoint-fn($location: 'demo-debug-checkpoint', $level: 2)
-    );
+    @include _demo-function('debug-checkpoint-fn', $location: 'demo-debug-checkpoint', $level: 2);
 }
+
+@include extend-selectors;

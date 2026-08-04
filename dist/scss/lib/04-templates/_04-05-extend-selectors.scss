@@ -151,7 +151,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
             $separator: comma
         );
 
-        @if config.$mx_extendSelectors_headingsByRole {
+        @if config.$selector_headingsByRole {
             $_whereSel: ':where( [role=heading][aria-level="#{$headingLevel}"] )';
 
             $sels: list.append(
@@ -181,6 +181,7 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     $sels: (
         ('.unstyled-heading', unstyled-heading--class),
         ('hgroup .unstyled-heading', unstyled-heading--class--hgroup),
+        ('.unstyled-heading__hgroup', unstyled-heading--class__hgroup),
         //
         ('hgroup %unstyled-heading', unstyled-heading--hgroup),
         ('hgroup %unstyled-heading--where', unstyled-heading--where--hgroup),
@@ -197,8 +198,8 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         ('.page-title__subheading', title__subheading)
     );
 
-    $_allHeadings_toUnstyle: ();
-    $_allHeadings_toWhere: ();
+    $_hdgs_toUnstyle: ();
+    $_hdgs_toUnstyle_where: ();
 
     /// Headings
     @each $headingLevel in $allHeadingLevels {
@@ -215,16 +216,18 @@ $_optionalDefault: if(config.$isTemplate, false, true);
         );
 
         @if $headingLevel > 0 and $headingLevel < 7 {
-            $_allHeadings_toUnstyle: list.append(
-                $_allHeadings_toUnstyle,
+            $_hdgs_toUnstyle: list.append(
+                $_hdgs_toUnstyle,
                 'h#{$headingLevel}',
                 $separator: comma
             );
         }
+    }
 
-        $_allHeadings_toWhere: list.append(
-            $_allHeadings_toWhere,
-            '%h#{$headingLevel}--where',
+    @if config.$selector_headingsByRole {
+        $_hdgs_toUnstyle_where: list.append(
+            $_hdgs_toUnstyle_where,
+            '[role=heading]',
             $separator: comma
         );
     }
@@ -232,16 +235,16 @@ $_optionalDefault: if(config.$isTemplate, false, true);
     $sels: list.append(
         $sels,
         (
-            selector.unify($_allHeadings_toUnstyle, '.unstyled-heading'),
+            selector.unify($_hdgs_toUnstyle, '.unstyled-heading'),
             'unstyled-heading'
         )
     );
 
-    @if list.length($_allHeadings_toWhere) > 0 {
+    @if list.length($_hdgs_toUnstyle_where) > 0 {
         $sels: list.append(
             $sels,
             (
-                '.unstyled-heading:where(#{$_allHeadings_toWhere})',
+                '.unstyled-heading:where(#{$_hdgs_toUnstyle_where})',
                 'unstyled-heading--where'
             )
         );

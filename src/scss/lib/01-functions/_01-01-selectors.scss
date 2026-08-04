@@ -111,27 +111,145 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 ///
 /// @since 0.1.0-pre.0
 ///
-@function selector-all-headings($globalsOnly: false, $withUnstyled: true) {
-    //
-    $list: if($globalsOnly, (), if($withUnstyled, '.unstyled-heading', ()));
+@function selector-all-headings--base(
+    $globalsOnly: false,
+    $globalsOnly_extended: false,
+    $usePseudo: true,
+    $withUnstyled: not $globalsOnly
+) {
+    $list: ();
 
-    $list: list.append($list, '%title', $separator: comma);
+    @if $withUnstyled {
+        $list: list.append(
+            $list,
+            if($usePseudo, '%unstyled-heading--class', '.unstyled-heading'),
+            $separator: comma
+        );
+    }
+
+    @if not $globalsOnly and $usePseudo {
+        $list: list.append($list, '%title', $separator: comma);
+    }
 
     @each $num in token-all-heading-levels() {
         //
         @if $globalsOnly {
             $num: math.num-val($num);
+
+            @if $globalsOnly_extended {
+                $list: list.append(
+                    $list,
+                    if($num < 7, 'h#{$num}', '[role=heading][aria-level="#{$num}"]'),
+                    $separator: comma
+                );
+            } @else if $num < 7 {
+                $list: list.append($list, 'h#{$num}', $separator: comma);
+            }
+        } @else {
             $list: list.append(
                 $list,
-                if($num > 0 and $num < 7, 'h#{$num}', '%h#{$num}'),
+                if($usePseudo, '%h#{$num}', if($num < 7, ('h#{$num}', '.h#{$num}'), '.h#{$num}')),
                 $separator: comma
             );
-        } @else {
-            $list: list.append($list, '%h#{$num}', $separator: comma);
         }
     }
 
     @return $list;
+}
+
+///
+/// Gets the [...]--where pseudo selectors for all headings (by heading size tokens).
+///
+/// @return {list<selector>}
+///
+/// @since ___PKG_VERSION___
+///
+@function selector-all-headings--where(
+    $globalsOnly: false,
+    $globalsOnly_extended: true,
+    $usePseudo: true,
+    $withUnstyled: not $globalsOnly
+) {
+    $list: ();
+
+    @if $withUnstyled {
+        $list: list.append(
+            $list,
+            if(
+                $usePseudo,
+                '%unstyled-heading--where--class',
+                '.unstyled-heading:where([role=heading])'
+            ),
+            $separator: comma
+        );
+    }
+
+    @if not $globalsOnly and $usePseudo {
+        $list: list.append($list, '%title--where', $separator: comma);
+    }
+
+    @if $globalsOnly or not $usePseudo {
+        $list: list.append($list, ':where( [role=heading] )', $separator: comma);
+    } @else {
+        @each $num in token-all-heading-levels() {
+            $list: list.join($list, '%h#{$num}--where', $separator: comma);
+        }
+    }
+
+    @return $list;
+}
+
+///
+/// @return {list<selector>}
+///
+/// @since ___PKG_VERSION___
+///
+@function selector-all-headings($base: true, $where: false, $globalsOnly_extended: true, $args...) {
+    $sels: ();
+
+    @if $base {
+        $sels: list.append(
+            $sels,
+            #{selector-all-headings--base(
+                    $globalsOnly_extended: false,
+                    $args...,
+                )},
+            $separator: comma
+        );
+    }
+
+    @if $where {
+        $sels: list.append(
+            $sels,
+            #{selector-all-headings--where(
+                    $globalsOnly_extended: $globalsOnly_extended,
+                    $args...,
+                )},
+            $separator: comma
+        );
+    }
+
+    @return if(list.length($sels) < 1, config.$selector_null, $sels);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin selector-all-headings(
+    $base: true,
+    $where: config.$selector_headingsByRole,
+    $direct: false,
+    $args...
+) {
+    @each $selector in selector-all-headings($base: $base, $where: $where, $args...) {
+        @if $direct and selector.parent-exists() {
+            $selector: selector.nest('>', $selector);
+        }
+
+        #{$selector} {
+            @content;
+        }
+    }
 }
 
 $_selector_buttons: list.join(

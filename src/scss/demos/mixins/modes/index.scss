@@ -23,18 +23,21 @@ $modeSets: (light, (light, dark), (light, dark, average, forced-colors));
 
 @media selectors {
     @each $modeSet in $modeSets {
-        @include meta.var-dump(
-            'simple-selectors-colour-mode( #{meta.var-dump($modeSet, $withType: false)} )',
-            simple-selectors-colour-mode($modeSet)
+        @include meta.demo-function(
+            'simple-selectors-colour-mode',
+            meta.get-function('simple-selectors-colour-mode'),
+            $modeSet
         );
     }
-    @include meta.var-dump(
-        'simple-selectors-colour-mode-all()',
-        simple-selectors-colour-mode-all()
+
+    @include meta.demo-function(
+        'simple-selectors-colour-mode-all',
+        meta.get-function('simple-selectors-colour-mode-all')
     );
-    @include meta.var-dump(
-        'simple-selectors-colour-mode-all( true )',
-        simple-selectors-colour-mode-all(true)
+    @include meta.demo-function(
+        'simple-selectors-colour-mode-all',
+        meta.get-function('simple-selectors-colour-mode-all'),
+        $activeOnly: true
     );
 }
 

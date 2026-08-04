@@ -112,6 +112,8 @@ $_varType_abbreviations: (
 
     @if $type == 'arglist' {
         $msg: ();
+
+        // listed (unnamed) args
         @each $arg in $var {
             $msg: list.append(
                 $msg,

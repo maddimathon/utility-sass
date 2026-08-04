@@ -1,0 +1,120 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+
+@use '../config';
+
+@use 'is-truthy';
+@use 'var-dump';
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function demo-args-dump($args...) {
+    @return if(
+        not is-truthy.is-truthy($args),
+        '()',
+        var-dump.var-dump(
+            $args,
+            $alwaysQuote: true,
+            $withType: false,
+            $child_alwaysQuote: false,
+            $keys_alwaysQuote: false,
+            $keys_neverQuote: true
+        )
+    );
+}
+
+///
+/// Created for internal function demos - displays the function signature as
+/// called with a var-dump of the arguments (if any) and return value.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin demo-function($functionName, $getFunction, $args...) {
+    $getFunction: config.config-valid-function(
+        $getFunction,
+        'getFunction',
+        $default: null,
+        $prefix: '[meta.demo-function] ',
+        $warnOnWrongType: true
+    );
+
+    @if $getFunction {
+        @include var-dump.var-dump(
+            $name: '#{$functionName}#{demo-args-dump($args...)}',
+            $var: meta.call($getFunction, $args...)
+        );
+    }
+}
+
+///
+/// Created for internal mixin demos - displays the mixin signature as called
+/// with a var-dump of the arguments, if any.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin demo-mixin(
+    $mixinName,
+    $getMixin,
+    $demo_separateSignature: false,
+    $args...
+) {
+    $getMixin: config.config-valid-mixin(
+        $getMixin,
+        'getMixin',
+        $default: null,
+        $prefix: '[meta.demo-mixin] ',
+        $warnOnWrongType: true
+    );
+
+    $_acceptsContent: meta.accepts-content($getMixin);
+
+    @if $getMixin {
+        $_signature: '@include #{$mixinName}#{demo-args-dump($args...)}';
+
+        @if $_acceptsContent {
+            @if $demo_separateSignature {
+                $_contentExists: meta.content-exists();
+
+                @if is-truthy.is-truthy(#{&}) {
+                    @at-root {
+                        /* #{$_signature} */
+                    }
+                } @else {
+                    /* #{$_signature} */
+                }
+
+                @include meta.apply($getMixin, $args...) {
+                    @if not $_contentExists {
+                        /* @content */
+                    }
+                    @content;
+                }
+            } @else {
+                @include meta.apply($getMixin, $args...) {
+                    /* #{$_signature} */
+                    @content;
+                }
+            }
+        } @else {
+            @if is-truthy.is-truthy(#{&}) {
+                @at-root {
+                    /* #{$_signature} */
+                    @content;
+                }
+            } @else {
+                /* #{$_signature} */
+                @content;
+            }
+
+            @include meta.apply($getMixin, $args...);
+        }
+    }
+}

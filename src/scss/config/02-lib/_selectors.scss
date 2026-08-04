@@ -130,6 +130,20 @@ $selector_button_disabled: config-valid-selector(
 }
 
 ///
+/// Whether the extend-selectors-global mixin should include
+/// :where([role='heading'][aria-level='…']) selectors for heading levels beyond 6.
+///
+/// @since 0.1.0-pre.0
+/// @since ___PKG_VERSION___ — Renamed from $mx_extendHeadingsByRole to $selector_headingsByRole.
+///
+$selector_headingsByRole: null !default;
+$selector_headingsByRole: config-valid-bool(
+    $selector_headingsByRole,
+    'selector_headingsByRole',
+    $default: false
+);
+
+///
 /// @since ___PKG_VERSION___
 ///
 $selector_input_disabled: null !default;

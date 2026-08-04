@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /**
- * Utility Sass - Template - Demo - Full Template
+ * Utility Sass - Template Demo - Full Template
  * @maddimathon/utility-sass/template@0.1.0-beta.0.draft
  * 
  * This is a sample stylesheet using the default template with almost all
@@ -293,8 +293,20 @@ h5,
 .h6,
 h6,
 .h7,
-.h8,
-[role='heading'] {
+.h8 {
+    margin: 0;
+    font: inherit;
+    font-size: 1em;
+}
+
+:where([role='heading'][aria-level='1']),
+:where([role='heading'][aria-level='2']),
+:where([role='heading'][aria-level='3']),
+:where([role='heading'][aria-level='4']),
+:where([role='heading'][aria-level='5']),
+:where([role='heading'][aria-level='6']),
+:where([role='heading'][aria-level='7']),
+:where([role='heading'][aria-level='8']) {
     margin: 0;
     font: inherit;
     font-size: 1em;
@@ -1537,16 +1549,7 @@ h6.unstyled-heading,
     font-style: italic;
 }
 
-.unstyled-heading:where(
-    [role='heading'][aria-level='1'],
-    [role='heading'][aria-level='2'],
-    [role='heading'][aria-level='3'],
-    [role='heading'][aria-level='4'],
-    [role='heading'][aria-level='5'],
-    [role='heading'][aria-level='6'],
-    [role='heading'][aria-level='7'],
-    [role='heading'][aria-level='8']
-) {
+.unstyled-heading:where([role='heading']) {
     margin-block: var(--mrg-soft-600, 1.875rem) var(--mrg-half-400, 0.3125rem);
     font-weight: 600;
     font-size: var(--fs-normal, 1.0625rem);
@@ -1556,46 +1559,13 @@ h6.unstyled-heading,
     font-style: normal;
     font-style: normal;
 }
-.unstyled-heading:where(
-        [role='heading'][aria-level='1'],
-        [role='heading'][aria-level='2'],
-        [role='heading'][aria-level='3'],
-        [role='heading'][aria-level='4'],
-        [role='heading'][aria-level='5'],
-        [role='heading'][aria-level='6'],
-        [role='heading'][aria-level='7'],
-        [role='heading'][aria-level='8']
-    )
-    em {
+.unstyled-heading:where([role='heading']) em {
     font-style: italic;
 }
-.unstyled-heading:where(
-        [role='heading'][aria-level='1'],
-        [role='heading'][aria-level='2'],
-        [role='heading'][aria-level='3'],
-        [role='heading'][aria-level='4'],
-        [role='heading'][aria-level='5'],
-        [role='heading'][aria-level='6'],
-        [role='heading'][aria-level='7'],
-        [role='heading'][aria-level='8']
-    )
-    em
-    em {
+.unstyled-heading:where([role='heading']) em em {
     font-style: normal;
 }
-.unstyled-heading:where(
-        [role='heading'][aria-level='1'],
-        [role='heading'][aria-level='2'],
-        [role='heading'][aria-level='3'],
-        [role='heading'][aria-level='4'],
-        [role='heading'][aria-level='5'],
-        [role='heading'][aria-level='6'],
-        [role='heading'][aria-level='7'],
-        [role='heading'][aria-level='8']
-    )
-    em
-    em
-    em {
+.unstyled-heading:where([role='heading']) em em em {
     font-style: italic;
 }
 

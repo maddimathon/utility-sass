@@ -323,13 +323,11 @@
             }
         }
 
-        $_headingSels: if($useHeadingPseudo, selector-all-headings(), 'h1, h2, h3, h4, h5, h6');
-
-        @if $headingsByRole {
-            $_headingSels: list.append($_headingSels, '[role=heading]', $separator: comma);
-        }
-
-        #{$_headingSels} {
+        @include selector-all-headings(
+            $globalsOnly: not $useHeadingPseudo,
+            $where: $headingsByRole,
+            $usePseudo: $useHeadingPseudo
+        ) {
             margin: 0;
             font: inherit;
             font-size: 1em;
