@@ -212,6 +212,7 @@ $_path_template: if(
 @mixin template-docblock(
     $libraryName,
     $author: false,
+    $client: false,
     $license: false,
     $path: false,
     $title: false,
@@ -272,14 +273,23 @@ $_path_template: if(
         $all_lines: list.append($all_lines, $url);
     }
 
+    $_include_client: meta.is-truthy($client);
+    @if $_include_client {
+        $all_lines: list.append($all_lines, '');
+        $all_lines: list.append($all_lines, $client);
+    }
+
     $_include_author: meta.is-truthy($author);
     @if $_include_author {
-        $all_lines: list.append($all_lines, '');
+        @if not $_include_client {
+            $all_lines: list.append($all_lines, '');
+        }
+
         $all_lines: list.append($all_lines, 'Author: #{$author}');
     }
 
     @if meta.is-truthy($license) {
-        @if not $_include_author {
+        @if not $_include_author and not $_include_client {
             $all_lines: list.append($all_lines, '');
         }
 

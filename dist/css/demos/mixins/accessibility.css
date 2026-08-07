@@ -18,22 +18,24 @@
 /* 
     selector-motion( false ) = <S> [data-motion=reduce]
  */
+/* @include motion() */
 @media (prefers-reduced-motion: no-preference) {
     :root {
-        /* @include motion() */
+        /* @content */
     }
 }
 [data-motion='no-preference'] {
-    /* @include motion() */
+    /* @content */
 }
 
+/* @include no-motion() */
 @media (prefers-reduced-motion: reduce) {
     :root {
-        /* @include no-motion() */
+        /* @content */
     }
 }
 [data-motion='reduce'] {
-    /* @include no-motion() */
+    /* @content */
 }
 
 /* #endregion - at root */
@@ -48,22 +50,24 @@
    */
     /* 1: <()> ( <S> [data-motion=reduce]:root ) */
 }
+/* @include motion() */
 @media (prefers-reduced-motion: no-preference) {
     :root {
-        /* @include motion() */
+        /* @content */
     }
 }
 [data-motion='no-preference']:root {
-    /* @include motion() */
+    /* @content */
 }
 
+/* @include no-motion() */
 @media (prefers-reduced-motion: reduce) {
     :root {
-        /* @include no-motion() */
+        /* @content */
     }
 }
 [data-motion='reduce']:root {
-    /* @include no-motion() */
+    /* @content */
 }
 
 /* #endregion - in root parent */
@@ -78,22 +82,24 @@ body {
    */
     /* 1: <()> ( <()> ( <S> [data-motion=reduce] <S> body ) ) */
 }
+/* @include motion() */
 @media (prefers-reduced-motion: no-preference) {
     body {
-        /* @include motion() */
+        /* @content */
     }
 }
 [data-motion='no-preference'] body {
-    /* @include motion() */
+    /* @content */
 }
 
+/* @include no-motion() */
 @media (prefers-reduced-motion: reduce) {
     body {
-        /* @include no-motion() */
+        /* @content */
     }
 }
 [data-motion='reduce'] body {
-    /* @include no-motion() */
+    /* @content */
 }
 
 /* #endregion - in body parent */
@@ -108,22 +114,24 @@ parent {
    */
     /* 1: <()> ( <()> ( <S> [data-motion=reduce] <S> parent ) ) */
 }
+/* @include motion() */
 @media (prefers-reduced-motion: no-preference) {
     parent {
-        /* @include motion() */
+        /* @content */
     }
 }
 [data-motion='no-preference'] parent {
-    /* @include motion() */
+    /* @content */
 }
 
+/* @include no-motion() */
 @media (prefers-reduced-motion: reduce) {
     parent {
-        /* @include no-motion() */
+        /* @content */
     }
 }
 [data-motion='reduce'] parent {
-    /* @include no-motion() */
+    /* @content */
 }
 
 /* #endregion - in random parent */

@@ -63,7 +63,9 @@
 @mixin demo-mixin(
     $mixinName,
     $getMixin,
-    $demo_separateSignature: false,
+    $demo_separateSignature: true,
+    $demo_signatureAsRegion: false,
+    $demo_signatureAtRoot: is-truthy.is-truthy(#{&}),
     $args...
 ) {
     $getMixin: config.config-valid-mixin(
@@ -83,12 +85,20 @@
             @if $demo_separateSignature {
                 $_contentExists: meta.content-exists();
 
-                @if is-truthy.is-truthy(#{&}) {
+                @if $demo_signatureAtRoot {
                     @at-root {
-                        /* #{$_signature} */
+                        @if $demo_signatureAsRegion {
+                            /* #region #{$_signature} */
+                        } @else {
+                            /* #{$_signature} */
+                        }
                     }
                 } @else {
-                    /* #{$_signature} */
+                    @if $demo_signatureAsRegion {
+                        /* #region #{$_signature} */
+                    } @else {
+                        /* #{$_signature} */
+                    }
                 }
 
                 @include meta.apply($getMixin, $args...) {
@@ -97,6 +107,16 @@
                     }
                     @content;
                 }
+
+                @if $demo_signatureAsRegion {
+                    @if $demo_signatureAtRoot {
+                        @at-root {
+                            /* #endregion #{$_signature} */
+                        }
+                    } @else {
+                        /* #endregion #{$_signature} */
+                    }
+                }
             } @else {
                 @include meta.apply($getMixin, $args...) {
                     /* #{$_signature} */
@@ -104,17 +124,33 @@
                 }
             }
         } @else {
-            @if is-truthy.is-truthy(#{&}) {
+            @if $demo_signatureAtRoot {
                 @at-root {
-                    /* #{$_signature} */
-                    @content;
+                    @if $demo_signatureAsRegion {
+                        /* #region #{$_signature} */
+                    } @else {
+                        /* #{$_signature} */
+                    }
                 }
             } @else {
-                /* #{$_signature} */
-                @content;
+                @if $demo_signatureAsRegion {
+                    /* #region #{$_signature} */
+                } @else {
+                    /* #{$_signature} */
+                }
             }
 
             @include meta.apply($getMixin, $args...);
+
+            @if $demo_signatureAsRegion {
+                @if $_parentExists {
+                    @at-root {
+                        /* #endregion #{$_signature} */
+                    }
+                } @else {
+                    /* #endregion #{$_signature} */
+                }
+            }
         }
     }
 }
