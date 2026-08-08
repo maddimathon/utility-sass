@@ -11,9 +11,14 @@ This scss "module" is meant as a replacement for the built-in `sass:color` modul
 ```scss
 @use 'pkg:@maddimathon/utility-sass/colour'; // adds extras to 'sass:color'
 
+colour.is-colour-like(...); // added
+colour.is-keyword(...); // added
+colour.is-system-color(...); // added
+
 colour.mix-oklch(...); // added
 colour.shade-map(...); // added
 colour.shade-map-reverse-key(...); // added
+
 colour.to-hsl(...); // added
 colour.to-hsl-list(...); // added
 colour.to-rgb(...); // added

@@ -1,0 +1,79 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use 'sass:string';
+
+// @use '../config';
+
+@use '../meta';
+
+///
+/// Uses a compiler function to check if the given string is a colour or
+/// colour-like keyword (e.g., `currentColor`, `inherit`, `transparent`, a
+/// colour function, a system color keyword, or a colour keyword).
+///
+/// @return {boolean}
+///
+/// @since ___PKG_VERSION___
+///
+@function is-colour-like($clr) {
+    // returns
+    @if meta.type-of($clr) == color {
+        @return true;
+    }
+
+    @return meta.call-global-compiler-fn(
+        'mmutils-colour-is-colour-like',
+        'colour.is-colour-like',
+        $isCompilerFunction: true,
+        $isRequired: true,
+        $fallbackValue: false,
+        //
+        $clr: #{$clr}
+    );
+}
+
+///
+/// Uses a compiler function to check if the given string is a keyword that computes to some colour value (e.g., 'currentColor', 'inherit', 'transparent').
+///
+/// @return {boolean}
+///
+/// @since ___PKG_VERSION___
+///
+@function is-keyword($clr) {
+    @return meta.call-global-compiler-fn(
+        'mmutils-colour-is-keyword',
+        'colour.is-keyword',
+        $isCompilerFunction: true,
+        $isRequired: true,
+        $fallbackValue: false,
+        //
+        $clr: #{$clr}
+    );
+}
+
+///
+/// Uses a compiler function to check if the given string is a system color keyword.
+///
+/// @return {boolean}
+///
+/// @since ___PKG_VERSION___
+///
+@function is-system-color($clr) {
+    // returns
+    @if meta.type-of($clr) == color {
+        @return false;
+    }
+
+    @return meta.call-global-compiler-fn(
+        'mmutils-colour-is-system-color',
+        'colour.is-system-color',
+        $isCompilerFunction: true,
+        $isRequired: true,
+        $fallbackValue: false,
+        //
+        $clr: #{$clr}
+    );
+}

@@ -21,6 +21,9 @@ import type * as sass from "sass-embedded";
 export declare function sassCompilerFunctions(args: Stage): Readonly<{
     'mmutils-global-getCurrentVersion()': sass.CustomFunction<'async'>;
     'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': sass.CustomFunction<'async'>;
+    'mmutils-colour-is-colour-like( $clr )': sass.CustomFunction<'async'>;
+    'mmutils-colour-is-keyword( $clr )': sass.CustomFunction<'async'>;
+    'mmutils-colour-is-system-color( $clr )': sass.CustomFunction<'async'>;
     'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': sass.CustomFunction<'async'>;
     'mmutils-list-slice( $list, $start: 1, $end: null )': sass.CustomFunction<'async'>;
     'mmutils-math-coerce-unit( $num, $unit )': sass.CustomFunction<'async'>;

@@ -10,52 +10,135 @@
 // @use '../../modules/list';
 @use '../../modules/meta';
 
-// @use '../../lib';
+// @use '../../lib' as *;
+
+@mixin _demo-function($name, $args...) {
+    @include meta.demo-function(
+        'colour.#{$name}',
+        meta.get-function($name, $module: colour),
+        $args...
+    );
+}
+
+@mixin _demo-mixin($name, $args...) {
+    @include meta.demo-mixin('colour.#{$name}', meta.get-mixin($name, $module: colour), $args...) {
+        @content;
+    }
+}
 
 /* # MODULES - COLOUR
  * ======================================================================== */
 
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), currentColor );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), inherit );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), transparent );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), ActiveText );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), red );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), rebeccapurple );
+
+/* ## Colour - Identifying ==================================== */
+
+@media (function: is-colour-like) {
+    /* ### Expected to be true ------------------ */
+
+    @include _demo-function('is-colour-like', red);
+    @include _demo-function('is-colour-like', 'red');
+    @include _demo-function('is-colour-like', purple);
+    @include _demo-function('is-colour-like', 'rebeccapurple');
+    @include _demo-function('is-colour-like', transparent);
+    @include _demo-function('is-colour-like', 'transparent');
+    @include _demo-function('is-colour-like', currentColor);
+    @include _demo-function('is-colour-like', 'currentColor');
+    @include _demo-function('is-colour-like', inherit);
+    @include _demo-function('is-colour-like', 'inherit');
+    @include _demo-function('is-colour-like', ActiveText);
+    @include _demo-function('is-colour-like', 'hsl( 0 0 0 )');
+    @include _demo-function('is-colour-like', 'hsl( 0deg, 50%, 6% )');
+    @include _demo-function('is-colour-like', 'hsl( 0 051 0 / 80% )');
+    @include _demo-function('is-colour-like', 'rgb( 0, .058, 850 )');
+    @include _demo-function('is-colour-like', 'rgba( 0, 0, 0, 0 )');
+
+    /* ### Expected to be false ------------------ */
+
+    @include _demo-function('is-colour-like', false);
+    @include _demo-function('is-colour-like', 'some string');
+    @include _demo-function('is-colour-like', 'rgba( 046513 )');
+}
+
+@media (function: is-keyword) {
+    /* ### Expected to be true ------------------ */
+
+    @include _demo-function('is-keyword', transparent);
+    @include _demo-function('is-keyword', 'transparent');
+    @include _demo-function('is-keyword', currentColor);
+    @include _demo-function('is-keyword', 'currentColor');
+    @include _demo-function('is-keyword', inherit);
+    @include _demo-function('is-keyword', 'inherit');
+
+    /* ### Expected to be false ------------------ */
+
+    @include _demo-function('is-keyword', red);
+    @include _demo-function('is-keyword', 'red');
+    @include _demo-function('is-keyword', ActiveText);
+    @include _demo-function('is-keyword', 'hsl( 0 0 0 )');
+    @include _demo-function('is-keyword', 'hsl( 0deg, 50%, 6% )');
+    @include _demo-function('is-keyword', false);
+    @include _demo-function('is-keyword', 'some string');
+    @include _demo-function('is-keyword', 'rgba( 046513 )');
+}
+
+@media (function: is-system-color) {
+    /* ### Expected to be true ------------------ */
+
+    @include _demo-function('is-system-color', ActiveText);
+    @include _demo-function('is-system-color', ButtonFace);
+    @include _demo-function('is-system-color', Canvas);
+    @include _demo-function('is-system-color', SelectedItem);
+    @include _demo-function('is-system-color', VisitedText);
+
+    /* ### Expected to be false ------------------ */
+
+    @include _demo-function('is-keyword', red);
+    @include _demo-function('is-keyword', 'red');
+    @include _demo-function('is-system-color', transparent);
+    @include _demo-function('is-system-color', 'transparent');
+    @include _demo-function('is-system-color', currentColor);
+    @include _demo-function('is-system-color', 'currentColor');
+    @include _demo-function('is-system-color', inherit);
+    @include _demo-function('is-system-color', 'inherit');
+    @include _demo-function('is-keyword', ActiveText);
+    @include _demo-function('is-keyword', 'hsl( 0 0 0 )');
+    @include _demo-function('is-keyword', 'hsl( 0deg, 50%, 6% )');
+    @include _demo-function('is-keyword', false);
+    @include _demo-function('is-keyword', 'some string');
+    @include _demo-function('is-keyword', 'rgba( 046513 )');
+}
+
+/* ## Colour - Converting ==================================== */
+
 colour.to-hsl {
-    @include meta.var-dump('colour.to-hsl( red )', colour.to-hsl(red));
-    @include meta.var-dump(
-        'colour.to-hsl( red, $opacity: 50% )',
-        colour.to-hsl(red, $opacity: 50%)
-    );
-    @include meta.var-dump(
-        'colour.to-hsl( rebeccapurple, $opacity: 0.2 )',
-        colour.to-hsl(rebeccapurple, $opacity: 0.2)
-    );
-    @include meta.var-dump(
-        'colour.to-hsl( rebeccapurple, $opacity: 65 )',
-        colour.to-hsl(rebeccapurple, $opacity: 65)
-    );
+    @include _demo-function('to-hsl', red);
+    @include _demo-function('to-hsl', red, $opacity: 50%);
+
+    @include _demo-function('to-hsl', rebeccapurple, $opacity: 0.2);
+    @include _demo-function('to-hsl', rebeccapurple, $opacity: 65);
 }
 
 colour.to-hsl-list {
-    @include meta.var-dump('colour.to-hsl-list( red )', colour.to-hsl-list(red));
+    @include _demo-function('to-hsl-list', red);
 }
 
 colour.to-rgb {
-    @include meta.var-dump('colour.to-rgb( red )', colour.to-rgb(red));
-    @include meta.var-dump('colour.to-rgb( rgb( 10% 20% 30% ) )', colour.to-rgb(rgb(10% 20% 30%)));
-    @include meta.var-dump(
-        'colour.to-rgb( red, $opacity: 50% )',
-        colour.to-rgb(red, $opacity: 50%)
-    );
-    @include meta.var-dump(
-        'colour.to-rgb( rebeccapurple, $opacity: 0.2 )',
-        colour.to-rgb(rebeccapurple, $opacity: 0.2)
-    );
-    @include meta.var-dump(
-        'colour.to-rgb( rebeccapurple, $opacity: 65 )',
-        colour.to-rgb(rebeccapurple, $opacity: 65)
-    );
+    @include _demo-function('to-rgb', red);
+    @include _demo-function('to-rgb', rgb(10% 20% 30%));
+    @include _demo-function('to-rgb', red, $opacity: 50%);
+    @include _demo-function('to-rgb', rgb(10% 20% 30%), $opacity: 50%);
+
+    @include _demo-function('to-rgb', rebeccapurple, $opacity: 0.2);
+    @include _demo-function('to-rgb', rebeccapurple, $opacity: 65);
 }
 
 colour.to-rgb-list {
-    @include meta.var-dump('colour.to-rgb-list( red )', colour.to-rgb-list(red));
-    @include meta.var-dump(
-        'colour.to-rgb-list( rgb( 10% 20% 30% ) )',
-        colour.to-rgb-list(rgb(10% 20% 30%))
-    );
+    @include _demo-function('to-rgb-list', red);
+    @include _demo-function('to-rgb-list', rgb(10% 20% 30%));
 }
