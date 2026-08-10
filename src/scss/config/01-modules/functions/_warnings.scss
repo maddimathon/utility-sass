@@ -9,6 +9,38 @@
 @use 'sass:meta';
 
 ///
+/// Returns a warning message for mis-typed params.
+///
+/// @since ___PKG_VERSION___
+///
+@function config-warning-message-bad-type(
+    $value,
+    $type,
+    $varName,
+    $actualType: null,
+    $prefix: '[config] ',
+    $mustBeMessage: 'must be a #{$type}',
+    $wasMessage: null
+) {
+    @if $actualType == null {
+        $actualType: meta.type-of($value);
+    }
+
+    @if $wasMessage == null {
+        $wasMessage: 'was the #{$actualType}: #{$value}';
+
+        // shorten the output
+        @if $actualType == list or $actualType == map {
+            @if list.length($actualType) > 4 {
+                $wasMessage: 'was a #{$actualType}';
+            }
+        }
+    }
+
+    @return '#{$prefix}$#{$varName} #{$mustBeMessage} (#{$wasMessage})';
+}
+
+///
 /// Checks a value is of the given type. If not, it outputs a warning and
 /// returns false.
 ///
@@ -22,12 +54,18 @@
     $warn: true,
     $prefix: '[config] '
 ) {
-    $_actualType: meta.type-of($value);
+    $actualType: meta.type-of($value);
 
     // returns
-    @if list.index($type, $_actualType) == null {
+    @if list.index($type, $actualType) == null {
         @if $warn {
-            @warn "#{$prefix}$#{$varName} must be a #{$type} (was a #{$_actualType}: #{$value})";
+            @warn #{config-warning-message-bad-type(
+                $value: $value,
+                $type: $type,
+                $varName: $varName,
+                $actualType: $actualType,
+                $prefix: $prefix
+            )};
         }
 
         @return $fallback;

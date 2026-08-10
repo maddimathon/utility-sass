@@ -3,6 +3,7 @@
 /// @since ___PKG_VERSION___
 ///
 
+@use 'sass:list';
 @use 'sass:map';
 @use 'sass:meta';
 
@@ -12,14 +13,16 @@
 /// @since ___PKG_VERSION___
 ///
 @function keywords-list($args...) {
-    $parsed: ();
+    $unnamed_args: ();
 
-    $i: 1;
+    @if list.length($args) > 0 {
+        $i: 1;
 
-    @each $arg in $args {
-        $parsed: map.set($parsed, #{$i}, $arg);
-        $i: $i + 1;
+        @each $arg in $args {
+            $unnamed_args: map.set($unnamed_args, #{$i}, $arg);
+            $i: $i + 1;
+        }
     }
 
-    @return map.merge($parsed, meta.keywords($args));
+    @return map.merge($unnamed_args, meta.keywords($args));
 }

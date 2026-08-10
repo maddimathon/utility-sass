@@ -8,6 +8,8 @@
 @use 'sass:meta';
 @use 'sass:string';
 
+@use 'is-truthy';
+
 $_varType_abbreviations: (
     'string': 'S',
     'number': '#',
@@ -40,28 +42,26 @@ $_varType_abbreviations: (
 /// Modelled after php var_dump() function -- converts given var to an
 /// easily-read string with var types in <>.
 ///
-/// @param {any}  $var          Value to dump.
-/// @param {bool} $withType     Optional. Include the variable type(s) in
-///                             output. Default true.
-/// @param {bool} $shortType    Optional. Whether to shorten the type output
-///                             with var-type-abbreviator(). Default true.
-/// @param {bool} $alwaysQuote  Optional. Whether strings should all be quoted.
-///                             Default false.
-/// @param {bool} $neverQuote   Optional. Whether strings should never be
-///                             quoted. Default false.
+/// @param {any}                  $var          Value to dump.
+/// @param {bool|string|string[]} $withType     Optional. Include the variable type(s) in output. If this is a string or list of strings, the type is only included if it matches one of the strings. Default true.
+/// @param {bool}                 $shortType    Optional. Whether to shorten the type output with var-type-abbreviator(). Default true.
+/// @param {bool}                 $alwaysQuote  Optional. Whether strings should all be quoted. Default false.
+/// @param {bool}                 $neverQuote   Optional. Whether strings should never be quoted. Default false.
 ///
 /// @return {string}
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added optional $keys_withType, $keys_shortType, $keys_alwaysQuote, $keys_neverQuote, $child_withType, $child_shortType, $child_alwaysQuote, $child_neverQuote params.
+/// @since ___PKG_VERSION___ — Added optional $keys_withType, $keys_shortType, $keys_alwaysQuote, $keys_neverQuote, $child_withType, $child_shortType, $child_alwaysQuote, $child_neverQuote params. Added string and string list support to $withType.
 ///
 @function var-dump(
     $var,
     $withType: true,
     $shortType: true,
     $alwaysQuote: false,
+    $detectParentSelector: false,
     $neverQuote: false,
     $showParens: true,
+    $typeJoiner: ' ',
     //
     $keys_withType: null,
     $keys_shortType: null,
@@ -76,30 +76,63 @@ $_varType_abbreviations: (
     $child_showParens: null
 ) {
     $type: meta.type-of($var);
-    $msg: meta.inspect($var);
+    $inspection: meta.inspect($var);
+
+    // returns on success
+    @if $detectParentSelector {
+        @if $type == 'list' or $type == 'string' {
+            @if is-truthy.is-truthy($var) and is-truthy.is-truthy(&) {
+                @if $type == meta.type-of(&) {
+                    // returns
+                    @if #{$var} == #{&} {
+                        $inspection: string.unquote('&');
+
+                        @return if(
+                            $withType == true,
+                            string.unquote(
+                                '<#{if($shortType, var-type-abbreviator($type), $type)}>#{$typeJoiner}#{meta.inspect( $inspection )}'
+                            ),
+                            string.unquote('#{meta.inspect( $inspection )}')
+                        );
+                    }
+                }
+            }
+        }
+    }
 
     $childArgs: (
-        withType: if($child_withType == null, $withType, $child_withType),
-        shortType: if($child_shortType == null, $shortType, $child_shortType),
         alwaysQuote: if($child_alwaysQuote == null, $alwaysQuote, $child_alwaysQuote),
+        detectParentSelector: $detectParentSelector,
         neverQuote: if($child_neverQuote == null, $neverQuote, $child_neverQuote),
+        shortType: if($child_shortType == null, $shortType, $child_shortType),
         showParens: if($child_showParens == null, $showParens, $child_showParens),
+        typeJoiner: $typeJoiner,
+        withType: if($child_withType == null, $withType, $child_withType),
     );
 
     $keyArgs: (
-        withType: if($keys_withType == null, false, $keys_withType),
-        shortType: if($keys_shortType == null, $shortType, $keys_shortType),
         alwaysQuote: if($keys_alwaysQuote == null, not $keys_neverQuote, $keys_alwaysQuote),
+        detectParentSelector: $detectParentSelector,
         neverQuote: if($keys_neverQuote == null, $neverQuote, $keys_neverQuote),
+        shortType: if($keys_shortType == null, $shortType, $keys_shortType),
         showParens: if($keys_showParens == null, $showParens, $keys_showParens),
+        typeJoiner: $typeJoiner,
+        withType: if($keys_withType == null, false, $keys_withType),
     );
 
+    $_withType_type: meta.type-of($withType);
+    @if $_withType_type == list or $_withType_type == string {
+        $withType: list.index($withType, $type) != null;
+        // } @else if $_withType_type == string {
+        //     $withType: #{$withType} == #{$type};
+    }
+
     @if $type == 'arglist' {
-        $msg: ();
+        $inspection: ();
 
         // listed (unnamed) args
         @each $arg in $var {
-            $msg: list.append($msg, var-dump($arg, $childArgs...), $separator: comma);
+            $inspection: list.append($inspection, var-dump($arg, $childArgs...), $separator: comma);
         }
 
         $keyArgs: map.set($keyArgs, neverQuote, true);
@@ -109,33 +142,41 @@ $_varType_abbreviations: (
             @each $key, $value in meta.keywords($var) {
                 $key: var-dump($key, $keyArgs...);
 
-                $msg: list.append(
-                    $msg,
+                $inspection: list.append(
+                    $inspection,
                     (string.unquote('$#{$key}:') var-dump($value, $childArgs...)),
                     $separator: comma
                 );
             }
         }
 
-        $msg: if(
+        $inspection: if(
             $showParens,
-            if(list.length($msg) > 0, string.unquote('( #{$msg} )'), string.unquote('()')),
-            if(list.length($msg) > 0, string.unquote('#{$msg}'), string.unquote(''))
+            if(
+                list.length($inspection) > 0,
+                string.unquote('( #{$inspection} )'),
+                string.unquote('()')
+            ),
+            if(list.length($inspection) > 0, string.unquote('#{$inspection}'), string.unquote(''))
         );
     }
     //
     @else if $type == 'calculation' {
-        $msg: ();
+        $inspection: ();
 
         $childArgs: map.set($childArgs, alwaysQuote, true);
         $childArgs: map.remove($childArgs, neverQuote);
 
         @each $item in meta.calc-args($var) {
-            $msg: list.append($msg, var-dump($item, $childArgs...), $separator: comma);
+            $inspection: list.append(
+                $inspection,
+                var-dump($item, $childArgs...),
+                $separator: comma
+            );
         }
-        $msg: if(
-            list.length($msg) > 0,
-            string.unquote('#{meta.calc-name( $var )}( #{$msg} )'),
+        $inspection: if(
+            list.length($inspection) > 0,
+            string.unquote('#{meta.calc-name( $var )}( #{$inspection} )'),
             string.unquote('#{meta.calc-name( $var )}()')
         );
     }
@@ -144,56 +185,68 @@ $_varType_abbreviations: (
         $bracketed: list.is-bracketed($var);
         $separator: list.separator($var);
 
-        $msg: ();
+        $inspection: ();
 
         @each $item in $var {
-            $msg: list.append($msg, var-dump($item, $childArgs...), $separator: $separator);
+            $inspection: list.append(
+                $inspection,
+                var-dump($item, $childArgs...),
+                $separator: $separator
+            );
         }
 
-        $msg: if(list.length($msg) > 0, $msg, meta.inspect(()));
+        $inspection: if(list.length($inspection) > 0, $inspection, meta.inspect(()));
 
-        $msg: if(
+        $inspection: if(
             $showParens,
-            if($bracketed, string.unquote('( [ #{$msg} ] )'), string.unquote('( #{$msg} )')),
-            if($bracketed, string.unquote('[ #{$msg} ]'), string.unquote('#{$msg}'))
+            if(
+                $bracketed,
+                string.unquote('( [ #{$inspection} ] )'),
+                string.unquote('( #{$inspection} )')
+            ),
+            if($bracketed, string.unquote('[ #{$inspection} ]'), string.unquote('#{$inspection}'))
         );
     }
     //
     @else if $type == 'map' {
-        $msg: ();
+        $inspection: ();
 
         @each $key, $value in $var {
             $key: var-dump($key, $keyArgs...);
 
-            $msg: list.append(
-                $msg,
+            $inspection: list.append(
+                $inspection,
                 (string.unquote('#{$key}:') var-dump($value, $childArgs...)),
                 $separator: comma
             );
         }
 
-        $msg: if(
+        $inspection: if(
             $showParens,
-            if(list.length($msg) > 0, string.unquote('( #{$msg} )'), string.unquote('()')),
-            if(list.length($msg) > 0, string.unquote('#{$msg}'), string.unquote(''))
+            if(
+                list.length($inspection) > 0,
+                string.unquote('( #{$inspection} )'),
+                string.unquote('()')
+            ),
+            if(list.length($inspection) > 0, string.unquote('#{$inspection}'), string.unquote(''))
         );
     }
     //
     @else if $type == 'string' {
         @if $alwaysQuote {
-            $msg: string.quote($var);
+            $inspection: string.quote($var);
         }
         @if $neverQuote {
-            $msg: string.unquote($var);
+            $inspection: string.unquote($var);
         }
     }
 
-    $typeToPrint: if($shortType, var-type-abbreviator($type), $type);
-
     @return if(
         $withType,
-        string.unquote('<#{$typeToPrint}> #{meta.inspect( $msg )}'),
-        string.unquote('#{meta.inspect( $msg )}')
+        string.unquote(
+            '<#{if($shortType, var-type-abbreviator($type), $type)}>#{$typeJoiner}#{meta.inspect( $inspection )}'
+        ),
+        string.unquote('#{meta.inspect( $inspection )}')
     );
 }
 

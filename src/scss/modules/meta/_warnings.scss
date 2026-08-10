@@ -1,0 +1,55 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../config';
+
+///
+/// Returns a warning message for mis-typed params.
+///
+/// @since ___PKG_VERSION___
+///
+@function warning-message-bad-type($value, $type, $varName, $prefix: '', $args...) {
+    @return config.config-warning-message-bad-type(
+        $value: $value,
+        $type: $type,
+        $varName: $varName,
+        $prefix: $prefix,
+        $args...
+    );
+}
+
+///
+/// Checks a value is of the given type. If not, it outputs a warning and
+/// returns $fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function enforce-type-or-warn(
+    $value,
+    $type,
+    $varName,
+    $fallback: false,
+    $warn: true,
+    $prefix: ''
+) {
+    $actualType: meta.type-of($value);
+
+    // returns
+    @if list.index($type, $actualType) == null {
+        @if $warn {
+            @warn #{warning-message-bad-type(
+                $value: $value,
+                $type: $type,
+                $varName: $varName,
+                $actualType: $actualType,
+                $prefix: $prefix
+            )};
+        }
+
+        @return $fallback;
+    }
+
+    @return $value;
+}

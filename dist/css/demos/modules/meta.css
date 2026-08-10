@@ -51,6 +51,21 @@
     /* "prerelease": <-> null */
     /* "meta": <-> null */
 }
+/* ## MODULES - META - demo-args-dump() ==================================== */
+@media demo-args-dump {
+    /* 
+      meta.demo-args-dump( meta.arglist() ) = <S> ()
+   */
+    /* 
+      meta.demo-args-dump( meta.arglist( one, two ) ) = <S> ( one, two )
+   */
+    /* 
+      meta.demo-args-dump( meta.arglist( $param: one, $value: two ) ) = <S> ( $param: one, $value: two )
+   */
+    /* 
+      meta.demo-args-dump( meta.arglist( something, $param: one, $value: two ) ) = <S> ( something, $param: one, $value: two )
+   */
+}
 /* ## MODULES - META - keywords-list() ==================================== */
 @media keywords-list {
     /* 
@@ -106,10 +121,22 @@ meta.is-truthy {
       meta.is-truthy( null ) = </> false
    */
     /* 
-      meta.is-truthy( ( one, two ) ) = </> true
+      meta.is-truthy( <⋯>() ) = </> false
    */
     /* 
-      meta.is-truthy( ( $param: one, $value: two ) ) = </> true
+      meta.is-truthy( <⋯>( one, two ) ) = </> true
+   */
+    /* 
+      meta.is-truthy( <⋯>( $param: one, $value: two ) ) = </> true
+   */
+    /* 
+      meta.is-truthy( ( () ) ) = </> false
+   */
+    /* 
+      meta.is-truthy( "" ) = </> false
+   */
+    /* 
+      meta.is-truthy( ( "", "" ) ) = </> false
    */
     /* 
       meta.is-truthy( ( list, list ) ) = </> true
@@ -117,14 +144,35 @@ meta.is-truthy {
 }
 
 /* ## MODULES - META - demo-mixin() ==================================== */
-/* @include motion( $includeSelectors: true ) */
-@media (prefers-reduced-motion: no-preference) {
-    demo-mixin {
-        /* @content */
+@media demo-mixin {
+    .parent {
+        /* @include demo-mixin( snippet-focus-ring, get-mixin("snippet-focus-ring") ) */
+    }
+    @demo output {
+        /* @include snippet-focus-ring() */
+        .parent {
+            outline-width: var(--focus-ring-outline-width, 0.125em);
+            outline-style: dashed;
+            outline-color: var(
+                --focus-ring-outline-color,
+                var(--sys-clr-link, LinkText)
+            );
+            outline-offset: var(--focus-ring-outline-offset, 0.125em);
+        }
     }
 }
-[data-motion='no-preference'] demo-mixin {
-    /* @content */
+
+@media demo-mixin {
+    .parent {
+        /* @include demo-mixin( prop-display, get-mixin("prop-display"), block ) */
+    }
+    @demo output {
+        /* @include prop-display( block ) */
+        .parent {
+            --display: block;
+            display: var(--display, block);
+        }
+    }
 }
 
 /* ## MODULES - META - var-dump() ==================================== */
@@ -153,9 +201,9 @@ meta.is-truthy {
 /* ## MODULES - META - js-var-dump() ==================================== */
 @media js-var-dump {
     /* 
-      meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> meta.js-var-dump() [id: u1e89zo] - demo-var-1
+      meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> meta.js-var-dump() [id: uhpjhih] - demo-var-1
    */
     /* 
-      meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> meta.js-var-dump() [id: u1e8a0j] - demo-var-2
+      meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> meta.js-var-dump() [id: uhpjhj1] - demo-var-2
    */
 }

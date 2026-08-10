@@ -708,10 +708,11 @@
     $includeReadonly: true,
     $multipleContentBlocks: false,
     $selector_boxes: (
-        '[type=checkbox]',
-        '[type=radio]',
+        'input[type=checkbox]',
+        'input[type=radio]',
     ),
-    $selector_boxes_has: ':where( #{$selector_boxes} )'
+    $selector_boxes_has:
+        'input:where( #{selector.omit-simple-selector( $selector_boxes, input )} )'
 ) {
     @include prop-display(block);
 
@@ -734,9 +735,12 @@
         @content;
     }
 
-    $_sels_boxes_has_direct: selector.nest('>', $selector_boxes_has);
-
-    &:has(#{$_sels_boxes_has_direct}) {
+    @include selector.has(
+        $selector_boxes_has,
+        $direct: true,
+        $split: false,
+        $unifyParent: true
+    ) {
         @include prop-display(grid);
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;
@@ -758,8 +762,11 @@
     }
 
     @if $includeReadonly {
-        &:has(
-            #{selector.nest( '>', config.selector-input-readonly($selector_boxes_has) )}
+        @include selector.has(
+            config.selector-input-readonly($selector_boxes_has),
+            $direct: true,
+            $split: false,
+            $unifyParent: true
         ) {
             cursor: auto;
 
@@ -770,8 +777,11 @@
     }
 
     @if $includeDisabled {
-        &:has(
-            #{selector.nest( '>', config.selector-input-disabled($selector_boxes_has) )}
+        @include selector.has(
+            config.selector-input-disabled($selector_boxes_has),
+            $direct: true,
+            $split: false,
+            $unifyParent: true
         ) {
             cursor: not-allowed;
 
@@ -781,7 +791,13 @@
         }
     }
 
-    &:has(#{$_sels_boxes_has_direct}) {
+    @include selector.has(
+        $selector_boxes_has,
+        $direct: true,
+        $split: false,
+        $unifyParent: true
+    ) {
+        // UPGRADE - make a selector.last-selector() to repeat with better nesting
         & + & {
             @if $includeMarginBlock {
                 margin-block-start: $marginBlock_innercheckradio;
@@ -792,7 +808,7 @@
             }
         }
 
-        + %input-base {
+        + :is(%input-base) {
             @if $includeMarginBlock {
                 margin-block-start: var-mrg-firm('400');
             }

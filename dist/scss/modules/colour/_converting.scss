@@ -4,12 +4,12 @@
 ///
 
 @use 'sass:color';
-@use 'sass:meta';
 @use 'sass:string';
 
 @use '../config';
 
 @use '../math';
+@use '../meta';
 
 ///
 /// Rounds the given RGB channel value appropriately.
@@ -53,7 +53,7 @@
     $separator: config.$colour_channelLists_separator
 ) {
     @if meta.type-of($clr) != 'color' {
-        @warn "[colour.to-hsl-list] $clr should be a colour (was #{meta.var-dump( $clr )})";
+        @warn #{meta.warning-message-bad-type( $value: $clr, $type: colour, $varName: 'clr', $prefix: '[colour.to-hsl-list] ' )};
         @return $clr;
     }
 
@@ -164,7 +164,7 @@
     $separator: config.$colour_channelLists_separator
 ) {
     @if meta.type-of($clr) != 'color' {
-        @warn "[colour.to-rgb-list] $clr should be a colour (was #{meta.var-dump( $clr )})";
+        @warn #{meta.warning-message-bad-type( $value: $clr, $type: colour, $varName: 'clr', $prefix: '[colour.to-rgb-list] ' )};
         @return $clr;
     }
 

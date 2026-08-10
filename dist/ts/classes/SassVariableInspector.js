@@ -72,6 +72,7 @@ export class SassVariableInspector extends VariableInspector {
             }
             switch (sassType) {
                 case 'color':
+                case 'list':
                 case 'number':
                 case 'string':
                     this.args.formatKeys = false;
@@ -142,7 +143,7 @@ export class SassVariableInspector extends VariableInspector {
             this.testReturn = this.toVariableInspection();
         }
         toVariableInspection() {
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
             // returns
             if (this.isImmutable) {
                 return Object.fromEntries(Array.from((_b = (_a = this.value) === null || _a === void 0 ? void 0 : _a.entries()) !== null && _b !== void 0 ? _b : [], ([key, value]) => {
@@ -175,12 +176,23 @@ export class SassVariableInspector extends VariableInspector {
                             'isInGamut()': _colour.isInGamut(),
                         };
                     case 'list':
-                        return Object.fromEntries(Array.from((_j = (_h = (_g = this.value) === null || _g === void 0 ? void 0 : _g.asList) === null || _h === void 0 ? void 0 : _h.values()) !== null && _j !== void 0 ? _j : [], (value, index) => [
-                            index,
-                            value,
-                        ]));
+                        const extraVars = [];
+                        const sassList = this.value;
+                        if (sassList === null || sassList === void 0 ? void 0 : sassList.hasBrackets) {
+                            extraVars.push(['hasBrackets', sassList === null || sassList === void 0 ? void 0 : sassList.hasBrackets]);
+                        }
+                        if (sassList === null || sassList === void 0 ? void 0 : sassList.separator) {
+                            extraVars.push(['separator', sassList === null || sassList === void 0 ? void 0 : sassList.separator]);
+                        }
+                        return Object.fromEntries([
+                            ...Array.from((_h = (_g = sassList === null || sassList === void 0 ? void 0 : sassList.asList) === null || _g === void 0 ? void 0 : _g.values()) !== null && _h !== void 0 ? _h : [], (value, index) => [
+                                index + 1,
+                                value,
+                            ]),
+                            ...extraVars,
+                        ]);
                     case 'map':
-                        return Object.fromEntries(Array.from((_m = (_l = (_k = this.value) === null || _k === void 0 ? void 0 : _k.contents) === null || _l === void 0 ? void 0 : _l.entries()) !== null && _m !== void 0 ? _m : [], ([key, value]) => [
+                        return Object.fromEntries(Array.from((_l = (_k = (_j = this.value) === null || _j === void 0 ? void 0 : _j.contents) === null || _k === void 0 ? void 0 : _k.entries()) !== null && _l !== void 0 ? _l : [], ([key, value]) => [
                             sassValueToJS.sync(key),
                             value,
                         ]));
@@ -194,11 +206,11 @@ export class SassVariableInspector extends VariableInspector {
                         };
                         let numeratorUnits;
                         let unitDenominator;
-                        if ((_o = _number.numeratorUnits) === null || _o === void 0 ? void 0 : _o.size) {
+                        if ((_m = _number.numeratorUnits) === null || _m === void 0 ? void 0 : _m.size) {
                             const _val = Array.from(_number.numeratorUnits);
                             numeratorUnits = _val.length < 2 ? _val[0] : _val;
                         }
-                        if ((_p = _number.denominatorUnits) === null || _p === void 0 ? void 0 : _p.size) {
+                        if ((_o = _number.denominatorUnits) === null || _o === void 0 ? void 0 : _o.size) {
                             const _val = Array.from(_number.denominatorUnits);
                             unitDenominator = _val.length < 2 ? _val[0] : _val;
                         }

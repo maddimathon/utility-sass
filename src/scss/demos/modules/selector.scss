@@ -19,39 +19,35 @@
 /* # MODULES - SELECTOR
  * ======================================================================== */
 
-@mixin _replace-simple-selector($args...) {
-    $_sels: selector.replace-simple-selector(&, $args...);
+/* ## Modules - Selector - replace-simple-selector() ==================================== */
 
-    @at-root #{$_sels} {
-        @include meta.var-dump(
-            'selector.replace-simple-selector( &, #{meta.var-dump($args, $alwaysQuote: true, $showParens: false, $withType: false, $keys_neverQuote: true, $child_showParens: true)} )',
-            $_sels
+@mixin _replace-simple-selector($args...) {
+    @at-root & {
+        @include meta.demo-selector-function(
+            'selector.replace-simple-selector',
+            meta.get-function(replace-simple-selector, $module: selector),
+            meta.arglist(&, $args...)
         );
     }
 }
 
 @media replace-simple-selector {
     #{config.$selector_root} .child .grandchild another.child {
-        /* STARTING SELECTOR */
         @include _replace-simple-selector('.child', '.new-child');
         @include _replace-simple-selector(config.$selector_root, ('html', 'custom-html'));
         @include _replace-simple-selector('.non-existant-class', '.new-child');
     }
 }
 
+/* ## Modules - Selector - extend-simple-selector() ==================================== */
+
 @mixin _extend-simple-selector($args...) {
-    $_sels: selector.extend-simple-selector(&, $args...);
-
-    $debug: map.get(meta.keywords($args), debug);
-
-    $callSig: 'selector.extend-simple-selector( &, #{meta.var-dump($args, $alwaysQuote: true, $showParens: false, $withType: false, $keys_neverQuote: true, $child_showParens: true)} )';
-
-    @at-root #{$_sels} {
-        @if $debug {
-            @include meta.var-dump($callSig, $_sels);
-        } @else {
-            /* #{$callSig} */
-        }
+    @at-root & {
+        @include meta.demo-selector-function(
+            'selector.extend-simple-selector',
+            meta.get-function(extend-simple-selector, $module: selector),
+            meta.arglist(&, $args...)
+        );
     }
 }
 
@@ -139,83 +135,63 @@ $_extend_all_permutations: (
 
 @media extend-simple-selector {
     #{config.$selector_root} .child .grandchild {
-        /* STARTING SELECTOR A */
-        @include _extend-full-tests(('.child', '.non-existant-class'), '.new-child');
+        @media (selector: A) {
+            @include _extend-full-tests(('.child', '.non-existant-class'), '.new-child');
 
-        @include _extend-simple-selector(('.child', '.grandchild'), '.new-child');
-        @include _extend-simple-selector(config.$selector_root, ('html', 'custom-html'));
-        @include _extend-simple-selector('.non-existant-class', '.new-child');
-
-        @at-root #{config.$selector_root} another.child .grandchild {
-            /* STARTING SELECTOR B */
-            @include _extend-full-tests(
-                ('.child', '.non-existant-class'),
-                '.new-child',
-                $debug: true
-            );
+            @include _extend-simple-selector(('.child', '.grandchild'), '.new-child');
+            @include _extend-simple-selector(config.$selector_root, ('html', 'custom-html'));
+            @include _extend-simple-selector('.non-existant-class', '.new-child');
         }
 
-        another.child {
-            /* STARTING SELECTOR C */
-            // BROKEN - @include _extend-simple-selector('.child', '.new-child');
-            @include _extend-simple-selector('.child', '.new-child', $self: false);
-            @include _extend-simple-selector('.child', '.new-child', $replace: false);
-            @include _extend-simple-selector(
-                '.child',
-                '.new-child',
-                $self: false,
-                $replace: false,
-                $unify: true
-            );
-            // BROKEN - @include _extend-simple-selector(
-            //     '.child',
-            //     '.new-child',
-            //     $self: false,
-            //     $replace: false,
-            //     $nest: true
-            // );
-            // BROKEN - @include _extend-simple-selector(
-            //     '.child',
-            //     '.new-child',
-            //     $self: false,
-            //     $replace: false,
-            //     $wrap: true
-            // );
-            // BROKEN - @include _extend-simple-selector(
-            //     '.child',
-            //     '.new-child',
-            //     // $unify: true,
-            //     // $nest: true,
-            //     // $wrap: true,
-            // );
+        @media (selector: B) {
+            @at-root #{config.$selector_root} another.child .grandchild {
+                @include _extend-full-tests(
+                    ('.child', '.non-existant-class'),
+                    '.new-child',
+                    $debug: true
+                );
+            }
+        }
+
+        @media (selector: C) {
+            another.child {
+                // BROKEN - @include _extend-simple-selector('.child', '.new-child');
+                @include _extend-simple-selector('.child', '.new-child', $self: false);
+                @include _extend-simple-selector('.child', '.new-child', $replace: false);
+                @include _extend-simple-selector(
+                    '.child',
+                    '.new-child',
+                    $self: false,
+                    $replace: false,
+                    $unify: true
+                );
+                // BROKEN - @include _extend-simple-selector(
+                //     '.child',
+                //     '.new-child',
+                //     $self: false,
+                //     $replace: false,
+                //     $nest: true
+                // );
+                // BROKEN - @include _extend-simple-selector(
+                //     '.child',
+                //     '.new-child',
+                //     $self: false,
+                //     $replace: false,
+                //     $wrap: true
+                // );
+                // BROKEN - @include _extend-simple-selector(
+                //     '.child',
+                //     '.new-child',
+                //     // $unify: true,
+                //     // $nest: true,
+                //     // $wrap: true,
+                // );
+            }
         }
     }
 
     [data-brightness-mode='light'] {
-        /* STARTING SELECTOR C */
-        @include _extend-simple-selector(
-            '[data-brightness-mode=light]',
-            '[data-contrast-mode=low]'
-        );
-
-        @include _extend-simple-selector(
-            '[data-brightness-mode=light]',
-            '[data-contrast-mode=low]',
-            $unify: true,
-            $nest: true,
-            $wrap: true
-        );
-
-        @include _extend-simple-selector(
-            '[data-brightness-mode=light]',
-            ('[data-contrast-mode=low]', '[data-contrast-mode=average]'),
-            $unify: true,
-            $nest: true,
-            $wrap: true
-        );
-
-        :root & .child {
-            /* STARTING SELECTOR D */
+        @media (selector: D) {
             @include _extend-simple-selector(
                 '[data-brightness-mode=light]',
                 '[data-contrast-mode=low]'
@@ -237,282 +213,366 @@ $_extend_all_permutations: (
                 $wrap: true
             );
         }
+
+        @media (selector: E) {
+            :root & .child {
+                @include _extend-simple-selector(
+                    '[data-brightness-mode=light]',
+                    '[data-contrast-mode=low]'
+                );
+
+                @include _extend-simple-selector(
+                    '[data-brightness-mode=light]',
+                    '[data-contrast-mode=low]',
+                    $unify: true,
+                    $nest: true,
+                    $wrap: true
+                );
+
+                @include _extend-simple-selector(
+                    '[data-brightness-mode=light]',
+                    ('[data-contrast-mode=low]', '[data-contrast-mode=average]'),
+                    $unify: true,
+                    $nest: true,
+                    $wrap: true
+                );
+            }
+        }
     }
 }
 
 /* ## Modules - Selector - except() ==================================== */
 
 @mixin _except-test($args...) {
-    @media except {
-        & {
-            $sel: selector.except(
-                $haystack: &,
-                $args...,
+    @at-root & {
+        @media except {
+            @include meta.demo-selector-function(
+                'selector.except',
+                meta.get-function(except, $module: selector),
+                meta.arglist(&, $args...)
             );
-
-            $args: meta.keywords($args);
-
-            @include meta.var-dump(
-                'selector.except#{meta.demo-args-dump( string.unquote('&'), $args... )}',
-                $sel
-            );
-
-            $callDump: 'selector.except#{meta.demo-args-dump( &, $args... )}';
-
-            @at-root #{$sel} {
-                /* #{$callDump} */
-            }
         }
     }
 }
 
 a,
 button {
-    @include _except-test($needles: 'button');
-    @include _except-test($needles: 'a');
+    @include _except-test('button');
+    @include _except-test('a');
 
     .should-not-stop-replacement {
-        @include _except-test($needles: 'button');
-        @include _except-test($needles: 'a');
+        @include _except-test('button');
+        @include _except-test('a');
     }
 }
 
 button,
 a.special-class,
 a.class-name[data-complex='selector']:focus {
-    @include _except-test($needles: 'button');
-    @include _except-test($needles: 'a');
-    @include _except-test($needles: ':focus');
-    @include _except-test($needles: '[data-complex=selector]');
+    @include _except-test('button');
+    @include _except-test('a');
+    @include _except-test(':focus');
+    @include _except-test('[data-complex=selector]');
 
     .should-not-stop-replacement {
-        @include _except-test($needles: 'button');
-        @include _except-test($needles: 'a');
-        @include _except-test($needles: ':focus');
-        @include _except-test($needles: '[data-complex=selector]');
+        @include _except-test('button');
+        @include _except-test('a');
+        @include _except-test(':focus');
+        @include _except-test('[data-complex=selector]');
     }
 }
 
 /* ## Modules - Selector - except-superselector() ==================================== */
 
 @mixin _except-superselector-test($args...) {
-    @media except-superselector {
-        & {
-            $sel: selector.except-superselector(
-                $haystack: &,
-                $args...,
+    @at-root & {
+        @media except-superselector {
+            @include meta.demo-selector-function(
+                'selector.except-superselector',
+                meta.get-function(except-superselector, $module: selector),
+                meta.arglist(&, $args...)
             );
-
-            $args: meta.keywords($args);
-
-            @include meta.var-dump(
-                'selector.except-superselector#{meta.demo-args-dump( string.unquote('&'), $args... )}',
-                $sel
-            );
-
-            $callDump: 'selector.except-superselector#{meta.demo-args-dump( &, $args... )}';
-
-            @at-root #{$sel} {
-                /* #{$callDump} */
-            }
         }
     }
 }
 
 a,
 button {
-    @include _except-superselector-test($needles: 'button');
-    @include _except-superselector-test($needles: 'a');
+    @include _except-superselector-test('button');
+    @include _except-superselector-test('a');
 
     body & {
-        @include _except-superselector-test($needles: 'button');
-        @include _except-superselector-test($needles: 'a');
+        @include _except-superselector-test('button');
+        @include _except-superselector-test('a');
     }
 
     .should-stop-replacement {
-        @include _except-superselector-test($needles: 'button');
-        @include _except-superselector-test($needles: 'a');
+        @include _except-superselector-test('button');
+        @include _except-superselector-test('a');
     }
 }
 
 button,
 a.special-class,
 a.class-name[data-complex='selector']:focus {
-    @include _except-superselector-test($needles: 'button');
-    @include _except-superselector-test($needles: 'a');
-    @include _except-superselector-test($needles: ':focus');
-    @include _except-superselector-test($needles: '[data-complex=selector]');
+    @include _except-superselector-test('button');
+    @include _except-superselector-test('a');
+    @include _except-superselector-test(':focus');
+    @include _except-superselector-test('[data-complex=selector]');
 
     body & {
-        @include _except-superselector-test($needles: 'button');
-        @include _except-superselector-test($needles: 'a');
-        @include _except-superselector-test($needles: ':focus');
-        @include _except-superselector-test($needles: '[data-complex=selector]');
+        @include _except-superselector-test('button');
+        @include _except-superselector-test('a');
+        @include _except-superselector-test(':focus');
+        @include _except-superselector-test('[data-complex=selector]');
     }
 
     .should-stop-replacement {
-        @include _except-superselector-test($needles: 'button');
-        @include _except-superselector-test($needles: 'a');
-        @include _except-superselector-test($needles: ':focus');
-        @include _except-superselector-test($needles: '[data-complex=selector]');
+        @include _except-superselector-test('button');
+        @include _except-superselector-test('a');
+        @include _except-superselector-test(':focus');
+        @include _except-superselector-test('[data-complex=selector]');
+    }
+}
+
+/* ## Modules - Selector - omit-simple-selector() ==================================== */
+
+@mixin _omit-simple-selector($args...) {
+    @at-root & {
+        @include meta.demo-selector-function(
+            'selector.omit-simple-selector',
+            meta.get-function(omit-simple-selector, $module: selector),
+            meta.arglist(&, $args...)
+        );
+    }
+}
+
+button,
+button.button-secondary {
+    @include _omit-simple-selector(button);
+    @include _omit-simple-selector('.non-existant-class');
+
+    .child,
+    .second-child {
+        @include _omit-simple-selector(button);
+        @include _omit-simple-selector('.non-existant-class');
+    }
+
+    body & {
+        .child,
+        .second-child {
+            @include _omit-simple-selector(button);
+            @include _omit-simple-selector('.non-existant-class');
+        }
     }
 }
 
 /* ## Modules - Selector - only() ==================================== */
 
 @mixin _only-test($args...) {
-    @media (selector: only) {
-        & {
-            $sel: selector.only(
-                $haystack: &,
-                $args...,
+    @at-root & {
+        @media (function: only) {
+            @include meta.demo-selector-function(
+                'selector.only',
+                meta.get-function(only, $module: selector),
+                meta.arglist(&, $args...)
             );
-
-            $args: meta.keywords($args);
-
-            @include meta.var-dump(
-                'selector.only#{meta.demo-args-dump( string.unquote('&'), $args... )}',
-                $sel
-            );
-
-            $callDump: 'selector.only#{meta.demo-args-dump( &, $args... )}';
-
-            @at-root #{$sel} {
-                /* #{$callDump} */
-            }
         }
     }
 }
 
 a,
 button {
-    @include _only-test($needles: 'button');
-    @include _only-test($needles: 'a');
+    @include _only-test('button');
+    @include _only-test('a');
 
     .should-not-stop-replacement {
-        @include _only-test($needles: 'button');
-        @include _only-test($needles: 'a');
+        @include _only-test('button');
+        @include _only-test('a');
     }
 }
 
 button,
 a.special-class,
 a.class-name[data-complex='selector']:focus {
-    @include _only-test($needles: 'button');
-    @include _only-test($needles: 'a');
-    @include _only-test($needles: ':focus');
-    @include _only-test($needles: '[data-complex=selector]');
+    @include _only-test('button');
+    @include _only-test('a');
+    @include _only-test(':focus');
+    @include _only-test('[data-complex=selector]');
 
     .should-not-stop-replacement {
-        @include _only-test($needles: 'button');
-        @include _only-test($needles: 'a');
-        @include _only-test($needles: ':focus');
-        @include _only-test($needles: '[data-complex=selector]');
+        @include _only-test('button');
+        @include _only-test('a');
+        @include _only-test(':focus');
+        @include _only-test('[data-complex=selector]');
     }
 }
 
 /* ## Modules - Selector - only-superselector() ==================================== */
 
 @mixin _only-superselector-test($args...) {
-    @media only-superselector {
-        & {
-            $sel: selector.only-superselector(
-                $haystack: &,
-                $args...,
+    @at-root & {
+        @media only-superselector {
+            @include meta.demo-selector-function(
+                'selector.only-superselector',
+                meta.get-function(only-superselector, $module: selector),
+                meta.arglist(&, $args...)
             );
-
-            $args: meta.keywords($args);
-
-            @include meta.var-dump(
-                'selector.only-superselector#{meta.demo-args-dump( string.unquote('&'), $args... )}',
-                $sel
-            );
-
-            $callDump: 'selector.only-superselector#{meta.demo-args-dump( &, $args... )}';
-
-            @at-root #{$sel} {
-                /* #{$callDump} */
-            }
         }
     }
 }
 
 a,
 button {
-    @include _only-superselector-test($needles: 'button');
-    @include _only-superselector-test($needles: 'a');
+    @include _only-superselector-test('button');
+    @include _only-superselector-test('a');
 
     body & {
-        @include _only-superselector-test($needles: 'button');
-        @include _only-superselector-test($needles: 'a');
+        @include _only-superselector-test('button');
+        @include _only-superselector-test('a');
     }
 
     .should-stop-replacement {
-        @include _only-superselector-test($needles: 'button');
-        @include _only-superselector-test($needles: 'a');
+        @include _only-superselector-test('button');
+        @include _only-superselector-test('a');
     }
 }
 
 button,
 a.special-class,
 a.class-name[data-complex='selector']:focus {
-    @include _only-superselector-test($needles: 'button');
-    @include _only-superselector-test($needles: 'a');
-    @include _only-superselector-test($needles: ':focus');
-    @include _only-superselector-test($needles: '[data-complex=selector]');
+    @include _only-superselector-test('button');
+    @include _only-superselector-test('a');
+    @include _only-superselector-test(':focus');
+    @include _only-superselector-test('[data-complex=selector]');
 
     body & {
-        @include _only-superselector-test($needles: 'button');
-        @include _only-superselector-test($needles: 'a');
-        @include _only-superselector-test($needles: ':focus');
-        @include _only-superselector-test($needles: '[data-complex=selector]');
+        @include _only-superselector-test('button');
+        @include _only-superselector-test('a');
+        @include _only-superselector-test(':focus');
+        @include _only-superselector-test('[data-complex=selector]');
     }
 
     .should-stop-replacement {
-        @include _only-superselector-test($needles: 'button');
-        @include _only-superselector-test($needles: 'a');
-        @include _only-superselector-test($needles: ':focus');
-        @include _only-superselector-test($needles: '[data-complex=selector]');
+        @include _only-superselector-test('button');
+        @include _only-superselector-test('a');
+        @include _only-superselector-test(':focus');
+        @include _only-superselector-test('[data-complex=selector]');
     }
 }
 
 /* ## Modules - Selector - Root & Body Utilities ==================================== */
 
 @media at-root {
-    @include meta.var-dump('selector.parent-exists()', selector.parent-exists());
-    @include meta.var-dump('selector.parent-or-body()', selector.parent-or-body());
-    @include meta.var-dump('selector.parent-or-root()', selector.parent-or-root());
+    @include meta.demo-function(
+        'selector.parent-exists',
+        meta.get-function(parent-exists, $module: selector)
+    );
+    @include meta.demo-function(
+        'selector.parent-or-body',
+        meta.get-function(parent-or-body, $module: selector)
+    );
+    @include meta.demo-function(
+        'selector.parent-or-root',
+        meta.get-function(parent-or-root, $module: selector)
+    );
 }
 
 @mixin _incl-single-var-dumps-is-root-or-body {
-    @include meta.var-dump('selector.is-body( & )', selector.is-body(&));
-    @include meta.var-dump('selector.is-root( & )', selector.is-root(&));
-    @include meta.var-dump('selector.is-root-or-body( & )', selector.is-root-or-body(&));
-    /* - - - */
-    @include meta.var-dump('selector.is-any-body( & )', selector.is-any-body(&));
-    @include meta.var-dump('selector.is-any-root( & )', selector.is-any-root(&));
-    @include meta.var-dump('selector.is-any-root-or-body( & )', selector.is-any-root-or-body(&));
-    /* - - - */
-    @include meta.var-dump('selector.has-body( & )', selector.has-body(&));
-    @include meta.var-dump('selector.has-root( & )', selector.has-root(&));
-    @include meta.var-dump('selector.has-root-or-body( & )', selector.has-root-or-body(&));
-    /* - - - */
-    @include meta.var-dump('selector.has-any-body( & )', selector.has-any-body(&));
-    @include meta.var-dump('selector.has-any-root( & )', selector.has-any-root(&));
-    @include meta.var-dump('selector.has-any-root-or-body( & )', selector.has-any-root-or-body(&));
-    /* - - - */
-    @include meta.var-dump('selector.except-is-body( & )', selector.except-is-body(&));
-    @include meta.var-dump('selector.except-is-root( & )', selector.except-is-root(&));
-    @include meta.var-dump(
-        'selector.except-is-root-or-body( & )',
-        selector.except-is-root-or-body(&)
+    @include meta.demo-function(
+        'selector.is-body',
+        meta.get-function(is-body, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.is-root',
+        meta.get-function(is-root, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.is-root-or-body',
+        meta.get-function(is-root-or-body, $module: selector),
+        meta.arglist(&)
     );
     /* - - - */
-    @include meta.var-dump('selector.except-has-body( & )', selector.except-has-body(&));
-    @include meta.var-dump('selector.except-has-root( & )', selector.except-has-root(&));
-    @include meta.var-dump(
-        'selector.except-has-root-or-body( & )',
-        selector.except-has-root-or-body(&)
+    @include meta.demo-function(
+        'selector.is-any-body',
+        meta.get-function(is-any-body, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.is-any-root',
+        meta.get-function(is-any-root, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.is-any-root-or-body',
+        meta.get-function(is-any-root-or-body, $module: selector),
+        meta.arglist(&)
+    );
+    /* - - - */
+    @include meta.demo-function(
+        'selector.has-body',
+        meta.get-function(has-body, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.has-root',
+        meta.get-function(has-root, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.has-root-or-body',
+        meta.get-function(has-root-or-body, $module: selector),
+        meta.arglist(&)
+    );
+    /* - - - */
+    @include meta.demo-function(
+        'selector.has-any-body',
+        meta.get-function(has-any-body, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.has-any-root',
+        meta.get-function(has-any-root, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.has-any-root-or-body',
+        meta.get-function(has-any-root-or-body, $module: selector),
+        meta.arglist(&)
+    );
+    /* - - - */
+    @include meta.demo-function(
+        'selector.except-is-body',
+        meta.get-function(except-is-body, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.except-is-root',
+        meta.get-function(except-is-root, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.except-is-root-or-body',
+        meta.get-function(except-is-root-or-body, $module: selector),
+        meta.arglist(&)
+    );
+    /* - - - */
+    @include meta.demo-function(
+        'selector.except-has-body',
+        meta.get-function(except-has-body, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.except-has-root',
+        meta.get-function(except-has-root, $module: selector),
+        meta.arglist(&)
+    );
+    @include meta.demo-function(
+        'selector.except-has-root-or-body',
+        meta.get-function(except-has-root-or-body, $module: selector),
+        meta.arglist(&)
     );
 }
 
@@ -521,13 +581,26 @@ a.class-name[data-complex='selector']:focus {
         /* via #{$selectorString} */
     }
 
-    @include meta.var-dump('selector.parent-exists()', selector.parent-exists());
-    @include meta.var-dump('selector.is-simple( & )', selector.is-simple(&));
+    @include meta.demo-function(
+        'selector.parent-exists',
+        meta.get-function(parent-exists, $module: selector)
+    );
+    @include meta.demo-function(
+        'selector.is-simple',
+        meta.get-function(is-simple, $module: selector),
+        meta.arglist(&)
+    );
 
     @include _incl-single-var-dumps-is-root-or-body;
 
-    @include meta.var-dump('selector.parent-or-body()', selector.parent-or-body());
-    @include meta.var-dump('selector.parent-or-root()', selector.parent-or-root());
+    @include meta.demo-function(
+        'selector.parent-or-body',
+        meta.get-function(parent-or-body, $module: selector)
+    );
+    @include meta.demo-function(
+        'selector.parent-or-root',
+        meta.get-function(parent-or-root, $module: selector)
+    );
 }
 
 @mixin _incl-complex-var-dumps(
@@ -612,9 +685,10 @@ a.class-name[data-complex='selector']:focus {
 @mixin _incl-var-dumps($selectorString: null, $args...) {
     @include _incl-single-var-dumps($selectorString: $selectorString, $args...);
 
-    @include meta.var-dump(
-        'selector.parent-includes( ".has-a-class" )',
-        selector.parent-includes('.has-a-class')
+    @include meta.demo-function(
+        'selector.parent-includes',
+        meta.get-function(parent-includes, $module: selector),
+        meta.arglist('.has-a-class')
     );
 
     &:where(.has-a-class) {
@@ -623,9 +697,10 @@ a.class-name[data-complex='selector']:focus {
             $args...
         );
 
-        @include meta.var-dump(
-            'selector.parent-includes( ".has-a-class" )',
-            selector.parent-includes('.has-a-class')
+        @include meta.demo-function(
+            'selector.parent-includes',
+            meta.get-function(parent-includes, $module: selector),
+            meta.arglist('.has-a-class')
         );
     }
 }
@@ -706,137 +781,251 @@ body {
 
 /* ## Modules - Selector - Pseudo Class Lists ==================================== */
 
-@each $selectorName in ('has', 'is', 'not', 'where') {
-    selector.#{$selectorName} {
-        $fn: meta.get-function(#{$selectorName}-list, $module: selector);
-        $mixin: meta.get-mixin($selectorName, $module: selector);
+$_pseudo_has_fn: meta.get-function('has-list', $module: selector);
+$_pseudo_is_fn: meta.get-function('is-list', $module: selector);
+$_pseudo_not_fn: meta.get-function('not-list', $module: selector);
+$_pseudo_where_fn: meta.get-function('where-list', $module: selector);
 
-        @include meta.var-dump('selector.#{$selectorName}-list()', meta.call($fn));
+$_pseudo_has_mixin: meta.get-mixin('has', $module: selector);
+$_pseudo_is_mixin: meta.get-mixin('is', $module: selector);
+$_pseudo_not_mixin: meta.get-mixin('not', $module: selector);
+$_pseudo_where_mixin: meta.get-mixin('where', $module: selector);
 
-        &--unified {
-            @include meta.var-dump(
-                'selector.#{$selectorName}-list( $unifyParent: true )',
-                meta.call($fn, $unifyParent: true)
-            );
-        }
+@mixin __demo-pseudo-list-function--has($args...) {
+    @include meta.demo-selector-function('selector.has-list', $_pseudo_has_fn, $args...);
+}
+@mixin __demo-pseudo-list-function--is($args...) {
+    @include meta.demo-selector-function('selector.is-list', $_pseudo_is_fn, $args...);
+}
+@mixin __demo-pseudo-list-function--not($args...) {
+    @include meta.demo-selector-function('selector.not-list', $_pseudo_not_fn, $args...);
+}
+@mixin __demo-pseudo-list-function--where($args...) {
+    @include meta.demo-selector-function('selector.where-list', $_pseudo_where_fn, $args...);
+}
 
-        &--direct--unified {
-            @include meta.var-dump(
-                'selector.#{$selectorName}-list( $direct: true, $unifyParent: true )',
-                meta.call($fn, $direct: true, $unifyParent: true)
-            );
-        }
-
-        &--with-selectors {
-            @include meta.var-dump(
-                'selector.#{$selectorName}-list( ( div, p, body ) )',
-                meta.call($fn, $selectors: (div, p, body))
-            );
-            @include meta.var-dump(
-                'selector.#{$selectorName}-list( ( div, p, body ), $split: false )',
-                meta.call($fn, $selectors: (div, p, body), $split: false)
-            );
-        }
-
-        &--with-selectors--direct {
-            @include meta.var-dump(
-                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true )',
-                meta.call($fn, $selectors: (div, p, body), $direct: true)
-            );
-            @include meta.var-dump(
-                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true, $split: false )',
-                meta.call($fn, $selectors: (div, p, body), $direct: true, $split: false)
-            );
-        }
-
-        &--with-selectors--direct--unified {
-            @include meta.var-dump(
-                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true, $unifyParent: true )',
-                meta.call($fn, $selectors: (div, p, body), $direct: true, $unifyParent: true)
-            );
-            @include meta.var-dump(
-                'selector.#{$selectorName}-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true )',
-                meta.call(
-                    $fn,
-                    $selectors: (div, p, body),
-                    $direct: true,
-                    $split: false,
-                    $unifyParent: true
-                )
-            );
-        }
-
-        @include meta.apply($mixin) {
-            /* @include selector.#{$selectorName}() {} */
-        }
-
-        @include meta.apply($mixin, $direct: true) {
-            /* @include selector.#{$selectorName}( $direct: true ) {} */
-        }
-
-        @include meta.apply($mixin, $unifyParent: true) {
-            /* @include selector.#{$selectorName}( $unifyParent: true ) {} */
-        }
-
-        @if $selectorName == has {
-            @include meta.apply($mixin, $unifyParent: true, $direct: true) {
-                /* @include selector.#{$selectorName}( $unifyParent: true, $direct: true ) {} */
-            }
-        }
-
-        @include meta.apply($mixin, $includeParent: false) {
-            /* @include selector.#{$selectorName}( $includeParent: false ) {} */
-        }
-
-        @include meta.apply($mixin, $selectors: (div, p, body)) {
-            /* @include selector.#{$selectorName}( ( div, p, body ) ) {} */
-        }
-
-        @include meta.apply($mixin, $selectors: (div, p, body), $split: false) {
-            /* @include selector.#{$selectorName}( ( div, p, body ), $split: false ) {} */
-        }
-
-        @include meta.apply($mixin, $selectors: (div, p, body), $direct: true) {
-            /* @include selector.#{$selectorName}( ( div, p, body ), $direct: true ) {} */
-        }
-
-        @include meta.apply($mixin, $selectors: (div, p, body), $direct: true, $split: false) {
-            /* @include selector.#{$selectorName}( ( div, p, body ), $direct: true, $split: false ) {} */
-        }
-
-        @include meta.apply($mixin, $selectors: (div, p, body), $unifyParent: true) {
-            /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true ) {} */
-        }
-
-        @include meta.apply($mixin, $selectors: (div, p, body), $split: false, $unifyParent: true) {
-            /* @include selector.#{$selectorName}( ( div, p, body ), $split: false, $unifyParent: true ) {} */
-        }
-
-        @if $selectorName == has {
-            @include meta.apply(
-                $mixin,
-                $selectors: (div, p, body),
-                $direct: true,
-                $unifyParent: true
-            ) {
-                /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true, $direct: true ) {} */
-            }
-
-            @include meta.apply(
-                $mixin,
-                $selectors: (div, p, body),
-                $direct: true,
-                $split: false,
-                $unifyParent: true
-            ) {
-                /* @include selector.#{$selectorName}( ( div, p, body ), $unifyParent: true, $direct: true ) {} */
-            }
+@mixin _demo-pseudo-list-function($version, $args...) {
+    @at-root & {
+        @if $version == 'has' {
+            @include __demo-pseudo-list-function--has($args);
+        } @else if $version == 'is' {
+            @include __demo-pseudo-list-function--is($args);
+        } @else if $version == 'not' {
+            @include __demo-pseudo-list-function--not($args);
+        } @else if $version == 'where' {
+            @include __demo-pseudo-list-function--where($args);
         }
     }
 }
 
-// .sample-body-extending-class {
-//     @extend body;
-// }
+@mixin __demo-pseudo-list-mixin--has($args...) {
+    @include meta.demo-mixin('selector.has', $_pseudo_has_mixin, $args...);
+}
+@mixin __demo-pseudo-list-mixin--is($args...) {
+    @include meta.demo-mixin('selector.is', $_pseudo_is_mixin, $args...);
+}
+@mixin __demo-pseudo-list-mixin--not($args...) {
+    @include meta.demo-mixin('selector.not', $_pseudo_not_mixin, $args...);
+}
+@mixin __demo-pseudo-list-mixin--where($args...) {
+    @include meta.demo-mixin('selector.where', $_pseudo_where_mixin, $args...);
+}
+
+@mixin _demo-pseudo-list-mixin($version, $args...) {
+    @at-root & {
+        @if $version == 'has' {
+            @include __demo-pseudo-list-mixin--has($args);
+        } @else if $version == 'is' {
+            @include __demo-pseudo-list-mixin--is($args);
+        } @else if $version == 'not' {
+            @include __demo-pseudo-list-mixin--not($args);
+        } @else if $version == 'where' {
+            @include __demo-pseudo-list-mixin--where($args);
+        }
+    }
+}
+
+@each $selectorName in ('has', 'is', 'not', 'where') {
+    @media selector-#{$selectorName} {
+        .parent {
+            // @at-root & {
+            //     @include meta.var-dump('&', &);
+            // }
+
+            @include _demo-pseudo-list-function($selectorName);
+
+            @media (unified) {
+                @include _demo-pseudo-list-function($selectorName, $unifyParent: true);
+
+                @media (direct) {
+                    @include _demo-pseudo-list-function(
+                        $selectorName,
+                        $direct: true,
+                        $unifyParent: true
+                    );
+                }
+            }
+
+            @media (override-selectors) {
+                @include _demo-pseudo-list-function($selectorName, (div, p, body));
+
+                @media (unsplit) {
+                    @include _demo-pseudo-list-function(
+                        $selectorName,
+                        (div, p, body),
+                        $split: false
+                    );
+                }
+
+                @media (direct) {
+                    @include _demo-pseudo-list-function(
+                        $selectorName,
+                        (div, p, body),
+                        $direct: true
+                    );
+
+                    @media (unsplit) {
+                        @include _demo-pseudo-list-function(
+                            $selectorName,
+                            (div, p, body),
+                            $direct: true,
+                            $split: false
+                        );
+                    }
+
+                    @media (unified) {
+                        @include _demo-pseudo-list-function(
+                            $selectorName,
+                            (div, p, body),
+                            $direct: true,
+                            $unifyParent: true
+                        );
+
+                        @media (unsplit) {
+                            @include _demo-pseudo-list-function(
+                                $selectorName,
+                                (div, p, body),
+                                $direct: true,
+                                $split: false,
+                                $unifyParent: true
+                            );
+                        }
+                    }
+                }
+            }
+
+            //     @media (unified) {
+            //         // @include _demo-pseudo-list-function($selectorName, $unifyParent: true);
+
+            //         @media (direct) {
+            //             // @include _demo-pseudo-list-function(
+            //             //     $selectorName,
+            //             //     $direct: true,
+            //             //     $unifyParent: true
+            //             // );
+            //         }
+            //     }
+
+            //     @media (override-selectors) {
+            //         // @include _demo-pseudo-list-function($selectorName, (div, p, body));
+
+            //         @media (unsplit) {
+            //             // @include _demo-pseudo-list-function(
+            //             //     $selectorName,
+            //             //     (div, p, body),
+            //             //     $split: false
+            //             // );
+            //         }
+
+            //         @media (direct) {
+            //             // @include _demo-pseudo-list-function(
+            //             //     $selectorName,
+            //             //     (div, p, body),
+            //             //     $direct: true
+            //             // );
+
+            //             @media (unsplit) {
+            //                 // @include _demo-pseudo-list-function(
+            //                 //     $selectorName,
+            //                 //     (div, p, body),
+            //                 //     $direct: true,
+            //                 //     $split: false
+            //                 // );
+            //             }
+
+            //             @media (unified) {
+            //                 // @include _demo-pseudo-list-function(
+            //                 //     $selectorName,
+            //                 //     (div, p, body),
+            //                 //     $direct: true,
+            //                 //     $unifyParent: true
+            //                 // );
+
+            //                 @media (unsplit) {
+            //                     // @include _demo-pseudo-list-function(
+            //                     //     $selectorName,
+            //                     //     (div, p, body),
+            //                     //     $direct: true,
+            //                     //     $split: false,
+            //                     //     $unifyParent: true
+            //                     // );
+            //                 }
+            //             }
+            //         }
+            //     }
+
+            @include _demo-pseudo-list-mixin($selectorName);
+
+            @include _demo-pseudo-list-mixin($selectorName, $direct: true);
+
+            @include _demo-pseudo-list-mixin($selectorName, $unifyParent: true);
+
+            @if $selectorName == has {
+                @include _demo-pseudo-list-mixin($selectorName, $unifyParent: true, $direct: true);
+            }
+
+            @include _demo-pseudo-list-mixin($selectorName, $includeParent: false);
+
+            @include _demo-pseudo-list-mixin($selectorName, (div, p, body));
+
+            @include _demo-pseudo-list-mixin($selectorName, (div, p, body), $split: false);
+
+            @include _demo-pseudo-list-mixin($selectorName, (div, p, body), $direct: true);
+
+            @include _demo-pseudo-list-mixin(
+                $selectorName,
+                (div, p, body),
+                $direct: true,
+                $split: false
+            );
+
+            @include _demo-pseudo-list-mixin($selectorName, (div, p, body), $unifyParent: true);
+
+            @include _demo-pseudo-list-mixin(
+                $selectorName,
+                (div, p, body),
+                $split: false,
+                $unifyParent: true
+            );
+
+            @if $selectorName == has {
+                @include _demo-pseudo-list-mixin(
+                    $selectorName,
+                    (div, p, body),
+                    $direct: true,
+                    $unifyParent: true
+                );
+
+                @include _demo-pseudo-list-mixin(
+                    $selectorName,
+                    (div, p, body),
+                    $direct: true,
+                    $split: false,
+                    $unifyParent: true
+                );
+            }
+        }
+    }
+}
 
 @include extend-selectors;

@@ -32,7 +32,8 @@ $_path_template: if(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin docblock-printer($lines, $resistMinimize: false) {
+// UPGRADE - move this to meta module and auto-denerate its file during compile to allow for stupid-long lists if we want to?
+@mixin docblock-printer($lines, $joiner: ' / ', $resistMinimize: false) {
     $_listLength: list.length($lines);
     $_secondChar: if($resistMinimize, '!', '*');
 
@@ -201,7 +202,7 @@ $_path_template: if(
          * #{list.nth( $lines, 12 )}
          * #{list.nth( $lines, 13 )}
          * #{list.nth( $lines, 14 )}
-         * #{list.text-join( list.slice( $lines, 15 ), $joiner: ' ' )}
+         * #{list.text-join( list.slice( $lines, 15 ), $joiner: $joiner )}
          */
     }
 }

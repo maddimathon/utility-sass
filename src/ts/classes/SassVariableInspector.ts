@@ -120,6 +120,7 @@ export class SassVariableInspector<
             switch ( sassType ) {
 
                 case 'color':
+                case 'list':
                 case 'number':
                 case 'string':
                     this.args.formatKeys = false;
@@ -317,14 +318,29 @@ export namespace SassVariableInspector {
                         };
 
                     case 'list':
+                        const extraVars: [ string, any ][] = [];
+
+                        const sassList = this.value as sass.SassList | undefined;
+
+                        if ( sassList?.hasBrackets ) {
+                            extraVars.push( [ 'hasBrackets', sassList?.hasBrackets ] );
+                        }
+
+                        if ( sassList?.separator ) {
+                            extraVars.push( [ 'separator', sassList?.separator ] );
+                        }
+
                         return Object.fromEntries(
-                            Array.from(
-                                ( this.value as sass.SassList )?.asList?.values() ?? [],
-                                ( value, index ) => [
-                                    index,
-                                    value,
-                                ] as const
-                            )
+                            [
+                                ...Array.from(
+                                    sassList?.asList?.values() ?? [],
+                                    ( value, index ): [ number | string, any ] => [
+                                        index + 1,
+                                        value,
+                                    ]
+                                ),
+                                ...extraVars,
+                            ],
                         );
 
                     case 'map':

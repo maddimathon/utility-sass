@@ -26,7 +26,7 @@ $modeSets: (light, (light, dark), (light, dark, average, forced-colors));
         @include meta.demo-function(
             'simple-selectors-colour-mode',
             meta.get-function('simple-selectors-colour-mode'),
-            $modeSet
+            meta.arglist($modeSet)
         );
     }
 
@@ -37,7 +37,7 @@ $modeSets: (light, (light, dark), (light, dark, average, forced-colors));
     @include meta.demo-function(
         'simple-selectors-colour-mode-all',
         meta.get-function('simple-selectors-colour-mode-all'),
-        $activeOnly: true
+        meta.arglist($activeOnly: true)
     );
 }
 

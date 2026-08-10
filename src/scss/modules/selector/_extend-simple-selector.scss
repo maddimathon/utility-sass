@@ -60,11 +60,11 @@
     $extenders_compound: ();
 
     @if is-simple.is-simple($extenders) {
-        $debug_vars: map.set($debug_vars, 'is-simple.is-simple( $extenders )', true);
+        $debug_vars: map.set($debug_vars, 'selector.is-simple( $extenders )', true);
 
         $extenders_simple: $extenders;
     } @else {
-        $debug_vars: map.set($debug_vars, 'is-simple.is-simple( $extenders )', false);
+        $debug_vars: map.set($debug_vars, 'selector.is-simple( $extenders )', false);
 
         @each $_extending_sel in $extenders {
             @if is-simple.is-simple($_extending_sel) {

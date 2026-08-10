@@ -4,10 +4,8 @@
 ///
 
 @use 'sass:map';
-@use 'sass:meta';
 
-@use '../list/reverse' as list-reverse;
-@use '../list/sort' as list-sort;
+@use '../meta';
 
 @use 'ksort';
 
@@ -52,7 +50,7 @@
             @return $defaults;
         }
 
-        @warn "[map.merge] $inputs should be a map (was #{$inputType})";
+        @warn #{meta.warning-message-bad-type( $value: $inputs, $type: map, $varName: 'inputs', $prefix: '[map.merge] ' )};
         @return $defaults;
     }
 

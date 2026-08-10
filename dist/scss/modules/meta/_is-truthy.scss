@@ -6,6 +6,7 @@
 @use 'sass:list';
 @use 'sass:map';
 @use 'sass:meta';
+@use 'sass:string';
 
 @use '../config';
 
@@ -24,12 +25,14 @@
 
     // returns
     @if meta.type-of($value) == arglist {
-        @return list.length(map.keys(keywords-list.keywords-list($value))) > 0;
+        @return list.length(map.keys(keywords-list.keywords-list($value...))) >
+            0;
     }
 
     @return config.config-valid-bool(
         $value,
         '[meta.is-truthy()] $value',
+        $default: false,
         $warnOnWrongType: false
     );
 }

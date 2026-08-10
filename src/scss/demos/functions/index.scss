@@ -13,11 +13,11 @@
 @use '../../lib' as *;
 
 @mixin _demo-function($name, $args...) {
-    @include meta.demo-function($name, meta.get-function($name), $args...);
+    @include meta.demo-function($name, meta.get-function($name), $args);
 }
 
 @mixin _demo-mixin($name, $args...) {
-    @include meta.demo-mixin($name, meta.get-mixin($name), $args...) {
+    @include meta.demo-mixin($name, meta.get-mixin($name), $args) {
         @content;
     }
 }
@@ -54,8 +54,10 @@ all-heading-levels {
 }
 
 @mixin _demo-mixin-selector-all-headings($args...) {
-    @media (mixin: selector-all-headings) {
-        @include _demo-mixin('selector-all-headings', $demo_separateSignature: true, $args...) {
+    $_name: selector-all-headings;
+
+    @media (mixin: #{$_name}) {
+        @include meta.demo-mixin($_name, meta.get-mixin($_name), $args, $separateSignature: true) {
             @include meta.var-dump('&', &);
         }
     }

@@ -23,7 +23,7 @@
     // returns
     @if $typeof == arglist {
         // returns
-        @if list.length($value) > 1 {
+        @if list.length($value) >= 1 {
             @return true;
         }
 
@@ -37,7 +37,20 @@
 
     // returns
     @if $typeof == list {
-        @return list.length($value) > 0;
+        // returns
+        @if list.length($value) <= 0 {
+            @return false;
+        }
+
+        // returns on first truthy value
+        @each $item in $value {
+            // returns
+            @if _is-truthy($item) {
+                @return true;
+            }
+        }
+
+        @return false;
     }
 
     // returns

@@ -4,8 +4,9 @@
 ///
 
 @use 'sass:list';
-@use 'sass:meta';
 @use 'sass:string';
+
+@use '../meta';
 
 ///
 /// Joins list items into a string with the given $joiner string.
@@ -13,7 +14,7 @@
 @function text-join($list, $joiner: ', ') {
     // returns
     @if meta.type-of($list) != list {
-        @warn "[list.text-join] $list should be a list (was a #{meta.type-of($list)})";
+        @warn #{meta.warning-message-bad-type( $value: $list, $type: list, $varName: 'list', $prefix: '[list.text-join] ' )};
         @return #{$list};
     }
 

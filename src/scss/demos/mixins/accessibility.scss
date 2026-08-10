@@ -16,8 +16,16 @@
  * ======================================================================== */
 
 @mixin _motion-tests {
-    @include meta.demo-function('selector-motion', meta.get-function('selector-motion'), true);
-    @include meta.demo-function('selector-motion', meta.get-function('selector-motion'), false);
+    @include meta.demo-function(
+        'selector-motion',
+        meta.get-function('selector-motion'),
+        meta.arglist(true)
+    );
+    @include meta.demo-function(
+        'selector-motion',
+        meta.get-function('selector-motion'),
+        meta.arglist(false)
+    );
 
     @include meta.demo-mixin('motion', meta.get-mixin('motion'));
     @include meta.demo-mixin('no-motion', meta.get-mixin('no-motion'));

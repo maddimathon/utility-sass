@@ -16,12 +16,12 @@
     @include meta.demo-function(
         'colour.#{$name}',
         meta.get-function($name, $module: colour),
-        $args...
+        $args
     );
 }
 
 @mixin _demo-mixin($name, $args...) {
-    @include meta.demo-mixin('colour.#{$name}', meta.get-mixin($name, $module: colour), $args...) {
+    @include meta.demo-mixin('colour.#{$name}', meta.get-mixin($name, $module: colour), $args) {
         @content;
     }
 }
@@ -29,12 +29,12 @@
 /* # MODULES - COLOUR
  * ======================================================================== */
 
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), currentColor );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), inherit );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), transparent );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), ActiveText );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), red );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), rebeccapurple );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (currentColor) );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (inherit) );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (transparent) );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (ActiveText) );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (red) );
+// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (rebeccapurple) );
 
 /* ## Colour - Identifying ==================================== */
 

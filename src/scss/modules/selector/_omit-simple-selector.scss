@@ -1,0 +1,169 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:map';
+@use 'sass:selector';
+
+@use '../config';
+
+@use '../list';
+@use '../meta';
+@use '../string';
+
+@use 'includes';
+@use 'is-simple';
+@use 'replace-simple-selector';
+@use 'unify-all';
+
+///
+/// Removes all instances of a single simple selector $needle in the $haystack
+/// selector(s). If $needle is part of a complex selector, the remainder of that
+/// selector is still included in the returned selector(s).
+///
+/// @since ___PKG_VERSION___
+///
+@function omit-simple-selector($haystack, $needle, $useUniversalSelector: true) {
+    // returns
+    @if list.length($haystack) < 1 or list.length($needle) < 1 {
+        @return $haystack;
+    }
+
+    // returns
+    @if not is-simple.is-simple($needle) {
+        @warn #{meta.warning-message-bad-type(
+            $value: $needle,
+            $type: (list, string),
+            $varName: 'needle',
+            $mustBeMessage: 'must be a simple selector',
+        )};
+        @return $haystack;
+    }
+
+    // returns - no changes needed
+    @if not includes.includes($haystack, $needle) {
+        @return $haystack;
+    }
+
+    $haystack: selector.parse(#{$haystack});
+
+    $_removalSelector: '[REMOVE-THIS-SELECTOR-#{string.unique-id()}]';
+
+    $returnHaystack: ();
+
+    @each $haystack_single in if(list.separator($haystack) == comma, $haystack, ($haystack)) {
+        $_debug_vars: (
+            '$haystack': $haystack,
+            '$needle': $needle,
+            '$useUniversalSelector': $useUniversalSelector,
+            '$_removalSelector': $_removalSelector,
+            '$haystack_single': $haystack_single,
+        );
+
+        $_haystack_includes_needle: false;
+
+        @if includes.includes($haystack_single, $needle) {
+            $_debug_vars: map.set(
+                $_debug_vars,
+                'selector.includes( $needle, $haystack_single )',
+                true
+            );
+
+            $_replacement: ();
+
+            $i_0: 1;
+
+            $_tmp_replaced: replace-simple-selector.replace-simple-selector(
+                $haystack_single,
+                $needle,
+                $_removalSelector,
+                $preserveModifiers: true
+            );
+            $_tmp_replaced: selector.parse(#{$_tmp_replaced});
+
+            $_debug_vars: map.set($_debug_vars, '$_tmp_replaced', $_tmp_replaced);
+
+            @each $_tmp_replaced_single in $_tmp_replaced {
+                $i: 1;
+
+                $_debug_vars: map.set(
+                    $_debug_vars,
+                    'each replaced - #{$i_0}',
+                    (
+                        '$_tmp_replaced_single': $_tmp_replaced_single,
+                    )
+                );
+
+                @each $_tmp_replaced_single_level in $_tmp_replaced_single {
+                    $__replaced: unify-all.unify-all(
+                        list.except(
+                            selector.simple-selectors($_tmp_replaced_single_level),
+                            $_removalSelector
+                        ),
+                        $fallback_selector: ()
+                    );
+
+                    @if $useUniversalSelector {
+                        @if not meta.is-truthy($__replaced) {
+                            $__replaced: '*';
+                        }
+                    }
+
+                    $_debug_vars: map.set(
+                        $_debug_vars,
+                        'each simple - #{$i}',
+                        (
+                            '$_tmp_replaced_single_level': $_tmp_replaced_single_level,
+                            'selector.simple-selectors( $_tmp_replaced_single_level )':
+                                selector.simple-selectors($_tmp_replaced_single_level),
+                            // 'list.except( selector.simple-selectors( $__replaced ), $_removalSelector )': list.except( selector.simple-selectors( $__replaced ), $_removalSelector ),
+                            '$__replaced': $__replaced,
+                        )
+                    );
+
+                    @if meta.is-truthy($__replaced) {
+                        $_replacement: list.append($_replacement, $__replaced, $separator: space);
+                    }
+
+                    $i: 1 + $i;
+                }
+
+                $i_0: 1 + $i_0;
+            }
+
+            $_replacement: string.join(' ', $_replacement);
+
+            $_debug_vars: map.set($_debug_vars, '$_replacement', $_replacement);
+
+            @if meta.is-truthy($_replacement) {
+                $returnHaystack: list.append($returnHaystack, $_replacement, $separator: comma);
+            }
+        } @else {
+            $_debug_vars: map.set(
+                $_debug_vars,
+                'selector.includes( $needle, $haystack_single )',
+                false
+            );
+            $returnHaystack: list.append($returnHaystack, $haystack_single, $separator: comma);
+        }
+
+        // $_js: meta.js-var-dump($_debug_vars, 'omit-simple-selector - each');
+    }
+
+    // returns
+    @if list.length($returnHaystack) < 1 {
+        @return config.$selector_null;
+    }
+
+    @return selector.parse(#{$returnHaystack});
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin omit-simple-selector($needle, $parentSelector: &) {
+    @at-root #{omit-simple-selector($haystack: $parentSelector, $needle: $needle)} {
+        @content;
+    }
+}

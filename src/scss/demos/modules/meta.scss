@@ -48,6 +48,37 @@
     );
 }
 
+/* ## MODULES - META - demo-args-dump() ==================================== */
+
+$_fn_demo_args_dump: meta.get-function(demo-args-dump, $module: meta);
+
+@mixin _demo-demo-args-dump($args) {
+    @at-root & {
+        @media demo-args-dump {
+            @include meta.demo-function(demo-args-dump, $_fn_demo_args_dump, $args);
+        }
+    }
+}
+
+@media demo-args-dump {
+    @include meta.var-dump(
+        'meta.demo-args-dump( meta.arglist() )',
+        meta.demo-args-dump(meta.arglist())
+    );
+    @include meta.var-dump(
+        'meta.demo-args-dump( meta.arglist( one, two ) )',
+        meta.demo-args-dump(meta.arglist(one, two))
+    );
+    @include meta.var-dump(
+        'meta.demo-args-dump( meta.arglist( $param: one, $value: two ) )',
+        meta.demo-args-dump(meta.arglist($param: one, $value: two))
+    );
+    @include meta.var-dump(
+        'meta.demo-args-dump( meta.arglist( something, $param: one, $value: two ) )',
+        meta.demo-args-dump(meta.arglist(something, $param: one, $value: two))
+    );
+}
+
 /* ## MODULES - META - keywords-list() ==================================== */
 
 @media keywords-list {
@@ -78,20 +109,22 @@ $_truthyFalseyList: (
     true,
     false,
     null,
-    // meta.arglist(),
+    meta.arglist(),
     meta.arglist(one, two),
     meta.arglist(
         $param: one,
         $value: two,
     ),
-    // (),
+    (),
+    (''),
+    ('', ''),
     (list, list)
 );
 
 meta.is-truthy {
     @each $value in $_truthyFalseyList {
         @include meta.var-dump(
-            'meta.is-truthy#{meta.demo-args-dump($value)}',
+            'meta.is-truthy#{meta.demo-args-dump(meta.arglist($value))}',
             meta.is-truthy($value)
         );
     }
@@ -99,8 +132,31 @@ meta.is-truthy {
 
 /* ## MODULES - META - demo-mixin() ==================================== */
 
-demo-mixin {
-    @include meta.demo-mixin(motion, meta.get-mixin(motion, lib), $includeSelectors: true);
+$_demo_mixin: meta.get-mixin(demo-mixin, $module: meta);
+
+@mixin _demo-mixin($arglist, $args...) {
+    @at-root & {
+        @media demo-mixin {
+            @include meta.demo-mixin(
+                demo-mixin,
+                $_demo_mixin,
+                $arglist,
+                $signatureAtRoot: false,
+                $wrapOutput: true,
+                $args...
+            );
+        }
+    }
+}
+
+.parent {
+    @include _demo-mixin(
+        meta.arglist(snippet-focus-ring, meta.get-mixin(snippet-focus-ring, $module: lib))
+    );
+
+    @include _demo-mixin(
+        meta.arglist(prop-display, meta.get-mixin(prop-display, $module: lib), block)
+    );
 }
 
 /* ## MODULES - META - var-dump() ==================================== */

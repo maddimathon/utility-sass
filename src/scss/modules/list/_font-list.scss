@@ -4,8 +4,8 @@
 ///
 
 @use 'sass:list';
-@use 'sass:meta';
 
+@use '../meta';
 @use '../string';
 
 @use 'unique';
@@ -26,7 +26,7 @@
 
     // returns
     @if meta.type-of($fonts) != list {
-        @warn "[list.font-list] $fonts should be a list (was the #{meta.type-of($fonts)} #{$fonts})";
+        @warn #{meta.warning-message-bad-type( $value: $fonts, $type: list, $varName: 'fonts', $prefix: '[list.font-list] ' )};
         @return $fonts;
     }
 

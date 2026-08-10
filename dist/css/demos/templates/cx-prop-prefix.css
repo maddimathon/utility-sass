@@ -1663,7 +1663,7 @@ label {
     text-wrap: balance;
     color: var(--prefix-sys-clr-text, CanvasText);
 }
-label:has(> :where([type='checkbox'], [type='radio'])) {
+label:has(> input:where([type='checkbox'], [type='radio'])) {
     --prefix-display: grid;
     display: var(--prefix-display, grid);
     grid-template-columns: fit-content(0) 1fr;
@@ -1675,26 +1675,29 @@ label:has(> :where([type='checkbox'], [type='radio'])) {
     color: var(--prefix-sys-clr-text, CanvasText);
     cursor: pointer;
 }
-label:has(> [readonly]:where([type='checkbox'], [type='radio'])) {
+
+label:has(> input[readonly]:where([type='checkbox'], [type='radio'])) {
     cursor: auto;
 }
+
 label:has(
-    > [aria-disabled='true']:where([type='checkbox'], [type='radio']),
-    > [disabled]:where([type='checkbox'], [type='radio'])
+    > input[aria-disabled='true']:where([type='checkbox'], [type='radio']),
+    > input[disabled]:where([type='checkbox'], [type='radio'])
 ) {
     cursor: not-allowed;
 }
-label:has(> :where([type='checkbox'], [type='radio']))
-    + label:has(> :where([type='checkbox'], [type='radio'])) {
+
+label:has(> input:where([type='checkbox'], [type='radio']))
+    + label:has(> input:where([type='checkbox'], [type='radio'])) {
     margin-block-start: var(--prefix-mrg-firm-200, 0.5rem);
 }
-label:has(> :where([type='checkbox'], [type='radio'])) + input,
-label:has(> :where([type='checkbox'], [type='radio'])) + select,
-label:has(> :where([type='checkbox'], [type='radio'])) + textarea {
+label:has(> input:where([type='checkbox'], [type='radio']))
+    + :is(input, select, textarea) {
     margin-block-start: var(--prefix-mrg-firm-400, 1.25rem);
 }
-label > [type='checkbox'],
-label > [type='radio'] {
+
+label > input[type='checkbox'],
+label > input[type='radio'] {
     margin: 0;
 }
 

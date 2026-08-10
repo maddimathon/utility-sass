@@ -12,15 +12,23 @@
 
 @forward 'sass:meta';
 
+// available to everyone else
+@forward 'warnings';
+
+// no deps
 @forward 'arglist';
 @forward 'current-version';
-@forward 'demo';
 @forward 'global-compiler-fn';
 @forward 'keywords-list';
-@forward 'var-dump';
 
 // deps on keywords-list
 @forward 'is-truthy';
+
+// deps on is-truthy
+@forward 'var-dump';
+
+// deps on arglist, is-truthy, var-dump
+@forward 'demo';
 
 // deps on is-truthy, var-dump
 @forward 'js-var-dump';

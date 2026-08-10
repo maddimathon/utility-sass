@@ -4,7 +4,8 @@
 ///
 
 @use 'sass:list';
-@use 'sass:meta';
+
+@use '../meta';
 
 ///
 /// Compares items of a list and returns only those that match with
@@ -78,7 +79,7 @@
 
     // returns
     @if $_except_type != list and $_except_type != string {
-        @warn '[list.only-any] $only should be a list (was the #{meta.type-of($only)} #{$only}); else use list.only()';
+        @warn #{meta.warning-message-bad-type( $value: $only, $type: list, $varName: 'only', $prefix: '[list.only-any] ' )}#{'; else use list.only()'};
         @return $list;
     }
 

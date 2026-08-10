@@ -10,6 +10,7 @@
 
 @use 'number' as *;
 @use 'string' as *;
+@use 'warnings' as *;
 
 ///
 /// Validates the value of a config variable that should be a list of strings.
@@ -86,7 +87,7 @@
 
         // returns - value is not a selector
     } @else if meta.type-of($value) != list {
-        @warn "[config] $#{$varName} must be a list (was a #{meta.type-of($value)}: #{$value})";
+        @warn #{config-warning-message-bad-type( $value: $value, $type: list, $varName: $varName )};
         @return $default;
     }
 
@@ -201,7 +202,7 @@
 
         // returns - value is not a selector
     } @else if meta.type-of($value) != list {
-        @warn "[config] $#{$varName} must be a list (was a #{meta.type-of($value)}: #{$value})";
+        @warn #{config-warning-message-bad-type( $value: $value, $type: list, $varName: $varName )};
         @return $default;
     }
 
