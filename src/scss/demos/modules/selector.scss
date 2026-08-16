@@ -461,6 +461,78 @@ a.class-name[data-complex='selector']:focus {
     }
 }
 
+/* ## Modules - Selector - pop() ==================================== */
+
+$_pop_func: meta.get-function(pop, $module: selector);
+
+@mixin _pop-test($args...) {
+    @at-root & {
+        @media (function: pop) {
+            @include meta.demo-selector-function(
+                'selector.pop',
+                $_pop_func,
+                meta.arglist(&, $args...)
+            );
+        }
+    }
+}
+
+root body {
+    &,
+    & main {
+        #{selector-buttons-basic()},
+        p {
+            @include _pop-test;
+        }
+
+        a,
+        input {
+            @include _pop-test;
+        }
+    }
+}
+
+/* ## Modules - Selector - popped() ==================================== */
+
+$_pop_func: meta.get-function(popped, $module: selector);
+$_pop_mixin: meta.get-mixin(popped, $module: selector);
+
+@mixin _popped-test($args...) {
+    @at-root & {
+        @media (function: popped) {
+            @include meta.demo-selector-function(
+                'selector.popped',
+                $_pop_func,
+                meta.arglist(&, $args...)
+            );
+        }
+
+        @media (mixin: popped) {
+            @include meta.demo-mixin(
+                'selector.popped',
+                $_pop_mixin,
+                meta.arglist(&, $args...),
+                $signatureAtRoot: false
+            );
+        }
+    }
+}
+
+root body {
+    &,
+    & main {
+        #{selector-buttons-basic()},
+        p {
+            @include _popped-test;
+        }
+
+        a,
+        input {
+            @include _popped-test;
+        }
+    }
+}
+
 /* ## Modules - Selector - Root & Body Utilities ==================================== */
 
 @media at-root {

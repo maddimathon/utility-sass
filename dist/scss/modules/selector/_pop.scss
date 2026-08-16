@@ -1,0 +1,105 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:selector';
+
+@use '../config';
+
+@use '../list';
+
+@use 'parent-exists';
+
+///
+/// Returns the last selector(s) in space-separated selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function pop($selectors: (), $fallback_selector: config.$selector_null) {
+    $selectors: selector.parse(#{$selectors});
+
+    $listed: ();
+
+    @each $selector_single
+        in if(list.separator($selectors) == comma, $selectors, ($selectors))
+    {
+        $_last_item: list.nth($selector_single, list.length($selector_single));
+
+        $listed: list.append(
+            $listed,
+            if($_last_item == null, $selector_single, $_last_item),
+            $separator: comma
+        );
+    }
+
+    // returns
+    @if list.length($listed) < 1 {
+        @return $fallback_selector;
+    }
+
+    @return list.unique($listed);
+}
+
+///
+/// Returns the last selector(s) in space-separated selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function popped($selectors: (), $fallback_selector: config.$selector_null) {
+    $selectors: selector.parse(#{$selectors});
+
+    $listed: ();
+
+    @each $selector_single
+        in if(list.separator($selectors) == comma, $selectors, ($selectors))
+    {
+        $_list_length: list.length($selector_single);
+
+        @if $_list_length > 1 {
+            $_popped: ();
+
+            @for $_nth from 1 through ($_list_length - 1) {
+                $_popped: list.append(
+                    $_popped,
+                    list.nth($selector_single, $_nth),
+                    $separator: space
+                );
+            }
+
+            @if list.length($_popped) > 0 {
+                $listed: list.append($listed, $_popped, $separator: comma);
+            }
+        }
+    }
+
+    // returns
+    @if list.length($listed) < 1 {
+        @return $fallback_selector;
+    }
+
+    @return list.unique($listed);
+}
+
+///
+/// If the value returned by the popped function is an empty list, then the
+/// parent is considered to be at-root.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin popped($selectors: &, $args...) {
+    $popped: popped(
+        $selectors: $selectors,
+        $args...,
+    );
+
+    @if list.length($popped) < 1 {
+        @at-root {
+            @content;
+        }
+    } @else if parent-exists.parent-exists($popped) {
+        @at-root #{$popped} {
+            @content;
+        }
+    }
+}

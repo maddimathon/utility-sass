@@ -1932,6 +1932,140 @@ body button.button-secondary .second-child {
     }
 }
 
+/* ## Modules - Selector - pop() ==================================== */
+@media (function: pop) {
+    root body button,
+    root body [role='button'],
+    root body input[type='button'],
+    root body input[type='reset'],
+    root body input[type='submit'],
+    root body a[href].button,
+    root body p,
+    root body main button,
+    root body main [role='button'],
+    root body main input[type='button'],
+    root body main input[type='reset'],
+    root body main input[type='submit'],
+    root body main a[href].button,
+    root body main p {
+        /* 
+        selector.pop( & ) is a list:
+     */
+        /* 1: <S> button */
+        /* 2: <S> [role=button] */
+        /* 3: <S> input[type=button] */
+        /* 4: <S> input[type=reset] */
+        /* 5: <S> input[type=submit] */
+        /* 6: <S> a[href].button */
+        /* 7: <S> p */
+    }
+    button,
+    [role='button'],
+    input[type='button'],
+    input[type='reset'],
+    input[type='submit'],
+    a[href].button,
+    p {
+        /* resulting selectors */
+    }
+}
+
+@media (function: pop) {
+    root body a,
+    root body input,
+    root body main a,
+    root body main input {
+        /* 
+        selector.pop( & ) is a list:
+     */
+        /* 1: <S> a */
+        /* 2: <S> input */
+    }
+    a,
+    input {
+        /* resulting selectors */
+    }
+}
+
+/* ## Modules - Selector - popped() ==================================== */
+@media (function: popped) {
+    root body button,
+    root body [role='button'],
+    root body input[type='button'],
+    root body input[type='reset'],
+    root body input[type='submit'],
+    root body a[href].button,
+    root body p,
+    root body main button,
+    root body main [role='button'],
+    root body main input[type='button'],
+    root body main input[type='reset'],
+    root body main input[type='submit'],
+    root body main a[href].button,
+    root body main p {
+        /* 
+        selector.popped( & ) is a list:
+     */
+        /* 1: <()> ( <S> root <S> body ) */
+        /* 2: <()> ( <S> root <S> body <S> main ) */
+    }
+    root body,
+    root body main {
+        /* resulting selectors */
+    }
+}
+@media (mixin: popped) {
+    root body button,
+    root body [role='button'],
+    root body input[type='button'],
+    root body input[type='reset'],
+    root body input[type='submit'],
+    root body a[href].button,
+    root body p,
+    root body main button,
+    root body main [role='button'],
+    root body main input[type='button'],
+    root body main input[type='reset'],
+    root body main input[type='submit'],
+    root body main a[href].button,
+    root body main p {
+        /* @include selector.popped( & ) */
+    }
+    root body,
+    root body main {
+        /* @content; */
+    }
+}
+
+@media (function: popped) {
+    root body a,
+    root body input,
+    root body main a,
+    root body main input {
+        /* 
+        selector.popped( & ) is a list:
+     */
+        /* 1: <()> ( <S> root <S> body ) */
+        /* 2: <()> ( <S> root <S> body <S> main ) */
+    }
+    root body,
+    root body main {
+        /* resulting selectors */
+    }
+}
+@media (mixin: popped) {
+    root body a,
+    root body input,
+    root body main a,
+    root body main input {
+        /* @include selector.popped( & ) */
+    }
+    root body,
+    root body main {
+        /* @content; */
+    }
+}
+
 /* ## Modules - Selector - Root & Body Utilities ==================================== */
 @media at-root {
     /* 

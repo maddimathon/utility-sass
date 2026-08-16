@@ -18,7 +18,7 @@
 ///
 @function scroll-padding-top-value($margin: var-gap-block(layout), $navHeightFallback: 0) {
     // returns
-    @if meta.type-of(tokens.$page_top) == number and math.deunit(tokens.$page_top) != 0 {
+    @if (meta.type-of(tokens.$page_top) == number) and (math.deunit(tokens.$page_top) != 0) {
         @return calc(do-var(height-nav-primary, $navHeightFallback) + $margin + tokens.$page_top);
     }
 

@@ -55,6 +55,8 @@ selector.is-superselector-any(...); // added
 
 selector.merge(...); // added
 
+selector.pop(...); // added
+
 selector.only-superselector(...); // added
 selector.parent-only-superselector(...); // added
 
