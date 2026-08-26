@@ -90,6 +90,17 @@ feature-check.get-selector .aspectRatio--true.with-extra {
     /* @include feature-check.supports-not( atProperty ) */
 }
 
+/* backdropFilter ------------------ */
+@supports (backdrop-filter: blur(0.5rem)) {
+    :root {
+        /* @include feature-check.supports( backdropFilter ) */
+    }
+}
+@supports not (backdrop-filter: blur(0.5rem)) {
+    :root {
+        /* @include feature-check.supports-not( backdropFilter ) */
+    }
+}
 /* backgroundFixed ------------------ */
 @supports (background-attachment: fixed) {
     :root {

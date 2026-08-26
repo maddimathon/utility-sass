@@ -233,6 +233,7 @@ export class FeatureCheck<
         checks: {
             aspectRatio: true,
             atProperty: true,
+            backdropFilter: true,
             backgroundFixed: true,
             calc: true,
             displayContents: true,
@@ -250,6 +251,7 @@ export class FeatureCheck<
         const checks = {
             aspectRatio: true,
             atProperty: true,
+            backdropFilter: true,
             backgroundFixed: true,
             calc: true,
             displayContents: true,
@@ -522,6 +524,7 @@ export namespace FeatureCheck {
     export type DefaultCheckSlug =
         | "aspectRatio"
         | "atProperty"
+        | "backdropFilter"
         | "backgroundFixed"
         | "calc"
         | "displayContents"
@@ -663,6 +666,14 @@ export namespace FeatureCheck {
          * @source
          */
         atProperty: async (): Promise<boolean> => !!window.CSSPropertyRule,
+
+        /**
+         * Checks for `backdrop-filter: blur(0.5rem)` css rule support.
+         * 
+         * @experimental
+         * @source
+         */
+        backdropFilter: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'backdrop-filter: blur(0.5rem)' ),
 
         /**
          * Checks for `background-attachment: fixed` css rule support.

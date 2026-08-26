@@ -3,7 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
-// @use '../../../config';
+@use '../../../config';
 
 @use '../../../modules/meta';
 @use '../../../modules/selector';
@@ -29,7 +29,7 @@
     $nestParent: null,
     $unifyParent: null,
 
-    $includeQuery: true,
+    $includeQuery: config.$mx_motion_includeQuery,
     $includeSelectors: true,
 
     $parentSelectorExists: selector.parent-exists(),

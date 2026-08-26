@@ -6,6 +6,7 @@
 @forward '../config';
 @forward '../header';
 
+@use '../../modules/list';
 @use '../../modules/meta';
 
 @use '../../lib';
@@ -78,6 +79,33 @@ $_fn_demo_args_dump: meta.get-function(demo-args-dump, $module: meta);
         meta.demo-args-dump(meta.arglist(something, $param: one, $value: two))
     );
 }
+
+/* ## MODULES - META - docblock-printer() ==================================== */
+
+$_docblock_printer: meta.get-mixin('docblock-printer', $module: meta);
+
+@mixin _docblock-printer($args...) {
+    @media demo {
+        /* @include meta.docblock-printer#{meta.demo-args-dump($args)} */
+    }
+    @include meta.apply($_docblock_printer, $args...);
+}
+
+@include _docblock-printer('line # 1');
+
+@include _docblock-printer(('line # 1', 'line # 2', 'line # 3'));
+
+$_longerThanSupportedList: ();
+
+@for $i from 1 through 105 {
+    $_longerThanSupportedList: list.append(
+        $_longerThanSupportedList,
+        'line # #{$i}',
+        $separator: comma
+    );
+}
+
+@include _docblock-printer($_longerThanSupportedList);
 
 /* ## MODULES - META - keywords-list() ==================================== */
 

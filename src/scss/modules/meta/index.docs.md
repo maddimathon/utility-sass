@@ -15,6 +15,7 @@ meta.arglist(...); // added
 
 meta.current-version(...); // added
 
+meta.docblock-printer(...); // added
 meta.demo-args-dump(...); // added
 
 meta.call-global-compiler-fn(...); // added

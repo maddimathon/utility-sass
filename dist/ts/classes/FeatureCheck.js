@@ -140,6 +140,7 @@ export class FeatureCheck {
         const checks = {
             aspectRatio: true,
             atProperty: true,
+            backdropFilter: true,
             backgroundFixed: true,
             calc: true,
             displayContents: true,
@@ -332,6 +333,13 @@ _FeatureCheck_checkCache = new WeakMap();
          * @source
          */
         atProperty: async () => !!window.CSSPropertyRule,
+        /**
+         * Checks for `backdrop-filter: blur(0.5rem)` css rule support.
+         *
+         * @experimental
+         * @source
+         */
+        backdropFilter: async () => FeatureCheck.supportsCSS('backdrop-filter: blur(0.5rem)'),
         /**
          * Checks for `background-attachment: fixed` css rule support.
          *

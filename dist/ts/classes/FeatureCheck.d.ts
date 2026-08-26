@@ -75,6 +75,7 @@ T_CustomCheckerSlug extends string = string> {
         checks: {
             aspectRatio: true;
             atProperty: true;
+            backdropFilter: true;
             backgroundFixed: true;
             calc: true;
             displayContents: true;
@@ -200,7 +201,7 @@ export declare namespace FeatureCheck {
      *
      * @since 0.1.0-beta.0.draft Renamed from Checker to DefaultCheckSlug.
      */
-    type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid"
+    type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backdropFilter" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid"
     /**
      * Tries to detect if this device accepts touch input — this is useful
      * for increasing spacing for buttons and other click targets.
@@ -307,6 +308,13 @@ export declare namespace FeatureCheck {
          * @source
          */
         atProperty: () => Promise<boolean>;
+        /**
+         * Checks for `backdrop-filter: blur(0.5rem)` css rule support.
+         *
+         * @experimental
+         * @source
+         */
+        backdropFilter: () => Promise<boolean>;
         /**
          * Checks for `background-attachment: fixed` css rule support.
          *
