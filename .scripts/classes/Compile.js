@@ -49,7 +49,7 @@ export class Compile extends CompileStage {
          */
         const files = [];
 
-        const docblockHeaderFunctionMaximums = [ 15, 30, 45, 60, 80, 100, 125, 150, 175, 200 ];
+        const docblockHeaderFunctionMaximums = [ 15, 30, 45, 60, 80, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350 ];
         const docblockHeaderFunctionMaximums_max = Math.max( ...docblockHeaderFunctionMaximums );
 
         /**

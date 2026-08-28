@@ -32,17 +32,6 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
 ///
 /// @since ___PKG_VERSION___
 ///
-@function _custom-property--allPrefixes($slug, $allPrefixes) {
-    @if $allPrefixes == null {
-        $allPrefixes: list.index(config.$mx_customProperty_allPrefixesSlugs, $slug) != null;
-    }
-
-    @return $allPrefixes and $_allowAllPrefixes;
-}
-
-///
-/// @since ___PKG_VERSION___
-///
 @function _custom-property--value($value, $important, $quoteString) {
     @if $quoteString == null {
         $quoteString: string.is-quoted($value);
@@ -76,10 +65,11 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     $important: false,
     $quoteString: null
 ) {
-    $allPrefixes: _custom-property--allPrefixes(
-        $slug: $slug,
-        $allPrefixes: $allPrefixes,
-    );
+    @if $allPrefixes != false {
+        $allPrefixes: list.index(config.$mx_customProperty_allPrefixesSlugs, $slug) != null;
+    }
+    $allPrefixes: $allPrefixes and $_allowAllPrefixes;
+
     $value: _custom-property--value(
         $value: $value,
         $important: $important,
@@ -104,20 +94,31 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
 }
 
 ///
+/// @since ___PKG_VERSION___
+///
+@function _container-query-cx-prop--fallbackOnly($slug, $fallbackOnly) {
+    @if $fallbackOnly == null {
+        $fallbackOnly: list.index(config.$mx_customProperty_allPrefixesSlugs, $slug) == null;
+    }
+
+    @return $fallbackOnly or not $_allowAllPrefixes;
+}
+
+///
 /// Prints a container style query for the given custom property $slug, optionally by specifying a (single) $value.
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin container-query-style(
+@mixin container-query-cx-prop(
     $slug,
     $value: null,
-    $allPrefixes: true,
+    $fallbackOnly: false,
     $debug: false,
     $quoteString: null
 ) {
-    $allPrefixes: _custom-property--allPrefixes(
+    $fallbackOnly: _container-query-cx-prop--fallbackOnly(
+        $fallbackOnly: $fallbackOnly,
         $slug: $slug,
-        $allPrefixes: $allPrefixes,
     );
     $value: _custom-property--value(
         $value: $value,
@@ -126,15 +127,15 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     );
 
     $propNames: if(
-        $allPrefixes,
-        (#{config.$customPropertyPrefix_fallback}#{$slug}, #{config.$customPropertyPrefix}#{$slug}),
-        (#{$_cxPropPre}#{$slug})
+        $fallbackOnly,
+        (#{$_cxPropPre}#{$slug}),
+        (#{config.$customPropertyPrefix_fallback}#{$slug}, #{config.$customPropertyPrefix}#{$slug})
     );
 
     @if $debug {
         @include meta.var-dump('$slug', $slug);
         @include meta.var-dump('$value', $value);
-        @include meta.var-dump('$allPrefixes', $allPrefixes);
+        @include meta.var-dump('$fallbackOnly', $fallbackOnly);
         @include meta.var-dump('$_allowAllPrefixes', $_allowAllPrefixes);
         @include meta.var-dump('$quoteString', $quoteString);
         @include meta.var-dump('$propNames', $propNames);
@@ -163,17 +164,17 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin container-query-style-list(
+@mixin container-query-cx-prop-list(
     $slug,
     $values: null,
-    $allPrefixes: true,
+    $fallbackOnly: false,
     $debug: false,
     $joiner: 'or',
     $quoteString: null
 ) {
-    $allPrefixes: _custom-property--allPrefixes(
+    $fallbackOnly: _container-query-cx-prop--fallbackOnly(
+        $fallbackOnly: $fallbackOnly,
         $slug: $slug,
-        $allPrefixes: $allPrefixes,
     );
 
     @if $joiner != 'and' and $joiner != 'or' {
@@ -181,15 +182,15 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     }
 
     $propNames: if(
-        $allPrefixes,
-        (#{config.$customPropertyPrefix_fallback}#{$slug}, #{config.$customPropertyPrefix}#{$slug}),
-        (#{$_cxPropPre}#{$slug})
+        $fallbackOnly,
+        (#{$_cxPropPre}#{$slug}),
+        (#{config.$customPropertyPrefix_fallback}#{$slug}, #{config.$customPropertyPrefix}#{$slug})
     );
 
     @if $debug {
         @include meta.var-dump('$slug', $slug);
         @include meta.var-dump('$values', $values);
-        @include meta.var-dump('$allPrefixes', $allPrefixes);
+        @include meta.var-dump('$fallbackOnly', $fallbackOnly);
         @include meta.var-dump('$joiner', $joiner);
         @include meta.var-dump('$_allowAllPrefixes', $_allowAllPrefixes);
         @include meta.var-dump('$quoteString', $quoteString);
@@ -227,6 +228,85 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
                 list.length($_query) > 1,
                 'style(#{list.text-join($_query, " or ")})',
                 'style#{$_query}'
+            )
+        );
+    }
+
+    @if list.length($queryList) > 0 {
+        @container #{list.text-join($queryList, ' #{$joiner} ')} {
+            @content;
+        }
+    }
+}
+
+///
+/// Prints a container style query for the given custom property $slug, optionally by specifying a (single) $value.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin container-query-cx-prop-map(
+    $map,
+    $fallbackOnly: false,
+    $debug: false,
+    $joiner: 'or',
+    $quoteString: null
+) {
+    @if $joiner != 'and' and $joiner != 'or' {
+        $joiner: 'or';
+    }
+
+    @if $debug {
+        @include meta.var-dump('$joiner', $joiner);
+        @include meta.var-dump('$_allowAllPrefixes', $_allowAllPrefixes);
+        @include meta.var-dump('$quoteString', $quoteString);
+    }
+
+    $queryList: ();
+
+    @each $slug, $value in $map {
+        $fallbackOnly: _container-query-cx-prop--fallbackOnly(
+            $fallbackOnly: $fallbackOnly,
+            $slug: $slug,
+        );
+
+        $prefixes: if(
+            $fallbackOnly,
+            ($_cxPropPre),
+            (config.$customPropertyPrefix_fallback, config.$customPropertyPrefix)
+        );
+
+        $value: _custom-property--value(
+            $value: $value,
+            $important: false,
+            $quoteString: $quoteString,
+        );
+
+        @if $debug {
+            @include meta.var-dump('$prefixes', $prefixes);
+            @include meta.var-dump('$fallbackOnly', $fallbackOnly);
+            @include meta.var-dump('$slug', $slug);
+            @include meta.var-dump('$value', $value);
+        }
+
+        $_query: ();
+
+        @each $prefix in $prefixes {
+            @if $debug {
+                @include meta.var-dump('$prefix', $prefix);
+            }
+
+            $_query: list.append(
+                $_query,
+                if($value == null, '--#{$prefix}#{$slug}', '--#{$prefix}#{$slug}: #{$value}')
+            );
+        }
+
+        $queryList: list.append(
+            $queryList,
+            if(
+                list.length($_query) > 1,
+                'style((#{list.text-join($_query, ") or (")}))',
+                'style(#{$_query})'
             )
         );
     }

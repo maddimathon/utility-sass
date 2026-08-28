@@ -1,0 +1,212 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../../config' with (
+    $template_name: 'Utilities Mixin Demo' !default
+);
+@forward '../../header';
+
+// @use '../../config';
+
+@use '../../../modules/meta';
+
+@use '../../../lib' as *;
+
+/* # MIXINS - UTILITIES
+ * ======================================================================== */
+
+/* ## Mixin - container-query-cx-prop ==================================== */
+
+$_mx_container_query_style: meta.get-mixin('container-query-cx-prop');
+
+@mixin _demo-container-query-cx-prop($args...) {
+    query-style {
+        @include meta.demo-mixin('container-query-cx-prop', $_mx_container_query_style, $args);
+    }
+}
+
+@mixin _demo-container-query-cx-prop-all($slug, $value) {
+    @include _demo-container-query-cx-prop($slug, $value);
+    @include _demo-container-query-cx-prop($slug, $value, $quoteString: true);
+    @include _demo-container-query-cx-prop($slug, $value, $quoteString: false);
+    @include _demo-container-query-cx-prop($slug, $value, $fallbackOnly: false);
+    @include _demo-container-query-cx-prop($slug, $value, $fallbackOnly: false, $quoteString: true);
+    @include _demo-container-query-cx-prop($slug, $value, $fallbackOnly: true);
+    @include _demo-container-query-cx-prop($slug, $value, $fallbackOnly: true, $quoteString: true);
+}
+
+@include _demo-container-query-cx-prop('outline-width');
+@include _demo-container-query-cx-prop('outline-width', $fallbackOnly: true);
+
+@include _demo-container-query-cx-prop-all('colour', currentColor);
+
+/* ## Mixin - container-query-cx-prop-list ==================================== */
+
+$_mx_container_query_style_list: meta.get-mixin('container-query-cx-prop-list');
+
+@mixin _demo-container-query-cx-prop-list($args...) {
+    query-style-list {
+        @include meta.demo-mixin(
+            'container-query-cx-prop-list',
+            $_mx_container_query_style_list,
+            $args
+        );
+    }
+}
+
+@mixin _demo-container-query-cx-prop-list-all($slug, $values) {
+    @include _demo-container-query-cx-prop-list($slug, $values);
+
+    @include _demo-container-query-cx-prop-list($slug, $values, $quoteString: true);
+    @include _demo-container-query-cx-prop-list($slug, $values, $quoteString: false);
+    @include _demo-container-query-cx-prop-list($slug, $values, $fallbackOnly: false);
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $fallbackOnly: false,
+        $quoteString: true
+    );
+    @include _demo-container-query-cx-prop-list($slug, $values, $fallbackOnly: true);
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $fallbackOnly: true,
+        $quoteString: true
+    );
+
+    @include _demo-container-query-cx-prop-list($slug, $values, $quoteString: true, $joiner: 'and');
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $quoteString: false,
+        $joiner: 'and'
+    );
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $fallbackOnly: false,
+        $joiner: 'and'
+    );
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $fallbackOnly: false,
+        $quoteString: true,
+        $joiner: 'and'
+    );
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $fallbackOnly: true,
+        $joiner: 'and'
+    );
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $fallbackOnly: true,
+        $quoteString: true,
+        $joiner: 'and'
+    );
+
+    @include _demo-container-query-cx-prop-list($slug, $values, $quoteString: true, $joiner: 'or');
+    @include _demo-container-query-cx-prop-list($slug, $values, $quoteString: false, $joiner: 'or');
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $fallbackOnly: false,
+        $joiner: 'or'
+    );
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $fallbackOnly: false,
+        $quoteString: true,
+        $joiner: 'or'
+    );
+    @include _demo-container-query-cx-prop-list($slug, $values, $fallbackOnly: true, $joiner: 'or');
+    @include _demo-container-query-cx-prop-list(
+        $slug,
+        $values,
+        $fallbackOnly: true,
+        $quoteString: true,
+        $joiner: 'or'
+    );
+}
+
+@include _demo-container-query-cx-prop-list('outline-width');
+@include _demo-container-query-cx-prop-list('outline-width', $fallbackOnly: true);
+@include _demo-container-query-cx-prop-list('outline-width', ());
+
+@include _demo-container-query-cx-prop-list-all('colour', (currentColor, inherit));
+
+/* ## Mixin - container-query-cx-prop-map ==================================== */
+
+$_mx_container_query_style_list: meta.get-mixin('container-query-cx-prop-map');
+
+@mixin _demo-container-query-cx-prop-map($args...) {
+    query-style-map {
+        @include meta.demo-mixin(
+            'container-query-cx-prop-map',
+            $_mx_container_query_style_list,
+            $args
+        );
+    }
+}
+
+@mixin _demo-container-query-cx-prop-map-all($map) {
+    @include _demo-container-query-cx-prop-map($map);
+
+    @include _demo-container-query-cx-prop-map($map, $quoteString: true);
+    @include _demo-container-query-cx-prop-map($map, $quoteString: false);
+    @include _demo-container-query-cx-prop-map($map, $fallbackOnly: false);
+    @include _demo-container-query-cx-prop-map($map, $fallbackOnly: false, $quoteString: true);
+    @include _demo-container-query-cx-prop-map($map, $fallbackOnly: true);
+    @include _demo-container-query-cx-prop-map($map, $fallbackOnly: true, $quoteString: true);
+
+    @include _demo-container-query-cx-prop-map($map, $quoteString: true, $joiner: 'and');
+    @include _demo-container-query-cx-prop-map($map, $quoteString: false, $joiner: 'and');
+    @include _demo-container-query-cx-prop-map($map, $fallbackOnly: false, $joiner: 'and');
+    @include _demo-container-query-cx-prop-map(
+        $map,
+        $fallbackOnly: false,
+        $quoteString: true,
+        $joiner: 'and'
+    );
+    @include _demo-container-query-cx-prop-map($map, $fallbackOnly: true, $joiner: 'and');
+    @include _demo-container-query-cx-prop-map(
+        $map,
+        $fallbackOnly: true,
+        $quoteString: true,
+        $joiner: 'and'
+    );
+
+    @include _demo-container-query-cx-prop-map($map, $quoteString: true, $joiner: 'or');
+    @include _demo-container-query-cx-prop-map($map, $quoteString: false, $joiner: 'or');
+    @include _demo-container-query-cx-prop-map($map, $fallbackOnly: false, $joiner: 'or');
+    @include _demo-container-query-cx-prop-map(
+        $map,
+        $fallbackOnly: false,
+        $quoteString: true,
+        $joiner: 'or'
+    );
+    @include _demo-container-query-cx-prop-map($map, $fallbackOnly: true, $joiner: 'or');
+    @include _demo-container-query-cx-prop-map(
+        $map,
+        $fallbackOnly: true,
+        $quoteString: true,
+        $joiner: 'or'
+    );
+}
+
+@include _demo-container-query-cx-prop-map(('colour', 'outline-width'));
+@include _demo-container-query-cx-prop-map(('colour', 'outline-width'), $fallbackOnly: true);
+@include _demo-container-query-cx-prop-map(('colour', ('outline-width', 'red')));
+
+@include _demo-container-query-cx-prop-map-all(
+    (
+        'colour': 'red',
+        'outline-width': inherit,
+    )
+);
