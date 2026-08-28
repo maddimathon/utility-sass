@@ -33,11 +33,45 @@ $_allowAllPrefixes: (
     and (string.length(config.$customPropertyPrefix_fallback) > 0);
 
 ///
-/// Prints a custom property definition.
+/// @since 0.1.0-beta.0.draft
 ///
-/// @param {string} $slug
-/// @param {any} $value
-/// @param {?string} $comment
+@function _custom-property--allPrefixes($slug, $allPrefixes) {
+    @if $allPrefixes == null {
+        $allPrefixes: list.index(
+                config.$mx_customProperty_allPrefixesSlugs,
+                $slug
+            ) !=
+            null;
+    }
+
+    @return $allPrefixes and $_allowAllPrefixes;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function _custom-property--value($value, $important, $quoteString) {
+    @if $quoteString == null {
+        $quoteString: string.is-quoted($value);
+    }
+
+    @if meta.type-of($value) == string {
+        @if $quoteString {
+            $value: string.concat(('"', string.quote($value), '"'));
+        } @else {
+            $value: string.unquote($value);
+        }
+    }
+
+    @if $important {
+        $value: #{$value} !important;
+    }
+
+    @return $value;
+}
+
+///
+/// Prints a custom property definition.
 ///
 /// @since 0.1.0-beta.0.draft — Added optional $allPrefixes, $important, $quoteString params.
 ///
@@ -47,29 +81,19 @@ $_allowAllPrefixes: (
     $comment: null,
     $allPrefixes: null,
     $important: false,
-    $quoteString: string.is-quoted($value)
+    $quoteString: null
 ) {
-    @if meta.type-of($value) == string {
-        @if $quoteString {
-            $value: string.concat(('"', string.quote($value), '"'));
-        } @else {
-            $value: string.unquote($value);
-        }
-    }
+    $allPrefixes: _custom-property--allPrefixes(
+        $slug: $slug,
+        $allPrefixes: $allPrefixes,
+    );
+    $value: _custom-property--value(
+        $value: $value,
+        $important: $important,
+        $quoteString: $quoteString,
+    );
 
-    @if $allPrefixes != false {
-        $allPrefixes: list.index(
-                config.$mx_customProperty_allPrefixesSlugs,
-                $slug
-            ) !=
-            null;
-    }
-
-    @if $important {
-        $value: #{$value} !important;
-    }
-
-    @if $allPrefixes and $_allowAllPrefixes {
+    @if $allPrefixes {
         @if $comment {
             --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value}; /* #{$comment} */
             --#{config.$customPropertyPrefix}#{$slug}: #{$value}; /* #{$comment} */
@@ -82,6 +106,151 @@ $_allowAllPrefixes: (
             --#{$_cxPropPre}#{$slug}: #{$value}; /* #{$comment} */
         } @else {
             --#{$_cxPropPre}#{$slug}: #{$value};
+        }
+    }
+}
+
+///
+/// Prints a container style query for the given custom property $slug, optionally by specifying a (single) $value.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin container-query-style(
+    $slug,
+    $value: null,
+    $allPrefixes: true,
+    $debug: false,
+    $quoteString: null
+) {
+    $allPrefixes: _custom-property--allPrefixes(
+        $slug: $slug,
+        $allPrefixes: $allPrefixes,
+    );
+    $value: _custom-property--value(
+        $value: $value,
+        $important: false,
+        $quoteString: $quoteString,
+    );
+
+    $propNames: if(
+        $allPrefixes,
+        (
+            #{config.$customPropertyPrefix_fallback}#{$slug},
+            #{config.$customPropertyPrefix}#{$slug}
+        ),
+        (#{$_cxPropPre}#{$slug})
+    );
+
+    @if $debug {
+        @include meta.var-dump('$slug', $slug);
+        @include meta.var-dump('$value', $value);
+        @include meta.var-dump('$allPrefixes', $allPrefixes);
+        @include meta.var-dump('$_allowAllPrefixes', $_allowAllPrefixes);
+        @include meta.var-dump('$quoteString', $quoteString);
+        @include meta.var-dump('$propNames', $propNames);
+    }
+
+    $queryList: ();
+
+    @each $prop in $propNames {
+        @if $debug {
+            @include meta.var-dump('$prop', $prop);
+        }
+
+        $queryList: list.append(
+            $queryList,
+            if(
+                $value == null,
+                'style(--#{$prop})',
+                'style(--#{$prop}: #{$value})'
+            )
+        );
+    }
+
+    @container #{list.text-join($queryList, ' or ')} {
+        @content;
+    }
+}
+
+///
+/// Prints a container style query for the given custom property $slug, optionally by specifying a list of $values.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin container-query-style-list(
+    $slug,
+    $values: null,
+    $allPrefixes: true,
+    $debug: false,
+    $joiner: 'or',
+    $quoteString: null
+) {
+    $allPrefixes: _custom-property--allPrefixes(
+        $slug: $slug,
+        $allPrefixes: $allPrefixes,
+    );
+
+    @if $joiner != 'and' and $joiner != 'or' {
+        $joiner: 'or';
+    }
+
+    $propNames: if(
+        $allPrefixes,
+        (
+            #{config.$customPropertyPrefix_fallback}#{$slug},
+            #{config.$customPropertyPrefix}#{$slug}
+        ),
+        (#{$_cxPropPre}#{$slug})
+    );
+
+    @if $debug {
+        @include meta.var-dump('$slug', $slug);
+        @include meta.var-dump('$values', $values);
+        @include meta.var-dump('$allPrefixes', $allPrefixes);
+        @include meta.var-dump('$joiner', $joiner);
+        @include meta.var-dump('$_allowAllPrefixes', $_allowAllPrefixes);
+        @include meta.var-dump('$quoteString', $quoteString);
+        @include meta.var-dump('$propNames', $propNames);
+    }
+
+    $queryList: ();
+
+    @each $value in $values {
+        $value: _custom-property--value(
+            $value: $value,
+            $important: false,
+            $quoteString: $quoteString,
+        );
+        @if $debug {
+            @include meta.var-dump('$value', $value);
+        }
+
+        $_query: ();
+
+        @each $prop in $propNames {
+            @if $debug {
+                @include meta.var-dump('$prop', $prop);
+            }
+
+            $_query: list.append(
+                $_query,
+                if($value == null, '(--#{$prop})', '(--#{$prop}: #{$value})')
+            );
+        }
+
+        $queryList: list.append(
+            $queryList,
+            if(
+                list.length($_query) > 1,
+                'style(#{list.text-join($_query, " or ")})',
+                'style#{$_query}'
+            )
+        );
+    }
+
+    @if list.length($queryList) > 0 {
+        @container #{list.text-join($queryList, ' #{$joiner} ')} {
+            @content;
         }
     }
 }

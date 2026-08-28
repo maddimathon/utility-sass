@@ -41,7 +41,7 @@ export function sassFn_string_softWrap(): {
 
                     return new sass.SassList(
                         Immutable.List(
-                            softWrapText( string, width ).split( /\n/g ).map(
+                            softWrapText( string, width ?? 80 ).split( /\n/g ).map(
                                 str => new sass.SassString( str )
                             )
                         )

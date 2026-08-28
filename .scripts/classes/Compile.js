@@ -49,19 +49,39 @@ export class Compile extends CompileStage {
          */
         const files = [];
 
+        const docblockHeaderFunctionMaximums = [ 15, 30, 45, 60, 80, 100, 125, 150, 175, 200 ];
+        const docblockHeaderFunctionMaximums_max = Math.max( ...docblockHeaderFunctionMaximums );
+
         /**
          * @type {string[]}
          */
         const docblockPrinterFileContent = [
             '@use "sass:list";',
             '',
+            `$docblock_maxLines: ${ docblockHeaderFunctionMaximums_max };`,
+            '',
         ];
 
-        const docblockHeaderFunctionMaximums = [ 15, 30, 45, 60, 80, 100 ];
-        const docblockHeaderFunctionMaximums_max = Math.max( ...docblockHeaderFunctionMaximums );
+        const docblockFunctionParams = [
+            '',
+            '    $joiner,',
+            '    $lines,',
+            '    $linesListLength,',
+            '    $secondChar,',
+            '    $secondChar_first,',
+            '',
+        ].join( '\n' );
 
-        const docblockFunctionParams = '$joiner, $lines, $linesListLength, $secondChar';
-        const docblockFunctionParams_withDefaults = '$lines, $joiner: " / ", $resistMinimize: false';
+        const docblockFunctionParams_withDefaults = [
+            '',
+            '    $lines,',
+            '    $joiner: " / ",',
+            '    $asComment: false,',
+            '    $resistMinimize: false,',
+            '',
+        ].join( '\n' );
+
+        const commentIndent = ' '.repeat( 8 );
 
         let lastMax = 1;
 
@@ -78,9 +98,9 @@ export class Compile extends CompileStage {
 
                 innerFunction.push(
                     `    ${ _ifStatement } $linesListLength <= ${ numOfLines } {`,
-                    '        /*#{$secondChar}',
-                    ...Array.from( { length: numOfLines }, ( _, line ) => `         * #{list.nth( $lines, ${ line + 1 } )}` ),
-                    '         */',
+                    commentIndent + '/*#{$secondChar_first}',
+                    ...Array.from( { length: numOfLines }, ( _, line ) => commentIndent + ` #{$secondChar}#{list.nth( $lines, ${ line + 1 } )}` ),
+                    commentIndent + ' */',
                 );
             }
 
@@ -100,10 +120,10 @@ export class Compile extends CompileStage {
                 '            }',
                 '        }',
                 '',
-                '        /*#{$secondChar}',
-                ...Array.from( { length: maximumLines }, ( _, line ) => `         * #{list.nth( $lines, ${ line + 1 } )}` ),
-                `         * #{$_lastLine}`,
-                '         */',
+                commentIndent + '/*#{$secondChar_first}',
+                ...Array.from( { length: maximumLines }, ( _, line ) => commentIndent + ` #{$secondChar}#{list.nth( $lines, ${ line + 1 } )}` ),
+                commentIndent + ' #{$secondChar}#{$_lastLine}',
+                commentIndent + ' */',
                 '    }',
             );
 
@@ -113,7 +133,7 @@ export class Compile extends CompileStage {
                 '///',
                 '/// @since ___PKG_VERSION___',
                 '///',
-                `@mixin _docblock-printer--max-${ maximumLines }( ${ docblockFunctionParams } ) {`,
+                `@mixin _docblock-printer--max-${ maximumLines }(${ docblockFunctionParams }) {`,
                 ...innerFunction,
                 '}',
                 '',
@@ -129,9 +149,10 @@ export class Compile extends CompileStage {
             '///',
             '/// @since ___PKG_VERSION___',
             '///',
-            `@mixin docblock-printer( ${ docblockFunctionParams_withDefaults } ) {`,
+            `@mixin docblock-printer(${ docblockFunctionParams_withDefaults }) {`,
             '    $linesListLength: list.length($lines);',
-            '    $secondChar: if( $resistMinimize, "!", "*" );',
+            '    $secondChar: if( $asComment, " ", "* " );',
+            '    $secondChar_first: if( $resistMinimize, "!", if( $asComment, "", "*" ) );',
             '',
             '    @if $linesListLength <= 0 {',
             '        // do nothing',
@@ -143,6 +164,7 @@ export class Compile extends CompileStage {
                         '            $lines: $lines,',
                         '            $linesListLength: $linesListLength,',
                         '            $secondChar: $secondChar,',
+                        '            $secondChar_first: $secondChar_first,',
                         '        );',
                     ];
 

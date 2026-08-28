@@ -41,8 +41,11 @@ $isTemplate: null !default;
 $isTemplate: config-valid-bool($isTemplate, 'isTemplate', $default: false);
 
 ///
-/// Removes the 'these styles include utility-sass' comment (for use internally
-/// only).
+/// Removes the 'these styles include ...' comment being included automatically
+/// (for use internally only).
+///
+/// If you set this to false, you must @include the notice mixin near the
+/// beginning of your stylesheet (before any rules, but can be after docblocks).
 ///
 /// @since 0.1.0-pre.0
 /// @internal

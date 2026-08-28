@@ -10,6 +10,7 @@
 
 @use '../../modules/list';
 @use '../../modules/map';
+@use '../../modules/meta';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
@@ -102,15 +103,20 @@
 
     /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
     #{config.$selector_root} {
-        /* font-family:
-            system-ui,
-            'Segoe UI',
-            Roboto,
-            Helvetica,
-            Arial,
-            sans-serif,
-            'Apple Color Emoji',
-            'Segoe UI Emoji'; */
+        @include meta.docblock-printer(
+            (
+                'font-family:',
+                'system-ui,',
+                '"Segoe UI",',
+                'Roboto,',
+                'Helvetica,',
+                'Arial,',
+                'sans-serif,',
+                '"Apple Color Emoji",',
+                '"Segoe UI Emoji";'
+            ),
+            $asComment: true
+        );
         line-height: 1.15; /* 1. Correct the line height in all browsers. */
         -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
         tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
@@ -130,22 +136,30 @@
         font-weight: bolder;
     }
 
-    /*
-       1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
-       2. Correct the odd 'em' font sizing in all browsers.
-     */
+    @include meta.docblock-printer(
+        (
+            '1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)',
+            "2. Correct the odd 'em' font sizing in all browsers."
+        ),
+        $asComment: true
+    );
 
     code,
     kbd,
     samp,
     pre {
-        /* font-family:
-            ui-monospace,
-            SFMono-Regular,
-            Consolas,
-            'Liberation Mono',
-            Menlo,
-            monospace; */ /* 1 */
+        @include meta.docblock-printer(
+            (
+                'font-family:',
+                'ui-monospace,',
+                'SFMono-Regular,',
+                'Consolas,',
+                "'Liberation Mono',",
+                'Menlo,',
+                'monospace; /* 1 * /'
+            ),
+            $asComment: true
+        );
         font-size: 1em; /* 2 */
     }
 
@@ -180,10 +194,13 @@
 
     /* Normalize - Forms ==================================== */
 
-    /*
-       1. Change the font styles in all browsers.
-       2. Remove the margin in Firefox and Safari.
-     */
+    @include meta.docblock-printer(
+        (
+            '1. Change the font styles in all browsers.',
+            '2. Remove the margin in Firefox and Safari.'
+        ),
+        $asComment: true
+    );
     button,
     input,
     optgroup,
@@ -220,10 +237,13 @@
         height: auto;
     }
 
-    /*
-       1. Correct the odd appearance in Chrome and Safari.
-       2. Correct the outline style in Safari.
-     */
+    @include meta.docblock-printer(
+        (
+            '1. Correct the odd appearance in Chrome and Safari.',
+            '2. Correct the outline style in Safari.'
+        ),
+        $asComment: true
+    );
     [type='search'] {
         -webkit-appearance: textfield; /* 1 */
         outline-offset: -2px; /* 2 */
@@ -234,10 +254,13 @@
         -webkit-appearance: none;
     }
 
-    /*
-       1. Correct the inability to style clickable types in iOS and Safari.
-       2. Change font properties to 'inherit' in Safari.
-     */
+    @include meta.docblock-printer(
+        (
+            '1. Correct the inability to style clickable types in iOS and Safari.',
+            '2. Change font properties to ' inherit ' in Safari.'
+        ),
+        $asComment: true
+    );
     ::-webkit-file-upload-button {
         -webkit-appearance: button; /* 1 */
         font: inherit; /* 2 */

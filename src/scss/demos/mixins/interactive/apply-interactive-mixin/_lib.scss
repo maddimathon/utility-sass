@@ -235,7 +235,7 @@ $interactive_paramPermutations: (
         @if $multipleContentBlocks {
             @include apply-interactive-mixin($multipleContentBlocks: true, $_trueArgsList...) using
                 ($location) {
-                /* content ( #{$location} ) */
+                /* @content ( #{$location} ); */
 
                 @if $debug {
                     @include meta.var-dump('&', &);
@@ -244,7 +244,7 @@ $interactive_paramPermutations: (
             }
         } @else {
             @include apply-interactive-mixin($multipleContentBlocks: false, $_trueArgsList...) {
-                /* content */
+                /* @content; */
 
                 @if $debug {
                     @include meta.var-dump('&', &);

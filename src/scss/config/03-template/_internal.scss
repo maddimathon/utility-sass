@@ -14,18 +14,6 @@ $template_name: null !default;
 $template_name: config-valid-string($template_name, 'template_name', $default: 'Default') !default;
 
 ///
-/// Supports a string or a list of strings up to 4 items long.
-///
-/// @since ___PKG_VERSION___
-///
-$template_softWrap_description: null !default;
-$template_softWrap_description: config-valid-bool(
-    $template_softWrap_description,
-    'template_softWrap_description',
-    $default: false
-) !default;
-
-///
 /// Supports a string or a list of strings up to 6 lines long.
 ///
 /// @since ___PKG_VERSION___
@@ -36,10 +24,6 @@ $template_description: config-valid-string(
     'template_description',
     $default: ''
 ) !default;
-
-@if $template_softWrap_description {
-    $template_description: string.soft-wrap($template_description, 77);
-}
 
 ///
 /// @since ___PKG_VERSION___

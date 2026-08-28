@@ -34,6 +34,7 @@ $_path_template: if(
     $libraryName,
     $author: false,
     $client: false,
+    $description: true,
     $license: false,
     $path: false,
     $title: false,
@@ -69,21 +70,16 @@ $_path_template: if(
     }
 
     // add description lines
-    @if string.length(#{config.$template_description}) > 0 {
-        $all_lines: list.append($all_lines, '');
+    @if $description {
+        @if meta.is-truthy(config.$template_description) {
+            $all_lines: list.append($all_lines, '');
 
-        @if list.length(config.$template_description) <= 6 {
-            $all_lines: list.join($all_lines, config.$template_description);
-        } @else {
-            // turn all lines after 5 into a single line
             $all_lines: list.join(
                 $all_lines,
-                list.join(
-                    list.split(config.$template_description, 1, 6),
-                    list.text-join(
-                        list.split(config.$template_description, 6),
-                        ' '
-                    )
+                if(
+                    list.length(config.$template_description) > 1,
+                    config.$template_description,
+                    string.soft-wrap(#{config.$template_description}, 77)
                 )
             );
         }

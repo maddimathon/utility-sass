@@ -18,18 +18,6 @@ $template_name: config-valid-string(
 ) !default;
 
 ///
-/// Supports a string or a list of strings up to 4 items long.
-///
-/// @since 0.1.0-beta.0.draft
-///
-$template_softWrap_description: null !default;
-$template_softWrap_description: config-valid-bool(
-    $template_softWrap_description,
-    'template_softWrap_description',
-    $default: false
-) !default;
-
-///
 /// Supports a string or a list of strings up to 6 lines long.
 ///
 /// @since 0.1.0-beta.0.draft
@@ -40,10 +28,6 @@ $template_description: config-valid-string(
     'template_description',
     $default: ''
 ) !default;
-
-@if $template_softWrap_description {
-    $template_description: string.soft-wrap($template_description, 77);
-}
 
 ///
 /// @since 0.1.0-beta.0.draft

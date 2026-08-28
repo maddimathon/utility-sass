@@ -8,6 +8,7 @@
 @use 'sass:meta';
 @use 'sass:string';
 
+@use 'docblock-printer';
 @use 'is-truthy';
 
 $_varType_abbreviations: (
@@ -315,16 +316,16 @@ $_varType_abbreviations: (
 
     @if not $doMultilineOutput {
         /* 
-            #{$name} = #{var-dump($var, $args...)}
+          #{$name} = #{var-dump($var, $args...)}
          */
     } @else {
         // UPGRADE - add option to output wrapped in a media query
         // @media var-dump and ( var: '#{$name}' ) and ( type: '#{$typeOf}' ) {
         // }
 
-        /* 
-            #{$name} is a #{$typeOf}:
-         */
+        $_first_line: '#{$name} is a #{$typeOf}:';
+
+        $lines: ('#{$name} is a #{$typeOf}:');
 
         @if $typeOf == map {
             @each $_key, $_val in $var {
@@ -336,15 +337,35 @@ $_varType_abbreviations: (
                     string.unquote(#{$_key})
                 );
 
-                /* #{$_keyDisplay}: #{var-dump($_val, $args...)} */
+                $lines: list.append(
+                    $lines,
+                    '#{$_keyDisplay}: #{var-dump($_val, $args...)}'
+                );
             }
         } @else {
             $i: 1;
 
             @each $_val in $var {
-                /* #{$i}: #{var-dump($_val, $args...)} */
+                $lines: list.append(
+                    $lines,
+                    '#{$i}: #{var-dump($_val, $args...)}'
+                );
 
                 $i: $i + 1;
+            }
+        }
+
+        @if list.length($lines) <= docblock-printer.$docblock_maxLines {
+            @include docblock-printer.docblock-printer(
+                $lines,
+                $asComment: true
+            );
+        } @else {
+            /* 
+                #{$_first_line}
+             */
+            @each $line in $lines {
+                /* #{$line} */
             }
         }
     }

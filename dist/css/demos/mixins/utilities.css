@@ -1,0 +1,228 @@
+@charset "UTF-8";
+/*!
+ * Utility Sass - Demo - Utilities Mixin Demo (with all custom prop prefixes)
+ * 
+ * This is a demo stylesheet with a custom property prefix and a fallback prefix
+ * set in the config (i.e. — $customPropertyPrefix: "prefix-",
+ * $customPropertyPrefix_fallback: "fallback-").
+ * 
+ * https://maddimathon.github.io/utility-sass
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
+ */
+/* # MIXINS - UTILITIES
+ * ======================================================================== */
+/* ## Mixin - container-query-style ==================================== */
+/* @include container-query-style( "outline-width" ) */
+@container style(--fallback-outline-width) or style(--prefix-outline-width) {
+    query-style {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style( "outline-width", $allPrefixes: false ) */
+@container style(--fallback-outline-width) {
+    query-style {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style( "colour", currentColor ) */
+@container style(--fallback-colour: currentColor) or style(--prefix-colour: currentColor) {
+    query-style {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style( "colour", currentColor, $quoteString: true ) */
+@container style(--fallback-colour: "currentColor") or style(--prefix-colour: "currentColor") {
+    query-style {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style( "colour", currentColor, $quoteString: false ) */
+@container style(--fallback-colour: currentColor) or style(--prefix-colour: currentColor) {
+    query-style {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style( "colour", currentColor, $allPrefixes: true ) */
+@container style(--fallback-colour: currentColor) or style(--prefix-colour: currentColor) {
+    query-style {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style( "colour", currentColor, $allPrefixes: true, $quoteString: true ) */
+@container style(--fallback-colour: "currentColor") or style(--prefix-colour: "currentColor") {
+    query-style {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style( "colour", currentColor, $allPrefixes: false ) */
+@container style(--fallback-colour: currentColor) {
+    query-style {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style( "colour", currentColor, $allPrefixes: false, $quoteString: true ) */
+@container style(--fallback-colour: "currentColor") {
+    query-style {
+        /* @content; */
+    }
+}
+
+/* ## Mixin - container-query-style-list ==================================== */
+/* @include container-query-style-list( "outline-width" ) */
+@container style((--fallback-outline-width) or (--prefix-outline-width)) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "outline-width", $allPrefixes: false ) */
+@container style(--fallback-outline-width) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "outline-width", ( () ) ) */
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ) ) */
+@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $quoteString: true ) */
+@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $quoteString: false ) */
+@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: true ) */
+@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: true, $quoteString: true ) */
+@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: false ) */
+@container style(--fallback-colour: currentColor) or style(--fallback-colour: inherit) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: false, $quoteString: true ) */
+@container style(--fallback-colour: "currentColor") or style(--fallback-colour: "inherit") {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $quoteString: true, $joiner: "and" ) */
+@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) and style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $quoteString: false, $joiner: "and" ) */
+@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) and style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: true, $joiner: "and" ) */
+@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) and style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: true, $quoteString: true, $joiner: "and" ) */
+@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) and style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: false, $joiner: "and" ) */
+@container style(--fallback-colour: currentColor) and style(--fallback-colour: inherit) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: false, $quoteString: true, $joiner: "and" ) */
+@container style(--fallback-colour: "currentColor") and style(--fallback-colour: "inherit") {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $quoteString: true, $joiner: "or" ) */
+@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $quoteString: false, $joiner: "or" ) */
+@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: true, $joiner: "or" ) */
+@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: true, $quoteString: true, $joiner: "or" ) */
+@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: false, $joiner: "or" ) */
+@container style(--fallback-colour: currentColor) or style(--fallback-colour: inherit) {
+    query-style-list {
+        /* @content; */
+    }
+}
+
+/* @include container-query-style-list( "colour", ( currentColor, inherit ), $allPrefixes: false, $quoteString: true, $joiner: "or" ) */
+@container style(--fallback-colour: "currentColor") or style(--fallback-colour: "inherit") {
+    query-style-list {
+        /* @content; */
+    }
+}

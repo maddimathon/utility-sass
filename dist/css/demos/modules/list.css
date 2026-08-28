@@ -12,320 +12,320 @@
 /* # MODULES - LIST
  * ======================================================================== */
 list.flatten {
-    /* 
-      $list is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <()> ( <S> A, <S> B, <S> C, <()> ( <S> yet <S> another <S> list ), <S> B ) */
-    /* 
-      list.flatten( $list ) is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
+    /*
+        $list is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <()> ( <S> A, <S> B, <S> C, <()> ( <S> yet <S> another <S> list ), <S> B )
+     */
+    /*
+        list.flatten( $list ) is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
 }
 
 list.except {
-    /* 
-      $list is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
-    /* 
-      list.except( $list, one ) is a list:
-   */
-    /* 1: <S> two */
-    /* 2: <S> two */
-    /* 3: <S> A */
-    /* 4: <S> B */
-    /* 5: <S> C */
-    /* 6: <S> yet */
-    /* 7: <S> another */
-    /* 8: <S> list */
-    /* 9: <S> B */
-    /* 
-      list.except( $list, C ) is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> yet */
-    /* 8: <S> another */
-    /* 9: <S> list */
-    /* 10: <S> B */
+    /*
+        $list is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
+    /*
+        list.except( $list, one ) is a list:
+        1: <S> two
+        2: <S> two
+        3: <S> A
+        4: <S> B
+        5: <S> C
+        6: <S> yet
+        7: <S> another
+        8: <S> list
+        9: <S> B
+     */
+    /*
+        list.except( $list, C ) is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> yet
+        8: <S> another
+        9: <S> list
+        10: <S> B
+     */
 }
 
 list.except-any {
-    /* 
-      $list is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
-    /* 
-      list.except-any( $list, (one, B) ) is a list:
-   */
-    /* 1: <S> two */
-    /* 2: <S> two */
-    /* 3: <S> A */
-    /* 4: <S> C */
-    /* 5: <S> yet */
-    /* 6: <S> another */
-    /* 7: <S> list */
-    /* 
-      list.except-any( $list, (C, two) ) is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> one */
-    /* 3: <S> A */
-    /* 4: <S> B */
-    /* 5: <S> yet */
-    /* 6: <S> another */
-    /* 7: <S> list */
-    /* 8: <S> B */
+    /*
+        $list is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
+    /*
+        list.except-any( $list, (one, B) ) is a list:
+        1: <S> two
+        2: <S> two
+        3: <S> A
+        4: <S> C
+        5: <S> yet
+        6: <S> another
+        7: <S> list
+     */
+    /*
+        list.except-any( $list, (C, two) ) is a list:
+        1: <S> one
+        2: <S> one
+        3: <S> A
+        4: <S> B
+        5: <S> yet
+        6: <S> another
+        7: <S> list
+        8: <S> B
+     */
 }
 
 list.only {
-    /* 
-      $list is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
-    /* 
-      list.only( $list, one ) is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> one */
+    /*
+        $list is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
+    /*
+        list.only( $list, one ) is a list:
+        1: <S> one
+        2: <S> one
+     */
 }
 
 list.only-any {
-    /* 
-      $list is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
-    /* 
-      list.only-any( $list, (one, B) ) is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> one */
-    /* 3: <S> B */
-    /* 4: <S> B */
-    /* 
-      list.only-any( $list, (C, two) ) is a list:
-   */
-    /* 1: <S> two */
-    /* 2: <S> two */
-    /* 3: <S> C */
+    /*
+        $list is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
+    /*
+        list.only-any( $list, (one, B) ) is a list:
+        1: <S> one
+        2: <S> one
+        3: <S> B
+        4: <S> B
+     */
+    /*
+        list.only-any( $list, (C, two) ) is a list:
+        1: <S> two
+        2: <S> two
+        3: <S> C
+     */
 }
 
 list.slice {
-    /* 
-      $list is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
-    /* 
-      list.slice( $list ) is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
-    /* 
-      list.slice( $list, 1, 6 ) is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 
-      list.slice( $list, 6 ) is a list:
-   */
-    /* 1: <S> B */
-    /* 2: <S> C */
-    /* 3: <S> yet */
-    /* 4: <S> another */
-    /* 5: <S> list */
-    /* 6: <S> B */
-    /* 
-      list.slice( $list, 2 ) is a list:
-   */
-    /* 1: <S> two */
-    /* 2: <S> two */
-    /* 3: <S> one */
-    /* 4: <S> A */
-    /* 5: <S> B */
-    /* 6: <S> C */
-    /* 7: <S> yet */
-    /* 8: <S> another */
-    /* 9: <S> list */
-    /* 10: <S> B */
-    /* 
-      list.slice( $list, 2, 6 ) is a list:
-   */
-    /* 1: <S> two */
-    /* 2: <S> two */
-    /* 3: <S> one */
-    /* 4: <S> A */
-    /* 
-      list.slice( $list, 2, -4 ) is a list:
-   */
-    /* 1: <S> two */
-    /* 2: <S> two */
-    /* 3: <S> one */
-    /* 4: <S> A */
-    /* 5: <S> B */
-    /* 6: <S> C */
+    /*
+        $list is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
+    /*
+        list.slice( $list ) is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
+    /*
+        list.slice( $list, 1, 6 ) is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+     */
+    /*
+        list.slice( $list, 6 ) is a list:
+        1: <S> B
+        2: <S> C
+        3: <S> yet
+        4: <S> another
+        5: <S> list
+        6: <S> B
+     */
+    /*
+        list.slice( $list, 2 ) is a list:
+        1: <S> two
+        2: <S> two
+        3: <S> one
+        4: <S> A
+        5: <S> B
+        6: <S> C
+        7: <S> yet
+        8: <S> another
+        9: <S> list
+        10: <S> B
+     */
+    /*
+        list.slice( $list, 2, 6 ) is a list:
+        1: <S> two
+        2: <S> two
+        3: <S> one
+        4: <S> A
+     */
+    /*
+        list.slice( $list, 2, -4 ) is a list:
+        1: <S> two
+        2: <S> two
+        3: <S> one
+        4: <S> A
+        5: <S> B
+        6: <S> C
+     */
 }
 
 list.sort {
-    /* 
-      $list is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
-    /* 
-      list.sort( $list ) is a list:
-   */
-    /* 1: <S> A */
-    /* 2: <S> another */
-    /* 3: <S> B */
-    /* 4: <S> B */
-    /* 5: <S> C */
-    /* 6: <S> list */
-    /* 7: <S> one */
-    /* 8: <S> one */
-    /* 9: <S> two */
-    /* 10: <S> two */
-    /* 11: <S> yet */
+    /*
+        $list is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
+    /*
+        list.sort( $list ) is a list:
+        1: <S> A
+        2: <S> another
+        3: <S> B
+        4: <S> B
+        5: <S> C
+        6: <S> list
+        7: <S> one
+        8: <S> one
+        9: <S> two
+        10: <S> two
+        11: <S> yet
+     */
 }
 
 list.text-join {
+    /*
+        $list is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
     /* 
-      $list is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
+        list.text-join( $list ) = <S> "one, two, two, one, A, B, C, yet, another, list, B"
+     */
     /* 
-      list.text-join( $list ) = <S> "one, two, two, one, A, B, C, yet, another, list, B"
-   */
+        list.text-join( $list, " - " ) = <S> "one - two - two - one - A - B - C - yet - another - list - B"
+     */
     /* 
-      list.text-join( $list, " - " ) = <S> "one - two - two - one - A - B - C - yet - another - list - B"
-   */
-    /* 
-      list.text-join( $list, " | " ) = <S> "one | two | two | one | A | B | C | yet | another | list | B"
-   */
+        list.text-join( $list, " | " ) = <S> "one | two | two | one | A | B | C | yet | another | list | B"
+     */
 }
 
 list.unique {
-    /* 
-      $list is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> two */
-    /* 4: <S> one */
-    /* 5: <S> A */
-    /* 6: <S> B */
-    /* 7: <S> C */
-    /* 8: <S> yet */
-    /* 9: <S> another */
-    /* 10: <S> list */
-    /* 11: <S> B */
-    /* 
-      list.unique( $list ) is a list:
-   */
-    /* 1: <S> one */
-    /* 2: <S> two */
-    /* 3: <S> A */
-    /* 4: <S> B */
-    /* 5: <S> C */
-    /* 6: <S> yet */
-    /* 7: <S> another */
-    /* 8: <S> list */
+    /*
+        $list is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> two
+        4: <S> one
+        5: <S> A
+        6: <S> B
+        7: <S> C
+        8: <S> yet
+        9: <S> another
+        10: <S> list
+        11: <S> B
+     */
+    /*
+        list.unique( $list ) is a list:
+        1: <S> one
+        2: <S> two
+        3: <S> A
+        4: <S> B
+        5: <S> C
+        6: <S> yet
+        7: <S> another
+        8: <S> list
+     */
 }
