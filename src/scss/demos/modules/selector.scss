@@ -8,6 +8,7 @@
 
 @use '../config';
 
+@use '../../modules/demo';
 @use '../../modules/feature-check';
 @use '../../modules/map';
 @use '../../modules/meta';
@@ -23,7 +24,7 @@
 
 @mixin _replace-simple-selector($args...) {
     @at-root & {
-        @include meta.demo-selector-function(
+        @include demo.selector-function(
             'selector.replace-simple-selector',
             meta.get-function(replace-simple-selector, $module: selector),
             meta.arglist(&, $args...)
@@ -43,7 +44,7 @@
 
 @mixin _extend-simple-selector($args...) {
     @at-root & {
-        @include meta.demo-selector-function(
+        @include demo.selector-function(
             'selector.extend-simple-selector',
             meta.get-function(extend-simple-selector, $module: selector),
             meta.arglist(&, $args...)
@@ -246,7 +247,7 @@ $_extend_all_permutations: (
 @mixin _except-test($args...) {
     @at-root & {
         @media except {
-            @include meta.demo-selector-function(
+            @include demo.selector-function(
                 'selector.except',
                 meta.get-function(except, $module: selector),
                 meta.arglist(&, $args...)
@@ -287,7 +288,7 @@ a.class-name[data-complex='selector']:focus {
 @mixin _except-superselector-test($args...) {
     @at-root & {
         @media except-superselector {
-            @include meta.demo-selector-function(
+            @include demo.selector-function(
                 'selector.except-superselector',
                 meta.get-function(except-superselector, $module: selector),
                 meta.arglist(&, $args...)
@@ -339,7 +340,7 @@ a.class-name[data-complex='selector']:focus {
 
 @mixin _omit-simple-selector($args...) {
     @at-root & {
-        @include meta.demo-selector-function(
+        @include demo.selector-function(
             'selector.omit-simple-selector',
             meta.get-function(omit-simple-selector, $module: selector),
             meta.arglist(&, $args...)
@@ -372,7 +373,7 @@ button.button-secondary {
 @mixin _only-test($args...) {
     @at-root & {
         @media (function: only) {
-            @include meta.demo-selector-function(
+            @include demo.selector-function(
                 'selector.only',
                 meta.get-function(only, $module: selector),
                 meta.arglist(&, $args...)
@@ -413,7 +414,7 @@ a.class-name[data-complex='selector']:focus {
 @mixin _only-superselector-test($args...) {
     @at-root & {
         @media only-superselector {
-            @include meta.demo-selector-function(
+            @include demo.selector-function(
                 'selector.only-superselector',
                 meta.get-function(only-superselector, $module: selector),
                 meta.arglist(&, $args...)
@@ -468,11 +469,7 @@ $_pop_func: meta.get-function(pop, $module: selector);
 @mixin _pop-test($args...) {
     @at-root & {
         @media (function: pop) {
-            @include meta.demo-selector-function(
-                'selector.pop',
-                $_pop_func,
-                meta.arglist(&, $args...)
-            );
+            @include demo.selector-function('selector.pop', $_pop_func, meta.arglist(&, $args...));
         }
     }
 }
@@ -500,7 +497,7 @@ $_pop_mixin: meta.get-mixin(popped, $module: selector);
 @mixin _popped-test($args...) {
     @at-root & {
         @media (function: popped) {
-            @include meta.demo-selector-function(
+            @include demo.selector-function(
                 'selector.popped',
                 $_pop_func,
                 meta.arglist(&, $args...)
@@ -508,7 +505,7 @@ $_pop_mixin: meta.get-mixin(popped, $module: selector);
         }
 
         @media (mixin: popped) {
-            @include meta.demo-mixin(
+            @include demo.mixin(
                 'selector.popped',
                 $_pop_mixin,
                 meta.arglist(&, $args...),
@@ -536,112 +533,112 @@ root body {
 /* ## Modules - Selector - Root & Body Utilities ==================================== */
 
 @media at-root {
-    @include meta.demo-function(
+    @include demo.function(
         'selector.parent-exists',
         meta.get-function(parent-exists, $module: selector)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.parent-or-body',
         meta.get-function(parent-or-body, $module: selector)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.parent-or-root',
         meta.get-function(parent-or-root, $module: selector)
     );
 }
 
 @mixin _incl-single-var-dumps-is-root-or-body {
-    @include meta.demo-function(
+    @include demo.function(
         'selector.is-body',
         meta.get-function(is-body, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.is-root',
         meta.get-function(is-root, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.is-root-or-body',
         meta.get-function(is-root-or-body, $module: selector),
         meta.arglist(&)
     );
     /* - - - */
-    @include meta.demo-function(
+    @include demo.function(
         'selector.is-any-body',
         meta.get-function(is-any-body, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.is-any-root',
         meta.get-function(is-any-root, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.is-any-root-or-body',
         meta.get-function(is-any-root-or-body, $module: selector),
         meta.arglist(&)
     );
     /* - - - */
-    @include meta.demo-function(
+    @include demo.function(
         'selector.has-body',
         meta.get-function(has-body, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.has-root',
         meta.get-function(has-root, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.has-root-or-body',
         meta.get-function(has-root-or-body, $module: selector),
         meta.arglist(&)
     );
     /* - - - */
-    @include meta.demo-function(
+    @include demo.function(
         'selector.has-any-body',
         meta.get-function(has-any-body, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.has-any-root',
         meta.get-function(has-any-root, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.has-any-root-or-body',
         meta.get-function(has-any-root-or-body, $module: selector),
         meta.arglist(&)
     );
     /* - - - */
-    @include meta.demo-function(
+    @include demo.function(
         'selector.except-is-body',
         meta.get-function(except-is-body, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.except-is-root',
         meta.get-function(except-is-root, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.except-is-root-or-body',
         meta.get-function(except-is-root-or-body, $module: selector),
         meta.arglist(&)
     );
     /* - - - */
-    @include meta.demo-function(
+    @include demo.function(
         'selector.except-has-body',
         meta.get-function(except-has-body, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.except-has-root',
         meta.get-function(except-has-root, $module: selector),
         meta.arglist(&)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.except-has-root-or-body',
         meta.get-function(except-has-root-or-body, $module: selector),
         meta.arglist(&)
@@ -653,11 +650,11 @@ root body {
         /* via #{$selectorString} */
     }
 
-    @include meta.demo-function(
+    @include demo.function(
         'selector.parent-exists',
         meta.get-function(parent-exists, $module: selector)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.is-simple',
         meta.get-function(is-simple, $module: selector),
         meta.arglist(&)
@@ -665,11 +662,11 @@ root body {
 
     @include _incl-single-var-dumps-is-root-or-body;
 
-    @include meta.demo-function(
+    @include demo.function(
         'selector.parent-or-body',
         meta.get-function(parent-or-body, $module: selector)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector.parent-or-root',
         meta.get-function(parent-or-root, $module: selector)
     );
@@ -757,7 +754,7 @@ root body {
 @mixin _incl-var-dumps($selectorString: null, $args...) {
     @include _incl-single-var-dumps($selectorString: $selectorString, $args...);
 
-    @include meta.demo-function(
+    @include demo.function(
         'selector.parent-includes',
         meta.get-function(parent-includes, $module: selector),
         meta.arglist('.has-a-class')
@@ -769,7 +766,7 @@ root body {
             $args...
         );
 
-        @include meta.demo-function(
+        @include demo.function(
             'selector.parent-includes',
             meta.get-function(parent-includes, $module: selector),
             meta.arglist('.has-a-class')
@@ -864,16 +861,16 @@ $_pseudo_not_mixin: meta.get-mixin('not', $module: selector);
 $_pseudo_where_mixin: meta.get-mixin('where', $module: selector);
 
 @mixin __demo-pseudo-list-function--has($args...) {
-    @include meta.demo-selector-function('selector.has-list', $_pseudo_has_fn, $args...);
+    @include demo.selector-function('selector.has-list', $_pseudo_has_fn, $args...);
 }
 @mixin __demo-pseudo-list-function--is($args...) {
-    @include meta.demo-selector-function('selector.is-list', $_pseudo_is_fn, $args...);
+    @include demo.selector-function('selector.is-list', $_pseudo_is_fn, $args...);
 }
 @mixin __demo-pseudo-list-function--not($args...) {
-    @include meta.demo-selector-function('selector.not-list', $_pseudo_not_fn, $args...);
+    @include demo.selector-function('selector.not-list', $_pseudo_not_fn, $args...);
 }
 @mixin __demo-pseudo-list-function--where($args...) {
-    @include meta.demo-selector-function('selector.where-list', $_pseudo_where_fn, $args...);
+    @include demo.selector-function('selector.where-list', $_pseudo_where_fn, $args...);
 }
 
 @mixin _demo-pseudo-list-function($version, $args...) {
@@ -891,16 +888,16 @@ $_pseudo_where_mixin: meta.get-mixin('where', $module: selector);
 }
 
 @mixin __demo-pseudo-list-mixin--has($args...) {
-    @include meta.demo-mixin('selector.has', $_pseudo_has_mixin, $args...);
+    @include demo.mixin('selector.has', $_pseudo_has_mixin, $args...);
 }
 @mixin __demo-pseudo-list-mixin--is($args...) {
-    @include meta.demo-mixin('selector.is', $_pseudo_is_mixin, $args...);
+    @include demo.mixin('selector.is', $_pseudo_is_mixin, $args...);
 }
 @mixin __demo-pseudo-list-mixin--not($args...) {
-    @include meta.demo-mixin('selector.not', $_pseudo_not_mixin, $args...);
+    @include demo.mixin('selector.not', $_pseudo_not_mixin, $args...);
 }
 @mixin __demo-pseudo-list-mixin--where($args...) {
-    @include meta.demo-mixin('selector.where', $_pseudo_where_mixin, $args...);
+    @include demo.mixin('selector.where', $_pseudo_where_mixin, $args...);
 }
 
 @mixin _demo-pseudo-list-mixin($version, $args...) {

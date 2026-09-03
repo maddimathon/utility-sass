@@ -51,19 +51,19 @@
         "meta": <-> null
      */
 }
-/* ## MODULES - META - demo-args-dump() ==================================== */
-@media demo-args-dump {
+/* ## MODULES - META - demo.args-dump() ==================================== */
+@media args-dump {
     /* 
-        meta.demo-args-dump( meta.arglist() ) = <S> ()
+        demo.args-dump( meta.arglist() ) = <S> ()
      */
     /* 
-        meta.demo-args-dump( meta.arglist( one, two ) ) = <S> ( one, two )
+        demo.args-dump( meta.arglist( one, two ) ) = <S> ( one, two )
      */
     /* 
-        meta.demo-args-dump( meta.arglist( $param: one, $value: two ) ) = <S> ( $param: one, $value: two )
+        demo.args-dump( meta.arglist( $param: one, $value: two ) ) = <S> ( $param: one, $value: two )
      */
     /* 
-        meta.demo-args-dump( meta.arglist( something, $param: one, $value: two ) ) = <S> ( something, $param: one, $value: two )
+        demo.args-dump( meta.arglist( something, $param: one, $value: two ) ) = <S> ( something, $param: one, $value: two )
      */
 }
 /* ## MODULES - META - docblock-printer() ==================================== */
@@ -198,8 +198,8 @@
      */
     /*
         meta.keywords-list( one, two ) is a map:
-        "1": <S> one
-        "2": <S> two
+        1: <S> one
+        2: <S> two
      */
     /*
         meta.keywords-list( $param: one, $value: two ) is a map:
@@ -208,9 +208,24 @@
      */
     /*
         meta.keywords-list( something, $param: one, $value: two ) is a map:
-        "1": <S> something
+        1: <S> something
         "param": <S> one
         "value": <S> two
+     */
+}
+/* ## MODULES - META - keywords-list-to-arglist() ==================================== */
+@media keywords-list-to-arglist {
+    /* 
+        meta.keywords-list-to-arglist( meta.keywords-list() ) = <⋯> ()
+     */
+    /* 
+        meta.keywords-list-to-arglist( meta.keywords-list( one, two ) ) = <⋯> ( <S> one, <S> two )
+     */
+    /* 
+        meta.keywords-list-to-arglist( meta.keywords-list( $param: one, $value: two ) ) = <⋯> ( $param: <S> one, $value: <S> two )
+     */
+    /* 
+        meta.keywords-list-to-arglist( meta.keywords-list( something, $param: one, $value: two ) ) = <⋯> ( <S> something, $param: <S> one, $value: <S> two )
      */
 }
 /* ## MODULES - META - is-truthy() ==================================== */
@@ -268,14 +283,14 @@ meta.is-truthy {
      */
 }
 
-/* ## MODULES - META - demo-mixin() ==================================== */
+/* ## MODULES - META - demo.mixin() ==================================== */
 @media demo-mixin {
     .parent {
-        /* @include demo-mixin( snippet-focus-ring, get-mixin("snippet-focus-ring") ) */
+        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $includeNameWithContent: true ) */
     }
-    @demo output {
-        /* @include snippet-focus-ring() */
+    @demo ( mixin: "demo.mixin" ) {
         .parent {
+            /* @include snippet-focus-ring() */
             outline-width: var(--focus-ring-outline-width, 0.125em);
             outline-style: dashed;
             outline-color: var(
@@ -283,19 +298,112 @@ meta.is-truthy {
                 var(--sys-clr-link, LinkText)
             );
             outline-offset: var(--focus-ring-outline-offset, 0.125em);
+            /* [demo.mixin] @content; */
         }
     }
 }
 
 @media demo-mixin {
     .parent {
-        /* @include demo-mixin( prop-display, get-mixin("prop-display"), block ) */
+        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $signatureAsRegion: true, $includeNameWithContent: true ) */
     }
-    @demo output {
-        /* @include prop-display( block ) */
+    @demo ( mixin: "demo.mixin" ) {
         .parent {
+            /* #region @include snippet-focus-ring() */
+            outline-width: var(--focus-ring-outline-width, 0.125em);
+            outline-style: dashed;
+            outline-color: var(
+                --focus-ring-outline-color,
+                var(--sys-clr-link, LinkText)
+            );
+            outline-offset: var(--focus-ring-outline-offset, 0.125em);
+            /* [demo.mixin] @content; */
+            /* #endregion @include snippet-focus-ring() */
+        }
+    }
+}
+
+@media demo-mixin {
+    .parent {
+        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $wrapOutput: true, $includeNameWithContent: true ) */
+    }
+    @demo ( mixin: "demo.mixin" ) {
+        .parent {
+            /* @include snippet-focus-ring() */
+        }
+        @demo ( mixin: "snippet-focus-ring" ) {
+            .parent {
+                outline-width: var(--focus-ring-outline-width, 0.125em);
+                outline-style: dashed;
+                outline-color: var(
+                    --focus-ring-outline-color,
+                    var(--sys-clr-link, LinkText)
+                );
+                outline-offset: var(--focus-ring-outline-offset, 0.125em);
+                /* [demo.mixin] @content; */
+            }
+        }
+    }
+}
+
+@media demo-mixin {
+    .parent {
+        /* @include demo.mixin( prop-display, get-mixin("prop-display"), <⋯>( block ), $includeNameWithContent: true ) */
+    }
+    @demo ( mixin: "demo.mixin" ) {
+        .parent {
+            /* @include prop-display( block ) */
             --display: block;
             display: var(--display, block);
+            /* [demo.mixin] @content; */
+        }
+    }
+}
+
+@media demo-mixin {
+    .parent {
+        /* @include demo.mixin( focus-visible, get-mixin("focus-visible"), $includeNameWithContent: true ) */
+    }
+    @demo ( mixin: "demo.mixin" ) {
+        .parent {
+            /* @include focus-visible() */
+        }
+        .no-js .parent:focus,
+        .js__no-whereSelector .parent:focus {
+            /* [focus-visible] @content; */
+            /* [demo.mixin] @content; */
+        }
+        :where(.js__no-focusVisible) .parent:focus {
+            /* [focus-visible] @content; */
+            /* [demo.mixin] @content; */
+        }
+        .parent:focus-visible {
+            /* [focus-visible] @content; */
+            /* [demo.mixin] @content; */
+        }
+    }
+}
+
+@media demo-mixin {
+    .parent {
+        /* @include demo.mixin( focus-visible, get-mixin("focus-visible"), <⋯>( $multipleContentBlocks: true ), $includeNameWithContent: true ) */
+    }
+    @demo ( mixin: "demo.mixin" ) {
+        .parent {
+            /* @include focus-visible( $multipleContentBlocks: true ) */
+        }
+        .no-js .parent:focus,
+        .js__no-whereSelector .parent:focus {
+            /* [focus-visible] @content( focus-visible--fallback--selector-pseudo--no-js ); */
+            /* [demo.mixin] @content; */
+        }
+        :where(.js__no-focusVisible) .parent:focus {
+            /* [focus-visible] @content( focus-visible--fallback--selector-pseudo--where ); */
+            /* [demo.mixin] @content; */
+        }
+        .parent:focus-visible {
+            /* [focus-visible] @content( focus-visible--selector-pseudo ); */
+            /* [demo.mixin] @content; */
         }
     }
 }
@@ -326,9 +434,9 @@ meta.is-truthy {
 /* ## MODULES - META - js-var-dump() ==================================== */
 @media js-var-dump {
     /* 
-        meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> meta.js-var-dump() [id: ukr72vz] - demo-var-1
+        meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> meta.js-var-dump() [id: ua4iuou] - demo-var-1
      */
     /* 
-        meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> meta.js-var-dump() [id: ukr72wo] - demo-var-2
+        meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> meta.js-var-dump() [id: ua4iup3] - demo-var-2
      */
 }

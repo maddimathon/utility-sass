@@ -3,10 +3,15 @@
 /// @since 0.1.0-pre.0
 ///
 
+@use '../../../config';
 @use '../../../tokens';
 
+@use '../../../modules/feature-check';
+@use '../../../modules/list';
 @use '../../../modules/math';
+@use '../../../modules/map';
 @use '../../../modules/meta';
+@use '../../../modules/selector';
 @use '../../../modules/string';
 
 @use '../../01-functions' as *;
@@ -17,86 +22,311 @@
 /// ======================================================================== ///
 
 ///
-/// Adds in a [min|max]-[height|width] media query with the given breakpoint.
+/// @since 0.1.0-beta.0.draft
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0.draft — Added optional $unit param.
-///
-@mixin breakpoint($point, $type, $unit: 1em) {
-    @each $key, $value in tokens.$breakpoints {
-        @if ($point == $key) {
-            $point: $value;
-        }
+@function _breakpoint-get-override-selector($point, $minOrMax, $property) {
+    // returns
+    @if list.index(tokens.$breakpoints_attributeOverrides, $point) == null {
+        @return null;
     }
 
+    $selector: '[data-viewport-#{$property}-#{$point}=#{$minOrMax}]';
+
+    @return if(
+        tokens.$breakpoints_attributeOverrides_includeRoot,
+        selector.unify(config.$selector_root, $selector),
+        $selector
+    );
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function breakpoint-get-value($point, $unit) {
+    $_tokenPoint: map.get(tokens.$breakpoints, $point);
+
+    // returns
+    @if $_tokenPoint != null {
+        @return math.add-unit(math.round-to-pixel($_tokenPoint), $unit: $unit);
+    }
+
+    // returns
     @if meta.type-of($point) != number {
         @warn "$point should be a key of tokens.$breakpoints or a number but it was a: #{meta.type-of( $point )} (#{$point})";
-    } @else {
-        @if not math.is-unitless($point) {
-            @error 'Breakpoint #{$point} should not have a unit. A #{math.unit($unit)} unit will be added by the mixin.';
-            $point: math.deunit($point);
+        @return null;
+    }
+
+    @if not math.is-unitless($point) {
+        @warn 'Breakpoint #{$point} should not have a unit. A #{math.unit($unit)} unit will be added by the mixin.';
+    }
+
+    @return math.add-unit(math.round-to-pixel($point), $unit: $unit);
+}
+
+///
+/// Adds in a [min|max]-[height|width] media query with the given breakpoint.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin breakpoint-minmax-range($point_min, $point_max, $property, $unit: 1em) {
+    $min_attribute_override: _breakpoint-get-override-selector(
+        $point: $point_min,
+        $property: $property,
+        $minOrMax: min,
+    );
+    $min_attribute_override__not: _breakpoint-get-override-selector(
+        $point: $point_min,
+        $property: $property,
+        $minOrMax: max,
+    );
+
+    $max_attribute_override: _breakpoint-get-override-selector(
+        $point: $point_max,
+        $property: $property,
+        $minOrMax: max,
+    );
+    $max_attribute_override__not: _breakpoint-get-override-selector(
+        $point: $point_max,
+        $property: $property,
+        $minOrMax: min,
+    );
+
+    $point_min: breakpoint-get-value(
+        $point: $point_min,
+        $unit: $unit,
+    );
+    $point_max: breakpoint-get-value(
+        $point: $point_max,
+        $unit: $unit,
+    );
+
+    $selector: if(
+        $min_attribute_override__not or $max_attribute_override__not,
+        selector.not-list(
+            list.join(
+                if(
+                    $min_attribute_override__not,
+                    $min_attribute_override__not,
+                    ()
+                ),
+                if(
+                    $max_attribute_override__not,
+                    $max_attribute_override__not,
+                    ()
+                ),
+                $separator: comma
+            ),
+            $parentSelector: config.$selector_root,
+            $unifyParent: true
+        ),
+        null
+    );
+
+    $parentSelector: selector.parent-or-root();
+    $selector_includeFallback: meta.is-truthy($selector);
+    $selector: if(
+        $selector_includeFallback,
+        selector.add-root-selector(':where( #{$selector} )'),
+        $parentSelector
+    );
+
+    @at-root {
+        @if $point_min != null and $point_max != null {
+            @media ($point_min <= $property < $point_max) {
+                @include feature-check.supports-not(
+                    whereSelector,
+                    $include_noJS: false
+                ) {
+                    @content;
+                }
+                #{$selector} {
+                    @content;
+                }
+            }
+        } @else if $point_min != null {
+            @media ($point_min <= $property) {
+                @include feature-check.supports-not(
+                    whereSelector,
+                    $include_noJS: false
+                ) {
+                    @content;
+                }
+                #{$selector} {
+                    @content;
+                }
+            }
+        } @else if $point_max != null {
+            @media ($property < $point_max) {
+                @include feature-check.supports-not(
+                    whereSelector,
+                    $include_noJS: false
+                ) {
+                    @content;
+                }
+                #{$selector} {
+                    @content;
+                }
+            }
         }
-
-        $point: math.round-to-pixel($point);
-
-        @if string.slice($type, 1, 3) == max {
-            $point: $point - 0.01;
-        }
-
-        @media ( #{$type}: math.add-unit($point, $unit: $unit) ) {
-            @content;
+        #{$parentSelector} {
+            @if $min_attribute_override and $max_attribute_override {
+                @include selector.add-root-selector(
+                    ':where( #{selector.unify( $min_attribute_override, $max_attribute_override )} )'
+                ) {
+                    @content;
+                }
+            } @else if $min_attribute_override {
+                @include selector.add-root-selector(
+                    ':where( #{$min_attribute_override} )'
+                ) {
+                    @if $point_max != null {
+                        @media ($property < $point_max) {
+                            @content;
+                        }
+                    } @else {
+                        @content;
+                    }
+                }
+            } @else if $max_attribute_override {
+                @include selector.add-root-selector(
+                    ':where( #{$max_attribute_override} )'
+                ) {
+                    @if $point_min != null {
+                        @media ($point_min <= $property) {
+                            @content;
+                        }
+                    } @else {
+                        @content;
+                    }
+                }
+            }
         }
     }
 }
 
-@mixin min-width($point) {
-    @include breakpoint($point, 'min-width') {
+///
+/// Adds in a [min|max]-[height|width] media query with the given breakpoint.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin breakpoint-min-or-max(
+    $point,
+    $minOrMax,
+    $property,
+    $unit: 1em,
+    $debug: false
+) {
+    $input_point: $point;
+
+    $point: breakpoint-get-value(
+        $point: $point,
+        $unit: $unit,
+    );
+
+    @if $point != null {
+        @if $minOrMax == 'min' {
+            @media ($property >= $point) {
+                @if $debug {
+                    @include meta.var-dump('$point', $input_point);
+                    @include meta.var-dump('$minOrMax', $minOrMax);
+                    @include meta.var-dump('$property', $property);
+                }
+                @content;
+            }
+        } @else if $minOrMax == 'max' {
+            @media ($property < $point) {
+                @if $debug {
+                    @include meta.var-dump('$point', $input_point);
+                    @include meta.var-dump('$minOrMax', $minOrMax);
+                    @include meta.var-dump('$property', $property);
+                }
+                @content;
+            }
+        } @else {
+            @media ( #{$minOrMax}-#{$property}: $point ) {
+                @if $debug {
+                    @include meta.var-dump('$point', $input_point);
+                    @include meta.var-dump('$minOrMax', $minOrMax);
+                    @include meta.var-dump('$property', $property);
+                }
+                @content;
+            }
+        }
+
+        $attribute_override: _breakpoint-get-override-selector(
+            $point: $input_point,
+            $minOrMax: $minOrMax,
+            $property: $property,
+        );
+
+        @if $attribute_override {
+            @if $debug {
+                @include meta.var-dump('$point', $input_point);
+                @include meta.var-dump('$minOrMax', $minOrMax);
+                @include meta.var-dump('$property', $property);
+                @include meta.var-dump(
+                    '$attribute_override',
+                    $attribute_override
+                );
+            }
+            @include selector.add-root-selector(
+                ':where( #{$attribute_override} )'
+            ) {
+                @content;
+            }
+        }
+    } @else if $debug {
+        @include meta.var-dump('input $point', $input_point);
+        @include meta.var-dump('parsed $point', $point);
+        @include meta.var-dump('$minOrMax', $minOrMax);
+        @include meta.var-dump('$property', $property);
+    }
+}
+
+@mixin min-width($point, $args...) {
+    @include breakpoint-min-or-max($point, 'min', 'width', $args...) {
         @content;
     }
 }
-@mixin max-width($point) {
-    @include breakpoint($point, 'max-width') {
+@mixin max-width($point, $args...) {
+    @include breakpoint-min-or-max($point, 'max', 'width', $args...) {
         @content;
     }
 }
 
-@mixin min-height($point) {
-    @include breakpoint($point, 'min-height') {
+@mixin min-height($point, $args...) {
+    @include breakpoint-min-or-max($point, 'min', 'height', $args...) {
         @content;
     }
 }
-@mixin max-height($point) {
-    @include breakpoint($point, 'max-height') {
+@mixin max-height($point, $args...) {
+    @include breakpoint-min-or-max($point, 'max', 'height', $args...) {
         @content;
     }
 }
 
-@mixin min-all($min-width, $min-height) {
-    @include breakpoint($min-width, 'min-width') {
-        @include breakpoint($min-height, 'min-height') {
+@mixin min-viewport-both($min_width, $min_height, $args...) {
+    @include breakpoint-min-or-max($min_width, 'min', 'width', $args...) {
+        @include breakpoint-min-or-max($min_height, 'min', 'height', $args...) {
             @content;
         }
     }
 }
-@mixin max-all($max-width, $max-height) {
-    @include breakpoint($max-width, 'max-width') {
-        @include breakpoint($max-height, 'max-height') {
+@mixin max-viewport-both($max_width, $max_height, $args...) {
+    @include breakpoint-min-or-max($max_width, 'max', 'width', $args...) {
+        @include breakpoint-min-or-max($max_height, 'max', 'height', $args...) {
             @content;
         }
     }
 }
 
-@mixin minmax-width($min, $max) {
-    @include breakpoint($min, 'min-width') {
-        @include breakpoint($max, 'max-width') {
-            @content;
-        }
+@mixin minmax-width($min, $max, $args...) {
+    @include breakpoint-minmax-range($min, $max, 'width', $args...) {
+        @content;
     }
 }
-@mixin minmax-height($min, $max) {
-    @include breakpoint($min, 'min-height') {
-        @include breakpoint($max, 'max-height') {
-            @content;
-        }
+@mixin minmax-height($min, $max, $args...) {
+    @include breakpoint-minmax-range($min, $max, 'height', $args...) {
+        @content;
     }
 }

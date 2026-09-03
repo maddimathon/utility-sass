@@ -1,0 +1,44 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:string';
+
+@use '../meta';
+
+$_emptyReturn: string.unquote('()');
+
+///
+/// @since ___PKG_VERSION___
+///
+@function args-dump($args, $emptyReturn: $_emptyReturn) {
+    // returns
+    @if not meta.is-truthy($args) {
+        @return $emptyReturn;
+    }
+
+    $_typeOf: meta.type-of($args);
+
+    // convert it to an arglist
+    @if $_typeOf != arglist {
+        @if $_typeOf == list or $_typeOf == map {
+            $args: meta.arglist($args...);
+        } @else {
+            $args: meta.arglist($args);
+        }
+    }
+
+    @return meta.var-dump(
+        $args,
+        $alwaysQuote: true,
+        $detectParentSelector: true,
+        $shortType: true,
+        $typeJoiner: '',
+        $withType: false,
+        $child_withType: arglist,
+        $child_alwaysQuote: false,
+        $keys_alwaysQuote: false,
+        $keys_neverQuote: true
+    );
+}

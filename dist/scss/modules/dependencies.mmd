@@ -5,6 +5,7 @@ config:
 ---
 flowchart BT
 	Colour([colour])
+	Debug([debug])
 	FeatureCheck([feature-check])
 	List([list])
 	Map([map])
@@ -14,6 +15,7 @@ flowchart BT
 	String([string])
 
     %% from dependents to their dependencies
+    Debug -.-> Meta
     String -.-> Meta
     Math -.-> Meta
     List -.-> Math & String

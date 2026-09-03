@@ -10,6 +10,7 @@
 
 // @use '../../config';
 
+@use '../../../modules/demo';
 @use '../../../modules/meta';
 
 @use '../../../lib' as *;
@@ -23,7 +24,7 @@ $_mx_container_query_style: meta.get-mixin('container-query-cx-prop');
 
 @mixin _demo-container-query-cx-prop($args...) {
     query-style {
-        @include meta.demo-mixin('container-query-cx-prop', $_mx_container_query_style, $args);
+        @include demo.mixin('container-query-cx-prop', $_mx_container_query_style, $args);
     }
 }
 
@@ -48,11 +49,7 @@ $_mx_container_query_style_list: meta.get-mixin('container-query-cx-prop-list');
 
 @mixin _demo-container-query-cx-prop-list($args...) {
     query-style-list {
-        @include meta.demo-mixin(
-            'container-query-cx-prop-list',
-            $_mx_container_query_style_list,
-            $args
-        );
+        @include demo.mixin('container-query-cx-prop-list', $_mx_container_query_style_list, $args);
     }
 }
 
@@ -147,11 +144,7 @@ $_mx_container_query_style_list: meta.get-mixin('container-query-cx-prop-map');
 
 @mixin _demo-container-query-cx-prop-map($args...) {
     query-style-map {
-        @include meta.demo-mixin(
-            'container-query-cx-prop-map',
-            $_mx_container_query_style_list,
-            $args
-        );
+        @include demo.mixin('container-query-cx-prop-map', $_mx_container_query_style_list, $args);
     }
 }
 

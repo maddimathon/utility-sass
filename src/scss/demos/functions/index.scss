@@ -8,16 +8,17 @@
 );
 @forward '../header';
 
+@use '../../modules/demo';
 @use '../../modules/meta';
 
 @use '../../lib' as *;
 
 @mixin _demo-function($name, $args...) {
-    @include meta.demo-function($name, meta.get-function($name), $args);
+    @include demo.function($name, meta.get-function($name), $args);
 }
 
 @mixin _demo-mixin($name, $args...) {
-    @include meta.demo-mixin($name, meta.get-mixin($name), $args) {
+    @include demo.mixin($name, meta.get-mixin($name), $args) {
         @content;
     }
 }
@@ -57,7 +58,7 @@ all-heading-levels {
     $_name: selector-all-headings;
 
     @media (mixin: #{$_name}) {
-        @include meta.demo-mixin($_name, meta.get-mixin($_name), $args, $separateSignature: true) {
+        @include demo.mixin($_name, meta.get-mixin($_name), $args, $separateSignature: true) {
             @include meta.var-dump('&', &);
         }
     }

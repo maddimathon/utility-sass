@@ -1,0 +1,227 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:string';
+
+@use '../config';
+
+@use '../meta';
+
+@use 'args-dump';
+
+@mixin _apply-mixin--content(
+    $args,
+    $getMixin,
+    $mixinName,
+    $separateSignature,
+    $signatureAsRegion,
+    $signatureAtRoot
+) {
+    @if $separateSignature {
+        @content;
+    } @else {
+        @include _signature(
+            $args: $args,
+            $getMixin: $getMixin,
+            $mixinName: $mixinName,
+            $separateSignature: $separateSignature,
+            $signatureAsRegion: $signatureAsRegion,
+            $signatureAtRoot: $signatureAtRoot
+        ) {
+            @content;
+        }
+    }
+}
+
+@mixin _apply-mixin(
+    $acceptsContent,
+    $args,
+    $getMixin,
+    $includeNameWithContent,
+    $mixinName,
+    $separateSignature,
+    $signatureAsRegion,
+    $signatureAtRoot
+) {
+    @if $acceptsContent {
+        $_contentRule: if($includeNameWithContent, '[#{$mixinName}] @content', '@content');
+
+        @include meta.apply($getMixin, $args...) using ($content_args...) {
+            $_content_argsDump: args-dump.args-dump(
+                $content_args,
+                $emptyReturn: string.unquote('')
+            );
+
+            @include _apply-mixin--content(
+                $args: $args,
+                $getMixin: $getMixin,
+                $mixinName: $mixinName,
+                $separateSignature: $separateSignature,
+                $signatureAsRegion: $signatureAsRegion,
+                $signatureAtRoot: $signatureAtRoot
+            ) {
+                /* #{$_contentRule}#{$_content_argsDump}; */
+                @content;
+            }
+        }
+    } @else {
+        @include meta.apply($getMixin, $args...);
+        @content;
+    }
+}
+
+@mixin _signature(
+    $args,
+    $getMixin,
+    $mixinName,
+    $separateSignature,
+    $signatureAsRegion,
+    $signatureAtRoot
+) {
+    $callSignature: '@include #{$mixinName}#{args-dump.args-dump($args)}';
+
+    @if $signatureAtRoot {
+        @at-root {
+            @if $signatureAsRegion {
+                /* #region #{$callSignature} */
+            } @else {
+                /* #{$callSignature} */
+            }
+        }
+    } @else {
+        @if $signatureAsRegion {
+            /* #region #{$callSignature} */
+        } @else {
+            /* #{$callSignature} */
+        }
+    }
+
+    @content;
+
+    @if $signatureAsRegion {
+        @if $signatureAtRoot {
+            @at-root {
+                /* #endregion #{$callSignature} */
+            }
+        } @else {
+            /* #endregion #{$callSignature} */
+        }
+    }
+}
+
+///
+/// Created for internal mixin demos - displays the mixin signature as called
+/// with a var-dump of the arguments, if any.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin mixin(
+    $mixinName,
+    $getMixin,
+    $args: meta.arglist(),
+    $includeNameWithContent: config.$demo_includeNameWithContent,
+    $separateSignature: config.$demo_separateSignature,
+    $signatureAsRegion: config.$demo_signatureAsRegion,
+    $signatureAtRoot: config.$demo_signatureAtRoot,
+    $wrapOutput: config.$demo_wrapOutput
+) {
+    $getMixin: config.config-valid-mixin(
+        $getMixin,
+        'getMixin',
+        $default: null,
+        $prefix: '[meta.mixin] ',
+        $warnOnWrongType: true
+    );
+
+    @if $getMixin {
+        $acceptsContent: meta.accepts-content($getMixin);
+
+        @if not $acceptsContent {
+            $separateSignature: true;
+        }
+
+        @if $wrapOutput {
+            $_demoName: #{$mixinName};
+
+            @if $separateSignature {
+                @include _signature(
+                    $args: $args,
+                    $getMixin: $getMixin,
+                    $mixinName: $mixinName,
+                    $separateSignature: $separateSignature,
+                    $signatureAsRegion: $signatureAsRegion,
+                    $signatureAtRoot: $signatureAtRoot
+                ) {
+                    @include meta.at(demo, '( mixin: "#{$_demoName}" )') {
+                        @include _apply-mixin(
+                            $args: $args,
+                            $getMixin: $getMixin,
+                            $acceptsContent: $acceptsContent,
+                            $includeNameWithContent: $includeNameWithContent,
+                            $mixinName: $mixinName,
+                            $separateSignature: $separateSignature,
+                            $signatureAsRegion: $signatureAsRegion,
+                            $signatureAtRoot: $signatureAtRoot
+                        ) {
+                            @content;
+                        }
+                    }
+                }
+            } @else {
+                @include meta.at(demo, '( mixin: "#{$_demoName}" )') {
+                    @include _apply-mixin(
+                        $args: $args,
+                        $getMixin: $getMixin,
+                        $acceptsContent: $acceptsContent,
+                        $includeNameWithContent: $includeNameWithContent,
+                        $mixinName: $mixinName,
+                        $separateSignature: $separateSignature,
+                        $signatureAsRegion: $signatureAsRegion,
+                        $signatureAtRoot: $signatureAtRoot
+                    ) {
+                        @content;
+                    }
+                }
+            }
+        } @else {
+            @if $separateSignature {
+                @include _signature(
+                    $args: $args,
+                    $getMixin: $getMixin,
+                    $mixinName: $mixinName,
+                    $separateSignature: $separateSignature,
+                    $signatureAsRegion: $signatureAsRegion,
+                    $signatureAtRoot: $signatureAtRoot
+                ) {
+                    @include _apply-mixin(
+                        $args: $args,
+                        $getMixin: $getMixin,
+                        $acceptsContent: $acceptsContent,
+                        $includeNameWithContent: $includeNameWithContent,
+                        $mixinName: $mixinName,
+                        $separateSignature: $separateSignature,
+                        $signatureAsRegion: $signatureAsRegion,
+                        $signatureAtRoot: $signatureAtRoot
+                    ) {
+                        @content;
+                    }
+                }
+            } @else {
+                @include _apply-mixin(
+                    $args: $args,
+                    $getMixin: $getMixin,
+                    $acceptsContent: $acceptsContent,
+                    $includeNameWithContent: $includeNameWithContent,
+                    $mixinName: $mixinName,
+                    $separateSignature: $separateSignature,
+                    $signatureAsRegion: $signatureAsRegion,
+                    $signatureAtRoot: $signatureAtRoot
+                ) {
+                    @content;
+                }
+            }
+        }
+    }
+}

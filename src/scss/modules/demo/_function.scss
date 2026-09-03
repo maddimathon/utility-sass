@@ -1,0 +1,150 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+@use 'sass:selector';
+@use 'sass:string';
+
+@use '../config';
+
+@use '../meta';
+
+@use 'args-dump';
+
+///
+/// Created for internal function demos - displays the function signature as
+/// called with a var-dump of the arguments (if any) and return value.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin function($functionName, $getFunction, $args: meta.arglist(), $argsDump: null) {
+    $getFunction: config.config-valid-function(
+        $getFunction,
+        'getFunction',
+        $default: null,
+        $prefix: '[demo.function] ',
+        $warnOnWrongType: true
+    );
+
+    @if not meta.is-truthy($argsDump) {
+        $argsDump: args-dump.args-dump($args);
+    }
+
+    @if $getFunction {
+        @include meta.var-dump(
+            $name: '#{$functionName}#{$argsDump}',
+            $var: meta.call($getFunction, $args...)
+        );
+    }
+}
+
+///
+/// Created for internal function demos where the return value is a selector. - displays the function signature as
+/// called with a var-dump of the arguments (if any) and return value.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin selector-function(
+    $functionName,
+    $getFunction,
+    $args: meta.arglist(),
+    $displayResult: true,
+    $displayResult_callSignature: false,
+    $nestSelectorInParent: null,
+    $parentSelector: &
+) {
+    $getFunction: config.config-valid-function(
+        $getFunction,
+        'getFunction',
+        $default: null,
+        $prefix: '[demo.selector-function] ',
+        $warnOnWrongType: true
+    );
+
+    @if $getFunction {
+        $callSignature: '#{$functionName}#{args-dump.args-dump($args)}';
+        $returnValue: meta.call($getFunction, $args...);
+
+        $_parent_exists: meta.is-truthy($parentSelector);
+
+        @if $displayResult {
+            $_must_be_nested: $_parent_exists and $nestSelectorInParent;
+
+            @if meta.is-truthy($returnValue) {
+                $_parsedReturnValue: selector.parse(#{$returnValue});
+
+                @if $_parent_exists and not $_must_be_nested {
+                    @each $_sel
+                        in if(
+                            list.separator($_parsedReturnValue) == comma,
+                            $_parsedReturnValue,
+                            ($_parsedReturnValue)
+                        )
+                    {
+                        @if (string.index(#{$_sel}, '+') == 1) or
+                            (string.index(#{$_sel}, '>') == 1) or
+                            (string.index(#{$_sel}, '~') == 1)
+                        {
+                            $_must_be_nested: true;
+                        }
+                    }
+                }
+
+                $displayResult: $displayResult and
+                    meta.is-truthy(
+                        if(
+                            $_must_be_nested,
+                            selector.nest($parentSelector, $returnValue),
+                            $returnValue
+                        )
+                    );
+            }
+
+            $nestSelectorInParent: $nestSelectorInParent or $_must_be_nested;
+        }
+
+        @at-root {
+            @if $_parent_exists {
+                #{$parentSelector} {
+                    @include meta.var-dump($name: $callSignature, $var: $returnValue);
+
+                    @if $displayResult {
+                        // display the selector result
+                        @if $nestSelectorInParent {
+                            #{$returnValue} {
+                                /* resulting selectors */
+
+                                @if $displayResult_callSignature {
+                                    /* #{$callSignature} */
+                                }
+                            }
+                        } @else {
+                            @at-root #{$returnValue} {
+                                /* resulting selectors */
+
+                                @if $displayResult_callSignature {
+                                    /* #{$callSignature} */
+                                }
+                            }
+                        }
+                    }
+                }
+            } @else {
+                @include meta.var-dump($name: $callSignature, $var: $returnValue);
+
+                @if $displayResult {
+                    // display the selector result
+                    #{$returnValue} {
+                        /* resulting selectors */
+
+                        @if $displayResult_callSignature {
+                            /* #{$callSignature} */
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

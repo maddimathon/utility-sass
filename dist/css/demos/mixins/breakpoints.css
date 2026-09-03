@@ -11,43 +11,113 @@
  */
 /* # MIXINS - BREAKPOINTS
  * ======================================================================== */
-@media (min-width: 29.875em) {
+@media (width >= 29.875em) {
     breakpoints {
-        /* min-width( indent ) */
+        /* @include min-width( indent ) */
+        /* @content; */
     }
 }
-@media (max-width: 24.99em) {
+:where([data-viewport-width-indent='min']) breakpoints {
+    /* @include min-width( indent ) */
+    /* @content; */
+}
+
+@media (width < 25em) {
     breakpoints {
-        /* max-width( mobile ) */
+        /* @include max-width( mobile ) */
+        /* @content; */
     }
 }
-@media (min-height: 50em) {
+:where([data-viewport-width-mobile='max']) breakpoints {
+    /* @include max-width( mobile ) */
+    /* @content; */
+}
+
+@media (height >= 50em) {
     breakpoints {
-        /* min-height( 50 ) */
+        /* @include min-height( 50 ) */
+        /* @content; */
     }
 }
-@media (max-height: 49.99em) {
+@media (height < 50em) {
     breakpoints {
-        /* max-height( 50 ) */
+        /* @include max-height( 50 ) */
+        /* @content; */
     }
 }
-@media (min-width: 20em) and (min-height: 30em) {
+@media (width >= 20em) and (height >= 30em) {
     breakpoints {
-        /* min-all( 20, 30 ) */
+        /* @include min-viewport-both( 20, 30 ) */
+        /* @content; */
     }
 }
-@media (max-width: 19.99em) and (max-height: 29.99em) {
+@media (width < 20em) and (height < 30em) {
     breakpoints {
-        /* max-all( 20, 30 ) */
+        /* @include max-viewport-both( 20, 30 ) */
+        /* @content; */
     }
 }
-@media (min-width: 25em) and (max-width: 49.99em) {
-    breakpoints {
-        /* minmax-width( mobile, tablet ) */
+@media (25em <= width < 50em) {
+    .js__no-whereSelector breakpoints {
+        /* @include minmax-width( mobile, tablet ) */
+        /* @content; */
+    }
+    :where(
+            :root:not([data-viewport-width-mobile='max']):not(
+                    [data-viewport-width-tablet='min']
+                )
+        )
+        breakpoints {
+        /* @include minmax-width( mobile, tablet ) */
+        /* @content; */
     }
 }
-@media (min-height: 20em) and (max-height: 34.99em) {
+:where([data-viewport-width-mobile='min'][data-viewport-width-tablet='max'])
     breakpoints {
-        /* minmax-height( 20, 35 ) */
+    /* @include minmax-width( mobile, tablet ) */
+    /* @content; */
+}
+
+@media (25em <= width < 50em) {
+    .js__no-whereSelector breakpoints {
+        /* @include minmax-width( mobile, 50 ) */
+        /* @content; */
+    }
+    :where(:root:not([data-viewport-width-mobile='max'])) breakpoints {
+        /* @include minmax-width( mobile, 50 ) */
+        /* @content; */
+    }
+}
+@media (width < 50em) {
+    :where([data-viewport-width-mobile='min']) breakpoints {
+        /* @include minmax-width( mobile, 50 ) */
+        /* @content; */
+    }
+}
+
+@media (20em <= height < 35em) {
+    .js__no-whereSelector breakpoints {
+        /* @include minmax-height( 20, 35 ) */
+        /* @content; */
+    }
+    breakpoints {
+        /* @include minmax-height( 20, 35 ) */
+        /* @content; */
+    }
+}
+@media (20em <= height < 66.75em) {
+    .js__no-whereSelector breakpoints {
+        /* @include minmax-height( 20, page ) */
+        /* @content; */
+    }
+    :where(:root:not([data-viewport-height-page='min'])) breakpoints {
+        /* @include minmax-height( 20, page ) */
+        /* @content; */
+    }
+}
+@media (20em <= height) {
+    :where([data-viewport-height-page='max']) breakpoints {
+        /* @include minmax-height( 20, page ) */
+        /* @content; */
     }
 }

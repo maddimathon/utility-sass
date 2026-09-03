@@ -122,6 +122,7 @@ all-heading-levels {
     h6,
     .h7,
     .h8 {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> %unstyled-heading--class )
@@ -144,6 +145,7 @@ all-heading-levels {
     :where([role='heading'][aria-level='6']),
     :where([role='heading'][aria-level='7']),
     :where([role='heading'][aria-level='8']) {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> %unstyled-heading--where--class )
@@ -176,6 +178,7 @@ all-heading-levels {
     .h6,
     .h7,
     .h8 {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> .unstyled-heading )
@@ -197,6 +200,7 @@ all-heading-levels {
     }
     .unstyled-heading:where([role='heading']),
     :where([role='heading']) {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> .unstyled-heading:where([role=heading]) )
@@ -205,7 +209,9 @@ all-heading-levels {
     }
 }
 @media (mixin: selector-all-headings) {
-    /* @include selector-all-headings( $direct: true ) */
+    parent {
+        /* @include selector-all-headings( $direct: true ) */
+    }
     parent > .unstyled-heading,
     parent > .page-title,
     parent > .h1,
@@ -222,6 +228,7 @@ all-heading-levels {
     parent > h6,
     parent > .h7,
     parent > .h8 {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> parent <S> > <S> %unstyled-heading--class )
@@ -244,6 +251,7 @@ all-heading-levels {
     parent > :where([role='heading'][aria-level='6']),
     parent > :where([role='heading'][aria-level='7']),
     parent > :where([role='heading'][aria-level='8']) {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> parent <S> > <S> %unstyled-heading--where--class )
@@ -260,7 +268,9 @@ all-heading-levels {
     }
 }
 @media (mixin: selector-all-headings) {
-    /* @include selector-all-headings( $direct: true, $usePseudo: false ) */
+    parent {
+        /* @include selector-all-headings( $direct: true, $usePseudo: false ) */
+    }
     parent > .unstyled-heading,
     parent > h1,
     parent > .h1,
@@ -276,6 +286,7 @@ all-heading-levels {
     parent > .h6,
     parent > .h7,
     parent > .h8 {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> parent <S> > <S> .unstyled-heading )
@@ -297,6 +308,7 @@ all-heading-levels {
     }
     parent > .unstyled-heading:where([role='heading']),
     parent > :where([role='heading']) {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> parent <S> > <S> .unstyled-heading:where([role=heading]) )
@@ -315,6 +327,7 @@ all-heading-levels {
     :where([role='heading'][aria-level='6']),
     :where([role='heading'][aria-level='7']),
     :where([role='heading'][aria-level='8']) {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> %unstyled-heading--where--class )
@@ -334,6 +347,7 @@ all-heading-levels {
     /* @include selector-all-headings( $base: false, $usePseudo: false ) */
     .unstyled-heading:where([role='heading']),
     :where([role='heading']) {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> .unstyled-heading:where([role=heading]) )
@@ -342,7 +356,9 @@ all-heading-levels {
     }
 }
 @media (mixin: selector-all-headings) {
-    /* @include selector-all-headings( $base: false, $direct: true ) */
+    parent {
+        /* @include selector-all-headings( $base: false, $direct: true ) */
+    }
     parent > :where([role='heading'][aria-level='1']),
     parent > :where([role='heading'][aria-level='2']),
     parent > :where([role='heading'][aria-level='3']),
@@ -351,6 +367,7 @@ all-heading-levels {
     parent > :where([role='heading'][aria-level='6']),
     parent > :where([role='heading'][aria-level='7']),
     parent > :where([role='heading'][aria-level='8']) {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> parent <S> > <S> %unstyled-heading--where--class )
@@ -367,9 +384,12 @@ all-heading-levels {
     }
 }
 @media (mixin: selector-all-headings) {
-    /* @include selector-all-headings( $base: false, $direct: true, $usePseudo: false ) */
+    parent {
+        /* @include selector-all-headings( $base: false, $direct: true, $usePseudo: false ) */
+    }
     parent > .unstyled-heading:where([role='heading']),
     parent > :where([role='heading']) {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> parent <S> > <S> .unstyled-heading:where([role=heading]) )
@@ -396,6 +416,7 @@ all-heading-levels {
     h6,
     .h7,
     .h8 {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> %unstyled-heading--class )
@@ -428,6 +449,7 @@ all-heading-levels {
     .h6,
     .h7,
     .h8 {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> .unstyled-heading )
@@ -449,7 +471,9 @@ all-heading-levels {
     }
 }
 @media (mixin: selector-all-headings) {
-    /* @include selector-all-headings( $where: false, $direct: true ) */
+    parent {
+        /* @include selector-all-headings( $where: false, $direct: true ) */
+    }
     parent > .unstyled-heading,
     parent > .page-title,
     parent > .h1,
@@ -466,6 +490,7 @@ all-heading-levels {
     parent > h6,
     parent > .h7,
     parent > .h8 {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> parent <S> > <S> %unstyled-heading--class )
@@ -482,7 +507,9 @@ all-heading-levels {
     }
 }
 @media (mixin: selector-all-headings) {
-    /* @include selector-all-headings( $where: false, $direct: true, $usePseudo: false ) */
+    parent {
+        /* @include selector-all-headings( $where: false, $direct: true, $usePseudo: false ) */
+    }
     parent > .unstyled-heading,
     parent > h1,
     parent > .h1,
@@ -498,6 +525,7 @@ all-heading-levels {
     parent > .h6,
     parent > .h7,
     parent > .h8 {
+        /* @content; */
         /*
             & is a list:
             1: <()> ( <S> parent <S> > <S> .unstyled-heading )

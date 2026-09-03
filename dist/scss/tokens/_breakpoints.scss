@@ -92,3 +92,24 @@ $breakpoints: map.merge(
         )
     );
 }
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$breakpoints_attributeOverrides: null !default;
+$breakpoints_attributeOverrides: config.config-valid-list-strings(
+    $breakpoints_attributeOverrides,
+    'breakpoints_attributeOverrides',
+    $default: (),
+    $options: map.keys($breakpoints)
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$breakpoints_attributeOverrides_includeRoot: null !default;
+$breakpoints_attributeOverrides_includeRoot: config.config-valid-bool(
+    $breakpoints_attributeOverrides_includeRoot,
+    'breakpoints_attributeOverrides_includeRoot',
+    $default: false
+);

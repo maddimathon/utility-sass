@@ -42,7 +42,7 @@
     $sizeScalingSlope: math.div($size_max - $size_min, $max_viewport - $min_viewport)
 ) {
     @if meta.type-of($size) != number {
-        @warn "$size should be a number (was the #{meta.type-of($size)} #{$size})";
+        @warn "$size should be a number (was the #{meta.type-of($size)} #{meta.inspect($size)})";
         @return add-unit.add-unit($size, $unit: $unit);
     }
 

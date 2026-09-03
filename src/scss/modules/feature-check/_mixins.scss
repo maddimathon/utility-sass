@@ -62,8 +62,8 @@
         $skipNonWhereSelectors: list.index($key, whereSelector) != null;
     }
 
-    $include_noJS: false;
     $includes_whereSelector: false;
+    $include_noJsWhereSelector: false;
 
     @each $_key in $key {
         $_query: functions.get-query($_key, $bool, $neverUseJS: $neverUseJS, $viaQuery: $viaQuery);
@@ -92,12 +92,12 @@
                         $includeNoWhereSelectorFallback: $includeNoWhereSelectorFallback
                     )
                     {
-                        $include_noJS: true;
+                        $include_noJsWhereSelector: true;
                     }
                 }
 
                 @if (not $bool) and $_key == whereSelector {
-                    $include_noJS: true;
+                    $include_noJsWhereSelector: true;
                 } @else {
                     $_sel: functions.get-selector(
                         if((not $hasMoreThanOneKey) and ($_key == whereSelector), null, $_key),
@@ -131,7 +131,7 @@
     $allSelectors_noJS: list.join(
         $allSelectors_noJS,
         if(
-            $include_noJS,
+            $include_noJsWhereSelector,
             functions.get-selector(
                 null,
                 $bool: $bool,
@@ -236,7 +236,7 @@
 
     @at-root {
         @if $debug {
-            /* #{if($bool, supports, supports-not)}#{meta.demo-args-dump($args)} */
+            /* #{if($bool, supports, supports-not)}#{demo.args-dump($args)} */
             @include meta.var-dump('$query', $query);
             @include meta.var-dump('$selector', $selector);
             @include meta.var-dump('$selector_noJS', $selector_noJS);

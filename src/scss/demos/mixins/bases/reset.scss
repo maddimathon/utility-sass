@@ -10,6 +10,7 @@
 );
 @forward '../../header';
 
+@use '../../../modules/demo';
 @use '../../../modules/meta';
 
 @use '../../../lib';
@@ -17,4 +18,4 @@
 /* # MIXINS - BASES - Reset
  * ======================================================================== */
 
-@include meta.demo-mixin('reset', meta.get-mixin('reset', lib));
+@include demo.mixin('reset', meta.get-mixin('reset', lib));

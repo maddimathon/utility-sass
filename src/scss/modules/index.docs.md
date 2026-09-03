@@ -2,6 +2,7 @@
 title: Modules
 children:
   - ./colour/index.docs.md
+  - ./demo/index.docs.md
   - ./feature-check/index.docs.md
   - ./list/index.docs.md
   - ./map/index.docs.md
@@ -30,6 +31,7 @@ list.nth(...); // built-in
 
 **Modules:**
 - [colour](./colour/index.docs.md)
+- [demo](./demo/index.docs.md)
 - [feature-check](./feature-check/index.docs.md)
 - [list](./list/index.docs.md)
 - [map](./map/index.docs.md)

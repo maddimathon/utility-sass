@@ -21,7 +21,7 @@
 @function join($joiner, $strings...) {
     //
     @if not meta.type-of($joiner) == string {
-        @warn "[string.join] $joiner should be a string (was the #{meta.type-of($joiner)} #{joiner})";
+        @warn "[string.join] $joiner should be a string (was the #{meta.type-of($joiner)} #{meta.inspect($joiner)})";
         $joiner: null;
     } @else if $joiner == '' {
         $joiner: null;

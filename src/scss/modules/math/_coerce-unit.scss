@@ -20,7 +20,7 @@
 
     // returns if it can't be converted to a number
     @if $num_typeof != number {
-        @warn '[math.coerce-unit] $num should be a number (was the #{meta.type-of($num)} #{$num})';
+        @warn '[math.coerce-unit] $num should be a number (was the #{meta.type-of($num)} #{meta.inspect($num)})';
 
         // returns
         @if $num_typeof != string {

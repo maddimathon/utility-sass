@@ -8,6 +8,7 @@
 
 @use '../config';
 
+@use '../../modules/demo';
 @use '../../modules/meta';
 
 @use '../../lib' as *;
@@ -16,19 +17,19 @@
  * ======================================================================== */
 
 @mixin _motion-tests {
-    @include meta.demo-function(
+    @include demo.function(
         'selector-motion',
         meta.get-function('selector-motion'),
         meta.arglist(true)
     );
-    @include meta.demo-function(
+    @include demo.function(
         'selector-motion',
         meta.get-function('selector-motion'),
         meta.arglist(false)
     );
 
-    @include meta.demo-mixin('motion', meta.get-mixin('motion'));
-    @include meta.demo-mixin('no-motion', meta.get-mixin('no-motion'));
+    @include demo.mixin('motion', meta.get-mixin('motion'), $signatureAtRoot: true);
+    @include demo.mixin('no-motion', meta.get-mixin('no-motion'), $signatureAtRoot: true);
 }
 
 /* #region - at root */

@@ -3818,63 +3818,89 @@ body:where(.has-a-class) {
     }
 }
 @media selector-has {
-    /* @include selector.has() */
+    .parent {
+        /* @include selector.has() */
+    }
     .parent :has(*) {
         /* @content; */
     }
-    /* @include selector.has( $direct: true ) */
+    .parent {
+        /* @include selector.has( $direct: true ) */
+    }
     .parent :has(> *) {
         /* @content; */
     }
-    /* @include selector.has( $unifyParent: true ) */
+    .parent {
+        /* @include selector.has( $unifyParent: true ) */
+    }
     .parent:has(*) {
         /* @content; */
     }
-    /* @include selector.has( $unifyParent: true, $direct: true ) */
+    .parent {
+        /* @include selector.has( $unifyParent: true, $direct: true ) */
+    }
     .parent:has(> *) {
         /* @content; */
     }
-    /* @include selector.has( $includeParent: false ) */
+    .parent {
+        /* @include selector.has( $includeParent: false ) */
+    }
     :has(*) {
         /* @content; */
     }
-    /* @include selector.has( ( div, p, body ) ) */
+    .parent {
+        /* @include selector.has( ( div, p, body ) ) */
+    }
     .parent :has(div),
     .parent :has(p),
     .parent :has(body) {
         /* @content; */
     }
-    /* @include selector.has( ( div, p, body ), $split: false ) */
+    .parent {
+        /* @include selector.has( ( div, p, body ), $split: false ) */
+    }
     .parent :has(div, p, body) {
         /* @content; */
     }
-    /* @include selector.has( ( div, p, body ), $direct: true ) */
+    .parent {
+        /* @include selector.has( ( div, p, body ), $direct: true ) */
+    }
     .parent :has(> div),
     .parent :has(> p),
     .parent :has(> body) {
         /* @content; */
     }
-    /* @include selector.has( ( div, p, body ), $direct: true, $split: false ) */
+    .parent {
+        /* @include selector.has( ( div, p, body ), $direct: true, $split: false ) */
+    }
     .parent :has(> div, > p, > body) {
         /* @content; */
     }
-    /* @include selector.has( ( div, p, body ), $unifyParent: true ) */
+    .parent {
+        /* @include selector.has( ( div, p, body ), $unifyParent: true ) */
+    }
     .parent:has(div),
     .parent:has(p),
     .parent:has(body) {
         /* @content; */
     }
-    /* @include selector.has( ( div, p, body ), $split: false, $unifyParent: true ) */
+    .parent {
+        /* @include selector.has( ( div, p, body ), $split: false, $unifyParent: true ) */
+    }
     .parent:has(div, p, body) {
         /* @content; */
     }
-    /* @include selector.has( ( div, p, body ), $direct: true, $unifyParent: true ) */
+    .parent {
+        /* @include selector.has( ( div, p, body ), $direct: true, $unifyParent: true ) */
+    }
     .parent:has(> div),
     .parent:has(> p),
     .parent:has(> body) {
         /* @content; */
     }
-    /* @include selector.has( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) */
+    .parent {
+        /* @include selector.has( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) */
+    }
     .parent:has(> div, > p, > body) {
         /* @content; */
     }
@@ -3991,49 +4017,69 @@ body:where(.has-a-class) {
     }
 }
 @media selector-is {
-    /* @include selector.is() */
+    .parent {
+        /* @include selector.is() */
+    }
     .parent :is(*) {
         /* @content; */
     }
-    /* @include selector.is( $direct: true ) */
+    .parent {
+        /* @include selector.is( $direct: true ) */
+    }
     .parent > :is(*) {
         /* @content; */
     }
-    /* @include selector.is( $unifyParent: true ) */
+    .parent {
+        /* @include selector.is( $unifyParent: true ) */
+    }
     .parent:is(*) {
         /* @content; */
     }
-    /* @include selector.is( $includeParent: false ) */
+    .parent {
+        /* @include selector.is( $includeParent: false ) */
+    }
     :is(*) {
         /* @content; */
     }
-    /* @include selector.is( ( div, p, body ) ) */
+    .parent {
+        /* @include selector.is( ( div, p, body ) ) */
+    }
     .parent :is(div),
     .parent :is(p),
     .parent :is(body) {
         /* @content; */
     }
-    /* @include selector.is( ( div, p, body ), $split: false ) */
+    .parent {
+        /* @include selector.is( ( div, p, body ), $split: false ) */
+    }
     .parent :is(div, p, body) {
         /* @content; */
     }
-    /* @include selector.is( ( div, p, body ), $direct: true ) */
+    .parent {
+        /* @include selector.is( ( div, p, body ), $direct: true ) */
+    }
     .parent > :is(div),
     .parent > :is(p),
     .parent > :is(body) {
         /* @content; */
     }
-    /* @include selector.is( ( div, p, body ), $direct: true, $split: false ) */
+    .parent {
+        /* @include selector.is( ( div, p, body ), $direct: true, $split: false ) */
+    }
     .parent > :is(div, p, body) {
         /* @content; */
     }
-    /* @include selector.is( ( div, p, body ), $unifyParent: true ) */
+    .parent {
+        /* @include selector.is( ( div, p, body ), $unifyParent: true ) */
+    }
     .parent:is(div),
     .parent:is(p),
     .parent:is(body) {
         /* @content; */
     }
-    /* @include selector.is( ( div, p, body ), $split: false, $unifyParent: true ) */
+    .parent {
+        /* @include selector.is( ( div, p, body ), $split: false, $unifyParent: true ) */
+    }
     .parent:is(div, p, body) {
         /* @content; */
     }
@@ -4135,43 +4181,63 @@ body:where(.has-a-class) {
     }
 }
 @media selector-not {
-    /* @include selector.not() */
+    .parent {
+        /* @include selector.not() */
+    }
     .parent * {
         /* @content; */
     }
-    /* @include selector.not( $direct: true ) */
+    .parent {
+        /* @include selector.not( $direct: true ) */
+    }
     .parent > * {
         /* @content; */
     }
-    /* @include selector.not( $unifyParent: true ) */
+    .parent {
+        /* @include selector.not( $unifyParent: true ) */
+    }
     .parent {
         /* @content; */
     }
-    /* @include selector.not( $includeParent: false ) */
+    .parent {
+        /* @include selector.not( $includeParent: false ) */
+    }
     * {
         /* @content; */
     }
-    /* @include selector.not( ( div, p, body ) ) */
+    .parent {
+        /* @include selector.not( ( div, p, body ) ) */
+    }
     .parent :not(div):not(p):not(body) {
         /* @content; */
     }
-    /* @include selector.not( ( div, p, body ), $split: false ) */
+    .parent {
+        /* @include selector.not( ( div, p, body ), $split: false ) */
+    }
     .parent :not(div, p, body) {
         /* @content; */
     }
-    /* @include selector.not( ( div, p, body ), $direct: true ) */
+    .parent {
+        /* @include selector.not( ( div, p, body ), $direct: true ) */
+    }
     .parent > :not(div):not(p):not(body) {
         /* @content; */
     }
-    /* @include selector.not( ( div, p, body ), $direct: true, $split: false ) */
+    .parent {
+        /* @include selector.not( ( div, p, body ), $direct: true, $split: false ) */
+    }
     .parent > :not(div, p, body) {
         /* @content; */
     }
-    /* @include selector.not( ( div, p, body ), $unifyParent: true ) */
+    .parent {
+        /* @include selector.not( ( div, p, body ), $unifyParent: true ) */
+    }
     .parent:not(div):not(p):not(body) {
         /* @content; */
     }
-    /* @include selector.not( ( div, p, body ), $split: false, $unifyParent: true ) */
+    .parent {
+        /* @include selector.not( ( div, p, body ), $split: false, $unifyParent: true ) */
+    }
     .parent:not(div, p, body) {
         /* @content; */
     }
@@ -4288,49 +4354,69 @@ body:where(.has-a-class) {
     }
 }
 @media selector-where {
-    /* @include selector.where() */
+    .parent {
+        /* @include selector.where() */
+    }
     .parent :where(*) {
         /* @content; */
     }
-    /* @include selector.where( $direct: true ) */
+    .parent {
+        /* @include selector.where( $direct: true ) */
+    }
     .parent > :where(*) {
         /* @content; */
     }
-    /* @include selector.where( $unifyParent: true ) */
+    .parent {
+        /* @include selector.where( $unifyParent: true ) */
+    }
     .parent:where(*) {
         /* @content; */
     }
-    /* @include selector.where( $includeParent: false ) */
+    .parent {
+        /* @include selector.where( $includeParent: false ) */
+    }
     :where(*) {
         /* @content; */
     }
-    /* @include selector.where( ( div, p, body ) ) */
+    .parent {
+        /* @include selector.where( ( div, p, body ) ) */
+    }
     .parent :where(div),
     .parent :where(p),
     .parent :where(body) {
         /* @content; */
     }
-    /* @include selector.where( ( div, p, body ), $split: false ) */
+    .parent {
+        /* @include selector.where( ( div, p, body ), $split: false ) */
+    }
     .parent :where(div, p, body) {
         /* @content; */
     }
-    /* @include selector.where( ( div, p, body ), $direct: true ) */
+    .parent {
+        /* @include selector.where( ( div, p, body ), $direct: true ) */
+    }
     .parent > :where(div),
     .parent > :where(p),
     .parent > :where(body) {
         /* @content; */
     }
-    /* @include selector.where( ( div, p, body ), $direct: true, $split: false ) */
+    .parent {
+        /* @include selector.where( ( div, p, body ), $direct: true, $split: false ) */
+    }
     .parent > :where(div, p, body) {
         /* @content; */
     }
-    /* @include selector.where( ( div, p, body ), $unifyParent: true ) */
+    .parent {
+        /* @include selector.where( ( div, p, body ), $unifyParent: true ) */
+    }
     .parent:where(div),
     .parent:where(p),
     .parent:where(body) {
         /* @content; */
     }
-    /* @include selector.where( ( div, p, body ), $split: false, $unifyParent: true ) */
+    .parent {
+        /* @include selector.where( ( div, p, body ), $split: false, $unifyParent: true ) */
+    }
     .parent:where(div, p, body) {
         /* @content; */
     }

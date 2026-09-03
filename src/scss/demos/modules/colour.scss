@@ -6,6 +6,7 @@
 @forward '../config';
 @forward '../header';
 
+@use '../../modules/demo';
 @use '../../modules/colour';
 // @use '../../modules/list';
 @use '../../modules/meta';
@@ -13,15 +14,11 @@
 // @use '../../lib' as *;
 
 @mixin _demo-function($name, $args...) {
-    @include meta.demo-function(
-        'colour.#{$name}',
-        meta.get-function($name, $module: colour),
-        $args
-    );
+    @include demo.function('colour.#{$name}', meta.get-function($name, $module: colour), $args);
 }
 
 @mixin _demo-mixin($name, $args...) {
-    @include meta.demo-mixin('colour.#{$name}', meta.get-mixin($name, $module: colour), $args) {
+    @include demo.mixin('colour.#{$name}', meta.get-mixin($name, $module: colour), $args) {
         @content;
     }
 }
@@ -29,12 +26,12 @@
 /* # MODULES - COLOUR
  * ======================================================================== */
 
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (currentColor) );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (inherit) );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (transparent) );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (ActiveText) );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (red) );
-// @include meta.demo-function( 'meta.type-of', meta.get-function('type-of', $module: meta), (rebeccapurple) );
+// @include demo.function( 'meta.type-of', meta.get-function('type-of', $module: meta), (currentColor) );
+// @include demo.function( 'meta.type-of', meta.get-function('type-of', $module: meta), (inherit) );
+// @include demo.function( 'meta.type-of', meta.get-function('type-of', $module: meta), (transparent) );
+// @include demo.function( 'meta.type-of', meta.get-function('type-of', $module: meta), (ActiveText) );
+// @include demo.function( 'meta.type-of', meta.get-function('type-of', $module: meta), (red) );
+// @include demo.function( 'meta.type-of', meta.get-function('type-of', $module: meta), (rebeccapurple) );
 
 /* ## Colour - Identifying ==================================== */
 

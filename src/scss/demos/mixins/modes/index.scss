@@ -10,6 +10,7 @@
 
 @use 'config';
 
+@use '../../../modules/demo';
 @use '../../../modules/meta';
 
 @use 'lib' as *;
@@ -23,18 +24,18 @@ $modeSets: (light, (light, dark), (light, dark, average, forced-colors));
 
 @media selectors {
     @each $modeSet in $modeSets {
-        @include meta.demo-function(
+        @include demo.function(
             'simple-selectors-colour-mode',
             meta.get-function('simple-selectors-colour-mode'),
             meta.arglist($modeSet)
         );
     }
 
-    @include meta.demo-function(
+    @include demo.function(
         'simple-selectors-colour-mode-all',
         meta.get-function('simple-selectors-colour-mode-all')
     );
-    @include meta.demo-function(
+    @include demo.function(
         'simple-selectors-colour-mode-all',
         meta.get-function('simple-selectors-colour-mode-all'),
         meta.arglist($activeOnly: true)

@@ -16,7 +16,6 @@ meta.arglist(...); // added
 meta.current-version(...); // added
 
 meta.docblock-printer(...); // added
-meta.demo-args-dump(...); // added
 
 meta.call-global-compiler-fn(...); // added
 meta.get-global-compiler-fn(...); // added
@@ -28,11 +27,7 @@ meta.keywords-list(...); // added
 meta.var-dump(...); // added
 meta.var-type-abbreviator(...); // added
 
-@include meta.demo-function(...) { } // added
-@include meta.demo-selector-function(...) { } // added
-
-@include meta.demo-mixin(...) { } // added
-
+@include meta.at(...) { } // added
 @include meta.var-dump(...) { } // added
 
 meta.type-of(...); // built-in

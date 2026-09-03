@@ -27,7 +27,7 @@
     }
 
     @if $wasMessage == null {
-        $wasMessage: 'was the #{$actualType}: #{$value}';
+        $wasMessage: 'was the #{$actualType}: #{meta.inspect($value)}';
 
         // shorten the output
         @if $actualType == list or $actualType == map {
@@ -54,6 +54,11 @@
     $warn: true,
     $prefix: '[config] '
 ) {
+    // returns - this is an empty list, which is also a valid map
+    @if list.index($type, map) != null and list.length($value) < 1 {
+        @return $value;
+    }
+
     $actualType: meta.type-of($value);
 
     // returns

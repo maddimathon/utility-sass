@@ -7,6 +7,10 @@
 @use 'sass:map';
 @use 'sass:meta';
 
+@use '../config';
+
+@use 'arglist';
+
 ///
 /// Takes an all input args and returns them as an arglist object.
 ///
@@ -19,10 +23,80 @@
         $i: 1;
 
         @each $arg in $args {
-            $unnamed_args: map.set($unnamed_args, #{$i}, $arg);
+            $unnamed_args: map.set($unnamed_args, $i, $arg);
             $i: $i + 1;
         }
     }
 
     @return map.merge($unnamed_args, meta.keywords($args));
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function keywords-list-to-arglist($map) {
+    // returns
+    @if list.length($map) < 1 {
+        @return arglist.arglist();
+    }
+
+    $listed_items: ();
+    $mapped_items: ();
+
+    $has_listed_items: false;
+    $has_mapped_items: false;
+
+    @each $key, $value in $map {
+        @if meta.type-of($key) == number {
+            $listed_items: list.append($listed_items, $value, $separator: comma);
+            $has_listed_items: true;
+        } @else {
+            $mapped_items: map.set($mapped_items, $key, $value);
+            $has_mapped_items: true;
+        }
+    }
+
+    // returns
+    @if not $has_listed_items {
+        @return arglist.arglist($mapped_items...);
+    }
+
+    // returns
+    @if not $has_mapped_items {
+        @return arglist.arglist($listed_items...);
+    }
+
+    @return arglist.arglist($listed_items..., $mapped_items...);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function arglist-prepend($arglist, $additions...) {
+    // returns - value is not an arglist
+    @if config.config-enforce-type-or-warn($value: $arglist, $type: arglist, $varName: 'arglist') ==
+        false
+    {
+        @return $additions;
+    }
+
+    @return keywords-list-to-arglist(
+        map.merge(keywords-list($additions...), keywords-list($arglist...))
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function arglist-append($arglist, $additions...) {
+    // returns - value is not an arglist
+    @if config.config-enforce-type-or-warn($value: $arglist, $type: arglist, $varName: 'arglist') ==
+        false
+    {
+        @return $additions;
+    }
+
+    @return keywords-list-to-arglist(
+        map.merge(keywords-list($arglist...), keywords-list($additions...))
+    );
 }
