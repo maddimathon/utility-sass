@@ -719,7 +719,7 @@
         @content;
     }
 
-    @include selector.has($selector_boxes_has, $direct: true, $split: false, $unifyParent: true) {
+    @include selector.has($selector_boxes_has, $direct: true, $split: false, $unify: true) {
         @include prop-display(grid);
         grid-template-columns: fit-content(0) 1fr;
         justify-content: end;
@@ -745,7 +745,7 @@
             config.selector-input-readonly($selector_boxes_has),
             $direct: true,
             $split: false,
-            $unifyParent: true
+            $unify: true
         ) {
             cursor: auto;
 
@@ -760,7 +760,7 @@
             config.selector-input-disabled($selector_boxes_has),
             $direct: true,
             $split: false,
-            $unifyParent: true
+            $unify: true
         ) {
             cursor: not-allowed;
 
@@ -770,7 +770,7 @@
         }
     }
 
-    @include selector.has($selector_boxes_has, $direct: true, $split: false, $unifyParent: true) {
+    @include selector.has($selector_boxes_has, $direct: true, $split: false, $unify: true) {
         // UPGRADE - make a selector.last-selector() to repeat with better nesting
         & + & {
             @if $includeMarginBlock {

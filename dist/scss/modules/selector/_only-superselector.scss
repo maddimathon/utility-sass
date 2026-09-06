@@ -10,7 +10,7 @@
 
 @use '../meta';
 
-@use 'parent-exists';
+@use 'exists';
 
 ///
 /// Includes all cases of $needles selectors in comma-separated $haystack
@@ -68,7 +68,7 @@
 ///
 @function parent-only-superselector($needles, $args...) {
     // returns
-    @if not parent-exists.parent-exists() {
+    @if not exists.parent-exists() {
         @return config.$selector_null;
     }
 

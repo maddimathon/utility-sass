@@ -10,7 +10,7 @@
 @use '../string';
 
 @use 'is-superselector-any';
-@use 'parent-exists';
+@use 'exists';
 
 ///
 /// Checks if the given selector is a known body element selector (i.e., 'body'
@@ -94,7 +94,7 @@
 @function parent-is-body($parentSelector: &, $args...) {
     @if $parentSelector == null {
         // returns
-        @if not parent-exists.parent-exists() {
+        @if not exists.parent-exists() {
             @return false;
         }
 

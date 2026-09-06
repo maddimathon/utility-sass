@@ -15,7 +15,7 @@
 @use 'includes';
 @use 'is-simple';
 @use 'is-superselector-any';
-@use 'parent-exists';
+@use 'exists';
 @use 'unify-all';
 
 ///
@@ -752,7 +752,7 @@
 }
 
 @mixin extend-simple-selector($needles, $extenders, $parentSelector: &, $args...) {
-    @if $parentSelector == null and not parent-exists.parent-exists() {
+    @if $parentSelector == null and not exists.parent-exists() {
         #{config.$selector_null} {
             @content;
         }

@@ -1,15 +1,47 @@
 @charset "UTF-8";
 /*!
- * Utility Sass - Demo
+ * Utility Sass - Demo - Meta Module
  * 
  * This stylesheet demonstrates the output of functions and mixins included in
- * this library.
+ * this library’s meta and demo modules.
  * 
  * https://maddimathon.github.io/utility-sass
  * 
  * Author: Maddi Mathon (https://www.maddimathon.com/web)
  * License: MIT
  */
+@demo config {
+    /**
+     * a selection of relevant config vars with their values, for reference
+     */
+    /* 
+        config.$demo_displayOutput_callSignature = </> false
+     */
+    /* 
+        config.$demo_includeNameWithContent = </> true
+     */
+    /* 
+        config.$demo_parentSelector_dump = </> false
+     */
+    /* 
+        config.$demo_parentSelector_dump_function = </> true
+     */
+    /* 
+        config.$demo_separateSignature = </> true
+     */
+    /* 
+        config.$demo_signatureAsRegion = </> false
+     */
+    /* 
+        config.$demo_signatureAtRoot = </> false
+     */
+    /* 
+        config.$demo_wrapOutput = </> false
+     */
+    /* 
+        config.$demo_wrapOutput_function = </> false
+     */
+}
 /* # MODULES - META
  * ======================================================================== */
 @media current-version {
@@ -284,13 +316,13 @@ meta.is-truthy {
 }
 
 /* ## MODULES - META - demo.mixin() ==================================== */
-@media demo-mixin {
+@demo ( mixin: demo.mixin ) {
     .parent {
-        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $includeNameWithContent: true ) */
+        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $includeNameWithContent: true ) {} */
     }
-    @demo ( mixin: "demo.mixin" ) {
+    @demo output {
         .parent {
-            /* @include snippet-focus-ring() */
+            /* @include snippet-focus-ring; */
             outline-width: var(--focus-ring-outline-width, 0.125em);
             outline-style: dashed;
             outline-color: var(
@@ -303,13 +335,13 @@ meta.is-truthy {
     }
 }
 
-@media demo-mixin {
+@demo ( mixin: demo.mixin ) {
     .parent {
-        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $signatureAsRegion: true, $includeNameWithContent: true ) */
+        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $signatureAsRegion: true, $includeNameWithContent: true ) {} */
     }
-    @demo ( mixin: "demo.mixin" ) {
+    @demo output {
         .parent {
-            /* #region @include snippet-focus-ring() */
+            /* #region @include snippet-focus-ring; */
             outline-width: var(--focus-ring-outline-width, 0.125em);
             outline-style: dashed;
             outline-color: var(
@@ -318,41 +350,43 @@ meta.is-truthy {
             );
             outline-offset: var(--focus-ring-outline-offset, 0.125em);
             /* [demo.mixin] @content; */
-            /* #endregion @include snippet-focus-ring() */
+            /* #endregion @include snippet-focus-ring; */
         }
     }
 }
 
-@media demo-mixin {
+@demo ( mixin: demo.mixin ) {
     .parent {
-        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $wrapOutput: true, $includeNameWithContent: true ) */
+        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $wrapOutput: true, $includeNameWithContent: true ) {} */
     }
-    @demo ( mixin: "demo.mixin" ) {
-        .parent {
-            /* @include snippet-focus-ring() */
-        }
-        @demo ( mixin: "snippet-focus-ring" ) {
+    @demo output {
+        @demo ( mixin: snippet-focus-ring ) {
             .parent {
-                outline-width: var(--focus-ring-outline-width, 0.125em);
-                outline-style: dashed;
-                outline-color: var(
-                    --focus-ring-outline-color,
-                    var(--sys-clr-link, LinkText)
-                );
-                outline-offset: var(--focus-ring-outline-offset, 0.125em);
-                /* [demo.mixin] @content; */
+                /* @include snippet-focus-ring; */
+            }
+            @demo output {
+                .parent {
+                    outline-width: var(--focus-ring-outline-width, 0.125em);
+                    outline-style: dashed;
+                    outline-color: var(
+                        --focus-ring-outline-color,
+                        var(--sys-clr-link, LinkText)
+                    );
+                    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+                    /* [demo.mixin] @content; */
+                }
             }
         }
     }
 }
 
-@media demo-mixin {
+@demo ( mixin: demo.mixin ) {
     .parent {
-        /* @include demo.mixin( prop-display, get-mixin("prop-display"), <⋯>( block ), $includeNameWithContent: true ) */
+        /* @include demo.mixin( prop-display, get-mixin("prop-display"), <⋯>( block ), $includeNameWithContent: true ) {} */
     }
-    @demo ( mixin: "demo.mixin" ) {
+    @demo output {
         .parent {
-            /* @include prop-display( block ) */
+            /* @include prop-display( block ); */
             --display: block;
             display: var(--display, block);
             /* [demo.mixin] @content; */
@@ -360,13 +394,13 @@ meta.is-truthy {
     }
 }
 
-@media demo-mixin {
+@demo ( mixin: demo.mixin ) {
     .parent {
-        /* @include demo.mixin( focus-visible, get-mixin("focus-visible"), $includeNameWithContent: true ) */
+        /* @include demo.mixin( focus-visible, get-mixin("focus-visible"), $includeNameWithContent: true ) {} */
     }
-    @demo ( mixin: "demo.mixin" ) {
+    @demo output {
         .parent {
-            /* @include focus-visible() */
+            /* @include focus-visible {} */
         }
         .no-js .parent:focus,
         .js__no-whereSelector .parent:focus {
@@ -384,13 +418,13 @@ meta.is-truthy {
     }
 }
 
-@media demo-mixin {
+@demo ( mixin: demo.mixin ) {
     .parent {
-        /* @include demo.mixin( focus-visible, get-mixin("focus-visible"), <⋯>( $multipleContentBlocks: true ), $includeNameWithContent: true ) */
+        /* @include demo.mixin( focus-visible, get-mixin("focus-visible"), <⋯>( $multipleContentBlocks: true ), $includeNameWithContent: true ) {} */
     }
-    @demo ( mixin: "demo.mixin" ) {
+    @demo output {
         .parent {
-            /* @include focus-visible( $multipleContentBlocks: true ) */
+            /* @include focus-visible( $multipleContentBlocks: true ) {} */
         }
         .no-js .parent:focus,
         .js__no-whereSelector .parent:focus {
@@ -434,9 +468,9 @@ meta.is-truthy {
 /* ## MODULES - META - js-var-dump() ==================================== */
 @media js-var-dump {
     /* 
-        meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> meta.js-var-dump() [id: ua4iuou] - demo-var-1
+        meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> meta.js-var-dump() [id: u0msjhd] - demo-var-1
      */
     /* 
-        meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> meta.js-var-dump() [id: ua4iup3] - demo-var-2
+        meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> meta.js-var-dump() [id: u0msjhw] - demo-var-2
      */
 }

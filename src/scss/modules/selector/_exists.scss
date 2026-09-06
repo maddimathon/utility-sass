@@ -1,0 +1,51 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-pre.0
+///
+
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:selector';
+@use 'sass:string';
+
+@use '../config';
+
+///
+/// Whether or not the selector is valid.
+///
+/// @return {bool}
+///
+/// @since ___PKG_VERSION___
+///
+@function exists($selector) {
+    $parentSelectorType: meta.type-of($selector);
+
+    @if $parentSelectorType != list and $parentSelectorType != string {
+        @return false;
+    }
+
+    @if list.length($selector) < 1 or string.length(#{$selector}) < 1 {
+        @return false;
+    }
+
+    @if #{$selector} == #{config.$selector_null} {
+        @return false;
+    }
+
+    @if selector.is-superselector(#{config.$selector_null}, #{$selector}) {
+        @return false;
+    }
+
+    @return true;
+}
+
+///
+/// Whether or not the parent selector is currently valid.
+///
+/// @return {bool}
+///
+/// @since 0.1.0-pre.0
+///
+@function parent-exists() {
+    @return exists(&);
+}

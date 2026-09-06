@@ -9,7 +9,7 @@
 @use '../config';
 
 @use 'is-body';
-@use 'parent-exists';
+@use 'exists';
 
 ///
 /// Checks if the given selector contains a known body element selector (i.e.,
@@ -82,7 +82,7 @@
 @function parent-has-body($parentSelector: &, $args...) {
     @if $parentSelector == null {
         // returns
-        @if not parent-exists.parent-exists() {
+        @if not exists.parent-exists() {
             @return false;
         }
 

@@ -7,12 +7,15 @@
 
 @use '../config';
 
+@use '../../../../modules/demo';
 @use '../../../../modules/list';
 @use '../../../../modules/map';
 @use '../../../../modules/meta';
 @use '../../../../modules/selector';
 
 @use '../../../../lib' as *;
+
+$_mixin_applyInteractiveMixin: meta.get-mixin(apply-interactive-mixin);
 
 //#region - $interactive_paramPermutations
 $interactive_paramPermutations: (
@@ -156,100 +159,73 @@ $interactive_paramPermutations: (
     $self: false,
     $visited: false,
     $debug: false,
-    $multipleContentBlocks: false,
+    $multipleContentBlocks: $debug,
     $args...
 ) {
     $args: meta.keywords($args);
 
-    $_trueArgsList: ();
-    $_trueArgsDumpList: ();
+    $mixin_arglist: ();
 
     @if $hover {
-        $_trueArgsList: map.set($_trueArgsList, 'hover', $hover);
-        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$hover', $hover);
+        $mixin_arglist: map.set($mixin_arglist, 'hover', $hover);
     }
 
     @if $focus {
-        $_trueArgsList: map.set($_trueArgsList, 'focus', $focus);
-        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$focus', $focus);
+        $mixin_arglist: map.set($mixin_arglist, 'focus', $focus);
     }
 
     @if $focusWithin {
-        $_trueArgsList: map.set($_trueArgsList, 'focusWithin', $focusWithin);
-        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$focusWithin', $focusWithin);
+        $mixin_arglist: map.set($mixin_arglist, 'focusWithin', $focusWithin);
     }
 
     @if $active {
-        $_trueArgsList: map.set($_trueArgsList, 'active', $active);
-        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$active', $active);
+        $mixin_arglist: map.set($mixin_arglist, 'active', $active);
     }
 
     @if $activeWithin {
-        $_trueArgsList: map.set($_trueArgsList, 'activeWithin', $activeWithin);
-        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$activeWithin', $activeWithin);
+        $mixin_arglist: map.set($mixin_arglist, 'activeWithin', $activeWithin);
     }
 
     @if $self {
-        $_trueArgsList: map.set($_trueArgsList, 'self', $self);
-        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$self', $self);
+        $mixin_arglist: map.set($mixin_arglist, 'self', $self);
     }
 
     @if $visited {
-        $_trueArgsList: map.set($_trueArgsList, 'visited', $visited);
-        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$visited', $visited);
+        $mixin_arglist: map.set($mixin_arglist, 'visited', $visited);
     }
 
     @if $multipleContentBlocks {
-        $_trueArgsDumpList: map.set(
-            $_trueArgsDumpList,
-            '$multipleContentBlocks',
-            $multipleContentBlocks
-        );
+        $mixin_arglist: map.set($mixin_arglist, 'multipleContentBlocks', $multipleContentBlocks);
     }
 
     @if $debug {
-        $_trueArgsList: map.set($_trueArgsList, 'debug', $debug);
-        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$debug', $debug);
+        $mixin_arglist: map.set($mixin_arglist, 'debug', $debug);
     }
 
     @each $param, $value in $args {
-        $_trueArgsList: map.set($_trueArgsList, $param, $value);
-        $_trueArgsDumpList: map.set($_trueArgsDumpList, '$#{$param}', $value);
+        $mixin_arglist: map.set($mixin_arglist, $param, $value);
     }
-
-    $_argsList: if(
-        list.length($_trueArgsDumpList) < 1,
-        '()',
-        meta.var-dump($_trueArgsDumpList, $withType: false, $keys_neverQuote: true)
-    );
 
     @media apply-interactive-mixin {
         @at-root {
-            /* @include apply-interactive-mixin#{$_argsList} */
-
+            /* #{demo.mixin-signature-dump( apply-interactive-mixin, $mixin_arglist, $_mixin_applyInteractiveMixin )} */
             @if $debug {
                 @include meta.var-dump('&', &);
             }
         }
 
-        @if $multipleContentBlocks {
-            @include apply-interactive-mixin($multipleContentBlocks: true, $_trueArgsList...) using
-                ($location) {
-                /* @content ( #{$location} ); */
+        @include apply-interactive-mixin(
+                $multipleContentBlocks: $multipleContentBlocks,
+                $debug: $debug,
+                $warnOnSelf: false,
+                $mixin_arglist...
+            )
+            using ($args...) {
+            /* #{demo.content-args-dump( $args )} */
 
-                @if $debug {
-                    @include meta.var-dump('&', &);
-                    @include meta.var-dump('selector.is-simple(&)', selector.is-simple(&));
-                }
-            }
-        } @else {
-            @include apply-interactive-mixin($multipleContentBlocks: false, $_trueArgsList...) {
-                /* @content; */
-
-                @if $debug {
-                    @include meta.var-dump('&', &);
-                    @include meta.var-dump('selector.is-simple(&)', selector.is-simple(&));
-                }
+            @if $debug {
+                @include meta.var-dump('&', &);
+                @include meta.var-dump('selector.is-simple(&)', selector.is-simple(&));
             }
         }
     }

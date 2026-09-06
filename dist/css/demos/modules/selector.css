@@ -12,973 +12,1308 @@
 /* # MODULES - SELECTOR
  * ======================================================================== */
 /* ## Modules - Selector - replace-simple-selector() ==================================== */
-@media replace-simple-selector {
+@demo ( function: selector.replace-simple-selector ) {
     :root .child .grandchild another.child {
         /*
             selector.replace-simple-selector( &, ".child", ".new-child" ) is a list:
             1: <()> ( <()> ( <S> :root <S> .new-child <S> .grandchild <S> another.new-child ) )
          */
     }
-    :root .new-child .grandchild another.new-child {
-        /* resulting selectors */
+    @demo return {
+        :root .new-child .grandchild another.new-child {
+            /* returned selectors */
+        }
     }
+}
+
+@demo ( function: selector.replace-simple-selector ) {
     :root .child .grandchild another.child {
         /*
             selector.replace-simple-selector( &, :root, ( "html", "custom-html" ) ) is a list:
             1: <()> ( <()> ( <S> html <S> .child <S> .grandchild <S> another.child ), <()> ( <S> custom-html <S> .child <S> .grandchild <S> another.child ) )
          */
     }
-    html .child .grandchild another.child,
-    custom-html .child .grandchild another.child {
-        /* resulting selectors */
+    @demo return {
+        html .child .grandchild another.child,
+        custom-html .child .grandchild another.child {
+            /* returned selectors */
+        }
     }
+}
+
+@demo ( function: selector.replace-simple-selector ) {
     :root .child .grandchild another.child {
         /*
             selector.replace-simple-selector( &, ".non-existant-class", ".new-child" ) is a list:
             1: <()> ( <S> :root <S> .child <S> .grandchild <S> another.child )
          */
     }
-    :root .child .grandchild another.child {
-        /* resulting selectors */
+    @demo return {
+        :root .child .grandchild another.child {
+            /* returned selectors */
+        }
     }
 }
+
 /* ## Modules - Selector - extend-simple-selector() ==================================== */
-@media extend-simple-selector and (selector: A) {
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child" ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true ) is a list:
-            1: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-         */
-    }
-    :root .child.new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child.new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .child.new-child .grandchild,
-    :root .child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child.new-child .grandchild,
-    :root .child .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .new-child .grandchild,
-    :root .child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-         */
-    }
-    :root .new-child .grandchild,
-    :root .child.new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .new-child .grandchild,
-    :root .child.new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .new-child .grandchild,
-    :root .child .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .new-child .grandchild,
-    :root .child.new-child .grandchild,
-    :root .child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .new-child .grandchild,
-    :root .child.new-child .grandchild,
-    :root .child .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .child.new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .child.new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .child .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .child.new-child .grandchild,
-    :root .child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .child.new-child .grandchild,
-    :root .child .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .grandchild,
-    :root .child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .grandchild,
-    :root .child.new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .grandchild,
-    :root .child.new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .grandchild,
-    :root .child .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .grandchild,
-    :root .child.new-child .grandchild,
-    :root .child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
-            5: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .grandchild,
-    :root .child.new-child .grandchild,
-    :root .child .new-child .grandchild,
-    :root .new-child .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".grandchild" ), ".new-child" ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .child <S> .new-child )
-            4: <()> ( <S> :root <S> .new-child <S> .new-child )
-         */
-    }
-    :root .child .grandchild,
-    :root .new-child .grandchild,
-    :root .child .new-child,
-    :root .new-child .new-child {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, :root, ( "html", "custom-html" ) ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-            2: <()> ( <S> html <S> .child <S> .grandchild )
-            3: <()> ( <S> custom-html <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild,
-    html .child .grandchild,
-    custom-html .child .grandchild {
-        /* resulting selectors */
-    }
-    :root .child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ".non-existant-class", ".new-child" ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild )
-         */
-    }
-    :root .child .grandchild {
-        /* resulting selectors */
+@demo-section selector: A {
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child" ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true ) is a list:
+                1: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child.new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child.new-child .grandchild,
+            :root .child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child.new-child .grandchild,
+            :root .child .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child .grandchild,
+            :root .child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child .grandchild,
+            :root .child.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child .grandchild,
+            :root .child.new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child .grandchild,
+            :root .child .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child .grandchild,
+            :root .child.new-child .grandchild,
+            :root .child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child .grandchild,
+            :root .child.new-child .grandchild,
+            :root .child .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .child.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .child.new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .child .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .child.new-child .grandchild,
+            :root .child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .child.new-child .grandchild,
+            :root .child .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .grandchild,
+            :root .child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .grandchild,
+            :root .child.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .grandchild,
+            :root .child.new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .grandchild,
+            :root .child .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .grandchild,
+            :root .child.new-child .grandchild,
+            :root .child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child.new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild )
+                5: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .grandchild,
+            :root .child.new-child .grandchild,
+            :root .child .new-child .grandchild,
+            :root .new-child .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".grandchild" ), ".new-child" ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .child <S> .new-child )
+                4: <()> ( <S> :root <S> .new-child <S> .new-child )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            :root .new-child .grandchild,
+            :root .child .new-child,
+            :root .new-child .new-child {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, :root, ( "html", "custom-html" ) ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+                2: <()> ( <S> html <S> .child <S> .grandchild )
+                3: <()> ( <S> custom-html <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild,
+            html .child .grandchild,
+            custom-html .child .grandchild {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ".non-existant-class", ".new-child" ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
 }
-@media extend-simple-selector and (selector: B) {
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child" ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-         */
+@demo-section selector: B {
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child" ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild,
-    :root another.new-child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false ) is a list:
+                1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false ) is a list:
-            1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.new-child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true ) is a list:
+                1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true ) is a list:
-            1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child.new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child.new-child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child.new-child .grandchild,
+            :root another.child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .new-child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child.new-child .grandchild,
+            :root another.child .new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.new-child .grandchild,
+            :root another.child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true ) is a list:
+                1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.new-child .grandchild,
+            :root another.child.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child.new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.new-child .grandchild,
+            :root another.child.new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.new-child .grandchild,
+            :root another.child .new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child.new-child .grandchild,
-    :root another.child .new-child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.new-child .grandchild,
+            :root another.child.new-child .grandchild,
+            :root another.child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.new-child .grandchild,
+            :root another.child.new-child .grandchild,
+            :root another.child .new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.child.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child.new-child .grandchild,
-    :root another.child .new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.child.new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.child .new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.child.new-child .grandchild,
+            :root another.child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.new-child .grandchild,
-    :root another.child .new-child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.child.new-child .grandchild,
+            :root another.child .new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true ) is a list:
-            1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.new-child .grandchild,
-    :root another.child.new-child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.new-child .grandchild,
+            :root another.child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.new-child .grandchild,
+            :root another.child.new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.new-child .grandchild,
-    :root another.child.new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.new-child .grandchild,
+            :root another.child.new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.new-child .grandchild,
+            :root another.child .new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.new-child .grandchild,
-    :root another.child .new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.new-child .grandchild,
+            :root another.child.new-child .grandchild,
+            :root another.child .new-child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root another.new-child .grandchild,
-    :root another.child.new-child .grandchild,
-    :root another.child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
-    }
-    :root another.new-child .grandchild,
-    :root another.child.new-child .grandchild,
-    :root another.child .new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.child.new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.child.new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.child .new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.child.new-child .grandchild,
-    :root another.child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.child.new-child .grandchild,
-    :root another.child .new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.new-child .grandchild,
-    :root another.child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.new-child .grandchild,
-    :root another.child.new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.new-child .grandchild,
-    :root another.child.new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.new-child .grandchild,
-    :root another.child .new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.new-child .grandchild,
-    :root another.child.new-child .grandchild,
-    :root another.child .new-child .grandchild {
-        /* resulting selectors */
-    }
-    :root another.child .grandchild {
-        /*
-            selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> another.child <S> .grandchild )
-            2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
-            3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
-            4: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
-            5: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
-         */
-    }
-    :root another.child .grandchild,
-    :root another.new-child .grandchild,
-    :root another.child.new-child .grandchild,
-    :root another.child .new-child .grandchild,
-    :root .new-child another.child .grandchild {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root another.child .grandchild {
+            /*
+                selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> another.child <S> .grandchild )
+                2: <()> ( <S> :root <S> another.new-child <S> .grandchild )
+                3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild )
+                4: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild )
+                5: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild )
+             */
+        }
+        @demo return {
+            :root another.child .grandchild,
+            :root another.new-child .grandchild,
+            :root another.child.new-child .grandchild,
+            :root another.child .new-child .grandchild,
+            :root .new-child another.child .grandchild {
+                /* returned selectors */
+            }
+        }
     }
 }
-@media extend-simple-selector and (selector: C) {
-    :root .child .grandchild another.child {
-        /*
-            selector.extend-simple-selector( &, ".child", ".new-child", $self: false ) is a list:
-            1: <()> ( <S> :root <S> .new-child <S> .grandchild <S> another.new-child )
-         */
+@demo-section selector: C {
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild another.child {
+            /*
+                selector.extend-simple-selector( &, ".child", ".new-child", $self: false ) is a list:
+                1: <()> ( <S> :root <S> .new-child <S> .grandchild <S> another.new-child )
+             */
+        }
+        @demo return {
+            :root .new-child .grandchild another.new-child {
+                /* returned selectors */
+            }
+        }
     }
-    :root .new-child .grandchild another.new-child {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild another.child {
+            /*
+                selector.extend-simple-selector( &, ".child", ".new-child", $replace: false ) is a list:
+                1: <()> ( <S> :root <S> .child <S> .grandchild <S> another.child )
+             */
+        }
+        @demo return {
+            :root .child .grandchild another.child {
+                /* returned selectors */
+            }
+        }
     }
-    :root .child .grandchild another.child {
-        /*
-            selector.extend-simple-selector( &, ".child", ".new-child", $replace: false ) is a list:
-            1: <()> ( <S> :root <S> .child <S> .grandchild <S> another.child )
-         */
-    }
-    :root .child .grandchild another.child {
-        /* resulting selectors */
-    }
-    :root .child .grandchild another.child {
-        /*
-            selector.extend-simple-selector( &, ".child", ".new-child", $self: false, $replace: false, $unify: true ) is a list:
-            1: <()> ( <S> :root <S> .child.new-child <S> .grandchild <S> another.new-child.child )
-         */
-    }
-    :root .child.new-child .grandchild another.new-child.child {
-        /* resulting selectors */
-    }
-}
-@media extend-simple-selector and (selector: D) {
-    [data-brightness-mode='light'] {
-        /*
-            selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) is a list:
-            1: <()> ( <S> [data-brightness-mode=light] )
-            2: <()> ( <S> [data-contrast-mode=low] )
-         */
-    }
-    [data-brightness-mode='light'],
-    [data-contrast-mode='low'] {
-        /* resulting selectors */
-    }
-    [data-brightness-mode='light'] {
-        /*
-            selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> [data-brightness-mode=light] )
-            2: <()> ( <S> [data-contrast-mode=low] )
-            3: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] )
-            4: <()> ( <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] )
-            5: <()> ( <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] )
-         */
-    }
-    [data-brightness-mode='light'],
-    [data-contrast-mode='low'],
-    [data-brightness-mode='light'][data-contrast-mode='low'],
-    [data-brightness-mode='light'] [data-contrast-mode='low'],
-    [data-contrast-mode='low'] [data-brightness-mode='light'] {
-        /* resulting selectors */
-    }
-    [data-brightness-mode='light'] {
-        /*
-            selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> [data-brightness-mode=light] )
-            2: <()> ( <S> [data-contrast-mode=low] )
-            3: <()> ( <S> [data-contrast-mode=average] )
-            4: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] )
-            5: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=average] )
-            6: <()> ( <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] )
-            7: <()> ( <S> [data-brightness-mode=light] <S> [data-contrast-mode=average] )
-            8: <()> ( <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] )
-            9: <()> ( <S> [data-contrast-mode=average] <S> [data-brightness-mode=light] )
-         */
-    }
-    [data-brightness-mode='light'],
-    [data-contrast-mode='low'],
-    [data-contrast-mode='average'],
-    [data-brightness-mode='light'][data-contrast-mode='low'],
-    [data-brightness-mode='light'][data-contrast-mode='average'],
-    [data-brightness-mode='light'] [data-contrast-mode='low'],
-    [data-brightness-mode='light'] [data-contrast-mode='average'],
-    [data-contrast-mode='low'] [data-brightness-mode='light'],
-    [data-contrast-mode='average'] [data-brightness-mode='light'] {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        :root .child .grandchild another.child {
+            /*
+                selector.extend-simple-selector( &, ".child", ".new-child", $self: false, $replace: false, $unify: true ) is a list:
+                1: <()> ( <S> :root <S> .child.new-child <S> .grandchild <S> another.new-child.child )
+             */
+        }
+        @demo return {
+            :root .child.new-child .grandchild another.new-child.child {
+                /* returned selectors */
+            }
+        }
     }
 }
-@media extend-simple-selector and (selector: E) {
-    :root [data-brightness-mode='light'] .child {
-        /*
-            selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) is a list:
-            1: <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child )
-            2: <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child )
-         */
+
+@demo-section selector: D {
+    @demo ( function: selector.extend-simple-selector ) {
+        [data-brightness-mode='light'] {
+            /*
+                selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) is a list:
+                1: <()> ( <S> [data-brightness-mode=light] )
+                2: <()> ( <S> [data-contrast-mode=low] )
+             */
+        }
+        @demo return {
+            [data-brightness-mode='light'],
+            [data-contrast-mode='low'] {
+                /* returned selectors */
+            }
+        }
     }
-    :root [data-brightness-mode='light'] .child,
-    :root [data-contrast-mode='low'] .child {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        [data-brightness-mode='light'] {
+            /*
+                selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> [data-brightness-mode=light] )
+                2: <()> ( <S> [data-contrast-mode=low] )
+                3: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] )
+                4: <()> ( <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] )
+                5: <()> ( <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] )
+             */
+        }
+        @demo return {
+            [data-brightness-mode='light'],
+            [data-contrast-mode='low'],
+            [data-brightness-mode='light'][data-contrast-mode='low'],
+            [data-brightness-mode='light'] [data-contrast-mode='low'],
+            [data-contrast-mode='low'] [data-brightness-mode='light'] {
+                /* returned selectors */
+            }
+        }
     }
-    :root [data-brightness-mode='light'] .child {
-        /*
-            selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child )
-            2: <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child )
-            3: <()> ( <S> :root <S> [data-brightness-mode=light][data-contrast-mode=low] <S> .child )
-            4: <()> ( <S> :root <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] <S> .child )
-            5: <()> ( <S> :root <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] <S> .child )
-         */
-    }
-    :root [data-brightness-mode='light'] .child,
-    :root [data-contrast-mode='low'] .child,
-    :root [data-brightness-mode='light'][data-contrast-mode='low'] .child,
-    :root [data-brightness-mode='light'] [data-contrast-mode='low'] .child,
-    :root [data-contrast-mode='low'] [data-brightness-mode='light'] .child {
-        /* resulting selectors */
-    }
-    :root [data-brightness-mode='light'] .child {
-        /*
-            selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) is a list:
-            1: <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child )
-            2: <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child )
-            3: <()> ( <S> :root <S> [data-contrast-mode=average] <S> .child )
-            4: <()> ( <S> :root <S> [data-brightness-mode=light][data-contrast-mode=low] <S> .child )
-            5: <()> ( <S> :root <S> [data-brightness-mode=light][data-contrast-mode=average] <S> .child )
-            6: <()> ( <S> :root <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] <S> .child )
-            7: <()> ( <S> :root <S> [data-brightness-mode=light] <S> [data-contrast-mode=average] <S> .child )
-            8: <()> ( <S> :root <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] <S> .child )
-            9: <()> ( <S> :root <S> [data-contrast-mode=average] <S> [data-brightness-mode=light] <S> .child )
-         */
-    }
-    :root [data-brightness-mode='light'] .child,
-    :root [data-contrast-mode='low'] .child,
-    :root [data-contrast-mode='average'] .child,
-    :root [data-brightness-mode='light'][data-contrast-mode='low'] .child,
-    :root [data-brightness-mode='light'][data-contrast-mode='average'] .child,
-    :root [data-brightness-mode='light'] [data-contrast-mode='low'] .child,
-    :root [data-brightness-mode='light'] [data-contrast-mode='average'] .child,
-    :root [data-contrast-mode='low'] [data-brightness-mode='light'] .child,
-    :root [data-contrast-mode='average'] [data-brightness-mode='light'] .child {
-        /* resulting selectors */
+    @demo ( function: selector.extend-simple-selector ) {
+        [data-brightness-mode='light'] {
+            /*
+                selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> [data-brightness-mode=light] )
+                2: <()> ( <S> [data-contrast-mode=low] )
+                3: <()> ( <S> [data-contrast-mode=average] )
+                4: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] )
+                5: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=average] )
+                6: <()> ( <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] )
+                7: <()> ( <S> [data-brightness-mode=light] <S> [data-contrast-mode=average] )
+                8: <()> ( <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] )
+                9: <()> ( <S> [data-contrast-mode=average] <S> [data-brightness-mode=light] )
+             */
+        }
+        @demo return {
+            [data-brightness-mode='light'],
+            [data-contrast-mode='low'],
+            [data-contrast-mode='average'],
+            [data-brightness-mode='light'][data-contrast-mode='low'],
+            [data-brightness-mode='light'][data-contrast-mode='average'],
+            [data-brightness-mode='light'] [data-contrast-mode='low'],
+            [data-brightness-mode='light'] [data-contrast-mode='average'],
+            [data-contrast-mode='low'] [data-brightness-mode='light'],
+            [data-contrast-mode='average'] [data-brightness-mode='light'] {
+                /* returned selectors */
+            }
+        }
     }
 }
+@demo-section selector: E {
+    @demo ( function: selector.extend-simple-selector ) {
+        :root [data-brightness-mode='light'] .child {
+            /*
+                selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) is a list:
+                1: <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child )
+                2: <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child )
+             */
+        }
+        @demo return {
+            :root [data-brightness-mode='light'] .child,
+            :root [data-contrast-mode='low'] .child {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root [data-brightness-mode='light'] .child {
+            /*
+                selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child )
+                2: <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child )
+                3: <()> ( <S> :root <S> [data-brightness-mode=light][data-contrast-mode=low] <S> .child )
+                4: <()> ( <S> :root <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] <S> .child )
+                5: <()> ( <S> :root <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] <S> .child )
+             */
+        }
+        @demo return {
+            :root [data-brightness-mode='light'] .child,
+            :root [data-contrast-mode='low'] .child,
+            :root
+                [data-brightness-mode='light'][data-contrast-mode='low']
+                .child,
+            :root
+                [data-brightness-mode='light']
+                [data-contrast-mode='low']
+                .child,
+            :root
+                [data-contrast-mode='low']
+                [data-brightness-mode='light']
+                .child {
+                /* returned selectors */
+            }
+        }
+    }
+    @demo ( function: selector.extend-simple-selector ) {
+        :root [data-brightness-mode='light'] .child {
+            /*
+                selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) is a list:
+                1: <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child )
+                2: <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child )
+                3: <()> ( <S> :root <S> [data-contrast-mode=average] <S> .child )
+                4: <()> ( <S> :root <S> [data-brightness-mode=light][data-contrast-mode=low] <S> .child )
+                5: <()> ( <S> :root <S> [data-brightness-mode=light][data-contrast-mode=average] <S> .child )
+                6: <()> ( <S> :root <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] <S> .child )
+                7: <()> ( <S> :root <S> [data-brightness-mode=light] <S> [data-contrast-mode=average] <S> .child )
+                8: <()> ( <S> :root <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] <S> .child )
+                9: <()> ( <S> :root <S> [data-contrast-mode=average] <S> [data-brightness-mode=light] <S> .child )
+             */
+        }
+        @demo return {
+            :root [data-brightness-mode='light'] .child,
+            :root [data-contrast-mode='low'] .child,
+            :root [data-contrast-mode='average'] .child,
+            :root
+                [data-brightness-mode='light'][data-contrast-mode='low']
+                .child,
+            :root
+                [data-brightness-mode='light'][data-contrast-mode='average']
+                .child,
+            :root
+                [data-brightness-mode='light']
+                [data-contrast-mode='low']
+                .child,
+            :root
+                [data-brightness-mode='light']
+                [data-contrast-mode='average']
+                .child,
+            :root
+                [data-contrast-mode='low']
+                [data-brightness-mode='light']
+                .child,
+            :root
+                [data-contrast-mode='average']
+                [data-brightness-mode='light']
+                .child {
+                /* returned selectors */
+            }
+        }
+    }
+}
+
 /* ## Modules - Selector - except() ==================================== */
-@media except {
+@demo ( function: selector.except ) {
     a,
     button {
         /*
@@ -986,12 +1321,14 @@
             1: <()> ( <S> a )
          */
     }
-    a {
-        /* resulting selectors */
+    @demo return {
+        a {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     a,
     button {
         /*
@@ -999,12 +1336,14 @@
             1: <()> ( <S> button )
          */
     }
-    button {
-        /* resulting selectors */
+    @demo return {
+        button {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     a .should-not-stop-replacement,
     button .should-not-stop-replacement {
         /*
@@ -1012,12 +1351,14 @@
             1: <()> ( <S> a <S> .should-not-stop-replacement )
          */
     }
-    a .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        a .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     a .should-not-stop-replacement,
     button .should-not-stop-replacement {
         /*
@@ -1025,12 +1366,14 @@
             1: <()> ( <S> button <S> .should-not-stop-replacement )
          */
     }
-    button .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1040,13 +1383,15 @@
             2: <()> ( <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    a.special-class,
-    a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        a.special-class,
+        a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1055,12 +1400,14 @@
             1: <()> ( <S> button )
          */
     }
-    button {
-        /* resulting selectors */
+    @demo return {
+        button {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1070,13 +1417,15 @@
             2: <()> ( <S> a.special-class )
          */
     }
-    button,
-    a.special-class {
-        /* resulting selectors */
+    @demo return {
+        button,
+        a.special-class {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1086,13 +1435,15 @@
             2: <()> ( <S> a.special-class )
          */
     }
-    button,
-    a.special-class {
-        /* resulting selectors */
+    @demo return {
+        button,
+        a.special-class {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
@@ -1102,13 +1453,16 @@
             2: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement )
          */
     }
-    a.special-class .should-not-stop-replacement,
-    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        a.special-class .should-not-stop-replacement,
+        a.class-name[data-complex='selector']:focus
+            .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
@@ -1117,12 +1471,14 @@
             1: <()> ( <S> button <S> .should-not-stop-replacement )
          */
     }
-    button .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
@@ -1132,13 +1488,15 @@
             2: <()> ( <S> a.special-class <S> .should-not-stop-replacement )
          */
     }
-    button .should-not-stop-replacement,
-    a.special-class .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-not-stop-replacement,
+        a.special-class .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except {
+@demo ( function: selector.except ) {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
@@ -1148,14 +1506,16 @@
             2: <()> ( <S> a.special-class <S> .should-not-stop-replacement )
          */
     }
-    button .should-not-stop-replacement,
-    a.special-class .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-not-stop-replacement,
+        a.special-class .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
 /* ## Modules - Selector - except-superselector() ==================================== */
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     a,
     button {
         /*
@@ -1163,12 +1523,14 @@
             1: <()> ( <S> a )
          */
     }
-    a {
-        /* resulting selectors */
+    @demo return {
+        a {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     a,
     button {
         /*
@@ -1176,12 +1538,14 @@
             1: <()> ( <S> button )
          */
     }
-    button {
-        /* resulting selectors */
+    @demo return {
+        button {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     body a,
     body button {
         /*
@@ -1189,12 +1553,14 @@
             1: <()> ( <S> body <S> a )
          */
     }
-    body a {
-        /* resulting selectors */
+    @demo return {
+        body a {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     body a,
     body button {
         /*
@@ -1202,12 +1568,14 @@
             1: <()> ( <S> body <S> button )
          */
     }
-    body button {
-        /* resulting selectors */
+    @demo return {
+        body button {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     a .should-stop-replacement,
     button .should-stop-replacement {
         /*
@@ -1216,13 +1584,15 @@
             2: <()> ( <S> button <S> .should-stop-replacement )
          */
     }
-    a .should-stop-replacement,
-    button .should-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        a .should-stop-replacement,
+        button .should-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     a .should-stop-replacement,
     button .should-stop-replacement {
         /*
@@ -1231,13 +1601,15 @@
             2: <()> ( <S> button <S> .should-stop-replacement )
          */
     }
-    a .should-stop-replacement,
-    button .should-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        a .should-stop-replacement,
+        button .should-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1247,13 +1619,15 @@
             2: <()> ( <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    a.special-class,
-    a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        a.special-class,
+        a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1262,12 +1636,14 @@
             1: <()> ( <S> button )
          */
     }
-    button {
-        /* resulting selectors */
+    @demo return {
+        button {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1277,13 +1653,15 @@
             2: <()> ( <S> a.special-class )
          */
     }
-    button,
-    a.special-class {
-        /* resulting selectors */
+    @demo return {
+        button,
+        a.special-class {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1293,13 +1671,15 @@
             2: <()> ( <S> a.special-class )
          */
     }
-    button,
-    a.special-class {
-        /* resulting selectors */
+    @demo return {
+        button,
+        a.special-class {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     body button,
     body a.special-class,
     body a.class-name[data-complex='selector']:focus {
@@ -1309,13 +1689,15 @@
             2: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    body a.special-class,
-    body a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        body a.special-class,
+        body a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     body button,
     body a.special-class,
     body a.class-name[data-complex='selector']:focus {
@@ -1324,12 +1706,14 @@
             1: <()> ( <S> body <S> button )
          */
     }
-    body button {
-        /* resulting selectors */
+    @demo return {
+        body button {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     body button,
     body a.special-class,
     body a.class-name[data-complex='selector']:focus {
@@ -1339,13 +1723,15 @@
             2: <()> ( <S> body <S> a.special-class )
          */
     }
-    body button,
-    body a.special-class {
-        /* resulting selectors */
+    @demo return {
+        body button,
+        body a.special-class {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     body button,
     body a.special-class,
     body a.class-name[data-complex='selector']:focus {
@@ -1355,13 +1741,15 @@
             2: <()> ( <S> body <S> a.special-class )
          */
     }
-    body button,
-    body a.special-class {
-        /* resulting selectors */
+    @demo return {
+        body button,
+        body a.special-class {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-stop-replacement {
@@ -1372,14 +1760,16 @@
             3: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-stop-replacement )
          */
     }
-    button .should-stop-replacement,
-    a.special-class .should-stop-replacement,
-    a.class-name[data-complex='selector']:focus .should-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-stop-replacement,
+        a.special-class .should-stop-replacement,
+        a.class-name[data-complex='selector']:focus .should-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-stop-replacement {
@@ -1390,14 +1780,16 @@
             3: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-stop-replacement )
          */
     }
-    button .should-stop-replacement,
-    a.special-class .should-stop-replacement,
-    a.class-name[data-complex='selector']:focus .should-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-stop-replacement,
+        a.special-class .should-stop-replacement,
+        a.class-name[data-complex='selector']:focus .should-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-stop-replacement {
@@ -1408,14 +1800,16 @@
             3: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-stop-replacement )
          */
     }
-    button .should-stop-replacement,
-    a.special-class .should-stop-replacement,
-    a.class-name[data-complex='selector']:focus .should-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-stop-replacement,
+        a.special-class .should-stop-replacement,
+        a.class-name[data-complex='selector']:focus .should-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media except-superselector {
+@demo ( function: selector.except-superselector ) {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-stop-replacement {
@@ -1426,118 +1820,144 @@
             3: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-stop-replacement )
          */
     }
-    button .should-stop-replacement,
-    a.special-class .should-stop-replacement,
-    a.class-name[data-complex='selector']:focus .should-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-stop-replacement,
+        a.special-class .should-stop-replacement,
+        a.class-name[data-complex='selector']:focus .should-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
 /* ## Modules - Selector - omit-simple-selector() ==================================== */
-button,
-button.button-secondary {
-    /*
-        selector.omit-simple-selector( &, button ) is a list:
-        1: <()> ( <S> * )
-        2: <()> ( <S> .button-secondary )
-     */
-}
-*,
-.button-secondary {
-    /* resulting selectors */
-}
-
-button,
-button.button-secondary {
-    /*
-        selector.omit-simple-selector( &, ".non-existant-class" ) is a list:
-        1: <()> ( <S> button )
-        2: <()> ( <S> button.button-secondary )
-     */
-}
-button,
-button.button-secondary {
-    /* resulting selectors */
+@demo ( function: selector.omit-simple-selector ) {
+    button,
+    button.button-secondary {
+        /*
+            selector.omit-simple-selector( &, button ) is a list:
+            1: <()> ( <S> * )
+            2: <()> ( <S> .button-secondary )
+         */
+    }
+    @demo return {
+        *,
+        .button-secondary {
+            /* returned selectors */
+        }
+    }
 }
 
-button .child,
-button .second-child,
-button.button-secondary .child,
-button.button-secondary .second-child {
-    /*
-        selector.omit-simple-selector( &, button ) is a list:
-        1: <()> ( <S> * <S> .child )
-        2: <()> ( <S> * <S> .second-child )
-        3: <()> ( <S> .button-secondary <S> .child )
-        4: <()> ( <S> .button-secondary <S> .second-child )
-     */
-}
-* .child,
-* .second-child,
-.button-secondary .child,
-.button-secondary .second-child {
-    /* resulting selectors */
+@demo ( function: selector.omit-simple-selector ) {
+    button,
+    button.button-secondary {
+        /*
+            selector.omit-simple-selector( &, ".non-existant-class" ) is a list:
+            1: <()> ( <S> button )
+            2: <()> ( <S> button.button-secondary )
+         */
+    }
+    @demo return {
+        button,
+        button.button-secondary {
+            /* returned selectors */
+        }
+    }
 }
 
-button .child,
-button .second-child,
-button.button-secondary .child,
-button.button-secondary .second-child {
-    /*
-        selector.omit-simple-selector( &, ".non-existant-class" ) is a list:
-        1: <()> ( <S> button <S> .child )
-        2: <()> ( <S> button <S> .second-child )
-        3: <()> ( <S> button.button-secondary <S> .child )
-        4: <()> ( <S> button.button-secondary <S> .second-child )
-     */
-}
-button .child,
-button .second-child,
-button.button-secondary .child,
-button.button-secondary .second-child {
-    /* resulting selectors */
-}
-
-body button .child,
-body button .second-child,
-body button.button-secondary .child,
-body button.button-secondary .second-child {
-    /*
-        selector.omit-simple-selector( &, button ) is a list:
-        1: <()> ( <S> body <S> * <S> .child )
-        2: <()> ( <S> body <S> * <S> .second-child )
-        3: <()> ( <S> body <S> .button-secondary <S> .child )
-        4: <()> ( <S> body <S> .button-secondary <S> .second-child )
-     */
-}
-body * .child,
-body * .second-child,
-body .button-secondary .child,
-body .button-secondary .second-child {
-    /* resulting selectors */
+@demo ( function: selector.omit-simple-selector ) {
+    button .child,
+    button .second-child,
+    button.button-secondary .child,
+    button.button-secondary .second-child {
+        /*
+            selector.omit-simple-selector( &, button ) is a list:
+            1: <()> ( <S> * <S> .child )
+            2: <()> ( <S> * <S> .second-child )
+            3: <()> ( <S> .button-secondary <S> .child )
+            4: <()> ( <S> .button-secondary <S> .second-child )
+         */
+    }
+    @demo return {
+        * .child,
+        * .second-child,
+        .button-secondary .child,
+        .button-secondary .second-child {
+            /* returned selectors */
+        }
+    }
 }
 
-body button .child,
-body button .second-child,
-body button.button-secondary .child,
-body button.button-secondary .second-child {
-    /*
-        selector.omit-simple-selector( &, ".non-existant-class" ) is a list:
-        1: <()> ( <S> body <S> button <S> .child )
-        2: <()> ( <S> body <S> button <S> .second-child )
-        3: <()> ( <S> body <S> button.button-secondary <S> .child )
-        4: <()> ( <S> body <S> button.button-secondary <S> .second-child )
-     */
+@demo ( function: selector.omit-simple-selector ) {
+    button .child,
+    button .second-child,
+    button.button-secondary .child,
+    button.button-secondary .second-child {
+        /*
+            selector.omit-simple-selector( &, ".non-existant-class" ) is a list:
+            1: <()> ( <S> button <S> .child )
+            2: <()> ( <S> button <S> .second-child )
+            3: <()> ( <S> button.button-secondary <S> .child )
+            4: <()> ( <S> button.button-secondary <S> .second-child )
+         */
+    }
+    @demo return {
+        button .child,
+        button .second-child,
+        button.button-secondary .child,
+        button.button-secondary .second-child {
+            /* returned selectors */
+        }
+    }
 }
-body button .child,
-body button .second-child,
-body button.button-secondary .child,
-body button.button-secondary .second-child {
-    /* resulting selectors */
+
+@demo ( function: selector.omit-simple-selector ) {
+    body button .child,
+    body button .second-child,
+    body button.button-secondary .child,
+    body button.button-secondary .second-child {
+        /*
+            selector.omit-simple-selector( &, button ) is a list:
+            1: <()> ( <S> body <S> * <S> .child )
+            2: <()> ( <S> body <S> * <S> .second-child )
+            3: <()> ( <S> body <S> .button-secondary <S> .child )
+            4: <()> ( <S> body <S> .button-secondary <S> .second-child )
+         */
+    }
+    @demo return {
+        body * .child,
+        body * .second-child,
+        body .button-secondary .child,
+        body .button-secondary .second-child {
+            /* returned selectors */
+        }
+    }
+}
+
+@demo ( function: selector.omit-simple-selector ) {
+    body button .child,
+    body button .second-child,
+    body button.button-secondary .child,
+    body button.button-secondary .second-child {
+        /*
+            selector.omit-simple-selector( &, ".non-existant-class" ) is a list:
+            1: <()> ( <S> body <S> button <S> .child )
+            2: <()> ( <S> body <S> button <S> .second-child )
+            3: <()> ( <S> body <S> button.button-secondary <S> .child )
+            4: <()> ( <S> body <S> button.button-secondary <S> .second-child )
+         */
+    }
+    @demo return {
+        body button .child,
+        body button .second-child,
+        body button.button-secondary .child,
+        body button.button-secondary .second-child {
+            /* returned selectors */
+        }
+    }
 }
 
 /* ## Modules - Selector - only() ==================================== */
-@media (function: only) {
+@demo ( function: selector.only ) {
     a,
     button {
         /*
@@ -1545,12 +1965,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> button )
          */
     }
-    button {
-        /* resulting selectors */
+    @demo return {
+        button {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     a,
     button {
         /*
@@ -1558,12 +1980,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> a )
          */
     }
-    a {
-        /* resulting selectors */
+    @demo return {
+        a {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     a .should-not-stop-replacement,
     button .should-not-stop-replacement {
         /*
@@ -1571,12 +1995,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> button <S> .should-not-stop-replacement )
          */
     }
-    button .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     a .should-not-stop-replacement,
     button .should-not-stop-replacement {
         /*
@@ -1584,12 +2010,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> a <S> .should-not-stop-replacement )
          */
     }
-    a .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        a .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1598,12 +2026,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> button )
          */
     }
-    button {
-        /* resulting selectors */
+    @demo return {
+        button {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1613,13 +2043,15 @@ body button.button-secondary .second-child {
             2: <()> ( <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    a.special-class,
-    a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        a.special-class,
+        a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1628,12 +2060,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1642,12 +2076,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
@@ -1656,12 +2092,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> button <S> .should-not-stop-replacement )
          */
     }
-    button .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        button .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
@@ -1671,13 +2109,16 @@ body button.button-secondary .second-child {
             2: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement )
          */
     }
-    a.special-class .should-not-stop-replacement,
-    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        a.special-class .should-not-stop-replacement,
+        a.class-name[data-complex='selector']:focus
+            .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
@@ -1686,12 +2127,15 @@ body button.button-secondary .second-child {
             1: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement )
          */
     }
-    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        a.class-name[data-complex='selector']:focus
+            .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: only) {
+@demo ( function: selector.only ) {
     button .should-not-stop-replacement,
     a.special-class .should-not-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
@@ -1700,13 +2144,16 @@ body button.button-secondary .second-child {
             1: <()> ( <S> a.class-name[data-complex=selector]:focus <S> .should-not-stop-replacement )
          */
     }
-    a.class-name[data-complex='selector']:focus .should-not-stop-replacement {
-        /* resulting selectors */
+    @demo return {
+        a.class-name[data-complex='selector']:focus
+            .should-not-stop-replacement {
+            /* returned selectors */
+        }
     }
 }
 
 /* ## Modules - Selector - only-superselector() ==================================== */
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     a,
     button {
         /*
@@ -1714,12 +2161,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> button )
          */
     }
-    button {
-        /* resulting selectors */
+    @demo return {
+        button {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     a,
     button {
         /*
@@ -1727,12 +2176,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> a )
          */
     }
-    a {
-        /* resulting selectors */
+    @demo return {
+        a {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     body a,
     body button {
         /*
@@ -1740,12 +2191,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> body <S> button )
          */
     }
-    body button {
-        /* resulting selectors */
+    @demo return {
+        body button {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     body a,
     body button {
         /*
@@ -1753,30 +2206,36 @@ body button.button-secondary .second-child {
             1: <()> ( <S> body <S> a )
          */
     }
-    body a {
-        /* resulting selectors */
+    @demo return {
+        body a {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     a .should-stop-replacement,
     button .should-stop-replacement {
         /* 
             selector.only-superselector( &, "button" ) = <S> %null
          */
     }
+    @demo return {
+    }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     a .should-stop-replacement,
     button .should-stop-replacement {
         /* 
             selector.only-superselector( &, "a" ) = <S> %null
          */
     }
+    @demo return {
+    }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1785,12 +2244,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> button )
          */
     }
-    button {
-        /* resulting selectors */
+    @demo return {
+        button {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1800,13 +2261,15 @@ body button.button-secondary .second-child {
             2: <()> ( <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    a.special-class,
-    a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        a.special-class,
+        a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1815,12 +2278,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     button,
     a.special-class,
     a.class-name[data-complex='selector']:focus {
@@ -1829,12 +2294,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     body button,
     body a.special-class,
     body a.class-name[data-complex='selector']:focus {
@@ -1843,12 +2310,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> body <S> button )
          */
     }
-    body button {
-        /* resulting selectors */
+    @demo return {
+        body button {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     body button,
     body a.special-class,
     body a.class-name[data-complex='selector']:focus {
@@ -1858,13 +2327,15 @@ body button.button-secondary .second-child {
             2: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    body a.special-class,
-    body a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        body a.special-class,
+        body a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     body button,
     body a.special-class,
     body a.class-name[data-complex='selector']:focus {
@@ -1873,12 +2344,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    body a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        body a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     body button,
     body a.special-class,
     body a.class-name[data-complex='selector']:focus {
@@ -1887,12 +2360,14 @@ body button.button-secondary .second-child {
             1: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus )
          */
     }
-    body a.class-name[data-complex='selector']:focus {
-        /* resulting selectors */
+    @demo return {
+        body a.class-name[data-complex='selector']:focus {
+            /* returned selectors */
+        }
     }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-stop-replacement {
@@ -1900,9 +2375,11 @@ body button.button-secondary .second-child {
             selector.only-superselector( &, "button" ) = <S> %null
          */
     }
+    @demo return {
+    }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-stop-replacement {
@@ -1910,9 +2387,11 @@ body button.button-secondary .second-child {
             selector.only-superselector( &, "a" ) = <S> %null
          */
     }
+    @demo return {
+    }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-stop-replacement {
@@ -1920,9 +2399,11 @@ body button.button-secondary .second-child {
             selector.only-superselector( &, ":focus" ) = <S> %null
          */
     }
+    @demo return {
+    }
 }
 
-@media only-superselector {
+@demo ( function: selector.only-superselector ) {
     button .should-stop-replacement,
     a.special-class .should-stop-replacement,
     a.class-name[data-complex='selector']:focus .should-stop-replacement {
@@ -1930,10 +2411,12 @@ body button.button-secondary .second-child {
             selector.only-superselector( &, "[data-complex=selector]" ) = <S> %null
          */
     }
+    @demo return {
+    }
 }
 
 /* ## Modules - Selector - pop() ==================================== */
-@media (function: pop) {
+@demo ( function: selector.pop ) {
     root body button,
     root body [role='button'],
     root body input[type='button'],
@@ -1959,18 +2442,20 @@ body button.button-secondary .second-child {
             7: <S> p
          */
     }
-    button,
-    [role='button'],
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'],
-    a[href].button,
-    p {
-        /* resulting selectors */
+    @demo return {
+        button,
+        [role='button'],
+        input[type='button'],
+        input[type='reset'],
+        input[type='submit'],
+        a[href].button,
+        p {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: pop) {
+@demo ( function: selector.pop ) {
     root body a,
     root body input,
     root body main a,
@@ -1981,14 +2466,16 @@ body button.button-secondary .second-child {
             2: <S> input
          */
     }
-    a,
-    input {
-        /* resulting selectors */
+    @demo return {
+        a,
+        input {
+            /* returned selectors */
+        }
     }
 }
 
 /* ## Modules - Selector - popped() ==================================== */
-@media (function: popped) {
+@demo ( function: selector.popped ) {
     root body button,
     root body [role='button'],
     root body input[type='button'],
@@ -2009,35 +2496,40 @@ body button.button-secondary .second-child {
             2: <()> ( <S> root <S> body <S> main )
          */
     }
-    root body,
-    root body main {
-        /* resulting selectors */
-    }
-}
-@media (mixin: popped) {
-    root body button,
-    root body [role='button'],
-    root body input[type='button'],
-    root body input[type='reset'],
-    root body input[type='submit'],
-    root body a[href].button,
-    root body p,
-    root body main button,
-    root body main [role='button'],
-    root body main input[type='button'],
-    root body main input[type='reset'],
-    root body main input[type='submit'],
-    root body main a[href].button,
-    root body main p {
-        /* @include selector.popped( & ) */
-    }
-    root body,
-    root body main {
-        /* @content; */
+    @demo return {
+        root body,
+        root body main {
+            /* returned selectors */
+        }
     }
 }
 
-@media (function: popped) {
+@demo ( mixin: selector.popped ) {
+    root body button,
+    root body [role='button'],
+    root body input[type='button'],
+    root body input[type='reset'],
+    root body input[type='submit'],
+    root body a[href].button,
+    root body p,
+    root body main button,
+    root body main [role='button'],
+    root body main input[type='button'],
+    root body main input[type='reset'],
+    root body main input[type='submit'],
+    root body main a[href].button,
+    root body main p {
+        /* @include selector.popped( & ) {} */
+    }
+    @demo output {
+        root body,
+        root body main {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( function: selector.popped ) {
     root body a,
     root body input,
     root body main a,
@@ -2048,26 +2540,31 @@ body button.button-secondary .second-child {
             2: <()> ( <S> root <S> body <S> main )
          */
     }
-    root body,
-    root body main {
-        /* resulting selectors */
+    @demo return {
+        root body,
+        root body main {
+            /* returned selectors */
+        }
     }
 }
-@media (mixin: popped) {
+
+@demo ( mixin: selector.popped ) {
     root body a,
     root body input,
     root body main a,
     root body main input {
-        /* @include selector.popped( & ) */
+        /* @include selector.popped( & ) {} */
     }
-    root body,
-    root body main {
-        /* @content; */
+    @demo output {
+        root body,
+        root body main {
+            /* @content; */
+        }
     }
 }
 
 /* ## Modules - Selector - Root & Body Utilities ==================================== */
-@media at-root {
+@demo-section at-root {
     /* 
         selector.parent-exists() = </> false
      */
@@ -2903,7 +3400,7 @@ body:where(.has-a-class) {
      */
 }
 
-@media complex-selectors and (via: '%root') {
+@demo-section complex-selectors and ( via: "%root" ) {
     :root .child {
         /* via %root */
         /*
@@ -3021,7 +3518,7 @@ body:where(.has-a-class) {
          */
     }
 }
-@media complex-selectors and (via: '%root %body') {
+@demo-section complex-selectors and ( via: "%root %body" ) {
     :has(.class-name):root body {
         /* via %root %body */
         /*
@@ -3136,7 +3633,7 @@ body:where(.has-a-class) {
          */
     }
 }
-@media complex-selectors and (via: '%root %body') {
+@demo-section complex-selectors and ( via: "%root %body" ) {
     :has(.class-name):root body .grandchild {
         /* via %root %body */
         /*
@@ -3254,7 +3751,7 @@ body:where(.has-a-class) {
     }
 }
 
-@media complex-selectors and (via: ':root, body') {
+@demo-section complex-selectors and ( via: ":root, body" ) {
     :root .child,
     body .child,
     :root body .child,
@@ -3431,7 +3928,7 @@ body:where(.has-a-class) {
     }
 }
 
-@media complex-selectors and (via: ':root, body') {
+@demo-section complex-selectors and ( via: ":root, body" ) {
     :where(.js) .not-root-or-body {
         /* via :root, body */
         /*
@@ -3550,7 +4047,7 @@ body:where(.has-a-class) {
     }
 }
 
-@media complex-selectors and (via: ':root, body') {
+@demo-section complex-selectors and ( via: ":root, body" ) {
     :root:where(.js__subgrid) body .child,
     :where(.js__subgrid) body .child,
     :where(.js__subgrid) .not-root-or-body .child {
@@ -3706,718 +4203,1040 @@ body:where(.has-a-class) {
 }
 
 /* ## Modules - Selector - Pseudo Class Lists ==================================== */
-@media selector-has {
+@demo ( function: selector.has-list ) {
     .parent {
         /*
             selector.has-list() is a list:
             1: <S> ":has( * )"
          */
     }
-    :has(*) {
-        /* resulting selectors */
+    @demo return {
+        :has(*) {
+            /* returned selectors */
+        }
     }
 }
-@media selector-has and (unified) {
-    .parent {
-        /*
-            selector.has-list( $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:has(*) )
-         */
+
+@demo-section unified {
+    @demo ( function: selector.has-list ) {
+        .parent {
+            /*
+                selector.has-list( $unify: true ) is a list:
+                1: <()> ( <S> .parent:has(*) )
+             */
+        }
+        @demo return {
+            .parent:has(*) {
+                /* returned selectors */
+            }
+        }
     }
-    .parent:has(*) {
-        /* resulting selectors */
-    }
-}
-@media selector-has and (unified) and (direct) {
-    .parent {
-        /*
-            selector.has-list( $direct: true, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:has(> *) )
-         */
-    }
-    .parent:has(> *) {
-        /* resulting selectors */
-    }
-}
-@media selector-has and (override-selectors) {
-    .parent {
-        /*
-            selector.has-list( ( div, p, body ) ) is a list:
-            1: <S> ":has( div )"
-            2: <S> ":has( p )"
-            3: <S> ":has( body )"
-         */
-    }
-    :has(div),
-    :has(p),
-    :has(body) {
-        /* resulting selectors */
+    @demo-section direct {
+        @demo ( function: selector.has-list ) {
+            .parent {
+                /*
+                    selector.has-list( $direct: true, $unify: true ) is a list:
+                    1: <()> ( <S> .parent:has(> *) )
+                 */
+            }
+            @demo return {
+                .parent:has(> *) {
+                    /* returned selectors */
+                }
+            }
+        }
     }
 }
-@media selector-has and (override-selectors) and (unsplit) {
-    .parent {
-        /*
-            selector.has-list( ( div, p, body ), $split: false ) is a list:
-            1: <S> ":has( div, p, body )"
-         */
+@demo-section override-selectors {
+    @demo ( function: selector.has-list ) {
+        .parent {
+            /*
+                selector.has-list( ( div, p, body ) ) is a list:
+                1: <S> ":has( div )"
+                2: <S> ":has( p )"
+                3: <S> ":has( body )"
+             */
+        }
+        @demo return {
+            :has(div),
+            :has(p),
+            :has(body) {
+                /* returned selectors */
+            }
+        }
     }
-    :has(div, p, body) {
-        /* resulting selectors */
+    @demo-section unsplit {
+        @demo ( function: selector.has-list ) {
+            .parent {
+                /*
+                    selector.has-list( ( div, p, body ), $split: false ) is a list:
+                    1: <S> ":has( div, p, body )"
+                 */
+            }
+            @demo return {
+                :has(div, p, body) {
+                    /* returned selectors */
+                }
+            }
+        }
     }
-}
-@media selector-has and (override-selectors) and (direct) {
-    .parent {
-        /*
-            selector.has-list( ( div, p, body ), $direct: true ) is a list:
-            1: <S> ":has( > div )"
-            2: <S> ":has( > p )"
-            3: <S> ":has( > body )"
-         */
-    }
-    :has(> div),
-    :has(> p),
-    :has(> body) {
-        /* resulting selectors */
-    }
-}
-@media selector-has and (override-selectors) and (direct) and (unsplit) {
-    .parent {
-        /*
-            selector.has-list( ( div, p, body ), $direct: true, $split: false ) is a list:
-            1: <S> ":has( > div, > p, > body )"
-         */
-    }
-    :has(> div, > p, > body) {
-        /* resulting selectors */
-    }
-}
-@media selector-has and (override-selectors) and (direct) and (unified) {
-    .parent {
-        /*
-            selector.has-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:has(> div) )
-            2: <()> ( <S> .parent:has(> p) )
-            3: <()> ( <S> .parent:has(> body) )
-         */
-    }
-    .parent:has(> div),
-    .parent:has(> p),
-    .parent:has(> body) {
-        /* resulting selectors */
-    }
-}
-@media selector-has and (override-selectors) and (direct) and (unified) and (unsplit) {
-    .parent {
-        /*
-            selector.has-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:has(> div, > p, > body) )
-         */
-    }
-    .parent:has(> div, > p, > body) {
-        /* resulting selectors */
-    }
-}
-@media selector-has {
-    .parent {
-        /* @include selector.has() */
-    }
-    .parent :has(*) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( $direct: true ) */
-    }
-    .parent :has(> *) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( $unifyParent: true ) */
-    }
-    .parent:has(*) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( $unifyParent: true, $direct: true ) */
-    }
-    .parent:has(> *) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( $includeParent: false ) */
-    }
-    :has(*) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( ( div, p, body ) ) */
-    }
-    .parent :has(div),
-    .parent :has(p),
-    .parent :has(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( ( div, p, body ), $split: false ) */
-    }
-    .parent :has(div, p, body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( ( div, p, body ), $direct: true ) */
-    }
-    .parent :has(> div),
-    .parent :has(> p),
-    .parent :has(> body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( ( div, p, body ), $direct: true, $split: false ) */
-    }
-    .parent :has(> div, > p, > body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( ( div, p, body ), $unifyParent: true ) */
-    }
-    .parent:has(div),
-    .parent:has(p),
-    .parent:has(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( ( div, p, body ), $split: false, $unifyParent: true ) */
-    }
-    .parent:has(div, p, body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( ( div, p, body ), $direct: true, $unifyParent: true ) */
-    }
-    .parent:has(> div),
-    .parent:has(> p),
-    .parent:has(> body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.has( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) */
-    }
-    .parent:has(> div, > p, > body) {
-        /* @content; */
+    @demo-section direct {
+        @demo ( function: selector.has-list ) {
+            .parent {
+                /*
+                    selector.has-list( ( div, p, body ), $direct: true ) is a list:
+                    1: <S> ":has( > div )"
+                    2: <S> ":has( > p )"
+                    3: <S> ":has( > body )"
+                 */
+            }
+            @demo return {
+                :has(> div),
+                :has(> p),
+                :has(> body) {
+                    /* returned selectors */
+                }
+            }
+        }
+        @demo-section unsplit {
+            @demo ( function: selector.has-list ) {
+                .parent {
+                    /*
+                        selector.has-list( ( div, p, body ), $direct: true, $split: false ) is a list:
+                        1: <S> ":has( > div, > p, > body )"
+                     */
+                }
+                @demo return {
+                    :has(> div, > p, > body) {
+                        /* returned selectors */
+                    }
+                }
+            }
+        }
+        @demo-section unified {
+            @demo ( function: selector.has-list ) {
+                .parent {
+                    /*
+                        selector.has-list( ( div, p, body ), $direct: true, $unify: true ) is a list:
+                        1: <()> ( <S> .parent:has(> div) )
+                        2: <()> ( <S> .parent:has(> p) )
+                        3: <()> ( <S> .parent:has(> body) )
+                     */
+                }
+                @demo return {
+                    .parent:has(> div),
+                    .parent:has(> p),
+                    .parent:has(> body) {
+                        /* returned selectors */
+                    }
+                }
+            }
+            @demo-section unsplit {
+                @demo ( function: selector.has-list ) {
+                    .parent {
+                        /*
+                            selector.has-list( ( div, p, body ), $direct: true, $split: false, $unify: true ) is a list:
+                            1: <()> ( <S> .parent:has(> div, > p, > body) )
+                         */
+                    }
+                    @demo return {
+                        .parent:has(> div, > p, > body) {
+                            /* returned selectors */
+                        }
+                    }
+                }
+            }
+        }
     }
 }
-@media selector-is {
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has {} */
+    }
+    @demo output {
+        .parent :has(*) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( $direct: true ) {} */
+    }
+    @demo output {
+        .parent :has(> *) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( $unify: true ) {} */
+    }
+    @demo output {
+        .parent:has(*) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( $unify: true, $direct: true ) {} */
+    }
+    @demo output {
+        .parent:has(> *) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( $includeParent: false ) {} */
+    }
+    @demo output {
+        :has(*) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( ( div, p, body ) ) {} */
+    }
+    @demo output {
+        .parent :has(div),
+        .parent :has(p),
+        .parent :has(body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( ( div, p, body ), $split: false ) {} */
+    }
+    @demo output {
+        .parent :has(div, p, body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( ( div, p, body ), $direct: true ) {} */
+    }
+    @demo output {
+        .parent :has(> div),
+        .parent :has(> p),
+        .parent :has(> body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( ( div, p, body ), $direct: true, $split: false ) {} */
+    }
+    @demo output {
+        .parent :has(> div, > p, > body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( ( div, p, body ), $unify: true ) {} */
+    }
+    @demo output {
+        .parent:has(div),
+        .parent:has(p),
+        .parent:has(body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( ( div, p, body ), $split: false, $unify: true ) {} */
+    }
+    @demo output {
+        .parent:has(div, p, body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( ( div, p, body ), $direct: true, $unify: true ) {} */
+    }
+    @demo output {
+        .parent:has(> div),
+        .parent:has(> p),
+        .parent:has(> body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.has ) {
+    .parent {
+        /* @include selector.has( ( div, p, body ), $direct: true, $split: false, $unify: true ) {} */
+    }
+    @demo output {
+        .parent:has(> div, > p, > body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( function: selector.is-list ) {
     .parent {
         /*
             selector.is-list() is a list:
             1: <S> ":is( * )"
          */
     }
-    :is(*) {
-        /* resulting selectors */
+    @demo return {
+        :is(*) {
+            /* returned selectors */
+        }
     }
 }
-@media selector-is and (unified) {
-    .parent {
-        /*
-            selector.is-list( $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:is(*) )
-         */
+
+@demo-section unified {
+    @demo ( function: selector.is-list ) {
+        .parent {
+            /*
+                selector.is-list( $unify: true ) is a list:
+                1: <()> ( <S> .parent:is(*) )
+             */
+        }
+        @demo return {
+            .parent:is(*) {
+                /* returned selectors */
+            }
+        }
     }
-    .parent:is(*) {
-        /* resulting selectors */
-    }
-}
-@media selector-is and (unified) and (direct) {
-    .parent {
-        /*
-            selector.is-list( $direct: true, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:is(*) )
-         */
-    }
-    .parent:is(*) {
-        /* resulting selectors */
-    }
-}
-@media selector-is and (override-selectors) {
-    .parent {
-        /*
-            selector.is-list( ( div, p, body ) ) is a list:
-            1: <S> ":is( div )"
-            2: <S> ":is( p )"
-            3: <S> ":is( body )"
-         */
-    }
-    :is(div),
-    :is(p),
-    :is(body) {
-        /* resulting selectors */
+    @demo-section direct {
+        @demo ( function: selector.is-list ) {
+            .parent {
+                /*
+                    selector.is-list( $direct: true, $unify: true ) is a list:
+                    1: <()> ( <S> .parent:is(*) )
+                 */
+            }
+            @demo return {
+                .parent:is(*) {
+                    /* returned selectors */
+                }
+            }
+        }
     }
 }
-@media selector-is and (override-selectors) and (unsplit) {
-    .parent {
-        /*
-            selector.is-list( ( div, p, body ), $split: false ) is a list:
-            1: <S> ":is( div, p, body )"
-         */
+@demo-section override-selectors {
+    @demo ( function: selector.is-list ) {
+        .parent {
+            /*
+                selector.is-list( ( div, p, body ) ) is a list:
+                1: <S> ":is( div, p, body )"
+             */
+        }
+        @demo return {
+            :is(div, p, body) {
+                /* returned selectors */
+            }
+        }
     }
-    :is(div, p, body) {
-        /* resulting selectors */
+    @demo-section unsplit {
+        @demo ( function: selector.is-list ) {
+            .parent {
+                /*
+                    selector.is-list( ( div, p, body ), $split: false ) is a list:
+                    1: <S> ":is( div, p, body )"
+                 */
+            }
+            @demo return {
+                :is(div, p, body) {
+                    /* returned selectors */
+                }
+            }
+        }
     }
-}
-@media selector-is and (override-selectors) and (direct) {
-    .parent {
-        /*
-            selector.is-list( ( div, p, body ), $direct: true ) is a list:
-            1: <()> ( <S> > <S> :is(div) )
-            2: <()> ( <S> > <S> :is(p) )
-            3: <()> ( <S> > <S> :is(body) )
-         */
-    }
-    .parent > :is(div),
-    .parent > :is(p),
-    .parent > :is(body) {
-        /* resulting selectors */
-    }
-}
-@media selector-is and (override-selectors) and (direct) and (unsplit) {
-    .parent {
-        /*
-            selector.is-list( ( div, p, body ), $direct: true, $split: false ) is a list:
-            1: <()> ( <S> > <S> :is(div, p, body) )
-         */
-    }
-    .parent > :is(div, p, body) {
-        /* resulting selectors */
-    }
-}
-@media selector-is and (override-selectors) and (direct) and (unified) {
-    .parent {
-        /*
-            selector.is-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:is(div) )
-            2: <()> ( <S> .parent:is(p) )
-            3: <()> ( <S> .parent:is(body) )
-         */
-    }
-    .parent:is(div),
-    .parent:is(p),
-    .parent:is(body) {
-        /* resulting selectors */
-    }
-}
-@media selector-is and (override-selectors) and (direct) and (unified) and (unsplit) {
-    .parent {
-        /*
-            selector.is-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:is(div, p, body) )
-         */
-    }
-    .parent:is(div, p, body) {
-        /* resulting selectors */
-    }
-}
-@media selector-is {
-    .parent {
-        /* @include selector.is() */
-    }
-    .parent :is(*) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.is( $direct: true ) */
-    }
-    .parent > :is(*) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.is( $unifyParent: true ) */
-    }
-    .parent:is(*) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.is( $includeParent: false ) */
-    }
-    :is(*) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.is( ( div, p, body ) ) */
-    }
-    .parent :is(div),
-    .parent :is(p),
-    .parent :is(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.is( ( div, p, body ), $split: false ) */
-    }
-    .parent :is(div, p, body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.is( ( div, p, body ), $direct: true ) */
-    }
-    .parent > :is(div),
-    .parent > :is(p),
-    .parent > :is(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.is( ( div, p, body ), $direct: true, $split: false ) */
-    }
-    .parent > :is(div, p, body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.is( ( div, p, body ), $unifyParent: true ) */
-    }
-    .parent:is(div),
-    .parent:is(p),
-    .parent:is(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.is( ( div, p, body ), $split: false, $unifyParent: true ) */
-    }
-    .parent:is(div, p, body) {
-        /* @content; */
+    @demo-section direct {
+        @demo ( function: selector.is-list ) {
+            .parent {
+                /*
+                    selector.is-list( ( div, p, body ), $direct: true ) is a list:
+                    1: <()> ( <S> > <S> :is(div, p, body) )
+                 */
+            }
+            @demo return {
+                .parent > :is(div, p, body) {
+                    /* returned selectors */
+                }
+            }
+        }
+        @demo-section unsplit {
+            @demo ( function: selector.is-list ) {
+                .parent {
+                    /*
+                        selector.is-list( ( div, p, body ), $direct: true, $split: false ) is a list:
+                        1: <()> ( <S> > <S> :is(div, p, body) )
+                     */
+                }
+                @demo return {
+                    .parent > :is(div, p, body) {
+                        /* returned selectors */
+                    }
+                }
+            }
+        }
+        @demo-section unified {
+            @demo ( function: selector.is-list ) {
+                .parent {
+                    /*
+                        selector.is-list( ( div, p, body ), $direct: true, $unify: true ) is a list:
+                        1: <()> ( <S> .parent:is(div, p, body) )
+                     */
+                }
+                @demo return {
+                    .parent:is(div, p, body) {
+                        /* returned selectors */
+                    }
+                }
+            }
+            @demo-section unsplit {
+                @demo ( function: selector.is-list ) {
+                    .parent {
+                        /*
+                            selector.is-list( ( div, p, body ), $direct: true, $split: false, $unify: true ) is a list:
+                            1: <()> ( <S> .parent:is(div, p, body) )
+                         */
+                    }
+                    @demo return {
+                        .parent:is(div, p, body) {
+                            /* returned selectors */
+                        }
+                    }
+                }
+            }
+        }
     }
 }
-@media selector-not {
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is {} */
+    }
+    @demo output {
+        .parent :is(*) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is( $direct: true ) {} */
+    }
+    @demo output {
+        .parent > :is(*) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is( $unify: true ) {} */
+    }
+    @demo output {
+        .parent:is(*) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is( $includeParent: false ) {} */
+    }
+    @demo output {
+        :is(*) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is( ( div, p, body ) ) {} */
+    }
+    @demo output {
+        .parent :is(div),
+        .parent :is(p),
+        .parent :is(body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is( ( div, p, body ), $split: false ) {} */
+    }
+    @demo output {
+        .parent :is(div, p, body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is( ( div, p, body ), $direct: true ) {} */
+    }
+    @demo output {
+        .parent > :is(div),
+        .parent > :is(p),
+        .parent > :is(body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is( ( div, p, body ), $direct: true, $split: false ) {} */
+    }
+    @demo output {
+        .parent > :is(div, p, body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is( ( div, p, body ), $unify: true ) {} */
+    }
+    @demo output {
+        .parent:is(div),
+        .parent:is(p),
+        .parent:is(body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.is ) {
+    .parent {
+        /* @include selector.is( ( div, p, body ), $split: false, $unify: true ) {} */
+    }
+    @demo output {
+        .parent:is(div, p, body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( function: selector.not-list ) {
     .parent {
         /* 
             selector.not-list() = <S> :not( %null )
          */
     }
-    * {
-        /* resulting selectors */
+    @demo return {
+        * {
+            /* returned selectors */
+        }
     }
 }
-@media selector-not and (unified) {
-    .parent {
-        /*
-            selector.not-list( $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent )
-         */
+
+@demo-section unified {
+    @demo ( function: selector.not-list ) {
+        .parent {
+            /*
+                selector.not-list( $unify: true ) is a list:
+                1: <()> ( <S> .parent )
+             */
+        }
+        @demo return {
+            .parent {
+                /* returned selectors */
+            }
+        }
     }
-    .parent {
-        /* resulting selectors */
-    }
-}
-@media selector-not and (unified) and (direct) {
-    .parent {
-        /*
-            selector.not-list( $direct: true, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent )
-         */
-    }
-    .parent {
-        /* resulting selectors */
-    }
-}
-@media selector-not and (override-selectors) {
-    .parent {
-        /* 
-            selector.not-list( ( div, p, body ) ) = <S> ":not( div ):not( p ):not( body )"
-         */
-    }
-    :not(div):not(p):not(body) {
-        /* resulting selectors */
-    }
-}
-@media selector-not and (override-selectors) and (unsplit) {
-    .parent {
-        /* 
-            selector.not-list( ( div, p, body ), $split: false ) = <S> ":not( div, p, body )"
-         */
-    }
-    :not(div, p, body) {
-        /* resulting selectors */
+    @demo-section direct {
+        @demo ( function: selector.not-list ) {
+            .parent {
+                /*
+                    selector.not-list( $direct: true, $unify: true ) is a list:
+                    1: <()> ( <S> .parent )
+                 */
+            }
+            @demo return {
+                .parent {
+                    /* returned selectors */
+                }
+            }
+        }
     }
 }
-@media selector-not and (override-selectors) and (direct) {
-    .parent {
-        /*
-            selector.not-list( ( div, p, body ), $direct: true ) is a list:
-            1: <()> ( <S> > <S> :not(div):not(p):not(body) )
-         */
+@demo-section override-selectors {
+    @demo ( function: selector.not-list ) {
+        .parent {
+            /* 
+                selector.not-list( ( div, p, body ) ) = <S> ":not( div ):not( p ):not( body )"
+             */
+        }
+        @demo return {
+            :not(div):not(p):not(body) {
+                /* returned selectors */
+            }
+        }
     }
-    .parent > :not(div):not(p):not(body) {
-        /* resulting selectors */
+    @demo-section unsplit {
+        @demo ( function: selector.not-list ) {
+            .parent {
+                /* 
+                    selector.not-list( ( div, p, body ), $split: false ) = <S> ":not( div, p, body )"
+                 */
+            }
+            @demo return {
+                :not(div, p, body) {
+                    /* returned selectors */
+                }
+            }
+        }
     }
-}
-@media selector-not and (override-selectors) and (direct) and (unsplit) {
-    .parent {
-        /*
-            selector.not-list( ( div, p, body ), $direct: true, $split: false ) is a list:
-            1: <()> ( <S> > <S> :not(div, p, body) )
-         */
-    }
-    .parent > :not(div, p, body) {
-        /* resulting selectors */
-    }
-}
-@media selector-not and (override-selectors) and (direct) and (unified) {
-    .parent {
-        /*
-            selector.not-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
-            1: <S> .parent:not( div ):not( p ):not( body )
-         */
-    }
-    .parent:not(div):not(p):not(body) {
-        /* resulting selectors */
-    }
-}
-@media selector-not and (override-selectors) and (direct) and (unified) and (unsplit) {
-    .parent {
-        /*
-            selector.not-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) is a list:
-            1: <S> .parent:not( div, p, body )
-         */
-    }
-    .parent:not(div, p, body) {
-        /* resulting selectors */
-    }
-}
-@media selector-not {
-    .parent {
-        /* @include selector.not() */
-    }
-    .parent * {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.not( $direct: true ) */
-    }
-    .parent > * {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.not( $unifyParent: true ) */
-    }
-    .parent {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.not( $includeParent: false ) */
-    }
-    * {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.not( ( div, p, body ) ) */
-    }
-    .parent :not(div):not(p):not(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.not( ( div, p, body ), $split: false ) */
-    }
-    .parent :not(div, p, body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.not( ( div, p, body ), $direct: true ) */
-    }
-    .parent > :not(div):not(p):not(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.not( ( div, p, body ), $direct: true, $split: false ) */
-    }
-    .parent > :not(div, p, body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.not( ( div, p, body ), $unifyParent: true ) */
-    }
-    .parent:not(div):not(p):not(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.not( ( div, p, body ), $split: false, $unifyParent: true ) */
-    }
-    .parent:not(div, p, body) {
-        /* @content; */
+    @demo-section direct {
+        @demo ( function: selector.not-list ) {
+            .parent {
+                /*
+                    selector.not-list( ( div, p, body ), $direct: true ) is a list:
+                    1: <()> ( <S> > <S> :not(div):not(p):not(body) )
+                 */
+            }
+            @demo return {
+                .parent > :not(div):not(p):not(body) {
+                    /* returned selectors */
+                }
+            }
+        }
+        @demo-section unsplit {
+            @demo ( function: selector.not-list ) {
+                .parent {
+                    /*
+                        selector.not-list( ( div, p, body ), $direct: true, $split: false ) is a list:
+                        1: <()> ( <S> > <S> :not(div, p, body) )
+                     */
+                }
+                @demo return {
+                    .parent > :not(div, p, body) {
+                        /* returned selectors */
+                    }
+                }
+            }
+        }
+        @demo-section unified {
+            @demo ( function: selector.not-list ) {
+                .parent {
+                    /*
+                        selector.not-list( ( div, p, body ), $direct: true, $unify: true ) is a list:
+                        1: <S> .parent:not( div ):not( p ):not( body )
+                     */
+                }
+                @demo return {
+                    .parent:not(div):not(p):not(body) {
+                        /* returned selectors */
+                    }
+                }
+            }
+            @demo-section unsplit {
+                @demo ( function: selector.not-list ) {
+                    .parent {
+                        /*
+                            selector.not-list( ( div, p, body ), $direct: true, $split: false, $unify: true ) is a list:
+                            1: <S> .parent:not( div, p, body )
+                         */
+                    }
+                    @demo return {
+                        .parent:not(div, p, body) {
+                            /* returned selectors */
+                        }
+                    }
+                }
+            }
+        }
     }
 }
-@media selector-where {
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not {} */
+    }
+    @demo output {
+        .parent * {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not( $direct: true ) {} */
+    }
+    @demo output {
+        .parent > * {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not( $unify: true ) {} */
+    }
+    @demo output {
+        .parent {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not( $includeParent: false ) {} */
+    }
+    @demo output {
+        * {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not( ( div, p, body ) ) {} */
+    }
+    @demo output {
+        .parent :not(div):not(p):not(body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not( ( div, p, body ), $split: false ) {} */
+    }
+    @demo output {
+        .parent :not(div, p, body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not( ( div, p, body ), $direct: true ) {} */
+    }
+    @demo output {
+        .parent > :not(div):not(p):not(body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not( ( div, p, body ), $direct: true, $split: false ) {} */
+    }
+    @demo output {
+        .parent > :not(div, p, body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not( ( div, p, body ), $unify: true ) {} */
+    }
+    @demo output {
+        .parent:not(div):not(p):not(body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.not ) {
+    .parent {
+        /* @include selector.not( ( div, p, body ), $split: false, $unify: true ) {} */
+    }
+    @demo output {
+        .parent:not(div, p, body) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( function: selector.where-list ) {
     .parent {
         /*
             selector.where-list() is a list:
             1: <S> ":where( * )"
          */
     }
-    :where(*) {
-        /* resulting selectors */
+    @demo return {
+        :where(*) {
+            /* returned selectors */
+        }
     }
 }
-@media selector-where and (unified) {
-    .parent {
-        /*
-            selector.where-list( $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:where(*) )
-         */
+
+@demo-section unified {
+    @demo ( function: selector.where-list ) {
+        .parent {
+            /*
+                selector.where-list( $unify: true ) is a list:
+                1: <()> ( <S> .parent:where(*) )
+             */
+        }
+        @demo return {
+            .parent:where(*) {
+                /* returned selectors */
+            }
+        }
     }
-    .parent:where(*) {
-        /* resulting selectors */
-    }
-}
-@media selector-where and (unified) and (direct) {
-    .parent {
-        /*
-            selector.where-list( $direct: true, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:where(*) )
-         */
-    }
-    .parent:where(*) {
-        /* resulting selectors */
-    }
-}
-@media selector-where and (override-selectors) {
-    .parent {
-        /*
-            selector.where-list( ( div, p, body ) ) is a list:
-            1: <S> ":where( div )"
-            2: <S> ":where( p )"
-            3: <S> ":where( body )"
-         */
-    }
-    :where(div),
-    :where(p),
-    :where(body) {
-        /* resulting selectors */
+    @demo-section direct {
+        @demo ( function: selector.where-list ) {
+            .parent {
+                /*
+                    selector.where-list( $direct: true, $unify: true ) is a list:
+                    1: <()> ( <S> .parent:where(*) )
+                 */
+            }
+            @demo return {
+                .parent:where(*) {
+                    /* returned selectors */
+                }
+            }
+        }
     }
 }
-@media selector-where and (override-selectors) and (unsplit) {
-    .parent {
-        /*
-            selector.where-list( ( div, p, body ), $split: false ) is a list:
-            1: <S> ":where( div, p, body )"
-         */
+@demo-section override-selectors {
+    @demo ( function: selector.where-list ) {
+        .parent {
+            /*
+                selector.where-list( ( div, p, body ) ) is a list:
+                1: <S> ":where( div, p, body )"
+             */
+        }
+        @demo return {
+            :where(div, p, body) {
+                /* returned selectors */
+            }
+        }
     }
-    :where(div, p, body) {
-        /* resulting selectors */
+    @demo-section unsplit {
+        @demo ( function: selector.where-list ) {
+            .parent {
+                /*
+                    selector.where-list( ( div, p, body ), $split: false ) is a list:
+                    1: <S> ":where( div, p, body )"
+                 */
+            }
+            @demo return {
+                :where(div, p, body) {
+                    /* returned selectors */
+                }
+            }
+        }
+    }
+    @demo-section direct {
+        @demo ( function: selector.where-list ) {
+            .parent {
+                /*
+                    selector.where-list( ( div, p, body ), $direct: true ) is a list:
+                    1: <()> ( <S> > <S> :where(div, p, body) )
+                 */
+            }
+            @demo return {
+                .parent > :where(div, p, body) {
+                    /* returned selectors */
+                }
+            }
+        }
+        @demo-section unsplit {
+            @demo ( function: selector.where-list ) {
+                .parent {
+                    /*
+                        selector.where-list( ( div, p, body ), $direct: true, $split: false ) is a list:
+                        1: <()> ( <S> > <S> :where(div, p, body) )
+                     */
+                }
+                @demo return {
+                    .parent > :where(div, p, body) {
+                        /* returned selectors */
+                    }
+                }
+            }
+        }
+        @demo-section unified {
+            @demo ( function: selector.where-list ) {
+                .parent {
+                    /*
+                        selector.where-list( ( div, p, body ), $direct: true, $unify: true ) is a list:
+                        1: <()> ( <S> .parent:where(div, p, body) )
+                     */
+                }
+                @demo return {
+                    .parent:where(div, p, body) {
+                        /* returned selectors */
+                    }
+                }
+            }
+            @demo-section unsplit {
+                @demo ( function: selector.where-list ) {
+                    .parent {
+                        /*
+                            selector.where-list( ( div, p, body ), $direct: true, $split: false, $unify: true ) is a list:
+                            1: <()> ( <S> .parent:where(div, p, body) )
+                         */
+                    }
+                    @demo return {
+                        .parent:where(div, p, body) {
+                            /* returned selectors */
+                        }
+                    }
+                }
+            }
+        }
     }
 }
-@media selector-where and (override-selectors) and (direct) {
+@demo ( mixin: selector.where ) {
     .parent {
-        /*
-            selector.where-list( ( div, p, body ), $direct: true ) is a list:
-            1: <()> ( <S> > <S> :where(div) )
-            2: <()> ( <S> > <S> :where(p) )
-            3: <()> ( <S> > <S> :where(body) )
-         */
+        /* @include selector.where {} */
     }
-    .parent > :where(div),
-    .parent > :where(p),
-    .parent > :where(body) {
-        /* resulting selectors */
+    @demo output {
+        .parent :where(*) {
+            /* @content; */
+        }
     }
 }
-@media selector-where and (override-selectors) and (direct) and (unsplit) {
+
+@demo ( mixin: selector.where ) {
     .parent {
-        /*
-            selector.where-list( ( div, p, body ), $direct: true, $split: false ) is a list:
-            1: <()> ( <S> > <S> :where(div, p, body) )
-         */
+        /* @include selector.where( $direct: true ) {} */
     }
-    .parent > :where(div, p, body) {
-        /* resulting selectors */
+    @demo output {
+        .parent > :where(*) {
+            /* @content; */
+        }
     }
 }
-@media selector-where and (override-selectors) and (direct) and (unified) {
+
+@demo ( mixin: selector.where ) {
     .parent {
-        /*
-            selector.where-list( ( div, p, body ), $direct: true, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:where(div) )
-            2: <()> ( <S> .parent:where(p) )
-            3: <()> ( <S> .parent:where(body) )
-         */
+        /* @include selector.where( $unify: true ) {} */
     }
-    .parent:where(div),
-    .parent:where(p),
-    .parent:where(body) {
-        /* resulting selectors */
+    @demo output {
+        .parent:where(*) {
+            /* @content; */
+        }
     }
 }
-@media selector-where and (override-selectors) and (direct) and (unified) and (unsplit) {
+
+@demo ( mixin: selector.where ) {
     .parent {
-        /*
-            selector.where-list( ( div, p, body ), $direct: true, $split: false, $unifyParent: true ) is a list:
-            1: <()> ( <S> .parent:where(div, p, body) )
-         */
+        /* @include selector.where( $includeParent: false ) {} */
     }
-    .parent:where(div, p, body) {
-        /* resulting selectors */
+    @demo output {
+        :where(*) {
+            /* @content; */
+        }
     }
 }
-@media selector-where {
+
+@demo ( mixin: selector.where ) {
     .parent {
-        /* @include selector.where() */
+        /* @include selector.where( ( div, p, body ) ) {} */
     }
-    .parent :where(*) {
-        /* @content; */
+    @demo output {
+        .parent :where(div),
+        .parent :where(p),
+        .parent :where(body) {
+            /* @content; */
+        }
     }
+}
+
+@demo ( mixin: selector.where ) {
     .parent {
-        /* @include selector.where( $direct: true ) */
+        /* @include selector.where( ( div, p, body ), $split: false ) {} */
     }
-    .parent > :where(*) {
-        /* @content; */
+    @demo output {
+        .parent :where(div, p, body) {
+            /* @content; */
+        }
     }
+}
+
+@demo ( mixin: selector.where ) {
     .parent {
-        /* @include selector.where( $unifyParent: true ) */
+        /* @include selector.where( ( div, p, body ), $direct: true ) {} */
     }
-    .parent:where(*) {
-        /* @content; */
+    @demo output {
+        .parent > :where(div),
+        .parent > :where(p),
+        .parent > :where(body) {
+            /* @content; */
+        }
     }
+}
+
+@demo ( mixin: selector.where ) {
     .parent {
-        /* @include selector.where( $includeParent: false ) */
+        /* @include selector.where( ( div, p, body ), $direct: true, $split: false ) {} */
     }
-    :where(*) {
-        /* @content; */
+    @demo output {
+        .parent > :where(div, p, body) {
+            /* @content; */
+        }
     }
+}
+
+@demo ( mixin: selector.where ) {
     .parent {
-        /* @include selector.where( ( div, p, body ) ) */
+        /* @include selector.where( ( div, p, body ), $unify: true ) {} */
     }
-    .parent :where(div),
-    .parent :where(p),
-    .parent :where(body) {
-        /* @content; */
+    @demo output {
+        .parent:where(div),
+        .parent:where(p),
+        .parent:where(body) {
+            /* @content; */
+        }
     }
+}
+
+@demo ( mixin: selector.where ) {
     .parent {
-        /* @include selector.where( ( div, p, body ), $split: false ) */
+        /* @include selector.where( ( div, p, body ), $split: false, $unify: true ) {} */
     }
-    .parent :where(div, p, body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.where( ( div, p, body ), $direct: true ) */
-    }
-    .parent > :where(div),
-    .parent > :where(p),
-    .parent > :where(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.where( ( div, p, body ), $direct: true, $split: false ) */
-    }
-    .parent > :where(div, p, body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.where( ( div, p, body ), $unifyParent: true ) */
-    }
-    .parent:where(div),
-    .parent:where(p),
-    .parent:where(body) {
-        /* @content; */
-    }
-    .parent {
-        /* @include selector.where( ( div, p, body ), $split: false, $unifyParent: true ) */
-    }
-    .parent:where(div, p, body) {
-        /* @content; */
+    @demo output {
+        .parent:where(div, p, body) {
+            /* @content; */
+        }
     }
 }

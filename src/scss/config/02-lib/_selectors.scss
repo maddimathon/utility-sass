@@ -9,9 +9,62 @@
 
 @use '../../modules/list';
 @use '../../modules/selector';
+@use '../../modules/string';
 
 /// # CONFIG - SELECTORS
 /// ======================================================================== ///
+
+///
+/// @since ___PKG_VERSION___
+///
+$mx_config_selectorModifiers_warnAppendToSelector: null !default;
+$mx_config_selectorModifiers_warnAppendToSelector: config-valid-bool(
+    $mx_config_selectorModifiers_warnAppendToSelector,
+    'mx_config_selectorModifiers_warnAppendToSelector',
+    $default: true
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin _selector-modifier-generic(
+    $name,
+    $selector_parent,
+    $selector_modifier,
+    $appendToSelector: false,
+    $warnAppendToSelector: $mx_config_selectorModifiers_warnAppendToSelector,
+    $is: false
+) {
+    @at-root {
+        @if $appendToSelector {
+            @if string.index(#{$selector_parent}, '%') != null {
+                @if $warnAppendToSelector {
+                    @warn '[#{$name}] $appendToSelector is not recommended for pseudo selectors as its output may be unprediactably wrong - your decision has been overruled, sorry';
+                }
+
+                #{$selector_parent} {
+                    @content;
+                }
+
+                $appendToSelector: false;
+            }
+        }
+
+        $all_selectors: if(
+            $is,
+            selector.is-list($selector_modifier, $parentSelector: $selector_parent, $unify: true),
+            selector.unify($selector_parent, $selector_modifier)
+        );
+
+        @if $appendToSelector {
+            $all_selectors: list.join($selector_parent, $all_selectors, $separator: comma);
+        }
+
+        #{$all_selectors} {
+            @content;
+        }
+    }
+}
 
 ///
 /// @since ___PKG_VERSION___
@@ -53,14 +106,13 @@ $selector_a_current: config-valid-selector(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin selector-a-current($selector: &, $appendToSelector: false, $is: false) {
-    $all_selectors: selector-a-current($selector);
-
-    @if $appendToSelector {
-        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
-    }
-
-    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
+@mixin selector-a-current($selector: &, $args...) {
+    @include _selector-modifier-generic(
+        'selector-a-current',
+        $selector_parent: $selector,
+        $selector_modifier: $selector_a_current,
+        $args...
+    ) {
         @content;
     }
 }
@@ -85,14 +137,13 @@ $selector_a_disabled: config-valid-selector(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin selector-a-disabled($selector: &, $appendToSelector: false, $is: false) {
-    $all_selectors: selector-a-disabled($selector);
-
-    @if $appendToSelector {
-        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
-    }
-
-    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
+@mixin selector-a-disabled($selector: &, $args...) {
+    @include _selector-modifier-generic(
+        'selector-a-disabled',
+        $selector_parent: $selector,
+        $selector_modifier: $selector_a_disabled,
+        $args...
+    ) {
         @content;
     }
 }
@@ -117,14 +168,13 @@ $selector_button_disabled: config-valid-selector(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin selector-button-disabled($selector: &, $appendToSelector: false, $is: false) {
-    $all_selectors: selector-button-disabled($selector);
-
-    @if $appendToSelector {
-        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
-    }
-
-    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
+@mixin selector-button-disabled($selector: &, $args...) {
+    @include _selector-modifier-generic(
+        'selector-button-disabled',
+        $selector_parent: $selector,
+        $selector_modifier: $selector_button_disabled,
+        $args...
+    ) {
         @content;
     }
 }
@@ -163,14 +213,13 @@ $selector_input_disabled: config-valid-selector(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin selector-input-disabled($selector: &, $appendToSelector: false, $is: false) {
-    $all_selectors: selector-input-disabled($selector);
-
-    @if $appendToSelector {
-        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
-    }
-
-    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
+@mixin selector-input-disabled($selector: &, $args...) {
+    @include _selector-modifier-generic(
+        'selector-input-disabled',
+        $selector_parent: $selector,
+        $selector_modifier: $selector_input_disabled,
+        $args...
+    ) {
         @content;
     }
 }
@@ -195,14 +244,13 @@ $selector_input_readonly: config-valid-selector(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin selector-input-readonly($selector: &, $appendToSelector: false, $is: false) {
-    $all_selectors: selector-input-readonly($selector);
-
-    @if $appendToSelector {
-        $all_selectors: list.join($selector, $all_selectors, $separator: comma);
-    }
-
-    @at-root #{if($is, ':is(#{$all_selectors})', $all_selectors)} {
+@mixin selector-input-readonly($selector: &, $args...) {
+    @include _selector-modifier-generic(
+        'selector-input-readonly',
+        $selector_parent: $selector,
+        $selector_modifier: $selector_input_readonly,
+        $args...
+    ) {
         @content;
     }
 }

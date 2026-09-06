@@ -365,6 +365,7 @@ pre > code {
 
 /*! END of @maddimathon/utility-sass/template */
 /* #endregion Reset */
+/* [template-content-abstracts] @content( normalize-or-reset ); */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
 /*! START of @maddimathon/utility-sass/template */
@@ -770,8 +771,11 @@ pre > code {
 
 /* #endregion Tokens - Style */
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-abstracts] @content( tokens ); */
+/* [template-content-globals] @content( accessibility-before ); */
 /* # GLOBALS - ACCESSIBILITY
  * ======================================================================== */
+/* [template-content-globals] @content( accessibility--start ); */
 /*! START of @maddimathon/utility-sass/template */
 .no-js :focus,
 .js__no-whereSelector :focus {
@@ -825,6 +829,7 @@ pre > code {
     );
 }
 
+/* [template-content-globals] @content( accessibility--focusRing ); */
 .screen-reader-text {
     position: absolute !important;
     left: -10000px !important;
@@ -835,9 +840,13 @@ pre > code {
     overflow: hidden !important;
 }
 
+/* [template-content-globals] @content( accessibility--screenReaderText ); */
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-globals] @content( accessibility ); */
+/* [template-content-globals] @content( objects-before ); */
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
+/* [template-content-globals] @content( objects--start ); */
 /*! START of @maddimathon/utility-sass/template */
 hr {
     --display: block;
@@ -852,15 +861,20 @@ hr {
     border-block-end: currentColor solid var(--border-width-200, 0.125rem);
 }
 
+/* [template-content-globals] @content( objects--hr ); */
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-globals] @content( objects ); */
+/* [template-content-globals] @content( typography-before ); */
 /* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
+/* [template-content-globals] @content( typography--start ); */
 /*! START of @maddimathon/utility-sass/template */
 ::selection {
     background-color: var(--sys-clr-selection-bg, Highlight);
     color: var(--sys-clr-selection-text, HighlightText);
 }
 
+/* [template-content-globals] @content( typography--selection ); */
 :root {
     font-weight: 400;
     line-height: var(--line-height-400, 1.6875);
@@ -877,8 +891,11 @@ body {
     font-size: var(--fs-normal, 1.0625rem);
 }
 
+/* [template-content-globals] @content( typography--typeDefaults ); */
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-globals] @content( typography--start-end ); */
 /* ## Typography - Inlines ==================================== */
+/* [template-content-globals] @content( typography--start-inlines ); */
 /*! START of @maddimathon/utility-sass/template */
 strong,
 b {
@@ -893,6 +910,7 @@ b strong strong {
     font-weight: 900;
 }
 
+/* [template-content-globals] @content( typography--strong ); */
 em,
 i {
     font-style: italic;
@@ -906,6 +924,7 @@ i em em {
     font-style: italic;
 }
 
+/* [template-content-globals] @content( typography--em ); */
 a[href] {
     --focus-ring-outline-offset: var(--stroke-relative-200, 0.0625em);
     --display: inline;
@@ -952,13 +971,17 @@ a[aria-disabled='true'][href] {
     cursor: not-allowed;
 }
 
+/* [template-content-globals] @content( typography--a ); */
 abbr[title] {
     text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
     cursor: help;
 }
 
+/* [template-content-globals] @content( typography--abbr ); */
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-globals] @content( typography--end-inlines ); */
 /* ## Typography - Blocks ==================================== */
+/* [template-content-globals] @content( typography--start-blocks ); */
 /*! START of @maddimathon/utility-sass/template */
 p {
     margin-block: var(--mrg-soft-400, 0.9375rem) 0;
@@ -967,6 +990,7 @@ hr + p {
     margin-block-start: 0;
 }
 
+/* [template-content-globals] @content( typography--p ); */
 blockquote {
     --display: block;
     display: var(--display, block);
@@ -1009,6 +1033,7 @@ blockquote > cite {
     color: color-mix(in srgb, currentColor 87.5%, transparent);
 }
 
+/* [template-content-globals] @content( typography--blockquote ); */
 code,
 kbd,
 pre,
@@ -1016,6 +1041,7 @@ samp {
     position: relative;
 }
 
+/* [template-content-globals] @content( typography--code ); */
 pre {
     --display: block;
     display: var(--display, block);
@@ -1053,7 +1079,9 @@ pre:has(> :is(code, kbd, samp)) > code {
     text-wrap: nowrap;
 }
 
+/* [template-content-globals] @content( typography--pre ); */
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-globals] @content( typography--end-blocks ); */
 /* ## Typography - Headings ==================================== */
 /*! START of @maddimathon/utility-sass/template */
 .h1,
@@ -1590,8 +1618,12 @@ h6.unstyled-heading,
 }
 
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-globals] @content( typography--headings ); */
+/* [template-content-globals] @content( typography ); */
+/* [template-content-globals] @content( lists-before ); */
 /* # GLOBALS - LISTS
  * ======================================================================== */
+/* [template-content-globals] @content( lists--start ); */
 /*! START of @maddimathon/utility-sass/template */
 ol,
 ul {
@@ -1655,9 +1687,13 @@ li li li li em em {
     font-style: italic;
 }
 
+/* [template-content-globals] @content( lists--lists ); */
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-globals] @content( lists ); */
+/* [template-content-globals] @content( forms-before ); */
 /* # GLOBALS - FORMS
  * ======================================================================== */
+/* [template-content-globals] @content( forms--start ); */
 /*! START of @maddimathon/utility-sass/template */
 fieldset {
     --display: block;
@@ -1722,6 +1758,7 @@ fieldset legend {
     font-style: italic;
 }
 
+/* [template-content-globals] @content( forms--fieldset ); */
 textarea,
 select,
 input {
@@ -2029,6 +2066,7 @@ label > input[type='radio'] {
     margin: 0;
 }
 
+/* [template-content-globals] @content( forms--inputs ); */
 /* ## Forms - Buttons ==================================== */
 button,
 [role='button'],
@@ -2272,9 +2310,13 @@ a[disabled][href].button {
     cursor: not-allowed;
 }
 
+/* [template-content-globals] @content( forms--buttons ); */
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-globals] @content( forms ); */
+/* [template-content-globals] @content( tables-before ); */
 /* # GLOBALS - TABLES
  * ======================================================================== */
+/* [template-content-globals] @content( tables--start ); */
 /*! START of @maddimathon/utility-sass/template */
 table,
 .table-wrapper {
@@ -2378,8 +2420,12 @@ th {
 }
 
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-globals] @content( tables--table ); */
+/* [template-content-globals] @content( tables ); */
+/* [template-content-layouts] @content( body-before ); */
 /* # LAYOUTS - BODY
  * ======================================================================== */
+/* [template-content-layouts] @content( body--start ); */
 /*! START of @maddimathon/utility-sass/template */
 :root {
     --scroll-padding-top: var(--gap-block-layout, 5vw);
@@ -2393,6 +2439,7 @@ body {
     scroll-padding-top: var(--scroll-padding-top, var(--gap-block-layout, 5vw));
 }
 
+/* [template-content-layouts] @content( body--scrollPadding ); */
 body {
     --display: flex;
     display: var(--display, flex);
@@ -2407,4 +2454,6 @@ body {
     width: min(var(--width-page, 58.6875rem), 100%);
 }
 
+/* [template-content-layouts] @content( body--bodyFlow ); */
 /*! END of @maddimathon/utility-sass/template */
+/* [template-content-layouts] @content( body ); */

@@ -31,6 +31,9 @@ selector.except-is-root(...); // added
 selector.except-superselector(...); // added
 selector.parent-except-superselector(...); // added
 
+selector.exists(...); // added
+selector.exists(...); // added
+
 selector.has-body(...); // added
 selector.has-root(...); // added
 selector.has-root-or-body(...); // added
@@ -59,8 +62,6 @@ selector.pop(...); // added
 
 selector.only-superselector(...); // added
 selector.parent-only-superselector(...); // added
-
-selector.parent-exists(...); // added
 
 selector.parent-has-body(...); // added
 selector.parent-has-root(...); // added

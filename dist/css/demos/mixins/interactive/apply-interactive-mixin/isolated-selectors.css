@@ -18,47 +18,14 @@
  * ======================================================================== */
 /* #region - NO PARENT */
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) {} */
     [data-state-active='isolated'] {
         /* @content; */
     }
     [data-state-focus='isolated'] {
         /* @content; */
     }
-    :hover,
     :visited,
-    :active,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-    :focus-within {
-        /* @content; */
-    }
-    :has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) */
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
     :hover,
     :active,
     .no-js :focus,
@@ -85,7 +52,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) {} */
     [data-state-active='isolated'] {
         /* @content; */
     }
@@ -93,7 +60,6 @@
         /* @content; */
     }
     :hover,
-    :visited,
     :active,
     .no-js :focus,
     .js__no-whereSelector :focus {
@@ -105,18 +71,28 @@
     :focus-visible {
         /* @content; */
     }
-    :has(:is(:active, [data-state-active='isolated'])) {
+    :focus-within {
+        /* @content; */
+    }
+    :has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
         /* @content; */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $visited: true ) {} */
     [data-state-active='isolated'] {
         /* @content; */
     }
     [data-state-focus='isolated'] {
         /* @content; */
     }
+    :visited,
     :hover,
     :active,
     .no-js :focus,
@@ -134,30 +110,32 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
-    :hover,
-    :active,
-    :visited {
-        /* @content; */
-    }
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true ) {} */
     [data-state-active='isolated'] {
         /* @content; */
     }
-    :focus-within {
+    [data-state-focus='isolated'] {
         /* @content; */
     }
-    :has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
+    :hover,
+    :active,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+    :has(:is(:active, [data-state-active='isolated'])) {
         /* @content; */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) {} */
+    :visited,
     :hover,
     :active {
         /* @content; */
@@ -179,21 +157,30 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true ) {} */
     :hover,
-    :active,
-    :visited {
+    :active {
         /* @content; */
     }
     [data-state-active='isolated'] {
         /* @content; */
     }
-    :has(:is(:active, [data-state-active='isolated'])) {
+    :focus-within {
+        /* @content; */
+    }
+    :has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
         /* @content; */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $visited: true ) {} */
+    :visited,
     :hover,
     :active {
         /* @content; */
@@ -206,7 +193,20 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true ) {} */
+    :hover,
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    :has(:is(:active, [data-state-active='isolated'])) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) {} */
     [data-state-active='isolated'] {
         /* @content; */
     }
@@ -239,7 +239,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true ) {} */
     [data-state-active='isolated'] {
         /* @content; */
     }
@@ -271,7 +271,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $visited: true ) {} */
     [data-state-active='isolated'] {
         /* @content; */
     }
@@ -295,7 +295,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true ) {} */
     [data-state-active='isolated'] {
         /* @content; */
     }
@@ -318,29 +318,8 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) */
-    :active,
-    :visited {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    :focus-within {
-        /* @content; */
-    }
-    :has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $visited: true ) {} */
+    :visited,
     :active {
         /* @content; */
     }
@@ -361,341 +340,11 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $visited: true ) */
-    :active,
-    :visited {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    :has(:is(:active, [data-state-active='isolated'])) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true ) {} */
     :active {
         /* @content; */
     }
     [data-state-active='isolated'] {
-        /* @content; */
-    }
-    :has(:is(:active, [data-state-active='isolated'])) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $visited: true ) */
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :hover,
-    :visited,
-    :active,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-    :focus-within {
-        /* @content; */
-    }
-    :has([data-state-focus='isolated']) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true ) */
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :hover,
-    :active,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-    :focus-within {
-        /* @content; */
-    }
-    :has([data-state-focus='isolated']) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $visited: true ) */
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :hover,
-    :visited,
-    :active,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true ) */
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :hover,
-    :active,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $visited: true ) */
-    :hover,
-    :active,
-    :visited {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    :focus-within {
-        /* @content; */
-    }
-    :has([data-state-focus='isolated']) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true ) */
-    :hover,
-    :active {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    :focus-within {
-        /* @content; */
-    }
-    :has([data-state-focus='isolated']) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $visited: true ) */
-    :hover,
-    :active,
-    :visited {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true ) */
-    :hover,
-    :active {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $visited: true ) */
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :visited,
-    :active,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-    :focus-within {
-        /* @content; */
-    }
-    :has([data-state-focus='isolated']) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true ) */
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :active,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-    :focus-within {
-        /* @content; */
-    }
-    :has([data-state-focus='isolated']) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $visited: true ) */
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :visited,
-    :active,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true ) */
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :active,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $visited: true ) */
-    :focus-within {
-        /* @content; */
-    }
-    :has([data-state-focus='isolated']) {
-        /* @content; */
-    }
-    :active,
-    :visited {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true ) */
-    :focus-within {
-        /* @content; */
-    }
-    :has([data-state-focus='isolated']) {
-        /* @content; */
-    }
-    :active {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $visited: true ) */
-    :active,
-    :visited {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true ) */
-    :active {
-        /* @content; */
-    }
-    [data-state-active='isolated'] {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $visited: true ) */
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :hover,
-    :visited,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
         /* @content; */
     }
     :focus-within {
@@ -712,10 +361,332 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $visited: true ) {} */
+    :visited,
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    :has(:is(:active, [data-state-active='isolated'])) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true ) {} */
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    :has(:is(:active, [data-state-active='isolated'])) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $visited: true ) {} */
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
     [data-state-focus='isolated'] {
         /* @content; */
     }
+    :visited,
+    :hover,
+    :active,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+    :focus-within {
+        /* @content; */
+    }
+    :has([data-state-focus='isolated']) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true ) {} */
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :hover,
+    :active,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+    :focus-within {
+        /* @content; */
+    }
+    :has([data-state-focus='isolated']) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $visited: true ) {} */
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :visited,
+    :hover,
+    :active,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true ) {} */
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :hover,
+    :active,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $visited: true ) {} */
+    :visited,
+    :hover,
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    :focus-within {
+        /* @content; */
+    }
+    :has([data-state-focus='isolated']) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true ) {} */
+    :hover,
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    :focus-within {
+        /* @content; */
+    }
+    :has([data-state-focus='isolated']) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $visited: true ) {} */
+    :visited,
+    :hover,
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true ) {} */
+    :hover,
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $visited: true ) {} */
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :visited,
+    :active,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+    :focus-within {
+        /* @content; */
+    }
+    :has([data-state-focus='isolated']) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true ) {} */
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :active,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+    :focus-within {
+        /* @content; */
+    }
+    :has([data-state-focus='isolated']) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $visited: true ) {} */
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :visited,
+    :active,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true ) {} */
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :active,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $visited: true ) {} */
+    :focus-within {
+        /* @content; */
+    }
+    :has([data-state-focus='isolated']) {
+        /* @content; */
+    }
+    :visited,
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true ) {} */
+    :focus-within {
+        /* @content; */
+    }
+    :has([data-state-focus='isolated']) {
+        /* @content; */
+    }
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $visited: true ) {} */
+    :visited,
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true ) {} */
+    :active {
+        /* @content; */
+    }
+    [data-state-active='isolated'] {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $visited: true ) {} */
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :visited,
     :hover,
     .no-js :focus,
     .js__no-whereSelector :focus {
@@ -741,28 +712,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $visited: true ) */
-    [data-state-focus='isolated'] {
-        /* @content; */
-    }
-    :hover,
-    :visited,
-    .no-js :focus,
-    .js__no-whereSelector :focus {
-        /* @content; */
-    }
-    :where(.js__no-focusVisible) :focus {
-        /* @content; */
-    }
-    :focus-visible {
-        /* @content; */
-    }
-    :has(:is(:active, [data-state-active='isolated'])) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -775,16 +725,6 @@
         /* @content; */
     }
     :focus-visible {
-        /* @content; */
-    }
-    :has(:is(:active, [data-state-active='isolated'])) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $visited: true ) */
-    :hover,
-    :visited {
         /* @content; */
     }
     :focus-within {
@@ -801,7 +741,49 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $visited: true ) {} */
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :visited,
+    :hover,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+    :has(:is(:active, [data-state-active='isolated'])) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true ) {} */
+    [data-state-focus='isolated'] {
+        /* @content; */
+    }
+    :hover,
+    .no-js :focus,
+    .js__no-whereSelector :focus {
+        /* @content; */
+    }
+    :where(.js__no-focusVisible) :focus {
+        /* @content; */
+    }
+    :focus-visible {
+        /* @content; */
+    }
+    :has(:is(:active, [data-state-active='isolated'])) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $visited: true ) {} */
+    :visited,
     :hover {
         /* @content; */
     }
@@ -819,17 +801,26 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $visited: true ) */
-    :hover,
-    :visited {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true ) {} */
+    :hover {
         /* @content; */
     }
-    :has(:is(:active, [data-state-active='isolated'])) {
+    :focus-within {
+        /* @content; */
+    }
+    :has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
         /* @content; */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $visited: true ) {} */
+    :visited,
     :hover {
         /* @content; */
     }
@@ -838,7 +829,16 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true ) {} */
+    :hover {
+        /* @content; */
+    }
+    :has(:is(:active, [data-state-active='isolated'])) {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $visited: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -867,7 +867,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -895,7 +895,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $visited: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -915,7 +915,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -934,7 +934,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $visited: true ) {} */
     :visited {
         /* @content; */
     }
@@ -952,7 +952,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true ) {} */
     :focus-within {
         /* @content; */
     }
@@ -967,7 +967,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $activeWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $activeWithin: true, $visited: true ) {} */
     :visited {
         /* @content; */
     }
@@ -976,13 +976,13 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $activeWithin: true ) */
+    /* @include apply-interactive-mixin( $activeWithin: true ) {} */
     :has(:is(:active, [data-state-active='isolated'])) {
         /* @content; */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $visited: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -1006,7 +1006,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -1029,12 +1029,12 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $visited: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
-    :hover,
     :visited,
+    :hover,
     .no-js :focus,
     .js__no-whereSelector :focus {
         /* @content; */
@@ -1047,7 +1047,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -1064,20 +1064,8 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $visited: true ) */
-    :hover,
-    :visited {
-        /* @content; */
-    }
-    :focus-within {
-        /* @content; */
-    }
-    :has([data-state-focus='isolated']) {
-        /* @content; */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $visited: true ) {} */
+    :visited,
     :hover {
         /* @content; */
     }
@@ -1089,20 +1077,32 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $visited: true ) */
-    :hover,
-    :visited {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true ) {} */
+    :hover {
+        /* @content; */
+    }
+    :focus-within {
+        /* @content; */
+    }
+    :has([data-state-focus='isolated']) {
         /* @content; */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $visited: true ) {} */
+    :visited,
     :hover {
         /* @content; */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $hover: true ) {} */
+    :hover {
+        /* @content; */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $visited: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -1125,7 +1125,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -1147,7 +1147,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $visited: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -1164,7 +1164,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true ) */
+    /* @include apply-interactive-mixin( $focus: true ) {} */
     [data-state-focus='isolated'] {
         /* @content; */
     }
@@ -1180,7 +1180,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $visited: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $visited: true ) {} */
     :visited {
         /* @content; */
     }
@@ -1192,7 +1192,7 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true ) {} */
     :focus-within {
         /* @content; */
     }
@@ -1201,13 +1201,13 @@
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $visited: true ) */
+    /* @include apply-interactive-mixin( $visited: true ) {} */
     :visited {
         /* @content; */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin() */
+    /* @include apply-interactive-mixin {} */
 }
 /* #endregion - NO PARENT */
 /* #region - WITH PARENT */
@@ -1215,29 +1215,29 @@ a {
     /* parent selector is: <()> ( <()> ( <S> a ) ) */
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
-    a:hover,
     a,
     a:visited,
+    a:hover,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -1246,32 +1246,32 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
-    a:hover,
     a:visited,
+    a:hover,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -1280,32 +1280,32 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:hover,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -1314,31 +1314,31 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:hover,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -1347,190 +1347,122 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
-    a:hover,
     a,
     a:visited,
+    a:hover,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
-    a:hover,
     a:visited,
+    a:hover,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:hover,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:hover,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) */
+    a:visited,
     a:hover,
     a:active {
-        /* @content ( active--selector-pseudo ); */
+        /* @content( active--selector-pseudo ); */
     }
     a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
+        /* @content( active--selector-config ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -1539,88 +1471,21 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
     a:hover,
     a:active {
-        /* @content ( active--selector-pseudo ); */
+        /* @content( active--selector-pseudo ); */
     }
     a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    a:visited,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( active--selector-config ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -1629,971 +1494,1106 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:visited,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    a:visited,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:visited,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:active,
-    a,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a:active,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a:active,
-    a {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) */
-    a:active {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:active,
-    a,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a:active,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a:active,
-    a {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $multipleContentBlocks: true ) */
-    a:active {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a,
-    a:visited,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a:visited,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    a:hover,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a,
-    a:visited,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a:visited,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $self: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    a:hover,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $multipleContentBlocks: true ) */
-    a[data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a:active,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $self: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $multipleContentBlocks: true ) */
     a:hover,
     a:active {
-        /* @content ( active--selector-pseudo ); */
+        /* @content( active--selector-pseudo ); */
     }
     a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
+        /* @content( active--selector-config ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $self: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:active,
-    a {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $active: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a:hover,
     a:active {
-        /* @content ( active--selector-pseudo ); */
+        /* @content( active--selector-pseudo ); */
     }
     a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
+        /* @content( active--selector-config ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:visited,
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active--selector-config ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:visited,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:visited,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:visited,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:visited,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $active: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a[data-state-active='isolated'] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:active,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-    a:active,
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
+    a:visited,
+    a:active {
+        /* @content( active--selector-pseudo ); */
     }
     a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
+        /* @content( active--selector-config ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:visited,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:visited,
+    a:hover,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:visited,
+    a:hover,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:hover,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:hover,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:visited,
+    a:hover,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:visited,
+    a:hover,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $self: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:hover,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $active: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:hover,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:visited,
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $self: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $active: true, $multipleContentBlocks: true ) {} */
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:visited,
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $self: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $active: true, $multipleContentBlocks: true ) {} */
+    a:hover,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:visited,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:visited,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $self: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $active: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
     }
     a:active,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $self: true, $multipleContentBlocks: true ) */
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:visited,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:visited,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $self: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:active,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $active: true, $multipleContentBlocks: true ) {} */
+    a[data-state-active='isolated'] {
+        /* @content( active ); */
+    }
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
     }
     a:active,
-    a {
-        /* @content ( active--selector-pseudo ); */
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
+    }
+    a,
+    a:visited,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+    a:visited,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $self: true, $multipleContentBlocks: true ) {} */
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+    a,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $active: true, $multipleContentBlocks: true ) {} */
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
     }
     a:active {
-        /* @content ( active--selector-pseudo ); */
+        /* @content( active--selector-pseudo ); */
     }
     a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
+        /* @content( active--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:active,
+    /* @include apply-interactive-mixin( $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $visited: true, $multipleContentBlocks: true ) */
-    a:active,
-    a:visited {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $self: true, $multipleContentBlocks: true ) */
-    a:active,
-    a {
-        /* @content ( active--selector-pseudo ); */
-    }
-    a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $active: true, $multipleContentBlocks: true ) */
+    a:visited,
     a:active {
-        /* @content ( active--selector-pseudo ); */
+        /* @content( active--selector-pseudo ); */
     }
     a[data-state-active='isolated'] {
-        /* @content ( active--selector-config ); */
+        /* @content( active--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+    /* @include apply-interactive-mixin( $active: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
+    a:active {
+        /* @content( active--selector-pseudo ); */
     }
-    a:hover,
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $self: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $active: true, $multipleContentBlocks: true ) {} */
+    a:active {
+        /* @content( active--selector-pseudo ); */
+    }
+    a[data-state-active='isolated'] {
+        /* @content( active--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
     a,
     a:visited,
+    a:hover,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -2602,28 +2602,28 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
-    a:hover,
     a:visited,
+    a:hover,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -2632,28 +2632,28 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:hover,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -2662,27 +2662,27 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:hover,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -2691,158 +2691,102 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
-    a:hover,
     a,
     a:visited,
+    a:hover,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
-    a:hover,
     a:visited,
+    a:hover,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:hover,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:hover,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a,
-    a:visited {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:visited {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $multipleContentBlocks: true ) */
+    a:visited,
     a:hover {
-        /* @content ( hover--selector-pseudo ); */
+        /* @content( hover--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -2851,68 +2795,17 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a,
-    a:visited {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:visited {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
     a:hover {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    a:visited,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( hover--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a:has(
         :is(
@@ -2921,831 +2814,936 @@ a {
             [data-state-active='isolated']
         )
     ) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:visited,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    a:visited,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:visited,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a,
-    a:visited {
-        /* @content ( visited ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a:visited {
-        /* @content ( visited ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a {
-        /* @content ( self ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $multipleContentBlocks: true ) */
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has(
-        :is(
-            [data-state-focus='isolated'],
-            :active,
-            [data-state-active='isolated']
-        )
-    ) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a,
-    a:visited {
-        /* @content ( visited ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $activeWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a:visited {
-        /* @content ( visited ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $activeWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a {
-        /* @content ( self ); */
-    }
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $activeWithin: true, $multipleContentBlocks: true ) */
-    a:has(:is(:active, [data-state-active='isolated'])) {
-        /* @content ( active-within ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a,
-    a:visited,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a:visited,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    a:hover,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a,
-    a:visited,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $visited: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    a:visited,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $self: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a,
-    a:hover,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $multipleContentBlocks: true ) */
-    a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
-    }
-    a:hover,
-    .no-js a:focus,
-    .js__no-whereSelector a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
-    }
-    :where(.js__no-focusVisible) a:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
-    }
-    a:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a,
-    a:visited {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:visited {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $self: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a {
-        /* @content ( hover--selector-pseudo ); */
-    }
-    a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
-    }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $multipleContentBlocks: true ) */
     a:hover {
-        /* @content ( hover--selector-pseudo ); */
+        /* @content( hover--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a,
-    a:visited {
-        /* @content ( hover--selector-pseudo ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $visited: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a:visited {
-        /* @content ( hover--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $self: true, $multipleContentBlocks: true ) */
-    a:hover,
-    a {
-        /* @content ( hover--selector-pseudo ); */
-    }
-}
-@media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a:hover {
-        /* @content ( hover--selector-pseudo ); */
+        /* @content( hover--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:visited,
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:visited,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:visited,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     a:visited,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a:visited,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     a,
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focus: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focus: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a[data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
     .no-js a:focus,
     .js__no-whereSelector a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a:focus {
-        /* @content ( focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
     }
     a:focus-visible {
-        /* @content ( focus-visible--selector-pseudo ); */
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a,
     a:visited {
-        /* @content ( visited ); */
+        /* @content( visited ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a:visited {
-        /* @content ( visited ); */
+        /* @content( visited ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a {
-        /* @content ( self ); */
+        /* @content( self ); */
     }
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $focusWithin: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $focusWithin: true, $activeWithin: true, $multipleContentBlocks: true ) {} */
     a:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
-    a:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+    a:has(
+        :is(
+            [data-state-focus='isolated'],
+            :active,
+            [data-state-active='isolated']
+        )
+    ) {
+        /* @content( focus-within--selector-config ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $self: true, $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $activeWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a,
     a:visited {
-        /* @content ( visited ); */
+        /* @content( visited ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $visited: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $activeWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
     a:visited {
-        /* @content ( visited ); */
+        /* @content( visited ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $self: true, $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $activeWithin: true, $self: true, $multipleContentBlocks: true ) {} */
     a {
-        /* @content ( self ); */
+        /* @content( self ); */
+    }
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
     }
 }
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $multipleContentBlocks: true ) */
+    /* @include apply-interactive-mixin( $activeWithin: true, $multipleContentBlocks: true ) {} */
+    a:has(:is(:active, [data-state-active='isolated'])) {
+        /* @content( active-within ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:hover,
+    a,
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:hover,
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $self: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:hover,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:hover,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:visited,
+    a:hover,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:visited,
+    a:hover,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $self: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:hover,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:hover,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( hover-focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:visited,
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $self: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $focusWithin: true, $multipleContentBlocks: true ) {} */
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:visited,
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited,
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $self: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $hover: true, $multipleContentBlocks: true ) {} */
+    a:hover {
+        /* @content( hover--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $self: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $focusWithin: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a:visited,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $self: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    a,
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focus: true, $multipleContentBlocks: true ) {} */
+    a[data-state-focus='isolated'] {
+        /* @content( focus ); */
+    }
+    .no-js a:focus,
+    .js__no-whereSelector a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--no-js ); */
+    }
+    :where(.js__no-focusVisible) a:focus {
+        /* @content( focus-visible--fallback--selector-pseudo--where ); */
+    }
+    a:focus-visible {
+        /* @content( focus-visible--selector-pseudo ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:visited {
+        /* @content( visited ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited {
+        /* @content( visited ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $self: true, $multipleContentBlocks: true ) {} */
+    a {
+        /* @content( self ); */
+    }
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $focusWithin: true, $multipleContentBlocks: true ) {} */
+    a:focus-within {
+        /* @content( focus-within--selector-pseudo ); */
+    }
+    a:has([data-state-focus='isolated']) {
+        /* @content( focus-within--selector-config ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $self: true, $visited: true, $multipleContentBlocks: true ) {} */
+    a,
+    a:visited {
+        /* @content( visited ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $visited: true, $multipleContentBlocks: true ) {} */
+    a:visited {
+        /* @content( visited ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $self: true, $multipleContentBlocks: true ) {} */
+    a {
+        /* @content( self ); */
+    }
+}
+@media apply-interactive-mixin {
+    /* @include apply-interactive-mixin( $multipleContentBlocks: true ) {} */
 }
 
 /* #endregion - WITH PARENT */
 /* #region - EDGE CASES */
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true, $warnOnSelf: false ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     a[aria-disabled='true'][data-state-active='isolated'][href] {
-        /* @content ( active ); */
+        /* @content( active ); */
     }
     a[aria-disabled='true'][href] {
-        /* @content ( self ); */
+        /* @content( self ); */
     }
     a[aria-disabled='true'][data-state-focus='isolated'][href] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
-    a[aria-disabled='true'][href]:hover,
     a[aria-disabled='true'][href]:visited,
+    a[aria-disabled='true'][href]:hover,
     a[aria-disabled='true'][href]:active,
     .no-js a[aria-disabled='true'][href]:focus,
     .js__no-whereSelector a[aria-disabled='true'][href]:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) a[aria-disabled='true'][href]:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     a[aria-disabled='true'][href]:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     a[aria-disabled='true'][href]:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     a[aria-disabled='true'][href]:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 
 @media apply-interactive-mixin {
-    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true, $warnOnSelf: false ) */
+    /* @include apply-interactive-mixin( $hover: true, $focus: true, $focusWithin: true, $active: true, $self: true, $visited: true, $multipleContentBlocks: true ) {} */
     button[aria-disabled='true'][data-state-active='isolated'],
     button[disabled][data-state-active='isolated'] {
-        /* @content ( active ); */
-    }
-    button[aria-disabled='true'],
-    button[disabled] {
-        /* @content ( self ); */
+        /* @content( active ); */
     }
     button[aria-disabled='true'][data-state-focus='isolated'],
     button[disabled][data-state-focus='isolated'] {
-        /* @content ( focus ); */
+        /* @content( focus ); */
     }
-    button[aria-disabled='true']:hover,
-    button[disabled]:hover,
+    button[aria-disabled='true'],
+    button[disabled],
     button[aria-disabled='true']:visited,
     button[disabled]:visited,
+    button[aria-disabled='true']:hover,
+    button[disabled]:hover,
     button[aria-disabled='true']:active,
     button[disabled]:active,
     .no-js button[aria-disabled='true']:focus,
     .js__no-whereSelector button[aria-disabled='true']:focus,
     .no-js button[disabled]:focus,
     .js__no-whereSelector button[disabled]:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--no-js ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--no-js ); */
     }
     :where(.js__no-focusVisible) button[aria-disabled='true']:focus,
     :where(.js__no-focusVisible) button[disabled]:focus {
-        /* @content ( hover-focus-visible--fallback--selector-pseudo--where ); */
+        /* @content( hover-focus-visible--fallback--selector-pseudo--where ); */
     }
     button[aria-disabled='true']:focus-visible,
     button[disabled]:focus-visible {
-        /* @content ( hover-focus-visible--selector-pseudo ); */
+        /* @content( hover-focus-visible--selector-pseudo ); */
     }
     button[aria-disabled='true']:focus-within,
     button[disabled]:focus-within {
-        /* @content ( focus-within--selector-pseudo ); */
+        /* @content( focus-within--selector-pseudo ); */
     }
     button[aria-disabled='true']:has([data-state-focus='isolated']),
     button[disabled]:has([data-state-focus='isolated']) {
-        /* @content ( focus-within--selector-config ); */
+        /* @content( focus-within--selector-config ); */
     }
 }
 

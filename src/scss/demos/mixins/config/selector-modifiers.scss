@@ -1,0 +1,59 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../../config' with (
+    $template_name: 'Selector Modifiers Demo' !default,
+    $demo_parentSelector_dump: true !default,
+    $mx_config_selectorModifiers_warnAppendToSelector: false
+);
+@forward '../../header';
+
+@use '../../config';
+
+@use '../../../modules/demo';
+@use '../../../modules/meta';
+
+@use '../../../lib' as *;
+
+/* # MIXINS - CONFIG SELECTOR MODIFIERS
+ * ======================================================================== */
+
+@each $mixinName in ('selector-a-current') {
+    $_function: meta.get-function($mixinName, $module: config);
+    $_mixin: meta.get-mixin($mixinName, $module: config);
+
+    @if $_function {
+        /* ## Function - config.#{$mixinName}() ==================================== */
+
+        @each $sel in ('%a', button, '%button') {
+            #{$sel} {
+                @include demo.selector-function('config.#{$mixinName}', $_function);
+            }
+        }
+    }
+
+    @if $_mixin {
+        /* ## Mixin - config.#{$mixinName} ==================================== */
+
+        @each $sel in ('%a', button, '%button') {
+            #{$sel} {
+                @include demo.mixin('config.#{$mixinName}', $_mixin);
+                @include demo.mixin(
+                    'config.#{$mixinName}',
+                    $_mixin,
+                    meta.arglist($appendToSelector: true)
+                );
+                @include demo.mixin('config.#{$mixinName}', $_mixin, meta.arglist($is: true));
+                @include demo.mixin(
+                    'config.#{$mixinName}',
+                    $_mixin,
+                    meta.arglist($appendToSelector: true, $is: true)
+                );
+            }
+        }
+    }
+}
+
+@include extend-selectors;

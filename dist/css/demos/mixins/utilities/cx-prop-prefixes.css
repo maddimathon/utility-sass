@@ -14,476 +14,426 @@
 /* # MIXINS - UTILITIES
  * ======================================================================== */
 /* ## Mixin - container-query-cx-prop ==================================== */
-query-style {
-    /* @include container-query-cx-prop( "outline-width" ) */
-}
-@container style(--fallback-outline-width) or style(--prefix-outline-width) {
-    query-style {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop ) {
+    /* @include container-query-cx-prop( "outline-width" ) {} */
+    @demo output {
+        @container style(--fallback-outline-width) or style(--prefix-outline-width) {
+            /* @content; */
+        }
     }
 }
-
-query-style {
-    /* @include container-query-cx-prop( "outline-width", $fallbackOnly: true ) */
-}
-@container style(--fallback-outline-width) {
-    query-style {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop ) {
+    /* @include container-query-cx-prop( "outline-width", $fallbackOnly: true ) {} */
+    @demo output {
+        @container style(--fallback-outline-width) {
+            /* @content; */
+        }
     }
 }
-
-query-style {
-    /* @include container-query-cx-prop( "colour", currentColor ) */
-}
-@container style(--fallback-colour: currentColor) or style(--prefix-colour: currentColor) {
-    query-style {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop ) {
+    /* @include container-query-cx-prop( "colour", currentColor ) {} */
+    @demo output {
+        @container style(--fallback-colour: currentColor) or style(--prefix-colour: currentColor) {
+            /* @content; */
+        }
     }
 }
-
-query-style {
-    /* @include container-query-cx-prop( "colour", currentColor, $quoteString: true ) */
-}
-@container style(--fallback-colour: "currentColor") or style(--prefix-colour: "currentColor") {
-    query-style {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop ) {
+    /* @include container-query-cx-prop( "colour", currentColor, $quoteString: true ) {} */
+    @demo output {
+        @container style(--fallback-colour: "currentColor") or style(--prefix-colour: "currentColor") {
+            /* @content; */
+        }
     }
 }
-
-query-style {
-    /* @include container-query-cx-prop( "colour", currentColor, $quoteString: false ) */
-}
-@container style(--fallback-colour: currentColor) or style(--prefix-colour: currentColor) {
-    query-style {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop ) {
+    /* @include container-query-cx-prop( "colour", currentColor, $quoteString: false ) {} */
+    @demo output {
+        @container style(--fallback-colour: currentColor) or style(--prefix-colour: currentColor) {
+            /* @content; */
+        }
     }
 }
-
-query-style {
-    /* @include container-query-cx-prop( "colour", currentColor, $fallbackOnly: false ) */
-}
-@container style(--fallback-colour: currentColor) or style(--prefix-colour: currentColor) {
-    query-style {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop ) {
+    /* @include container-query-cx-prop( "colour", currentColor, $fallbackOnly: false ) {} */
+    @demo output {
+        @container style(--fallback-colour: currentColor) or style(--prefix-colour: currentColor) {
+            /* @content; */
+        }
     }
 }
-
-query-style {
-    /* @include container-query-cx-prop( "colour", currentColor, $fallbackOnly: false, $quoteString: true ) */
-}
-@container style(--fallback-colour: "currentColor") or style(--prefix-colour: "currentColor") {
-    query-style {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop ) {
+    /* @include container-query-cx-prop( "colour", currentColor, $fallbackOnly: false, $quoteString: true ) {} */
+    @demo output {
+        @container style(--fallback-colour: "currentColor") or style(--prefix-colour: "currentColor") {
+            /* @content; */
+        }
     }
 }
-
-query-style {
-    /* @include container-query-cx-prop( "colour", currentColor, $fallbackOnly: true ) */
-}
-@container style(--fallback-colour: currentColor) {
-    query-style {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop ) {
+    /* @include container-query-cx-prop( "colour", currentColor, $fallbackOnly: true ) {} */
+    @demo output {
+        @container style(--fallback-colour: currentColor) {
+            /* @content; */
+        }
     }
 }
-
-query-style {
-    /* @include container-query-cx-prop( "colour", currentColor, $fallbackOnly: true, $quoteString: true ) */
-}
-@container style(--fallback-colour: "currentColor") {
-    query-style {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop ) {
+    /* @include container-query-cx-prop( "colour", currentColor, $fallbackOnly: true, $quoteString: true ) {} */
+    @demo output {
+        @container style(--fallback-colour: "currentColor") {
+            /* @content; */
+        }
     }
 }
-
 /* ## Mixin - container-query-cx-prop-list ==================================== */
-query-style-list {
-    /* @include container-query-cx-prop-list( "outline-width" ) */
-}
-@container style((--fallback-outline-width) or (--prefix-outline-width)) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "outline-width" ) {} */
+    @demo output {
+        @container style((--fallback-outline-width) or (--prefix-outline-width)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "outline-width", $fallbackOnly: true ) */
-}
-@container style(--fallback-outline-width) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "outline-width", $fallbackOnly: true ) {} */
+    @demo output {
+        @container style(--fallback-outline-width) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "outline-width", ( () ) ) */
-}
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ) ) */
-}
-@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "outline-width", ( () ) ) {} */
+    @demo output {
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: true ) */
-}
-@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ) ) {} */
+    @demo output {
+        @container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: false ) */
-}
-@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: true ) {} */
+    @demo output {
+        @container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false ) */
-}
-@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: false ) {} */
+    @demo output {
+        @container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $quoteString: true ) */
-}
-@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false ) {} */
+    @demo output {
+        @container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true ) */
-}
-@container style(--fallback-colour: currentColor) or style(--fallback-colour: inherit) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $quoteString: true ) {} */
+    @demo output {
+        @container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $quoteString: true ) */
-}
-@container style(--fallback-colour: "currentColor") or style(--fallback-colour: "inherit") {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true ) {} */
+    @demo output {
+        @container style(--fallback-colour: currentColor) or style(--fallback-colour: inherit) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: true, $joiner: "and" ) */
-}
-@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) and style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $quoteString: true ) {} */
+    @demo output {
+        @container style(--fallback-colour: "currentColor") or style(--fallback-colour: "inherit") {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: false, $joiner: "and" ) */
-}
-@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) and style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: true, $joiner: "and" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) and style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $joiner: "and" ) */
-}
-@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) and style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: false, $joiner: "and" ) {} */
+    @demo output {
+        @container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) and style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $quoteString: true, $joiner: "and" ) */
-}
-@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) and style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $joiner: "and" ) {} */
+    @demo output {
+        @container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) and style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $joiner: "and" ) */
-}
-@container style(--fallback-colour: currentColor) and style(--fallback-colour: inherit) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $quoteString: true, $joiner: "and" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) and style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $quoteString: true, $joiner: "and" ) */
-}
-@container style(--fallback-colour: "currentColor") and style(--fallback-colour: "inherit") {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $joiner: "and" ) {} */
+    @demo output {
+        @container style(--fallback-colour: currentColor) and style(--fallback-colour: inherit) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: true, $joiner: "or" ) */
-}
-@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $quoteString: true, $joiner: "and" ) {} */
+    @demo output {
+        @container style(--fallback-colour: "currentColor") and style(--fallback-colour: "inherit") {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: false, $joiner: "or" ) */
-}
-@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: true, $joiner: "or" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $joiner: "or" ) */
-}
-@container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $quoteString: false, $joiner: "or" ) {} */
+    @demo output {
+        @container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $quoteString: true, $joiner: "or" ) */
-}
-@container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $joiner: "or" ) {} */
+    @demo output {
+        @container style((--fallback-colour: currentColor) or (--prefix-colour: currentColor)) or style((--fallback-colour: inherit) or (--prefix-colour: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $joiner: "or" ) */
-}
-@container style(--fallback-colour: currentColor) or style(--fallback-colour: inherit) {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: false, $quoteString: true, $joiner: "or" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "currentColor") or (--prefix-colour: "currentColor")) or style((--fallback-colour: "inherit") or (--prefix-colour: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-list {
-    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $quoteString: true, $joiner: "or" ) */
-}
-@container style(--fallback-colour: "currentColor") or style(--fallback-colour: "inherit") {
-    query-style-list {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $joiner: "or" ) {} */
+    @demo output {
+        @container style(--fallback-colour: currentColor) or style(--fallback-colour: inherit) {
+            /* @content; */
+        }
     }
 }
-
+@demo ( mixin: container-query-cx-prop-list ) {
+    /* @include container-query-cx-prop-list( "colour", ( currentColor, inherit ), $fallbackOnly: true, $quoteString: true, $joiner: "or" ) {} */
+    @demo output {
+        @container style(--fallback-colour: "currentColor") or style(--fallback-colour: "inherit") {
+            /* @content; */
+        }
+    }
+}
 /* ## Mixin - container-query-cx-prop-map ==================================== */
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour", "outline-width" ) ) */
-}
-@container style((--fallback-colour) or (--prefix-colour)) or style((--fallback-outline-width) or (--prefix-outline-width)) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour", "outline-width" ) ) {} */
+    @demo output {
+        @container style((--fallback-colour) or (--prefix-colour)) or style((--fallback-outline-width) or (--prefix-outline-width)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour", "outline-width" ), $fallbackOnly: true ) */
-}
-@container style(--fallback-colour) or style(--fallback-outline-width) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour", "outline-width" ), $fallbackOnly: true ) {} */
+    @demo output {
+        @container style(--fallback-colour) or style(--fallback-outline-width) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour", ( "outline-width", "red" ) ) ) */
-}
-@container style((--fallback-colour) or (--prefix-colour)) or style((--fallback-outline-width: "red") or (--prefix-outline-width: "red")) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour", ( "outline-width", "red" ) ) ) {} */
+    @demo output {
+        @container style((--fallback-colour) or (--prefix-colour)) or style((--fallback-outline-width: "red") or (--prefix-outline-width: "red")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ) ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ) ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: true ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: true ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: false ) */
-}
-@container style((--fallback-colour: red) or (--prefix-colour: red)) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: false ) {} */
+    @demo output {
+        @container style((--fallback-colour: red) or (--prefix-colour: red)) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $quoteString: true ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $quoteString: true ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true ) */
-}
-@container style(--fallback-colour: "red") or style(--fallback-outline-width: inherit) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true ) {} */
+    @demo output {
+        @container style(--fallback-colour: "red") or style(--fallback-outline-width: inherit) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $quoteString: true ) */
-}
-@container style(--fallback-colour: "red") or style(--fallback-outline-width: "inherit") {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $quoteString: true ) {} */
+    @demo output {
+        @container style(--fallback-colour: "red") or style(--fallback-outline-width: "inherit") {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: true, $joiner: "and" ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) and style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: true, $joiner: "and" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) and style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: false, $joiner: "and" ) */
-}
-@container style((--fallback-colour: red) or (--prefix-colour: red)) and style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: false, $joiner: "and" ) {} */
+    @demo output {
+        @container style((--fallback-colour: red) or (--prefix-colour: red)) and style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $joiner: "and" ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) and style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $joiner: "and" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) and style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $quoteString: true, $joiner: "and" ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) and style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $quoteString: true, $joiner: "and" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) and style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $joiner: "and" ) */
-}
-@container style(--fallback-colour: "red") and style(--fallback-outline-width: inherit) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $joiner: "and" ) {} */
+    @demo output {
+        @container style(--fallback-colour: "red") and style(--fallback-outline-width: inherit) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $quoteString: true, $joiner: "and" ) */
-}
-@container style(--fallback-colour: "red") and style(--fallback-outline-width: "inherit") {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $quoteString: true, $joiner: "and" ) {} */
+    @demo output {
+        @container style(--fallback-colour: "red") and style(--fallback-outline-width: "inherit") {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: true, $joiner: "or" ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: true, $joiner: "or" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: false, $joiner: "or" ) */
-}
-@container style((--fallback-colour: red) or (--prefix-colour: red)) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $quoteString: false, $joiner: "or" ) {} */
+    @demo output {
+        @container style((--fallback-colour: red) or (--prefix-colour: red)) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $joiner: "or" ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $joiner: "or" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: inherit) or (--prefix-outline-width: inherit)) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $quoteString: true, $joiner: "or" ) */
-}
-@container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: false, $quoteString: true, $joiner: "or" ) {} */
+    @demo output {
+        @container style((--fallback-colour: "red") or (--prefix-colour: "red")) or style((--fallback-outline-width: "inherit") or (--prefix-outline-width: "inherit")) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $joiner: "or" ) */
-}
-@container style(--fallback-colour: "red") or style(--fallback-outline-width: inherit) {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $joiner: "or" ) {} */
+    @demo output {
+        @container style(--fallback-colour: "red") or style(--fallback-outline-width: inherit) {
+            /* @content; */
+        }
     }
 }
-
-query-style-map {
-    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $quoteString: true, $joiner: "or" ) */
-}
-@container style(--fallback-colour: "red") or style(--fallback-outline-width: "inherit") {
-    query-style-map {
-        /* @content; */
+@demo ( mixin: container-query-cx-prop-map ) {
+    /* @include container-query-cx-prop-map( ( "colour": "red", "outline-width": inherit ), $fallbackOnly: true, $quoteString: true, $joiner: "or" ) {} */
+    @demo output {
+        @container style(--fallback-colour: "red") or style(--fallback-outline-width: "inherit") {
+            /* @content; */
+        }
     }
 }

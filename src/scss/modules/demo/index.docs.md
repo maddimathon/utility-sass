@@ -1,7 +1,7 @@
 ---
 title: Demo
-children:
-  - ./demo.docs.md
+# children:
+#   - ./demo.docs.md
 ---
 
 # Demo Module

@@ -52,7 +52,7 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
     // returns
     @if not config.$include_linkVisitedState {
         @return if(
-            $appendToSelector and selector.parent-exists($selector),
+            $appendToSelector and selector.exists($selector),
             $selector,
             config.$selector_null
         );
@@ -164,12 +164,12 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
                 $list: list.append($list, 'h#{$num}', $separator: comma);
             }
         } @else {
-            $list: list.append(
+            $list: list.join(
                 $list,
                 if(
                     $usePseudo,
-                    '%h#{$num}',
-                    if($num < 7, ('h#{$num}', '.h#{$num}'), '.h#{$num}')
+                    ('%h#{$num}'),
+                    if($num < 7, ('h#{$num}', '.h#{$num}'), ('.h#{$num}'))
                 ),
                 $separator: comma
             );
@@ -218,7 +218,7 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
         );
     } @else {
         @each $num in token-all-heading-levels() {
-            $list: list.join($list, '%h#{$num}--where', $separator: comma);
+            $list: list.append($list, '%h#{$num}--where', $separator: comma);
         }
     }
 
@@ -239,28 +239,28 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
     $sels: ();
 
     @if $base {
-        $sels: list.append(
+        $sels: list.join(
             $sels,
-            #{selector-all-headings--base(
-                    $globalsOnly_extended: false,
-                    $args...,
-                )},
+            selector-all-headings--base(
+                $globalsOnly_extended: false,
+                $args...,
+            ),
             $separator: comma
         );
     }
 
     @if $where {
-        $sels: list.append(
+        $sels: list.join(
             $sels,
-            #{selector-all-headings--where(
-                    $globalsOnly_extended: $globalsOnly_extended,
-                    $args...,
-                )},
+            selector-all-headings--where(
+                $globalsOnly_extended: $globalsOnly_extended,
+                $args...,
+            ),
             $separator: comma
         );
     }
 
-    @return if(list.length($sels) < 1, config.$selector_null, $sels);
+    @return if(not selector.exists($sels), config.$selector_null, $sels);
 }
 
 ///
@@ -272,14 +272,36 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
     $direct: false,
     $args...
 ) {
-    @each $selector
-        in selector-all-headings($base: $base, $where: $where, $args...)
-    {
-        @if $direct and selector.parent-exists() {
-            $selector: selector.nest('>', $selector);
+    $direct: $direct and selector.parent-exists();
+
+    @if $base {
+        $base_selectors: selector-all-headings(
+            $base: true,
+            $where: false,
+            $args...,
+        );
+
+        @if $direct {
+            $base_selectors: selector.nest('>', $base_selectors);
         }
 
-        #{$selector} {
+        #{$base_selectors} {
+            @content;
+        }
+    }
+
+    @if $where {
+        $where_selectors: selector-all-headings(
+            $base: false,
+            $where: true,
+            $args...,
+        );
+
+        @if $direct {
+            $where_selectors: selector.nest('>', $where_selectors);
+        }
+
+        #{$where_selectors} {
             @content;
         }
     }
@@ -307,18 +329,11 @@ $_selector_buttons: list.join(
 ///
 /// Returns the motion setting selector.
 ///
-/// @param {bool} $bool         Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
-/// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default set based on parent selector type.
-/// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default set based on parent selector type.
+/// @param {bool} $bool  Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
 ///
 /// @since 0.1.0-pre.0
 ///
-@function selector-motion(
-    $bool,
-    $nestParent: null,
-    $unifyParent: null,
-    $args...
-) {
+@function selector-motion($bool, $args...) {
     $args: meta.keywords($args);
     $mode: if($bool, 'no-preference', 'reduce');
 

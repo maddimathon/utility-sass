@@ -3,15 +3,16 @@
 /// @since 0.1.0-alpha.37
 ///
 
-@use 'sass:string';
+@use 'sass:map';
 @use 'sass:selector';
+@use 'sass:string';
 
 @use '../config';
 
 @use '../list';
 @use '../meta';
 
-@use 'parent-exists';
+@use 'exists';
 
 ///
 /// Takes given selectors (else *) and wraps them in individual
@@ -26,18 +27,34 @@
     $direct: false,
     $parentSelector: null,
     $split: true,
-    $unifyParent: false,
+    $unifyParent: null,
+    $unify: if($unifyParent == null, false, $unifyParent),
     $debug: false
 ) {
-    @if $debug and $pseudoType == 'not' {
-        @debug ' - - - ';
-        @debug '$selectors [1] = #{meta.var-dump($selectors)}';
+    $debug_vars: ();
+
+    @if $unifyParent != null {
+        // TODO deprecated
+        @warn '[deprecated] [selector.#{$pseudoType}-list] use of $unifyParent is deprecated - please use $unify instead';
     }
 
-    @if $parentSelector == null and parent-exists.parent-exists() {
-        $parentSelector: &;
-    } @else if not parent-exists.parent-exists($parentSelector) {
-        $parentSelector: null;
+    @if $debug {
+        $debug_vars: map.set(
+            $debug_vars,
+            'args',
+            (
+                '#{$selectors}': #{$selectors},
+                '$direct': $direct,
+                '$parentSelector': $parentSelector,
+                '$split': $split,
+                '$unify': $unify,
+            )
+        );
+        $debug_vars: map.set($debug_vars, '[input] $selectors', $selectors);
+    }
+
+    @if not exists.exists($parentSelector) {
+        $parentSelector: if(exists.parent-exists(), &, null);
     }
 
     // returns for not
@@ -49,15 +66,18 @@
             );
 
             $_ret: if(
-                $unifyParent and $parentSelector != null,
+                $unify and $parentSelector != null,
                 selector.unify($parentSelector, $_notSel),
                 if($direct, selector.nest('>', $_notSel), $_notSel)
             );
 
             @if $debug {
-                @debug 'returning [A] = #{meta.var-dump($_ret)}';
+                $debug_vars: map.set($debug_vars, 'returning [A]', $_ret);
+                $_: meta.js-var-dump(
+                    $debug_vars,
+                    'selector.#{$pseudoType}-list()'
+                );
             }
-
             @return $_ret;
         }
 
@@ -73,7 +93,7 @@
     }
 
     @if $debug and $pseudoType == 'not' {
-        @debug '$selectors [2] = #{meta.var-dump($selectors)}';
+        $debug_vars: map.set($debug_vars, '$selectors [2]', $selectors);
     }
 
     $pseudo_selector_list: ();
@@ -89,8 +109,16 @@
                 $_var: '#{if(list.length($pseudo_selector_list) > 0, $pseudo_selector_list, '')}:#{$pseudoType}( #{$sel} )';
 
                 @if $debug {
-                    @debug '[building] $pseudo_selector_list = #{meta.var-dump($pseudo_selector_list)}';
-                    @debug '[building] updated = #{meta.var-dump($_var)}';
+                    $debug_vars: map.set(
+                        $debug_vars,
+                        '[building] $pseudo_selector_list',
+                        $pseudo_selector_list
+                    );
+                    $debug_vars: map.set(
+                        $debug_vars,
+                        '[building] updated',
+                        $_var
+                    );
                 }
 
                 $pseudo_selector_list: $_var;
@@ -105,7 +133,11 @@
     }
 
     @if $debug {
-        @debug '$pseudo_selector_list = #{meta.var-dump($pseudo_selector_list)}';
+        $debug_vars: map.set(
+            $debug_vars,
+            '$pseudo_selector_list',
+            $pseudo_selector_list
+        );
     }
 
     // returns
@@ -121,29 +153,32 @@
             );
 
             $_ret: if(
-                $unifyParent and $parentSelector != null,
+                $unify and $parentSelector != null,
                 selector.unify($parentSelector, $_notSel),
                 if($direct, selector.nest('>', $_notSel), $_notSel)
             );
 
             @if $debug {
-                @debug 'returning [B] = #{meta.var-dump($_ret)}';
+                $debug_vars: map.set($debug_vars, 'returning [B]', $_ret);
+                $_: meta.js-var-dump(
+                    $debug_vars,
+                    'selector.#{$pseudoType}-list()'
+                );
             }
-
             @return $_ret;
         }
 
         $_ret: config.$selector_null;
 
         @if $debug {
-            @debug 'returning [C] = #{meta.var-dump($_ret)}';
+            $debug_vars: map.set($debug_vars, 'returning [C]', $_ret);
+            $_: meta.js-var-dump($debug_vars, 'selector.#{$pseudoType}-list()');
         }
-
         @return $_ret;
     }
 
     // returns
-    @if $unifyParent and $parentSelector != null {
+    @if $unify and $parentSelector != null {
         $_ret: selector.unify($parentSelector, $pseudo_selector_list);
 
         @if $pseudoType == 'not' {
@@ -159,9 +194,9 @@
         }
 
         @if $debug {
-            @debug 'returning [D] = #{meta.var-dump($_ret)}';
+            $debug_vars: map.set($debug_vars, 'returning [D]', $_ret);
+            $_: meta.js-var-dump($debug_vars, 'selector.#{$pseudoType}-list()');
         }
-
         @return $_ret;
     }
 
@@ -172,9 +207,9 @@
     );
 
     @if $debug {
-        @debug 'returning [E] = #{meta.var-dump($_ret)}';
+        $debug_vars: map.set($debug_vars, 'returning [E]', $_ret);
+        $_: meta.js-var-dump($debug_vars, 'selector.#{$pseudoType}-list()');
     }
-
     @return $_ret;
 }
 
@@ -194,8 +229,13 @@
 ///
 /// @since 0.1.0-alpha.37
 ///
-@function is-list($selectors: null, $args...) {
-    @return _pseudo-list($pseudoType: 'is', $selectors: $selectors, $args...);
+@function is-list($selectors: null, $split: false, $args...) {
+    @return _pseudo-list(
+        $pseudoType: 'is',
+        $selectors: $selectors,
+        $split: $split,
+        $args...
+    );
 }
 
 ///
@@ -214,10 +254,11 @@
 ///
 /// @since 0.1.0-alpha.37
 ///
-@function where-list($selectors: null, $args...) {
+@function where-list($selectors: null, $split: false, $args...) {
     @return _pseudo-list(
         $pseudoType: 'where',
         $selectors: $selectors,
+        $split: $split,
         $args...
     );
 }
@@ -232,17 +273,18 @@
     $pseudoType,
     $selectors: null,
     $includeParent: true,
-    $unifyParent: false,
+    $unifyParent: null,
+    $unify: if($unifyParent == null, false, $unifyParent),
     $args...
 ) {
     $selectors: _pseudo-list(
         $pseudoType: $pseudoType,
         $selectors: $selectors,
-        $unifyParent: $includeParent and $unifyParent,
+        $unify: $includeParent and $unify,
         $args...,
     );
 
-    @if not $unifyParent and $includeParent and parent-exists.parent-exists() {
+    @if not $unify and $includeParent and exists.parent-exists() {
         $selectors: selector.nest(&, $selectors);
     }
 

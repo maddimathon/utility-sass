@@ -12,126 +12,360 @@
 /* # MIXINS - ACCESSIBILITY
  * ======================================================================== */
 /* #region - at root */
-/* 
-    selector-motion( true ) = <S> [data-motion=no-preference]
- */
-/* 
-    selector-motion( false ) = <S> [data-motion=reduce]
- */
-/* @include motion() */
-@media (prefers-reduced-motion: no-preference) {
-    :root {
-        /* @content; */
+@demo ( function: selector-motion ) {
+    /* 
+        & = <-> null
+     */
+    /* 
+        selector-motion( true ) = <S> [data-motion=no-preference]
+     */
+    @demo return {
+        [data-motion='no-preference'] {
+            /* returned selectors */
+        }
     }
 }
-[data-motion='no-preference'] {
-    /* @content; */
-}
-
-/* @include no-motion() */
-@media (prefers-reduced-motion: reduce) {
-    :root {
-        /* @content; */
+@demo ( function: selector-motion ) {
+    /* 
+        & = <-> null
+     */
+    /* 
+        selector-motion( false ) = <S> [data-motion=reduce]
+     */
+    @demo return {
+        [data-motion='reduce'] {
+            /* returned selectors */
+        }
     }
 }
-[data-motion='reduce'] {
-    /* @content; */
+@demo ( mixin: motion ) {
+    /* 
+        & = <-> null
+     */
+    /* @include motion {} */
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            :root {
+                /* @content; */
+                /*
+                    & is a list:
+                    1: <()> ( <S> :root )
+                 */
+            }
+        }
+        [data-motion='no-preference'] {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> [data-motion=no-preference] )
+             */
+        }
+    }
 }
-
+@demo ( mixin: no-motion ) {
+    /* 
+        & = <-> null
+     */
+    /* @include no-motion {} */
+    @demo output {
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                /* @content; */
+                /*
+                    & is a list:
+                    1: <()> ( <S> :root )
+                 */
+            }
+        }
+        [data-motion='reduce'] {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> [data-motion=reduce] )
+             */
+        }
+    }
+}
 /* #endregion - at root */
 /* #region - in root parent */
-:root {
-    /*
-        selector-motion( true ) is a list:
-        1: <()> ( <S> [data-motion=no-preference]:root )
-     */
-    /*
-        selector-motion( false ) is a list:
-        1: <()> ( <S> [data-motion=reduce]:root )
-     */
-}
-/* @include motion() */
-@media (prefers-reduced-motion: no-preference) {
+@demo ( function: selector-motion ) {
     :root {
-        /* @content; */
+        /*
+            & is a list:
+            1: <()> ( <S> :root )
+         */
+        /*
+            selector-motion( true ) is a list:
+            1: <()> ( <S> [data-motion=no-preference]:root )
+         */
     }
-}
-[data-motion='no-preference']:root {
-    /* @content; */
+    @demo return {
+        [data-motion='no-preference']:root {
+            /* returned selectors */
+        }
+    }
 }
 
-/* @include no-motion() */
-@media (prefers-reduced-motion: reduce) {
+@demo ( function: selector-motion ) {
     :root {
-        /* @content; */
+        /*
+            & is a list:
+            1: <()> ( <S> :root )
+         */
+        /*
+            selector-motion( false ) is a list:
+            1: <()> ( <S> [data-motion=reduce]:root )
+         */
+    }
+    @demo return {
+        [data-motion='reduce']:root {
+            /* returned selectors */
+        }
     }
 }
-[data-motion='reduce']:root {
-    /* @content; */
+
+@demo ( mixin: motion ) {
+    :root {
+        /*
+            & is a list:
+            1: <()> ( <S> :root )
+         */
+        /* @include motion {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            :root {
+                /* @content; */
+                /*
+                    & is a list:
+                    1: <()> ( <S> :root )
+                 */
+            }
+        }
+        [data-motion='no-preference']:root {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> [data-motion=no-preference]:root )
+             */
+        }
+    }
+}
+
+@demo ( mixin: no-motion ) {
+    :root {
+        /*
+            & is a list:
+            1: <()> ( <S> :root )
+         */
+        /* @include no-motion {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                /* @content; */
+                /*
+                    & is a list:
+                    1: <()> ( <S> :root )
+                 */
+            }
+        }
+        [data-motion='reduce']:root {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> [data-motion=reduce]:root )
+             */
+        }
+    }
 }
 
 /* #endregion - in root parent */
 /* #region - in body parent */
-body {
-    /*
-        selector-motion( true ) is a list:
-        1: <()> ( <()> ( <S> [data-motion=no-preference] <S> body ) )
-     */
-    /*
-        selector-motion( false ) is a list:
-        1: <()> ( <()> ( <S> [data-motion=reduce] <S> body ) )
-     */
-}
-/* @include motion() */
-@media (prefers-reduced-motion: no-preference) {
+@demo ( function: selector-motion ) {
     body {
-        /* @content; */
+        /*
+            & is a list:
+            1: <()> ( <S> body )
+         */
+        /*
+            selector-motion( true ) is a list:
+            1: <()> ( <()> ( <S> [data-motion=no-preference] <S> body ) )
+         */
     }
-}
-[data-motion='no-preference'] body {
-    /* @content; */
+    @demo return {
+        [data-motion='no-preference'] body {
+            /* returned selectors */
+        }
+    }
 }
 
-/* @include no-motion() */
-@media (prefers-reduced-motion: reduce) {
+@demo ( function: selector-motion ) {
     body {
-        /* @content; */
+        /*
+            & is a list:
+            1: <()> ( <S> body )
+         */
+        /*
+            selector-motion( false ) is a list:
+            1: <()> ( <()> ( <S> [data-motion=reduce] <S> body ) )
+         */
+    }
+    @demo return {
+        [data-motion='reduce'] body {
+            /* returned selectors */
+        }
     }
 }
-[data-motion='reduce'] body {
-    /* @content; */
+
+@demo ( mixin: motion ) {
+    body {
+        /*
+            & is a list:
+            1: <()> ( <S> body )
+         */
+        /* @include motion {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            body {
+                /* @content; */
+                /*
+                    & is a list:
+                    1: <()> ( <S> body )
+                 */
+            }
+        }
+        [data-motion='no-preference'] body {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> [data-motion=no-preference] <S> body )
+             */
+        }
+    }
+}
+
+@demo ( mixin: no-motion ) {
+    body {
+        /*
+            & is a list:
+            1: <()> ( <S> body )
+         */
+        /* @include no-motion {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: reduce) {
+            body {
+                /* @content; */
+                /*
+                    & is a list:
+                    1: <()> ( <S> body )
+                 */
+            }
+        }
+        [data-motion='reduce'] body {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> [data-motion=reduce] <S> body )
+             */
+        }
+    }
 }
 
 /* #endregion - in body parent */
 /* #region - in random parent */
-parent {
-    /*
-        selector-motion( true ) is a list:
-        1: <()> ( <()> ( <S> [data-motion=no-preference] <S> parent ) )
-     */
-    /*
-        selector-motion( false ) is a list:
-        1: <()> ( <()> ( <S> [data-motion=reduce] <S> parent ) )
-     */
-}
-/* @include motion() */
-@media (prefers-reduced-motion: no-preference) {
+@demo ( function: selector-motion ) {
     parent {
-        /* @content; */
+        /*
+            & is a list:
+            1: <()> ( <S> parent )
+         */
+        /*
+            selector-motion( true ) is a list:
+            1: <()> ( <()> ( <S> [data-motion=no-preference] <S> parent ) )
+         */
     }
-}
-[data-motion='no-preference'] parent {
-    /* @content; */
+    @demo return {
+        [data-motion='no-preference'] parent {
+            /* returned selectors */
+        }
+    }
 }
 
-/* @include no-motion() */
-@media (prefers-reduced-motion: reduce) {
+@demo ( function: selector-motion ) {
     parent {
-        /* @content; */
+        /*
+            & is a list:
+            1: <()> ( <S> parent )
+         */
+        /*
+            selector-motion( false ) is a list:
+            1: <()> ( <()> ( <S> [data-motion=reduce] <S> parent ) )
+         */
+    }
+    @demo return {
+        [data-motion='reduce'] parent {
+            /* returned selectors */
+        }
     }
 }
-[data-motion='reduce'] parent {
-    /* @content; */
+
+@demo ( mixin: motion ) {
+    parent {
+        /*
+            & is a list:
+            1: <()> ( <S> parent )
+         */
+        /* @include motion {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            parent {
+                /* @content; */
+                /*
+                    & is a list:
+                    1: <()> ( <S> parent )
+                 */
+            }
+        }
+        [data-motion='no-preference'] parent {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> [data-motion=no-preference] <S> parent )
+             */
+        }
+    }
+}
+
+@demo ( mixin: no-motion ) {
+    parent {
+        /*
+            & is a list:
+            1: <()> ( <S> parent )
+         */
+        /* @include no-motion {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: reduce) {
+            parent {
+                /* @content; */
+                /*
+                    & is a list:
+                    1: <()> ( <S> parent )
+                 */
+            }
+        }
+        [data-motion='reduce'] parent {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> [data-motion=reduce] <S> parent )
+             */
+        }
+    }
 }
 
 /* #endregion - in random parent */

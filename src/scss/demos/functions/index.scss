@@ -17,6 +17,10 @@
     @include demo.function($name, meta.get-function($name), $args);
 }
 
+@mixin _demo-selector-function($name, $args...) {
+    @include demo.selector-function($name, meta.get-function($name), $args);
+}
+
 @mixin _demo-mixin($name, $args...) {
     @include demo.mixin($name, meta.get-mixin($name), $args) {
         @content;
@@ -33,34 +37,31 @@ all-heading-levels {
 /* # FUNCTIONS - selector-all-headings()
  * ======================================================================== */
 
-@media selector-all-headings--base {
-    @include _demo-function('selector-all-headings--base');
-    @include _demo-function('selector-all-headings--base', $usePseudo: false);
-}
+@include _demo-selector-function('selector-all-headings--base');
+@include _demo-selector-function('selector-all-headings--base', $usePseudo: false);
 
-@media selector-all-headings--where {
-    @include _demo-function('selector-all-headings--where');
-    @include _demo-function('selector-all-headings--where', $usePseudo: false);
-}
+@include _demo-selector-function('selector-all-headings--where');
+@include _demo-selector-function('selector-all-headings--where', $usePseudo: false);
 
-@media (function: selector-all-headings) {
-    @include _demo-function('selector-all-headings');
-    @include _demo-function('selector-all-headings', $usePseudo: false);
+@include _demo-selector-function('selector-all-headings');
+@include _demo-selector-function('selector-all-headings', $usePseudo: false);
 
-    @include _demo-function('selector-all-headings', $where: true);
-    @include _demo-function('selector-all-headings', $where: true, $usePseudo: false);
+@include _demo-selector-function('selector-all-headings', $where: true);
+@include _demo-selector-function('selector-all-headings', $where: true, $usePseudo: false);
 
-    @include _demo-function('selector-all-headings', $base: true, $where: true);
-    @include _demo-function('selector-all-headings', $base: true, $where: true, $usePseudo: false);
-}
+@include _demo-selector-function('selector-all-headings', $base: true, $where: true);
+@include _demo-selector-function(
+    'selector-all-headings',
+    $base: true,
+    $where: true,
+    $usePseudo: false
+);
 
 @mixin _demo-mixin-selector-all-headings($args...) {
     $_name: selector-all-headings;
 
-    @media (mixin: #{$_name}) {
-        @include demo.mixin($_name, meta.get-mixin($_name), $args, $separateSignature: true) {
-            @include meta.var-dump('&', &);
-        }
+    @include demo.mixin($_name, meta.get-mixin($_name), $args, $separateSignature: true) {
+        @include meta.var-dump('&', &);
     }
 }
 

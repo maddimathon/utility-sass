@@ -15,7 +15,7 @@
 @use 'includes';
 @use 'is-simple';
 @use 'is-superselector-any';
-@use 'parent-exists';
+@use 'exists';
 @use 'unify-all';
 
 ///
@@ -902,7 +902,7 @@
     $parentSelector: &,
     $args...
 ) {
-    @if $parentSelector == null and not parent-exists.parent-exists() {
+    @if $parentSelector == null and not exists.parent-exists() {
         #{config.$selector_null} {
             @content;
         }

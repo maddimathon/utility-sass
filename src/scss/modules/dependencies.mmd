@@ -15,11 +15,11 @@ flowchart BT
 	String([string])
 
     %% from dependents to their dependencies
-    Debug -.-> Meta
     String -.-> Meta
     Math -.-> Meta
     List -.-> Math & String
     Map -.-> List & Meta
     Colour -.-> Map & Math
     Selector -.-> List & Meta & String
+    Debug -.-> Meta & Selector & String
     FeatureCheck -.-> List & Meta & Selector

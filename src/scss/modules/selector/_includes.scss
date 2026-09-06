@@ -10,7 +10,7 @@
 
 @use '../string';
 
-@use 'parent-exists';
+@use 'exists';
 
 ///
 /// Checks if the given $haystack selector contains one of the $needles
@@ -71,7 +71,7 @@
 ///
 @function parent-includes($needles) {
     // returns
-    @if not parent-exists.parent-exists() {
+    @if not exists.parent-exists() {
         @return false;
     }
 

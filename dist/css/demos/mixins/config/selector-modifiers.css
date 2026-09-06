@@ -1,0 +1,388 @@
+/*!
+ * Utility Sass - Demo - Selector Modifiers Demo
+ * 
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ * 
+ * https://maddimathon.github.io/utility-sass
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
+ */
+/* # MIXINS - CONFIG SELECTOR MODIFIERS
+ * ======================================================================== */
+/* ## Function - config.selector-a-current() ==================================== */
+@demo ( function: config.selector-a-current ) {
+    a[href] {
+        /*
+            & is a list:
+            1: <()> ( <S> %a )
+         */
+        /*
+            config.selector-a-current() is a list:
+            1: <()> ( <S> %a[aria-current] )
+         */
+    }
+    @demo return {
+        a[aria-current][href] {
+            /* returned selectors */
+        }
+    }
+}
+
+@demo ( function: config.selector-a-current ) {
+    button {
+        /*
+            & is a list:
+            1: <()> ( <S> button )
+         */
+        /*
+            config.selector-a-current() is a list:
+            1: <()> ( <S> button[aria-current] )
+         */
+    }
+    @demo return {
+        button[aria-current] {
+            /* returned selectors */
+        }
+    }
+}
+
+@demo ( function: config.selector-a-current ) {
+    button,
+    [role='button'],
+    input[type='button'],
+    input[type='reset'],
+    input[type='submit'],
+    a[href].button {
+        /*
+            & is a list:
+            1: <()> ( <S> %button )
+         */
+        /*
+            config.selector-a-current() is a list:
+            1: <()> ( <S> %button[aria-current] )
+         */
+    }
+    @demo return {
+        button[aria-current],
+        [aria-current][role='button'],
+        input[aria-current][type='button'],
+        input[aria-current][type='reset'],
+        input[aria-current][type='submit'],
+        a[aria-current][href].button {
+            /* returned selectors */
+        }
+    }
+}
+
+/* ## Mixin - config.selector-a-current ==================================== */
+@demo ( mixin: config.selector-a-current ) {
+    a[href] {
+        /*
+            & is a list:
+            1: <()> ( <S> %a )
+         */
+        /* @include config.selector-a-current {} */
+    }
+    @demo output {
+        a[aria-current][href] {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %a[aria-current] )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    a[href] {
+        /*
+            & is a list:
+            1: <()> ( <S> %a )
+         */
+        /* @include config.selector-a-current( $appendToSelector: true ) {} */
+    }
+    @demo output {
+        a[href] {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %a )
+             */
+        }
+        a[aria-current][href] {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %a[aria-current] )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    a[href] {
+        /*
+            & is a list:
+            1: <()> ( <S> %a )
+         */
+        /* @include config.selector-a-current( $is: true ) {} */
+    }
+    @demo output {
+        a[href]:is([aria-current]) {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %a:is([aria-current]) )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    a[href] {
+        /*
+            & is a list:
+            1: <()> ( <S> %a )
+         */
+        /* @include config.selector-a-current( $appendToSelector: true, $is: true ) {} */
+    }
+    @demo output {
+        a[href] {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %a )
+             */
+        }
+        a[href]:is([aria-current]) {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %a:is([aria-current]) )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    button {
+        /*
+            & is a list:
+            1: <()> ( <S> button )
+         */
+        /* @include config.selector-a-current {} */
+    }
+    @demo output {
+        button[aria-current] {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> button[aria-current] )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    button {
+        /*
+            & is a list:
+            1: <()> ( <S> button )
+         */
+        /* @include config.selector-a-current( $appendToSelector: true ) {} */
+    }
+    @demo output {
+        button,
+        button[aria-current] {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> button )
+                2: <()> ( <S> button[aria-current] )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    button {
+        /*
+            & is a list:
+            1: <()> ( <S> button )
+         */
+        /* @include config.selector-a-current( $is: true ) {} */
+    }
+    @demo output {
+        button:is([aria-current]) {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> button:is([aria-current]) )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    button {
+        /*
+            & is a list:
+            1: <()> ( <S> button )
+         */
+        /* @include config.selector-a-current( $appendToSelector: true, $is: true ) {} */
+    }
+    @demo output {
+        button,
+        button:is([aria-current]) {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> button )
+                2: <()> ( <S> button:is([aria-current]) )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    button,
+    [role='button'],
+    input[type='button'],
+    input[type='reset'],
+    input[type='submit'],
+    a[href].button {
+        /*
+            & is a list:
+            1: <()> ( <S> %button )
+         */
+        /* @include config.selector-a-current {} */
+    }
+    @demo output {
+        button[aria-current],
+        [aria-current][role='button'],
+        input[aria-current][type='button'],
+        input[aria-current][type='reset'],
+        input[aria-current][type='submit'],
+        a[aria-current][href].button {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %button[aria-current] )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    button,
+    [role='button'],
+    input[type='button'],
+    input[type='reset'],
+    input[type='submit'],
+    a[href].button {
+        /*
+            & is a list:
+            1: <()> ( <S> %button )
+         */
+        /* @include config.selector-a-current( $appendToSelector: true ) {} */
+    }
+    @demo output {
+        button,
+        [role='button'],
+        input[type='button'],
+        input[type='reset'],
+        input[type='submit'],
+        a[href].button {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %button )
+             */
+        }
+        button[aria-current],
+        [aria-current][role='button'],
+        input[aria-current][type='button'],
+        input[aria-current][type='reset'],
+        input[aria-current][type='submit'],
+        a[aria-current][href].button {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %button[aria-current] )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    button,
+    [role='button'],
+    input[type='button'],
+    input[type='reset'],
+    input[type='submit'],
+    a[href].button {
+        /*
+            & is a list:
+            1: <()> ( <S> %button )
+         */
+        /* @include config.selector-a-current( $is: true ) {} */
+    }
+    @demo output {
+        button:is([aria-current]),
+        [role='button']:is([aria-current]),
+        input[type='button']:is([aria-current]),
+        input[type='reset']:is([aria-current]),
+        input[type='submit']:is([aria-current]),
+        a[href].button:is([aria-current]) {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %button:is([aria-current]) )
+             */
+        }
+    }
+}
+
+@demo ( mixin: config.selector-a-current ) {
+    button,
+    [role='button'],
+    input[type='button'],
+    input[type='reset'],
+    input[type='submit'],
+    a[href].button {
+        /*
+            & is a list:
+            1: <()> ( <S> %button )
+         */
+        /* @include config.selector-a-current( $appendToSelector: true, $is: true ) {} */
+    }
+    @demo output {
+        button,
+        [role='button'],
+        input[type='button'],
+        input[type='reset'],
+        input[type='submit'],
+        a[href].button {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %button )
+             */
+        }
+        button:is([aria-current]),
+        [role='button']:is([aria-current]),
+        input[type='button']:is([aria-current]),
+        input[type='reset']:is([aria-current]),
+        input[type='submit']:is([aria-current]),
+        a[href].button:is([aria-current]) {
+            /* @content; */
+            /*
+                & is a list:
+                1: <()> ( <S> %button:is([aria-current]) )
+             */
+        }
+    }
+}

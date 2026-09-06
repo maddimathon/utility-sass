@@ -9,7 +9,7 @@
 
 @use '../list';
 
-@use 'parent-exists';
+@use 'exists';
 
 ///
 /// Returns the last selector(s) in space-separated selectors.
@@ -97,7 +97,7 @@
         @at-root {
             @content;
         }
-    } @else if parent-exists.parent-exists($popped) {
+    } @else if exists.exists($popped) {
         @at-root #{$popped} {
             @content;
         }

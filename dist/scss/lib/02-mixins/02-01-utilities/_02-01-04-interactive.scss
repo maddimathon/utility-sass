@@ -7,6 +7,7 @@
 
 @use '../../../modules/feature-check';
 @use '../../../modules/list';
+@use '../../../modules/map';
 @use '../../../modules/meta';
 @use '../../../modules/selector';
 @use '../../../modules/string';
@@ -30,11 +31,25 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     // UPGRADE - make this work instead of warning?  it might be a sass issue
 
     // returns
-    @if not selector.parent-exists($selector) {
+    @if not selector.exists($selector) {
         @return false;
     }
 
     @return if(selector.is-simple($selector), false, true);
+}
+
+///
+/// Whether to separate the self rule.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function _include-self-separately($selector: &) {
+    // returns
+    @if not selector.exists($selector) {
+        @return false;
+    }
+
+    @return string.index(#{$selector}, '%') != null;
 }
 
 ///
@@ -63,7 +78,6 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     $addSelectors: (),
     $addSelectors_config: (),
     $addSelectors_pseudo: (),
-    $addSelectors_visited: (),
     //
     $config_asHas: false,
     $pseudo_asHas: false,
@@ -75,16 +89,16 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     $separate_addSelectors: false,
     $separate_config: false,
     //
-    $debug: false,
     $multipleContentBlocks: false,
     $args...
 ) {
     $args: meta.keywords($args);
 
-    $_length_pseudo: list.length($selector_pseudo);
-    $_length_config: list.length($selector_config);
+    @if not selector.parent-exists() {
+        $includeParentSelector: false;
+    }
 
-    @if $selector_pseudo != false and $_length_pseudo > 0 {
+    @if $selector_pseudo != false and selector.exists($selector_pseudo) {
         @if $pseudo_asHas {
             $selector_pseudo: if(
                 $pseudo_asHas_is,
@@ -94,12 +108,12 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             $selector_pseudo: ':has( #{$selector_pseudo} )';
         }
 
-        @if $includeParentSelector and selector.parent-exists() {
+        @if $includeParentSelector {
             $selector_pseudo: selector.unify(&, $selector_pseudo);
         }
     }
 
-    @if $selector_config != false and $_length_config > 0 {
+    @if $selector_config != false and selector.exists($selector_config) {
         @if $config_asHas {
             $selector_config: if(
                 $config_asHas_is,
@@ -109,12 +123,12 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             $selector_config: ':has( #{$selector_config} )';
         }
 
-        @if $includeParentSelector and selector.parent-exists() {
+        @if $includeParentSelector {
             $selector_config: selector.unify(&, $selector_config);
         }
     }
 
-    @if list.length($addSelectors_config) > 0 {
+    @if selector.exists($addSelectors_config) {
         $selector_config: if(
             $selector_config == false,
             $addSelectors_config,
@@ -122,7 +136,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
         );
     }
 
-    @if list.length($addSelectors_pseudo) > 0 {
+    @if selector.exists($addSelectors_pseudo) {
         $selector_pseudo: if(
             $selector_pseudo == false,
             $addSelectors_pseudo,
@@ -156,43 +170,9 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
         $selector_pseudo: false;
     }
 
-    @if list.length($addSelectors) < 1 {
-        $addSelectors: false;
-    }
-
-    @if list.length($addSelectors_visited) < 1 {
-        $addSelectors_visited: false;
-    }
-
-    @if list.length($selector_pseudo) < 1 {
-        $selector_pseudo: false;
-    }
-
-    @if list.length($selector_config) < 1 {
-        $selector_config: false;
-    }
-
     @at-root {
-        @if $addSelectors_visited {
-            #{$addSelectors_visited} {
-                @if $debug {
-                    /* $addSelectors_visited */
-                }
-
-                @if $multipleContentBlocks {
-                    @content (additional-selectors-visited);
-                } @else {
-                    @content;
-                }
-            }
-        }
-
-        @if $addSelectors {
+        @if selector.exists($addSelectors) {
             #{$addSelectors} {
-                @if $debug {
-                    /* $addSelectors */
-                }
-
                 @if $multipleContentBlocks {
                     @content (additional-selectors);
                 } @else {
@@ -201,12 +181,8 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             }
         }
 
-        @if $selector_pseudo {
+        @if selector.exists($selector_pseudo) {
             #{$selector_pseudo} {
-                @if $debug {
-                    /* $selector_pseudo */
-                }
-
                 @if $multipleContentBlocks {
                     @content (selector-pseudo);
                 } @else {
@@ -215,12 +191,8 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             }
         }
 
-        @if $selector_config {
+        @if selector.exists($selector_config) {
             #{$selector_config} {
-                @if $debug {
-                    /* $selector_config */
-                }
-
                 @if $multipleContentBlocks {
                     @content (selector-config);
                 } @else {
@@ -243,6 +215,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     $includeSelf: false,
     $includeVisited: false,
     $multipleContentBlocks: false,
+    $selector_config: (),
     $selector_pseudo: (),
     $warnOnSelf: true,
     $args...
@@ -253,32 +226,33 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[active] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
-    $selector_config: config.$selector_interactiveState_active;
     $selector_pseudo: list.append(
         $selector_pseudo,
         ':active',
         $separator: comma
     );
 
-    $separate_config: config.$mx_interactive_isolateSelector_active;
-
-    $includeParentSelector: $includeParentSelector and selector.parent-exists();
-
     @if $includeVisited {
         $addSelectors_pseudo: list.join(
             $addSelectors_pseudo,
             selector-add-visited(
-                if($includeParentSelector, &, null),
+                if(
+                    $includeParentSelector and selector.parent-exists(),
+                    &,
+                    null
+                ),
                 $appendToSelector: $includeSelf
             ),
             $separator: comma
@@ -296,8 +270,8 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             $includeParentSelector: $includeParentSelector,
             $multipleContentBlocks: true,
             $selector_pseudo: $selector_pseudo,
-            $selector_config: $selector_config,
-            $separate_config: $separate_config,
+            $selector_config: config.$selector_interactiveState_active,
+            $separate_config: config.$mx_interactive_isolateSelector_active,
             $args...
         )
         using ($location) {
@@ -330,13 +304,15 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[active-within] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
@@ -395,8 +371,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     $includeSelf: false,
     $includeVisited: false,
     $multipleContentBlocks: false,
-    $selector_config: config.$selector_interactiveState_focus,
-    $separate_config: config.$mx_interactive_isolateSelector_focus,
+    $selector_config: (),
     $warnOnSelf: true,
     //
     $_locationName: 'focus',
@@ -408,17 +383,17 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[focus] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
-
-    $selector_pseudo: ':focus';
 
     $includeParentSelector: $includeParentSelector and selector.parent-exists();
 
@@ -443,9 +418,17 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             $addSelectors_pseudo: $addSelectors_pseudo,
             $includeParentSelector: $includeParentSelector,
             $multipleContentBlocks: true,
-            $selector_pseudo: $selector_pseudo,
-            $selector_config: $selector_config,
-            $separate_config: $separate_config,
+            $selector_pseudo: ':focus',
+            $selector_config: if(
+                    $selector_config == false,
+                    $selector_config,
+                    list.join(
+                        $selector_config,
+                        config.$selector_interactiveState_focus,
+                        $separator: comma
+                    )
+                ),
+            $separate_config: config.$mx_interactive_isolateSelector_focus,
             $args...
         )
         using ($location) {
@@ -519,6 +502,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 @mixin focus-visible(
     $addSelectors: (),
     $addSelectors_noJS: (),
+    $addSelectors_config: (),
     //
     $includeSelf: false,
     $includeVisited: false,
@@ -528,7 +512,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     $includeNoWhereSelectorFallback:
         config.$mx_focusVisible_includeNoWhereSelectorFallback,
     //
-    $separate_addSelectors: not $includeFallbacks,
+    $separate_addSelectors: not $fallbacksOnly,
     //
     $includeParentSelector: true,
     $multipleContentBlocks: false,
@@ -543,100 +527,55 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[focus-visible] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
-    $sel_focus_config: config.$selector_interactiveState_focus;
+    $selector_config: config.$selector_interactiveState_focus;
 
     $includeParentSelector: $includeParentSelector and selector.parent-exists();
 
-    $sel_visited: if(
-        $includeVisited,
-        selector-add-visited(
-            if($includeParentSelector, &, null),
-            $appendToSelector: $includeSelf
-        ),
-        ()
-    );
-
-    @if $includeParentSelector {
-        $sel_focus_config: selector.unify(&, $sel_focus_config);
-    }
-
     @if config.$mx_interactive_isolateSelector_focus {
-        @at-root #{$sel_focus_config} {
+        @at-root #{if( $includeParentSelector, selector.unify(&, $selector_config), $selector_config )} {
             @if $multipleContentBlocks {
                 @content (focus);
             } @else {
                 @content;
             }
         }
+
+        $selector_config: false;
     } @else if ($fallbacksOnly or $includeFallbacks) {
         $addSelectors_noJS: list.join(
             $addSelectors_noJS,
-            $sel_focus_config,
+            if(
+                $includeParentSelector,
+                selector.unify(&, $selector_config),
+                $selector_config
+            ),
             $separator: comma
         );
-    }
 
-    @if $includeFallbacks {
-        @if $includeVisited {
-            $addSelectors_noJS: list.join(
-                $addSelectors_noJS,
-                $sel_visited,
-                $separator: comma
-            );
-            $sel_visited: ();
-        } @else if $includeSelf and selector.parent-exists() {
-            $addSelectors_noJS: list.join(
-                &,
-                $addSelectors_noJS,
-                $separator: comma
-            );
-        }
-        // /* $includeVisited [A] */
-    } @else if not config.$mx_interactive_isolateSelector_focus {
-        @if $includeVisited {
-            $sel_focus_config: list.join(
-                $sel_focus_config,
-                $sel_visited,
-                $separator: comma
-            );
-            $sel_visited: ();
-        } @else if $includeSelf and selector.parent-exists() {
-            $sel_focus_config: list.join(
-                &,
-                $sel_focus_config,
-                $separator: comma
-            );
-        }
-        // /* $includeVisited [B] */
-    } @else {
-        @if $includeVisited {
-            $addSelectors: list.join(
-                $addSelectors,
-                $sel_visited,
-                $separator: comma
-            );
-            $sel_visited: ();
-        } @else if $includeSelf and selector.parent-exists() {
-            $addSelectors: list.join(&, $addSelectors, $separator: comma);
-        }
-        // /* $includeVisited [C] */
+        $selector_config: false;
     }
 
     // :focus (with additional selectors)
     @if $fallbacksOnly {
         @include focus(
-                $selector_config: false,
+                $selector_config: $selector_config,
                 $addSelectors: list.join($addSelectors, $addSelectors_noJS),
+                $addSelectors_config: $addSelectors_config,
+                $includeVisited: $includeVisited,
+                $includeSelf: $includeSelf,
+                $warnOnSelf: $warnOnSelf,
                 $multipleContentBlocks: true,
                 $args...
             )
@@ -648,16 +587,57 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             }
         }
     } @else {
-        $selector_config: if(
-            $includeFallbacks or config.$mx_interactive_isolateSelector_focus,
-            (),
-            $sel_focus_config
-        );
+        @if $includeVisited {
+            $_sel_visited: selector-add-visited(
+                if($includeParentSelector, &, null),
+                $appendToSelector: $includeSelf
+            );
+
+            @if $includeFallbacks {
+                $addSelectors_noJS: list.join(
+                    $_sel_visited,
+                    $addSelectors_noJS,
+                    $separator: comma
+                );
+                $includeVisited: false;
+            } @else if not config.$mx_interactive_isolateSelector_focus {
+                $addSelectors_config: list.join(
+                    $_sel_visited,
+                    $addSelectors_config,
+                    $separator: comma
+                );
+                $includeVisited: false;
+            } @else {
+                $addSelectors: list.join(
+                    $_sel_visited,
+                    $addSelectors,
+                    $separator: comma
+                );
+                $includeVisited: false;
+            }
+        } @else if $includeSelf and selector.parent-exists() {
+            @if $includeFallbacks {
+                $addSelectors_noJS: list.join(
+                    &,
+                    $addSelectors_noJS,
+                    $separator: comma
+                );
+            } @else if not config.$mx_interactive_isolateSelector_focus {
+                $addSelectors_config: list.join(
+                    &,
+                    $addSelectors_config,
+                    $separator: comma
+                );
+            } @else {
+                $addSelectors: list.join(&, $addSelectors, $separator: comma);
+            }
+        }
 
         @if $includeFallbacks {
             @include focus(
                     $selector_config: false,
-                    $addSelectors: $addSelectors,
+                    $addSelectors: false,
+                    $includeVisited: $includeVisited,
                     $multipleContentBlocks: true,
                     $_locationName: '#{$_locationName}--fallback',
                     $args...
@@ -679,9 +659,9 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 }
             }
         } @else {
-            @if $addSelectors_noJS and list.length($addSelectors_noJS) > 0 {
+            @if selector.exists($addSelectors_noJS) {
                 $addSelectors: if(
-                    $addSelectors and list.length($addSelectors) > 0,
+                    $addSelectors != false,
                     list.join(
                         $addSelectors,
                         $addSelectors_noJS,
@@ -691,28 +671,21 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 );
             }
 
-            @if list.length($addSelectors) < 1 {
-                $addSelectors: false;
+            @if not config.$mx_interactive_isolateSelector_focus {
+                @if selector.exists($addSelectors) {
+                    $addSelectors_config: list.join(
+                        $addSelectors_config,
+                        $addSelectors,
+                        $separator: comma
+                    );
+                    $addSelectors: false;
+                }
             }
-
-            @if $addSelectors {
-                $selector_config: list.join(
-                    $selector_config,
-                    $addSelectors,
-                    $separator: comma
-                );
-
-                $addSelectors: false;
-            }
-        }
-
-        @if list.length($selector_config) < 1 {
-            $selector_config: false;
         }
 
         @include _interactive-template(
                 $addSelectors: $addSelectors,
-                $addSelectors_visited: $sel_visited,
+                $addSelectors_config: $addSelectors_config,
                 $multipleContentBlocks: true,
                 $selector_config: $selector_config,
                 $selector_pseudo: ':focus-visible',
@@ -739,11 +712,15 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 @mixin focus-visible-or-within(
     $multipleContentBlocks: false,
+    $includeSelf: false,
+    $includeVisited: false,
     $_locationName: 'focus-visible',
     $args...
 ) {
     @include focus-visible(
             $multipleContentBlocks: true,
+            $includeSelf: $includeSelf,
+            $includeVisited: $includeVisited,
             $_locationName: $_locationName,
             $args...
         )
@@ -774,8 +751,6 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     $includeSelf: false,
     $includeVisited: false,
     $multipleContentBlocks: false,
-    $selector_config: (),
-    $selector_pseudo: (),
     $warnOnSelf: true,
     $args...
 ) {
@@ -785,13 +760,15 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[apply-interactive-mixin] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
@@ -819,12 +796,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             $includeParentSelector: $includeParentSelector,
             $multipleContentBlocks: true,
             $selector_config: false,
-            $selector_pseudo: list.append(
-                    $selector_pseudo,
-                    ':hover',
-                    $separator: comma
-                ),
-            // $separate_config: true,
+            $selector_pseudo: ':hover',
             $args...
         )
         using ($location) {
@@ -853,16 +825,19 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     @if $includeSelf {
         @if _include-self-warning() {
             @if $warnOnSelf {
+                @include meta.var-dump('$warnOnSelf', $warnOnSelf);
                 @warn '[hover-focus-visible] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
@@ -874,31 +849,30 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
         $sel_hover: selector.unify(&, $sel_hover);
     }
 
-    @if $includeVisited {
-        $sel_hover: list.join(
-            $sel_hover,
-            selector-add-visited(
-                if($includeParentSelector, selector.unify(&, '*'), null),
-                $appendToSelector: $includeSelf
-            ),
-            $separator: comma
-        );
-    } @else if $includeSelf and selector.parent-exists() {
-        $sel_hover: list.join(
-            selector.unify(&, '*'),
-            $sel_hover,
-            $separator: comma
-        );
-    }
+    // @if $includeVisited {
+    //     $sel_hover: list.join(
+    //         $sel_hover,
+    //         selector-add-visited(
+    //             if($includeParentSelector, &, null),
+    //             $appendToSelector: $includeSelf
+    //         ),
+    //         $separator: comma
+    //     );
+    // } @else if $includeSelf and selector.parent-exists() {
+    //     $sel_hover: list.join(&, $sel_hover, $separator: comma);
+    // }
 
     @include focus-visible(
             $addSelectors_noJS: list.join(
-                    ($sel_hover),
+                    $sel_hover,
                     $addSelectors_noJS,
                     $separator: comma
                 ),
             $includeParentSelector: $includeParentSelector,
+            $includeSelf: $includeSelf,
+            $includeVisited: $includeVisited,
             $multipleContentBlocks: true,
+            $warnOnSelf: $warnOnSelf,
             $_locationName: 'hover-focus-visible',
             $args...
         )
@@ -931,13 +905,15 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[hover-focus-visible-or-within] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
@@ -970,6 +946,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 ),
             $includeParentSelector: $includeParentSelector,
             $multipleContentBlocks: true,
+            $warnOnSelf: $warnOnSelf,
             $_focus_locationName: 'hover-focus-visible',
             $args...
         )
@@ -1003,13 +980,15 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[apply-interactive-mixin] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
@@ -1064,6 +1043,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             $multipleContentBlocks: true,
             $separate_addSelectors:
                 config.$mx_interactive_isolateSelector_active,
+            $warnOnSelf: $warnOnSelf,
             $_locationName: if(
                     config.$mx_interactive_isolateSelector_active,
                     'focus-visible',
@@ -1249,13 +1229,15 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[apply-interactive-mixin] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
@@ -1289,6 +1271,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             $includeParentSelector: $includeParentSelector,
             $multipleContentBlocks: true,
             $selector_config: $selector_config,
+            $warnOnSelf: $warnOnSelf,
             $args...
         )
         using ($location) {
@@ -1318,13 +1301,15 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[active-hover-focus-visible-or-within] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
@@ -1332,6 +1317,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             $includeSelf: $includeSelf,
             $includeVisited: $includeVisited,
             $multipleContentBlocks: true,
+            $warnOnSelf: $warnOnSelf,
             $args...
         )
         using ($location) {
@@ -1342,7 +1328,11 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
         }
     }
 
-    @include _active-within-focus-within($multipleContentBlocks: true, $args...)
+    @include _active-within-focus-within(
+            $multipleContentBlocks: true,
+            $warnOnSelf: $warnOnSelf,
+            $args...
+        )
         using ($location) {
         @if $multipleContentBlocks {
             @content ($location);
@@ -1370,13 +1360,15 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
                 @warn '[apply-interactive-mixin] #{$_includeSelfWarning}';
             }
 
-            @if $multipleContentBlocks {
-                @content (self);
-            } @else {
-                @content;
-            }
+            @if $warnOnSelf or _include-self-separately() {
+                @if $multipleContentBlocks {
+                    @content (self);
+                } @else {
+                    @content;
+                }
 
-            $includeSelf: false;
+                $includeSelf: false;
+            }
         }
     }
 
@@ -1443,26 +1435,20 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     $multipleContentBlocks: false,
     $args...
 ) {
+    $args: meta.keywords($args);
+
     $mixin_a: meta.get-mixin('_nothing');
     $mixin_b: meta.get-mixin('_nothing');
     $mixin_c: meta.get-mixin('_nothing');
     $mixin_d: meta.get-mixin('_nothing');
 
-    $mixin_a_args: (
-        debug: false,
-    );
+    $mixin_a_args: ();
 
-    $mixin_b_args: (
-        debug: false,
-    );
+    $mixin_b_args: ();
 
-    $mixin_c_args: (
-        debug: false,
-    );
+    $mixin_c_args: ();
 
-    $mixin_d_args: (
-        debug: false,
-    );
+    $mixin_d_args: ();
 
     @if $active and $activeWithin and $hover and $focus and $focusWithin {
         $mixin_a: meta.get-mixin('active-hover-focus-visible-or-within');
@@ -1683,10 +1669,12 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
             )
     {
         @if meta.accepts-content($mixin) {
+            $mixin_args: map.merge($args, $mixin_args);
+
             @include meta.apply(
                     $mixin,
                     $multipleContentBlocks: true,
-                    $args...,
+                    $debug: $debug,
                     $mixin_args...
                 )
                 using ($location) {

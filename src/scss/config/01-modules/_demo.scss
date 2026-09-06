@@ -8,11 +8,31 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-$demo_includeNameWithContent: null !default;
-$demo_includeNameWithContent: config-valid-bool(
-    $demo_includeNameWithContent,
-    'demo_includeNameWithContent',
+$demo_displayOutput_callSignature: null !default;
+$demo_displayOutput_callSignature: config-valid-bool(
+    $demo_displayOutput_callSignature,
+    'demo_displayOutput_callSignature',
     $default: false
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$demo_parentSelector_dump: null !default;
+$demo_parentSelector_dump: config-valid-bool(
+    $demo_parentSelector_dump,
+    'demo_parentSelector_dump',
+    $default: false
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$demo_parentSelector_dump_function: null !default;
+$demo_parentSelector_dump_function: config-valid-bool(
+    $demo_parentSelector_dump_function,
+    'demo_parentSelector_dump_function',
+    $default: true
 );
 
 ///
@@ -50,3 +70,23 @@ $demo_signatureAtRoot: config-valid-bool(
 ///
 $demo_wrapOutput: null !default;
 $demo_wrapOutput: config-valid-bool($demo_wrapOutput, 'demo_wrapOutput', $default: false);
+
+///
+/// @since ___PKG_VERSION___
+///
+$demo_wrapOutput_function: null !default;
+$demo_wrapOutput_function: config-valid-bool(
+    $demo_wrapOutput_function,
+    'demo_wrapOutput_function',
+    $default: false
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$demo_includeNameWithContent: null !default;
+$demo_includeNameWithContent: config-valid-bool(
+    $demo_includeNameWithContent,
+    'demo_includeNameWithContent',
+    $default: not $demo_wrapOutput
+);

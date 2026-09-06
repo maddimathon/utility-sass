@@ -3,8 +3,27 @@
 /// @since 0.1.0-alpha.33
 ///
 
-@forward '../config' with (
-    $demo_includeNameWithContent: true
+@forward '../../config' with (
+    $demo_includeNameWithContent: true,
+
+    $internal_supressCredit: true,
+
+    $include_html: true !default,
+    $isTemplate: false !default,
+
+    $template_globals: true !default,
+    $template_tokens: true !default,
+    $template_utils: true !default,
+
+    $template_description:
+        'This stylesheet demonstrates the output of functions and mixins included in this library’s meta and demo modules.'
+        !default,
+    $template_title_base: 'Demo - Meta Module' !default,
+
+    $internal_utilitySass_stylesheetPath: false !default,
+
+    $selectorType_mode: 'attribute' !default,
+    $selectorType_motion: 'attribute' !default
 );
 @forward '../header';
 
@@ -13,7 +32,33 @@
 @use '../../modules/map';
 @use '../../modules/meta';
 
+@use '../../config';
 @use '../../lib';
+
+@include meta.at(demo, config) {
+    @include meta.docblock-printer(
+        ('a selection of relevant config vars with their values, for reference')
+    );
+
+    @include meta.var-dump(
+        'config.$demo_displayOutput_callSignature',
+        config.$demo_displayOutput_callSignature
+    );
+    @include meta.var-dump(
+        'config.$demo_includeNameWithContent',
+        config.$demo_includeNameWithContent
+    );
+    @include meta.var-dump('config.$demo_parentSelector_dump', config.$demo_parentSelector_dump);
+    @include meta.var-dump(
+        'config.$demo_parentSelector_dump_function',
+        config.$demo_parentSelector_dump_function
+    );
+    @include meta.var-dump('config.$demo_separateSignature', config.$demo_separateSignature);
+    @include meta.var-dump('config.$demo_signatureAsRegion', config.$demo_signatureAsRegion);
+    @include meta.var-dump('config.$demo_signatureAtRoot', config.$demo_signatureAtRoot);
+    @include meta.var-dump('config.$demo_wrapOutput', config.$demo_wrapOutput);
+    @include meta.var-dump('config.$demo_wrapOutput_function', config.$demo_wrapOutput_function);
+}
 
 /* # MODULES - META
  * ======================================================================== */
@@ -192,22 +237,20 @@ $_demo_mixin: meta.get-mixin(mixin, $module: demo);
     $arglist...
 ) {
     @at-root & {
-        @media demo-mixin {
-            @include demo.mixin(
-                'demo.mixin',
-                $_demo_mixin,
-                meta.arglist-append(
-                    if(
-                        meta.is-truthy($args),
-                        meta.arglist-prepend($arglist, $mixinName, $getMixin, $args),
-                        meta.arglist-prepend($arglist, $mixinName, $getMixin)
-                    ),
-                    $includeNameWithContent: $includeNameWithContent
+        @include demo.mixin(
+            'demo.mixin',
+            $_demo_mixin,
+            meta.arglist-append(
+                if(
+                    meta.is-truthy($args),
+                    meta.arglist-prepend($arglist, $mixinName, $getMixin, $args),
+                    meta.arglist-prepend($arglist, $mixinName, $getMixin)
                 ),
-                $includeNameWithContent: true,
-                $wrapOutput: true
-            );
-        }
+                $includeNameWithContent: $includeNameWithContent
+            ),
+            $includeNameWithContent: true,
+            $wrapOutput: true
+        );
     }
 }
 

@@ -3,7 +3,7 @@
 /// @since 0.1.0-pre.2
 ///
 
-@forward '../../template/default' with (
+@forward '../../template/default/config' with (
     $isTemplate: true !default,
 
     $template_name: 'Default Template' !default,
@@ -19,3 +19,23 @@
 
     $internal_utilitySass_stylesheetPath: false
 );
+@forward '../../tokens';
+
+@forward '../../template/_content/_header';
+@forward '../../notice';
+
+@use '../../modules/demo';
+
+@use '../../lib' as *;
+
+@include template-content-abstracts using ($content_args...) {
+    /* #{demo.content-args-dump( $content_args, $mixinName: template-content-abstracts )} */
+}
+@include template-content-globals using ($content_args...) {
+    /* #{demo.content-args-dump( $content_args, $mixinName: template-content-globals )} */
+}
+@include template-content-layouts using ($content_args...) {
+    /* #{demo.content-args-dump( $content_args, $mixinName: template-content-layouts )} */
+}
+
+@include extend-selectors;

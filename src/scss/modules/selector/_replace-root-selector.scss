@@ -11,7 +11,7 @@
 
 @use 'has-root';
 @use 'is-root';
-@use 'parent-exists';
+@use 'exists';
 @use 'unify-all';
 
 ///
@@ -26,7 +26,7 @@
     $preserveModifiers: true
 ) {
     // returns
-    @if not parent-exists.parent-exists() {
+    @if not exists.parent-exists() {
         @return config.$selector_null;
     }
 

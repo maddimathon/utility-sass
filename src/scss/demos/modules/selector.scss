@@ -20,20 +20,34 @@
 /* # MODULES - SELECTOR
  * ======================================================================== */
 
+@mixin _selector-function(
+    $functionName,
+    $getFunction,
+    $args: meta.arglist(),
+    $parentSelector_dump: false,
+    $demo_args...
+) {
+    @include demo.selector-function(
+        $functionName: $functionName,
+        $getFunction: $getFunction,
+        $args: $args,
+        $parentSelector_dump: $parentSelector_dump,
+        $demo_args...
+    );
+}
+
 /* ## Modules - Selector - replace-simple-selector() ==================================== */
 
 @mixin _replace-simple-selector($args...) {
-    @at-root & {
-        @include demo.selector-function(
-            'selector.replace-simple-selector',
-            meta.get-function(replace-simple-selector, $module: selector),
-            meta.arglist(&, $args...)
-        );
-    }
+    @include _selector-function(
+        'selector.replace-simple-selector',
+        meta.get-function(replace-simple-selector, $module: selector),
+        meta.arglist(&, $args...)
+    );
 }
 
-@media replace-simple-selector {
-    #{config.$selector_root} .child .grandchild another.child {
+#{config.$selector_root} {
+    .child .grandchild another.child {
         @include _replace-simple-selector('.child', '.new-child');
         @include _replace-simple-selector(config.$selector_root, ('html', 'custom-html'));
         @include _replace-simple-selector('.non-existant-class', '.new-child');
@@ -43,13 +57,11 @@
 /* ## Modules - Selector - extend-simple-selector() ==================================== */
 
 @mixin _extend-simple-selector($args...) {
-    @at-root & {
-        @include demo.selector-function(
-            'selector.extend-simple-selector',
-            meta.get-function(extend-simple-selector, $module: selector),
-            meta.arglist(&, $args...)
-        );
-    }
+    @include _selector-function(
+        'selector.extend-simple-selector',
+        meta.get-function(extend-simple-selector, $module: selector),
+        meta.arglist(&, $args...)
+    );
 }
 
 // #region - $_extend_all_permutations
@@ -134,9 +146,9 @@ $_extend_all_permutations: (
     }
 }
 
-@media extend-simple-selector {
-    #{config.$selector_root} .child .grandchild {
-        @media (selector: A) {
+#{config.$selector_root} {
+    .child .grandchild {
+        @include meta.at(demo-section, 'selector: A') {
             @include _extend-full-tests(('.child', '.non-existant-class'), '.new-child');
 
             @include _extend-simple-selector(('.child', '.grandchild'), '.new-child');
@@ -144,17 +156,19 @@ $_extend_all_permutations: (
             @include _extend-simple-selector('.non-existant-class', '.new-child');
         }
 
-        @media (selector: B) {
-            @at-root #{config.$selector_root} another.child .grandchild {
-                @include _extend-full-tests(
-                    ('.child', '.non-existant-class'),
-                    '.new-child',
-                    $debug: true
-                );
+        @include meta.at(demo-section, 'selector: B') {
+            @at-root #{config.$selector_root} {
+                another.child .grandchild {
+                    @include _extend-full-tests(
+                        ('.child', '.non-existant-class'),
+                        '.new-child',
+                        $debug: true
+                    );
+                }
             }
         }
 
-        @media (selector: C) {
+        @include meta.at(demo-section, 'selector: C') {
             another.child {
                 // BROKEN - @include _extend-simple-selector('.child', '.new-child');
                 @include _extend-simple-selector('.child', '.new-child', $self: false);
@@ -190,9 +204,34 @@ $_extend_all_permutations: (
             }
         }
     }
+}
 
-    [data-brightness-mode='light'] {
-        @media (selector: D) {
+[data-brightness-mode='light'] {
+    @include meta.at(demo-section, 'selector: D') {
+        @include _extend-simple-selector(
+            '[data-brightness-mode=light]',
+            '[data-contrast-mode=low]'
+        );
+
+        @include _extend-simple-selector(
+            '[data-brightness-mode=light]',
+            '[data-contrast-mode=low]',
+            $unify: true,
+            $nest: true,
+            $wrap: true
+        );
+
+        @include _extend-simple-selector(
+            '[data-brightness-mode=light]',
+            ('[data-contrast-mode=low]', '[data-contrast-mode=average]'),
+            $unify: true,
+            $nest: true,
+            $wrap: true
+        );
+    }
+
+    @include meta.at(demo-section, 'selector: E') {
+        :root & .child {
             @include _extend-simple-selector(
                 '[data-brightness-mode=light]',
                 '[data-contrast-mode=low]'
@@ -214,46 +253,17 @@ $_extend_all_permutations: (
                 $wrap: true
             );
         }
-
-        @media (selector: E) {
-            :root & .child {
-                @include _extend-simple-selector(
-                    '[data-brightness-mode=light]',
-                    '[data-contrast-mode=low]'
-                );
-
-                @include _extend-simple-selector(
-                    '[data-brightness-mode=light]',
-                    '[data-contrast-mode=low]',
-                    $unify: true,
-                    $nest: true,
-                    $wrap: true
-                );
-
-                @include _extend-simple-selector(
-                    '[data-brightness-mode=light]',
-                    ('[data-contrast-mode=low]', '[data-contrast-mode=average]'),
-                    $unify: true,
-                    $nest: true,
-                    $wrap: true
-                );
-            }
-        }
     }
 }
 
 /* ## Modules - Selector - except() ==================================== */
 
 @mixin _except-test($args...) {
-    @at-root & {
-        @media except {
-            @include demo.selector-function(
-                'selector.except',
-                meta.get-function(except, $module: selector),
-                meta.arglist(&, $args...)
-            );
-        }
-    }
+    @include _selector-function(
+        'selector.except',
+        meta.get-function(except, $module: selector),
+        meta.arglist(&, $args...)
+    );
 }
 
 a,
@@ -286,15 +296,11 @@ a.class-name[data-complex='selector']:focus {
 /* ## Modules - Selector - except-superselector() ==================================== */
 
 @mixin _except-superselector-test($args...) {
-    @at-root & {
-        @media except-superselector {
-            @include demo.selector-function(
-                'selector.except-superselector',
-                meta.get-function(except-superselector, $module: selector),
-                meta.arglist(&, $args...)
-            );
-        }
-    }
+    @include _selector-function(
+        'selector.except-superselector',
+        meta.get-function(except-superselector, $module: selector),
+        meta.arglist(&, $args...)
+    );
 }
 
 a,
@@ -339,13 +345,11 @@ a.class-name[data-complex='selector']:focus {
 /* ## Modules - Selector - omit-simple-selector() ==================================== */
 
 @mixin _omit-simple-selector($args...) {
-    @at-root & {
-        @include demo.selector-function(
-            'selector.omit-simple-selector',
-            meta.get-function(omit-simple-selector, $module: selector),
-            meta.arglist(&, $args...)
-        );
-    }
+    @include _selector-function(
+        'selector.omit-simple-selector',
+        meta.get-function(omit-simple-selector, $module: selector),
+        meta.arglist(&, $args...)
+    );
 }
 
 button,
@@ -371,15 +375,11 @@ button.button-secondary {
 /* ## Modules - Selector - only() ==================================== */
 
 @mixin _only-test($args...) {
-    @at-root & {
-        @media (function: only) {
-            @include demo.selector-function(
-                'selector.only',
-                meta.get-function(only, $module: selector),
-                meta.arglist(&, $args...)
-            );
-        }
-    }
+    @include _selector-function(
+        'selector.only',
+        meta.get-function(only, $module: selector),
+        meta.arglist(&, $args...)
+    );
 }
 
 a,
@@ -412,15 +412,11 @@ a.class-name[data-complex='selector']:focus {
 /* ## Modules - Selector - only-superselector() ==================================== */
 
 @mixin _only-superselector-test($args...) {
-    @at-root & {
-        @media only-superselector {
-            @include demo.selector-function(
-                'selector.only-superselector',
-                meta.get-function(only-superselector, $module: selector),
-                meta.arglist(&, $args...)
-            );
-        }
-    }
+    @include _selector-function(
+        'selector.only-superselector',
+        meta.get-function(only-superselector, $module: selector),
+        meta.arglist(&, $args...)
+    );
 }
 
 a,
@@ -467,11 +463,7 @@ a.class-name[data-complex='selector']:focus {
 $_pop_func: meta.get-function(pop, $module: selector);
 
 @mixin _pop-test($args...) {
-    @at-root & {
-        @media (function: pop) {
-            @include demo.selector-function('selector.pop', $_pop_func, meta.arglist(&, $args...));
-        }
-    }
+    @include _selector-function('selector.pop', $_pop_func, meta.arglist(&, $args...));
 }
 
 root body {
@@ -495,24 +487,13 @@ $_pop_func: meta.get-function(popped, $module: selector);
 $_pop_mixin: meta.get-mixin(popped, $module: selector);
 
 @mixin _popped-test($args...) {
-    @at-root & {
-        @media (function: popped) {
-            @include demo.selector-function(
-                'selector.popped',
-                $_pop_func,
-                meta.arglist(&, $args...)
-            );
-        }
-
-        @media (mixin: popped) {
-            @include demo.mixin(
-                'selector.popped',
-                $_pop_mixin,
-                meta.arglist(&, $args...),
-                $signatureAtRoot: false
-            );
-        }
-    }
+    @include _selector-function('selector.popped', $_pop_func, meta.arglist(&, $args...));
+    @include demo.mixin(
+        'selector.popped',
+        $_pop_mixin,
+        meta.arglist(&, $args...),
+        $signatureAtRoot: false
+    );
 }
 
 root body {
@@ -532,7 +513,7 @@ root body {
 
 /* ## Modules - Selector - Root & Body Utilities ==================================== */
 
-@media at-root {
+@include meta.at(demo-section, at-root) {
     @include demo.function(
         'selector.parent-exists',
         meta.get-function(parent-exists, $module: selector)
@@ -678,7 +659,14 @@ root body {
     $selector_root: '%root',
     $args...
 ) {
-    @media #{if($selectorString , 'complex-selectors and ( via: "#{$selectorString}" )', 'complex-selectors' )} {
+    @include meta.at(
+        demo-section,
+        if(
+            $selectorString,
+            'complex-selectors and ( via: "#{$selectorString}" )',
+            'complex-selectors'
+        )
+    ) {
         @if $selectorString != null {
             /* via #{$selectorString} */
         }
@@ -861,29 +849,27 @@ $_pseudo_not_mixin: meta.get-mixin('not', $module: selector);
 $_pseudo_where_mixin: meta.get-mixin('where', $module: selector);
 
 @mixin __demo-pseudo-list-function--has($args...) {
-    @include demo.selector-function('selector.has-list', $_pseudo_has_fn, $args...);
+    @include _selector-function('selector.has-list', $_pseudo_has_fn, $args...);
 }
 @mixin __demo-pseudo-list-function--is($args...) {
-    @include demo.selector-function('selector.is-list', $_pseudo_is_fn, $args...);
+    @include _selector-function('selector.is-list', $_pseudo_is_fn, $args...);
 }
 @mixin __demo-pseudo-list-function--not($args...) {
-    @include demo.selector-function('selector.not-list', $_pseudo_not_fn, $args...);
+    @include _selector-function('selector.not-list', $_pseudo_not_fn, $args...);
 }
 @mixin __demo-pseudo-list-function--where($args...) {
-    @include demo.selector-function('selector.where-list', $_pseudo_where_fn, $args...);
+    @include _selector-function('selector.where-list', $_pseudo_where_fn, $args...);
 }
 
 @mixin _demo-pseudo-list-function($version, $args...) {
-    @at-root & {
-        @if $version == 'has' {
-            @include __demo-pseudo-list-function--has($args);
-        } @else if $version == 'is' {
-            @include __demo-pseudo-list-function--is($args);
-        } @else if $version == 'not' {
-            @include __demo-pseudo-list-function--not($args);
-        } @else if $version == 'where' {
-            @include __demo-pseudo-list-function--where($args);
-        }
+    @if $version == 'has' {
+        @include __demo-pseudo-list-function--has($args);
+    } @else if $version == 'is' {
+        @include __demo-pseudo-list-function--is($args);
+    } @else if $version == 'not' {
+        @include __demo-pseudo-list-function--not($args);
+    } @else if $version == 'where' {
+        @include __demo-pseudo-list-function--where($args);
     }
 }
 
@@ -901,198 +887,180 @@ $_pseudo_where_mixin: meta.get-mixin('where', $module: selector);
 }
 
 @mixin _demo-pseudo-list-mixin($version, $args...) {
-    @at-root & {
-        @if $version == 'has' {
-            @include __demo-pseudo-list-mixin--has($args);
-        } @else if $version == 'is' {
-            @include __demo-pseudo-list-mixin--is($args);
-        } @else if $version == 'not' {
-            @include __demo-pseudo-list-mixin--not($args);
-        } @else if $version == 'where' {
-            @include __demo-pseudo-list-mixin--where($args);
-        }
+    @if $version == 'has' {
+        @include __demo-pseudo-list-mixin--has($args);
+    } @else if $version == 'is' {
+        @include __demo-pseudo-list-mixin--is($args);
+    } @else if $version == 'not' {
+        @include __demo-pseudo-list-mixin--not($args);
+    } @else if $version == 'where' {
+        @include __demo-pseudo-list-mixin--where($args);
     }
 }
 
 @each $selectorName in ('has', 'is', 'not', 'where') {
-    @media selector-#{$selectorName} {
-        .parent {
-            // @at-root & {
-            //     @include meta.var-dump('&', &);
-            // }
+    .parent {
+        // @include meta.var-dump('&', &);
 
-            @include _demo-pseudo-list-function($selectorName);
+        @include _demo-pseudo-list-function($selectorName);
 
-            @media (unified) {
-                @include _demo-pseudo-list-function($selectorName, $unifyParent: true);
+        @include meta.at(demo-section, unified) {
+            @include _demo-pseudo-list-function($selectorName, $unify: true);
 
-                @media (direct) {
-                    @include _demo-pseudo-list-function(
-                        $selectorName,
-                        $direct: true,
-                        $unifyParent: true
-                    );
-                }
+            @include meta.at(demo-section, direct) {
+                @include _demo-pseudo-list-function($selectorName, $direct: true, $unify: true);
+            }
+        }
+
+        @include meta.at(demo-section, override-selectors) {
+            @include _demo-pseudo-list-function($selectorName, (div, p, body));
+
+            @include meta.at(demo-section, unsplit) {
+                @include _demo-pseudo-list-function($selectorName, (div, p, body), $split: false);
             }
 
-            @media (override-selectors) {
-                @include _demo-pseudo-list-function($selectorName, (div, p, body));
+            @include meta.at(demo-section, direct) {
+                @include _demo-pseudo-list-function($selectorName, (div, p, body), $direct: true);
 
-                @media (unsplit) {
+                @include meta.at(demo-section, unsplit) {
                     @include _demo-pseudo-list-function(
                         $selectorName,
                         (div, p, body),
+                        $direct: true,
                         $split: false
                     );
                 }
 
-                @media (direct) {
+                @include meta.at(demo-section, unified) {
                     @include _demo-pseudo-list-function(
                         $selectorName,
                         (div, p, body),
-                        $direct: true
+                        $direct: true,
+                        $unify: true
                     );
 
-                    @media (unsplit) {
+                    @include meta.at(demo-section, unsplit) {
                         @include _demo-pseudo-list-function(
                             $selectorName,
                             (div, p, body),
                             $direct: true,
-                            $split: false
+                            $split: false,
+                            $unify: true
                         );
-                    }
-
-                    @media (unified) {
-                        @include _demo-pseudo-list-function(
-                            $selectorName,
-                            (div, p, body),
-                            $direct: true,
-                            $unifyParent: true
-                        );
-
-                        @media (unsplit) {
-                            @include _demo-pseudo-list-function(
-                                $selectorName,
-                                (div, p, body),
-                                $direct: true,
-                                $split: false,
-                                $unifyParent: true
-                            );
-                        }
                     }
                 }
             }
+        }
 
-            //     @media (unified) {
-            //         // @include _demo-pseudo-list-function($selectorName, $unifyParent: true);
+        //     @include meta.at(demo-section,unified) {
+        //         // @include _demo-pseudo-list-function($selectorName, $unify: true);
 
-            //         @media (direct) {
-            //             // @include _demo-pseudo-list-function(
-            //             //     $selectorName,
-            //             //     $direct: true,
-            //             //     $unifyParent: true
-            //             // );
-            //         }
-            //     }
+        //         @include meta.at(demo-section,direct) {
+        //             // @include _demo-pseudo-list-function(
+        //             //     $selectorName,
+        //             //     $direct: true,
+        //             //     $unify: true
+        //             // );
+        //         }
+        //     }
 
-            //     @media (override-selectors) {
-            //         // @include _demo-pseudo-list-function($selectorName, (div, p, body));
+        //     @include meta.at(demo-section,override-selectors) {
+        //         // @include _demo-pseudo-list-function($selectorName, (div, p, body));
 
-            //         @media (unsplit) {
-            //             // @include _demo-pseudo-list-function(
-            //             //     $selectorName,
-            //             //     (div, p, body),
-            //             //     $split: false
-            //             // );
-            //         }
+        //         @include meta.at(demo-section,unsplit) {
+        //             // @include _demo-pseudo-list-function(
+        //             //     $selectorName,
+        //             //     (div, p, body),
+        //             //     $split: false
+        //             // );
+        //         }
 
-            //         @media (direct) {
-            //             // @include _demo-pseudo-list-function(
-            //             //     $selectorName,
-            //             //     (div, p, body),
-            //             //     $direct: true
-            //             // );
+        //         @include meta.at(demo-section,direct) {
+        //             // @include _demo-pseudo-list-function(
+        //             //     $selectorName,
+        //             //     (div, p, body),
+        //             //     $direct: true
+        //             // );
 
-            //             @media (unsplit) {
-            //                 // @include _demo-pseudo-list-function(
-            //                 //     $selectorName,
-            //                 //     (div, p, body),
-            //                 //     $direct: true,
-            //                 //     $split: false
-            //                 // );
-            //             }
+        //             @include meta.at(demo-section,unsplit) {
+        //                 // @include _demo-pseudo-list-function(
+        //                 //     $selectorName,
+        //                 //     (div, p, body),
+        //                 //     $direct: true,
+        //                 //     $split: false
+        //                 // );
+        //             }
 
-            //             @media (unified) {
-            //                 // @include _demo-pseudo-list-function(
-            //                 //     $selectorName,
-            //                 //     (div, p, body),
-            //                 //     $direct: true,
-            //                 //     $unifyParent: true
-            //                 // );
+        //             @include meta.at(demo-section,unified) {
+        //                 // @include _demo-pseudo-list-function(
+        //                 //     $selectorName,
+        //                 //     (div, p, body),
+        //                 //     $direct: true,
+        //                 //     $unify: true
+        //                 // );
 
-            //                 @media (unsplit) {
-            //                     // @include _demo-pseudo-list-function(
-            //                     //     $selectorName,
-            //                     //     (div, p, body),
-            //                     //     $direct: true,
-            //                     //     $split: false,
-            //                     //     $unifyParent: true
-            //                     // );
-            //                 }
-            //             }
-            //         }
-            //     }
+        //                 @include meta.at(demo-section,unsplit) {
+        //                     // @include _demo-pseudo-list-function(
+        //                     //     $selectorName,
+        //                     //     (div, p, body),
+        //                     //     $direct: true,
+        //                     //     $split: false,
+        //                     //     $unify: true
+        //                     // );
+        //                 }
+        //             }
+        //         }
+        //     }
 
-            @include _demo-pseudo-list-mixin($selectorName);
+        @include _demo-pseudo-list-mixin($selectorName);
 
-            @include _demo-pseudo-list-mixin($selectorName, $direct: true);
+        @include _demo-pseudo-list-mixin($selectorName, $direct: true);
 
-            @include _demo-pseudo-list-mixin($selectorName, $unifyParent: true);
+        @include _demo-pseudo-list-mixin($selectorName, $unify: true);
 
-            @if $selectorName == has {
-                @include _demo-pseudo-list-mixin($selectorName, $unifyParent: true, $direct: true);
-            }
+        @if $selectorName == has {
+            @include _demo-pseudo-list-mixin($selectorName, $unify: true, $direct: true);
+        }
 
-            @include _demo-pseudo-list-mixin($selectorName, $includeParent: false);
+        @include _demo-pseudo-list-mixin($selectorName, $includeParent: false);
 
-            @include _demo-pseudo-list-mixin($selectorName, (div, p, body));
+        @include _demo-pseudo-list-mixin($selectorName, (div, p, body));
 
-            @include _demo-pseudo-list-mixin($selectorName, (div, p, body), $split: false);
+        @include _demo-pseudo-list-mixin($selectorName, (div, p, body), $split: false);
 
-            @include _demo-pseudo-list-mixin($selectorName, (div, p, body), $direct: true);
+        @include _demo-pseudo-list-mixin($selectorName, (div, p, body), $direct: true);
+
+        @include _demo-pseudo-list-mixin(
+            $selectorName,
+            (div, p, body),
+            $direct: true,
+            $split: false
+        );
+
+        @include _demo-pseudo-list-mixin($selectorName, (div, p, body), $unify: true);
+
+        @include _demo-pseudo-list-mixin(
+            $selectorName,
+            (div, p, body),
+            $split: false,
+            $unify: true
+        );
+
+        @if $selectorName == has {
+            @include _demo-pseudo-list-mixin(
+                $selectorName,
+                (div, p, body),
+                $direct: true,
+                $unify: true
+            );
 
             @include _demo-pseudo-list-mixin(
                 $selectorName,
                 (div, p, body),
                 $direct: true,
-                $split: false
-            );
-
-            @include _demo-pseudo-list-mixin($selectorName, (div, p, body), $unifyParent: true);
-
-            @include _demo-pseudo-list-mixin(
-                $selectorName,
-                (div, p, body),
                 $split: false,
-                $unifyParent: true
+                $unify: true
             );
-
-            @if $selectorName == has {
-                @include _demo-pseudo-list-mixin(
-                    $selectorName,
-                    (div, p, body),
-                    $direct: true,
-                    $unifyParent: true
-                );
-
-                @include _demo-pseudo-list-mixin(
-                    $selectorName,
-                    (div, p, body),
-                    $direct: true,
-                    $split: false,
-                    $unifyParent: true
-                );
-            }
         }
     }
 }

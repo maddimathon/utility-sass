@@ -19,7 +19,7 @@
 @use 'is-root-or-body';
 
 @use 'includes';
-@use 'parent-exists';
+@use 'exists';
 
 ///
 /// Removes all cases of $needles selectors in comma-separated $haystack
@@ -292,7 +292,7 @@
 ///
 @function parent-except($needles, $args...) {
     // returns
-    @if not parent-exists.parent-exists() {
+    @if not exists.parent-exists() {
         @return config.$selector_null;
     }
 

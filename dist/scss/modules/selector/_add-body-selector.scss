@@ -14,7 +14,7 @@
 @use 'has-root';
 @use 'is-body';
 @use 'is-root';
-@use 'parent-exists';
+@use 'exists';
 
 ///
 /// Nests the parent selector in the given selector, first checking if the
@@ -39,7 +39,7 @@
     );
 
     // returns
-    @if $parentSelector == null and not parent-exists.parent-exists() {
+    @if $parentSelector == null and not exists.parent-exists() {
         @return $new_selector;
     }
 

@@ -3,9 +3,8 @@
 /// @since ___PKG_VERSION___
 ///
 
-@use 'sass:string';
-
 @use '../meta';
+@use '../string';
 
 $_emptyReturn: string.unquote('()');
 
@@ -40,5 +39,27 @@ $_emptyReturn: string.unquote('()');
         $child_alwaysQuote: false,
         $keys_alwaysQuote: false,
         $keys_neverQuote: true
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function content-args-dump($args, $mixinName: null) {
+    @return string.concat(
+        if(meta.is-truthy($mixinName), '[#{$mixinName}] @content', '@content'),
+        args-dump($args, $emptyReturn: string.unquote('')),
+        ';'
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function mixin-signature-dump($mixinName, $args, $getMixin: null) {
+    @return string.concat(
+        '@include #{$mixinName}',
+        args-dump($args, $emptyReturn: string.unquote('')),
+        if($getMixin, if(meta.accepts-content($getMixin), ' {}', ';'), '')
     );
 }

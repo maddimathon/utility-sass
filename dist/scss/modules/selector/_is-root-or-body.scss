@@ -88,7 +88,7 @@
 @function parent-is-root-or-body($parentSelector: &, $args...) {
     @if $parentSelector == null {
         // returns
-        @if not parent-exists.parent-exists() {
+        @if not exists.parent-exists() {
             @return false;
         }
 

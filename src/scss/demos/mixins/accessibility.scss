@@ -3,7 +3,9 @@
 /// @since 0.1.0-pre.0
 ///
 
-@forward '../config';
+@forward '../config' with (
+    $demo_parentSelector_dump: true !default
+);
 @forward '../header';
 
 @use '../config';
@@ -17,19 +19,19 @@
  * ======================================================================== */
 
 @mixin _motion-tests {
-    @include demo.function(
+    @include demo.selector-function(
         'selector-motion',
         meta.get-function('selector-motion'),
         meta.arglist(true)
     );
-    @include demo.function(
+    @include demo.selector-function(
         'selector-motion',
         meta.get-function('selector-motion'),
         meta.arglist(false)
     );
 
-    @include demo.mixin('motion', meta.get-mixin('motion'), $signatureAtRoot: true);
-    @include demo.mixin('no-motion', meta.get-mixin('no-motion'), $signatureAtRoot: true);
+    @include demo.mixin('motion', meta.get-mixin('motion'));
+    @include demo.mixin('no-motion', meta.get-mixin('no-motion'));
 }
 
 /* #region - at root */
