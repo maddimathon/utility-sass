@@ -132,7 +132,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
         $selector_config: if(
             $selector_config == false,
             $addSelectors_config,
-            list.join($selector_config, $addSelectors_config, $separator: comma)
+            list.join($addSelectors_config, $selector_config, $separator: comma)
         );
     }
 
@@ -140,7 +140,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
         $selector_pseudo: if(
             $selector_pseudo == false,
             $addSelectors_pseudo,
-            list.join($selector_pseudo, $addSelectors_pseudo, $separator: comma)
+            list.join($addSelectors_pseudo, $selector_pseudo, $separator: comma)
         );
     }
 

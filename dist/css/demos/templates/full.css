@@ -370,6 +370,11 @@ pre > code {
  * ======================================================================== */
 /*! START of @maddimathon/utility-sass/template */
 /* #region Tokens - @property */
+@property --backdrop-filter {
+    syntax: '*';
+    inherits: true;
+    initial-value: blur(1rem);
+}
 @property --display {
     syntax: '*';
     inherits: false;
@@ -760,6 +765,7 @@ pre > code {
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Style */
 :root {
+    --backdrop-filter: blur(1rem);
     --focus-ring-outline-color: var(--sys-clr-link, LinkText);
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
     --focus-ring-outline-width: clamp(

@@ -339,6 +339,11 @@ pre > code {
  * ======================================================================== */
 /*! START of @maddimathon/utility-sass/template */
 /* #region Tokens - @property */
+@property --fallback-backdrop-filter {
+    syntax: '*';
+    inherits: true;
+    initial-value: blur(1rem);
+}
 @property --fallback-display {
     syntax: '*';
     inherits: false;
@@ -683,6 +688,7 @@ pre > code {
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Style */
 :root {
+    --fallback-backdrop-filter: blur(1rem);
     --fallback-focus-ring-outline-color: var(
         --prefix-sys-clr-link,
         var(--fallback-sys-clr-link, LinkText)

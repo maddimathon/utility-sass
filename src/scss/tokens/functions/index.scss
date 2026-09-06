@@ -25,6 +25,12 @@ $page_top: 0px !default;
     @return map.ksort(
         map.merge(
             (
+                backdrop-filter: (
+                    syntax: '*',
+                    inherits: true,
+                    initial-value: map.get($style_flat, backdrop-filter),
+                ),
+
                 display: (
                     syntax: '*',
                     inherits: false,

@@ -321,7 +321,10 @@ export namespace JsonToScss {
         // returns - this is a css function
         if (
             !opts.cssFunctionsAsStrings
-            && input.match( /^\s*(calc|clamp|max|min|url|var)\(.+\)\s*$/i )
+            && (
+                input.match( /^\s*(calc|clamp|max|min|url|var)\(.+\)\s*$/i )
+                || input.match( /^\s*([a-z|0-9|\-]+\([^\(\)]+\)|([a-z|0-9|\-]+\([^\(\)]+\)[\s,]+)+)\s*$/i )
+            )
         ) {
             return `${ input }`;
         }
