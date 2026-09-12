@@ -15,12 +15,14 @@
 @demo ( function: config.selector-a-current ) {
     a[href] {
         /*
-            & is a list:
-            1: <()> ( <S> %a )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %a ),
          */
         /*
-            config.selector-a-current() is a list:
-            1: <()> ( <S> %a[aria-current] )
+            config.selector-a-current() is a comma-separated list:
+
+            1: <()> ( <S> %a[aria-current] ),
          */
     }
     @demo return {
@@ -33,12 +35,14 @@
 @demo ( function: config.selector-a-current ) {
     button {
         /*
-            & is a list:
-            1: <()> ( <S> button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> button ),
          */
         /*
-            config.selector-a-current() is a list:
-            1: <()> ( <S> button[aria-current] )
+            config.selector-a-current() is a comma-separated list:
+
+            1: <()> ( <S> button[aria-current] ),
          */
     }
     @demo return {
@@ -56,12 +60,14 @@
     input[type='submit'],
     a[href].button {
         /*
-            & is a list:
-            1: <()> ( <S> %button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %button ),
          */
         /*
-            config.selector-a-current() is a list:
-            1: <()> ( <S> %button[aria-current] )
+            config.selector-a-current() is a comma-separated list:
+
+            1: <()> ( <S> %button[aria-current] ),
          */
     }
     @demo return {
@@ -80,8 +86,9 @@
 @demo ( mixin: config.selector-a-current ) {
     a[href] {
         /*
-            & is a list:
-            1: <()> ( <S> %a )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %a ),
          */
         /* @include config.selector-a-current {} */
     }
@@ -89,8 +96,9 @@
         a[aria-current][href] {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %a[aria-current] )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %a[aria-current] ),
              */
         }
     }
@@ -99,8 +107,9 @@
 @demo ( mixin: config.selector-a-current ) {
     a[href] {
         /*
-            & is a list:
-            1: <()> ( <S> %a )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %a ),
          */
         /* @include config.selector-a-current( $appendToSelector: true ) {} */
     }
@@ -108,15 +117,17 @@
         a[href] {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %a )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %a ),
              */
         }
         a[aria-current][href] {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %a[aria-current] )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %a[aria-current] ),
              */
         }
     }
@@ -125,8 +136,9 @@
 @demo ( mixin: config.selector-a-current ) {
     a[href] {
         /*
-            & is a list:
-            1: <()> ( <S> %a )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %a ),
          */
         /* @include config.selector-a-current( $is: true ) {} */
     }
@@ -134,8 +146,9 @@
         a[href]:is([aria-current]) {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %a:is([aria-current]) )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %a:is([aria-current]) ),
              */
         }
     }
@@ -144,8 +157,9 @@
 @demo ( mixin: config.selector-a-current ) {
     a[href] {
         /*
-            & is a list:
-            1: <()> ( <S> %a )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %a ),
          */
         /* @include config.selector-a-current( $appendToSelector: true, $is: true ) {} */
     }
@@ -153,15 +167,17 @@
         a[href] {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %a )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %a ),
              */
         }
         a[href]:is([aria-current]) {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %a:is([aria-current]) )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %a:is([aria-current]) ),
              */
         }
     }
@@ -170,8 +186,9 @@
 @demo ( mixin: config.selector-a-current ) {
     button {
         /*
-            & is a list:
-            1: <()> ( <S> button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> button ),
          */
         /* @include config.selector-a-current {} */
     }
@@ -179,8 +196,9 @@
         button[aria-current] {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> button[aria-current] )
+                & is a comma-separated list:
+
+                1: <()> ( <S> button[aria-current] ),
              */
         }
     }
@@ -189,8 +207,9 @@
 @demo ( mixin: config.selector-a-current ) {
     button {
         /*
-            & is a list:
-            1: <()> ( <S> button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> button ),
          */
         /* @include config.selector-a-current( $appendToSelector: true ) {} */
     }
@@ -199,9 +218,10 @@
         button[aria-current] {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> button )
-                2: <()> ( <S> button[aria-current] )
+                & is a comma-separated list:
+
+                1: <()> ( <S> button ),
+                2: <()> ( <S> button[aria-current] ),
              */
         }
     }
@@ -210,8 +230,9 @@
 @demo ( mixin: config.selector-a-current ) {
     button {
         /*
-            & is a list:
-            1: <()> ( <S> button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> button ),
          */
         /* @include config.selector-a-current( $is: true ) {} */
     }
@@ -219,8 +240,9 @@
         button:is([aria-current]) {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> button:is([aria-current]) )
+                & is a comma-separated list:
+
+                1: <()> ( <S> button:is([aria-current]) ),
              */
         }
     }
@@ -229,8 +251,9 @@
 @demo ( mixin: config.selector-a-current ) {
     button {
         /*
-            & is a list:
-            1: <()> ( <S> button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> button ),
          */
         /* @include config.selector-a-current( $appendToSelector: true, $is: true ) {} */
     }
@@ -239,9 +262,10 @@
         button:is([aria-current]) {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> button )
-                2: <()> ( <S> button:is([aria-current]) )
+                & is a comma-separated list:
+
+                1: <()> ( <S> button ),
+                2: <()> ( <S> button:is([aria-current]) ),
              */
         }
     }
@@ -255,8 +279,9 @@
     input[type='submit'],
     a[href].button {
         /*
-            & is a list:
-            1: <()> ( <S> %button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %button ),
          */
         /* @include config.selector-a-current {} */
     }
@@ -269,8 +294,9 @@
         a[aria-current][href].button {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %button[aria-current] )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %button[aria-current] ),
              */
         }
     }
@@ -284,8 +310,9 @@
     input[type='submit'],
     a[href].button {
         /*
-            & is a list:
-            1: <()> ( <S> %button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %button ),
          */
         /* @include config.selector-a-current( $appendToSelector: true ) {} */
     }
@@ -298,8 +325,9 @@
         a[href].button {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %button )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %button ),
              */
         }
         button[aria-current],
@@ -310,8 +338,9 @@
         a[aria-current][href].button {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %button[aria-current] )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %button[aria-current] ),
              */
         }
     }
@@ -325,8 +354,9 @@
     input[type='submit'],
     a[href].button {
         /*
-            & is a list:
-            1: <()> ( <S> %button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %button ),
          */
         /* @include config.selector-a-current( $is: true ) {} */
     }
@@ -339,8 +369,9 @@
         a[href].button:is([aria-current]) {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %button:is([aria-current]) )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %button:is([aria-current]) ),
              */
         }
     }
@@ -354,8 +385,9 @@
     input[type='submit'],
     a[href].button {
         /*
-            & is a list:
-            1: <()> ( <S> %button )
+            & is a comma-separated list:
+
+            1: <()> ( <S> %button ),
          */
         /* @include config.selector-a-current( $appendToSelector: true, $is: true ) {} */
     }
@@ -368,8 +400,9 @@
         a[href].button {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %button )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %button ),
              */
         }
         button:is([aria-current]),
@@ -380,8 +413,9 @@
         a[href].button:is([aria-current]) {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> %button:is([aria-current]) )
+                & is a comma-separated list:
+
+                1: <()> ( <S> %button:is([aria-current]) ),
              */
         }
     }

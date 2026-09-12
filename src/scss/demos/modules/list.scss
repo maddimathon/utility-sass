@@ -6,6 +6,7 @@
 @forward '../config';
 @forward '../header';
 
+@use '../../modules/demo';
 @use '../../modules/list';
 @use '../../modules/meta';
 
@@ -71,6 +72,15 @@ list.slice {
     @include meta.var-dump('list.slice( $list, 2 )', list.slice($_list_flat, 2));
     @include meta.var-dump('list.slice( $list, 2, 6 )', list.slice($_list_flat, 2, 6));
     @include meta.var-dump('list.slice( $list, 2, -4 )', list.slice($_list_flat, 2, -4));
+}
+
+@include meta.at(demo-section, 'list.repeat') {
+    $_fn: meta.get-function(repeat, $module: 'list');
+
+    @include demo.function('list.repeat', $_fn, meta.arglist(1, 'once'));
+    @include demo.function('list.repeat', $_fn, meta.arglist(2, 'twice', space));
+    @include demo.function('list.repeat', $_fn, meta.arglist(20, a, $separator: comma));
+    @include demo.function('list.repeat', $_fn, meta.arglist(12, 20ms, space));
 }
 
 list.sort {

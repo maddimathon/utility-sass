@@ -11,7 +11,22 @@ $_emptyReturn: string.unquote('()');
 ///
 /// @since ___PKG_VERSION___
 ///
-@function args-dump($args, $emptyReturn: $_emptyReturn) {
+@function args-dump(
+    $args,
+    $emptyReturn: $_emptyReturn,
+    //
+    $alwaysQuote: false,
+    $detectParentSelector: true,
+    $shortType: true,
+    $withType: arglist,
+    $typeJoiner: if($withType == true, ' ', ''),
+    //
+    $child_alwaysQuote: $alwaysQuote,
+    $child_withType: $withType,
+    $child_typeJoiner: $typeJoiner,
+    $keys_alwaysQuote: false,
+    $keys_neverQuote: true
+) {
     // returns
     @if not meta.is-truthy($args) {
         @return $emptyReturn;
@@ -31,14 +46,16 @@ $_emptyReturn: string.unquote('()');
     @return meta.var-dump(
         $args,
         $alwaysQuote: true,
-        $detectParentSelector: true,
-        $shortType: true,
+        $detectParentSelector: $detectParentSelector,
+        $shortType: $shortType,
         $typeJoiner: '',
         $withType: false,
-        $child_withType: arglist,
-        $child_alwaysQuote: false,
-        $keys_alwaysQuote: false,
-        $keys_neverQuote: true
+        //
+        $child_alwaysQuote: $child_alwaysQuote,
+        $child_withType: $child_withType,
+        $child_typeJoiner: $child_typeJoiner,
+        $keys_alwaysQuote: $keys_alwaysQuote,
+        $keys_neverQuote: $keys_neverQuote
     );
 }
 
@@ -48,9 +65,16 @@ $_emptyReturn: string.unquote('()');
 @function content-args-dump($args, $mixinName: null) {
     @return string.concat(
         if(meta.is-truthy($mixinName), '[#{$mixinName}] @content', '@content'),
-        args-dump($args, $emptyReturn: string.unquote('')),
+        args-dump($args, $emptyReturn: string.unquote(''), $withType: true),
         ';'
     );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin content-args-dump($args, $params...) {
+    /* #{content-args-dump( $args, $params... )} */
 }
 
 ///
@@ -62,4 +86,11 @@ $_emptyReturn: string.unquote('()');
         args-dump($args, $emptyReturn: string.unquote('')),
         if($getMixin, if(meta.accepts-content($getMixin), ' {}', ';'), '')
     );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin mixin-signature-dump($args, $params...) {
+    /* #{mixin-signature-dump( $args, $params... )} */
 }

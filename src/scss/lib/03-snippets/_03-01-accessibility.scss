@@ -5,10 +5,10 @@
 
 // @use '../../config';
 
-// @use '../../modules/math';
+@use '../../modules/selector';
 
 @use '../01-functions' as *;
-// @use '../02-mixins' as *;
+@use '../02-mixins' as *;
 
 /// # SNIPPETS - ACCESSIBILITY
 /// ======================================================================== ///
@@ -29,24 +29,82 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-support-focus-ring {
-    %focus-ring--fallback {
-        /* %focus-ring--fallback */
-        @include snippet-focus-ring;
+    $parentExists: selector.parent-exists();
+
+    $selector_fallback: false;
+    $selector_where: false;
+    $selector_visible: false;
+    $selector_ring: false;
+
+    @include focus-visible($multipleContentBlocks: true) using ($location) {
+        @if $location == focus-visible--fallback--selector-pseudo--no-js {
+            $selector_fallback: true;
+
+            @at-root &,
+                %focus-ring--fallback {
+                /* %focus-ring--fallback */
+                @include snippet-focus-ring;
+            }
+        } @else if $location == focus-visible--fallback--selector-pseudo--where {
+            $selector_where: true;
+
+            @at-root &,
+                %focus-ring--where {
+                /* %focus-ring--where */
+                @include snippet-focus-ring;
+            }
+        } @else if $location == focus-visible--selector-pseudo {
+            $selector_visible: true;
+
+            @at-root &,
+                %focus-ring--visible {
+                /* %focus-ring--visible */
+                @include snippet-focus-ring;
+            }
+        } @else {
+            @if $selector_ring {
+                @at-root &,
+                    %focus-ring {
+                    /* %focus-ring */
+                    @include snippet-focus-ring;
+                }
+            } @else {
+                /* %focus-ring */
+                @include snippet-focus-ring;
+            }
+
+            $selector_ring: true;
+        }
     }
 
-    %focus-ring--where {
-        /* %focus-ring--where */
-        @include snippet-focus-ring;
-    }
+    @at-root {
+        @if not $selector_fallback {
+            %focus-ring--fallback {
+                /* %focus-ring--fallback - B */
+                @include snippet-focus-ring;
+            }
+        }
 
-    %focus-ring--visible {
-        /* %focus-ring--visible */
-        @include snippet-focus-ring;
-    }
+        @if not $selector_where {
+            %focus-ring--where {
+                /* %focus-ring--where - B */
+                @include snippet-focus-ring;
+            }
+        }
 
-    %focus-ring {
-        /* %focus-ring */
-        @include snippet-focus-ring;
+        @if not $selector_visible {
+            %focus-ring--visible {
+                /* %focus-ring--visible - B */
+                @include snippet-focus-ring;
+            }
+        }
+
+        @if not $selector_ring {
+            %focus-ring {
+                /* %focus-ring - B */
+                @include snippet-focus-ring;
+            }
+        }
     }
 }
 

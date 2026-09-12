@@ -25,7 +25,7 @@ $_mixins: (
 
 /* #region - NO PARENT */
 @each $mixin in $_mixins {
-    @media #{$mixin} {
+    @include meta.at(demo-section, #{$mixin}) {
         @at-root {
             /* @include #{$mixin} { } */
         }
@@ -40,7 +40,7 @@ $_mixins: (
 /* #region - WITH PARENT */
 button {
     @each $mixin in $_mixins {
-        @media #{$mixin} {
+        @include meta.at(demo-section, #{$mixin}) {
             @at-root {
                 /* @include #{$mixin} { } */
             }

@@ -44,18 +44,19 @@
 }
 /* # MODULES - META
  * ======================================================================== */
-@media current-version {
+@demo-section current-version {
     /*
         meta.current-version() is a map:
-        "major": <#> 1
-        "minor": <#> 97
-        "patch": <#> 3
-        "prerelease": <-> null
-        "meta": <-> null
+
+        "major": <#> 1,
+        "minor": <#> 97,
+        "patch": <#> 3,
+        "prerelease": <-> null,
+        "meta": <-> null,
      */
 }
 /* ## MODULES - META - arglist() ==================================== */
-@media arglist {
+@demo-section arglist {
     /* 
         meta.arglist() = <⋯> ()
      */
@@ -70,21 +71,22 @@
      */
 }
 /* ## MODULES - META - call-global-compiler-fn() ==================================== */
-@media call-global-compiler-fn {
+@demo-section call-global-compiler-fn {
     /* 
         meta.call-global-compiler-fn( 'non-existant-fn', 'demo-functions/non-existant-fn' ) = <-> null
      */
     /*
         meta.call-global-compiler-fn( 'mmutils-global-getCurrentVersion', 'demo-functions/getCurrentVersion' ) is a map:
-        "major": <#> 1
-        "minor": <#> 97
-        "patch": <#> 3
-        "prerelease": <-> null
-        "meta": <-> null
+
+        "major": <#> 1,
+        "minor": <#> 97,
+        "patch": <#> 3,
+        "prerelease": <-> null,
+        "meta": <-> null,
      */
 }
 /* ## MODULES - META - demo.args-dump() ==================================== */
-@media args-dump {
+@demo-section args-dump {
     /* 
         demo.args-dump( meta.arglist() ) = <S> ()
      */
@@ -99,13 +101,13 @@
      */
 }
 /* ## MODULES - META - docblock-printer() ==================================== */
-@media demo {
+@demo-section demo {
     /* @include meta.docblock-printer( "line # 1" ) */
 }
 /**
  * line # 1
  */
-@media demo {
+@demo-section demo {
     /* @include meta.docblock-printer( ( "line # 1", "line # 2", "line # 3" ) ) */
 }
 /**
@@ -113,7 +115,7 @@
  * line # 2
  * line # 3
  */
-@media demo {
+@demo-section demo {
     /* @include meta.docblock-printer( ( "line # 1", "line # 2", "line # 3", "line # 4", "line # 5", "line # 6", "line # 7", "line # 8", "line # 9", "line # 10", "line # 11", "line # 12", "line # 13", "line # 14", "line # 15", "line # 16", "line # 17", "line # 18", "line # 19", "line # 20", "line # 21", "line # 22", "line # 23", "line # 24", "line # 25", "line # 26", "line # 27", "line # 28", "line # 29", "line # 30", "line # 31", "line # 32", "line # 33", "line # 34", "line # 35", "line # 36", "line # 37", "line # 38", "line # 39", "line # 40", "line # 41", "line # 42", "line # 43", "line # 44", "line # 45", "line # 46", "line # 47", "line # 48", "line # 49", "line # 50", "line # 51", "line # 52", "line # 53", "line # 54", "line # 55", "line # 56", "line # 57", "line # 58", "line # 59", "line # 60", "line # 61", "line # 62", "line # 63", "line # 64", "line # 65", "line # 66", "line # 67", "line # 68", "line # 69", "line # 70", "line # 71", "line # 72", "line # 73", "line # 74", "line # 75", "line # 76", "line # 77", "line # 78", "line # 79", "line # 80", "line # 81", "line # 82", "line # 83", "line # 84", "line # 85", "line # 86", "line # 87", "line # 88", "line # 89", "line # 90", "line # 91", "line # 92", "line # 93", "line # 94", "line # 95", "line # 96", "line # 97", "line # 98", "line # 99", "line # 100", "line # 101", "line # 102", "line # 103", "line # 104", "line # 105" ) ) */
 }
 /**
@@ -224,29 +226,32 @@
  * line # 105
  */
 /* ## MODULES - META - keywords-list() ==================================== */
-@media keywords-list {
+@demo-section keywords-list {
     /* 
         meta.keywords-list() = <:> ()
      */
     /*
         meta.keywords-list( one, two ) is a map:
-        1: <S> one
-        2: <S> two
+
+        1: <S> one,
+        2: <S> two,
      */
     /*
         meta.keywords-list( $param: one, $value: two ) is a map:
-        "param": <S> one
-        "value": <S> two
+
+        "param": <S> one,
+        "value": <S> two,
      */
     /*
         meta.keywords-list( something, $param: one, $value: two ) is a map:
-        1: <S> something
-        "param": <S> one
-        "value": <S> two
+
+        1: <S> something,
+        "param": <S> one,
+        "value": <S> two,
      */
 }
 /* ## MODULES - META - keywords-list-to-arglist() ==================================== */
-@media keywords-list-to-arglist {
+@demo-section keywords-list-to-arglist {
     /* 
         meta.keywords-list-to-arglist( meta.keywords-list() ) = <⋯> ()
      */
@@ -428,22 +433,22 @@ meta.is-truthy {
         }
         .no-js .parent:focus,
         .js__no-whereSelector .parent:focus {
-            /* [focus-visible] @content( focus-visible--fallback--selector-pseudo--no-js ); */
+            /* [focus-visible] @content( <S> focus-visible--fallback--selector-pseudo--no-js ); */
             /* [demo.mixin] @content; */
         }
         :where(.js__no-focusVisible) .parent:focus {
-            /* [focus-visible] @content( focus-visible--fallback--selector-pseudo--where ); */
+            /* [focus-visible] @content( <S> focus-visible--fallback--selector-pseudo--where ); */
             /* [demo.mixin] @content; */
         }
         .parent:focus-visible {
-            /* [focus-visible] @content( focus-visible--selector-pseudo ); */
+            /* [focus-visible] @content( <S> focus-visible--selector-pseudo ); */
             /* [demo.mixin] @content; */
         }
     }
 }
 
 /* ## MODULES - META - var-dump() ==================================== */
-@media var-dump {
+@demo-section var-dump {
     list {
         /* 
             meta.var-dump( $_list ) = <S> <()> ( <S> value <S> is <S> a <S> list )
@@ -466,11 +471,11 @@ meta.is-truthy {
     }
 }
 /* ## MODULES - META - js-var-dump() ==================================== */
-@media js-var-dump {
+@demo-section js-var-dump {
     /* 
-        meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> meta.js-var-dump() [id: urj8om9] - demo-var-1
+        meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> meta.js-var-dump() [id: u58wq89] - demo-var-1
      */
     /* 
-        meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> meta.js-var-dump() [id: urj8on5] - demo-var-2
+        meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> meta.js-var-dump() [id: u58wq8q] - demo-var-2
      */
 }

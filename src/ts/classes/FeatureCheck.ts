@@ -398,6 +398,15 @@ export class FeatureCheck<
      * ====================================================================== */
 
     /**
+     * Gets a copied array of all check slugs.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    public getCheckSlugs(): ( FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug )[] {
+        return [ ...this.allCheckSlugs ];
+    }
+
+    /**
      * Runs all the checks and sets root element classes accordingly.
      * 
      * @experimental

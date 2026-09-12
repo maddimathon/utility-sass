@@ -48,16 +48,18 @@
             :root {
                 /* @content; */
                 /*
-                    & is a list:
-                    1: <()> ( <S> :root )
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
                  */
             }
         }
         [data-motion='no-preference'] {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> [data-motion=no-preference] )
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference] ),
              */
         }
     }
@@ -72,16 +74,106 @@
             :root {
                 /* @content; */
                 /*
-                    & is a list:
-                    1: <()> ( <S> :root )
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
                  */
             }
         }
         [data-motion='reduce'] {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> [data-motion=reduce] )
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce] ),
+             */
+        }
+    }
+}
+@demo ( mixin: each-motion ) {
+    /* 
+        & = <-> null
+     */
+    /* @include each-motion {} */
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            :root {
+                /* @content( </> true ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
+                 */
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                /* @content( </> false ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
+                 */
+            }
+        }
+        [data-motion='no-preference'] {
+            /* @content( </> true ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference] ),
+             */
+        }
+        [data-motion='reduce'] {
+            /* @content( </> false ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce] ),
+             */
+        }
+    }
+}
+@demo ( mixin: each-motion ) {
+    /* 
+        & = <-> null
+     */
+    /* @include each-motion( $multipleContentBlocks: true ) {} */
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            :root {
+                /* @content( </> true, <S> query ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
+                 */
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                /* @content( </> false, <S> query ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
+                 */
+            }
+        }
+        [data-motion='no-preference'] {
+            /* @content( </> true, <S> selector ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference] ),
+             */
+        }
+        [data-motion='reduce'] {
+            /* @content( </> false, <S> selector ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce] ),
              */
         }
     }
@@ -91,12 +183,14 @@
 @demo ( function: selector-motion ) {
     :root {
         /*
-            & is a list:
-            1: <()> ( <S> :root )
+            & is a comma-separated list:
+
+            1: <()> ( <S> :root ),
          */
         /*
-            selector-motion( true ) is a list:
-            1: <()> ( <S> [data-motion=no-preference]:root )
+            selector-motion( true ) is a comma-separated list:
+
+            1: <()> ( <S> [data-motion=no-preference]:root ),
          */
     }
     @demo return {
@@ -109,12 +203,14 @@
 @demo ( function: selector-motion ) {
     :root {
         /*
-            & is a list:
-            1: <()> ( <S> :root )
+            & is a comma-separated list:
+
+            1: <()> ( <S> :root ),
          */
         /*
-            selector-motion( false ) is a list:
-            1: <()> ( <S> [data-motion=reduce]:root )
+            selector-motion( false ) is a comma-separated list:
+
+            1: <()> ( <S> [data-motion=reduce]:root ),
          */
     }
     @demo return {
@@ -127,8 +223,9 @@
 @demo ( mixin: motion ) {
     :root {
         /*
-            & is a list:
-            1: <()> ( <S> :root )
+            & is a comma-separated list:
+
+            1: <()> ( <S> :root ),
          */
         /* @include motion {} */
     }
@@ -137,16 +234,18 @@
             :root {
                 /* @content; */
                 /*
-                    & is a list:
-                    1: <()> ( <S> :root )
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
                  */
             }
         }
         [data-motion='no-preference']:root {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> [data-motion=no-preference]:root )
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference]:root ),
              */
         }
     }
@@ -155,8 +254,9 @@
 @demo ( mixin: no-motion ) {
     :root {
         /*
-            & is a list:
-            1: <()> ( <S> :root )
+            & is a comma-separated list:
+
+            1: <()> ( <S> :root ),
          */
         /* @include no-motion {} */
     }
@@ -165,16 +265,116 @@
             :root {
                 /* @content; */
                 /*
-                    & is a list:
-                    1: <()> ( <S> :root )
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
                  */
             }
         }
         [data-motion='reduce']:root {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> [data-motion=reduce]:root )
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce]:root ),
+             */
+        }
+    }
+}
+
+@demo ( mixin: each-motion ) {
+    :root {
+        /*
+            & is a comma-separated list:
+
+            1: <()> ( <S> :root ),
+         */
+        /* @include each-motion {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            :root {
+                /* @content( </> true ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
+                 */
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                /* @content( </> false ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
+                 */
+            }
+        }
+        [data-motion='no-preference']:root {
+            /* @content( </> true ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference]:root ),
+             */
+        }
+        [data-motion='reduce']:root {
+            /* @content( </> false ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce]:root ),
+             */
+        }
+    }
+}
+
+@demo ( mixin: each-motion ) {
+    :root {
+        /*
+            & is a comma-separated list:
+
+            1: <()> ( <S> :root ),
+         */
+        /* @include each-motion( $multipleContentBlocks: true ) {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            :root {
+                /* @content( </> true, <S> query ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
+                 */
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                /* @content( </> false, <S> query ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> :root ),
+                 */
+            }
+        }
+        [data-motion='no-preference']:root {
+            /* @content( </> true, <S> selector ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference]:root ),
+             */
+        }
+        [data-motion='reduce']:root {
+            /* @content( </> false, <S> selector ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce]:root ),
              */
         }
     }
@@ -185,12 +385,14 @@
 @demo ( function: selector-motion ) {
     body {
         /*
-            & is a list:
-            1: <()> ( <S> body )
+            & is a comma-separated list:
+
+            1: <()> ( <S> body ),
          */
         /*
-            selector-motion( true ) is a list:
-            1: <()> ( <()> ( <S> [data-motion=no-preference] <S> body ) )
+            selector-motion( true ) is a comma-separated list:
+
+            1: <()> ( <()> ( <S> [data-motion=no-preference] <S> body ) ),
          */
     }
     @demo return {
@@ -203,12 +405,14 @@
 @demo ( function: selector-motion ) {
     body {
         /*
-            & is a list:
-            1: <()> ( <S> body )
+            & is a comma-separated list:
+
+            1: <()> ( <S> body ),
          */
         /*
-            selector-motion( false ) is a list:
-            1: <()> ( <()> ( <S> [data-motion=reduce] <S> body ) )
+            selector-motion( false ) is a comma-separated list:
+
+            1: <()> ( <()> ( <S> [data-motion=reduce] <S> body ) ),
          */
     }
     @demo return {
@@ -221,8 +425,9 @@
 @demo ( mixin: motion ) {
     body {
         /*
-            & is a list:
-            1: <()> ( <S> body )
+            & is a comma-separated list:
+
+            1: <()> ( <S> body ),
          */
         /* @include motion {} */
     }
@@ -231,16 +436,18 @@
             body {
                 /* @content; */
                 /*
-                    & is a list:
-                    1: <()> ( <S> body )
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> body ),
                  */
             }
         }
         [data-motion='no-preference'] body {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> [data-motion=no-preference] <S> body )
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference] <S> body ),
              */
         }
     }
@@ -249,8 +456,9 @@
 @demo ( mixin: no-motion ) {
     body {
         /*
-            & is a list:
-            1: <()> ( <S> body )
+            & is a comma-separated list:
+
+            1: <()> ( <S> body ),
          */
         /* @include no-motion {} */
     }
@@ -259,16 +467,116 @@
             body {
                 /* @content; */
                 /*
-                    & is a list:
-                    1: <()> ( <S> body )
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> body ),
                  */
             }
         }
         [data-motion='reduce'] body {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> [data-motion=reduce] <S> body )
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce] <S> body ),
+             */
+        }
+    }
+}
+
+@demo ( mixin: each-motion ) {
+    body {
+        /*
+            & is a comma-separated list:
+
+            1: <()> ( <S> body ),
+         */
+        /* @include each-motion {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            body {
+                /* @content( </> true ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> body ),
+                 */
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            body {
+                /* @content( </> false ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> body ),
+                 */
+            }
+        }
+        [data-motion='no-preference'] body {
+            /* @content( </> true ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference] <S> body ),
+             */
+        }
+        [data-motion='reduce'] body {
+            /* @content( </> false ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce] <S> body ),
+             */
+        }
+    }
+}
+
+@demo ( mixin: each-motion ) {
+    body {
+        /*
+            & is a comma-separated list:
+
+            1: <()> ( <S> body ),
+         */
+        /* @include each-motion( $multipleContentBlocks: true ) {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            body {
+                /* @content( </> true, <S> query ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> body ),
+                 */
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            body {
+                /* @content( </> false, <S> query ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> body ),
+                 */
+            }
+        }
+        [data-motion='no-preference'] body {
+            /* @content( </> true, <S> selector ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference] <S> body ),
+             */
+        }
+        [data-motion='reduce'] body {
+            /* @content( </> false, <S> selector ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce] <S> body ),
              */
         }
     }
@@ -279,12 +587,14 @@
 @demo ( function: selector-motion ) {
     parent {
         /*
-            & is a list:
-            1: <()> ( <S> parent )
+            & is a comma-separated list:
+
+            1: <()> ( <S> parent ),
          */
         /*
-            selector-motion( true ) is a list:
-            1: <()> ( <()> ( <S> [data-motion=no-preference] <S> parent ) )
+            selector-motion( true ) is a comma-separated list:
+
+            1: <()> ( <()> ( <S> [data-motion=no-preference] <S> parent ) ),
          */
     }
     @demo return {
@@ -297,12 +607,14 @@
 @demo ( function: selector-motion ) {
     parent {
         /*
-            & is a list:
-            1: <()> ( <S> parent )
+            & is a comma-separated list:
+
+            1: <()> ( <S> parent ),
          */
         /*
-            selector-motion( false ) is a list:
-            1: <()> ( <()> ( <S> [data-motion=reduce] <S> parent ) )
+            selector-motion( false ) is a comma-separated list:
+
+            1: <()> ( <()> ( <S> [data-motion=reduce] <S> parent ) ),
          */
     }
     @demo return {
@@ -315,8 +627,9 @@
 @demo ( mixin: motion ) {
     parent {
         /*
-            & is a list:
-            1: <()> ( <S> parent )
+            & is a comma-separated list:
+
+            1: <()> ( <S> parent ),
          */
         /* @include motion {} */
     }
@@ -325,16 +638,18 @@
             parent {
                 /* @content; */
                 /*
-                    & is a list:
-                    1: <()> ( <S> parent )
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> parent ),
                  */
             }
         }
         [data-motion='no-preference'] parent {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> [data-motion=no-preference] <S> parent )
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference] <S> parent ),
              */
         }
     }
@@ -343,8 +658,9 @@
 @demo ( mixin: no-motion ) {
     parent {
         /*
-            & is a list:
-            1: <()> ( <S> parent )
+            & is a comma-separated list:
+
+            1: <()> ( <S> parent ),
          */
         /* @include no-motion {} */
     }
@@ -353,16 +669,116 @@
             parent {
                 /* @content; */
                 /*
-                    & is a list:
-                    1: <()> ( <S> parent )
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> parent ),
                  */
             }
         }
         [data-motion='reduce'] parent {
             /* @content; */
             /*
-                & is a list:
-                1: <()> ( <S> [data-motion=reduce] <S> parent )
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce] <S> parent ),
+             */
+        }
+    }
+}
+
+@demo ( mixin: each-motion ) {
+    parent {
+        /*
+            & is a comma-separated list:
+
+            1: <()> ( <S> parent ),
+         */
+        /* @include each-motion {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            parent {
+                /* @content( </> true ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> parent ),
+                 */
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            parent {
+                /* @content( </> false ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> parent ),
+                 */
+            }
+        }
+        [data-motion='no-preference'] parent {
+            /* @content( </> true ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference] <S> parent ),
+             */
+        }
+        [data-motion='reduce'] parent {
+            /* @content( </> false ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce] <S> parent ),
+             */
+        }
+    }
+}
+
+@demo ( mixin: each-motion ) {
+    parent {
+        /*
+            & is a comma-separated list:
+
+            1: <()> ( <S> parent ),
+         */
+        /* @include each-motion( $multipleContentBlocks: true ) {} */
+    }
+    @demo output {
+        @media (prefers-reduced-motion: no-preference) {
+            parent {
+                /* @content( </> true, <S> query ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> parent ),
+                 */
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            parent {
+                /* @content( </> false, <S> query ); */
+                /*
+                    & is a comma-separated list:
+
+                    1: <()> ( <S> parent ),
+                 */
+            }
+        }
+        [data-motion='no-preference'] parent {
+            /* @content( </> true, <S> selector ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=no-preference] <S> parent ),
+             */
+        }
+        [data-motion='reduce'] parent {
+            /* @content( </> false, <S> selector ); */
+            /*
+                & is a comma-separated list:
+
+                1: <()> ( <S> [data-motion=reduce] <S> parent ),
              */
         }
     }

@@ -11,7 +11,7 @@
  */
 /* # MIXINS - MODES
  * ======================================================================== */
-@media config-vars {
+@demo-section config-vars {
     /* 
         $selectorType_mode = <S> "attribute"
      */
@@ -37,14 +37,16 @@
         $mx_colourModeEach_includeForcedColorsSelectors = </> true
      */
 }
-@media token-vars {
+@demo-section token-vars {
     /*
-        $brightnessMode_options is a list:
+        $brightnessMode_options is a space-separated list:
+
         1: <S> light
         2: <S> dark
      */
     /*
-        $brightnessMode_all is a list:
+        $brightnessMode_all is a space-separated list:
+
         1: <S> light
         2: <S> dark
      */
@@ -52,7 +54,8 @@
         $brightnessMode_default = <S> light
      */
     /*
-        $contrastMode_options is a list:
+        $contrastMode_options is a space-separated list:
+
         1: <S> average
         2: <S> low
         3: <S> high
@@ -60,7 +63,8 @@
         5: <S> forced-colors
      */
     /*
-        $contrastMode_all is a list:
+        $contrastMode_all is a space-separated list:
+
         1: <S> average
         2: <S> low
         3: <S> high
@@ -71,42 +75,47 @@
         $contrastMode_default = <S> average
      */
 }
-@media selectors {
+@demo-section selectors {
     /*
-        simple-selectors-colour-mode( light ) is a list:
-        1: <S> [data-brightness-mode=light]
+        simple-selectors-colour-mode( light ) is a comma-separated list:
+
+        1: <S> [data-brightness-mode=light],
      */
     /*
-        simple-selectors-colour-mode( ( light, dark ) ) is a list:
-        1: <S> [data-brightness-mode=light]
-        2: <S> [data-brightness-mode=dark]
+        simple-selectors-colour-mode( ( light, dark ) ) is a comma-separated list:
+
+        1: <S> [data-brightness-mode=light],
+        2: <S> [data-brightness-mode=dark],
      */
     /*
-        simple-selectors-colour-mode( ( light, dark, average, forced-colors ) ) is a list:
-        1: <S> [data-brightness-mode=light]
-        2: <S> [data-brightness-mode=dark]
-        3: <S> [data-contrast-mode=average]
-        4: <S> [data-contrast-mode=forced-colors]
+        simple-selectors-colour-mode( ( light, dark, average, forced-colors ) ) is a comma-separated list:
+
+        1: <S> [data-brightness-mode=light],
+        2: <S> [data-brightness-mode=dark],
+        3: <S> [data-contrast-mode=average],
+        4: <S> [data-contrast-mode=forced-colors],
      */
     /*
-        simple-selectors-colour-mode-all() is a list:
-        1: <S> [data-brightness-mode=light]
-        2: <S> [data-brightness-mode=dark]
-        3: <S> [data-contrast-mode=average]
-        4: <S> [data-contrast-mode=low]
-        5: <S> [data-contrast-mode=high]
-        6: <S> [data-contrast-mode=max]
-        7: <S> [data-contrast-mode=forced-colors]
+        simple-selectors-colour-mode-all() is a comma-separated list:
+
+        1: <S> [data-brightness-mode=light],
+        2: <S> [data-brightness-mode=dark],
+        3: <S> [data-contrast-mode=average],
+        4: <S> [data-contrast-mode=low],
+        5: <S> [data-contrast-mode=high],
+        6: <S> [data-contrast-mode=max],
+        7: <S> [data-contrast-mode=forced-colors],
      */
     /*
-        simple-selectors-colour-mode-all( $activeOnly: true ) is a list:
-        1: <S> [data-brightness-mode=light]
-        2: <S> [data-brightness-mode=dark]
-        3: <S> [data-contrast-mode=average]
-        4: <S> [data-contrast-mode=low]
-        5: <S> [data-contrast-mode=high]
-        6: <S> [data-contrast-mode=max]
-        7: <S> [data-contrast-mode=forced-colors]
+        simple-selectors-colour-mode-all( $activeOnly: true ) is a comma-separated list:
+
+        1: <S> [data-brightness-mode=light],
+        2: <S> [data-brightness-mode=dark],
+        3: <S> [data-contrast-mode=average],
+        4: <S> [data-contrast-mode=low],
+        5: <S> [data-contrast-mode=high],
+        6: <S> [data-contrast-mode=max],
+        7: <S> [data-contrast-mode=forced-colors],
      */
 }
 /* #region - in root parent */

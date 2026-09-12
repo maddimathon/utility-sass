@@ -96,6 +96,16 @@ $featureCheck_includeNoWhereSelectorFallback_supports_not: map.merge(
 ///
 /// @since ___PKG_VERSION___
 ///
+$featureCheck_jsScreenMediaQuery: null !default;
+$featureCheck_jsScreenMediaQuery: config-valid-bool(
+    $featureCheck_jsScreenMediaQuery,
+    'featureCheck_jsScreenMediaQuery',
+    $default: true
+);
+
+///
+/// @since ___PKG_VERSION___
+///
 $featureCheck_supports: () !default;
 $featureCheck_supports: list.join(
     (

@@ -150,6 +150,12 @@ T_CustomCheckerSlug extends string = string> {
      */
     root?: Element);
     /**
+     * Gets a copied array of all check slugs.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    getCheckSlugs(): (FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug)[];
+    /**
      * Runs all the checks and sets root element classes accordingly.
      *
      * @experimental

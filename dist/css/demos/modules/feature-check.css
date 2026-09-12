@@ -13,46 +13,54 @@
  * ======================================================================== */
 feature-check.get-selector .whereSelector--true {
     /*
-        feature-check.get-selector( whereSelector, $bool: true ) is a list:
-        1: <()> ( <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true ) )
+        feature-check.get-selector( whereSelector, $bool: true ) is a comma-separated list:
+
+        1: <()> ( <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true ) ),
      */
 }
 feature-check.get-selector .whereSelector--false {
     /*
-        feature-check.get-selector( whereSelector, $bool: false ) is a list:
-        1: <()> ( <()> ( <S> :where(.js__no-whereSelector) <S> feature-check.get-selector <S> .whereSelector--false ) )
+        feature-check.get-selector( whereSelector, $bool: false ) is a comma-separated list:
+
+        1: <()> ( <()> ( <S> :where(.js__no-whereSelector) <S> feature-check.get-selector <S> .whereSelector--false ) ),
      */
 }
 feature-check.get-selector .whereSelector--true.with-extra {
     /*
-        feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) ) is a list:
-        1: <S> extra-selector
-        2: <()> ( <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true.with-extra ) )
+        feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) ) is a comma-separated list:
+
+        1: <S> extra-selector,
+        2: <()> ( <()> ( <S> :where(.js) <S> feature-check.get-selector <S> .whereSelector--true.with-extra ) ),
      */
 }
 feature-check.get-selector .aspectRatio--true {
     /*
-        feature-check.get-selector( aspectRatio, $bool: true ) is a list:
-        1: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true ) )
+        feature-check.get-selector( aspectRatio, $bool: true ) is a comma-separated list:
+
+        1: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true ) ),
      */
 }
 feature-check.get-selector .aspectRatio--false {
     /*
-        feature-check.get-selector( aspectRatio, $bool: false ) is a list:
-        1: <()> ( <()> ( <S> :where(.js__no-aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--false ) )
+        feature-check.get-selector( aspectRatio, $bool: false ) is a comma-separated list:
+
+        1: <()> ( <()> ( <S> :where(.js__no-aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--false ) ),
      */
 }
 feature-check.get-selector .aspectRatio--true.with-extra {
     /*
-        feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) ) is a list:
-        1: <S> extra-selector
-        2: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true.with-extra ) )
+        feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) ) is a comma-separated list:
+
+        1: <S> extra-selector,
+        2: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> feature-check.get-selector <S> .aspectRatio--true.with-extra ) ),
      */
 }
 
 /* ## Modules - Feature Check - Mixins - JS ==================================== */
-:where(.js) {
-    /* @include feature-check.js */
+@media screen {
+    :where(.js) {
+        /* @include feature-check.js */
+    }
 }
 
 .no-js,
@@ -60,6 +68,11 @@ feature-check.get-selector .aspectRatio--true.with-extra {
     /* @include feature-check.no-js */
 }
 
+@media not screen {
+    :root {
+        /* @include feature-check.no-js */
+    }
+}
 /* ## Modules - Feature Check - All Supports Slugs ==================================== */
 /* aspectRatio ------------------ */
 @supports (aspect-ratio: 1 / 2) {

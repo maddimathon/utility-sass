@@ -22,7 +22,7 @@
 
 $modeSets: (light, (light, dark), (light, dark, average, forced-colors));
 
-@media selectors {
+@include meta.at(demo-section, selectors) {
     @each $modeSet in $modeSets {
         @include demo.function(
             'simple-selectors-colour-mode',

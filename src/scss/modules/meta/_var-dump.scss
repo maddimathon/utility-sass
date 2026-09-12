@@ -52,29 +52,31 @@ $_varType_abbreviations: (
 /// @return {string}
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added optional $keys_withType, $keys_shortType, $keys_alwaysQuote, $keys_neverQuote, $child_withType, $child_shortType, $child_alwaysQuote, $child_neverQuote params. Added string and string list support to $withType.
+/// @since ___PKG_VERSION___ — Added optional $keys_withType, $keys_shortType, $keys_alwaysQuote, $keys_neverQuote, $child_withType, $child_shortType, $child_typeJoiner, $child_alwaysQuote, $child_neverQuote params. Added string and string list support to $withType.
 ///
 @function var-dump(
     $var,
     $withType: true,
-    $shortType: true,
+    //
     $alwaysQuote: false,
     $detectParentSelector: false,
     $neverQuote: false,
+    $shortType: true,
     $showParens: true,
     $typeJoiner: ' ',
     //
-    $keys_withType: null,
-    $keys_shortType: null,
     $keys_alwaysQuote: null,
     $keys_neverQuote: null,
+    $keys_shortType: null,
     $keys_showParens: null,
+    $keys_withType: null,
     //
-    $child_withType: null,
-    $child_shortType: null,
     $child_alwaysQuote: null,
     $child_neverQuote: null,
-    $child_showParens: null
+    $child_shortType: null,
+    $child_showParens: null,
+    $child_typeJoiner: null,
+    $child_withType: null
 ) {
     $type: meta.type-of($var);
     $inspection: meta.inspect($var);
@@ -107,7 +109,7 @@ $_varType_abbreviations: (
         neverQuote: if($child_neverQuote == null, $neverQuote, $child_neverQuote),
         shortType: if($child_shortType == null, $shortType, $child_shortType),
         showParens: if($child_showParens == null, $showParens, $child_showParens),
-        typeJoiner: $typeJoiner,
+        typeJoiner: if($child_typeJoiner == null, $typeJoiner, $child_typeJoiner),
         withType: if($child_withType == null, $withType, $child_withType),
     );
 
@@ -263,6 +265,26 @@ $_varType_abbreviations: (
 @mixin var-dump($name, $var, $alwaysQuote: false, $neverQuote: false, $args...) {
     $typeOf: meta.type-of($var);
 
+    $typeOf_string: $typeOf;
+
+    $listSeparator: ',';
+
+    @if $typeOf == list {
+        $_listSeparator: list.separator($var);
+
+        @if $_listSeparator != comma {
+            $listSeparator: '';
+        }
+
+        $typeOf_string: '#{$_listSeparator}-separated';
+
+        @if list.is-bracketed($var) {
+            $typeOf_string: '#{$typeOf_string} and bracketed';
+        }
+
+        $typeOf_string: '#{$typeOf_string} list';
+    }
+
     $args: map.set($args, alwaysQuote, $alwaysQuote);
     $args: map.set($args, neverQuote, $neverQuote);
 
@@ -278,9 +300,9 @@ $_varType_abbreviations: (
         // @media var-dump and ( var: '#{$name}' ) and ( type: '#{$typeOf}' ) {
         // }
 
-        $_first_line: '#{$name} is a #{$typeOf}:';
+        $_first_line: '#{$name} is a #{$typeOf_string}:';
 
-        $lines: ('#{$name} is a #{$typeOf}:');
+        $lines: ('');
 
         @if $typeOf == map {
             @each $_key, $_val in $var {
@@ -290,20 +312,26 @@ $_varType_abbreviations: (
                     string.unquote(#{$_key})
                 );
 
-                $lines: list.append($lines, '#{$_keyDisplay}: #{var-dump($_val, $args...)}');
+                $lines: list.append(
+                    $lines,
+                    '#{$_keyDisplay}: #{var-dump($_val, $args...)}#{$listSeparator}'
+                );
             }
         } @else {
             $i: 1;
 
             @each $_val in $var {
-                $lines: list.append($lines, '#{$i}: #{var-dump($_val, $args...)}');
+                $lines: list.append($lines, '#{$i}: #{var-dump($_val, $args...)}#{$listSeparator}');
 
                 $i: $i + 1;
             }
         }
 
         @if list.length($lines) <= docblock-printer.$docblock_maxLines {
-            @include docblock-printer.docblock-printer($lines, $asComment: true);
+            @include docblock-printer.docblock-printer(
+                list.join(($_first_line), $lines),
+                $asComment: true
+            );
         } @else {
             /* 
                 #{$_first_line}

@@ -206,9 +206,13 @@ $interactive_paramPermutations: (
         $mixin_arglist: map.set($mixin_arglist, $param, $value);
     }
 
-    @media apply-interactive-mixin {
+    @include meta.at(demo-section, apply-interactive-mixin) {
         @at-root {
-            /* #{demo.mixin-signature-dump( apply-interactive-mixin, $mixin_arglist, $_mixin_applyInteractiveMixin )} */
+            @include demo.mixin-signature-dump(
+                apply-interactive-mixin,
+                $mixin_arglist,
+                $_mixin_applyInteractiveMixin
+            );
             @if $debug {
                 @include meta.var-dump('&', &);
             }
@@ -221,7 +225,10 @@ $interactive_paramPermutations: (
                 $mixin_arglist...
             )
             using ($args...) {
-            /* #{demo.content-args-dump( $args )} */
+            @include demo.content-args-dump(
+                $args,
+                $mixinName: if(config.$demo_includeNameWithContent, apply-interactive-mixin, null)
+            );
 
             @if $debug {
                 @include meta.var-dump('&', &);

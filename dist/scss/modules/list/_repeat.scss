@@ -1,0 +1,25 @@
+///
+/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'sass:list';
+
+// @use '../config';
+
+// @use '../meta';
+
+///
+/// Makes a list with $n number of $item.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function repeat($n, $item, $separator: comma) {
+    $list: ();
+
+    @for $i from 1 through $n {
+        $list: list.append($list, $item, $separator: $separator);
+    }
+
+    @return $list;
+}

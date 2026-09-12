@@ -63,13 +63,13 @@
 /* # MODULES - META
  * ======================================================================== */
 
-@media current-version {
+@include meta.at(demo-section, current-version) {
     @include meta.var-dump('meta.current-version()', meta.current-version());
 }
 
 /* ## MODULES - META - arglist() ==================================== */
 
-@media arglist {
+@include meta.at(demo-section, arglist) {
     @include meta.var-dump('meta.arglist()', meta.arglist());
     @include meta.var-dump('meta.arglist( one, two )', meta.arglist(one, two));
     @include meta.var-dump(
@@ -84,7 +84,7 @@
 
 /* ## MODULES - META - call-global-compiler-fn() ==================================== */
 
-@media call-global-compiler-fn {
+@include meta.at(demo-section, call-global-compiler-fn) {
     @include meta.var-dump(
         "meta.call-global-compiler-fn( 'non-existant-fn', 'demo-functions/non-existant-fn' )",
         meta.call-global-compiler-fn('non-existant-fn', 'demo-functions/non-existant-fn')
@@ -105,13 +105,13 @@ $_fn_demo_args_dump: meta.get-function('args-dump', $module: demo);
 // TODO - implement
 @mixin _demo-args-dump($args) {
     @at-root & {
-        @media args-dump {
+        @include meta.at(demo-section, args-dump) {
             @include demo.function('demo.args-dump', $_fn_demo_args_dump, $args);
         }
     }
 }
 
-@media args-dump {
+@include meta.at(demo-section, args-dump) {
     @include meta.var-dump('demo.args-dump( meta.arglist() )', demo.args-dump(meta.arglist()));
     @include meta.var-dump(
         'demo.args-dump( meta.arglist( one, two ) )',
@@ -132,7 +132,7 @@ $_fn_demo_args_dump: meta.get-function('args-dump', $module: demo);
 $_docblock_printer: meta.get-mixin('docblock-printer', $module: meta);
 
 @mixin _docblock-printer($args...) {
-    @media demo {
+    @include meta.at(demo-section, demo) {
         /* @include meta.docblock-printer#{demo.args-dump($args)} */
     }
     @include meta.apply($_docblock_printer, $args...);
@@ -162,7 +162,7 @@ $_fn_keywords_list: meta.get-function(keywords-list, $module: meta);
     @include demo.function('meta.keywords-list', $_fn_keywords_list, $args);
 }
 
-@media keywords-list {
+@include meta.at(demo-section, keywords-list) {
     @include _demo-keywords-list;
     @include _demo-keywords-list(one, two);
     @include _demo-keywords-list($param: one, $value: two);
@@ -182,7 +182,7 @@ $_fn_keywords_list_to_arglist: meta.get-function(keywords-list-to-arglist, $modu
     );
 }
 
-@media keywords-list-to-arglist {
+@include meta.at(demo-section, keywords-list-to-arglist) {
     @include _demo-keywords-list-to-arglist;
     @include _demo-keywords-list-to-arglist(one, two);
     @include _demo-keywords-list-to-arglist($param: one, $value: two);
@@ -303,7 +303,7 @@ $_map: (
 
 $_list: value is a list;
 
-@media var-dump {
+@include meta.at(demo-section, var-dump) {
     list {
         @include meta.var-dump('meta.var-dump( $_list )', meta.var-dump($_list));
     }
@@ -320,7 +320,7 @@ $_list: value is a list;
 
 /* ## MODULES - META - js-var-dump() ==================================== */
 
-@media js-var-dump {
+@include meta.at(demo-section, js-var-dump) {
     @include meta.var-dump(
         'meta.js-var-dump( hello, $name: "demo-var-1" )',
         meta.js-var-dump(hello, $name: 'demo-var-1', $level: 2, $useUniqueID: true)

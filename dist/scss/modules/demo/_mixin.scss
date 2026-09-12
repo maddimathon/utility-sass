@@ -63,7 +63,10 @@
                 $signatureAsRegion: $signatureAsRegion,
                 $signatureAtRoot: $signatureAtRoot
             ) {
-                /* #{args-dump.content-args-dump($content_args, $mixinName: $_contentRule_mixinName)} */
+                @include args-dump.content-args-dump(
+                    $content_args,
+                    $mixinName: $_contentRule_mixinName
+                );
                 @if $parentSelector_dump {
                     @include meta.var-dump('&', &);
                 }

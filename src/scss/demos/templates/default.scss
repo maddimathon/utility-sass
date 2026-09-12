@@ -29,13 +29,13 @@
 @use '../../lib' as *;
 
 @include template-content-abstracts using ($content_args...) {
-    /* #{demo.content-args-dump( $content_args, $mixinName: template-content-abstracts )} */
+    @include demo.content-args-dump($content_args, $mixinName: template-content-abstracts);
 }
 @include template-content-globals using ($content_args...) {
-    /* #{demo.content-args-dump( $content_args, $mixinName: template-content-globals )} */
+    @include demo.content-args-dump($content_args, $mixinName: template-content-globals);
 }
 @include template-content-layouts using ($content_args...) {
-    /* #{demo.content-args-dump( $content_args, $mixinName: template-content-layouts )} */
+    @include demo.content-args-dump($content_args, $mixinName: template-content-layouts);
 }
 
 @include extend-selectors;

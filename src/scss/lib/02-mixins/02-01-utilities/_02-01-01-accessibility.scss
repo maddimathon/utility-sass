@@ -81,3 +81,51 @@
         @content;
     }
 }
+
+///
+/// Iterates through each motion mode, passing a boolean representing if motion is permitted or not.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin each-motion(
+    $includeQuery: config.$mx_motion_includeQuery,
+    $includeSelectors: true,
+
+    $parentSelector: &,
+    $multipleContentBlocks: false,
+    $args...
+) {
+    $args: meta.keywords($args);
+
+    $parentSelectorExists: selector.exists($parentSelector);
+
+    @at-root {
+        @if $includeQuery {
+            @at-root {
+                #{if($parentSelectorExists, $parentSelector, config.$selector_root)} {
+                    @each $bool in (true, false) {
+                        @media (prefers-reduced-motion: if($bool, 'no-preference', 'reduce')) {
+                            @if $multipleContentBlocks {
+                                @content ($bool, query);
+                            } @else {
+                                @content ($bool);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @if $includeSelectors {
+            @each $bool in (true, false) {
+                #{selector-motion($bool: $bool, $parentSelector: $parentSelector, $args...)} {
+                    @if $multipleContentBlocks {
+                        @content ($bool, selector);
+                    } @else {
+                        @content ($bool);
+                    }
+                }
+            }
+        }
+    }
+}

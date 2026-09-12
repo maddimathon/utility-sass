@@ -18,6 +18,10 @@
 /* # MIXINS - ACCESSIBILITY
  * ======================================================================== */
 
+$_mixin_motion: meta.get-mixin('motion');
+$_mixin_no_motion: meta.get-mixin('no-motion');
+$_mixin_each_motion: meta.get-mixin('each-motion');
+
 @mixin _motion-tests {
     @include demo.selector-function(
         'selector-motion',
@@ -30,8 +34,16 @@
         meta.arglist(false)
     );
 
-    @include demo.mixin('motion', meta.get-mixin('motion'));
-    @include demo.mixin('no-motion', meta.get-mixin('no-motion'));
+    @include demo.mixin('motion', $_mixin_motion);
+
+    @include demo.mixin('no-motion', $_mixin_no_motion);
+
+    @include demo.mixin('each-motion', $_mixin_each_motion);
+    @include demo.mixin(
+        'each-motion',
+        $_mixin_each_motion,
+        meta.arglist($multipleContentBlocks: true)
+    );
 }
 
 /* #region - at root */

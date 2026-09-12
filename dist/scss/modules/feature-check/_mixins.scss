@@ -20,8 +20,20 @@
 /// @since 0.1.0-alpha — Moved from library to own module.
 ///
 @mixin js($args...) {
-    @at-root #{functions.get-selector( $key: null, $bool: true, $args... )} {
-        @content;
+    $selector: functions.get-selector(
+        $key: null,
+        $bool: true,
+        $args...,
+    );
+
+    @at-root #{$selector} {
+        @if config.$featureCheck_jsScreenMediaQuery {
+            @media screen {
+                @content;
+            }
+        } @else {
+            @content;
+        }
     }
 }
 
@@ -30,8 +42,25 @@
 /// @since 0.1.0-alpha — Moved from library to own module.
 ///
 @mixin no-js($args...) {
-    @at-root #{functions.get-selector( $key: null, $bool: false, $args... )} {
-        @content;
+    $parent: selector.parent-or-root();
+    $selector: functions.get-selector(
+        $key: null,
+        $bool: false,
+        $args...,
+    );
+
+    @at-root {
+        #{$selector} {
+            @content;
+        }
+
+        @if config.$featureCheck_jsScreenMediaQuery {
+            @media not screen {
+                #{$parent} {
+                    @content;
+                }
+            }
+        }
     }
 }
 
@@ -318,19 +347,24 @@
                 );
             }
         }
+
+        $_query_exists: meta.is-truthy($query);
+        $_selector_noJS_exists: meta.is-truthy($selector_noJS);
+        $_selector_exists: meta.is-truthy($selector);
+
         @include at-supports-if-any($query) {
-            @if meta.is-truthy($selector_noJS) {
+            @if $_selector_noJS_exists {
                 #{$selector_noJS} {
                     @if $debug {
                         /* [noJS] */
                     }
-                    @content (if(meta.is-truthy($query), at-supports--no-js, no-js));
+                    @content (if($_query_exists, at-supports--no-js, no-js));
                 }
             }
 
-            @if meta.is-truthy($selector) {
+            @if $_selector_exists {
                 #{$selector} {
-                    @content (if(meta.is-truthy($query), at-supports, where));
+                    @content (if($_query_exists, at-supports, where));
                 }
             }
         }

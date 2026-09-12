@@ -224,6 +224,14 @@ export class FeatureCheck {
     /* METHODS
      * ====================================================================== */
     /**
+     * Gets a copied array of all check slugs.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    getCheckSlugs() {
+        return [...this.allCheckSlugs];
+    }
+    /**
      * Runs all the checks and sets root element classes accordingly.
      *
      * @experimental

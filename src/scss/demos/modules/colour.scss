@@ -35,7 +35,7 @@
 
 /* ## Colour - Identifying ==================================== */
 
-@media (function: is-colour-like) {
+@include meta.at(demo-section, 'function: is-colour-like') {
     /* ### Expected to be true ------------------ */
 
     @include _demo-function('is-colour-like', red);
@@ -62,7 +62,7 @@
     @include _demo-function('is-colour-like', 'rgba( 046513 )');
 }
 
-@media (function: is-keyword) {
+@include meta.at(demo-section, 'function: is-keyword') {
     /* ### Expected to be true ------------------ */
 
     @include _demo-function('is-keyword', transparent);
@@ -84,7 +84,7 @@
     @include _demo-function('is-keyword', 'rgba( 046513 )');
 }
 
-@media (function: is-system-color) {
+@include meta.at(demo-section, 'function: is-system-color') {
     /* ### Expected to be true ------------------ */
 
     @include _demo-function('is-system-color', ActiveText);

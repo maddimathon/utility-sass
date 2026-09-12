@@ -332,8 +332,9 @@ $_selector_buttons: list.join(
 /// @param {bool} $bool  Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
 ///
 /// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0.draft _ Added optional $parentSelector selector.
 ///
-@function selector-motion($bool, $args...) {
+@function selector-motion($bool, $parentSelector: &, $args...) {
     $args: meta.keywords($args);
     $mode: if($bool, 'no-preference', 'reduce');
 
@@ -350,8 +351,8 @@ $_selector_buttons: list.join(
     }
 
     @return if(
-        selector.parent-exists(),
-        selector.add-root-selector($selector),
+        selector.exists($parentSelector),
+        selector.add-root-selector($selector, $parentSelector: $parentSelector),
         $selector
     );
 }

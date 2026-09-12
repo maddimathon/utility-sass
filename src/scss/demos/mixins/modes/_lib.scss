@@ -13,7 +13,7 @@
 @use '../../../lib' as *;
 
 @mixin demo-modes--config-dump {
-    @media config-vars {
+    @include meta.at(demo-section, config-vars) {
         // @include meta.var-dump('$featureCheck_supportsQueries', config.$featureCheck_supportsQueries);
 
         // @include meta.var-dump('$selector_null', config.$selector_null);
@@ -48,7 +48,7 @@
         );
     }
 
-    @media token-vars {
+    @include meta.at(demo-section, token-vars) {
         @include meta.var-dump('$brightnessMode_options', tokens.$brightnessMode_options);
         @include meta.var-dump('$brightnessMode_all', tokens.$brightnessMode_all);
         @include meta.var-dump('$brightnessMode_default', tokens.$brightnessMode_default);
