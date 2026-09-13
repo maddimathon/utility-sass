@@ -27,15 +27,16 @@
         @return #{$num}#{$unit};
     }
 
+    $num_deunited: if(math.unit($num) == '%', math.div($num, 1%), deunit.deunit($num));
+
     // returns
     @if meta.type-of($unit) == number {
-        //
         @return if(
             math.is-unitless($unit),
-            deunit.deunit($num),
-            deunit.deunit($num) * always-one.always-one($unit)
+            $num_deunited,
+            $num_deunited * always-one.always-one($unit)
         );
     }
 
-    @return #{deunit.deunit($num)}#{$unit};
+    @return #{$num_deunited}#{$unit};
 }

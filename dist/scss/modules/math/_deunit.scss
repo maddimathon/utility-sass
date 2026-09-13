@@ -27,5 +27,10 @@
         @return $num;
     }
 
+    // returns - divides by 100%
+    @if math.unit($num) == '%' {
+        @return math.div($num, 100%);
+    }
+
     @return math.div($num, ($num * 0 + 1));
 }

@@ -6,6 +6,7 @@
 @forward '../config';
 @forward '../header';
 
+@use '../../modules/demo';
 @use '../../modules/math';
 @use '../../modules/meta';
 
@@ -86,14 +87,19 @@ math.coerce-unit {
     @include meta.var-dump('math.coerce-unit( 0.2turn, 1rad )', math.coerce-unit(0.2turn, 1rad));
 }
 
+$_fn_deunit: meta.get-function(deunit, $module: 'math');
+@mixin _demo-deunit($arglist, $args...) {
+    @include demo.function('math.deunit', $_fn_deunit, $args: $arglist, $args...);
+}
+
 math.deunit {
-    @include meta.var-dump('math.deunit( 123rem )', math.deunit(123rem));
-    @include meta.var-dump('math.deunit( 1em )', math.deunit(1em));
-    @include meta.var-dump('math.deunit( 5.6851% )', math.deunit(5.6851%));
-    @include meta.var-dump('math.deunit( 813 )', math.deunit(813));
-    @include meta.var-dump('math.deunit( math.div( 16, 3 ) )', math.deunit(math.div(16, 3)));
-    @include meta.var-dump('math.deunit( math.div( 16, 3ch ) )', math.deunit(math.div(16, 3ch)));
-    @include meta.var-dump('math.deunit( 813 * 1rem )', math.deunit(813 * 1rem));
+    @include _demo-deunit(meta.arglist(123rem));
+    @include _demo-deunit(meta.arglist(1em));
+    @include _demo-deunit(meta.arglist(5.6851%));
+    @include _demo-deunit(meta.arglist(813));
+    @include _demo-deunit(meta.arglist(math.div(16, 3)), $argsDump: '( math.div( 16, 3 ) )');
+    @include _demo-deunit(meta.arglist(math.div(16, 3ch)), $argsDump: '( math.div( 16, 3ch ) )');
+    @include _demo-deunit(meta.arglist(813 * 1rem), $argsDump: '( 813 * 1rem )');
 }
 
 math.num-val {
