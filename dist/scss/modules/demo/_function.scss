@@ -24,7 +24,8 @@
     $getFunction,
     $args: meta.arglist(),
     $argsDump: null,
-    $wrapOutput: config.$demo_wrapOutput_function
+    $wrapOutput: config.$demo_wrapOutput_function,
+    $wrapOutput_withName: config.$demo_wrapOutput_function_withName
 ) {
     $getFunction: config.config-valid-function(
         $getFunction,
@@ -40,7 +41,10 @@
 
     @if $getFunction {
         @if $wrapOutput {
-            @include meta.at(demo) {
+            @include meta.at(
+                demo,
+                if($wrapOutput_withName, '( function: #{$functionName} )', '')
+            ) {
                 @include meta.var-dump(
                     $name: '#{$functionName}#{$argsDump}',
                     $var: meta.call($getFunction, $args...)

@@ -1,0 +1,29 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '_pre-config';
+@use '_pre-config' as pre;
+
+@use 'sass:map';
+
+@forward '../../config' with (
+    $demo_includeNameWithContent: true,
+    //
+    $demo_displayOutput_callSignature: map.get(pre.$demo_config, displayOutput_callSignature),
+    $demo_parentSelector_dump: map.get(pre.$demo_config, parentSelector_dump),
+    $demo_parentSelector_dump_function: map.get(pre.$demo_config, parentSelector_dump_function),
+    $demo_separateSignature: map.get(pre.$demo_config, separateSignature),
+    $demo_signatureAsRegion: map.get(pre.$demo_config, signatureAsRegion),
+    $demo_signatureAtRoot: map.get(pre.$demo_config, signatureAtRoot),
+    $demo_wrapOutput: map.get(pre.$demo_config, wrapOutput),
+    $demo_wrapCallSignature_mixin: map.get(pre.$demo_config, wrapCallSignature_mixin),
+    $demo_wrapOutput_function: map.get(pre.$demo_config, wrapOutput_function),
+    $demo_wrapOutput_function_withName: map.get(pre.$demo_config, wrapOutput_function_withName),
+    //
+    $template_description:
+        'This stylesheet demonstrates the output of functions and mixins included in this library’s demo module.'
+        !default,
+    $template_name: 'Demo Module' !default
+);

@@ -3,6 +3,8 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
+@use 'sass:map';
+
 @use '../meta';
 @use '../string';
 
@@ -25,7 +27,9 @@ $_emptyReturn: string.unquote('()');
     $child_withType: $withType,
     $child_typeJoiner: $typeJoiner,
     $keys_alwaysQuote: false,
-    $keys_neverQuote: true
+    $keys_neverQuote: true,
+    //
+    $varType_overrides: ()
 ) {
     // returns
     @if not meta.is-truthy($args) {
@@ -43,6 +47,15 @@ $_emptyReturn: string.unquote('()');
         }
     }
 
+    @if $withType == arglist {
+        $varType_overrides: map.merge(
+            (
+                arglist: 'meta.arglist',
+            ),
+            $varType_overrides
+        );
+    }
+
     @return meta.var-dump(
         $args,
         $alwaysQuote: true,
@@ -55,18 +68,31 @@ $_emptyReturn: string.unquote('()');
         $child_withType: $child_withType,
         $child_typeJoiner: $child_typeJoiner,
         $keys_alwaysQuote: $keys_alwaysQuote,
-        $keys_neverQuote: $keys_neverQuote
+        $keys_neverQuote: $keys_neverQuote,
+        //
+        $varType_overrides: $varType_overrides
     );
 }
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function content-args-dump($args, $mixinName: null) {
-    @return string.concat(
-        if(meta.is-truthy($mixinName), '[#{$mixinName}] @content', '@content'),
-        args-dump($args, $emptyReturn: string.unquote(''), $withType: true),
-        ';'
+@function content-args-dump($args, $mixinName: null, $varType_overrides: ()) {
+    @return string.unquote(
+        string.concat(
+            if(
+                meta.is-truthy($mixinName),
+                '[#{$mixinName}] @content',
+                '@content'
+            ),
+            args-dump(
+                $args,
+                $emptyReturn: string.unquote(''),
+                $withType: true,
+                $varType_overrides: $varType_overrides
+            ),
+            ';'
+        )
     );
 }
 
@@ -80,17 +106,28 @@ $_emptyReturn: string.unquote('()');
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function mixin-signature-dump($mixinName, $args, $getMixin: null) {
-    @return string.concat(
-        '@include #{$mixinName}',
-        args-dump($args, $emptyReturn: string.unquote('')),
-        if($getMixin, if(meta.accepts-content($getMixin), ' {}', ';'), '')
+@function mixin-signature-dump(
+    $mixinName,
+    $args,
+    $getMixin: null,
+    $varType_overrides: ()
+) {
+    @return string.unquote(
+        string.concat(
+            '@include #{$mixinName}',
+            args-dump(
+                $args,
+                $emptyReturn: string.unquote(''),
+                $varType_overrides: $varType_overrides
+            ),
+            if($getMixin, if(meta.accepts-content($getMixin), ' {}', ';'), '')
+        )
     );
 }
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin mixin-signature-dump($args, $params...) {
-    /* #{mixin-signature-dump( $args, $params... )} */
+@mixin mixin-signature-dump($mixinName, $args, $params...) {
+    /* #{mixin-signature-dump( $mixinName, $args, $params... )} */
 }

@@ -39,6 +39,29 @@ $_varType_abbreviations: (
     @return string.unquote(if($abbr != null, $abbr, $type));
 }
 
+@function _var-dump--return(
+    $inspection,
+    $shortType,
+    $type,
+    $typeJoiner,
+    $withType,
+    $varType_overrides
+) {
+    $_typeOverride: map.get($varType_overrides, $type);
+
+    @if $withType == true or (list.index($withType, $type) != null) {
+        $_type: if(
+            $_typeOverride == null,
+            '<#{if($shortType, var-type-abbreviator($type), $type)}>#{$typeJoiner}',
+            $_typeOverride
+        );
+
+        $inspection: '#{$_type}#{$inspection}';
+    }
+
+    @return string.unquote($inspection);
+}
+
 ///
 /// Modelled after php var_dump() function -- converts given var to an
 /// easily-read string with var types in <>.
@@ -76,7 +99,9 @@ $_varType_abbreviations: (
     $child_shortType: null,
     $child_showParens: null,
     $child_typeJoiner: null,
-    $child_withType: null
+    $child_withType: null,
+    //
+    $varType_overrides: ()
 ) {
     $type: meta.type-of($var);
     $inspection: meta.inspect($var);
@@ -88,14 +113,19 @@ $_varType_abbreviations: (
                 @if $type == meta.type-of(&) {
                     // returns
                     @if #{$var} == #{&} {
-                        $inspection: string.unquote('&');
-
-                        @return if(
-                            $withType == true,
-                            string.unquote(
-                                '<#{if($shortType, var-type-abbreviator($type), $type)}>#{$typeJoiner}#{meta.inspect( $inspection )}'
+                        @return _var-dump--return(
+                            $inspection: string.unquote('&'),
+                            $shortType: $shortType,
+                            $type: $type,
+                            $typeJoiner: $typeJoiner,
+                            $withType: (
+                                $withType == true,
+                            )
+                            or
+                            (
+                                list.index($withType, selector) != null,
                             ),
-                            string.unquote('#{meta.inspect( $inspection )}')
+                            $varType_overrides: $varType_overrides
                         );
                     }
                 }
@@ -135,7 +165,11 @@ $_varType_abbreviations: (
 
         // listed (unnamed) args
         @each $arg in $var {
-            $inspection: list.append($inspection, var-dump($arg, $childArgs...), $separator: comma);
+            $inspection: list.append(
+                $inspection,
+                var-dump($arg, $varType_overrides: $varType_overrides, $childArgs...),
+                $separator: comma
+            );
         }
 
         $keyArgs: map.set($keyArgs, neverQuote, true);
@@ -147,7 +181,10 @@ $_varType_abbreviations: (
 
                 $inspection: list.append(
                     $inspection,
-                    (string.unquote('$#{$key}:') var-dump($value, $childArgs...)),
+                    (
+                        string.unquote('$#{$key}:')
+                            var-dump($value, $varType_overrides: $varType_overrides, $childArgs...)
+                    ),
                     $separator: comma
                 );
             }
@@ -173,7 +210,7 @@ $_varType_abbreviations: (
         @each $item in meta.calc-args($var) {
             $inspection: list.append(
                 $inspection,
-                var-dump($item, $childArgs...),
+                var-dump($item, $varType_overrides: $varType_overrides, $childArgs...),
                 $separator: comma
             );
         }
@@ -193,7 +230,7 @@ $_varType_abbreviations: (
         @each $item in $var {
             $inspection: list.append(
                 $inspection,
-                var-dump($item, $childArgs...),
+                var-dump($item, $varType_overrides: $varType_overrides, $childArgs...),
                 $separator: $separator
             );
         }
@@ -219,7 +256,10 @@ $_varType_abbreviations: (
 
             $inspection: list.append(
                 $inspection,
-                (string.unquote('#{$key}:') var-dump($value, $childArgs...)),
+                (
+                    string.unquote('#{$key}:')
+                        var-dump($value, $varType_overrides: $varType_overrides, $childArgs...)
+                ),
                 $separator: comma
             );
         }
@@ -244,12 +284,13 @@ $_varType_abbreviations: (
         }
     }
 
-    @return if(
-        $withType,
-        string.unquote(
-            '<#{if($shortType, var-type-abbreviator($type), $type)}>#{$typeJoiner}#{meta.inspect( $inspection )}'
-        ),
-        string.unquote('#{meta.inspect( $inspection )}')
+    @return _var-dump--return(
+        $inspection: meta.inspect($inspection),
+        $shortType: $shortType,
+        $type: $type,
+        $typeJoiner: $typeJoiner,
+        $withType: $withType,
+        $varType_overrides: $varType_overrides
     );
 }
 

@@ -74,10 +74,30 @@ $demo_wrapOutput: config-valid-bool($demo_wrapOutput, 'demo_wrapOutput', $defaul
 ///
 /// @since ___PKG_VERSION___
 ///
+$demo_wrapCallSignature_mixin: null !default;
+$demo_wrapCallSignature_mixin: config-valid-bool(
+    $demo_wrapCallSignature_mixin,
+    'demo_wrapCallSignature_mixin',
+    $default: true
+);
+
+///
+/// @since ___PKG_VERSION___
+///
 $demo_wrapOutput_function: null !default;
 $demo_wrapOutput_function: config-valid-bool(
     $demo_wrapOutput_function,
     'demo_wrapOutput_function',
+    $default: false
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$demo_wrapOutput_function_withName: null !default;
+$demo_wrapOutput_function_withName: config-valid-bool(
+    $demo_wrapOutput_function_withName,
+    'demo_wrapOutput_function_withName',
     $default: false
 );
 

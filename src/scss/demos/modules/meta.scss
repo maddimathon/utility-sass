@@ -98,35 +98,6 @@
     );
 }
 
-/* ## MODULES - META - demo.args-dump() ==================================== */
-
-$_fn_demo_args_dump: meta.get-function('args-dump', $module: demo);
-
-// TODO - implement
-@mixin _demo-args-dump($args) {
-    @at-root & {
-        @include meta.at(demo-section, args-dump) {
-            @include demo.function('demo.args-dump', $_fn_demo_args_dump, $args);
-        }
-    }
-}
-
-@include meta.at(demo-section, args-dump) {
-    @include meta.var-dump('demo.args-dump( meta.arglist() )', demo.args-dump(meta.arglist()));
-    @include meta.var-dump(
-        'demo.args-dump( meta.arglist( one, two ) )',
-        demo.args-dump(meta.arglist(one, two))
-    );
-    @include meta.var-dump(
-        'demo.args-dump( meta.arglist( $param: one, $value: two ) )',
-        demo.args-dump(meta.arglist($param: one, $value: two))
-    );
-    @include meta.var-dump(
-        'demo.args-dump( meta.arglist( something, $param: one, $value: two ) )',
-        demo.args-dump(meta.arglist(something, $param: one, $value: two))
-    );
-}
-
 /* ## MODULES - META - docblock-printer() ==================================== */
 
 $_docblock_printer: meta.get-mixin('docblock-printer', $module: meta);
@@ -223,63 +194,6 @@ meta.is-truthy {
             meta.is-truthy($value)
         );
     }
-}
-
-/* ## MODULES - META - demo.mixin() ==================================== */
-
-$_demo_mixin: meta.get-mixin(mixin, $module: demo);
-
-@mixin _demo-mixin(
-    $mixinName,
-    $getMixin,
-    $args: meta.arglist(),
-    $includeNameWithContent: true,
-    $arglist...
-) {
-    @at-root & {
-        @include demo.mixin(
-            'demo.mixin',
-            $_demo_mixin,
-            meta.arglist-append(
-                if(
-                    meta.is-truthy($args),
-                    meta.arglist-prepend($arglist, $mixinName, $getMixin, $args),
-                    meta.arglist-prepend($arglist, $mixinName, $getMixin)
-                ),
-                $includeNameWithContent: $includeNameWithContent
-            ),
-            $includeNameWithContent: true,
-            $wrapOutput: true
-        );
-    }
-}
-
-.parent {
-    @include _demo-mixin(snippet-focus-ring, meta.get-mixin(snippet-focus-ring, $module: lib));
-    @include _demo-mixin(
-        snippet-focus-ring,
-        meta.get-mixin(snippet-focus-ring, $module: lib),
-        $signatureAsRegion: true
-    );
-    @include _demo-mixin(
-        snippet-focus-ring,
-        meta.get-mixin(snippet-focus-ring, $module: lib),
-        $wrapOutput: true
-    );
-
-    @include _demo-mixin(
-        prop-display,
-        meta.get-mixin(prop-display, $module: lib),
-        meta.arglist(block)
-    );
-
-    @include _demo-mixin(focus-visible, meta.get-mixin(focus-visible, $module: lib));
-
-    @include _demo-mixin(
-        focus-visible,
-        meta.get-mixin(focus-visible, $module: lib),
-        meta.arglist($multipleContentBlocks: true)
-    );
 }
 
 /* ## MODULES - META - var-dump() ==================================== */

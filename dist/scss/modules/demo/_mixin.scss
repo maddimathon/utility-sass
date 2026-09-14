@@ -117,12 +117,12 @@
     }
 }
 
-@mixin _mixin--total-wrapper($mixinName, $wrapOutput) {
+@mixin _mixin--total-wrapper($mixinName, $wrapCallSignature) {
     @if selector.parent-exists() {
         $sel: &;
         @at-root {
             #{$sel} {
-                @if $wrapOutput {
+                @if $wrapCallSignature {
                     @include meta.at(demo, '( mixin: #{$mixinName} )') {
                         @content;
                     }
@@ -133,7 +133,7 @@
         }
     } @else {
         @at-root {
-            @if $wrapOutput {
+            @if $wrapCallSignature {
                 @include meta.at(demo, '( mixin: #{$mixinName} )') {
                     @content;
                 }
@@ -160,7 +160,8 @@
     $separateSignature: config.$demo_separateSignature,
     $signatureAsRegion: config.$demo_signatureAsRegion,
     $signatureAtRoot: config.$demo_signatureAtRoot,
-    $wrapOutput: config.$demo_wrapOutput
+    $wrapOutput: config.$demo_wrapOutput,
+    $wrapCallSignature: $wrapOutput and config.$demo_wrapCallSignature_mixin
 ) {
     $getMixin: config.config-valid-mixin(
         $getMixin,
@@ -184,7 +185,7 @@
 
         @include _mixin--total-wrapper(
             $mixinName: $mixinName,
-            $wrapOutput: $wrapOutput
+            $wrapCallSignature: $wrapCallSignature
         ) {
             @if $wrapOutput and not $signatureAsRegion {
                 $_demoName: #{$mixinName};

@@ -1,0 +1,286 @@
+@charset "UTF-8";
+/*!
+ * Utility Sass - Demo - Demo Module
+ * 
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library’s demo module, with the default configuration.
+ * 
+ * https://maddimathon.github.io/utility-sass
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
+ */
+@demo config {
+    /*
+        a selection of relevant config vars with their values in this stylesheet:
+
+        config.$demo_includeNameWithContent = </> true
+        config.$demo_parentSelector_dump [default] = </> false
+        config.$demo_parentSelector_dump_function [default] = </> true
+        config.$demo_separateSignature [default] = </> true
+        config.$demo_signatureAsRegion [default] = </> false
+        config.$demo_wrapOutput [default] = </> true
+        config.$demo_wrapOutput_function [default] = </> false
+        config.$demo_wrapOutput_function_withName [default] = </> false
+     */
+}
+/* # Arg Dumps
+ * ======================================================================== */
+@demo-section args-dump {
+    /* 
+        demo.args-dump( meta.arglist() ) = <S> ()
+     */
+    /* 
+        demo.args-dump( meta.arglist( one, two ) ) = <S> ( one, two )
+     */
+    /* 
+        demo.args-dump( meta.arglist( $param: one, $value: two ) ) = <S> ( $param: one, $value: two )
+     */
+    /* 
+        demo.args-dump( meta.arglist( something, $param: one, $value: two ) ) = <S> ( something, $param: one, $value: two )
+     */
+}
+@demo-section content-args-dump {
+    @demo {
+        /* 
+            demo.content-args-dump( meta.arglist() ) = <S> @content;
+         */
+    }
+    @demo ( mixin: demo.content-args-dump ) {
+        /* @include demo.content-args-dump( meta.arglist() ); */
+        @demo output {
+            /* @content; */
+        }
+    }
+    @demo {
+        /* 
+            demo.content-args-dump( meta.arglist( one, two ) ) = <S> @content( <S> one, <S> two );
+         */
+    }
+    @demo ( mixin: demo.content-args-dump ) {
+        /* @include demo.content-args-dump( meta.arglist( one, two ) ); */
+        @demo output {
+            /* @content( <S> one, <S> two ); */
+        }
+    }
+    @demo {
+        /* 
+            demo.content-args-dump( meta.arglist( $param: one, $value: two ) ) = <S> @content( $param: <S> one, $value: <S> two );
+         */
+    }
+    @demo ( mixin: demo.content-args-dump ) {
+        /* @include demo.content-args-dump( meta.arglist( $param: one, $value: two ) ); */
+        @demo output {
+            /* @content( $param: <S> one, $value: <S> two ); */
+        }
+    }
+    @demo {
+        /* 
+            demo.content-args-dump( meta.arglist( something, $param: one, $value: two ) ) = <S> @content( <S> something, $param: <S> one, $value: <S> two );
+         */
+    }
+    @demo ( mixin: demo.content-args-dump ) {
+        /* @include demo.content-args-dump( meta.arglist( something, $param: one, $value: two ) ); */
+        @demo output {
+            /* @content( <S> something, $param: <S> one, $value: <S> two ); */
+        }
+    }
+}
+@demo-section mixin-signature-dump {
+    @demo {
+        /* 
+            demo.mixin-signature-dump( fake-mixin, meta.arglist(), $getMixin: get-mixin("mixin-signature-dump") ) = <S> @include fake-mixin;
+         */
+    }
+    @demo ( mixin: demo.mixin-signature-dump ) {
+        /* @include demo.mixin-signature-dump( fake-mixin, meta.arglist(), $getMixin: get-mixin("mixin-signature-dump") ); */
+        @demo output {
+            /* @include fake-mixin; */
+        }
+    }
+    @demo {
+        /* 
+            demo.mixin-signature-dump( fake-mixin, meta.arglist( one, two ), $getMixin: get-mixin("mixin-signature-dump") ) = <S> @include fake-mixin( one, two );
+         */
+    }
+    @demo ( mixin: demo.mixin-signature-dump ) {
+        /* @include demo.mixin-signature-dump( fake-mixin, meta.arglist( one, two ), $getMixin: get-mixin("mixin-signature-dump") ); */
+        @demo output {
+            /* @include fake-mixin( one, two ); */
+        }
+    }
+    @demo {
+        /* 
+            demo.mixin-signature-dump( fake-mixin, meta.arglist( $param: one, $value: two ), $getMixin: get-mixin("mixin-signature-dump") ) = <S> @include fake-mixin( $param: one, $value: two );
+         */
+    }
+    @demo ( mixin: demo.mixin-signature-dump ) {
+        /* @include demo.mixin-signature-dump( fake-mixin, meta.arglist( $param: one, $value: two ), $getMixin: get-mixin("mixin-signature-dump") ); */
+        @demo output {
+            /* @include fake-mixin( $param: one, $value: two ); */
+        }
+    }
+    @demo {
+        /* 
+            demo.mixin-signature-dump( fake-mixin, meta.arglist( something, $param: one, $value: two ), $getMixin: get-mixin("mixin-signature-dump") ) = <S> @include fake-mixin( something, $param: one, $value: two );
+         */
+    }
+    @demo ( mixin: demo.mixin-signature-dump ) {
+        /* @include demo.mixin-signature-dump( fake-mixin, meta.arglist( something, $param: one, $value: two ), $getMixin: get-mixin("mixin-signature-dump") ); */
+        @demo output {
+            /* @include fake-mixin( something, $param: one, $value: two ); */
+        }
+    }
+}
+/* # Function Demos
+ * ======================================================================== */
+/* ## Function Demos - Selectors ==================================== */
+/* # Mixin Demos
+ * ======================================================================== */
+@demo ( mixin: demo.mixin ) {
+    .parent {
+        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $includeNameWithContent: true ) {} */
+    }
+    @demo output {
+        @demo ( mixin: snippet-focus-ring ) {
+            .parent {
+                /* @include snippet-focus-ring; */
+            }
+            @demo output {
+                .parent {
+                    outline-width: var(--focus-ring-outline-width, 0.125em);
+                    outline-style: dashed;
+                    outline-color: var(
+                        --focus-ring-outline-color,
+                        var(--sys-clr-link, LinkText)
+                    );
+                    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+                    /* [demo.mixin] @content; */
+                }
+            }
+        }
+    }
+}
+
+@demo ( mixin: demo.mixin ) {
+    .parent {
+        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $signatureAsRegion: true, $includeNameWithContent: true ) {} */
+    }
+    @demo output {
+        @demo ( mixin: snippet-focus-ring ) {
+            .parent {
+                /* #region @include snippet-focus-ring; */
+                outline-width: var(--focus-ring-outline-width, 0.125em);
+                outline-style: dashed;
+                outline-color: var(
+                    --focus-ring-outline-color,
+                    var(--sys-clr-link, LinkText)
+                );
+                outline-offset: var(--focus-ring-outline-offset, 0.125em);
+                /* [demo.mixin] @content; */
+                /* #endregion @include snippet-focus-ring; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: demo.mixin ) {
+    .parent {
+        /* @include demo.mixin( snippet-focus-ring, get-mixin("snippet-focus-ring"), $wrapOutput: true, $includeNameWithContent: true ) {} */
+    }
+    @demo output {
+        @demo ( mixin: snippet-focus-ring ) {
+            .parent {
+                /* @include snippet-focus-ring; */
+            }
+            @demo output {
+                .parent {
+                    outline-width: var(--focus-ring-outline-width, 0.125em);
+                    outline-style: dashed;
+                    outline-color: var(
+                        --focus-ring-outline-color,
+                        var(--sys-clr-link, LinkText)
+                    );
+                    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+                    /* [demo.mixin] @content; */
+                }
+            }
+        }
+    }
+}
+
+@demo ( mixin: demo.mixin ) {
+    .parent {
+        /* @include demo.mixin( prop-display, get-mixin("prop-display"), meta.arglist( block ), $includeNameWithContent: true ) {} */
+    }
+    @demo output {
+        @demo ( mixin: prop-display ) {
+            .parent {
+                /* @include prop-display( block ); */
+            }
+            @demo output {
+                .parent {
+                    --display: block;
+                    display: var(--display, block);
+                    /* [demo.mixin] @content; */
+                }
+            }
+        }
+    }
+}
+
+@demo ( mixin: demo.mixin ) {
+    .parent {
+        /* @include demo.mixin( focus-visible, get-mixin("focus-visible"), $includeNameWithContent: true ) {} */
+    }
+    @demo output {
+        @demo ( mixin: focus-visible ) {
+            .parent {
+                /* @include focus-visible {} */
+            }
+            @demo output {
+                .no-js .parent:focus,
+                .js__no-whereSelector .parent:focus {
+                    /* [focus-visible] @content; */
+                    /* [demo.mixin] @content; */
+                }
+                :where(.js__no-focusVisible) .parent:focus {
+                    /* [focus-visible] @content; */
+                    /* [demo.mixin] @content; */
+                }
+                .parent:focus-visible {
+                    /* [focus-visible] @content; */
+                    /* [demo.mixin] @content; */
+                }
+            }
+        }
+    }
+}
+
+@demo ( mixin: demo.mixin ) {
+    .parent {
+        /* @include demo.mixin( focus-visible, get-mixin("focus-visible"), meta.arglist( $multipleContentBlocks: true ), $includeNameWithContent: true ) {} */
+    }
+    @demo output {
+        @demo ( mixin: focus-visible ) {
+            .parent {
+                /* @include focus-visible( $multipleContentBlocks: true ) {} */
+            }
+            @demo output {
+                .no-js .parent:focus,
+                .js__no-whereSelector .parent:focus {
+                    /* [focus-visible] @content( <S> focus-visible--fallback--selector-pseudo--no-js ); */
+                    /* [demo.mixin] @content; */
+                }
+                :where(.js__no-focusVisible) .parent:focus {
+                    /* [focus-visible] @content( <S> focus-visible--fallback--selector-pseudo--where ); */
+                    /* [demo.mixin] @content; */
+                }
+                .parent:focus-visible {
+                    /* [focus-visible] @content( <S> focus-visible--selector-pseudo ); */
+                    /* [demo.mixin] @content; */
+                }
+            }
+        }
+    }
+}

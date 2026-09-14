@@ -1,0 +1,198 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.33
+///
+
+@forward 'config' with (
+    $template_description:
+        'This stylesheet demonstrates the output of functions and mixins included in this library’s demo module, with the default configuration.'
+        !default
+);
+@forward '../../header';
+
+@use '../../../modules/demo';
+@use '../../../modules/list';
+@use '../../../modules/map';
+@use '../../../modules/meta';
+@use '../../../modules/string';
+
+@use 'config';
+@use '../../../lib' as *;
+
+@include meta.at(demo, config) {
+    $_configVarDump: (
+        'a selection of relevant config vars with their values in this stylesheet:',
+        ''
+    );
+
+    $demo_config: map.merge(
+        (
+            includeNameWithContent: config.$demo_includeNameWithContent,
+        ),
+        config.$demo_config
+    );
+
+    @each $name,
+        $value
+            in map.ksort(
+                map.merge(
+                    (
+                        // displayOutput_callSignature: config.$demo_displayOutput_callSignature,
+                        parentSelector_dump: config.$demo_parentSelector_dump,
+                        parentSelector_dump_function: config.$demo_parentSelector_dump_function,
+                        separateSignature: config.$demo_separateSignature,
+                        signatureAsRegion: config.$demo_signatureAsRegion,
+                        // signatureAtRoot: config.$demo_signatureAtRoot,
+                        // wrapCallSignature_mixin: config.$demo_wrapCallSignature_mixin,
+                        wrapOutput: config.$demo_wrapOutput,
+                        wrapOutput_function: config.$demo_wrapOutput_function,
+                        wrapOutput_function_withName: config.$demo_wrapOutput_function_withName
+                    ),
+                    $demo_config
+                )
+            )
+    {
+        $is_overriden: map.get($demo_config, $name) != null;
+
+        $_configVarDump: list.append(
+            $_configVarDump,
+            string.concat(
+                'config.$demo_',
+                $name,
+                if($is_overriden, '', ' [default]'),
+                ' = ',
+                meta.var-dump($value)
+            ),
+            $separator: comma
+        );
+    }
+
+    @include meta.docblock-printer($_configVarDump, $asComment: true);
+}
+
+/* # Arg Dumps
+ * ======================================================================== */
+
+$_fn_demo_args_dump: meta.get-function('args-dump', $module: demo);
+
+@mixin _demo--args-dump($args...) {
+    @at-root {
+        @include demo.function('demo.args-dump', $_fn_demo_args_dump, $args);
+    }
+}
+
+@include meta.at(demo-section, args-dump) {
+    @include _demo--args-dump(meta.arglist());
+    @include _demo--args-dump(meta.arglist(one, two));
+    @include _demo--args-dump(meta.arglist($param: one, $value: two));
+    @include _demo--args-dump(meta.arglist(something, $param: one, $value: two));
+}
+
+$_fn_demo_content_args_dump: meta.get-function('content-args-dump', $module: demo);
+$_mx_demo_content_args_dump: meta.get-mixin('content-args-dump', $module: demo);
+
+@mixin _demo--content-args-dump($args...) {
+    @at-root {
+        @include demo.function(
+            'demo.content-args-dump',
+            $_fn_demo_content_args_dump,
+            $args,
+            $wrapOutput: true
+        );
+        @include demo.mixin('demo.content-args-dump', $_mx_demo_content_args_dump, $args);
+    }
+}
+
+@include meta.at(demo-section, content-args-dump) {
+    @include _demo--content-args-dump(meta.arglist());
+    @include _demo--content-args-dump(meta.arglist(one, two));
+    @include _demo--content-args-dump(meta.arglist($param: one, $value: two));
+    @include _demo--content-args-dump(meta.arglist(something, $param: one, $value: two));
+}
+
+$_fn_demo_content_mixin_signature_dump: meta.get-function('mixin-signature-dump', $module: demo);
+$_mx_demo_content_mixin_signature_dump: meta.get-mixin('mixin-signature-dump', $module: demo);
+
+@mixin _demo--mixin-signature-dump($args...) {
+    $args: meta.arglist(fake-mixin, $getMixin: $_mx_demo_content_mixin_signature_dump, $args...);
+
+    @at-root {
+        @include demo.function(
+            'demo.mixin-signature-dump',
+            $_fn_demo_content_mixin_signature_dump,
+            $args,
+            $wrapOutput: true
+        );
+        @include demo.mixin(
+            'demo.mixin-signature-dump',
+            $_mx_demo_content_mixin_signature_dump,
+            $args
+        );
+    }
+}
+
+@include meta.at(demo-section, mixin-signature-dump) {
+    @include _demo--mixin-signature-dump(meta.arglist());
+    @include _demo--mixin-signature-dump(meta.arglist(one, two));
+    @include _demo--mixin-signature-dump(meta.arglist($param: one, $value: two));
+    @include _demo--mixin-signature-dump(meta.arglist(something, $param: one, $value: two));
+}
+
+/* # Function Demos
+ * ======================================================================== */
+
+// TODO - add demo
+
+/* ## Function Demos - Selectors ==================================== */
+
+// TODO - add demo
+
+/* # Mixin Demos
+ * ======================================================================== */
+
+$_demo_mixin: meta.get-mixin(mixin, $module: demo);
+
+@mixin _demo-mixin(
+    $mixinName,
+    $getMixin,
+    $args: meta.arglist(),
+    $includeNameWithContent: true,
+    $arglist...
+) {
+    @at-root & {
+        @include demo.mixin(
+            'demo.mixin',
+            $_demo_mixin,
+            meta.arglist-append(
+                if(
+                    meta.is-truthy($args),
+                    meta.arglist-prepend($arglist, $mixinName, $getMixin, $args),
+                    meta.arglist-prepend($arglist, $mixinName, $getMixin)
+                ),
+                $includeNameWithContent: $includeNameWithContent
+            ),
+            $includeNameWithContent: true,
+            $wrapOutput: true
+        );
+    }
+}
+
+.parent {
+    @include _demo-mixin(snippet-focus-ring, meta.get-mixin(snippet-focus-ring));
+    @include _demo-mixin(
+        snippet-focus-ring,
+        meta.get-mixin(snippet-focus-ring),
+        $signatureAsRegion: true
+    );
+    @include _demo-mixin(snippet-focus-ring, meta.get-mixin(snippet-focus-ring), $wrapOutput: true);
+
+    @include _demo-mixin(prop-display, meta.get-mixin(prop-display), meta.arglist(block));
+
+    @include _demo-mixin(focus-visible, meta.get-mixin(focus-visible));
+
+    @include _demo-mixin(
+        focus-visible,
+        meta.get-mixin(focus-visible),
+        meta.arglist($multipleContentBlocks: true)
+    );
+}

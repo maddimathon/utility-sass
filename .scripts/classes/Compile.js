@@ -245,12 +245,12 @@ export class Compile extends CompileStage {
             this.params.watchedFilename
             && this.params.watchedFilename.match( /(^|\/)src\/scss\/template/gi )
         ) {
-            await this.runCustomDirCopySubStage( 'scss/template' );
+            await this.customCopySubstage( 'scss/template' );
             await this.templates();
             return;
         }
 
-        await this.runCustomDirCopySubStage( 'scss' );
+        await this.customCopySubstage( 'scss' );
 
 
         this.console.verbose( 'tidying up copied files...', 2 );
@@ -266,16 +266,12 @@ export class Compile extends CompileStage {
      */
     async templates() {
 
-        await this.runCustomScssDirSubStage(
+        await this.customScssSubstage.dir(
             'template',
             'dist/css',
             {
-                // ignoreGlobs: [
-                //     '**/_*',
-                //     '**/demos/**',
-                // ],
-                maxConcurrent: 5,
-                postCSS: true,
+                maxConcurrent: 10,
+                postCSS: false,
                 srcDir: 'src/scss',
             },
             1,
