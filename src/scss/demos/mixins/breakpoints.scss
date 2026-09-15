@@ -3,8 +3,7 @@
 /// @since 0.1.0-pre.0
 ///
 
-@forward '../config';
-@forward '../../tokens' with (
+@forward '../config' with (
     $breakpoints_attributeOverrides: (
         content,
         indent,
@@ -12,11 +11,14 @@
         page,
         sidebar,
         tablet,
-    )
+    ),
+    $demo_includeNameWithContent: true !default
 );
+@forward '../../tokens';
 @forward '../header';
 
 @use '../../modules/demo';
+@use '../../modules/feature-check';
 @use '../../modules/meta';
 
 @use '../../lib' as *;
@@ -49,35 +51,53 @@ $_mixin_minmax_width: meta.get-mixin(minmax-width);
         $arglist,
         // $separateSignature: $separateSignature,
         $args...
-    );
+    ) {
+        @content;
+    }
 }
 
 @mixin _demo-min-height($args...) {
-    @include _demo-mixin('min-height', $_mixin_min_height, $args);
+    @include _demo-mixin('min-height', $_mixin_min_height, $args) {
+        @content;
+    }
 }
 @mixin _demo-max-height($args...) {
-    @include _demo-mixin('max-height', $_mixin_max_height, $args);
+    @include _demo-mixin('max-height', $_mixin_max_height, $args) {
+        @content;
+    }
 }
 
 @mixin _demo-min-width($args...) {
-    @include _demo-mixin('min-width', $_mixin_min_width, $args);
+    @include _demo-mixin('min-width', $_mixin_min_width, $args) {
+        @content;
+    }
 }
 @mixin _demo-max-width($args...) {
-    @include _demo-mixin('max-width', $_mixin_max_width, $args);
+    @include _demo-mixin('max-width', $_mixin_max_width, $args) {
+        @content;
+    }
 }
 
 @mixin _demo-min-viewport-both($args...) {
-    @include _demo-mixin('min-viewport-both', $_mixin_min_all, $args);
+    @include _demo-mixin('min-viewport-both', $_mixin_min_all, $args) {
+        @content;
+    }
 }
 @mixin _demo-max-viewport-both($args...) {
-    @include _demo-mixin('max-viewport-both', $_mixin_max_all, $args);
+    @include _demo-mixin('max-viewport-both', $_mixin_max_all, $args) {
+        @content;
+    }
 }
 
 @mixin _demo-minmax-height($args...) {
-    @include _demo-mixin('minmax-height', $_mixin_minmax_height, $args);
+    @include _demo-mixin('minmax-height', $_mixin_minmax_height, $args) {
+        @content;
+    }
 }
 @mixin _demo-minmax-width($args...) {
-    @include _demo-mixin('minmax-width', $_mixin_minmax_width, $args);
+    @include _demo-mixin('minmax-width', $_mixin_minmax_width, $args) {
+        @content;
+    }
 }
 
 breakpoints {
@@ -94,4 +114,22 @@ breakpoints {
     @include _demo-minmax-width(mobile, 50);
     @include _demo-minmax-height(20, 35);
     @include _demo-minmax-height(20, page);
+
+    @include feature-check.supports(whereSelector) {
+        @include _demo-min-width(indent);
+        @include _demo-max-width(mobile);
+    }
+
+    @include _demo-max-width(mobile, $useWhereFallback: false) {
+        @include demo.mixin(
+            'feature-check.supports',
+            meta.get-mixin('supports', $module: 'feature-check'),
+            meta.arglist(whereSelector),
+            $includeNameWithContent: true,
+            $parentSelector_dump: true,
+            $signatureAsRegion: false,
+            $signatureAtRoot: false,
+            $wrapOutput: true
+        );
+    }
 }

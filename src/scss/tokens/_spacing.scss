@@ -126,3 +126,12 @@ $gap: map.merge(
     ),
     $recursive: true
 );
+
+///
+/// @since ___PKG_VERSION___
+///
+$scrollPaddingTop_margin: config.config-do-var(
+    gap-block-layout,
+    math.add-unit(map.get($gap, block, layout), 1vw),
+    $fallbackOnly: config.$fn_var_replaceWithValue_gap
+) !default;

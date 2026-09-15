@@ -9,13 +9,6 @@
 @use '../../modules/math';
 
 ///
-/// The value used to position an element at the top of the page (via `top` property).
-///
-/// @since 0.1.0-alpha.36
-///
-$page_top: 0px !default;
-
-///
 /// @since ___PKG_VERSION___
 ///
 @function tokens-get-at-properties($inputs, $stroke_relative, $style_flat) {
@@ -73,12 +66,17 @@ $page_top: 0px !default;
                 height-nav-primary: (
                     syntax: '<length-percentage> | <number>',
                     inherits: true,
-                    initial-value: 0,
+                    initial-value: 0px,
+                ),
+                page-top: (
+                    syntax: '<length-percentage> | <number>',
+                    inherits: true,
+                    initial-value: 0px,
                 ),
                 scroll-padding-top: (
                     syntax: '<length-percentage> | <number>',
                     inherits: true,
-                    initial-value: $page_top,
+                    initial-value: 0px,
                 ),
             ),
             $inputs,

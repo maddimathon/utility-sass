@@ -26,14 +26,14 @@
 ///
 @function _breakpoint-get-override-selector($point, $minOrMax, $property) {
     // returns
-    @if list.index(tokens.$breakpoints_attributeOverrides, $point) == null {
+    @if list.index(config.$breakpoints_attributeOverrides, $point) == null {
         @return null;
     }
 
     $selector: '[data-viewport-#{$property}-#{$point}=#{$minOrMax}]';
 
     @return if(
-        tokens.$breakpoints_attributeOverrides_includeRoot,
+        config.$breakpoints_attributeOverrides_includeRoot,
         selector.unify(config.$selector_root, $selector),
         $selector
     );
@@ -68,7 +68,14 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin breakpoint-minmax-range($point_min, $point_max, $property, $unit: 1em) {
+@mixin breakpoint-minmax-range(
+    $point_min,
+    $point_max,
+    $property,
+    $unit: 1em,
+    $useWhereFallback: (not selector.parent-exists()) or
+    (string.match(#{&}, ':(where|is|has)\\(') == null)
+) {
     $min_attribute_override: _breakpoint-get-override-selector(
         $point: $point_min,
         $property: $property,
@@ -123,51 +130,40 @@
     );
 
     $parentSelector: selector.parent-or-root();
-    $selector_includeFallback: meta.is-truthy($selector);
+
     $selector: if(
-        $selector_includeFallback,
+        meta.is-truthy($selector),
         selector.add-root-selector(':where( #{$selector} )'),
         $parentSelector
     );
 
     @at-root {
-        @if $point_min != null and $point_max != null {
-            @media ($point_min <= $property < $point_max) {
-                @include feature-check.supports-not(
-                    whereSelector,
-                    $include_noJS: false
-                ) {
-                    @content;
-                }
-                #{$selector} {
-                    @content;
-                }
-            }
-        } @else if $point_min != null {
-            @media ($point_min <= $property) {
-                @include feature-check.supports-not(
-                    whereSelector,
-                    $include_noJS: false
-                ) {
-                    @content;
-                }
-                #{$selector} {
-                    @content;
-                }
-            }
-        } @else if $point_max != null {
-            @media ($property < $point_max) {
-                @include feature-check.supports-not(
-                    whereSelector,
-                    $include_noJS: false
-                ) {
-                    @content;
+        $_queryString: if(
+            $point_min != null and $point_max != null,
+            '#{$point_min} <= #{$property} < #{$point_max}',
+            if(
+                $point_min != null,
+                '#{$point_min} <= #{$property}',
+                if($point_max != null, '#{$property} < #{$point_max}', null)
+            )
+        );
+
+        @if $_queryString {
+            @media ( #{$_queryString} ) {
+                @if $useWhereFallback {
+                    @include feature-check.supports-not(
+                        whereSelector,
+                        $include_noJS: false
+                    ) {
+                        @content;
+                    }
                 }
                 #{$selector} {
                     @content;
                 }
             }
         }
+
         #{$parentSelector} {
             @if $min_attribute_override and $max_attribute_override {
                 @include selector.add-root-selector(
@@ -214,7 +210,9 @@
     $minOrMax,
     $property,
     $unit: 1em,
-    $debug: false
+    $debug: false,
+    $useWhereFallback: (not selector.parent-exists()) or
+    (string.match(#{&}, ':(where|is|has)\\(') == null)
 ) {
     $input_point: $point;
 
@@ -224,40 +222,93 @@
     );
 
     @if $point != null {
-        @if $minOrMax == 'min' {
-            @media ($property >= $point) {
-                @if $debug {
-                    @include meta.var-dump('$point', $input_point);
-                    @include meta.var-dump('$minOrMax', $minOrMax);
-                    @include meta.var-dump('$property', $property);
-                }
-                @content;
-            }
-        } @else if $minOrMax == 'max' {
-            @media ($property < $point) {
-                @if $debug {
-                    @include meta.var-dump('$point', $input_point);
-                    @include meta.var-dump('$minOrMax', $minOrMax);
-                    @include meta.var-dump('$property', $property);
-                }
-                @content;
-            }
-        } @else {
-            @media ( #{$minOrMax}-#{$property}: $point ) {
-                @if $debug {
-                    @include meta.var-dump('$point', $input_point);
-                    @include meta.var-dump('$minOrMax', $minOrMax);
-                    @include meta.var-dump('$property', $property);
-                }
-                @content;
-            }
-        }
-
         $attribute_override: _breakpoint-get-override-selector(
             $point: $input_point,
             $minOrMax: $minOrMax,
             $property: $property,
         );
+
+        $attribute_override__not: null;
+
+        @if $attribute_override {
+            $minOrMax__opposite: if(
+                $minOrMax == 'min',
+                'max',
+                if($minOrMax == 'max', 'min', null)
+            );
+
+            @if $minOrMax__opposite {
+                $attribute_override__not: _breakpoint-get-override-selector(
+                    $point: $input_point,
+                    $minOrMax: $minOrMax__opposite,
+                    $property: $property,
+                );
+
+                @if selector.parent-exists() {
+                    @if not
+                        config.$breakpoints_attributeOverrides_includeRoot and not
+                        selector.has-root(&)
+                    {
+                        $attribute_override__not: selector.not-list(
+                            $attribute_override__not,
+                            $parentSelector: config.$selector_root,
+                            $unify: true
+                        );
+                    } @else {
+                        $attribute_override__not: selector.not-list(
+                            $attribute_override__not,
+                            $parentSelector: null
+                        );
+                    }
+                } @else {
+                    // parent doesn't exist, so we need to add not to the root so it is meaningful
+                    $attribute_override__not: selector.not-list(
+                        $attribute_override__not,
+                        $parentSelector: config.$selector_root,
+                        $unify: true
+                    );
+                }
+            }
+        }
+
+        $_queryString: if(
+            $minOrMax == 'min',
+            '#{$property} >= #{$point}',
+            if(
+                $minOrMax == 'max',
+                '#{$property} < #{$point}',
+                '#{$minOrMax}-#{$property}: #{$point}'
+            )
+        );
+
+        @media ( #{$_queryString} ) {
+            @if $debug {
+                @include meta.var-dump('$point', $input_point);
+                @include meta.var-dump('$minOrMax', $minOrMax);
+                @include meta.var-dump('$property', $property);
+                @include meta.var-dump(
+                    '$attribute_override__not',
+                    $attribute_override__not
+                );
+            }
+            @if $attribute_override__not {
+                @if $useWhereFallback {
+                    @include feature-check.supports-not(
+                        whereSelector,
+                        $include_noJS: false
+                    ) {
+                        @content;
+                    }
+                }
+                @include selector.add-root-selector(
+                    ':where( #{$attribute_override__not} )'
+                ) {
+                    @content;
+                }
+            } @else {
+                @content;
+            }
+        }
 
         @if $attribute_override {
             @if $debug {
@@ -269,6 +320,7 @@
                     $attribute_override
                 );
             }
+
             @include selector.add-root-selector(
                 ':where( #{$attribute_override} )'
             ) {

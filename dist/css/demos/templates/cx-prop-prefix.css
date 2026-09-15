@@ -362,7 +362,12 @@ pre > code {
 @property --prefix-height-nav-primary {
     syntax: '<length-percentage> | <number>';
     inherits: true;
-    initial-value: 0;
+    initial-value: 0px;
+}
+@property --prefix-page-top {
+    syntax: '<length-percentage> | <number>';
+    inherits: true;
+    initial-value: 0px;
 }
 @property --prefix-scroll-padding-top {
     syntax: '<length-percentage> | <number>';
@@ -2072,19 +2077,16 @@ th {
  * ======================================================================== */
 /*! START of @maddimathon/utility-sass/template */
 :root {
-    --prefix-scroll-padding-top: var(--prefix-gap-block-layout, 5vw);
+    --prefix-scroll-padding-top: var(--prefix-height-nav-primary, 0px);
     --prefix-scroll-padding-top: calc(
-        var(--prefix-height-nav-primary, 0) +
+        var(--prefix-page-top, 0px) + var(--prefix-height-nav-primary, 0px) +
             var(--prefix-gap-block-layout, 5vw)
     );
 }
 
 :root,
 body {
-    scroll-padding-top: var(
-        --prefix-scroll-padding-top,
-        var(--prefix-gap-block-layout, 5vw)
-    );
+    scroll-padding-top: var(--prefix-scroll-padding-top, 0px);
 }
 
 body {

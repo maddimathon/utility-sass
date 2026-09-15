@@ -44,12 +44,10 @@
     @if $_print_any {
         @include template-utility-sass {
             @if $print_scrollPadding {
-                $_scrollPaddingFallback: var-gap-block(layout);
-
                 %root {
                     @include cx-prop(
                         scroll-padding-top,
-                        $_scrollPaddingFallback
+                        do-var(height-nav-primary)
                     );
                     @include cx-prop(
                         scroll-padding-top,
@@ -59,9 +57,7 @@
 
                 %root,
                 %body {
-                    scroll-padding-top: var-scroll-padding-top(
-                        $_scrollPaddingFallback
-                    );
+                    scroll-padding-top: var-scroll-padding-top();
                 }
             }
             @content (scrollPadding);

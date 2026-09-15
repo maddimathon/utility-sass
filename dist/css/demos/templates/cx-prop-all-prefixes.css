@@ -366,7 +366,12 @@ pre > code {
 @property --fallback-height-nav-primary {
     syntax: '<length-percentage> | <number>';
     inherits: true;
-    initial-value: 0;
+    initial-value: 0px;
+}
+@property --fallback-page-top {
+    syntax: '<length-percentage> | <number>';
+    inherits: true;
+    initial-value: 0px;
 }
 @property --fallback-scroll-padding-top {
     syntax: '<length-percentage> | <number>';
@@ -2815,13 +2820,14 @@ th {
 /*! START of @maddimathon/utility-sass/template */
 :root {
     --fallback-scroll-padding-top: var(
-        --prefix-gap-block-layout,
-        var(--fallback-gap-block-layout, 5vw)
+        --prefix-height-nav-primary,
+        var(--fallback-height-nav-primary, 0px)
     );
     --fallback-scroll-padding-top: calc(
-        var(
+        var(--prefix-page-top, var(--fallback-page-top, 0px)) +
+            var(
                 --prefix-height-nav-primary,
-                var(--fallback-height-nav-primary, 0)
+                var(--fallback-height-nav-primary, 0px)
             ) +
             var(
                 --prefix-gap-block-layout,
@@ -2834,13 +2840,7 @@ th {
 body {
     scroll-padding-top: var(
         --prefix-scroll-padding-top,
-        var(
-            --fallback-scroll-padding-top,
-            var(
-                --prefix-gap-block-layout,
-                var(--fallback-gap-block-layout, 5vw)
-            )
-        )
+        var(--fallback-scroll-padding-top, 0px)
     );
 }
 

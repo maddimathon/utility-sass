@@ -13,6 +13,26 @@
 @use 'feature-check';
 
 ///
+/// @since ___PKG_VERSION___
+///
+$breakpoints_attributeOverrides: null !default;
+$breakpoints_attributeOverrides: config-valid-list-strings(
+    $breakpoints_attributeOverrides,
+    'breakpoints_attributeOverrides',
+    $default: ()
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$breakpoints_attributeOverrides_includeRoot: null !default;
+$breakpoints_attributeOverrides_includeRoot: config-valid-bool(
+    $breakpoints_attributeOverrides_includeRoot,
+    'breakpoints_attributeOverrides_includeRoot',
+    $default: false
+);
+
+///
 /// Selector to use for the body element.  Included here to allow
 /// lower-specificity options.
 ///
@@ -80,6 +100,19 @@ $selector_root_aliases: config-valid-selector(
     $selector_root_aliases: selector.parse(#{$selector_root_aliases});
 } @else {
     $selector_root_aliases: ();
+}
+
+@each $_breakpoint in $breakpoints_attributeOverrides {
+    $selector_root_aliases: list.join(
+        $selector_root_aliases,
+        (
+            '[data-viewport-height-#{$_breakpoint}=max]',
+            '[data-viewport-height-#{$_breakpoint}=min]',
+            '[data-viewport-width-#{$_breakpoint}=max]',
+            '[data-viewport-width-#{$_breakpoint}=min]',
+        ),
+        $separator: comma
+    );
 }
 
 $selector_root_aliases: list.append($selector_root_aliases, '.js', $separator: comma);

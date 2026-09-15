@@ -16,33 +16,21 @@
 ///
 /// @since 0.1.0-alpha.36
 ///
-@function scroll-padding-top-value(
-    $includePageTop: null,
-    $margin: var-gap-block(layout),
-    $navHeightFallback: 0
-) {
-    @if $includePageTop == null {
-        $includePageTop: if(
-            meta.type-of(tokens.$page_top) == number,
-            math.deunit(tokens.$page_top) != 0,
-            true
-        );
+@function scroll-padding-top-value($margin: tokens.$scrollPaddingTop_margin) {
+    // returns - no margin to include
+    @if not meta.is-truthy($margin) {
+        @return calc(do-var(page-top) + do-var(height-nav-primary));
     }
 
-    // returns
-    @if $includePageTop {
-        @return calc(do-var(height-nav-primary, $navHeightFallback) + $margin + tokens.$page_top);
-    }
-
-    @return calc(do-var(height-nav-primary, $navHeightFallback) + $margin);
+    @return calc(do-var(page-top) + do-var(height-nav-primary) + $margin);
 }
 
 ///
 /// @since 0.1.0-alpha.36
 ///
 @function var-scroll-padding-top($fallback: null, $args...) {
-    @if not $fallback {
-        $fallback: scroll-padding-top-value();
+    @if $fallback == null {
+        $fallback: 0px;
     }
 
     @return do-var(scroll-padding-top, $fallback: $fallback, $args...);
