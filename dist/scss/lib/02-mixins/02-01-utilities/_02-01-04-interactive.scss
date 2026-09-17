@@ -81,8 +81,8 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
     //
     $config_asHas: false,
     $pseudo_asHas: false,
-    $config_asHas_is: list.length($selector_config) > 1,
-    $pseudo_asHas_is: list.length($selector_pseudo) > 1,
+    $config_asHas_is: selector.is-multi($selector_config),
+    $pseudo_asHas_is: selector.is-multi($selector_pseudo),
     //
     $includeParentSelector: true,
     //

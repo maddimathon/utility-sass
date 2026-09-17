@@ -1,0 +1,44 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'sass:list';
+@use 'sass:string';
+
+@use 'exists';
+
+///
+/// Whether the given selector has more than one comma-separated selector.
+///
+/// @since ___PKG_VERSION___
+///
+@function is-multi($selector) {
+    $_list_length: list.length($selector);
+
+    // returns
+    @if $_list_length < 1 {
+        @return false;
+    }
+
+    // returns
+    @if $_list_length > 1 and list.separator($selector) == 'comma' {
+        @return true;
+    }
+
+    @return string.index(#{$selector}, '%') != null;
+}
+
+///
+/// Whether the parent selector has more than one comma-separated selector.
+///
+/// @since ___PKG_VERSION___
+///
+@function parent-is-multi() {
+    // returns
+    @if not exists.parent-exists() {
+        @return false;
+    }
+
+    @return is-multi(&);
+}
