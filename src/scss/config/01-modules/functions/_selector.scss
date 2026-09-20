@@ -2,7 +2,7 @@
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Moved to module config.
+/// @since 0.1.0-beta.0 — Moved to module config.
 ///
 
 @use 'sass:list';
@@ -27,7 +27,7 @@
 ///
 /// @returns {selector}  A selector.
 ///
-/// @since ___PKG_VERSION___ — Added optional $allowEmpty param.
+/// @since 0.1.0-beta.0 — Added optional $allowEmpty param.
 ///
 @function config-valid-selector($value, $name, $default, $allowEmpty: false) {
     @if meta.type-of($default) == string {
@@ -84,4 +84,64 @@ $_selectorTypes: ('attribute', 'class', 'null');
     }
 
     @return config-valid-string($value, $name, $default, $options: $_selectorTypes);
+}
+
+///
+/// @since 0.1.0-beta.0
+///
+@function config-selector-body-aliases($selector_body_aliases) {
+    @if $selector_body_aliases != null {
+        $selector_body_aliases: selector.parse(#{$selector_body_aliases});
+        // } @else {
+        //     $selector_body_aliases: ();
+    }
+
+    @return $selector_body_aliases;
+}
+
+///
+/// @since 0.1.0-beta.0
+///
+@function config-selector-root-aliases(
+    $selector_root_aliases,
+    $breakpoints_attributeOverrides: (),
+    $featureCheck_supports: ()
+) {
+    @if $selector_root_aliases != null {
+        $selector_root_aliases: selector.parse(#{$selector_root_aliases});
+    } @else {
+        $selector_root_aliases: ();
+    }
+
+    @each $_breakpoint in $breakpoints_attributeOverrides {
+        $selector_root_aliases: list.join(
+            $selector_root_aliases,
+            (
+                '[data-viewport-height-#{$_breakpoint}=max]',
+                '[data-viewport-height-#{$_breakpoint}=min]',
+                '[data-viewport-width-#{$_breakpoint}=max]',
+                '[data-viewport-width-#{$_breakpoint}=min]'
+            ),
+            $separator: comma
+        );
+    }
+
+    $selector_root_aliases: list.append($selector_root_aliases, '.js', $separator: comma);
+    $selector_root_aliases: list.append($selector_root_aliases, '.no-js', $separator: comma);
+
+    // add feature-check classes as root selector aliases
+    @each $key in $featureCheck_supports {
+        $selector_root_aliases: list.append(
+            $selector_root_aliases,
+            '.js__#{$key}',
+            $separator: comma
+        );
+        $selector_root_aliases: list.append(
+            $selector_root_aliases,
+            '.js__no-#{$key}',
+            $separator: comma
+        );
+    }
+
+    @return $selector_root_aliases;
 }

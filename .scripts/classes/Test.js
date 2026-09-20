@@ -108,7 +108,7 @@ export class Test extends TestStage {
             { colourValueFunctions },
         ] = await Promise.all( [
             import( '../../dist/ts/classes/CssColours.js' ),
-            import( '../../dist/ts/classes/CssColours.test.values.js' ),
+            import( '../../dist/ts/classes/CssColours.docs.values.js' ),
         ] ).catch(
             err => {
                 this.handleError( err, 2, { exitProcess: this.params.packaging || this.params.releasing } );

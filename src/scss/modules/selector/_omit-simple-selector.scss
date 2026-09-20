@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 
 @use 'sass:map';
@@ -22,7 +22,7 @@
 /// selector(s). If $needle is part of a complex selector, the remainder of that
 /// selector is still included in the returned selector(s).
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function omit-simple-selector($haystack, $needle, $useUniversalSelector: true) {
     // returns
@@ -160,7 +160,7 @@
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin omit-simple-selector($needle, $parentSelector: &) {
     @at-root #{omit-simple-selector($haystack: $parentSelector, $needle: $needle)} {

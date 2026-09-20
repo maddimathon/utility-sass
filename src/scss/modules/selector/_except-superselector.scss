@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 
 @use 'sass:list';
@@ -17,7 +17,7 @@
 /// selectors, ONLY IF one of $needles is a superselector for the selector being
 /// tested.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function except-superselector($haystack, $needles) {
     // returns
@@ -56,7 +56,7 @@
 /// Removes all cases of $needles selectors in the parent selector, ONLY IF one
 /// of $needles is a superselector for the parent selector being tested.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function parent-except-superselector($needles, $args...) {
     // returns
@@ -71,7 +71,7 @@
 /// Removes all cases of $needles selectors in the parent selector, ONLY IF one
 /// of $needles is a superselector for the parent selector being tested.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin parent-except-superselector($needles, $args...) {
     @at-root #{parent-except-superselector($needles, $args...)} {

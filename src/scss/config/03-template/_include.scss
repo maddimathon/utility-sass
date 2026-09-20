@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 
 @use 'sass:map';
@@ -14,7 +14,7 @@
 /// selectors are pseudo selectors.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_globals to $template_globals and moved from config to template config.
+/// @since 0.1.0-beta.0 — Renamed from $print_globals to $template_globals and moved from config to template config.
 ///
 $template_globals: false !default;
 
@@ -22,7 +22,7 @@ $template_globals: false !default;
 /// Whether to include the utility class selectors in the output.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_utils to $template_utils and moved from config to template config.
+/// @since 0.1.0-beta.0 — Renamed from $print_utils to $template_utils and moved from config to template config.
 ///
 $template_utils: false !default;
 
@@ -30,7 +30,7 @@ $template_utils: false !default;
 /// Whether to include the custom property definitions in the output.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_tokens to $template_tokens and moved from config to template config.
+/// @since 0.1.0-beta.0 — Renamed from $print_tokens to $template_tokens and moved from config to template config.
 ///
 $template_tokens: $template_globals or $template_utils !default;
 
@@ -38,28 +38,28 @@ $template_tokens: $template_globals or $template_utils !default;
 /// Whether to include the css headings in the output.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_headings to $template_cssHeadings and moved from config to template config.
+/// @since 0.1.0-beta.0 — Renamed from $print_headings to $template_cssHeadings and moved from config to template config.
 ///
 $template_cssHeadings: lib.$isTemplate and
     ($template_globals or $template_tokens or $template_utils) !default;
 
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $print_templateDocBlock to $template_docBlock
+/// @since 0.1.0-beta.0 — Renamed from $print_templateDocBlock to $template_docBlock
 ///
 $template_docBlock: not lib.$internal_supressCredit or lib.$isTemplate !default;
 
 ///
 /// Whether to include the extend selectors mixin after the template content.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $template_extendSelectors: $template_globals or $template_utils !default;
 
 ///
 /// Whether to print certain styles.
 ///
-/// @since ___PKG_VERSION___ — Merged $template_include_buttons, $template_include_headings, $print_normalize into this var.
+/// @since 0.1.0-beta.0 — Merged $template_include_buttons, $template_include_headings, $print_normalize into this var.
 ///
 $template_styles: () !default;
 $template_styles: config-get-template-styles(

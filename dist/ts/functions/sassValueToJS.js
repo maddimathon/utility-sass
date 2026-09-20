@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0.draft
+ * @maddimathon/utility-sass@0.1.0-beta.0
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -79,7 +79,7 @@ export async function sassValueToJS(sassValue, _recursionCounter = 0) {
  */
 (function (sassValueToJS) {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function isSassValue(value) {
         var _a;
@@ -89,7 +89,7 @@ export async function sassValueToJS(sassValue, _recursionCounter = 0) {
     /**
      * Gets the type of a sass value.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function typeOf(value) {
         // returns
@@ -128,7 +128,7 @@ export async function sassValueToJS(sassValue, _recursionCounter = 0) {
     }
     sassValueToJS.typeOf = typeOf;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function sync(sassValue, _recursionCounter = 0) {
         var _a, _b, _c;

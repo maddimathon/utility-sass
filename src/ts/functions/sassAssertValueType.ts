@@ -32,7 +32,7 @@ export async function sassAssertValueType( name: string, type: sassAssertValueTy
  * @category Utilities – Sass API
  * 
  * @since 0.1.0-alpha.29
- * @since ___PKG_VERSION___ Added required `name` param and optional `convertValue` param (defaults to false).
+ * @since 0.1.0-beta.0 Added required `name` param and optional `convertValue` param (defaults to false).
  */
 export async function sassAssertValueType(
     name: string,
@@ -100,14 +100,14 @@ export async function sassAssertValueType(
  * 
  * @category Utilities – Sass API
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export namespace sassAssertValueType {
 
     /**
      * Strings to assert a type.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type AllowedTypes = "bool" | "list" | "map" | "number" | "string";
 }

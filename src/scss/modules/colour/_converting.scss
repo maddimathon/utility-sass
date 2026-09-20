@@ -19,7 +19,7 @@
 ///
 /// @return {number}
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function _to-hsl-value-round($num, $round, $rounding_factor) {
     @if $round {
@@ -44,12 +44,12 @@
 /// @return {list}
 ///
 /// @since 0.1.0-alpha.26
-/// @since ___PKG_VERSION___ — Added optional $rounding_factor, $separator params.
+/// @since 0.1.0-beta.0 — Added optional $rounding_factor, $separator params.
 ///
 @function to-hsl-list(
     $clr,
     $round: true,
-    $rounding_factor: 100,
+    $rounding_factor: 2,
     $separator: config.$colour_channelLists_separator
 ) {
     @if meta.type-of($clr) != 'color' {
@@ -86,7 +86,7 @@
 /// Converts given colour to a (rounded) hsl css function.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Added optional $opacity param.
+/// @since 0.1.0-beta.0 — Added optional $opacity param.
 ///
 @function to-hsl($clr, $opacity: 100%, $separator: null, $args...) {
     $opacity: math.to-percent($opacity);
@@ -143,12 +143,12 @@
 /// @return {list}
 ///
 /// @since 0.1.0-alpha.26
-/// @since ___PKG_VERSION___ — Added optional $rounding_factor, $separator params.
+/// @since 0.1.0-beta.0 — Added optional $rounding_factor, $separator params.
 ///
 @function to-rgb-list(
     $clr,
     $round: true,
-    $rounding_factor: 100,
+    $rounding_factor: 2,
     $separator: config.$colour_channelLists_separator
 ) {
     @if meta.type-of($clr) != 'color' {
@@ -188,7 +188,7 @@
 /// @return {string}
 ///
 /// @since 0.1.0-alpha.26
-/// @since ___PKG_VERSION___ — Added optional $opacity param.
+/// @since 0.1.0-beta.0 — Added optional $opacity param.
 ///
 @function to-rgb($clr, $opacity: 100%, $separator: null, $args...) {
     $opacity: math.to-percent($opacity);

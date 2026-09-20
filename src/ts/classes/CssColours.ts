@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * 
  * @packageDocumentation
  */
@@ -15,14 +15,14 @@ import { deleteUndefinedProps, objectMap } from '@maddimathon/utility-typescript
  * 
  * @category Utilities
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export namespace CssColours {
 
     /**
      * Types that represent CSS colour functions/values.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      * 
      * @internal
      * @sortStrategy source-order
@@ -32,7 +32,7 @@ export namespace CssColours {
         /**
          * A colour value in the HSL space.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * 
          * @expand
          * @sortStrategy source-order
@@ -47,7 +47,7 @@ export namespace CssColours {
         /**
          * A colour value in the HWB space.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * 
          * @expand
          * @sortStrategy source-order
@@ -62,7 +62,7 @@ export namespace CssColours {
         /**
          * A colour value in the LAB or OkLAB space.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * 
          * @expand
          * @sortStrategy source-order
@@ -77,7 +77,7 @@ export namespace CssColours {
         /**
          * A colour value in the LCH or OkLCH space.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * 
          * @expand
          * @sortStrategy source-order
@@ -92,7 +92,7 @@ export namespace CssColours {
         /**
          * A colour value in the RGB space.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * 
          * @expand
          * @sortStrategy source-order
@@ -108,7 +108,7 @@ export namespace CssColours {
          * Any of the input colour values to be parsed via
          * {@link parseFunction}.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * 
          * @expand
          * @sortStrategy source-order
@@ -125,7 +125,7 @@ export namespace CssColours {
          * Any of the single colour values, parsed via
          * {@link parseFunction}.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * 
          * @expand
          * @inline
@@ -142,7 +142,7 @@ export namespace CssColours {
             | All.Parsed.RGB;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * 
          * @internal
          */
@@ -151,7 +151,7 @@ export namespace CssColours {
             /**
              * All of the single colour values.
              *
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @inline
@@ -169,7 +169,7 @@ export namespace CssColours {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -209,7 +209,7 @@ export namespace CssColours {
              * All of the single colour values, parsed via
              * {@link parseFunction}.
              *
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @inline
@@ -227,7 +227,7 @@ export namespace CssColours {
             };
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -287,7 +287,7 @@ export namespace CssColours {
      * Regular expressions to use for matching against css colour function
      * strings.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      *
      * ## Format Examples
      * {@include ./CssColours.docs.md#test-all}
@@ -304,7 +304,7 @@ export namespace CssColours {
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-hex}
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const hex: {
             strict: RegExp;
@@ -320,7 +320,7 @@ export namespace CssColours {
              * Match input against the {@link Regex.hex} regex with a better
              * return type.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @sortStrategy source-order
              */
@@ -391,7 +391,7 @@ export namespace CssColours {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @preventInline
@@ -403,7 +403,7 @@ export namespace CssColours {
                 | Regex.Match.Hex.Incomplete;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -412,7 +412,7 @@ export namespace CssColours {
                 /**
                  * The match result for a full hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -441,7 +441,7 @@ export namespace CssColours {
                 /**
                  * The match result for an improperly-formed hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -465,7 +465,7 @@ export namespace CssColours {
                 /**
                  * The match result for a short hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -490,7 +490,7 @@ export namespace CssColours {
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-hsl}
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const hsl: RegExp = new RegExp( [
             '^\\s*hsla?\\(\\s*', // open bracket
@@ -516,7 +516,7 @@ export namespace CssColours {
              * Match input against the {@link Regex.hsl} regex with a better
              * return type.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export function hsl( value: string ): null | HSL {
                 const matches = value.match( Regex.hsl );
@@ -576,7 +576,7 @@ export namespace CssColours {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @preventInline
@@ -585,7 +585,7 @@ export namespace CssColours {
             export type HSL = Regex.Match.HSL.Full | Regex.Match.HSL.Incomplete;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -594,7 +594,7 @@ export namespace CssColours {
                 /**
                  * The match result for an improperly-formed hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -620,7 +620,7 @@ export namespace CssColours {
                 /**
                  * The match result for a short hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -663,7 +663,7 @@ export namespace CssColours {
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-hwb}
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const hwb: RegExp = new RegExp( [
             '^\\s*hwb\\(\\s*', // open bracket
@@ -689,7 +689,7 @@ export namespace CssColours {
              * Match input against the {@link Regex.hwb} regex with a better
              * return type.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export function hwb( value: string ): null | HWB {
                 const matches = value.match( Regex.hwb );
@@ -749,7 +749,7 @@ export namespace CssColours {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @preventInline
@@ -758,7 +758,7 @@ export namespace CssColours {
             export type HWB = Regex.Match.HWB.Full | Regex.Match.HWB.Incomplete;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -767,7 +767,7 @@ export namespace CssColours {
                 /**
                  * The match result for an improperly-formed hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -793,7 +793,7 @@ export namespace CssColours {
                 /**
                  * The match result for a short hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -836,7 +836,7 @@ export namespace CssColours {
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-lab}
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const lab: RegExp = new RegExp( [
             '^\\s*lab\\(\\s*', // open bracket
@@ -862,7 +862,7 @@ export namespace CssColours {
              * Match input against the {@link Regex.lab} regex with a better
              * return type.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export function lab( value: string ): null | LAB {
                 const matches = value.match( Regex.lab );
@@ -922,7 +922,7 @@ export namespace CssColours {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @preventInline
@@ -931,7 +931,7 @@ export namespace CssColours {
             export type LAB = Regex.Match.LAB.Full | Regex.Match.LAB.Incomplete;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -940,7 +940,7 @@ export namespace CssColours {
                 /**
                  * The match result for an improperly-formed hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -966,7 +966,7 @@ export namespace CssColours {
                 /**
                  * The match result for a short hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -1009,7 +1009,7 @@ export namespace CssColours {
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-oklab}
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const oklab: RegExp = new RegExp( [
             '^\\s*oklab\\(\\s*', // open bracket
@@ -1035,7 +1035,7 @@ export namespace CssColours {
              * Match input against the {@link Regex.oklab} regex with a better
              * return type.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export function oklab( value: string ): null | OKLAB {
                 const matches = value.match( Regex.oklab );
@@ -1095,7 +1095,7 @@ export namespace CssColours {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @preventInline
@@ -1104,7 +1104,7 @@ export namespace CssColours {
             export type OKLAB = Regex.Match.OKLAB.Full | Regex.Match.OKLAB.Incomplete;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -1113,7 +1113,7 @@ export namespace CssColours {
                 /**
                  * The match result for an improperly-formed hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -1139,7 +1139,7 @@ export namespace CssColours {
                 /**
                  * The match result for a short hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -1182,7 +1182,7 @@ export namespace CssColours {
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-lch}
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const lch: RegExp = new RegExp( [
             '^\\s*lch\\(\\s*', // open bracket
@@ -1208,7 +1208,7 @@ export namespace CssColours {
              * Match input against the {@link Regex.lch} regex with c better
              * return type.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export function lch( value: string ): null | LCH {
                 const matches = value.match( Regex.lch );
@@ -1268,7 +1268,7 @@ export namespace CssColours {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @preventInline
@@ -1277,7 +1277,7 @@ export namespace CssColours {
             export type LCH = Regex.Match.LCH.Full | Regex.Match.LCH.Incomplete;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -1286,7 +1286,7 @@ export namespace CssColours {
                 /**
                  * The match result for an improperly-formed hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -1312,7 +1312,7 @@ export namespace CssColours {
                 /**
                  * The match result for a short hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -1355,7 +1355,7 @@ export namespace CssColours {
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-oklch}
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const oklch: RegExp = new RegExp( [
             '^\\s*oklch\\(\\s*', // open bracket
@@ -1381,7 +1381,7 @@ export namespace CssColours {
              * Match input against the {@link Regex.oklch} regex with c better
              * return type.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export function oklch( value: string ): null | OKLCH {
                 const matches = value.match( Regex.oklch );
@@ -1441,7 +1441,7 @@ export namespace CssColours {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @preventInline
@@ -1450,7 +1450,7 @@ export namespace CssColours {
             export type OKLCH = Regex.Match.OKLCH.Full | Regex.Match.OKLCH.Incomplete;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -1459,7 +1459,7 @@ export namespace CssColours {
                 /**
                  * The match result for an improperly-formed hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -1485,7 +1485,7 @@ export namespace CssColours {
                 /**
                  * The match result for a short hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -1528,7 +1528,7 @@ export namespace CssColours {
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-rgb}
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const rgb: RegExp = new RegExp( [
             '^\\s*rgba?\\(\\s*', // open bracket
@@ -1554,7 +1554,7 @@ export namespace CssColours {
              * Match input against the {@link Regex.rgb} regex with a better
              * return type.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export function rgb( value: string ): null | RGB {
                 const matches = value.match( Regex.rgb );
@@ -1614,7 +1614,7 @@ export namespace CssColours {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @expand
              * @preventInline
@@ -1623,7 +1623,7 @@ export namespace CssColours {
             export type RGB = Regex.Match.RGB.Full | Regex.Match.RGB.Incomplete;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * 
              * @internal
              */
@@ -1632,7 +1632,7 @@ export namespace CssColours {
                 /**
                  * The match result for an improperly-formed hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -1658,7 +1658,7 @@ export namespace CssColours {
                 /**
                  * The match result for a short hex code.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  * 
                  * @expand
                  * @inline
@@ -1702,7 +1702,7 @@ export namespace CssColours {
      * 
      * @see {@link CssColours.parseFunction} — Used to check for valid formats.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      *
      * ## Format Examples
      * {@include ./CssColours.docs.md#test-all}
@@ -1719,7 +1719,7 @@ export namespace CssColours {
      * 
      * @see {@link CssColours.Regex} — Has the regexes used for parsing colour codes.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      * 
      * @useDeclaredType
      * 
@@ -1803,7 +1803,7 @@ export namespace CssColours {
     /**
      * Utilities for the {@link parseFunction} function.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace parseFunction {
 
@@ -1811,7 +1811,7 @@ export namespace CssColours {
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function hex(
             value: string,
@@ -1870,7 +1870,7 @@ export namespace CssColours {
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function hsl(
             value: string,
@@ -1939,7 +1939,7 @@ export namespace CssColours {
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function hwb(
             value: string,
@@ -2008,7 +2008,7 @@ export namespace CssColours {
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function lab(
             value: string,
@@ -2077,7 +2077,7 @@ export namespace CssColours {
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function oklab(
             value: string,
@@ -2146,7 +2146,7 @@ export namespace CssColours {
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function lch(
             value: string,
@@ -2215,7 +2215,7 @@ export namespace CssColours {
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function oklch(
             value: string,
@@ -2287,7 +2287,7 @@ export namespace CssColours {
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function rgb(
             value: string,
@@ -2354,7 +2354,7 @@ export namespace CssColours {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     const arrays = {
 
@@ -2541,21 +2541,21 @@ export namespace CssColours {
     /**
      * A set used to check if a string is a {@link Keyword} type.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export const keywords: Set<Keyword> = new Set( arrays.keywords );
 
     /**
      * A set used to check if a string is a {@link Slug} type.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export const slugs: Set<Slug> = new Set( arrays.slugs );
 
     /**
      * A set used to check if a string is a {@link SystemColor} type.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export const systemColors: Set<SystemColor> = new Set( arrays.systemColors );
 
@@ -2564,7 +2564,7 @@ export namespace CssColours {
      *
      * For slugs representing web-safe colours, see {@link CssColours.slugs}.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      *
      * @expand
      * @useDeclaredType
@@ -2574,7 +2574,7 @@ export namespace CssColours {
     /**
      * These are the keywords used for defined web-safe colours.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      * 
      * @expand
      * @useDeclaredType
@@ -2584,7 +2584,7 @@ export namespace CssColours {
     /**
      * System colour keywords, e.g., to use for forced-colors modes.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      * 
      * @expand
      * @useDeclaredType
@@ -2611,7 +2611,7 @@ export namespace CssColours {
      * valid css <color> values but that do not represent a specific colour
      * [e.g., 'transparent']).
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export function isKeyword<T_Value>( value: T_Value ): value is Extract<T_Value, Keyword> {
         return keywords.has( value as Keyword );
@@ -2636,7 +2636,7 @@ export namespace CssColours {
      * Whether this is one of the keywords in {@link CssColours.Slug} (i.e.,
      * keywords used for defined web-safe colours).
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export function isSlug<T_Value>( value: T_Value ): value is Extract<T_Value, Slug> {
         return slugs.has( value as Slug );
@@ -2661,7 +2661,7 @@ export namespace CssColours {
      * Whether this is one of the system colors in
      * {@link CssColours.SystemColor} (i.e., forced-colors mode keywords).
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export function isSystemColor<T_Value>( value: T_Value ): value is Extract<T_Value, SystemColor> {
         return systemColors.has( value as SystemColor );

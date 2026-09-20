@@ -1,7 +1,7 @@
 ///
 /// Utilities for printing any kind of css property.
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.0.draft
+/// @package @maddimathon/utility-sass@0.1.0-beta.0
 /// @since 0.1.0-alpha.12
 ///
 
@@ -33,7 +33,7 @@ $_allowAllPrefixes: (
     and (string.length(config.$customPropertyPrefix_fallback) > 0);
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @function _custom-property--value($value, $important, $quoteString) {
     @if $quoteString == null {
@@ -58,7 +58,7 @@ $_allowAllPrefixes: (
 ///
 /// Prints a custom property definition.
 ///
-/// @since 0.1.0-beta.0.draft — Added optional $allPrefixes, $important, $quoteString params.
+/// @since 0.1.0-beta.0 — Added optional $allPrefixes, $important, $quoteString params.
 ///
 @mixin custom-property(
     $slug,
@@ -101,7 +101,7 @@ $_allowAllPrefixes: (
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @function _container-query-cx-prop--fallbackOnly($slug, $fallbackOnly) {
     @if $fallbackOnly == null {
@@ -118,7 +118,7 @@ $_allowAllPrefixes: (
 ///
 /// Prints a container style query for the given custom property $slug, optionally by specifying a (single) $value.
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin container-query-cx-prop(
     $slug,
@@ -180,7 +180,7 @@ $_allowAllPrefixes: (
 ///
 /// Prints a container style query for the given custom property $slug, optionally by specifying a list of $values.
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin container-query-cx-prop-list(
     $slug,
@@ -263,7 +263,7 @@ $_allowAllPrefixes: (
 ///
 /// Prints a container style query for the given custom property $slug, optionally by specifying a (single) $value.
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin container-query-cx-prop-map(
     $map,
@@ -390,7 +390,7 @@ $_allowAllPrefixes: (
 /// @param {string} $slug
 /// @param {any} $value
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin prop(
     $slug,
@@ -441,7 +441,7 @@ $_allowAllPrefixes: (
 ///
 /// @param {any} $value
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin prop-display(
     $value,
@@ -460,7 +460,7 @@ $_allowAllPrefixes: (
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin at-property($slug, $map) {
     @property --#{$_cxPropPre}#{$slug} {

@@ -46,7 +46,7 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 /// @param {selector} $selector          Selector to alter.
 /// @param {bool}     $appendToSelector  Whether to include the unchanged $selector in the return list.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function selector-add-visited($selector: null, $appendToSelector: false) {
     // returns
@@ -166,7 +166,7 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 ///
 /// @return {list<selector>}
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function selector-all-headings--where(
     $globalsOnly: false,
@@ -206,7 +206,7 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 ///
 /// @return {list<selector>}
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function selector-all-headings($base: true, $where: false, $globalsOnly_extended: true, $args...) {
     $sels: ();
@@ -237,7 +237,7 @@ $_allHeadingLevels: list.sort($_allHeadingLevels, $sortAs: 'number');
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin selector-all-headings(
     $base: true,
@@ -293,7 +293,7 @@ $_selector_buttons: list.join(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function selector-buttons-basic() {
     @return $_selector_buttons;
@@ -305,7 +305,7 @@ $_selector_buttons: list.join(
 /// @param {bool} $bool  Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ _ Added optional $parentSelector selector.
+/// @since 0.1.0-beta.0 _ Added optional $parentSelector selector.
 ///
 @function selector-motion($bool, $parentSelector: &, $args...) {
     $args: meta.keywords($args);

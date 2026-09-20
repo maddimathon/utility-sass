@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0.draft
+ * @maddimathon/utility-sass@0.1.0-beta.0
  * @license MIT
  */
 /**
@@ -27,7 +27,7 @@ export declare namespace JsonToScss {
          *
          * @default false
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         alwaysQuoteKeys?: boolean;
         /**
@@ -37,7 +37,7 @@ export declare namespace JsonToScss {
          *
          * @default true
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         alwaysQuoteNumberKeys?: boolean;
         /**
@@ -55,7 +55,7 @@ export declare namespace JsonToScss {
          *
          * @default false
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         convertUnitStringsToNumbers?: boolean;
         /**
@@ -64,7 +64,7 @@ export declare namespace JsonToScss {
          *
          * @default false
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         convertZeroStringsToNumbers?: boolean;
         /**
@@ -73,7 +73,7 @@ export declare namespace JsonToScss {
          *
          * @default false
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         cssFunctionsAsStrings?: boolean;
         /**
@@ -81,7 +81,7 @@ export declare namespace JsonToScss {
          *
          * @default false
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         onlyQuoteAsNeeded?: boolean;
         /**
@@ -90,7 +90,7 @@ export declare namespace JsonToScss {
          *
          * @default /[^a-z|0-9|\-|_]/i
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         requiredQuotesRegex?: RegExp;
         /**
@@ -99,7 +99,7 @@ export declare namespace JsonToScss {
          *
          * @default /[^a-z|0-9|\-|_]/i
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         requiredQuotesKeyRegex?: RegExp;
         /**
@@ -108,7 +108,7 @@ export declare namespace JsonToScss {
          *
          * @default true
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         unquoteNumberString?: boolean;
         /**
@@ -117,7 +117,7 @@ export declare namespace JsonToScss {
          *
          * @default false
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         useStringModule?: boolean;
     }

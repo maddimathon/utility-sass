@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 
 @use 'sass:selector';
@@ -14,7 +14,7 @@
 ///
 /// Returns the last selector(s) in space-separated selectors.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function pop($selectors: (), $fallback_selector: config.$selector_null) {
     $selectors: selector.parse(#{$selectors});
@@ -42,7 +42,7 @@
 ///
 /// Returns the last selector(s) in space-separated selectors.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function popped($selectors: (), $fallback_selector: config.$selector_null) {
     $selectors: selector.parse(#{$selectors});
@@ -81,7 +81,7 @@
 /// If the value returned by the popped function is an empty list, then the
 /// parent is considered to be at-root.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin popped($selectors: &, $args...) {
     $popped: popped(

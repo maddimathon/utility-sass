@@ -20,7 +20,7 @@ $_customProperty_allPrefixesSlugs: ('display');
 /// List of slugs that should default to $allPrefixes: true in the
 /// do-var function.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $fn_doVar_allPrefixesSlugs: null !default;
 $fn_doVar_allPrefixesSlugs: config-valid-list-strings(
@@ -39,7 +39,7 @@ $fn_doVar_allPrefixesSlugs: list.join(
 /// List of slugs that should default to $allPrefixes: true in the
 /// custom-property mixin.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $mx_customProperty_allPrefixesSlugs: null !default;
 $mx_customProperty_allPrefixesSlugs: config-valid-list-strings(
@@ -58,7 +58,7 @@ $mx_customProperty_allPrefixesSlugs: list.join(
 /// List of slugs that should be excluded from the default
 /// $mx_customProperty_allPrefixesSlugs list.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $mx_customProperty_allPrefixesSlugs_except: null !default;
 $mx_customProperty_allPrefixesSlugs_except: config-valid-list-strings(
@@ -87,7 +87,7 @@ $customPropertyPrefix: config-valid-string(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $customPropertyPrefix_fallback: null !default;
 $customPropertyPrefix_fallback: config-valid-string(
@@ -107,21 +107,21 @@ $_allowAllPrefixes: $_exists_customPropertyPrefix and $_exists_customPropertyPre
 $_allPrefixes_default: if($_allowAllPrefixes, null, false);
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function custom-property-prefix-fallback-exists() {
     @return $_exists_customPropertyPrefix_fallback;
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function custom-property-prefix-exists() {
     @return $_exists_customPropertyPrefix;
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function custom-property-prefix-all-exists() {
     @return $_allowAllPrefixes;
@@ -131,7 +131,7 @@ $_allPrefixes_default: if($_allowAllPrefixes, null, false);
 /// Prints a var(...) value with an optional fallback. Don't include -- in the slug.
 ///
 /// @since 0.1.0-alpha.25
-/// @since ___PKG_VERSION___ — Added optional $allPrefixes, $fallbackOnly, $neverFallbackPrefix, $onlyFallbackPrefix params.
+/// @since 0.1.0-beta.0 — Added optional $allPrefixes, $fallbackOnly, $neverFallbackPrefix, $onlyFallbackPrefix params.
 ///
 @function config-do-var(
     $slug,

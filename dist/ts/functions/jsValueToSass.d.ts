@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0.draft
+ * @maddimathon/utility-sass@0.1.0-beta.0
  * @license MIT
  */
 import type { RecursiveRecord } from '@maddimathon/utility-typescript/types';
@@ -35,7 +35,7 @@ export declare namespace jsValueToSass {
     /**
      * Options for the conversions.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     interface Opts {
         /**

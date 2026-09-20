@@ -143,7 +143,7 @@ export namespace sassValueToJS {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export function isSassValue<T_Value>( value: T_Value ): value is Extract<T_Value, sass.Value> {
         return (
@@ -154,7 +154,7 @@ export namespace sassValueToJS {
     /**
      * Gets the type of a sass value.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export function typeOf<T_Type extends typeOf.TestType | sass.Value>( value: T_Type ): typeOf.Return {
 
@@ -208,14 +208,14 @@ export namespace sassValueToJS {
         /**
          * Possible return values for {@link typeOf}. 
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Return = "args" | "boolean" | "color" | "list" | "map" | "null" | "number" | "string" | "undefined";
 
         /**
          * Possible return values for {@link typeOf}, generically. 
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type ReturnGeneric<T_Type extends TestType> =
             | ( T_Type extends undefined ? "undefined" : never )
@@ -264,7 +264,7 @@ export namespace sassValueToJS {
     ): AcceptedReturns;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export function sync(
         sassValue: AcceptedValues,

@@ -191,7 +191,7 @@ export namespace jsValueToSass {
     /**
      * Options for the conversions.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export interface Opts {
 

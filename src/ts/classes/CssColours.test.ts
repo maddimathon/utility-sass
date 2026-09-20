@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * 
  * @packageDocumentation
  */
@@ -17,7 +17,7 @@ import { CssColours } from './CssColours.js';
 import {
     colourValuesParsed,
     colourValueFunctions,
-} from './CssColours.test.values.js';
+} from './CssColours.docs.values.js';
 
 
 const colourValueFunctionEntries = Object.entries( colourValueFunctions ) as (

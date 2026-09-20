@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0.draft
+ * @maddimathon/utility-sass@0.1.0-beta.0
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -24,13 +24,13 @@ export declare function sassAssertValueType(name: string, type: sassAssertValueT
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare namespace sassAssertValueType {
     /**
      * Strings to assert a type.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type AllowedTypes = "bool" | "list" | "map" | "number" | "string";
 }

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0.draft
+ * @maddimathon/utility-sass@0.1.0-beta.0
  * @license MIT
  */
 import { CssColours } from './CssColours.js';
@@ -146,7 +146,7 @@ export var JsonToScss;
     /**
      * Quotes the given string for scss output.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function quote_string(input, unquote = false) {
         const hasSingleQuote = input.match(/'/) !== null;

@@ -32,7 +32,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         alwaysQuoteKeys?: boolean;
 
@@ -43,7 +43,7 @@ export namespace JsonToScss {
          *
          * @default true
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         alwaysQuoteNumberKeys?: boolean;
 
@@ -63,7 +63,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         convertUnitStringsToNumbers?: boolean;
 
@@ -73,7 +73,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         convertZeroStringsToNumbers?: boolean;
 
@@ -83,7 +83,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         cssFunctionsAsStrings?: boolean;
 
@@ -92,7 +92,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         onlyQuoteAsNeeded?: boolean;
 
@@ -102,7 +102,7 @@ export namespace JsonToScss {
          *
          * @default /[^a-z|0-9|\-|_]/i
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         requiredQuotesRegex?: RegExp;
 
@@ -112,7 +112,7 @@ export namespace JsonToScss {
          * 
          * @default /[^a-z|0-9|\-|_]/i
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         requiredQuotesKeyRegex?: RegExp;
 
@@ -122,7 +122,7 @@ export namespace JsonToScss {
          *
          * @default true
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         unquoteNumberString?: boolean;
 
@@ -132,7 +132,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         useStringModule?: boolean;
     }
@@ -359,7 +359,7 @@ export namespace JsonToScss {
     /**
      * Quotes the given string for scss output.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     function quote_string( input: string, unquote: boolean = false ) {
 

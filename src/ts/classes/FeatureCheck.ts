@@ -121,7 +121,7 @@ export class FeatureCheck<
      * 
      * Overloaded for better (but ott) return typeing.
      * 
-     * @since ___PKG_VERSION___ — Added overloads for better typing. Added optional ignorePrefix param.
+     * @since 0.1.0-beta.0 — Added overloads for better typing. Added optional ignorePrefix param.
      * 
      * @experimental
      */
@@ -142,7 +142,7 @@ export class FeatureCheck<
          * Whether to exclude the 'js__' prefix. This is only used to set the
          * 'js' and 'no-js' classes.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          *
          * @inline
          * @internal
@@ -294,21 +294,21 @@ export class FeatureCheck<
      * Built from combining {@link FeatureCheck.customCheckSlugs} and the keys
      * of {@link FeatureCheck.opts.checks}.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     protected readonly allCheckSlugs: ( FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug )[];
 
     /**
      * Built from combining the keys of {@link FeatureCheck.opts.checks}.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     protected readonly defaultCheckSlugs: Set<FeatureCheck.DefaultCheckSlug>;
 
     /**
      * Checks if the given slug is a default test.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public isDefaultCheck( slug: string ): slug is FeatureCheck.DefaultCheckSlug {
         return this.defaultCheckSlugs.has( slug as FeatureCheck.DefaultCheckSlug );
@@ -318,7 +318,7 @@ export class FeatureCheck<
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     protected readonly customCheckSlugs: Set<T_CustomCheckerSlug>;
 
@@ -326,7 +326,7 @@ export class FeatureCheck<
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public isCustomCheck( slug: string ): slug is T_CustomCheckerSlug {
         return this.customCheckSlugs.has( slug as T_CustomCheckerSlug );
@@ -400,7 +400,7 @@ export class FeatureCheck<
     /**
      * Gets a copied array of all check slugs.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public getCheckSlugs(): ( FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug )[] {
         return [ ...this.allCheckSlugs ];
@@ -528,7 +528,7 @@ export namespace FeatureCheck {
     /**
      * Built-in feature-check methods.
      * 
-     * @since ___PKG_VERSION___ Renamed from Checker to DefaultCheckSlug.
+     * @since 0.1.0-beta.0 Renamed from Checker to DefaultCheckSlug.
      */
     export type DefaultCheckSlug =
         | "aspectRatio"
@@ -601,7 +601,7 @@ export namespace FeatureCheck {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type Opts<
         /**
@@ -629,7 +629,7 @@ export namespace FeatureCheck {
     /**
      * Partially partialized.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type OptsInput<
         /**
@@ -657,7 +657,7 @@ export namespace FeatureCheck {
     /**
      * The default checker functions.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export const CHECKERS = {
         /**
@@ -777,7 +777,7 @@ export namespace FeatureCheck {
         /**
          * Checks for `grid-template-columns: subgrid` css rule support.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * 
          * @experimental
          * @source

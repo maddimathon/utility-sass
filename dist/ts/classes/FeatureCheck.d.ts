@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0.draft
+ * @maddimathon/utility-sass@0.1.0-beta.0
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -106,33 +106,33 @@ T_CustomCheckerSlug extends string = string> {
      * Built from combining {@link FeatureCheck.customCheckSlugs} and the keys
      * of {@link FeatureCheck.opts.checks}.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     protected readonly allCheckSlugs: (FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug)[];
     /**
      * Built from combining the keys of {@link FeatureCheck.opts.checks}.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     protected readonly defaultCheckSlugs: Set<FeatureCheck.DefaultCheckSlug>;
     /**
      * Checks if the given slug is a default test.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     isDefaultCheck(slug: string): slug is FeatureCheck.DefaultCheckSlug;
     /**
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     protected readonly customCheckSlugs: Set<T_CustomCheckerSlug>;
     /**
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     isCustomCheck(slug: string): slug is T_CustomCheckerSlug;
     constructor(
@@ -152,7 +152,7 @@ T_CustomCheckerSlug extends string = string> {
     /**
      * Gets a copied array of all check slugs.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     getCheckSlugs(): (FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug)[];
     /**
@@ -205,7 +205,7 @@ export declare namespace FeatureCheck {
     /**
      * Built-in feature-check methods.
      *
-     * @since 0.1.0-beta.0.draft Renamed from Checker to DefaultCheckSlug.
+     * @since 0.1.0-beta.0 Renamed from Checker to DefaultCheckSlug.
      */
     type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backdropFilter" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid"
     /**
@@ -251,7 +251,7 @@ export declare namespace FeatureCheck {
         };
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type Opts<
     /**
@@ -274,7 +274,7 @@ export declare namespace FeatureCheck {
     /**
      * Partially partialized.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type OptsInput<
     /**
@@ -297,7 +297,7 @@ export declare namespace FeatureCheck {
     /**
      * The default checker functions.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     const CHECKERS: {
         /**
@@ -381,7 +381,7 @@ export declare namespace FeatureCheck {
         /**
          * Checks for `grid-template-columns: subgrid` css rule support.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          *
          * @experimental
          * @source

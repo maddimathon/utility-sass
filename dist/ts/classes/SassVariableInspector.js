@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0.draft
+ * @maddimathon/utility-sass@0.1.0-beta.0
  * @license MIT
  */
 import { makeNumber, toTitleCase, typeOf, VariableInspector } from '@maddimathon/utility-typescript';
@@ -14,7 +14,7 @@ import { sassValueToJS } from '../functions/sassValueToJS.js';
 /**
  * To use with sass object instances for better output.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export class SassVariableInspector extends VariableInspector {
     /**
@@ -50,7 +50,7 @@ export class SassVariableInspector extends VariableInspector {
      *
      * @see {@link VariableInspector.constructor}
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     _parseInputParams(validVar) {
         let { name, rawValue, inspectionValue, } = super._parseInputParams(validVar);
@@ -123,14 +123,14 @@ export class SassVariableInspector extends VariableInspector {
 /**
  * Utils for the {@link SassVariableInspector} class.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 (function (SassVariableInspector) {
     /**
      * A wrapper class to create better variable inspections for sass.Value
      * objects.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     class SassWrapper {
         constructor(value) {

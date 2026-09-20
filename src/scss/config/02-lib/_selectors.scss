@@ -15,7 +15,7 @@
 /// ======================================================================== ///
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $mx_config_selectorModifiers_warnAppendToSelector: null !default;
 $mx_config_selectorModifiers_warnAppendToSelector: config-valid-bool(
@@ -25,7 +25,7 @@ $mx_config_selectorModifiers_warnAppendToSelector: config-valid-bool(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin _selector-modifier-generic(
     $name,
@@ -67,7 +67,7 @@ $mx_config_selectorModifiers_warnAppendToSelector: config-valid-bool(
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $include_linkVisitedState: null !default;
 $include_linkVisitedState: config-valid-bool(
@@ -81,13 +81,13 @@ $include_linkVisitedState: config-valid-bool(
 /// want to use, e.g., 'a' instead of 'a[href]' - this affects the button
 /// utility selector used for links with the `.button` class as well.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $selector_a: null !default;
 $selector_a: config-valid-selector($selector_a, 'selector_a', $default: 'a[href]');
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $selector_a_current: null !default;
 $selector_a_current: config-valid-selector(
@@ -97,14 +97,14 @@ $selector_a_current: config-valid-selector(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function selector-a-current($selector: &) {
     @return selector.unify($selector, $selector_a_current);
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin selector-a-current($selector: &, $args...) {
     @include _selector-modifier-generic(
@@ -118,7 +118,7 @@ $selector_a_current: config-valid-selector(
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $selector_a_disabled: null !default;
 $selector_a_disabled: config-valid-selector(
@@ -128,14 +128,14 @@ $selector_a_disabled: config-valid-selector(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function selector-a-disabled($selector: &) {
     @return selector.unify($selector, $selector_a_disabled);
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin selector-a-disabled($selector: &, $args...) {
     @include _selector-modifier-generic(
@@ -149,7 +149,7 @@ $selector_a_disabled: config-valid-selector(
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $selector_button_disabled: null !default;
 $selector_button_disabled: config-valid-selector(
@@ -159,14 +159,14 @@ $selector_button_disabled: config-valid-selector(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function selector-button-disabled($selector: &) {
     @return selector.unify($selector, $selector_button_disabled);
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin selector-button-disabled($selector: &, $args...) {
     @include _selector-modifier-generic(
@@ -184,7 +184,7 @@ $selector_button_disabled: config-valid-selector(
 /// :where([role='heading'][aria-level='…']) selectors for heading levels beyond 6.
 ///
 /// @since 0.1.0-pre.0
-/// @since ___PKG_VERSION___ — Renamed from $mx_extendHeadingsByRole to $selector_headingsByRole.
+/// @since 0.1.0-beta.0 — Renamed from $mx_extendHeadingsByRole to $selector_headingsByRole.
 ///
 $selector_headingsByRole: null !default;
 $selector_headingsByRole: config-valid-bool(
@@ -194,7 +194,7 @@ $selector_headingsByRole: config-valid-bool(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $selector_input_disabled: null !default;
 $selector_input_disabled: config-valid-selector(
@@ -204,14 +204,14 @@ $selector_input_disabled: config-valid-selector(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function selector-input-disabled($selector: &) {
     @return selector.unify($selector, $selector_input_disabled);
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin selector-input-disabled($selector: &, $args...) {
     @include _selector-modifier-generic(
@@ -225,7 +225,7 @@ $selector_input_disabled: config-valid-selector(
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $selector_input_readonly: null !default;
 $selector_input_readonly: config-valid-selector(
@@ -235,14 +235,14 @@ $selector_input_readonly: config-valid-selector(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @function selector-input-readonly($selector: &) {
     @return selector.unify($selector, $selector_input_readonly);
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 @mixin selector-input-readonly($selector: &, $args...) {
     @include _selector-modifier-generic(

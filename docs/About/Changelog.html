@@ -1,5 +1,5 @@
-<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Changelog | Utility Sass @ 0.1.0-beta.0.draft</title><meta name="description" content="Documentation for Utility Sass @ 0.1.0-beta.0.draft"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
-<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Utility Sass @ 0.1.0-beta.0.draft</a>
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Changelog | Utility Sass @ 0.1.0-beta.0</title><meta name="description" content="Documentation for Utility Sass @ 0.1.0-beta.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Utility Sass @ 0.1.0-beta.0</a>
 <div id="tsd-toolbar-links"><a href="https://github.com/maddimathon/utility-sass">GitHub</a><a href="https://www.maddimathon.com/web">by Maddi Mathon</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
 <ul role="listbox" id="tsd-search-results"></ul>
 <div id="tsd-search-status" aria-live="polite" aria-atomic="true">
@@ -25,24 +25,508 @@ and this project adheres to
 </ul>
 </blockquote>
 <!--CHANGELOG_NEW-->
-<h2 id="010-alpha-to-010-alpha41-2025-10-29-to-2026-03-03" class="tsd-anchor-link"><strong>0.1.0-alpha</strong> to <strong>0.1.0-alpha.41</strong> — 2025-10-29 to 2026-03-03<a href="#010-alpha-to-010-alpha41-2025-10-29-to-2026-03-03" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h2 id="010-beta0-2026-09-19" class="tsd-anchor-link"><strong>0.1.0-beta.0</strong> — 2026-09-19<a href="#010-beta0-2026-09-19" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Tons of new config vars, tons of new selector module functions, plus list, map,
+math, meta, string module functions, and more.</p>
 <h3 id="removed" class="tsd-anchor-link">Removed<a href="#removed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Removed functions - mapToObject(), mapToObjectAsync() (now in utility-typescript instead)</li>
+<li>Removed type - RecursiveRecord (now in utility-typescript instead)</li>
+<li>Removed config vars:
+<ul>
+<li>$cxPropPre</li>
+<li>$internal_customTokensDefault</li>
+<li>$fn_clampFontSize_multiplier_svw</li>
+<li>$fn_gapValue_useMarginValue</li>
+<li>$page_top</li>
+</ul>
+</li>
+<li>Removed template config var - $template_internal_supressCredit</li>
+<li>Removed functions:
+<ul>
+<li>token-map()</li>
+</ul>
+</li>
+<li>Removed mixins:
+<ul>
+<li>snippet-centre-callout-block (was an overcomplication that creates downstream issues)</li>
+<li>breakpoint (replaced with breakpoint-min-or-max and breakpoint-minmax-range)</li>
+</ul>
+</li>
+<li>Removed module functions:
+<ul>
+<li>list.text-join (replaced by string.join and string.concat)</li>
+</ul>
+</li>
+<li>Removed unnecessary interpolation in property values</li>
+</ul>
+<h3 id="moved-renamed" class="tsd-anchor-link">Moved &amp; Renamed<a href="#moved-renamed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Moved extend-selectors mixin to template (for better config) - also changed param names</li>
+<li>Merged template config vars $template_include_buttons and
+$template_include_headings into $template_styles map</li>
+<li>Moved from config to tokens:
+<ul>
+<li>$breakpoints</li>
+</ul>
+</li>
+<li>Moved from config to tokens (and renamed):
+<ul>
+<li>$fn_fontSizeValue_defaultFontScale → $fontSize_base</li>
+</ul>
+</li>
+<li>Moved from lib config to modules config (and renamed):
+<ul>
+<li>$fn_clampFontSize_multiplier_max → $math_clampFontSize_multiplier_max</li>
+<li>$fn_clampFontSize_multiplier_min → $math_clampFontSize_multiplier_min</li>
+<li>$fn_clampFontSize_svw_rem → $math_clampFontSize_baseRem</li>
+<li>$fn_fontSizeValue_roundToPixelFactor → $math_fontSize_roundingFactor</li>
+</ul>
+</li>
+<li>Moved from lib config to template config (and renamed):
+<ul>
+<li>$print_globals → $template_globals</li>
+<li>$print_headings → $template_cssHeadings</li>
+<li>$print_normalize → $template_normalize</li>
+<li>$print_tokens → $template_tokens</li>
+<li>$print_utils → $template_utils</li>
+</ul>
+</li>
+<li>Renamed config vars (for more consistency in their impacts/casing):
+<ul>
+<li>$customPropertyPrefix_asFallbackOnly → $customPropertyPrefix_asFallback</li>
+<li>$fn_debugCheckpoint → $debug_checkpoints</li>
+<li>$fn_debugCheckpoint_verbose → $debug_checkpoints_verbose</li>
+<li>$include_defaultMediaQueries → $mx_colourMode_includeLightModeQuery</li>
+<li>$include_noPreferenceMediaQueries → $mx_colourMode_includeNoPreferenceQueries</li>
+<li>$mx_colourMode_includeQuery_default → $mx_colourMode_includeQuery</li>
+<li>$mx_colourMode_includeSelectors_default → $mx_colourMode_includeSelectors</li>
+<li>$mx_colourModeEach_includeSelectors_forcedColors → $mx_colourModeEach_includeForcedColorsSelectors</li>
+<li>$mx_colourModeEach_nestModeSelectors → $fn_colourMode_selectorsAsChildren</li>
+<li>$mx_extendHeadingsByRole → $selector_headingsByRole</li>
+<li>$mx_interactive_states_include_fallbacks → $mx_focusVisible_includeFallbacks</li>
+<li>$mx_interactive_states_include_fallbacks_only → $mx_focusVisible_fallbacksOnly</li>
+<li>$mx_tokensFontSize_printRelative → $mx_tokens_fontSize_printRelative</li>
+</ul>
+</li>
+<li>Renamed template config vars (for more consistency in their impacts/casing):
+<ul>
+<li>$print_templateDocBlock → $template_docBlock</li>
+</ul>
+</li>
+<li>Renamed token vars (for more consistency with design-system-utilities):
+<ul>
+<li>$border_widths → $border_width</li>
+<li>$customTokens → $style</li>
+<li>$font_sizes → $font_size</li>
+<li>$gaps → $gap</li>
+<li>$line_heights → $line_height</li>
+<li>$margins → $margin</li>
+<li>$strokes_relative → $stroke_relative</li>
+<li>$widths → $width</li>
+</ul>
+</li>
+<li>Moved from lib to modules and renamed:
+<ul>
+<li>call-global-util-fn() → meta.call-global-compiler-fn()</li>
+<li>get-global-util-fn() → meta.get-global-compiler-fn()</li>
+</ul>
+</li>
+<li>Moved from lib to module:
+<ul>
+<li>js-var-dump() → meta.js-var-dump()</li>
+</ul>
+</li>
+<li>Moved template config directory to <code>src/config/</code> directory</li>
+<li>Renamed functions:
+<ul>
+<li>is-colour-mode-included() → is-colour-mode-active()</li>
+<li>token-value() → style-value()</li>
+<li>var-token() → var-style()</li>
+</ul>
+</li>
+<li>Renamed mixins:
+<ul>
+<li>tokens-custom → tokens-style</li>
+</ul>
+</li>
+<li>Removed params from extend-selectors-* mixins: $additional_optional, $optional</li>
+<li>Renamed colour mode functions &amp; mixins args:
+<ul>
+<li>$nestParentSelector → $addGlobalModeSelector</li>
+<li>$unifyParentSelector → $unifySelectors</li>
+<li>$wrapParentSelector → $nestModeSelector</li>
+</ul>
+</li>
+</ul>
+<h3 id="misc-breaking" class="tsd-anchor-link">Misc. Breaking<a href="#misc-breaking" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Templates no longer forward config or lib</li>
+<li>New config var $featureCheck_jsOnlyAsNeeded now defaults to true, which will
+change output for feature-check.supports and feature-check.supports-not mixins</li>
+<li>Better template structure: created new scss/lib/04-templates directory for
+better modular output &amp; cascading in output stylesheets of libraries that
+extend this one</li>
+</ul>
+<h3 id="added" class="tsd-anchor-link">Added<a href="#added" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h4 id="added-to-scss" class="tsd-anchor-link">Added to Scss<a href="#added-to-scss" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<ul>
+<li>New module: demo</li>
+<li>New config functions:
+<ul>
+<li>config-enforce-type-or-warn()</li>
+<li>config-get-template-styles()</li>
+<li>config-valid-function()</li>
+<li>config-valid-mixin()</li>
+<li>config-valid-token-level()</li>
+<li>custom-property-prefix-all-exists()</li>
+<li>custom-property-prefix-exists()</li>
+<li>custom-property-prefix-fallback-exists()</li>
+</ul>
+</li>
+<li>New config vars:
+<ul>
+<li>$breakpoints_attributeOverrides</li>
+<li>$breakpoints_attributeOverrides_includeRoot</li>
+<li>$colour_allowModernOpacitySyntax</li>
+<li>$colour_channelLists_separator</li>
+<li>$config_validTokenLevels (used only by config-valid-token-level)</li>
+<li>$customPropertyPrefix_fallback</li>
+<li>$demo_includeNameWithContent</li>
+<li>$demo_separateSignature</li>
+<li>$demo_signatureAsRegion</li>
+<li>$demo_signatureAtRoot</li>
+<li>$demo_wrapCallSignature_mixin</li>
+<li>$demo_wrapOutput</li>
+<li>$demo_wrapOutput_function_withName</li>
+<li>$featureCheck_defaultToJS</li>
+<li>$featureCheck_defaultToJS_supports</li>
+<li>$featureCheck_defaultToJS_supports_not</li>
+<li>$featureCheck_includeNoWhereSelectorFallback</li>
+<li>$featureCheck_includeNoWhereSelectorFallback_supports_not</li>
+<li>$featureCheck_jsOnlyAsNeeded</li>
+<li>$featureCheck_jsScreenMediaQuery</li>
+<li>$featureCheck_neverUseJS</li>
+<li>$featureCheck_supports</li>
+<li>$featureCheck_supportsQueries</li>
+<li>$fn_breakpoints_gapDoubler</li>
+<li>$fn_breakpointValue_roundToPixelFactor</li>
+<li>$fn_var_replaceWithValue_resist</li>
+<li>$include_linkVisitedState</li>
+<li>$internal_utilitySass_stylesheetPath</li>
+<li>$math_clampFontSize_viewport_max</li>
+<li>$math_clampFontSize_viewport_min</li>
+<li>$mx_colourModeCombo_includeForcedColorsSelectors</li>
+<li>$mx_focusVisible_includeNoWhereSelectorFallback</li>
+<li>$mx_focusWithin_useHas</li>
+<li>$mx_interactive_isolateSelector_active</li>
+<li>$mx_interactive_isolateSelector_focus</li>
+<li>$mx_interactiveStates_featureCheck_viaQuery</li>
+<li>$mx_normalizeOrReset_codeFontFamily_usePseudo</li>
+<li>$mx_normalizeOrReset_includeColorScheme</li>
+<li>$mx_normalizeOrReset_includeFontFamily</li>
+<li>$mx_normalizeOrReset_includeFontSize</li>
+<li>$mx_normalizeOrReset_includeFontSmoothing</li>
+<li>$mx_prop_useCustom_display</li>
+<li>$mx_prop_useCustom_display</li>
+<li>$mx_prop_useCustom_never</li>
+<li>$mx_reset_doUniversalBoxSizing</li>
+<li>$mx_reset_headingsByRole</li>
+<li>$mx_reset_useHeadingPseudo</li>
+<li>$mx_tokens_print_atProperty</li>
+<li>$mx_tokens_print_atProperty</li>
+<li>$mx_tokens_print_borderWidth</li>
+<li>$mx_tokens_print_borderWidth</li>
+<li>$mx_tokens_print_fontSize</li>
+<li>$mx_tokens_print_fontSize</li>
+<li>$mx_tokens_print_gap</li>
+<li>$mx_tokens_print_gap</li>
+<li>$mx_tokens_print_lineHeight</li>
+<li>$mx_tokens_print_lineHeight</li>
+<li>$mx_tokens_print_margin</li>
+<li>$mx_tokens_print_margin</li>
+<li>$mx_tokens_print_strokeRelative</li>
+<li>$mx_tokens_print_strokeRelative</li>
+<li>$mx_tokens_print_style</li>
+<li>$mx_tokens_print_style</li>
+<li>$mx_tokens_print_sysColours</li>
+<li>$mx_tokens_print_sysColours</li>
+<li>$mx_tokens_print_width</li>
+<li>$mx_tokens_print_width</li>
+<li>$mx_tokens_printAll</li>
+<li>$mx_tokens_printAll</li>
+<li>$selector_a</li>
+<li>$selector_a_current</li>
+<li>$selector_a_disabled</li>
+<li>$selector_body_aliases</li>
+<li>$selector_button_disabled</li>
+<li>$selector_input_disabled</li>
+<li>$selector_input_readonly</li>
+<li>$selector_interactiveState_active</li>
+<li>$selector_interactiveState_focus</li>
+<li>$selector_root_aliases</li>
+<li>$template_extendSelectors</li>
+<li>$template_slug</li>
+<li>$template_title</li>
+<li>$warnOnMissingCompilerFunctions</li>
+</ul>
+</li>
+<li>New token functions:
+<ul>
+<li>tokens-get-at-properties()</li>
+</ul>
+</li>
+<li>New token vars:
+<ul>
+<li>$atProperties</li>
+<li>$brightnessMode_options</li>
+<li>$contrastMode_options</li>
+<li>$lineHeight_multiplier</li>
+<li>$systemFontList</li>
+<li>$systemFontList_append</li>
+<li>$systemFontList_monospace</li>
+<li>$systemFontList_monospace_append</li>
+<li>$systemFontList_monospace_prepend</li>
+<li>$systemFontList_prepend</li>
+</ul>
+</li>
+<li>New module functions:
+<ul>
+<li>colour.is-colour-like()</li>
+<li>colour.is-keyword()</li>
+<li>colour.is-system-color()</li>
+<li>demo.args-dump()</li>
+<li>demo.content-args-dump()</li>
+<li>demo.mixin-signature-dump()</li>
+<li>list.except-any()</li>
+<li>list.only-any()</li>
+<li>list.repeat()</li>
+<li>list.slice()</li>
+<li>map.pick()</li>
+<li>map.regex-divide()</li>
+<li>map.regex-pick()</li>
+<li>map.regex-remove()</li>
+<li>math.clamp-font-size() - was in the lib</li>
+<li>math.coerce-unit()</li>
+<li>math.to-percent()</li>
+<li>meta.arglist-append()</li>
+<li>meta.arglist-prepend()</li>
+<li>meta.defined-else()</li>
+<li>meta.enforce-type-or-warn()</li>
+<li>meta.if-else()</li>
+<li>meta.is-truthy()</li>
+<li>meta.keywords-list-to-arglist()</li>
+<li>meta.keywords-list()</li>
+<li>meta.warning-message-bad-type()</li>
+<li>selector.add-body-selector()</li>
+<li>selector.add-root-selector()</li>
+<li>selector.except-has-body()</li>
+<li>selector.except-has-root-or-body()</li>
+<li>selector.except-has-root()</li>
+<li>selector.except-is-body()</li>
+<li>selector.except-is-root-or-body()</li>
+<li>selector.except-is-root()</li>
+<li>selector.except-superselector()</li>
+<li>selector.except()</li>
+<li>selector.exists()</li>
+<li>selector.extend-simple-selector()</li>
+<li>selector.has-any-body()</li>
+<li>selector.has-any-root-or-body()</li>
+<li>selector.has-any-root()</li>
+<li>selector.has-body()</li>
+<li>selector.has-root-or-body()</li>
+<li>selector.has-root()</li>
+<li>selector.includes()</li>
+<li>selector.is-any-body()</li>
+<li>selector.is-any-root-or-body()</li>
+<li>selector.is-any-root()</li>
+<li>selector.is-multi()</li>
+<li>selector.is-root-or-body()</li>
+<li>selector.is-simple()</li>
+<li>selector.is-superselector-any()</li>
+<li>selector.omit-simple-selector()</li>
+<li>selector.only-has-body()</li>
+<li>selector.only-has-root-or-body()</li>
+<li>selector.only-has-root()</li>
+<li>selector.only-is-body()</li>
+<li>selector.only-is-root-or-body()</li>
+<li>selector.only-is-root()</li>
+<li>selector.only-superselector()</li>
+<li>selector.only()</li>
+<li>selector.parent-except-superselector()</li>
+<li>selector.parent-except()</li>
+<li>selector.parent-has-body()</li>
+<li>selector.parent-has-root-or-body()</li>
+<li>selector.parent-has-root()</li>
+<li>selector.parent-includes()</li>
+<li>selector.parent-is-multi()</li>
+<li>selector.parent-is-root-or-body()</li>
+<li>selector.parent-only-superselector()</li>
+<li>selector.parent-only()</li>
+<li>selector.pop()</li>
+<li>selector.popped()</li>
+<li>selector.replace-simple-selector()</li>
+<li>selector.unify-all()</li>
+<li>string.concat()</li>
+<li>string.is-quoted()</li>
+<li>string.join()</li>
+<li>string.match()</li>
+<li>string.regex-replace()</li>
+<li>string.regex-split()</li>
+</ul>
+</li>
+<li>New module mixins:
+<ul>
+<li>demo.function</li>
+<li>demo.mixin</li>
+<li>demo.selector-function</li>
+<li>meta.docblock-printer</li>
+<li>meta.var-dump</li>
+<li>selector.add-body-selector</li>
+<li>selector.add-root-selector</li>
+<li>selector.except-superselector</li>
+<li>selector.only-superselector</li>
+<li>selector.popped</li>
+</ul>
+</li>
+<li>New functions:
+<ul>
+<li>selector-add-visited()</li>
+<li>selector-buttons-basic()</li>
+</ul>
+</li>
+<li>New template functions:
+<ul>
+<li>get-extend-selectors-headings-global()</li>
+<li>get-extend-selectors-headings-utils()</li>
+</ul>
+</li>
+<li>New mixins:
+<ul>
+<li>active</li>
+<li>active-hover-focus-visible</li>
+<li>active-hover-focus-visible-or-within</li>
+<li>active-within</li>
+<li>at-property</li>
+<li>colour-mode-combo</li>
+<li>container-query-cx-prop</li>
+<li>container-query-cx-prop-list</li>
+<li>container-query-cx-prop-map</li>
+<li>cx-prop-bulk</li>
+<li>each-motion</li>
+<li>extend-selectors-globals--focus-ring</li>
+<li>focus</li>
+<li>focus-within</li>
+<li>prop</li>
+<li>prop-display</li>
+<li>selector-all-headings</li>
+<li>tokens-at-property</li>
+<li>visited</li>
+</ul>
+</li>
+<li>New template mixins:
+<ul>
+<li>extend-selectors-globals--focus-ring</li>
+</ul>
+</li>
+<li>New snippets:
+<ul>
+<li>snippet-add-pseudo-file-selector-button</li>
+<li>snippet-blockquote</li>
+<li>snippet-pre</li>
+<li>snippet-support-focus-ring</li>
+</ul>
+</li>
+<li>New pseudo selectors:
+<ul>
+<li>input--file</li>
+<li>input-base</li>
+</ul>
+</li>
+<li>New optional param(s) for:
+<ul>
+<li>apply-interactive-mixin - $self, $visited</li>
+<li>breakpoint mixin - $unit</li>
+<li>colour-mode-each mixin - $includeForcedColorsSelectors</li>
+<li>do-var() - $fallbackOnly</li>
+<li>selector.parent-or-body() and selector.parent-or-root() - $asPseudoSelector</li>
+</ul>
+</li>
+<li>New modules-only config at <code>@maddimathon/utility-sass/config/modules</code></li>
+<li>New $template_styles props for all template output!</li>
+<li>New calc() to FeatureCheck</li>
+<li>New demo stylesheet (tests) for apply-interactive-mixin</li>
+<li>New option for multiple content blocks (i.e., content blocks with a $location parameter) to interactive mixins</li>
+<li>Added list input to feature-check.supports() and feature-check.supports-not()</li>
+<li>Added option to use has instead of focus-within</li>
+<li>Added $important param to mixins: custom-property, prop, etc.</li>
+<li>Added backdrop-filter style token</li>
+<li>Added custom property support for page-top</li>
+</ul>
+<h4 id="added-to-ts" class="tsd-anchor-link">Added to TS<a href="#added-to-ts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<ul>
+<li>New ts CssColours namespace with types and sets for css colour
+strings (from design-system-utilities)</li>
+<li>New props to JsonToScss.Opts - alwaysQuoteKeys, alwaysQuoteNumberKeys,
+convertZeroStringsToNumbers, cssFunctionsAsStrings, onlyQuoteAsNeeded,
+requiredQuotesRegex, requiredQuotesKeyRegex, unquoteNumberString,
+useStringModule</li>
+<li>New jsValueToSass.Opts for configuration of conversion - e.g., quotes on
+strings and colour objects</li>
+<li>Added tests to the CssColour utilities</li>
+<li>Added better returns to CssColour.parseFunction() and better regexes for matching</li>
+<li>FeatureCheck improvements:
+<ul>
+<li>Added variableFonts to FeatureCheck</li>
+<li>Added touch support to FeatureCheck class</li>
+<li>Added test result caching to FeatureCheck</li>
+<li>Added better test method logic to FeatureCheck</li>
+</ul>
+</li>
+</ul>
+<h3 id="changed" class="tsd-anchor-link">Changed<a href="#changed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Summarized 0.1.0-pre.# and 0.1.0-alpha.# releases in changelog</li>
+<li>math.clamp-font-size() formula improvements</li>
+<li>Simplified output for apply-interactive-mixin and related mixins to reduce redundancy</li>
+<li><code>%a</code> is now extended by config.$selector_a (defaults to<code>a[href]</code>), not just <code>a</code></li>
+<li>Added option for multiple content blocks (i.e., content blocks with a
+$location parameter) to interactive mixins</li>
+<li>Added breakpoint override selectors to root aliases</li>
+</ul>
+<h3 id="fixed" class="tsd-anchor-link">Fixed<a href="#fixed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Updated with utility-typescript</li>
+<li>Added ':visited' states to buttons to fix a bug with visited link buttons</li>
+<li>Adding actual type warning to config.config-valid-bool()</li>
+<li>Fix to default of $unifySelectors param in colour mode args when parent is root</li>
+<li>Fixed error handling in meta.js-var-dump()</li>
+<li>Added demo stylesheets for custom property prefixes</li>
+<li>Improved custom property prefix system</li>
+<li>Updated dependencies</li>
+<li>Interactive mixins improvements</li>
+<li>Improvements to heading selector extending</li>
+<li>Improvements to breakpoint tokens &amp; utilities</li>
+<li>Minor changes to scroll padding</li>
+</ul>
+<h2 id="010-alpha-to-010-alpha41-2025-10-29-to-2026-03-03" class="tsd-anchor-link"><strong>0.1.0-alpha</strong> to <strong>0.1.0-alpha.41</strong> — 2025-10-29 to 2026-03-03<a href="#010-alpha-to-010-alpha41-2025-10-29-to-2026-03-03" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h3 id="removed-1" class="tsd-anchor-link">Removed<a href="#removed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Removed button-secondary styles (as part of the slow move for templates to
 scss-templater and design-system-utilities) [0.1.0-alpha.39 — 2026-02-25]</li>
 </ul>
-<h3 id="moved-renamed" class="tsd-anchor-link">Moved &amp; Renamed<a href="#moved-renamed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="moved-renamed-1" class="tsd-anchor-link">Moved &amp; Renamed<a href="#moved-renamed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Changed feature-check module's js-support mixin to supports and js-no-support
 mixin to supports-not [0.1.0-alpha.5 — 2025-11-15]</li>
 </ul>
-<h3 id="misc-breaking" class="tsd-anchor-link">Misc. Breaking<a href="#misc-breaking" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="misc-breaking-1" class="tsd-anchor-link">Misc. Breaking<a href="#misc-breaking-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Switched SemVer version used in sassFn_getCurrentVersion to remove the Logger
 instance requirement (which caused issues in dependent libraries using vite) [0.1.0-alpha.9 — 2025-12-28]</li>
 <li>Changed param from $lh to $lineHeight in mixins - snippet-button, snippet-input, snippet-label [0.1.0-alpha.24 — 2026-01-30]</li>
 </ul>
-<h3 id="added" class="tsd-anchor-link">Added<a href="#added" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="added-1" class="tsd-anchor-link">Added<a href="#added-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Added unstyled-heading utility class and $includeUnstyledHeadingProps prop in
 snippet-heading [0.1.0-alpha.6 — 2025-12-01]</li>
@@ -162,7 +646,7 @@ falls back to 0) [0.1.0-alpha.36 — 2026-02-25]</li>
 </ul>
 </li>
 </ul>
-<h3 id="changed" class="tsd-anchor-link">Changed<a href="#changed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="changed-1" class="tsd-anchor-link">Changed<a href="#changed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Super minor change to region comments in colour-mode-each. [0.1.0-alpha.2 — 2025-11-02]</li>
 <li>More very minor mixin tweaks. [0.1.0-alpha.4 — 2025-11-03]</li>
@@ -170,7 +654,7 @@ falls back to 0) [0.1.0-alpha.36 — 2026-02-25]</li>
 <li>Now sorting token maps by key for prettier css output [0.1.0-alpha.22 — 2026-01-30]</li>
 <li>Added more optional parameters to snippet mixins for inputs and labels [0.1.0-alpha.23 — 2026-01-30]</li>
 </ul>
-<h3 id="fixed" class="tsd-anchor-link">Fixed<a href="#fixed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="fixed-1" class="tsd-anchor-link">Fixed<a href="#fixed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Minor fixes to let private package be installed in gh actions. [0.1.0-alpha.1 — 2025-10-29]</li>
 <li>Added explicit css supports queries for system colours with fallbacks [0.1.0-alpha.6 — 2025-12-01]</li>
@@ -190,16 +674,16 @@ the whole namespace (which caused issues in dependent libraries using vite)
 </ul>
 <h2 id="010-pre0-to-010-pre5-2025-10-18-to-2025-10-22" class="tsd-anchor-link"><strong>0.1.0-pre.0</strong> to <strong>0.1.0-pre.5</strong> — 2025-10-18 to 2025-10-22<a href="#010-pre0-to-010-pre5-2025-10-18-to-2025-10-22" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>First releases, mostly for testing.</p>
-<h3 id="added-1" class="tsd-anchor-link">Added<a href="#added-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="added-2" class="tsd-anchor-link">Added<a href="#added-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>$fn_fontSizeValue_defaultFontScale config var function default [0.1.0-pre.1 — 2025-10-19]</li>
 </ul>
-<h3 id="changed-1" class="tsd-anchor-link">Changed<a href="#changed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="changed-2" class="tsd-anchor-link">Changed<a href="#changed-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Switched token values that were string-ified numbers with units to return
 actual numbers. [0.1.0-pre.2 — 2025-10-21]</li>
 </ul>
-<h3 id="fixed-1" class="tsd-anchor-link">Fixed<a href="#fixed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="fixed-2" class="tsd-anchor-link">Fixed<a href="#fixed-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Button style improvements (specifically for icon pseudo elements in
 design-system-utilities) [0.1.0-pre.3 — 2025-10-22]</li>
@@ -217,18 +701,18 @@ be respected. [0.1.0-pre.5 — 2025-10-22]</li>
 <div class="tsd-accordion-details">
 <div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
 <ul id="tsd-filter-options">
-<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-alpha" name="alpha" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Alpha</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-alpha" name="alpha"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Alpha</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-beta" name="beta" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Beta</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
-<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li></ul></div>
 <div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
 <details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h3>On This Page</h3></summary>
 <div class="tsd-accordion-details"><a href="#utility-sass-changelog"><span>Utility <wbr/>Sass <wbr/>Changelog</span></a>
 <ul>
-<li><a href="#010-alpha-to-010-alpha41-2025-10-29-to-2026-03-03"><span>0.1.0-<wbr/>alpha to 0.1.0-<wbr/>alpha.41 — 2025-<wbr/>10-<wbr/>29 to 2026-<wbr/>03-<wbr/>03</span></a></li>
+<li><a href="#010-beta0-2026-09-19"><span>0.1.0-<wbr/>beta.0 — 2026-<wbr/>09-<wbr/>19</span></a></li>
 <li>
 <ul>
 <li><a href="#removed"><span>Removed</span></a></li>
@@ -237,19 +721,32 @@ be respected. [0.1.0-pre.5 — 2025-10-22]</li>
 <li><a href="#added"><span>Added</span></a></li>
 <li>
 <ul>
-<li><a href="#config"><span>Config</span></a></li>
-<li><a href="#new-scss-functions-mixins"><span>New <wbr/>Scss <wbr/>Functions &amp; <wbr/>Mixins</span></a></li></ul></li>
+<li><a href="#added-to-scss"><span>Added to <wbr/>Scss</span></a></li>
+<li><a href="#added-to-ts"><span>Added to <wbr/>TS</span></a></li></ul></li>
 <li><a href="#changed"><span>Changed</span></a></li>
 <li><a href="#fixed"><span>Fixed</span></a></li></ul></li>
+<li><a href="#010-alpha-to-010-alpha41-2025-10-29-to-2026-03-03"><span>0.1.0-<wbr/>alpha to 0.1.0-<wbr/>alpha.41 — 2025-<wbr/>10-<wbr/>29 to 2026-<wbr/>03-<wbr/>03</span></a></li>
+<li>
+<ul>
+<li><a href="#removed-1"><span>Removed</span></a></li>
+<li><a href="#moved-renamed-1"><span>Moved &amp; <wbr/>Renamed</span></a></li>
+<li><a href="#misc-breaking-1"><span>Misc. <wbr/>Breaking</span></a></li>
+<li><a href="#added-1"><span>Added</span></a></li>
+<li>
+<ul>
+<li><a href="#config"><span>Config</span></a></li>
+<li><a href="#new-scss-functions-mixins"><span>New <wbr/>Scss <wbr/>Functions &amp; <wbr/>Mixins</span></a></li></ul></li>
+<li><a href="#changed-1"><span>Changed</span></a></li>
+<li><a href="#fixed-1"><span>Fixed</span></a></li></ul></li>
 <li><a href="#010-pre0-to-010-pre5-2025-10-18-to-2025-10-22"><span>0.1.0-<wbr/>pre.0 to 0.1.0-<wbr/>pre.5 — 2025-<wbr/>10-<wbr/>18 to 2025-<wbr/>10-<wbr/>22</span></a></li>
 <li>
 <ul>
-<li><a href="#added-1"><span>Added</span></a></li>
-<li><a href="#changed-1"><span>Changed</span></a></li>
-<li><a href="#fixed-1"><span>Fixed</span></a></li></ul></li></ul></div></details></div>
+<li><a href="#added-2"><span>Added</span></a></li>
+<li><a href="#changed-2"><span>Changed</span></a></li>
+<li><a href="#fixed-2"><span>Fixed</span></a></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav id="tsd-sidebar-links" class="tsd-navigation"><a href="https://github.com/maddimathon/utility-sass" class="tsd-nav-link">GitHub</a><a href="https://www.maddimathon.com/web" class="tsd-nav-link">by Maddi Mathon</a></nav>
-<nav class="tsd-navigation"><a href="../index.html">Utility Sass @ 0.1.0-beta.0.draft</a>
+<nav class="tsd-navigation"><a href="../index.html">Utility Sass @ 0.1.0-beta.0</a>
 <ul class="tsd-small-nested-navigation" id="tsd-nav-container">
 <li>Loading...</li></ul></nav></div></div></div><footer><p>Copyright <a href="https://www.maddimathon.com/web" target="_blank">Maddi Mathon</a>, 2025.</p><p>Site generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a>.</p></footer>
 <div class="overlay"></div></body></html>

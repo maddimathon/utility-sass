@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0.draft
+ * @maddimathon/utility-sass@0.1.0-beta.0
  * @license MIT
  */
 import { typeOf, VariableInspector } from '@maddimathon/utility-typescript';
@@ -14,7 +14,7 @@ import { sassValueToJS } from '../functions/sassValueToJS.js';
 /**
  * To use with sass object instances for better output.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare class SassVariableInspector<T_InspectionType extends VariableInspector.InspectionType = VariableInspector.InspectionType> extends VariableInspector<T_InspectionType> {
     /**
@@ -44,7 +44,7 @@ export declare class SassVariableInspector<T_InspectionType extends VariableInsp
      *
      * @see {@link VariableInspector.constructor}
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     protected _parseInputParams(validVar: {
         [key: string]: SassVariableInspector.InputType<T_InspectionType>;
@@ -67,26 +67,26 @@ export declare class SassVariableInspector<T_InspectionType extends VariableInsp
 /**
  * Utils for the {@link SassVariableInspector} class.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare namespace SassVariableInspector {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type SassInput<T_Type extends sass.Value> = (T_Type extends undefined ? undefined : never) | (T_Type extends null | typeof sass.sassNull ? null : never) | (T_Type extends SassInputObjects ? SassWrapper<T_Type> : never) | (T_Type extends sass.SassBoolean ? boolean : never);
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type SassInputObjects = sass.SassArgumentList | sass.SassBoolean | sass.SassColor | sass.SassList | sass.SassMap | sass.SassNumber | sass.SassString | null | Collection<number | string | symbol, unknown>;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type InputType<T_InspectionType extends VariableInspector.InspectionType> = (T_InspectionType extends sass.Value ? SassInput<T_InspectionType> : any) & VariableInspector.InputType<NoInfer<T_InspectionType>>;
     /**
      * A wrapper class to create better variable inspections for sass.Value
      * objects.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     class SassWrapper<T_Type extends SassInputObjects> {
         readonly value: T_Type;
