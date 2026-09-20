@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0
+ * @maddimathon/utility-sass@0.1.0-beta.1
  * @license MIT
  */
 import { sassFn_getCurrentVersion } from './sass/getCurrentVersion.js';
@@ -31,5 +31,20 @@ import { sassFn_debugProgressCheckpoint } from './sass/debugProgressCheckpoint.j
  * @since 0.1.0-alpha.8
  */
 export function sassCompilerFunctions(args) {
-    return Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, sassFn_getCurrentVersion()), sassFn_debugProgressCheckpoint(args)), sassFn_jsVarDump(args)), sassFn_colour_isColourLike()), sassFn_colour_isKeyword()), sassFn_colour_isSystemColor()), sassFn_list_slice()), sassFn_math_coerceUnit(args)), sassFn_string_isQuoted(args)), sassFn_string_match(args)), sassFn_string_regexReplace(args)), sassFn_string_regexSplit(args)), sassFn_string_softWrap());
+    return {
+        ...sassFn_getCurrentVersion(),
+        ...sassFn_debugProgressCheckpoint(args),
+        ...sassFn_jsVarDump(args),
+        ...sassFn_colour_isColourLike(),
+        ...sassFn_colour_isKeyword(),
+        ...sassFn_colour_isSystemColor(),
+        ...sassFn_list_slice(),
+        // ...sassFn_map_flatten(),
+        ...sassFn_math_coerceUnit(args),
+        ...sassFn_string_isQuoted(args),
+        ...sassFn_string_match(args),
+        ...sassFn_string_regexReplace(args),
+        ...sassFn_string_regexSplit(args),
+        ...sassFn_string_softWrap(),
+    };
 }

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0
+ * @maddimathon/utility-sass@0.1.0-beta.1
  * @license MIT
  */
 import { OrderedMap } from 'immutable';
@@ -24,7 +24,12 @@ export async function jsValueToSass(value, _opts) {
         return sass.sassNull;
     }
     const requiredQuotesRegex = (_a = _opts === null || _opts === void 0 ? void 0 : _opts.requiredQuotesRegex) !== null && _a !== void 0 ? _a : /[^a-z|0-9|\-|_]/i;
-    const opts = Object.assign(Object.assign({ coloursAsStrings: false }, _opts), { quoteStrings: (_b = _opts === null || _opts === void 0 ? void 0 : _opts.quoteStrings) !== null && _b !== void 0 ? _b : (typeof value === 'string' ? value.match(requiredQuotesRegex) !== null : true), requiredQuotesRegex });
+    const opts = {
+        coloursAsStrings: false,
+        ..._opts,
+        quoteStrings: (_b = _opts === null || _opts === void 0 ? void 0 : _opts.quoteStrings) !== null && _b !== void 0 ? _b : (typeof value === 'string' ? value.match(requiredQuotesRegex) !== null : true),
+        requiredQuotesRegex,
+    };
     // returns on match
     switch (typeof value) {
         case 'undefined':

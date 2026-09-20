@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-beta.1** — 2026-09-19
+
+Dependency updates.
+
+
 ## **0.1.0-beta.0** — 2026-09-19
 
 Tons of new config vars, tons of new selector module functions, plus list, map,
@@ -370,17 +375,17 @@ math, meta, string module functions, and more.
 - Added custom property support for page-top
 
 #### Added to TS
-- New ts CssColours namespace with types and sets for css colour
+- New ts {@link CssColours} namespace with types and sets for css colour
   strings (from design-system-utilities)
-- New props to JsonToScss.Opts - alwaysQuoteKeys, alwaysQuoteNumberKeys,
+- New props to {@link JsonToScss.Opts} - alwaysQuoteKeys, alwaysQuoteNumberKeys,
   convertZeroStringsToNumbers, cssFunctionsAsStrings, onlyQuoteAsNeeded,
   requiredQuotesRegex, requiredQuotesKeyRegex, unquoteNumberString,
   useStringModule
-- New jsValueToSass.Opts for configuration of conversion - e.g., quotes on
+- New {@link jsValueToSass.Opts} for configuration of conversion - e.g., quotes on
   strings and colour objects
-- Added tests to the CssColour utilities
-- Added better returns to CssColour.parseFunction() and better regexes for matching
-- FeatureCheck improvements:
+- Added tests to the {@link CssColour} utilities
+- Added better returns to {@link CssColour.parseFunction} and better regexes for matching
+- {@link FeatureCheck} improvements:
     - Added variableFonts to FeatureCheck
     - Added touch support to FeatureCheck class
     - Added test result caching to FeatureCheck

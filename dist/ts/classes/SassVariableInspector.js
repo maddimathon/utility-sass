@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0
+ * @maddimathon/utility-sass@0.1.0-beta.1
  * @license MIT
  */
 import { makeNumber, toTitleCase, typeOf, VariableInspector } from '@maddimathon/utility-typescript';
@@ -76,7 +76,10 @@ export class SassVariableInspector extends VariableInspector {
                 case 'number':
                 case 'string':
                     this.args.formatKeys = false;
-                    this.args.childArgs = Object.assign(Object.assign({}, this.args.childArgs), { includeType: false });
+                    this.args.childArgs = {
+                        ...this.args.childArgs,
+                        includeType: false,
+                    };
                     break;
             }
         }
@@ -89,7 +92,9 @@ export class SassVariableInspector extends VariableInspector {
     }
     get _filter() {
         const parent = super._filter;
-        return Object.assign(Object.assign({}, parent), { type: (type, skipFormatting) => parent.type(this._rawValue instanceof SassVariableInspector.SassWrapper
+        return {
+            ...parent,
+            type: (type, skipFormatting) => parent.type(this._rawValue instanceof SassVariableInspector.SassWrapper
                 ? (this._rawValue.isSassValue
                     ? 'Sass' + toTitleCase(this._rawValue.typeOf)
                     : this._rawValue.isImmutable
@@ -99,7 +104,8 @@ export class SassVariableInspector extends VariableInspector {
                     ? 'Sass' + toTitleCase(sassValueToJS.typeOf(this._rawValue))
                     : this._isImmutable
                         ? 'immutable.' + type
-                        : type, skipFormatting) });
+                        : type, skipFormatting),
+        };
     }
     /**
      * Returns an instance of this class that inherits this instances’s args.
@@ -115,8 +121,16 @@ export class SassVariableInspector extends VariableInspector {
         if (!validVar || (!isImmutable(validVar) && !sassValueToJS.isSassValue(validVar))) {
             return super._new(variable, args);
         }
-        const fullArgs = Object.assign(Object.assign(Object.assign({}, this.args), this.args.childArgs), args);
-        fullArgs.formatter = Object.assign(Object.assign(Object.assign({}, (_a = this.args.formatter) !== null && _a !== void 0 ? _a : {}), (_b = this.args.childArgs.formatter) !== null && _b !== void 0 ? _b : {}), (_c = args.formatter) !== null && _c !== void 0 ? _c : {});
+        const fullArgs = {
+            ...this.args,
+            ...this.args.childArgs,
+            ...args,
+        };
+        fullArgs.formatter = {
+            ...(_a = this.args.formatter) !== null && _a !== void 0 ? _a : {},
+            ...(_b = this.args.childArgs.formatter) !== null && _b !== void 0 ? _b : {},
+            ...(_c = args.formatter) !== null && _c !== void 0 ? _c : {},
+        };
         return new SassVariableInspector(variable, fullArgs);
     }
 }

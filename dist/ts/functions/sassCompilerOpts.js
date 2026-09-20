@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0
+ * @maddimathon/utility-sass@0.1.0-beta.1
  * @license MIT
  */
 import { sassCompilerFunctions } from './sassCompilerFunctions.js';
@@ -23,5 +23,12 @@ export function sassCompilerOpts(args, partial) {
         ...(_a = partial === null || partial === void 0 ? void 0 : partial.silenceDeprecations) !== null && _a !== void 0 ? _a : [],
         'if-function',
     ];
-    return Object.assign(Object.assign({}, partial !== null && partial !== void 0 ? partial : {}), { silenceDeprecations, functions: Object.assign(Object.assign({}, (_b = partial === null || partial === void 0 ? void 0 : partial.functions) !== null && _b !== void 0 ? _b : {}), sassCompilerFunctions(args)) });
+    return {
+        ...partial !== null && partial !== void 0 ? partial : {},
+        silenceDeprecations,
+        functions: {
+            ...(_b = partial === null || partial === void 0 ? void 0 : partial.functions) !== null && _b !== void 0 ? _b : {},
+            ...sassCompilerFunctions(args),
+        },
+    };
 }

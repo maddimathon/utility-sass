@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0
+ * @maddimathon/utility-sass@0.1.0-beta.1
  * @license MIT
  */
 import { arrayUnique } from '@maddimathon/utility-typescript';
@@ -22,7 +22,17 @@ export const colourValues = {
     oklch: { l: 0.74, c: -0.12, h: -217.08, },
     rgb: { r: 45.186, g: 40.188, b: 68.187, },
 };
-const colourValueEntries = Object.entries(Object.assign(Object.assign({}, colourValues), { hex: colourValues.hex.short, hsla: colourValues.hsl, hwba: colourValues.hwb, laba: colourValues.lab, oklaba: colourValues.oklab, lcha: colourValues.lch, oklcha: colourValues.oklch, rgba: colourValues.rgb }));
+const colourValueEntries = Object.entries({
+    ...colourValues,
+    hex: colourValues.hex.short,
+    hsla: colourValues.hsl,
+    hwba: colourValues.hwb,
+    laba: colourValues.lab,
+    oklaba: colourValues.oklab,
+    lcha: colourValues.lch,
+    oklcha: colourValues.oklch,
+    rgba: colourValues.rgb,
+});
 const colourValuesParsedEntries = colourValueEntries.map(([space, value]) => {
     switch (space) {
         case 'hsla':
@@ -32,13 +42,13 @@ const colourValuesParsedEntries = colourValueEntries.map(([space, value]) => {
         case 'rgba':
             return [
                 space,
-                Object.assign(Object.assign({ space: space.replace(/a$/, '') }, value), { alpha: 85 }),
+                { space: space.replace(/a$/, ''), ...value, alpha: 85 },
             ];
         case 'oklaba':
         case 'oklcha':
             return [
                 space,
-                Object.assign(Object.assign({ space: space.replace(/a$/, '') }, value), { alpha: 0.85 }),
+                { space: space.replace(/a$/, ''), ...value, alpha: 0.85 },
             ];
         case 'hsl':
         case 'hwb':
@@ -49,7 +59,7 @@ const colourValuesParsedEntries = colourValueEntries.map(([space, value]) => {
         case 'rgb':
             return [
                 space,
-                Object.assign({ space }, value),
+                { space, ...value },
             ];
         case 'hex':
             return [

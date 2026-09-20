@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0
+ * @maddimathon/utility-sass@0.1.0-beta.1
  * @license MIT
  */
 import { CssColours } from './CssColours.js';
@@ -25,7 +25,20 @@ export var JsonToScss;
      */
     function convert(json, _indent = '', _opts) {
         var _a, _b, _c;
-        const opts = Object.assign(Object.assign({ alwaysQuoteKeys: false, alwaysQuoteNumberKeys: true, coloursAsStrings: (_a = _opts === null || _opts === void 0 ? void 0 : _opts.cssFunctionsAsStrings) !== null && _a !== void 0 ? _a : false, convertUnitStringsToNumbers: false, convertZeroStringsToNumbers: false, cssFunctionsAsStrings: false, onlyQuoteAsNeeded: false, requiredQuotesRegex: /[^a-z|0-9|\-|_]/i, requiredQuotesKeyRegex: /[^a-z|0-9|\-|_]/i, useStringModule: false }, _opts), { unquoteNumberString: ((_b = _opts === null || _opts === void 0 ? void 0 : _opts.unquoteNumberString) !== null && _b !== void 0 ? _b : true) && ((_c = _opts === null || _opts === void 0 ? void 0 : _opts.useStringModule) !== null && _c !== void 0 ? _c : false) });
+        const opts = {
+            alwaysQuoteKeys: false,
+            alwaysQuoteNumberKeys: true,
+            coloursAsStrings: (_a = _opts === null || _opts === void 0 ? void 0 : _opts.cssFunctionsAsStrings) !== null && _a !== void 0 ? _a : false,
+            convertUnitStringsToNumbers: false,
+            convertZeroStringsToNumbers: false,
+            cssFunctionsAsStrings: false,
+            onlyQuoteAsNeeded: false,
+            requiredQuotesRegex: /[^a-z|0-9|\-|_]/i,
+            requiredQuotesKeyRegex: /[^a-z|0-9|\-|_]/i,
+            useStringModule: false,
+            ..._opts,
+            unquoteNumberString: ((_b = _opts === null || _opts === void 0 ? void 0 : _opts.unquoteNumberString) !== null && _b !== void 0 ? _b : true) && ((_c = _opts === null || _opts === void 0 ? void 0 : _opts.useStringModule) !== null && _c !== void 0 ? _c : false),
+        };
         let scss;
         switch (typeof json) {
             case 'boolean':
@@ -82,7 +95,13 @@ export var JsonToScss;
                 const _keyType = typeof _key;
                 const _convertedKey = opts.alwaysQuoteKeys
                     ? quote_string(_key)
-                    : convert(opts.alwaysQuoteNumberKeys && (_keyType === 'bigint' || _keyType === 'number') ? String(_key) : _key, undefined, Object.assign(Object.assign({}, opts), { convertUnitStringsToNumbers: opts.alwaysQuoteNumberKeys ? false : opts.convertUnitStringsToNumbers, convertZeroStringsToNumbers: opts.alwaysQuoteNumberKeys ? false : opts.convertZeroStringsToNumbers, requiredQuotesRegex: opts.requiredQuotesKeyRegex, useStringModule: false }));
+                    : convert(opts.alwaysQuoteNumberKeys && (_keyType === 'bigint' || _keyType === 'number') ? String(_key) : _key, undefined, {
+                        ...opts,
+                        convertUnitStringsToNumbers: opts.alwaysQuoteNumberKeys ? false : opts.convertUnitStringsToNumbers,
+                        convertZeroStringsToNumbers: opts.alwaysQuoteNumberKeys ? false : opts.convertZeroStringsToNumbers,
+                        requiredQuotesRegex: opts.requiredQuotesKeyRegex,
+                        useStringModule: false,
+                    });
                 scss.push(`    ${_convertedKey}: ${_convertedValue}`);
             }
         }

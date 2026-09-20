@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0
+ * @maddimathon/utility-sass@0.1.0-beta.1
  * @license MIT
  */
 import { deleteUndefinedProps, objectMap } from '@maddimathon/utility-typescript';
@@ -779,7 +779,7 @@ export var CssColours;
             if (typeof numbers.alpha === 'number' && !Number.isNaN(numbers.alpha)) {
                 parsed.alpha = numbers.alpha;
             }
-            return Object.assign({ space: 'hex' }, parsed);
+            return { space: 'hex', ...parsed };
         }
         parseFunction.hex = hex;
         /**
@@ -818,9 +818,12 @@ export var CssColours;
                 parsed.alpha = units.alpha ? numbers.alpha : numbers.alpha * 100;
             }
             roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
-            return Object.assign({ space: 'hsl' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                : entry[1]));
+            return {
+                space: 'hsl',
+                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                    : entry[1]),
+            };
         }
         parseFunction.hsl = hsl;
         /**
@@ -859,9 +862,12 @@ export var CssColours;
                 parsed.alpha = units.alpha ? numbers.alpha : numbers.alpha * 100;
             }
             roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
-            return Object.assign({ space: 'hwb' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                : entry[1]));
+            return {
+                space: 'hwb',
+                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                    : entry[1]),
+            };
         }
         parseFunction.hwb = hwb;
         /**
@@ -900,9 +906,12 @@ export var CssColours;
                 parsed.alpha = units.alpha ? numbers.alpha : (numbers.alpha * 100);
             }
             roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
-            return Object.assign({ space: 'lab' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                : entry[1]));
+            return {
+                space: 'lab',
+                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                    : entry[1]),
+            };
         }
         parseFunction.lab = lab;
         /**
@@ -941,9 +950,12 @@ export var CssColours;
                 parsed.alpha = units.alpha === '%' ? (numbers.alpha / 100) : numbers.alpha;
             }
             roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000000000;
-            return Object.assign({ space: 'oklab' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                : entry[1]));
+            return {
+                space: 'oklab',
+                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                    : entry[1]),
+            };
         }
         parseFunction.oklab = oklab;
         /**
@@ -982,9 +994,12 @@ export var CssColours;
                 parsed.alpha = units.alpha ? numbers.alpha : (numbers.alpha * 100);
             }
             roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
-            return Object.assign({ space: 'lch' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                : entry[1]));
+            return {
+                space: 'lch',
+                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                    : entry[1]),
+            };
         }
         parseFunction.lch = lch;
         /**
@@ -1023,9 +1038,12 @@ export var CssColours;
                 parsed.alpha = units.alpha === '%' ? (numbers.alpha / 100) : numbers.alpha;
             }
             roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000000000;
-            return Object.assign({ space: 'oklch' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                : entry[1]));
+            return {
+                space: 'oklch',
+                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                    : entry[1]),
+            };
         }
         parseFunction.oklch = oklch;
         /**
@@ -1064,9 +1082,12 @@ export var CssColours;
                 parsed.alpha = units.alpha ? numbers.alpha : numbers.alpha * 100;
             }
             roundingFactor = roundingFactor !== null && roundingFactor !== void 0 ? roundingFactor : 1000;
-            return Object.assign({ space: 'rgb' }, objectMap(parsed, (entry) => typeof entry[1] === 'number'
-                ? Math.round(entry[1] * roundingFactor) / roundingFactor
-                : entry[1]));
+            return {
+                space: 'rgb',
+                ...objectMap(parsed, (entry) => typeof entry[1] === 'number'
+                    ? Math.round(entry[1] * roundingFactor) / roundingFactor
+                    : entry[1]),
+            };
         }
         parseFunction.rgb = rgb;
     })(parseFunction = CssColours.parseFunction || (CssColours.parseFunction = {}));

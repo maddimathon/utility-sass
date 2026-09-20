@@ -4,24 +4,13 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.0
+ * @maddimathon/utility-sass@0.1.0-beta.1
  * @license MIT
  */
 var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
     if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
 };
 var _FeatureCheck_checkCache;
 /**
@@ -181,7 +170,7 @@ export class FeatureCheck {
     /**
      * Partial options to override defaults.
      */
-    _a = {}, 
+    { checks, custom, ...opts } = {}, 
     /**
      * The root element to add feature classes to.
      *
@@ -191,18 +180,9 @@ export class FeatureCheck {
      * ```
      */
     root) {
-        var _b;
-        var 
-        /**
-         * Partial options to override defaults.
-         */
-        { checks, custom } = _a, opts = __rest(_a, 
-        /**
-         * Partial options to override defaults.
-         */
-        ["checks", "custom"]);
+        var _a;
         _FeatureCheck_checkCache.set(this, {});
-        const _c = FeatureCheck.DEFAULT_OPTS, { checks: defaultChecks } = _c, _defaultOpts = __rest(_c, ["checks"]);
+        const { checks: defaultChecks, ..._defaultOpts } = FeatureCheck.DEFAULT_OPTS;
         const _customCheckSlugs = Object.keys(custom !== null && custom !== void 0 ? custom : {});
         const _defaultCheckSlugs = Object.keys(defaultChecks);
         this.allCheckSlugs = [
@@ -212,9 +192,12 @@ export class FeatureCheck {
         this.customCheckSlugs = new Set(_customCheckSlugs);
         this.defaultCheckSlugs = new Set(_defaultCheckSlugs);
         this.opts = {
-            checks: Object.assign(Object.assign({}, defaultChecks), checks),
+            checks: {
+                ...defaultChecks,
+                ...checks,
+            },
             custom: custom !== null && custom !== void 0 ? custom : {},
-            logResults: (_b = opts.logResults) !== null && _b !== void 0 ? _b : _defaultOpts.logResults,
+            logResults: (_a = opts.logResults) !== null && _a !== void 0 ? _a : _defaultOpts.logResults,
         };
         this.root = root !== null && root !== void 0 ? root : document.querySelector(':root');
         this.check = this.check.bind(this);

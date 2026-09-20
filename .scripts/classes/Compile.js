@@ -313,7 +313,7 @@ export class Compile extends CompileStage {
                     module: 'ES2022',
                     outDir: '../../dist/ts/',
                     rootDir: './',
-                    target: 'ES2017',
+                    target: 'ES2018',
                 },
             },
         ] );
