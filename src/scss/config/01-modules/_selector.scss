@@ -33,6 +33,47 @@ $breakpoints_attributeOverrides_includeRoot: config-valid-bool(
 );
 
 ///
+/// How to select for manual overrides of theme modes (i.e., brightness, contrast).
+///
+/// @default 'attribute'
+///
+/// @since 0.1.0-pre.0
+///
+$selectorType_mode: null !default;
+$selectorType_mode: config-valid-selector-type($selectorType_mode, 'selectorType_mode', 'null');
+
+///
+/// How to select for manual overrides of motion preference.
+///
+/// @default 'attribute'
+///
+/// @since 0.1.0-pre.0
+///
+$selectorType_motion: null !default;
+$selectorType_motion: config-valid-selector-type(
+    $selectorType_motion,
+    'selectorType_motion',
+    'null'
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+@function config-get-selector-type-motion($bool) {
+    $mode: if($bool, 'no-preference', 'reduce');
+
+    $selector: null;
+
+    @if $selectorType_motion == 'attribute' {
+        $selector: string.unquote('[data-motion=#{$mode}]');
+    } @else if $selectorType_motion == 'class' {
+        $selector: string.unquote('.motion-preference-#{$mode}');
+    }
+
+    @return $selector;
+}
+
+///
 /// Selector to use for the body element.  Included here to allow
 /// lower-specificity options.
 ///
@@ -96,6 +137,7 @@ $selector_root_aliases: config-selector-root-aliases(
             $default: null,
             $allowEmpty: true
         ),
+    $selectorType_motion: $selectorType_motion,
     $breakpoints_attributeOverrides: $breakpoints_attributeOverrides,
     $featureCheck_supports: feature-check.$featureCheck_supports,
 );

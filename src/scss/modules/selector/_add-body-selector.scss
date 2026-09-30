@@ -36,6 +36,7 @@
 
     // returns
     @if $parentSelector == null and not exists.parent-exists() {
+        $args: meta.keywords($args);
         @return $new_selector;
     }
 

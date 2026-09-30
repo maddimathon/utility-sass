@@ -102,22 +102,32 @@ $_mixin_minmax_width: meta.get-mixin(minmax-width);
 
 breakpoints {
     @include _demo-min-width(indent);
+    @include _demo-min-width(0);
     @include _demo-max-width(mobile);
+    @include _demo-max-width(0);
 
     @include _demo-min-height(50);
+    @include _demo-min-height(0);
     @include _demo-max-height(50);
+    @include _demo-max-height(0);
 
     @include _demo-min-viewport-both(20, 30);
+    @include _demo-min-viewport-both(0, 30);
     @include _demo-max-viewport-both(20, 30);
+    @include _demo-max-viewport-both(0, 30);
 
     @include _demo-minmax-width(mobile, tablet);
     @include _demo-minmax-width(mobile, 50);
+    @include _demo-minmax-width(0, 50);
     @include _demo-minmax-height(20, 35);
+    @include _demo-minmax-height(0, 35);
     @include _demo-minmax-height(20, page);
 
     @include feature-check.supports(whereSelector) {
         @include _demo-min-width(indent);
+        @include _demo-min-width(0);
         @include _demo-max-width(mobile);
+        @include _demo-max-width(0);
     }
 
     @include _demo-max-width(mobile, $useWhereFallback: false) {

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.1
+ * @maddimathon/utility-sass@0.1.0-beta.2.draft
  * @license MIT
  */
 import { DateTime } from 'luxon';

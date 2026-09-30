@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.1
+/// @package @maddimathon/utility-sass@0.1.0-beta.2.draft
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0 — Moved to module config.
@@ -116,6 +116,7 @@ $_selectorTypes: ('attribute', 'class', 'null');
 ///
 @function config-selector-root-aliases(
     $selector_root_aliases,
+    $selectorType_motion,
     $breakpoints_attributeOverrides: (),
     $featureCheck_supports: ()
 ) {
@@ -123,6 +124,20 @@ $_selectorTypes: ('attribute', 'class', 'null');
         $selector_root_aliases: selector.parse(#{$selector_root_aliases});
     } @else {
         $selector_root_aliases: ();
+    }
+
+    @if $selectorType_motion == 'attribute' {
+        $selector_root_aliases: list.join(
+            $selector_root_aliases,
+            ('[data-motion=no-preference]', '[data-motion=reduce]'),
+            $separator: comma
+        );
+    } @else if $selectorType_motion == 'class' {
+        $selector_root_aliases: list.join(
+            $selector_root_aliases,
+            ('.motion-preference-no-preference', '.motion-preference-reduce'),
+            $separator: comma
+        );
     }
 
     @each $_breakpoint in $breakpoints_attributeOverrides {

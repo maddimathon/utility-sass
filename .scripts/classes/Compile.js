@@ -131,7 +131,7 @@ export class Compile extends CompileStage {
                 '///',
                 `/// Supports ${ lastMax } to ${ maximumLines } lines.`,
                 '///',
-                '/// @since ___PKG_VERSION___',
+                '/// @since 0.1.0-beta.1',
                 '///',
                 `@mixin _docblock-printer--max-${ maximumLines }(${ docblockFunctionParams }) {`,
                 ...innerFunction,
@@ -147,7 +147,7 @@ export class Compile extends CompileStage {
             '///',
             `/// Supports up to ${ docblockHeaderFunctionMaximums_max } lines.`,
             '///',
-            '/// @since ___PKG_VERSION___',
+            '/// @since 0.1.0-beta.1',
             '///',
             `@mixin docblock-printer(${ docblockFunctionParams_withDefaults }) {`,
             '    $linesListLength: list.length($lines);',
@@ -204,7 +204,7 @@ export class Compile extends CompileStage {
                     header.push(
                         '///',
                         '/// @package @maddimathon/utility-sass@___CURRENT_VERSION___',
-                        '/// @since ___PKG_VERSION___',
+                        '/// @since 0.1.0-beta.1',
                         '///',
                         '',
                     );

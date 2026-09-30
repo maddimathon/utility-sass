@@ -30,6 +30,17 @@
     }
 }
 
+@demo ( mixin: min-width ) {
+    breakpoints {
+        /* @include min-width( 0 ) {} */
+    }
+    @demo output {
+        breakpoints {
+            /* [min-width] @content; */
+        }
+    }
+}
+
 @demo ( mixin: max-width ) {
     breakpoints {
         /* @include max-width( mobile ) {} */
@@ -49,6 +60,14 @@
     }
 }
 
+@demo ( mixin: max-width ) {
+    breakpoints {
+        /* @include max-width( 0 ) {} */
+    }
+    @demo output {
+    }
+}
+
 @demo ( mixin: min-height ) {
     breakpoints {
         /* @include min-height( 50 ) {} */
@@ -58,6 +77,17 @@
             breakpoints {
                 /* [min-height] @content; */
             }
+        }
+    }
+}
+
+@demo ( mixin: min-height ) {
+    breakpoints {
+        /* @include min-height( 0 ) {} */
+    }
+    @demo output {
+        breakpoints {
+            /* [min-height] @content; */
         }
     }
 }
@@ -75,12 +105,33 @@
     }
 }
 
+@demo ( mixin: max-height ) {
+    breakpoints {
+        /* @include max-height( 0 ) {} */
+    }
+    @demo output {
+    }
+}
+
 @demo ( mixin: min-viewport-both ) {
     breakpoints {
         /* @include min-viewport-both( 20, 30 ) {} */
     }
     @demo output {
         @media (width >= 20em) and (height >= 30em) {
+            breakpoints {
+                /* [min-viewport-both] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: min-viewport-both ) {
+    breakpoints {
+        /* @include min-viewport-both( 0, 30 ) {} */
+    }
+    @demo output {
+        @media (height >= 30em) {
             breakpoints {
                 /* [min-viewport-both] @content; */
             }
@@ -98,6 +149,14 @@
                 /* [max-viewport-both] @content; */
             }
         }
+    }
+}
+
+@demo ( mixin: max-viewport-both ) {
+    breakpoints {
+        /* @include max-viewport-both( 0, 30 ) {} */
+    }
+    @demo output {
     }
 }
 
@@ -149,12 +208,44 @@
     }
 }
 
+@demo ( mixin: minmax-width ) {
+    breakpoints {
+        /* @include minmax-width( 0, 50 ) {} */
+    }
+    @demo output {
+        @media (width < 50em) {
+            .js__no-whereSelector breakpoints {
+                /* [minmax-width] @content; */
+            }
+            breakpoints {
+                /* [minmax-width] @content; */
+            }
+        }
+    }
+}
+
 @demo ( mixin: minmax-height ) {
     breakpoints {
         /* @include minmax-height( 20, 35 ) {} */
     }
     @demo output {
         @media (20em <= height < 35em) {
+            .js__no-whereSelector breakpoints {
+                /* [minmax-height] @content; */
+            }
+            breakpoints {
+                /* [minmax-height] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: minmax-height ) {
+    breakpoints {
+        /* @include minmax-height( 0, 35 ) {} */
+    }
+    @demo output {
+        @media (height < 35em) {
             .js__no-whereSelector breakpoints {
                 /* [minmax-height] @content; */
             }
@@ -203,6 +294,17 @@
     }
 }
 
+@demo ( mixin: min-width ) {
+    :where(.js) breakpoints {
+        /* @include min-width( 0 ) {} */
+    }
+    @demo output {
+        :where(.js) breakpoints {
+            /* [min-width] @content; */
+        }
+    }
+}
+
 @demo ( mixin: max-width ) {
     :where(.js) breakpoints {
         /* @include max-width( mobile ) {} */
@@ -217,6 +319,14 @@
         :where(.js):where([data-viewport-width-mobile='max']) breakpoints {
             /* [max-width] @content; */
         }
+    }
+}
+
+@demo ( mixin: max-width ) {
+    :where(.js) breakpoints {
+        /* @include max-width( 0 ) {} */
+    }
+    @demo output {
     }
 }
 

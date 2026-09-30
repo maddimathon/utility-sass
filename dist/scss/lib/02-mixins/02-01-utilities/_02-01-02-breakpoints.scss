@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.1
+/// @package @maddimathon/utility-sass@0.1.0-beta.2.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -58,6 +58,12 @@
 
     @if not math.is-unitless($point) {
         @warn 'Breakpoint #{$point} should not have a unit. A #{math.unit($unit)} unit will be added by the mixin.';
+        $point: math.deunit($point);
+    }
+
+    // returns
+    @if $point <= 0 {
+        @return null;
     }
 
     @return math.add-unit(math.round-to-pixel($point), $unit: $unit);
@@ -216,6 +222,11 @@
 ) {
     $input_point: $point;
 
+    $isZero: false;
+    @if meta.type-of($point) == number {
+        $isZero: math.deunit($point) == 0;
+    }
+
     $point: breakpoint-get-value(
         $point: $point,
         $unit: $unit,
@@ -327,6 +338,8 @@
                 @content;
             }
         }
+    } @else if $minOrMax == min and $isZero {
+        @content;
     } @else if $debug {
         @include meta.var-dump('input $point', $input_point);
         @include meta.var-dump('parsed $point', $point);

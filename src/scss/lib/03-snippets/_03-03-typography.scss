@@ -196,8 +196,6 @@ $_headingDefault_textTransform: none;
     $includeMarginBlock: true,
     $includeWidth: true
 ) {
-    $_content_exists: meta.content-exists();
-
     @include prop-display($display);
 
     margin-inline: $marginInline;
@@ -218,9 +216,7 @@ $_headingDefault_textTransform: none;
         max-width: $maxWidth;
     }
 
-    @if $_content_exists {
-        @content (root);
-    }
+    @content (root);
 
     > :first-child {
         margin-block-start: 0;
@@ -232,9 +228,7 @@ $_headingDefault_textTransform: none;
             margin-block: var-mrg-soft('400') 0;
             text-align: end;
 
-            @if $_content_exists {
-                @content (cite);
-            }
+            @content (cite);
 
             &::before {
                 content: '— ' / '';
@@ -267,8 +261,6 @@ $_headingDefault_textTransform: none;
     $includeMarginBlock: true,
     $includeWidth: true
 ) {
-    $_content_exists: meta.content-exists();
-
     @include prop-display(block);
     position: relative;
 
@@ -291,9 +283,7 @@ $_headingDefault_textTransform: none;
 
     overflow: auto;
 
-    @if $_content_exists {
-        @content (root);
-    }
+    @content (root);
 
     > %code,
     > %kbd,
@@ -310,9 +300,7 @@ $_headingDefault_textTransform: none;
         white-space: normal;
         text-wrap: auto;
 
-        @if $_content_exists {
-            @content (code);
-        }
+        @content (code);
     }
 
     &:has(> :is(%code, %kbd, %samp)) {
@@ -323,13 +311,9 @@ $_headingDefault_textTransform: none;
             white-space: pre;
             text-wrap: nowrap;
 
-            @if $_content_exists {
-                @content (has-code--code);
-            }
+            @content (has-code--code);
         }
 
-        @if $_content_exists {
-            @content (has-code);
-        }
+        @content (has-code);
     }
 }

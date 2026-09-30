@@ -30,8 +30,6 @@
     $parentSelectorExists: selector.parent-exists(),
     $args...
 ) {
-    $args: meta.keywords($args);
-
     @if $includeQuery {
         @media (prefers-reduced-motion: if( $bool, 'no-preference', 'reduce' )) {
             @if $parentSelectorExists {
@@ -45,12 +43,11 @@
     }
 
     @if $includeSelectors {
-        @at-root #{selector-motion( 
-            $bool: $bool, 
-            $args... 
-        )} {
+        @at-root #{selector-motion($bool: $bool, $args...)} {
             @content;
         }
+    } @else {
+        $args: meta.keywords($args);
     }
 }
 
@@ -126,6 +123,8 @@
                     }
                 }
             }
+        } @else {
+            $args: meta.keywords($args);
         }
     }
 }
