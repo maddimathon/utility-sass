@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-beta.3** — 2026-10-03
+
+Make selector.pseudo-list() public.
+
+
 ## **0.1.0-beta.2** — 2026-09-30
 
 Added motion selectors to default root selector aliases. Some minor selector

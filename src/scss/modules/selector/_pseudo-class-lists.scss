@@ -20,8 +20,9 @@
 ///
 /// @since 0.1.0-alpha.37
 /// @since 0.1.0-beta.0 — Added optional $parentSelector, $split params.
+/// @since 0.1.0-beta.3 — Made public.
 ///
-@function _pseudo-list(
+@function pseudo-list(
     $pseudoType,
     $selectors: null,
     $direct: false,
@@ -198,7 +199,7 @@
 /// @since 0.1.0-alpha.37
 ///
 @function has-list($selectors: null, $args...) {
-    @return _pseudo-list($pseudoType: 'has', $selectors: $selectors, $args...);
+    @return pseudo-list($pseudoType: 'has', $selectors: $selectors, $args...);
 }
 
 ///
@@ -208,7 +209,7 @@
 /// @since 0.1.0-alpha.37
 ///
 @function is-list($selectors: null, $split: false, $args...) {
-    @return _pseudo-list($pseudoType: 'is', $selectors: $selectors, $split: $split, $args...);
+    @return pseudo-list($pseudoType: 'is', $selectors: $selectors, $split: $split, $args...);
 }
 
 ///
@@ -218,7 +219,7 @@
 /// @since 0.1.0-alpha.37
 ///
 @function not-list($selectors: null, $args...) {
-    @return _pseudo-list($pseudoType: 'not', $selectors: $selectors, $args...);
+    @return pseudo-list($pseudoType: 'not', $selectors: $selectors, $args...);
 }
 
 ///
@@ -228,7 +229,7 @@
 /// @since 0.1.0-alpha.37
 ///
 @function where-list($selectors: null, $split: false, $args...) {
-    @return _pseudo-list($pseudoType: 'where', $selectors: $selectors, $split: $split, $args...);
+    @return pseudo-list($pseudoType: 'where', $selectors: $selectors, $split: $split, $args...);
 }
 
 ///
@@ -237,7 +238,7 @@
 ///
 /// @since 0.1.0-alpha.37
 ///
-@mixin _pseudo-class-content(
+@mixin pseudo-class-content(
     $pseudoType,
     $selectors: null,
     $includeParent: true,
@@ -245,7 +246,7 @@
     $unify: if($unifyParent == null, false, $unifyParent),
     $args...
 ) {
-    $selectors: _pseudo-list(
+    $selectors: pseudo-list(
         $pseudoType: $pseudoType,
         $selectors: $selectors,
         $unify: $includeParent and $unify,
@@ -267,7 +268,7 @@
 /// @since 0.1.0-alpha.37
 ///
 @mixin has($args...) {
-    @include _pseudo-class-content('has', $args...) {
+    @include pseudo-class-content('has', $args...) {
         @content;
     }
 }
@@ -278,7 +279,7 @@
 /// @since 0.1.0-alpha.37
 ///
 @mixin is($args...) {
-    @include _pseudo-class-content('is', $args...) {
+    @include pseudo-class-content('is', $args...) {
         @content;
     }
 }
@@ -289,7 +290,7 @@
 /// @since 0.1.0-alpha.37
 ///
 @mixin not($args...) {
-    @include _pseudo-class-content('not', $args...) {
+    @include pseudo-class-content('not', $args...) {
         @content;
     }
 }
@@ -300,7 +301,7 @@
 /// @since 0.1.0-alpha.37
 ///
 @mixin where($args...) {
-    @include _pseudo-class-content('where', $args...) {
+    @include pseudo-class-content('where', $args...) {
         @content;
     }
 }
