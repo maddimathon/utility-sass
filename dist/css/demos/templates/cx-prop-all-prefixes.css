@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /**
  * Utility Sass - Template Demo - Custom Property Prefixes (with fallback)
- * @maddimathon/utility-sass/template@0.1.0-beta.3
+ * @maddimathon/utility-sass/template@0.1.0-beta.4.draft
  * 
  * This is a sample stylesheet with a custom property prefix and a fallback
  * prefix set in the config (i.e. — $customPropertyPrefix: "prefix-",
@@ -873,9 +873,12 @@ hr {
         --prefix-line-height-400,
         var(--fallback-line-height-400, 1.6875)
     );
-    background: var(
-        --prefix-sys-clr-background,
-        var(--fallback-sys-clr-background, Canvas)
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-background,
+            var(--fallback-sys-clr-background, Canvas)
+        )
     );
     color: var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
 }
@@ -1627,9 +1630,16 @@ fieldset {
         --prefix-sys-clr-input-border,
         var(--fallback-sys-clr-input-border, FieldText)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-background,
         var(--fallback-sys-clr-background, Canvas)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-background,
+            var(--fallback-sys-clr-background, Canvas)
+        )
     );
     color: var(--prefix-sys-clr-text, var(--fallback-sys-clr-text, CanvasText));
 }
@@ -1756,9 +1766,13 @@ input {
         --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-input-bg,
         var(--fallback-sys-clr-input-bg, Field)
+    );
+    background-color: var(
+        --fallback-background,
+        var(--prefix-sys-clr-input-bg, var(--fallback-sys-clr-input-bg, Field))
     );
     color: var(
         --prefix-sys-clr-input-text,
@@ -1780,9 +1794,16 @@ input:hover {
         --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-input-bg-hover,
+            var(--fallback-sys-clr-input-bg-hover, Field)
+        )
     );
     border-color: var(
         --prefix-sys-clr-input-border-hover,
@@ -1811,9 +1832,16 @@ input:hover {
         --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-input-bg-hover,
+            var(--fallback-sys-clr-input-bg-hover, Field)
+        )
     );
     border-color: var(
         --prefix-sys-clr-input-border-hover,
@@ -1840,9 +1868,16 @@ input:hover {
         --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-input-bg-hover,
+            var(--fallback-sys-clr-input-bg-hover, Field)
+        )
     );
     border-color: var(
         --prefix-sys-clr-input-border-hover,
@@ -1869,9 +1904,16 @@ input:focus-visible {
         --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-input-bg-hover,
+            var(--fallback-sys-clr-input-bg-hover, Field)
+        )
     );
     border-color: var(
         --prefix-sys-clr-input-border-hover,
@@ -1898,9 +1940,16 @@ input:focus-within {
         --prefix-sys-clr-input-text,
         var(--fallback-sys-clr-input-text, FieldText)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-input-bg-hover,
         var(--fallback-sys-clr-input-bg-hover, Field)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-input-bg-hover,
+            var(--fallback-sys-clr-input-bg-hover, Field)
+        )
     );
     border-color: var(
         --prefix-sys-clr-input-border-hover,
@@ -1927,9 +1976,16 @@ input:active {
         --prefix-sys-clr-text-active,
         var(--fallback-sys-clr-text-active, ActiveText)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-input-bg-active,
         var(--fallback-sys-clr-input-bg-active, Field)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-input-bg-active,
+            var(--fallback-sys-clr-input-bg-active, Field)
+        )
     );
     border-color: var(
         --prefix-sys-clr-input-border-active,
@@ -2250,9 +2306,16 @@ a[href].button:visited {
         --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg,
         var(--fallback-sys-clr-button-bg, ButtonFace)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg,
+            var(--fallback-sys-clr-button-bg, ButtonFace)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text,
@@ -2294,9 +2357,16 @@ a[href].button:hover,
         --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-hover,
+            var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-hover,
@@ -2326,9 +2396,16 @@ a[href].button:hover,
         --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-hover,
+            var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-hover,
@@ -2358,9 +2435,16 @@ a[href].button:focus-visible {
         --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-hover,
+            var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-hover,
@@ -2390,9 +2474,16 @@ a[href].button:focus-within {
         --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-hover,
+            var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-hover,
@@ -2422,9 +2513,16 @@ a[href].button:active {
         --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-active,
         var(--fallback-sys-clr-button-bg-active, ButtonFace)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-active,
+            var(--fallback-sys-clr-button-bg-active, ButtonFace)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-active,
@@ -2489,9 +2587,16 @@ a[disabled][href].button {
         --prefix-sys-clr-button-border,
         var(--fallback-sys-clr-button-border, ButtonFace)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg,
         var(--fallback-sys-clr-button-bg, ButtonFace)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg,
+            var(--fallback-sys-clr-button-bg, ButtonFace)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text,
@@ -2516,9 +2621,16 @@ a[disabled][href].button {
         --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-hover,
+            var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-hover,
@@ -2544,9 +2656,16 @@ a[disabled][href].button {
         --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-hover,
+            var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-hover,
@@ -2571,9 +2690,16 @@ a[disabled][href].button {
         --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-hover,
+            var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-hover,
@@ -2598,9 +2724,16 @@ a[disabled][href].button {
         --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-hover,
+            var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-hover,
@@ -2625,9 +2758,16 @@ a[disabled][href].button {
         --prefix-sys-clr-button-border-hover,
         var(--fallback-sys-clr-button-border-hover, SelectedItem)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-hover,
         var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-hover,
+            var(--fallback-sys-clr-button-bg-hover, SelectedItem)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-hover,
@@ -2652,9 +2792,16 @@ a[disabled][href].button {
         --prefix-sys-clr-button-border-active,
         var(--fallback-sys-clr-button-border-active, ButtonFace)
     );
-    background-color: var(
+    --fallback-background: var(
         --prefix-sys-clr-button-bg-active,
         var(--fallback-sys-clr-button-bg-active, ButtonFace)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-button-bg-active,
+            var(--fallback-sys-clr-button-bg-active, ButtonFace)
+        )
     );
     color: var(
         --prefix-sys-clr-button-text-active,
@@ -2777,10 +2924,7 @@ td {
         var(--fallback-mrg-firm-300, 0.8125rem)
     );
     min-width: 10em;
-    background: var(
-        --prefix-sys-clr-background,
-        var(--fallback-sys-clr-background, Canvas)
-    );
+    background: var(--prefix-background, var(--fallback-background, Canvas));
     vertical-align: top;
     text-align: left;
 }
@@ -2804,9 +2948,16 @@ th {
     );
     text-wrap: balance;
     text-wrap: pretty;
-    background: var(
+    --fallback-background: var(
         --prefix-sys-clr-accent-bg,
         var(--fallback-sys-clr-accent-bg, CanvasText)
+    );
+    background-color: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-accent-bg,
+            var(--fallback-sys-clr-accent-bg, CanvasText)
+        )
     );
     color: var(
         --prefix-sys-clr-accent-text,

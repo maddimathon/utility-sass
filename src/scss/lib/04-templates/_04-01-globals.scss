@@ -476,7 +476,7 @@
                 padding-block: var-mrg-soft('200');
                 padding-inline: var-mrg-firm('300');
                 min-width: 10em;
-                background: var-sys-colour(background);
+                background: do-var(background);
 
                 vertical-align: top;
                 text-align: left;
@@ -498,7 +498,7 @@
                 text-wrap: balance;
                 text-wrap: pretty;
 
-                background: var-sys-colour(accent-bg);
+                @include prop-background(var-sys-colour(accent-bg));
                 color: var-sys-colour(accent-text);
             }
 
@@ -573,7 +573,7 @@
                 %root {
                     font-weight: 400;
                     line-height: var-line-height('400');
-                    background: var-sys-colour(background);
+                    @include prop-background(var-sys-colour(background), $setCxProp: false);
                     color: var-sys-colour(text);
 
                     @if config.$include_html {

@@ -364,9 +364,12 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     $slug,
     $value,
     $comment: null,
+    $cxSlug: $slug,
     //
     $allPrefixes: null,
     $important: false,
+    $important_cx: $important,
+    $important_prop: $important,
     $quoteString: null,
     $setCxProp: true,
     $setProp: true,
@@ -384,23 +387,61 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     @if $useCustom and not config.$mx_prop_useCustom_never {
         @if $setCxProp {
             @include custom-property(
-                $slug: $slug,
+                $slug: $cxSlug,
                 $value: $value,
                 $comment: $comment,
                 $allPrefixes: $allPrefixes,
-                $important: $important,
+                $important: $important_cx,
                 $quoteString: $quoteString
             );
         }
 
         @if $setProp {
-            #{$slug}: do-var($slug, $value, $args...) #{if($important, '!important', '')};
+            #{$slug}: do-var($cxSlug, $value, $args...) #{if($important_prop, '!important', '')};
         }
     } @else if $setProp {
-        #{$slug}: $value #{if($important, '!important', '')};
+        #{$slug}: $value #{if($important_prop, '!important', '')};
     }
 
     $args: meta.keywords($args);
+}
+
+///
+/// Sets background custom and normal properties.
+///
+/// @param {any} $value
+///
+/// @since ___PKG_VERSION___
+///
+@mixin prop-background(
+    $value,
+    $setColor: true,
+    $setImage: false,
+    //
+    $allPrefixes: config.$mx_propBackground_allPrefixes,
+    $important_prop: false,
+    $onlyFallbackPrefix: config.$mx_propBackground_onlyFallbackPrefix,
+    $setProp: true,
+    $args...
+) {
+    @if $setColor or $setImage {
+        @include prop(
+            if($setColor, background-color, background-image),
+            $value,
+            $cxSlug: background,
+            $useCustom: config.$mx_prop_useCustom_background,
+            $allPrefixes: $allPrefixes,
+            $important_prop: $important_prop,
+            $onlyFallbackPrefix: $onlyFallbackPrefix,
+            $setProp: $setProp,
+            $args...
+        );
+
+        @if $setProp and $setColor and $setImage {
+            background-image: do-var($slug, $value, $args...)
+                #{if($important_prop, '!important', '')};
+        }
+    }
 }
 
 ///

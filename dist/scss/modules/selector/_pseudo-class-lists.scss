@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.3
+/// @package @maddimathon/utility-sass@0.1.0-beta.4.draft
 /// @since 0.1.0-alpha.37
 ///
 
@@ -28,16 +28,10 @@
     $direct: false,
     $parentSelector: null,
     $split: true,
-    $unifyParent: null,
-    $unify: if($unifyParent == null, false, $unifyParent),
+    $unify: false,
     $debug: false
 ) {
     $debug_vars: ();
-
-    @if $unifyParent != null {
-        // TODO deprecated
-        @warn '[deprecated] [selector.#{$pseudoType}-list] use of $unifyParent is deprecated - please use $unify instead';
-    }
 
     @if $debug {
         $debug_vars: map.set(

@@ -2,7 +2,7 @@
 /// Configuration for the library functions, mixins, and snippets. This is the
 /// second config group.
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.3
+/// @package @maddimathon/utility-sass@0.1.0-beta.4.draft
 /// @since 0.1.0-beta.0
 ///
 
@@ -14,6 +14,26 @@
 @forward 'selectors';
 
 @use 'functions' as *;
+
+///
+/// @since 0.1.0-beta.4.draft
+///
+$mx_propBackground_allPrefixes: null !default;
+$mx_propBackground_allPrefixes: config-valid-bool(
+    $mx_propBackground_allPrefixes,
+    'mx_propBackground_allPrefixes',
+    $default: true
+);
+
+///
+/// @since 0.1.0-beta.4.draft
+///
+$mx_propBackground_onlyFallbackPrefix: null !default;
+$mx_propBackground_onlyFallbackPrefix: config-valid-bool(
+    $mx_propBackground_onlyFallbackPrefix,
+    'mx_propBackground_onlyFallbackPrefix',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-beta.0

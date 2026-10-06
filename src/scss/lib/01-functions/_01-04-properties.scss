@@ -16,8 +16,18 @@
 /// @since 0.1.0-alpha.25
 ///
 @function do-var($slug, $fallback: null, $args...) {
-    @if $fallback == null and map.get(tokens.$atProperties, $slug) {
-        $fallback: map.get(tokens.$atProperties, $slug, initial-value);
+    @if $fallback == null {
+        @if $slug == background {
+            $fallback: tokens.$background;
+        } @else if map.has-key(tokens.$atProperties, $slug) {
+            $fallback: map.get(tokens.$atProperties, $slug, initial-value);
+        }
+
+        @if $fallback == null {
+            @if map.get(tokens.$style, $slug) {
+                $fallback: map.get(tokens.$style, $slug);
+            }
+        }
     }
 
     @return config.config-do-var($slug: $slug, $fallback: $fallback, $args...);

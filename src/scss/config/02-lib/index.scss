@@ -16,6 +16,26 @@
 @use 'functions' as *;
 
 ///
+/// @since ___PKG_VERSION___
+///
+$mx_propBackground_allPrefixes: null !default;
+$mx_propBackground_allPrefixes: config-valid-bool(
+    $mx_propBackground_allPrefixes,
+    'mx_propBackground_allPrefixes',
+    $default: true
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$mx_propBackground_onlyFallbackPrefix: null !default;
+$mx_propBackground_onlyFallbackPrefix: config-valid-bool(
+    $mx_propBackground_onlyFallbackPrefix,
+    'mx_propBackground_onlyFallbackPrefix',
+    $default: true
+);
+
+///
 /// @since 0.1.0-beta.0
 ///
 $mx_propDisplay_allPrefixes: null !default;

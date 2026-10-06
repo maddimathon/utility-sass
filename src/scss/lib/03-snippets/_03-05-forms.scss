@@ -44,7 +44,7 @@
     @include cx-prop(focus-ring-outline-color, $accentClr);
 
     border-color: $borderClr;
-    background-color: $background;
+    @include prop-background($background);
     color: $color;
     accent-color: $accentClr;
 }
@@ -354,7 +354,7 @@
 
     @if $includeColours {
         border-color: $borderClr;
-        background-color: $background;
+        @include prop-background($background);
         color: $color;
     }
 
@@ -455,7 +455,7 @@
 
     @if $includeColours {
         @include cx-prop(focus-ring-outline-color, $accentClr);
-        background-color: $background;
+        @include prop-background($background);
         color: $color;
         accent-color: $accentClr;
     }
@@ -467,7 +467,7 @@
     @if $includeColours {
         &:hover {
             @include cx-prop(focus-ring-outline-color, $accentClr_hover);
-            background-color: $background_hover;
+            @include prop-background($background_hover);
             border-color: $borderClr_hover;
             color: $color_hover;
             accent-color: $accentClr_hover;
@@ -477,7 +477,7 @@
 
         @include focus-visible-or-within {
             @include cx-prop(focus-ring-outline-color, $accentClr_hover);
-            background-color: $background_hover;
+            @include prop-background($background_hover);
             border-color: $borderClr_hover;
             color: $color_hover;
             accent-color: $accentClr_hover;
@@ -487,7 +487,7 @@
 
         @include active {
             @include cx-prop(focus-ring-outline-color, $accentClr_active);
-            background-color: $background_active;
+            @include prop-background($background_active);
             border-color: $borderClr_active;
             color: $color_active;
             accent-color: $accentClr_active;
@@ -771,8 +771,7 @@
     }
 
     @include selector.has($selector_boxes_has, $direct: true, $split: false, $unify: true) {
-        // UPGRADE - make a selector.last-selector() to repeat with better nesting
-        & + & {
+        #{selector.nest( '+', selector.pop(&) )} {
             @if $includeMarginBlock {
                 margin-block-start: $marginBlock_innercheckradio;
             }
