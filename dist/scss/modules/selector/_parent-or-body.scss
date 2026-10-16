@@ -22,3 +22,18 @@
         if($asPseudoSelector, '%body', config.$selector_body)
     );
 }
+
+///
+/// @since 0.1.0-beta.4.draft
+///
+@mixin parent-or-body($args...) {
+    @if exists.parent-exists() {
+        $args: meta.kwyrods($args);
+
+        @content;
+    } @else {
+        #{parent-or-body($args...)} {
+            @content;
+        }
+    }
+}

@@ -32,3 +32,12 @@
 
     @return $returnHaystack;
 }
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin replace-all($originals, $replacement, $parentSelector: &, $args...) {
+    @at-root #{replace-all($selector: $parentSelector, $originals: $originals, $replacement: $replacement, $args...)} {
+        @content;
+    }
+}

@@ -38,3 +38,12 @@
 
     @return $returnHaystack;
 }
+
+///
+/// @since 0.1.0-beta.4.draft
+///
+@mixin replace-all($originals, $replacement, $parentSelector: &, $args...) {
+    @at-root #{replace-all($selector: $parentSelector, $originals: $originals, $replacement: $replacement, $args...)} {
+        @content;
+    }
+}

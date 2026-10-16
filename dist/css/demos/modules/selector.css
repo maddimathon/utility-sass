@@ -27,6 +27,17 @@
     }
 }
 
+@demo ( mixin: selector.replace-simple-selector ) {
+    :root .child .grandchild another.child {
+        /* @include selector.replace-simple-selector( ".child", ".new-child" ) {} */
+    }
+    @demo output {
+        :root .new-child .grandchild another.new-child {
+            /* @content; */
+        }
+    }
+}
+
 @demo ( function: selector.replace-simple-selector ) {
     :root .child .grandchild another.child {
         /*
@@ -43,6 +54,18 @@
     }
 }
 
+@demo ( mixin: selector.replace-simple-selector ) {
+    :root .child .grandchild another.child {
+        /* @include selector.replace-simple-selector( :root, ( "html", "custom-html" ) ) {} */
+    }
+    @demo output {
+        html .child .grandchild another.child,
+        custom-html .child .grandchild another.child {
+            /* @content; */
+        }
+    }
+}
+
 @demo ( function: selector.replace-simple-selector ) {
     :root .child .grandchild another.child {
         /*
@@ -54,6 +77,17 @@
     @demo return {
         :root .child .grandchild another.child {
             /* returned selectors */
+        }
+    }
+}
+
+@demo ( mixin: selector.replace-simple-selector ) {
+    :root .child .grandchild another.child {
+        /* @include selector.replace-simple-selector( ".non-existant-class", ".new-child" ) {} */
+    }
+    @demo output {
+        :root .child .grandchild another.child {
+            /* @content; */
         }
     }
 }

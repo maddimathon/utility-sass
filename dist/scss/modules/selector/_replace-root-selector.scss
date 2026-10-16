@@ -96,3 +96,16 @@
 
     @return $replaced_selectors;
 }
+
+///
+/// @since 0.1.0-beta.4.draft
+///
+@mixin replace-root-selector(
+    $replacement_selector,
+    $current_selector: &,
+    $args...
+) {
+    @at-root #{replace-root-selector($current_selector: $current_selector, $replacement_selector: $replacement_selector, $args...)} {
+        @content;
+    }
+}

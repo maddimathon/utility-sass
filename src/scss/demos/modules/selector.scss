@@ -38,6 +38,22 @@
     );
 }
 
+@mixin _selector-mixin(
+    $mixinName,
+    $getMixin,
+    $args: meta.arglist(),
+    $parentSelector_dump: false,
+    $demo_args...
+) {
+    @include demo.mixin(
+        $mixinName: $mixinName,
+        $getMixin: $getMixin,
+        $args: $args,
+        $parentSelector_dump: $parentSelector_dump,
+        $demo_args...
+    );
+}
+
 /* ## Modules - Selector - replace-simple-selector() ==================================== */
 
 @mixin _replace-simple-selector($args...) {
@@ -45,6 +61,12 @@
         'selector.replace-simple-selector',
         meta.get-function(replace-simple-selector, $module: selector),
         meta.arglist(&, $args...)
+    );
+
+    @include _selector-mixin(
+        'selector.replace-simple-selector',
+        meta.get-mixin(replace-simple-selector, $module: selector),
+        meta.arglist($args...)
     );
 }
 

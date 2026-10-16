@@ -93,3 +93,12 @@
 
     @return $replaced_selectors;
 }
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin replace-body-selector($replacement_selector, $current_selector: &, $args...) {
+    @at-root #{replace-body-selector($current_selector: $current_selector, $replacement_selector: $replacement_selector, $args...)} {
+        @content;
+    }
+}

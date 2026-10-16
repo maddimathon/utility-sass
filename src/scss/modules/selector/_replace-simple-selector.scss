@@ -101,3 +101,17 @@
 
     @return $replaced_selectors;
 }
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin replace-simple-selector(
+    $needle_selectors,
+    $replacement_selector,
+    $haystack_selector: &,
+    $args...
+) {
+    @at-root #{replace-simple-selector($haystack_selector: $haystack_selector, $needle_selectors: $needle_selectors, $replacement_selector: $replacement_selector, $args...)} {
+        @content;
+    }
+}

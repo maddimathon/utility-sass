@@ -18,3 +18,18 @@
 @function parent-or-body($asPseudoSelector: false) {
     @return if(exists.parent-exists(), &, if($asPseudoSelector, '%body', config.$selector_body));
 }
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin parent-or-body($args...) {
+    @if exists.parent-exists() {
+        $args: meta.kwyrods($args);
+
+        @content;
+    } @else {
+        #{parent-or-body($args...)} {
+            @content;
+        }
+    }
+}
