@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.5
+ * @maddimathon/utility-sass@0.1.0-beta.6
  * @license MIT
  */
 import type { RecursiveRecord } from '@maddimathon/utility-typescript/types';
