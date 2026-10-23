@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /**
  * Utility Sass - Template Demo - Custom Property Prefixes (with fallback)
- * @maddimathon/utility-sass/template@0.1.0-beta.4.draft
+ * @maddimathon/utility-sass/template@0.1.0-beta.4
  * 
  * This is a sample stylesheet with a custom property prefix and a fallback
  * prefix set in the config (i.e. — $customPropertyPrefix: "prefix-",
@@ -2924,7 +2924,13 @@ td {
         var(--fallback-mrg-firm-300, 0.8125rem)
     );
     min-width: 10em;
-    background: var(--prefix-background, var(--fallback-background, Canvas));
+    background: var(
+        --fallback-background,
+        var(
+            --prefix-sys-clr-background,
+            var(--fallback-sys-clr-background, Canvas)
+        )
+    );
     vertical-align: top;
     text-align: left;
 }

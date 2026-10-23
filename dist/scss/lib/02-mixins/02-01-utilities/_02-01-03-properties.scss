@@ -1,7 +1,7 @@
 ///
 /// Utilities for printing any kind of css property.
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.4.draft
+/// @package @maddimathon/utility-sass@0.1.0-beta.4
 /// @since 0.1.0-alpha.12
 ///
 
@@ -444,7 +444,7 @@ $_allowAllPrefixes: (
 ///
 /// @param {any} $value
 ///
-/// @since 0.1.0-beta.4.draft
+/// @since 0.1.0-beta.4
 ///
 @mixin prop-background(
     $value,
@@ -475,6 +475,25 @@ $_allowAllPrefixes: (
                 #{if($important_prop, '!important', '')};
         }
     }
+}
+
+///
+/// Gets the background prop var, if applicable.
+///
+/// @since 0.1.0-beta.4
+///
+@function var-prop-background($fallback, $args...) {
+    @return if(
+        config.$mx_prop_useCustom_background,
+        do-var(
+            background,
+            $fallback,
+            $allPrefixes: config.$mx_propBackground_allPrefixes,
+            $onlyFallbackPrefix: config.$mx_propBackground_onlyFallbackPrefix,
+            $args...
+        ),
+        $fallback
+    );
 }
 
 ///

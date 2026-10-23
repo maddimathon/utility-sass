@@ -19,9 +19,25 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-beta.4** — 2026-10-23
+
+Some new selector mixins.
+
+### Added
+- New lib function:
+    - var-prop-background()
+- New module mixins:
+    - selector.parent-or-body
+    - selector.parent-or-root
+    - selector.replace-all
+    - selector.replace-body-selector
+    - selector.replace-root-selector
+- Added background as a special cx property
+
+
 ## **0.1.0-beta.3** — 2026-10-03
 
-Make selector.pseudo-list() public.
+Made selector.pseudo-list() public.
 
 
 ## **0.1.0-beta.2** — 2026-09-30

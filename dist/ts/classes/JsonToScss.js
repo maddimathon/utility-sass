@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.4.draft
+ * @maddimathon/utility-sass@0.1.0-beta.4
  * @license MIT
  */
 import { CssColours } from './CssColours.js';
