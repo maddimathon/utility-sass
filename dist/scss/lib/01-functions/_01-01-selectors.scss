@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.4
+/// @package @maddimathon/utility-sass@0.1.0-beta.5
 /// @since 0.1.0-pre.0
 ///
 
@@ -347,69 +347,4 @@ $_selector_buttons: list.join(
         $parentSelector: $parentSelector,
         $args...
     );
-}
-
-///
-/// Checks if the parent selector (if any) is a *simple* body element selector.
-///
-/// This DOES NOT work for compound selectors.
-///
-/// @return {bool}
-///
-/// @since 0.1.0-pre.0
-///
-@function selector-parent-is-body() {
-    // returns
-    @if not selector.parent-exists() {
-        @return false;
-    }
-
-    $parentSelector: #{&};
-
-    // returns
-    @if $parentSelector == body {
-        @return true;
-    }
-
-    // returns
-    @if $parentSelector == #{config.$selector_body} {
-        @return true;
-    }
-
-    @return false;
-}
-
-///
-/// Checks if the parent selector (if any) is a *simple* root element selector.
-///
-/// This DOES NOT work for compound selectors.
-///
-/// @return {bool}
-///
-/// @since 0.1.0-pre.0
-///
-@function selector-parent-is-root() {
-    // returns
-    @if not selector.parent-exists() {
-        @return false;
-    }
-
-    $parentSelector: #{&};
-
-    // returns
-    @if $parentSelector == html {
-        @return true;
-    }
-
-    // returns
-    @if $parentSelector == ':root' {
-        @return true;
-    }
-
-    // returns
-    @if $parentSelector == #{config.$selector_root} {
-        @return true;
-    }
-
-    @return false;
 }

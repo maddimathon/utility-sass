@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-beta.5** — 2026-10-23
+
+Updated dependencies. Minor improvements to publish actions.
+
+
 ## **0.1.0-beta.4** — 2026-10-23
 
 Some new selector mixins.
