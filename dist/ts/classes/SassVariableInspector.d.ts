@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.6
+ * @maddimathon/utility-sass@0.1.0-beta.7
  * @license MIT
  */
 import { typeOf, VariableInspector } from '@maddimathon/utility-typescript';
