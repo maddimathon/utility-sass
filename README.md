@@ -7,7 +7,7 @@ children:
 ---
 
 <!--README_HEADER-->
-# Utility Sass @ 0.1.0-beta.8
+# Utility Sass @ 0.1.0-beta.9
 <!--/README_HEADER-->
 
 <!--README_DESC-->
@@ -36,7 +36,7 @@ npm i -D @maddimathon/utility-sass
 npm i -D @maddimathon/utility-sass
 
 # for pre-releases
-npm i -D github:maddimathon/utility-sass#semver:^0.1.0-beta.8
+npm i -D github:maddimathon/utility-sass#semver:^0.1.0-beta.9
 ```
 <!--/README_INSTALL-->
 
