@@ -29,7 +29,7 @@
 ///
 @function except($haystack, $needles) {
     // returns
-    @if list.length($haystack) < 1 or list.length($needles) < 1 {
+    @if not exists.exists($haystack) {
         @return $haystack;
     }
 
@@ -53,7 +53,7 @@
     }
 
     // returns
-    @if list.length($returnHaystack) < 1 {
+    @if not exists.exists($returnHaystack) {
         @return config.$selector_null;
     }
 
@@ -68,7 +68,7 @@
 ///
 @function except-has-body($haystack, $args...) {
     // returns
-    @if list.length($haystack) < 1 {
+    @if not exists.exists($haystack) {
         @return $haystack;
     }
 
@@ -83,7 +83,7 @@
     }
 
     // returns
-    @if list.length($returnHaystack) < 1 {
+    @if not exists.exists($returnHaystack) {
         @return config.$selector_null;
     }
 
@@ -98,7 +98,7 @@
 ///
 @function except-is-body($haystack, $args...) {
     // returns
-    @if list.length($haystack) < 1 {
+    @if not exists.exists($haystack) {
         @return $haystack;
     }
 
@@ -113,7 +113,7 @@
     }
 
     // returns
-    @if list.length($returnHaystack) < 1 {
+    @if not exists.exists($returnHaystack) {
         @return config.$selector_null;
     }
 
@@ -128,7 +128,7 @@
 ///
 @function except-has-root($haystack, $args...) {
     // returns
-    @if list.length($haystack) < 1 {
+    @if not exists.exists($haystack) {
         @return $haystack;
     }
 
@@ -143,7 +143,7 @@
     }
 
     // returns
-    @if list.length($returnHaystack) < 1 {
+    @if not exists.exists($returnHaystack) {
         @return config.$selector_null;
     }
 
@@ -158,7 +158,7 @@
 ///
 @function except-is-root($haystack, $args...) {
     // returns
-    @if list.length($haystack) < 1 {
+    @if not exists.exists($haystack) {
         @return $haystack;
     }
 
@@ -173,7 +173,7 @@
     }
 
     // returns
-    @if list.length($returnHaystack) < 1 {
+    @if not exists.exists($returnHaystack) {
         @return config.$selector_null;
     }
 
@@ -188,7 +188,7 @@
 ///
 @function except-has-root-or-body($haystack, $args...) {
     // returns
-    @if list.length($haystack) < 1 {
+    @if not exists.exists($haystack) {
         @return $haystack;
     }
 
@@ -203,7 +203,7 @@
     }
 
     // returns
-    @if list.length($returnHaystack) < 1 {
+    @if not exists.exists($returnHaystack) {
         @return config.$selector_null;
     }
 
@@ -218,7 +218,7 @@
 ///
 @function except-is-root-or-body($haystack, $args...) {
     // returns
-    @if list.length($haystack) < 1 {
+    @if not exists.exists($haystack) {
         @return $haystack;
     }
 
@@ -233,7 +233,7 @@
     }
 
     // returns
-    @if list.length($returnHaystack) < 1 {
+    @if not exists.exists($returnHaystack) {
         @return config.$selector_null;
     }
 
@@ -253,4 +253,17 @@
     }
 
     @return except(&, $needles, $args...);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin except($needles, $haystack: &) {
+    @if not exists.exists($haystack) {
+        @content;
+    } @else {
+        @at-root #{except($haystack: $haystack, $needles: $needles)} {
+            @content;
+        }
+    }
 }

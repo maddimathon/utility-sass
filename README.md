@@ -7,7 +7,7 @@ children:
 ---
 
 <!--README_HEADER-->
-# Utility Sass @ 0.1.0-beta.9
+# Utility Sass @ 0.1.0-beta.10.draft
 <!--/README_HEADER-->
 
 <!--README_DESC-->
@@ -29,8 +29,6 @@ or
 
 <!--README_INSTALL-->
 ```bash
-npm i -D @maddimathon/utility-sass
-
 # for full releases only, add
 # `@maddimathon:registry=https://registry.npmjs.org` to your `.npmrc` file
 npm i -D @maddimathon/utility-sass
@@ -43,11 +41,28 @@ npm i -D github:maddimathon/utility-sass#semver:^0.1.0-beta.9
 
 ## Use
 
-For an overview of all exported items, including types, see the documentation
-below.
+For a better overview of all exported items, including types, see the
+documentation below.
 
 ```scss
-@forward 'pkg:@maddimathon/utility-sass';
+@forward 'pkg:@maddimathon/utility-sass/config' with (
+    // ...
+);
+@forward 'pkg:@maddimathon/utility-sass/tokens' with (
+    // ...
+);
+
+@use 'pkg:@maddimathon/utility-sass';
+
+@use 'pkg:@maddimathon/utility-sass/colour';
+@use 'pkg:@maddimathon/utility-sass/demo';
+@use 'pkg:@maddimathon/utility-sass/feature-check';
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/string';
 ```
 
 <!--README_DOCS_CTA-->

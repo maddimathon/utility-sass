@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.9
+/// @package @maddimathon/utility-sass@0.1.0-beta.10.draft
 /// @since 0.1.0-pre.0
 ///
 
@@ -296,9 +296,7 @@ $_allPrefixes_default: if($_allowAllPrefixes, null, false);
 
         $_debug: map.set($_debug, '$fallback', $fallback);
         $_debug: map.set($_debug, 'return', $returnValue);
-    }
 
-    @if $debug {
         $_: meta.js-var-dump($_debug, 'do-var( #{$slug} )');
     }
 

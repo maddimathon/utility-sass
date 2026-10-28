@@ -1,8 +1,9 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0-beta.9
+/// @package @maddimathon/utility-sass@0.1.0-beta.10.draft
 /// @since 0.1.0-pre.0
 ///
 
+@use '../../modules/feature-check';
 @use '../../modules/list';
 @use '../../modules/math';
 @use '../../modules/meta';
@@ -10,6 +11,7 @@
 @use '../../modules/string';
 
 @use '../../config';
+@use '../../tokens';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
@@ -694,8 +696,10 @@
     $color: var-sys-colour(text),
     $color_checkradio: var-sys-colour(text),
     //
-    $fontWeight: 600,
-    $fontWeight_checkradio: 400,
+    $fontWeight: tokens.$fontWeight_semibold,
+    $fontWeight_variable: tokens.$fontWeight_semibold_variable,
+    $fontWeight_checkradio: tokens.$fontWeight,
+    $fontWeight_checkradio_variable: tokens.$fontWeight_variable,
     $gap_checkradio: var-mrg-soft('300'),
     $lineHeight: var-line-height('200'),
     $lh_checkradio: var-line-height('400'),
@@ -736,6 +740,16 @@
         @content;
     }
 
+    @if $fontWeight_variable {
+        @include feature-check.supports(variableFonts) {
+            font-weight: $fontWeight_variable;
+
+            @if $multipleContentBlocks {
+                @content (supports-variableFonts);
+            }
+        }
+    }
+
     @include selector.has(
         $selector_boxes_has,
         $direct: true,
@@ -759,6 +773,16 @@
 
         @if $multipleContentBlocks {
             @content (has-box);
+        }
+
+        @if $fontWeight_checkradio_variable {
+            @include feature-check.supports(variableFonts) {
+                font-weight: $fontWeight_checkradio_variable;
+
+                @if $multipleContentBlocks {
+                    @content (has-box--supports-variableFonts);
+                }
+            }
         }
     }
 

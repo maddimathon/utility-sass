@@ -4,6 +4,7 @@
 ///
 
 @use 'sass:list';
+@use 'sass:math';
 
 @use '../config';
 
@@ -19,15 +20,42 @@
 /// @since 0.1.0-beta.0
 ///
 @function slice($list, $start: 1, $end: null) {
-    @return meta.call-global-compiler-fn(
-        'mmutils-list-slice',
-        'list.slice',
-        $isCompilerFunction: true,
-        $isRequired: true,
-        $fallbackValue: (),
-        //
-        $list: $list,
-        $start: $start,
-        $end: $end
-    );
+    // $value:  meta.call-global-compiler-fn(
+    //     'mmutils-list-slice',
+    //     'list.slice',
+    //     $isCompilerFunction: true,
+    //     $includeWarning: false,
+    //     $isRequired: false,
+    //     $fallbackValue: false,
+    //     //
+    //     $list: $list,
+    //     $start: $start,
+    //     $end: $end
+    // );
+
+    // // returns
+    // @if $value != false {
+    //     @return $value;
+    // }
+
+    @if $start < 0 {
+        $start: list.length($list) + 1 + $start;
+    }
+
+    @if $end == null {
+        $end: list.length($list);
+    } @else if $end < 0 {
+        $end: list.length($list) + $end;
+    } @else {
+        $end: $end - 1;
+    }
+
+    $_return: ();
+    $_separator: list.separator($list);
+
+    @for $i from $start through $end {
+        $_return: list.append($_return, list.nth($list, $i), $separator: $_separator);
+    }
+
+    @return $_return;
 }

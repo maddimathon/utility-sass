@@ -254,9 +254,7 @@ $_allPrefixes_default: if($_allowAllPrefixes, null, false);
 
         $_debug: map.set($_debug, '$fallback', $fallback);
         $_debug: map.set($_debug, 'return', $returnValue);
-    }
 
-    @if $debug {
         $_: meta.js-var-dump($_debug, 'do-var( #{$slug} )');
     }
 

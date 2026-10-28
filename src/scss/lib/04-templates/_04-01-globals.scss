@@ -6,6 +6,7 @@
 @use '../../config';
 @use '../../tokens';
 
+@use '../../modules/feature-check';
 @use '../../modules/map';
 @use '../../modules/math';
 @use '../../modules/meta';
@@ -571,7 +572,7 @@
 
             @if $print_typeDefaults {
                 %root {
-                    font-weight: 400;
+                    font-weight: tokens.$fontWeight;
                     line-height: var-line-height('400');
                     @include prop-background(var-sys-colour(background), $setCxProp: false);
                     color: var-sys-colour(text);
@@ -579,6 +580,12 @@
                     @if config.$include_html {
                         @include max-width(mobile) {
                             hyphens: auto;
+                        }
+                    }
+
+                    @if tokens.$fontWeight_variable {
+                        @include feature-check.supports(variableFonts) {
+                            font-weight: tokens.$fontWeight_variable;
                         }
                     }
                 }
@@ -606,13 +613,44 @@
         @include template-utility-sass {
             @if $print_strong {
                 %strong {
-                    font-weight: 700;
+                    font-weight: tokens.$fontWeight_bold;
+
+                    @if tokens.$fontWeight_bold_variable {
+                        @include feature-check.supports(variableFonts) {
+                            font-weight: tokens.$fontWeight_bold_variable;
+                        }
+                    }
 
                     strong {
-                        font-weight: 800;
+                        @if tokens.$fontWeight_bold < 900 {
+                            font-weight: math.min(tokens.$fontWeight_bold + 100, 900);
+                        }
+
+                        @if tokens.$fontWeight_bold_variable and
+                            tokens.$fontWeight_bold_variable <
+                            950
+                        {
+                            @include feature-check.supports(variableFonts) {
+                                font-weight: math.min(tokens.$fontWeight_bold_variable + 100, 1000);
+                            }
+                        }
 
                         strong {
-                            font-weight: 900;
+                            @if tokens.$fontWeight_bold < 800 {
+                                font-weight: math.min(tokens.$fontWeight_bold + 200, 900);
+                            }
+
+                            @if tokens.$fontWeight_bold_variable and
+                                tokens.$fontWeight_bold_variable <
+                                900
+                            {
+                                @include feature-check.supports(variableFonts) {
+                                    font-weight: math.min(
+                                        tokens.$fontWeight_bold_variable + 200,
+                                        1000
+                                    );
+                                }
+                            }
                         }
                     }
                 }

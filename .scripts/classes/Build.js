@@ -120,9 +120,7 @@ export class Build extends BuildStage {
             readmeContent = readmeContent.replace(
                 /(<!--README_INSTALL-->).*?(<!--\/README_INSTALL-->)/gs,
                 '$1\n' + escRegExpReplace( [
-                    '```bash',
-                    'npm i -D @maddimathon/utility-sass' + versionStr_fullOnly,
-                    '',
+                    '```sh',
                     '# for full releases only, add',
                     '# `@maddimathon:registry=https://registry.npmjs.org` to your `.npmrc` file',
                     'npm i -D @maddimathon/utility-sass' + versionStr_fullOnly,

@@ -20,19 +20,34 @@
 /// @param {number} $name     The variable's name.
 /// @param {number} $default  Default value to return if $value is invalid.
 ///
-/// @param {?number}      $min   Optional. Minimum allowed number. Default null.
-/// @param {?number}      $max   Optional. Maximum allowed number. Default null.
-/// @param {number|false} $unit  Optional. A unit to enforce. If false, the number is returned unitless. Default false.
+/// @param {?number}      $min      Optional. Minimum allowed number. Default null.
+/// @param {?number}      $max      Optional. Maximum allowed number. Default null.
+/// @param {number|false} $unit     Optional. A unit to enforce. If false, the number is returned unitless. Default false.
+/// @param {?list}        $options  Optional. List of allowed values, if any. Default null.
 ///
 /// @returns {string}  If $options is a list, the string is one of those values.
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-alpha.28 — Added $unit param.
+/// @since ___PKG_VERSION___ — Added $options param.
 ///
-@function config-valid-number($value, $name, $default, $min: null, $max: null, $unit: false) {
-    // returns - value is to be default
+@function config-valid-number(
+    $value,
+    $name,
+    $default,
+    $min: null,
+    $max: null,
+    $options: null,
+    $unit: false
+) {
+    // returns if default is not a number - value is to be default
     @if $value == null {
         $value: $default;
+
+        // returns
+        @if meta.type-of($default) != calculation and meta.type-of($default) != number {
+            @return $default;
+        }
     }
 
     $value: config-enforce-type-or-warn(
@@ -47,6 +62,21 @@
 
     $isNumber: meta.type-of($value) == number;
     $isCalc: not $isNumber;
+
+    // options are limited
+    // returns if no match
+    @if (meta.type-of($options) == 'list') and (list.length($options) > 0) {
+        // returns - no match
+        @if list.index($options, $value) == null {
+            $optsList: ();
+            @each $opt in $options {
+                $optsList: list.append($optsList, '#{$opt}', $separator: comma);
+            }
+
+            @warn "[config] $#{$name} must be one of: #{$optsList} (not `#{$value}`)";
+            @return $default;
+        }
+    }
 
     @if $isNumber and not math.is-unitless($value) {
         $value: math.div($value, ($value * 0 + 1));
@@ -81,4 +111,29 @@
     }
 
     @return $value;
+}
+
+///
+/// Validates a number as a (potentially variable) font weight.
+///
+/// @since ___PKG_VERSION___
+///
+@function config-valid-font-weight(
+    $value,
+    $name,
+    $default,
+    $min: 50,
+    $max: 1000,
+    $unit: false,
+    $args...
+) {
+    @return config-valid-number(
+        $value: $value,
+        $name: $name,
+        $default: $default,
+        $min: $min,
+        $max: $max,
+        $unit: $unit,
+        $args...
+    );
 }

@@ -183,7 +183,7 @@ list.only-any {
 
 list.slice {
     /*
-        $list is a comma-separated list:
+        list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ) ) is a comma-separated list:
 
         1: <S> one,
         2: <S> two,
@@ -198,22 +198,7 @@ list.slice {
         11: <S> B,
      */
     /*
-        list.slice( $list ) is a comma-separated list:
-
-        1: <S> one,
-        2: <S> two,
-        3: <S> two,
-        4: <S> one,
-        5: <S> A,
-        6: <S> B,
-        7: <S> C,
-        8: <S> yet,
-        9: <S> another,
-        10: <S> list,
-        11: <S> B,
-     */
-    /*
-        list.slice( $list, 1, 6 ) is a comma-separated list:
+        list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), 1, 6 ) is a comma-separated list:
 
         1: <S> one,
         2: <S> two,
@@ -222,7 +207,7 @@ list.slice {
         5: <S> A,
      */
     /*
-        list.slice( $list, 6 ) is a comma-separated list:
+        list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), 6 ) is a comma-separated list:
 
         1: <S> B,
         2: <S> C,
@@ -232,7 +217,7 @@ list.slice {
         6: <S> B,
      */
     /*
-        list.slice( $list, 2 ) is a comma-separated list:
+        list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), 2 ) is a comma-separated list:
 
         1: <S> two,
         2: <S> two,
@@ -246,7 +231,7 @@ list.slice {
         10: <S> B,
      */
     /*
-        list.slice( $list, 2, 6 ) is a comma-separated list:
+        list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), 2, 6 ) is a comma-separated list:
 
         1: <S> two,
         2: <S> two,
@@ -254,7 +239,7 @@ list.slice {
         4: <S> A,
      */
     /*
-        list.slice( $list, 2, -4 ) is a comma-separated list:
+        list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), 2, -4 ) is a comma-separated list:
 
         1: <S> two,
         2: <S> two,
@@ -262,6 +247,14 @@ list.slice {
         4: <S> A,
         5: <S> B,
         6: <S> C,
+     */
+    /*
+        list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), -4 ) is a comma-separated list:
+
+        1: <S> yet,
+        2: <S> another,
+        3: <S> list,
+        4: <S> B,
      */
 }
 
