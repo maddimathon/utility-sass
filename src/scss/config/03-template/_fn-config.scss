@@ -75,6 +75,27 @@ $fn_colourMode_selectorsAsChildren: config-valid-bool(
 );
 
 ///
+/// @since ___PKG_VERSION___
+///
+$fn_colourMode_selectorsAsChildren_individual: null !default;
+$fn_colourMode_selectorsAsChildren_individual: $fn_colourMode_selectorsAsChildren and
+    config-valid-bool(
+        $fn_colourMode_selectorsAsChildren_individual,
+        'fn_colourMode_selectorsAsChildren_individual',
+        $default: false
+    );
+
+///
+/// @since ___PKG_VERSION___
+///
+$fn_fontSize_autoClampSizes: null !default;
+$fn_fontSize_autoClampSizes: config-valid-bool(
+    $fn_fontSize_autoClampSizes,
+    'fn_fontSize_autoClampSizes',
+    $default: lib.$include_html
+);
+
+///
 /// @since 0.1.0-alpha.33
 ///
 $fn_gapValue_block_layout_low: null !default;

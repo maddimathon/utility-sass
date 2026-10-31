@@ -122,11 +122,13 @@ $_contrastModes_all: filter-colour-modes-active-only(
     $includeSelectors: config.$mx_colourMode_includeSelectors,
 
     $modeArgs: false,
+    $selectorsAsChildren: false,
     $args...
 ) {
     @if not $modeArgs {
         $args: colour-mode-validate-args(
             $modes: $modes,
+            $selectorsAsChildren: $selectorsAsChildren,
             $args...,
         );
     } @else {
@@ -226,14 +228,22 @@ $_contrastModes_all: filter-colour-modes-active-only(
 }
 //#endregion Individual colour modes
 
-@mixin colour-mode-all($includeForcedColors: true, $args...) {
+@mixin colour-mode-all(
+    $includeForcedColors: true,
+    $selectorsAsChildren: false,
+    $args...
+) {
     $allModes: list.join($_brightnessModes_all, $_contrastModes_all);
 
     @if not $includeForcedColors {
         $allModes: list.except($allModes, forced-colors);
     }
 
-    @include colour-mode($modes: $allModes, $args...) {
+    @include colour-mode(
+        $modes: $allModes,
+        $selectorsAsChildren: $selectorsAsChildren,
+        $args...
+    ) {
         @content;
     }
 }
@@ -258,6 +268,9 @@ $_contrastModes_all: filter-colour-modes-active-only(
     $includeRegionsOrComments: false,
     $includeRegion: $includeRegionsOrComments,
     $includeRegion_heading: '',
+    //
+    $selectorsAsChildren: config.$fn_colourMode_selectorsAsChildren,
+    //
     $input_args...
 ) {
     @if string.length($includeRegion_heading) > 0 {
@@ -291,6 +304,7 @@ $_contrastModes_all: filter-colour-modes-active-only(
 
     $args: colour-mode-validate-args(
         $modes: list.join($brightness, $contrast),
+        $selectorsAsChildren: $selectorsAsChildren,
         $input_args...,
     );
 
@@ -304,6 +318,8 @@ $_contrastModes_all: filter-colour-modes-active-only(
     $parentSelector: map.get($args, parentSelector);
     $parentSelectorExists: map.get($args, parentSelectorExists);
 
+    $selectorsAsChildren: map.get($args, selectorsAsChildren);
+
     $brightness_args: colour-mode-validate-args(
         map.merge(
                 $input_args,
@@ -311,6 +327,8 @@ $_contrastModes_all: filter-colour-modes-active-only(
                     modes: $brightness,
                     ignoreParentSelector: true,
                     includeDefault: false,
+                    parentIsModeSelector: true,
+                    selectorsAsChildren: false,
                 )
             )...
     );
@@ -322,6 +340,8 @@ $_contrastModes_all: filter-colour-modes-active-only(
                     modes: $contrast,
                     ignoreParentSelector: true,
                     includeDefault: false,
+                    parentIsModeSelector: true,
+                    selectorsAsChildren: false,
                 )
             )...
     );
@@ -366,13 +386,13 @@ $_contrastModes_all: filter-colour-modes-active-only(
             )...
     );
 
+    $simple_selectors_brightness: simple-selectors-colour-mode($brightness);
+    $simple_selectors_contrast: simple-selectors-colour-mode($contrast);
+
     @if $debug {
         @include meta.var-dump('$selectors_brightness', $selectors_brightness);
         @include meta.var-dump('$selectors_contrast', $selectors_contrast);
     }
-
-    $simple_selectors_brightness: simple-selectors-colour-mode($brightness);
-    $simple_selectors_contrast: simple-selectors-colour-mode($contrast);
 
     // don't display the comments when there is probably no output
     // prettier-ignore
@@ -660,11 +680,14 @@ $_contrastModes_all: filter-colour-modes-active-only(
                     $self: false,
                     $replace: false,
                     $unify: true,
-                    $nest: config.$fn_colourMode_selectorsAsChildren,
-                    $wrap: config.$fn_colourMode_selectorsAsChildren
+                    $nest: $selectorsAsChildren and
+                        config.$fn_colourMode_selectorsAsChildren_individual,
+                    $wrap: $selectorsAsChildren and
+                        config.$fn_colourMode_selectorsAsChildren_individual
                 ),
                 if(
-                    config.$fn_colourMode_selectorsAsChildren,
+                    $selectorsAsChildren and
+                        config.$fn_colourMode_selectorsAsChildren_individual,
                     selector.extend-simple-selector(
                         $selectors_contrast,
                         $simple_selectors_contrast,
@@ -672,8 +695,8 @@ $_contrastModes_all: filter-colour-modes-active-only(
                         $self: false,
                         $replace: false,
                         $unify: false,
-                        $nest: config.$fn_colourMode_selectorsAsChildren,
-                        $wrap: config.$fn_colourMode_selectorsAsChildren
+                        $nest: $selectorsAsChildren,
+                        $wrap: $selectorsAsChildren
                     ),
                     ()
                 ),
@@ -722,26 +745,58 @@ $_contrastModes_all: filter-colour-modes-active-only(
                 @if $brightnessIsDefault and $contrastIsDefault {
                     // = the body element is part of the selectors here
 
-                    $selectors_merged: list.join(
+                    @if config.$fn_colourMode_selectorsAsChildren_individual {
+                        $selectors_merged: list.join(
+                            (
+                                $parentSelector,
+                                $selectors_brightness,
+                                $selectors_contrast
+                            ),
+                            $selectors_merged,
+                            $separator: comma
+                        );
+                    } @else {
+                        $selectors_merged: list.join(
+                            ($parentSelector),
+                            $selectors_merged,
+                            $separator: comma
+                        );
+                    }
+                } @else {
+                    @if $brightnessIsDefault and
+                        (not $contrastIsDefault) and
                         (
-                            $parentSelector,
+                            (
+                                    list.length($brightness) ==
+                                        list.length(tokens.$brightnessMode_all)
+                                ) or
+                                config.$fn_colourMode_selectorsAsChildren_individual
+                        )
+                    {
+                        // = the body element needs to be "merged" with the contrast selectors
+
+                        $selectors_merged: (
+                            $selectors_contrast,
+                            $selectors_merged
+                        );
+                    } @else if
+                        $contrastIsDefault and
+                        (not $brightnessIsDefault) and
+                        (
+                            (
+                                    list.length($contrast) ==
+                                        list.length(tokens.$contrastMode_all)
+                                ) or
+                                config.$fn_colourMode_selectorsAsChildren_individual
+                        )
+                    {
+                        // = the body element needs to be "merged" with the brightness selectors
+
+                        $selectors_merged: (
                             $selectors_brightness,
-                            $selectors_contrast
-                        ),
-                        $selectors_merged,
-                        $separator: comma
-                    );
-                } @else if $brightnessIsDefault and not $contrastIsDefault {
-                    // = the body element needs to be "merged" with the contrast selectors
-
-                    $selectors_merged: ($selectors_contrast, $selectors_merged);
-                } @else if not $brightnessIsDefault and $contrastIsDefault {
-                    // = the body element needs to be "merged" with the brightness selectors
-
-                    $selectors_merged: (
-                        $selectors_brightness,
-                        $selectors_merged
-                    );
+                            $selectors_merged
+                        );
+                    }
                 }
             }
 

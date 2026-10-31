@@ -190,6 +190,8 @@ $_rootAliasesWithAllModeOptions: list.join(
     $parentSelector: map.get($args, 'parentSelector');
     $parentSelectorExists: map.get($args, 'parentSelectorExists');
 
+    $selectorsAsChildren: map.get($args, 'selectorsAsChildren');
+
     $debug: map.get($args, 'debug');
 
     @if $debug {
@@ -204,6 +206,8 @@ $_rootAliasesWithAllModeOptions: list.join(
 
         $debug_vars: map.set($debug_vars, '$parentSelector', $parentSelector);
         $debug_vars: map.set($debug_vars, '$parentSelectorExists', $parentSelectorExists);
+
+        $debug_vars: map.set($debug_vars, '$selectorsAsChildren', $selectorsAsChildren);
     }
 
     $prependParentSelector: false;
@@ -235,8 +239,8 @@ $_rootAliasesWithAllModeOptions: list.join(
                     $self: false,
                     $replace: false,
                     $unify: $addGlobalModeSelector,
-                    $nest: config.$fn_colourMode_selectorsAsChildren,
-                    $wrap: config.$fn_colourMode_selectorsAsChildren
+                    $nest: $selectorsAsChildren,
+                    $wrap: $selectorsAsChildren
                 );
             } @else if $addGlobalModeSelector {
                 $selectors: selector.add-root-selector(
@@ -263,6 +267,25 @@ $_rootAliasesWithAllModeOptions: list.join(
                     $separator: comma
                 );
             }
+        } @else if and $selectorsAsChildren and ($nestModeSelector or $unifySelectors) {
+            $selectors: list.join(
+                $selectors,
+                selector.merge(
+                    $selectorA: if(
+                            selector.exists($parentSelector),
+                            $parentSelector,
+                            config.$selector_root
+                        ),
+                    $selectorB: $simple_selectors,
+
+                    $nestAinB: false,
+                    $nestBinA: $nestModeSelector,
+                    $unify: $unifySelectors,
+
+                    $debug: $debug,
+                ),
+                $separator: comma
+            );
         }
 
         @if $debug {

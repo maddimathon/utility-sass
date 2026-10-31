@@ -34,11 +34,16 @@ $_allModeOptions_simpleSelectors: simple-selectors-colour-mode-all();
     $unifySelectors: null,
     $nestModeSelector: null,
 
+    $parentHasModeSelector: null,
+    $parentIsModeSelector: null,
+
     $parentIsRoot: null,
     $parentIsBody: null,
 
     $parentSelector: null,
     $parentSelectorExists: null,
+
+    $selectorsAsChildren: null,
 
     $debug: false,
 
@@ -80,9 +85,6 @@ $_allModeOptions_simpleSelectors: simple-selectors-colour-mode-all();
         $parentSelectorExists: selector.parent-exists();
     }
 
-    $parentHasModeSelector: null;
-    $parentIsModeSelector: null;
-
     @if not $parentSelector {
         @if $parentSelectorExists {
             $parentSelector: selector.parent-or-root();
@@ -97,19 +99,23 @@ $_allModeOptions_simpleSelectors: simple-selectors-colour-mode-all();
     }
 
     @if $parentSelector {
-        $parentHasModeSelector: selector.includes(
-            $parentSelector,
-            $_allModeOptions_simpleSelectors
-        );
+        @if $parentHasModeSelector == null {
+            $parentHasModeSelector: selector.includes(
+                $parentSelector,
+                $_allModeOptions_simpleSelectors
+            );
+        }
 
         @each $_subSel in $_allModeOptions_simpleSelectors {
             @if not $parentIsModeSelector {
                 $parentIsModeSelector: selector.is-superselector($_subSel, $parentSelector);
             }
         }
-    } @else {
-        $parentHasModeSelector: false;
-        $parentIsModeSelector: false;
+    }
+
+    @if $unifySelectors == null {
+        $unifySelectors: $parentSelectorExists and
+            meta.defined-else($selectorsAsChildren, config.$fn_colourMode_selectorsAsChildren);
     }
 
     $parentIsRoot: if(
@@ -122,6 +128,20 @@ $_allModeOptions_simpleSelectors: simple-selectors-colour-mode-all();
         $parentIsBody,
         selector.parent-is-body($parentSelector)
     );
+
+    @if $selectorsAsChildren == null {
+        $selectorsAsChildren: config.$fn_colourMode_selectorsAsChildren and
+            (
+                $parentHasModeSelector or
+                    $parentIsModeSelector or
+                    ($parentSelectorExists and ($parentIsRoot or $parentIsBody))
+            );
+    }
+
+    @if not $parentSelector {
+        $parentHasModeSelector: false;
+        $parentIsModeSelector: false;
+    }
 
     @if $debug {
         $debug_vars: map.set($debug_vars, '$parentHasModeSelector', $parentHasModeSelector);
@@ -137,14 +157,16 @@ $_allModeOptions_simpleSelectors: simple-selectors-colour-mode-all();
         $addGlobalModeSelector: true;
     }
 
-    @if $unifySelectors == null {
-        $unifySelectors: $parentSelectorExists and config.$fn_colourMode_selectorsAsChildren;
-    }
-
     @if $nestModeSelector == null {
-        $nestModeSelector: $parentSelectorExists and
-            config.$fn_colourMode_selectorsAsChildren and
-            ($parentIsRoot or $parentIsBody);
+        $nestModeSelector: $selectorsAsChildren and
+            (
+                $parentIsRoot or
+                    $parentIsBody or
+                    (
+                        (not $parentSelectorExists) and
+                            config.$fn_colourMode_selectorsAsChildren_individual
+                    )
+            );
     }
 
     @if $debug {
@@ -177,6 +199,8 @@ $_allModeOptions_simpleSelectors: simple-selectors-colour-mode-all();
             parentIsBody: $parentIsBody,
 
             parentHasModeSelector: $parentHasModeSelector,
+
+            selectorsAsChildren: $selectorsAsChildren,
 
             isClrModeDefault: $isClrModeDefault,
 

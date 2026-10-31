@@ -53,14 +53,16 @@
     @if $clampFontSize == null {
         $clampFontSize: false;
 
-        @if $slug == 'title' {
-            $clampFontSize: true;
-        }
-        @if string.index($slug, 'heading-') == 1 {
-            $clampFontSize: true;
-        }
-        @if string.index($slug, 'bigger-') == 1 {
-            $clampFontSize: true;
+        @if config.$fn_fontSize_autoClampSizes {
+            @if $slug == 'title' {
+                $clampFontSize: true;
+            }
+            @if string.index($slug, 'heading-') == 1 {
+                $clampFontSize: true;
+            }
+            @if string.index($slug, 'bigger-') == 1 {
+                $clampFontSize: true;
+            }
         }
     }
 

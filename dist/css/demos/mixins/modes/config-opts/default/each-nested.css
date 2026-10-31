@@ -19,6 +19,9 @@
         $fn_colourMode_selectorsAsChildren = </> false
      */
     /* 
+        $fn_colourMode_selectorsAsChildren_individual = </> false
+     */
+    /* 
         $mx_colourMode_includeLightModeQuery = </> true
      */
     /* 
@@ -76,8 +79,6 @@
 }
 /* #region no queries - light mode + average contrast */
 .parent,
-[data-brightness-mode='light'] .parent,
-[data-contrast-mode='average'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: light;
@@ -86,7 +87,6 @@
 
 /* #endregion no queries - light mode + average contrast */
 /* #region no queries - light mode + low contrast */
-[data-contrast-mode='low'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: light;
@@ -95,7 +95,6 @@
 
 /* #endregion no queries - light mode + low contrast */
 /* #region no queries - light mode + high contrast */
-[data-contrast-mode='high'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: light;
@@ -104,7 +103,6 @@
 
 /* #endregion no queries - light mode + high contrast */
 /* #region no queries - dark mode + average contrast */
-[data-brightness-mode='dark'] .parent,
 [data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeQuery: false ) { } */
     --colour-mode-each-brightness: dark;
@@ -240,8 +238,6 @@
     }
 }
 .parent,
-[data-brightness-mode='light'] .parent,
-[data-contrast-mode='average'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
@@ -272,7 +268,6 @@
         --colour-mode-each-contrast: low;
     }
 }
-[data-contrast-mode='low'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
@@ -303,7 +298,6 @@
         --colour-mode-each-contrast: high;
     }
 }
-[data-contrast-mode='high'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
@@ -334,7 +328,6 @@
         --colour-mode-each-contrast: average;
     }
 }
-[data-brightness-mode='dark'] .parent,
 [data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: dark;
@@ -436,8 +429,6 @@
     }
 }
 .parent,
-[data-brightness-mode='light'] .parent,
-[data-contrast-mode='average'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
@@ -468,7 +459,6 @@
         --colour-mode-each-contrast: low;
     }
 }
-[data-contrast-mode='low'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
@@ -499,7 +489,6 @@
         --colour-mode-each-contrast: high;
     }
 }
-[data-contrast-mode='high'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
@@ -530,7 +519,6 @@
         --colour-mode-each-contrast: average;
     }
 }
-[data-brightness-mode='dark'] .parent,
 [data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
@@ -632,8 +620,6 @@
     }
 }
 .parent,
-[data-brightness-mode='light'] .parent,
-[data-contrast-mode='average'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
@@ -664,7 +650,6 @@
         --colour-mode-each-contrast: low;
     }
 }
-[data-contrast-mode='low'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
@@ -695,7 +680,6 @@
         --colour-mode-each-contrast: high;
     }
 }
-[data-contrast-mode='high'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
@@ -726,7 +710,6 @@
         --colour-mode-each-contrast: average;
     }
 }
-[data-brightness-mode='dark'] .parent,
 [data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
@@ -828,8 +811,6 @@
     }
 }
 .parent,
-[data-brightness-mode='light'] .parent,
-[data-contrast-mode='average'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
@@ -860,7 +841,6 @@
         --colour-mode-each-contrast: low;
     }
 }
-[data-contrast-mode='low'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='low'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
@@ -891,7 +871,6 @@
         --colour-mode-each-contrast: high;
     }
 }
-[data-contrast-mode='high'] .parent,
 [data-brightness-mode='light'][data-contrast-mode='high'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
@@ -932,7 +911,6 @@
         --colour-mode-each-contrast: average;
     }
 }
-[data-brightness-mode='dark'] .parent,
 [data-brightness-mode='dark'][data-contrast-mode='average'] .parent {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;

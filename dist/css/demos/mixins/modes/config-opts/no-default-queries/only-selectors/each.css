@@ -19,6 +19,9 @@
         $fn_colourMode_selectorsAsChildren = </> true
      */
     /* 
+        $fn_colourMode_selectorsAsChildren_individual = </> false
+     */
+    /* 
         $mx_colourMode_includeLightModeQuery = </> false
      */
     /* 
@@ -77,11 +80,7 @@
 }
 /* #region default params - light mode + average contrast */
 :root,
-[data-brightness-mode='light'],
-[data-contrast-mode='average'],
-[data-brightness-mode='light'][data-contrast-mode='average'],
-[data-brightness-mode='light'] [data-contrast-mode='average'],
-[data-contrast-mode='average'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='average'] {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
@@ -89,10 +88,7 @@
 
 /* #endregion default params - light mode + average contrast */
 /* #region default params - light mode + low contrast */
-[data-contrast-mode='low'],
-[data-brightness-mode='light'][data-contrast-mode='low'],
-[data-brightness-mode='light'] [data-contrast-mode='low'],
-[data-contrast-mode='low'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='low'] {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
@@ -100,10 +96,7 @@
 
 /* #endregion default params - light mode + low contrast */
 /* #region default params - light mode + high contrast */
-[data-contrast-mode='high'],
-[data-brightness-mode='light'][data-contrast-mode='high'],
-[data-brightness-mode='light'] [data-contrast-mode='high'],
-[data-contrast-mode='high'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='high'] {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
@@ -111,10 +104,7 @@
 
 /* #endregion default params - light mode + high contrast */
 /* #region default params - light mode + max contrast */
-[data-contrast-mode='max'],
-[data-brightness-mode='light'][data-contrast-mode='max'],
-[data-brightness-mode='light'] [data-contrast-mode='max'],
-[data-contrast-mode='max'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='max'] {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: max;
@@ -122,10 +112,7 @@
 
 /* #endregion default params - light mode + max contrast */
 /* #region default params - dark mode + average contrast */
-[data-brightness-mode='dark'],
-[data-brightness-mode='dark'][data-contrast-mode='average'],
-[data-brightness-mode='dark'] [data-contrast-mode='average'],
-[data-contrast-mode='average'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='average'] {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
@@ -133,9 +120,7 @@
 
 /* #endregion default params - dark mode + average contrast */
 /* #region default params - dark mode + low contrast */
-[data-brightness-mode='dark'][data-contrast-mode='low'],
-[data-brightness-mode='dark'] [data-contrast-mode='low'],
-[data-contrast-mode='low'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='low'] {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
@@ -143,9 +128,7 @@
 
 /* #endregion default params - dark mode + low contrast */
 /* #region default params - dark mode + high contrast */
-[data-brightness-mode='dark'][data-contrast-mode='high'],
-[data-brightness-mode='dark'] [data-contrast-mode='high'],
-[data-contrast-mode='high'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='high'] {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
@@ -153,9 +136,7 @@
 
 /* #endregion default params - dark mode + high contrast */
 /* #region default params - dark mode + max contrast */
-[data-brightness-mode='dark'][data-contrast-mode='max'],
-[data-brightness-mode='dark'] [data-contrast-mode='max'],
-[data-contrast-mode='max'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='max'] {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: max;
@@ -174,11 +155,7 @@
 }
 [data-contrast-mode='forced-colors'],
 [data-brightness-mode='light'][data-contrast-mode='forced-colors'],
-[data-brightness-mode='dark'][data-contrast-mode='forced-colors'],
-[data-brightness-mode='light'] [data-contrast-mode='forced-colors'],
-[data-contrast-mode='forced-colors'] [data-brightness-mode='light'],
-[data-brightness-mode='dark'] [data-contrast-mode='forced-colors'],
-[data-contrast-mode='forced-colors'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='forced-colors'] {
     /* @include colour-mode-each() { } */
     --colour-mode-each-brightness: light dark;
     --colour-mode-each-contrast: forced-colors;
@@ -187,11 +164,7 @@
 /* #endregion default params - light/dark mode + forced-colors contrast */
 /* #region nested - light mode + average contrast */
 :root,
-[data-brightness-mode='light'],
-[data-contrast-mode='average'],
-[data-brightness-mode='light'][data-contrast-mode='average'],
-[data-brightness-mode='light'] [data-contrast-mode='average'],
-[data-contrast-mode='average'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='average'] {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
@@ -199,10 +172,7 @@
 
 /* #endregion nested - light mode + average contrast */
 /* #region nested - light mode + low contrast */
-[data-contrast-mode='low'],
-[data-brightness-mode='light'][data-contrast-mode='low'],
-[data-brightness-mode='light'] [data-contrast-mode='low'],
-[data-contrast-mode='low'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='low'] {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
@@ -210,10 +180,7 @@
 
 /* #endregion nested - light mode + low contrast */
 /* #region nested - light mode + high contrast */
-[data-contrast-mode='high'],
-[data-brightness-mode='light'][data-contrast-mode='high'],
-[data-brightness-mode='light'] [data-contrast-mode='high'],
-[data-contrast-mode='high'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='high'] {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
@@ -221,10 +188,7 @@
 
 /* #endregion nested - light mode + high contrast */
 /* #region nested - light mode + max contrast */
-[data-contrast-mode='max'],
-[data-brightness-mode='light'][data-contrast-mode='max'],
-[data-brightness-mode='light'] [data-contrast-mode='max'],
-[data-contrast-mode='max'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='max'] {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: max;
@@ -232,10 +196,7 @@
 
 /* #endregion nested - light mode + max contrast */
 /* #region nested - dark mode + average contrast */
-[data-brightness-mode='dark'],
-[data-brightness-mode='dark'][data-contrast-mode='average'],
-[data-brightness-mode='dark'] [data-contrast-mode='average'],
-[data-contrast-mode='average'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='average'] {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
@@ -243,9 +204,7 @@
 
 /* #endregion nested - dark mode + average contrast */
 /* #region nested - dark mode + low contrast */
-[data-brightness-mode='dark'][data-contrast-mode='low'],
-[data-brightness-mode='dark'] [data-contrast-mode='low'],
-[data-contrast-mode='low'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='low'] {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
@@ -253,9 +212,7 @@
 
 /* #endregion nested - dark mode + low contrast */
 /* #region nested - dark mode + high contrast */
-[data-brightness-mode='dark'][data-contrast-mode='high'],
-[data-brightness-mode='dark'] [data-contrast-mode='high'],
-[data-contrast-mode='high'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='high'] {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
@@ -263,9 +220,7 @@
 
 /* #endregion nested - dark mode + high contrast */
 /* #region nested - dark mode + max contrast */
-[data-brightness-mode='dark'][data-contrast-mode='max'],
-[data-brightness-mode='dark'] [data-contrast-mode='max'],
-[data-contrast-mode='max'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='max'] {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: max;
@@ -284,11 +239,7 @@
 }
 [data-contrast-mode='forced-colors'],
 [data-brightness-mode='light'][data-contrast-mode='forced-colors'],
-[data-brightness-mode='dark'][data-contrast-mode='forced-colors'],
-[data-brightness-mode='light'] [data-contrast-mode='forced-colors'],
-[data-contrast-mode='forced-colors'] [data-brightness-mode='light'],
-[data-brightness-mode='dark'] [data-contrast-mode='forced-colors'],
-[data-contrast-mode='forced-colors'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='forced-colors'] {
     /* @include colour-mode-each( $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light dark;
     --colour-mode-each-contrast: forced-colors;
@@ -297,11 +248,7 @@
 /* #endregion nested - light/dark mode + forced-colors contrast */
 /* #region nested with forced-colors - light mode + average contrast */
 :root,
-[data-brightness-mode='light'],
-[data-contrast-mode='average'],
-[data-brightness-mode='light'][data-contrast-mode='average'],
-[data-brightness-mode='light'] [data-contrast-mode='average'],
-[data-contrast-mode='average'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='average'] {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
@@ -309,10 +256,7 @@
 
 /* #endregion nested with forced-colors - light mode + average contrast */
 /* #region nested with forced-colors - light mode + low contrast */
-[data-contrast-mode='low'],
-[data-brightness-mode='light'][data-contrast-mode='low'],
-[data-brightness-mode='light'] [data-contrast-mode='low'],
-[data-contrast-mode='low'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='low'] {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
@@ -320,10 +264,7 @@
 
 /* #endregion nested with forced-colors - light mode + low contrast */
 /* #region nested with forced-colors - light mode + high contrast */
-[data-contrast-mode='high'],
-[data-brightness-mode='light'][data-contrast-mode='high'],
-[data-brightness-mode='light'] [data-contrast-mode='high'],
-[data-contrast-mode='high'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='high'] {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
@@ -331,10 +272,7 @@
 
 /* #endregion nested with forced-colors - light mode + high contrast */
 /* #region nested with forced-colors - light mode + max contrast */
-[data-contrast-mode='max'],
-[data-brightness-mode='light'][data-contrast-mode='max'],
-[data-brightness-mode='light'] [data-contrast-mode='max'],
-[data-contrast-mode='max'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='max'] {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: max;
@@ -342,10 +280,7 @@
 
 /* #endregion nested with forced-colors - light mode + max contrast */
 /* #region nested with forced-colors - dark mode + average contrast */
-[data-brightness-mode='dark'],
-[data-brightness-mode='dark'][data-contrast-mode='average'],
-[data-brightness-mode='dark'] [data-contrast-mode='average'],
-[data-contrast-mode='average'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='average'] {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
@@ -353,9 +288,7 @@
 
 /* #endregion nested with forced-colors - dark mode + average contrast */
 /* #region nested with forced-colors - dark mode + low contrast */
-[data-brightness-mode='dark'][data-contrast-mode='low'],
-[data-brightness-mode='dark'] [data-contrast-mode='low'],
-[data-contrast-mode='low'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='low'] {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
@@ -363,9 +296,7 @@
 
 /* #endregion nested with forced-colors - dark mode + low contrast */
 /* #region nested with forced-colors - dark mode + high contrast */
-[data-brightness-mode='dark'][data-contrast-mode='high'],
-[data-brightness-mode='dark'] [data-contrast-mode='high'],
-[data-contrast-mode='high'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='high'] {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
@@ -373,9 +304,7 @@
 
 /* #endregion nested with forced-colors - dark mode + high contrast */
 /* #region nested with forced-colors - dark mode + max contrast */
-[data-brightness-mode='dark'][data-contrast-mode='max'],
-[data-brightness-mode='dark'] [data-contrast-mode='max'],
-[data-contrast-mode='max'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='max'] {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: max;
@@ -394,11 +323,7 @@
 }
 [data-contrast-mode='forced-colors'],
 [data-brightness-mode='light'][data-contrast-mode='forced-colors'],
-[data-brightness-mode='dark'][data-contrast-mode='forced-colors'],
-[data-brightness-mode='light'] [data-contrast-mode='forced-colors'],
-[data-contrast-mode='forced-colors'] [data-brightness-mode='light'],
-[data-brightness-mode='dark'] [data-contrast-mode='forced-colors'],
-[data-contrast-mode='forced-colors'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='forced-colors'] {
     /* @include colour-mode-each( $includeForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light dark;
     --colour-mode-each-contrast: forced-colors;
@@ -407,11 +332,7 @@
 /* #endregion nested with forced-colors - light/dark mode + forced-colors contrast */
 /* #region nested with iterated forced-colors - light mode + average contrast */
 :root,
-[data-brightness-mode='light'],
-[data-contrast-mode='average'],
-[data-brightness-mode='light'][data-contrast-mode='average'],
-[data-brightness-mode='light'] [data-contrast-mode='average'],
-[data-contrast-mode='average'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='average'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: average;
@@ -419,10 +340,7 @@
 
 /* #endregion nested with iterated forced-colors - light mode + average contrast */
 /* #region nested with iterated forced-colors - light mode + low contrast */
-[data-contrast-mode='low'],
-[data-brightness-mode='light'][data-contrast-mode='low'],
-[data-brightness-mode='light'] [data-contrast-mode='low'],
-[data-contrast-mode='low'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='low'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: low;
@@ -430,10 +348,7 @@
 
 /* #endregion nested with iterated forced-colors - light mode + low contrast */
 /* #region nested with iterated forced-colors - light mode + high contrast */
-[data-contrast-mode='high'],
-[data-brightness-mode='light'][data-contrast-mode='high'],
-[data-brightness-mode='light'] [data-contrast-mode='high'],
-[data-contrast-mode='high'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='high'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: high;
@@ -441,10 +356,7 @@
 
 /* #endregion nested with iterated forced-colors - light mode + high contrast */
 /* #region nested with iterated forced-colors - light mode + max contrast */
-[data-contrast-mode='max'],
-[data-brightness-mode='light'][data-contrast-mode='max'],
-[data-brightness-mode='light'] [data-contrast-mode='max'],
-[data-contrast-mode='max'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='max'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: max;
@@ -460,10 +372,7 @@
         --colour-mode-each-contrast: forced-colors;
     }
 }
-[data-contrast-mode='forced-colors'],
-[data-brightness-mode='light'][data-contrast-mode='forced-colors'],
-[data-brightness-mode='light'] [data-contrast-mode='forced-colors'],
-[data-contrast-mode='forced-colors'] [data-brightness-mode='light'] {
+[data-brightness-mode='light'][data-contrast-mode='forced-colors'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: light;
     --colour-mode-each-contrast: forced-colors;
@@ -471,10 +380,7 @@
 
 /* #endregion nested with iterated forced-colors - light mode + forced-colors contrast */
 /* #region nested with iterated forced-colors - dark mode + average contrast */
-[data-brightness-mode='dark'],
-[data-brightness-mode='dark'][data-contrast-mode='average'],
-[data-brightness-mode='dark'] [data-contrast-mode='average'],
-[data-contrast-mode='average'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='average'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: average;
@@ -482,9 +388,7 @@
 
 /* #endregion nested with iterated forced-colors - dark mode + average contrast */
 /* #region nested with iterated forced-colors - dark mode + low contrast */
-[data-brightness-mode='dark'][data-contrast-mode='low'],
-[data-brightness-mode='dark'] [data-contrast-mode='low'],
-[data-contrast-mode='low'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='low'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: low;
@@ -492,9 +396,7 @@
 
 /* #endregion nested with iterated forced-colors - dark mode + low contrast */
 /* #region nested with iterated forced-colors - dark mode + high contrast */
-[data-brightness-mode='dark'][data-contrast-mode='high'],
-[data-brightness-mode='dark'] [data-contrast-mode='high'],
-[data-contrast-mode='high'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='high'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: high;
@@ -502,9 +404,7 @@
 
 /* #endregion nested with iterated forced-colors - dark mode + high contrast */
 /* #region nested with iterated forced-colors - dark mode + max contrast */
-[data-brightness-mode='dark'][data-contrast-mode='max'],
-[data-brightness-mode='dark'] [data-contrast-mode='max'],
-[data-contrast-mode='max'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='max'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: max;
@@ -519,9 +419,7 @@
         --colour-mode-each-contrast: forced-colors;
     }
 }
-[data-brightness-mode='dark'][data-contrast-mode='forced-colors'],
-[data-brightness-mode='dark'] [data-contrast-mode='forced-colors'],
-[data-contrast-mode='forced-colors'] [data-brightness-mode='dark'] {
+[data-brightness-mode='dark'][data-contrast-mode='forced-colors'] {
     /* @include colour-mode-each( $includeForcedColors: true, $iterateForcedColors: true, $nestModeSelectors: true ) { } */
     --colour-mode-each-brightness: dark;
     --colour-mode-each-contrast: forced-colors;
