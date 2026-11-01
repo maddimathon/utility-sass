@@ -16,7 +16,7 @@
 @use 'is-simple';
 @use 'is-superselector-any';
 @use 'exists';
-@use 'unify-all';
+@use 'unify';
 
 ///
 /// Extends any instance of the given simple selectors ($needles) in the given
@@ -188,7 +188,7 @@
                         $_sub_single_haystack_no_needle: if(
                             $_is_simple_sub_single_haystack,
                             null,
-                            unify-all.unify-all(
+                            unify.unify-all(
                                 list.except(
                                     selector.simple-selectors(
                                         $sub_single_haystack

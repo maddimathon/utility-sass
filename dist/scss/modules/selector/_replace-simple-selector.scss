@@ -10,7 +10,7 @@
 
 @use 'includes';
 @use 'is-superselector-any';
-@use 'unify-all';
+@use 'unify';
 
 ///
 /// Replaces any instance of the given simple selectors ($needle_selectors) in
@@ -82,7 +82,7 @@
                     // replace this sub selector with the replacement selector
                     $single_haystack_selector: selector.replace(
                         $single_haystack_selector,
-                        unify-all.unify-all(
+                        unify.unify-all(
                             $_simple_sels_to_replace,
                             $fallback_selector: $_sub_single_haystack
                         ),

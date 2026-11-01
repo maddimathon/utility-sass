@@ -18,10 +18,10 @@
 @forward 'exists';
 @forward 'pseudo-class-lists';
 @forward 'replace-all';
-@forward 'unify-all';
 
 // deps on exists
 @forward 'is-superselector-any';
+@forward 'unify';
 
 // deps on parent-exists
 @forward 'except-superselector';
@@ -43,13 +43,13 @@
 @forward 'except';
 @forward 'only';
 
-// deps on includes, is-superselector-any, unify-all
+// deps on includes, is-superselector-any, unify
 @forward 'replace-simple-selector';
 
-// deps on includes, is-simple, replace-simple-selector, unify-all
+// deps on includes, is-simple, replace-simple-selector, unify
 @forward 'omit-simple-selector';
 
-// deps on includes, is-simple, is-superselector-any, parent-exists, unify-all
+// deps on includes, is-simple, is-superselector-any, parent-exists, unify
 @forward 'extend-simple-selector';
 
 // deps on is-body, parent-exists
@@ -67,8 +67,8 @@
 // deps on has-root, is-root, parent-exists
 @forward 'add-root-selector';
 
-// deps on has-body, is-body, parent-exists, unify-all
+// deps on has-body, is-body, parent-exists, unify
 @forward 'replace-body-selector';
 
-// deps on has-root, is-root, parent-exists, unify-all
+// deps on has-root, is-root, parent-exists, unify
 @forward 'replace-root-selector';

@@ -1,0 +1,80 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-beta.0
+///
+
+@use 'sass:selector';
+
+@use '../config';
+
+@use '../meta';
+
+@use 'exists';
+
+///
+/// Unify an arbitrarily long list of selectors.
+///
+/// @since 0.1.0-beta.0
+///
+@function unify-all($selectors: (), $fallback_selector: config.$selector_null) {
+    $unified: null;
+
+    @each $selector in $selectors {
+        @if $unified == null {
+            $unified: $selector;
+        } @else {
+            $unified: selector.unify($unified, $selector);
+        }
+    }
+
+    // returns
+    @if $unified == null {
+        @return $fallback_selector;
+    }
+
+    @return $unified;
+}
+
+///
+/// Unifies the given selector with the parent selector using the built-in
+/// selector.unify() function.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin unify($newSelector, $parentSelector: &) {
+    $unifiedSels: ();
+
+    @if not exists.exists($newSelector) {
+        // wrong type - issue warning
+
+        @warn #{meta.warning-message-bad-type(
+            $value: $newSelector,
+            $type: (list, string),
+            $varName: 'newSelector',
+            $mustBeMessage: 'must be a selector',
+            $prefix: '[selector.unify] ',
+        )};
+    } @else if not exists.exists($parentSelector) {
+        // wrong type - issue warning
+        @warn #{meta.warning-message-bad-type(
+            $value: $parentSelector,
+            $type: (list, string),
+            $varName: 'parentSelector',
+            $mustBeMessage: 'must be a selector',
+            $prefix: '[selector.unify] ',
+        )};
+
+        // nothing to unify - we will just use the new selector
+        $unifiedSels: $newSelector;
+    } @else {
+        $unifiedSels: selector.unify($parentSelector, $newSelector);
+    }
+
+    @if exists.exists($unifiedSels) {
+        @at-root #{$unifiedSels} {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}

@@ -15,7 +15,7 @@
 @use 'includes';
 @use 'is-simple';
 @use 'replace-simple-selector';
-@use 'unify-all';
+@use 'unify';
 
 ///
 /// Removes all instances of a single simple selector $needle in the $haystack
@@ -37,6 +37,7 @@
             $type: (list, string),
             $varName: 'needle',
             $mustBeMessage: 'must be a simple selector',
+            $prefix: '[selector.omit-simple-selector] ',
         )};
         @return $haystack;
     }
@@ -96,7 +97,7 @@
                 );
 
                 @each $_tmp_replaced_single_level in $_tmp_replaced_single {
-                    $__replaced: unify-all.unify-all(
+                    $__replaced: unify.unify-all(
                         list.except(
                             selector.simple-selectors($_tmp_replaced_single_level),
                             $_removalSelector

@@ -766,11 +766,11 @@ $_contrastModes_all: filter-colour-modes-active-only(
                     @if $brightnessIsDefault and
                         (not $contrastIsDefault) and
                         (
-                            (
+                            config.$fn_colourMode_selectorsAsChildren_individual or
+                                (
                                     list.length($brightness) ==
                                         list.length(tokens.$brightnessMode_all)
-                                ) or
-                                config.$fn_colourMode_selectorsAsChildren_individual
+                                )
                         )
                     {
                         // = the body element needs to be "merged" with the contrast selectors
@@ -783,11 +783,11 @@ $_contrastModes_all: filter-colour-modes-active-only(
                         $contrastIsDefault and
                         (not $brightnessIsDefault) and
                         (
-                            (
+                            config.$fn_colourMode_selectorsAsChildren_individual or
+                                (
                                     list.length($contrast) ==
                                         list.length(tokens.$contrastMode_all)
-                                ) or
-                                config.$fn_colourMode_selectorsAsChildren_individual
+                                )
                         )
                     {
                         // = the body element needs to be "merged" with the brightness selectors
