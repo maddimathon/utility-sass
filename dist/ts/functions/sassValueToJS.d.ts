@@ -68,6 +68,14 @@ export declare namespace sassValueToJS {
          * @since 0.1.0
          */
         type TestType = null | undefined | sass.SassArgumentList | sass.SassBoolean | sass.SassColor | sass.SassList | sass.SassMap | typeof sass.sassNull | sass.SassNumber | sass.SassString;
+        /**
+         * @since 0.1.0-beta.10.draft
+         */
+        function isMap(value: TestType): value is sass.SassMap;
+        /**
+         * @since 0.1.0-beta.10.draft
+         */
+        function isString(value: TestType): value is sass.SassString;
     }
     function sync(sassValue: null | SassNull, _recursionCounter?: number): null;
     function sync(sassValue: sass.SassArgumentList, _recursionCounter?: number): Map<unknown, unknown>;
@@ -76,6 +84,6 @@ export declare namespace sassValueToJS {
     function sync(sassValue: sass.SassNumber, _recursionCounter?: number): number;
     function sync(sassValue: sass.SassColor, _recursionCounter?: number): string;
     function sync(sassValue: sass.SassString, _recursionCounter?: number): string;
-    function sync(sassValue: sass.SassList, _recursionCounter?: number): unknown[];
     function sync(sassValue: AcceptedValues, _recursionCounter?: number): AcceptedReturns;
+    function sync(sassValue: sass.SassList, _recursionCounter?: number): unknown[];
 }

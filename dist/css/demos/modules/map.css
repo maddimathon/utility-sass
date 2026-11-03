@@ -112,23 +112,7 @@ map.ksort {
 
 map.merge {
     /*
-        $defaults is a map:
-
-        "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
-        "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
-        "option1": <S> A,
-        "option3": <S> C,
-        "option2": <S> B,
-     */
-    /*
-        $inputs is a map:
-
-        "option3": <S> OVERRIDE,
-        "optionList": <S> OVERRIDE,
-        "optionSet": <:> ( "option2": <S> OVERRIDE ),
-     */
-    /*
-        map.merge( $recursive: false ) is a map:
+        map.merge( ( "optionSet": ( "option1": S-A, "option2": S-B, "option3": S-C ), "optionList": ( 1, 2, 3, 4, 5 ), "option1": A, "option3": C, "option2": B ), ( "option3": OVERRIDE, "optionList": OVERRIDE, "optionSet": ( "option2": OVERRIDE ) ) ) is a map:
 
         "optionSet": <:> ( "option2": <S> OVERRIDE ),
         "optionList": <S> OVERRIDE,
@@ -137,13 +121,22 @@ map.merge {
         "option2": <S> B,
      */
     /*
-        map.merge( $recursive: true ) is a map:
+        map.merge( ( "optionSet": ( "option1": S-A, "option2": S-B, "option3": S-C ), "optionList": ( 1, 2, 3, 4, 5 ), "option1": A, "option3": C, "option2": B ), ( "option3": OVERRIDE, "optionList": OVERRIDE, "optionSet": ( "option2": OVERRIDE ) ), $recursive: true ) is a map:
 
         "optionSet": <:> ( "option1": <S> S-A, "option2": <S> OVERRIDE, "option3": <S> S-C ),
         "optionList": <S> OVERRIDE,
         "option1": <S> A,
         "option3": <S> OVERRIDE,
         "option2": <S> B,
+     */
+    /*
+        map.merge( ( "optionSet": ( "option1": S-A, "option2": S-B, "option3": S-C ), "optionList": ( 1, 2, 3, 4, 5 ), "option1": A, "option3": C, "option2": B ), ( "option3": OVERRIDE, "optionList": OVERRIDE, "optionSet": ( "option2": OVERRIDE ) ), $recursive: true, $sort: true ) is a map:
+
+        "option1": <S> A,
+        "option2": <S> B,
+        "option3": <S> OVERRIDE,
+        "optionList": <S> OVERRIDE,
+        "optionSet": <:> ( "option1": <S> S-A, "option2": <S> OVERRIDE, "option3": <S> S-C ),
      */
 }
 

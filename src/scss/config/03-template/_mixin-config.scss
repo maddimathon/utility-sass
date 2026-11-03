@@ -27,17 +27,6 @@ $mx_colourMode_includeQuery: config-valid-bool(
 );
 
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0 — Renamed from $mx_colourMode_includeSelectors_default to $mx_colourMode_includeSelectors
-///
-$mx_colourMode_includeSelectors: null !default;
-$mx_colourMode_includeSelectors: config-valid-bool(
-    $mx_colourMode_includeSelectors,
-    'mx_colourMode_includeSelectors',
-    $default: true
-);
-
-///
 /// Whether to include media queries for default modes (average contrast and light).
 ///
 /// @since 0.1.0-alpha
@@ -62,6 +51,20 @@ $mx_colourMode_includeNoPreferenceQueries: config-valid-bool(
     $mx_colourMode_includeNoPreferenceQueries,
     'mx_colourMode_includeNoPreferenceQueries',
     $default: false
+);
+
+$_doNotIncludeSelectors: (modules.$selectorType_mode == 'null') and
+    $mx_colourMode_includeLightModeQuery and $mx_colourMode_includeNoPreferenceQueries;
+
+///
+/// @since 0.1.0-pre.0
+/// @since 0.1.0-beta.0 — Renamed from $mx_colourMode_includeSelectors_default to $mx_colourMode_includeSelectors
+///
+$mx_colourMode_includeSelectors: null !default;
+$mx_colourMode_includeSelectors: config-valid-bool(
+    $mx_colourMode_includeSelectors,
+    'mx_colourMode_includeSelectors',
+    $default: not $_doNotIncludeSelectors
 );
 
 ///

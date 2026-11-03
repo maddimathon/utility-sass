@@ -245,6 +245,20 @@ export namespace sassValueToJS {
             | typeof sass.sassNull
             | sass.SassNumber
             | sass.SassString;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export function isMap( value: TestType ): value is sass.SassMap {
+            return typeOf( value ) === 'map';
+        }
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export function isString( value: TestType ): value is sass.SassString {
+            return typeOf( value ) === 'string';
+        }
     }
 
     export function sync( sassValue: null | SassNull, _recursionCounter?: number ): null;
@@ -255,13 +269,13 @@ export namespace sassValueToJS {
     export function sync( sassValue: sass.SassColor, _recursionCounter?: number ): string;
     export function sync( sassValue: sass.SassString, _recursionCounter?: number ): string;
 
-    // last override on purpose since other Value classes are also SassList
-    export function sync( sassValue: sass.SassList, _recursionCounter?: number ): unknown[];
-
     export function sync(
         sassValue: AcceptedValues,
         _recursionCounter?: number,
     ): AcceptedReturns;
+
+    // last override on purpose since other Value classes are also SassList
+    export function sync( sassValue: sass.SassList, _recursionCounter?: number ): unknown[];
 
     /**
      * @since 0.1.0-beta.0

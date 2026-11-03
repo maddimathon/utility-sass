@@ -5,6 +5,8 @@
 
 @use 'sass:map';
 
+@use '../config';
+
 @use '../meta';
 
 @use 'ksort';
@@ -25,6 +27,7 @@
 ///
 /// @since 0.1.0-pre.0
 /// @since 0.1.0-beta.0 — Added optional $sort, $sortAs, $sortReverse props.
+/// @since 0.1.0-beta.10.draft — Added compiler function for better performance with large, recursive maps.
 ///
 @function merge(
     $defaults,
@@ -33,8 +36,34 @@
     $respectUNDEFINED: false,
     $sort: false,
     $sortAs: 'string',
-    $sortReverse: false
+    $sortReverse: false,
+    //
+    $useCompilerFunction: config.$map_merge_useCompilerFunction
 ) {
+    // returns on success
+    @if $useCompilerFunction {
+        $return: meta.call-global-compiler-fn(
+            'mmutils-map-merge',
+            'map.flatten',
+            $includeWarning: false,
+            $isCompilerFunction: true,
+            $isRequired: false,
+            //
+            $defaults: $defaults,
+            $inputs: $inputs,
+            $recursive: $recursive,
+            $respectUNDEFINED: $respectUNDEFINED,
+            $sort: $sort,
+            $sortAs: $sortAs,
+            $sortReverse: $sortReverse
+        );
+
+        // returns
+        @if $return != null {
+            @return $return;
+        }
+    }
+
     $inputType: meta.type-of($inputs);
     $defaultType: meta.type-of($inputs);
 

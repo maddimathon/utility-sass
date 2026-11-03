@@ -127,6 +127,22 @@ export async function sassValueToJS(sassValue, _recursionCounter = 0) {
         return (!value.tryMap() ? 'list' : 'map');
     }
     sassValueToJS.typeOf = typeOf;
+    (function (typeOf) {
+        /**
+         * @since 0.1.0-beta.10.draft
+         */
+        function isMap(value) {
+            return typeOf(value) === 'map';
+        }
+        typeOf.isMap = isMap;
+        /**
+         * @since 0.1.0-beta.10.draft
+         */
+        function isString(value) {
+            return typeOf(value) === 'string';
+        }
+        typeOf.isString = isString;
+    })(typeOf = sassValueToJS.typeOf || (sassValueToJS.typeOf = {}));
     /**
      * @since 0.1.0-beta.0
      */

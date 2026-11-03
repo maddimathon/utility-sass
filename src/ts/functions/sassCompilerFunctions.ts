@@ -21,6 +21,7 @@ import { sassFn_colour_isKeyword } from './sass/colour_isKeyword.js';
 import { sassFn_colour_isSystemColor } from './sass/colour_isSystemColor.js';
 import { sassFn_list_slice } from './sass/list_slice.js';
 // import { sassFn_map_flatten } from './sass/map_flatten.js';
+import { sassFn_map_merge } from './sass/map_merge.js';
 import { sassFn_math_coerceUnit } from './sass/math_coerceUnit.js';
 import { sassFn_string_isQuoted } from './sass/string_isQuoted.js';
 import { sassFn_string_match } from './sass/string_match.js';
@@ -49,6 +50,7 @@ export function sassCompilerFunctions(
     'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': sass.CustomFunction<'async'>;
     'mmutils-list-slice( $list, $start: 1, $end: null )': sass.CustomFunction<'async'>;
     // 'mmutils-map-flatten( $map, $prefix: null, $suffix: null, $separator: null )': sass.CustomFunction<'async'>;
+    'mmutils-map-merge( $defaults, $inputs, $recursive: false, $respectUNDEFINED: false, $sort: false, $sortAs: "string", $sortReverse: false )': sass.CustomFunction<'async'>;
     'mmutils-math-coerce-unit( $num, $unit )': sass.CustomFunction<'async'>;
     'mmutils-string-is-quoted( $str )': sass.CustomFunction<'async'>;
     'mmutils-string-match( $string, $pattern, $flags: null, $debug: false )': sass.CustomFunction<'async'>;
@@ -66,6 +68,7 @@ export function sassCompilerFunctions(
         ...sassFn_colour_isSystemColor(),
         ...sassFn_list_slice(),
         // ...sassFn_map_flatten(),
+        ...sassFn_map_merge(),
         ...sassFn_math_coerceUnit( args ),
         ...sassFn_string_isQuoted( args ),
         ...sassFn_string_match( args ),

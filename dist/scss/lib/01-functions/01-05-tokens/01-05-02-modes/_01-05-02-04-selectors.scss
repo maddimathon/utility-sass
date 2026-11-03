@@ -254,10 +254,19 @@ $_rootAliasesWithAllModeOptions: list.join(
     $nestModeSelector: map.get($args, 'nestModeSelector');
 
     $parentHasModeSelector: map.get($args, 'parentHasModeSelector');
-    $parentIsRoot: map.get($args, 'parentIsRoot');
+    $parentHasRoot: map.get($args, 'parentHasRoot');
 
     $parentSelector: map.get($args, 'parentSelector');
     $parentSelectorExists: map.get($args, 'parentSelectorExists');
+
+    $rootSelectorAliases: meta.defined-else(
+        map.get($args, 'rootSelectorAliases'),
+        ()
+    );
+    $rootSelectorAliases_maybe: meta.defined-else(
+        map.get($args, 'rootSelectorAliases_maybe'),
+        ()
+    );
 
     $selectorsAsChildren: map.get($args, 'selectorsAsChildren');
 
@@ -294,6 +303,17 @@ $_rootAliasesWithAllModeOptions: list.join(
 
         $debug_vars: map.set(
             $debug_vars,
+            '$rootSelectorAliases',
+            $rootSelectorAliases
+        );
+        $debug_vars: map.set(
+            $debug_vars,
+            '$rootSelectorAliases_maybe',
+            $rootSelectorAliases_maybe
+        );
+
+        $debug_vars: map.set(
+            $debug_vars,
             '$selectorsAsChildren',
             $selectorsAsChildren
         );
@@ -324,7 +344,7 @@ $_rootAliasesWithAllModeOptions: list.join(
 
         @if $parentSelectorExists {
             // extend the existing colour mode selector with the new one(s)
-            @if $parentHasModeSelector and not $parentIsRoot {
+            @if $parentHasModeSelector and not $parentHasRoot {
                 $selectors: selector.extend-simple-selector(
                     $parentSelector,
                     $_allModeOptions_simpleSelectors,
@@ -339,8 +359,47 @@ $_rootAliasesWithAllModeOptions: list.join(
                 $selectors: selector.add-root-selector(
                     $selectors,
                     $parentSelector,
-                    $aliases: $_rootAliasesWithAllModeOptions
+                    $aliases: list.join(
+                            $_rootAliasesWithAllModeOptions,
+                            list.join(
+                                $rootSelectorAliases,
+                                $rootSelectorAliases_maybe,
+                                $separator: comma
+                            ),
+                            $separator: comma
+                        )
                 );
+
+                @if selector.exists($rootSelectorAliases_maybe) {
+                    $_parentsMaybeRootAliases: selector.includes(
+                        $parentSelector,
+                        $rootSelectorAliases_maybe
+                    );
+
+                    @if selector.exists($_parentsMaybeRootAliases) {
+                        $selectors: list.join(
+                            $selectors,
+                            selector.add-root-selector(
+                                $_parentsMaybeRootAliases,
+                                $parentSelector,
+                                $aliases: list.join(
+                                        $_rootAliasesWithAllModeOptions,
+                                        $rootSelectorAliases,
+                                        $separator: comma
+                                    )
+                            ),
+                            $separator: comma
+                        );
+                    }
+                }
+
+                @if $selectorsAsChildren and $nestModeSelector {
+                    $selectors: list.join(
+                        $selectors,
+                        selector.nest($parentSelector, $simple_selectors),
+                        $separator: comma
+                    );
+                }
             }
 
             // merges the selector(s) with the parent
@@ -360,7 +419,7 @@ $_rootAliasesWithAllModeOptions: list.join(
                     $separator: comma
                 );
             }
-        } @else if and
+        } @else if
             $selectorsAsChildren and
             ($nestModeSelector or $unifySelectors)
         {

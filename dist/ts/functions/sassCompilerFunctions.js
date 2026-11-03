@@ -14,6 +14,7 @@ import { sassFn_colour_isKeyword } from './sass/colour_isKeyword.js';
 import { sassFn_colour_isSystemColor } from './sass/colour_isSystemColor.js';
 import { sassFn_list_slice } from './sass/list_slice.js';
 // import { sassFn_map_flatten } from './sass/map_flatten.js';
+import { sassFn_map_merge } from './sass/map_merge.js';
 import { sassFn_math_coerceUnit } from './sass/math_coerceUnit.js';
 import { sassFn_string_isQuoted } from './sass/string_isQuoted.js';
 import { sassFn_string_match } from './sass/string_match.js';
@@ -40,6 +41,7 @@ export function sassCompilerFunctions(args) {
         ...sassFn_colour_isSystemColor(),
         ...sassFn_list_slice(),
         // ...sassFn_map_flatten(),
+        ...sassFn_map_merge(),
         ...sassFn_math_coerceUnit(args),
         ...sassFn_string_isQuoted(args),
         ...sassFn_string_match(args),

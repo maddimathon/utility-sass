@@ -6,6 +6,7 @@
 @forward '../config';
 @forward '../header';
 
+@use '../../modules/demo';
 @use '../../modules/map';
 @use '../../modules/meta';
 
@@ -104,11 +105,15 @@ map.ksort {
     @include meta.var-dump('map.ksort()', map.ksort($_defaults));
 }
 
+$_mx_map_merge: meta.get-function('merge', $module: 'map');
+@mixin _demo-map-merge($args...) {
+    @include demo.function('map.merge', $_mx_map_merge, $args);
+}
+
 map.merge {
-    @include meta.var-dump('$defaults', $_defaults);
-    @include meta.var-dump('$inputs', $_inputs);
-    @include meta.var-dump('map.merge( $recursive: false )', map.merge($_defaults, $_inputs));
-    @include meta.var-dump('map.merge( $recursive: true )', map.merge($_defaults, $_inputs, true));
+    @include _demo-map-merge($_defaults, $_inputs);
+    @include _demo-map-merge($_defaults, $_inputs, $recursive: true);
+    @include _demo-map-merge($_defaults, $_inputs, $recursive: true, $sort: true);
 }
 
 map.parse-args {
