@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /**
  * Utility Sass - Template Demo - Custom Property Prefixes
- * @maddimathon/utility-sass/template@0.1.0-beta.10.draft
+ * @maddimathon/utility-sass/template@0.1.0-beta.10
  * 
  * This is a sample stylesheet with a custom property prefix set in the config
  * (i.e. — $customPropertyPrefix: "prefix-").
@@ -339,6 +339,10 @@ pre > code {
     syntax: '*';
     inherits: true;
     initial-value: blur(1rem);
+}
+@property --prefix-background-color {
+    syntax: '<color>';
+    inherits: true;
 }
 @property --prefix-display {
     syntax: '*';
@@ -776,7 +780,7 @@ hr {
     font-weight: 400;
     line-height: var(--prefix-line-height-400, 1.6875);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-background, Canvas)
     );
     color: var(--prefix-sys-clr-text, CanvasText);
@@ -1348,9 +1352,9 @@ fieldset {
     border: 0.0625rem solid currentColor;
     border-radius: 0;
     border-color: var(--prefix-sys-clr-input-border, FieldText);
-    --prefix-background: var(--prefix-sys-clr-background, Canvas);
+    --prefix-background-color: var(--prefix-sys-clr-background, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-background, Canvas)
     );
     color: var(--prefix-sys-clr-text, CanvasText);
@@ -1433,9 +1437,9 @@ input {
         --prefix-sys-clr-input-text,
         FieldText
     );
-    --prefix-background: var(--prefix-sys-clr-input-bg, Field);
+    --prefix-background-color: var(--prefix-sys-clr-input-bg, Field);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-input-bg, Field)
     );
     color: var(--prefix-sys-clr-input-text, FieldText);
@@ -1448,9 +1452,9 @@ input:hover {
         --prefix-sys-clr-input-text,
         FieldText
     );
-    --prefix-background: var(--prefix-sys-clr-input-bg-hover, Field);
+    --prefix-background-color: var(--prefix-sys-clr-input-bg-hover, Field);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-input-bg-hover, Field)
     );
     border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
@@ -1467,9 +1471,9 @@ input:hover {
         --prefix-sys-clr-input-text,
         FieldText
     );
-    --prefix-background: var(--prefix-sys-clr-input-bg-hover, Field);
+    --prefix-background-color: var(--prefix-sys-clr-input-bg-hover, Field);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-input-bg-hover, Field)
     );
     border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
@@ -1484,9 +1488,9 @@ input:hover {
         --prefix-sys-clr-input-text,
         FieldText
     );
-    --prefix-background: var(--prefix-sys-clr-input-bg-hover, Field);
+    --prefix-background-color: var(--prefix-sys-clr-input-bg-hover, Field);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-input-bg-hover, Field)
     );
     border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
@@ -1501,9 +1505,9 @@ input:focus-visible {
         --prefix-sys-clr-input-text,
         FieldText
     );
-    --prefix-background: var(--prefix-sys-clr-input-bg-hover, Field);
+    --prefix-background-color: var(--prefix-sys-clr-input-bg-hover, Field);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-input-bg-hover, Field)
     );
     border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
@@ -1518,9 +1522,9 @@ input:focus-within {
         --prefix-sys-clr-input-text,
         FieldText
     );
-    --prefix-background: var(--prefix-sys-clr-input-bg-hover, Field);
+    --prefix-background-color: var(--prefix-sys-clr-input-bg-hover, Field);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-input-bg-hover, Field)
     );
     border-color: var(--prefix-sys-clr-input-border-hover, FieldText);
@@ -1535,9 +1539,9 @@ input:active {
         --prefix-sys-clr-text-active,
         ActiveText
     );
-    --prefix-background: var(--prefix-sys-clr-input-bg-active, Field);
+    --prefix-background-color: var(--prefix-sys-clr-input-bg-active, Field);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-input-bg-active, Field)
     );
     border-color: var(--prefix-sys-clr-input-border-active, FieldText);
@@ -1808,9 +1812,9 @@ a[href].button:visited {
         ButtonFace
     );
     border-color: var(--prefix-sys-clr-button-border, ButtonFace);
-    --prefix-background: var(--prefix-sys-clr-button-bg, ButtonFace);
+    --prefix-background-color: var(--prefix-sys-clr-button-bg, ButtonFace);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg, ButtonFace)
     );
     color: var(--prefix-sys-clr-button-text, ButtonText);
@@ -1840,9 +1844,12 @@ a[href].button:hover,
         SelectedItem
     );
     border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
-    --prefix-background: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-hover,
+        SelectedItem
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
@@ -1860,9 +1867,12 @@ a[href].button:hover,
         SelectedItem
     );
     border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
-    --prefix-background: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-hover,
+        SelectedItem
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
@@ -1880,9 +1890,12 @@ a[href].button:focus-visible {
         SelectedItem
     );
     border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
-    --prefix-background: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-hover,
+        SelectedItem
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
@@ -1900,9 +1913,12 @@ a[href].button:focus-within {
         SelectedItem
     );
     border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
-    --prefix-background: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-hover,
+        SelectedItem
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
@@ -1920,9 +1936,12 @@ a[href].button:active {
         ButtonFace
     );
     border-color: var(--prefix-sys-clr-button-border-active, ButtonFace);
-    --prefix-background: var(--prefix-sys-clr-button-bg-active, ButtonFace);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-active,
+        ButtonFace
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-active, ButtonFace)
     );
     color: var(--prefix-sys-clr-button-text-active, ButtonText);
@@ -1965,9 +1984,9 @@ a[disabled][href].button {
         ButtonFace
     );
     border-color: var(--prefix-sys-clr-button-border, ButtonFace);
-    --prefix-background: var(--prefix-sys-clr-button-bg, ButtonFace);
+    --prefix-background-color: var(--prefix-sys-clr-button-bg, ButtonFace);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg, ButtonFace)
     );
     color: var(--prefix-sys-clr-button-text, ButtonText);
@@ -1980,9 +1999,12 @@ a[disabled][href].button {
         SelectedItem
     );
     border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
-    --prefix-background: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-hover,
+        SelectedItem
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
@@ -1996,9 +2018,12 @@ a[disabled][href].button {
         SelectedItem
     );
     border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
-    --prefix-background: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-hover,
+        SelectedItem
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
@@ -2011,9 +2036,12 @@ a[disabled][href].button {
         SelectedItem
     );
     border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
-    --prefix-background: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-hover,
+        SelectedItem
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
@@ -2026,9 +2054,12 @@ a[disabled][href].button {
         SelectedItem
     );
     border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
-    --prefix-background: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-hover,
+        SelectedItem
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
@@ -2041,9 +2072,12 @@ a[disabled][href].button {
         SelectedItem
     );
     border-color: var(--prefix-sys-clr-button-border-hover, SelectedItem);
-    --prefix-background: var(--prefix-sys-clr-button-bg-hover, SelectedItem);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-hover,
+        SelectedItem
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-hover, SelectedItem)
     );
     color: var(--prefix-sys-clr-button-text-hover, SelectedItemText);
@@ -2056,9 +2090,12 @@ a[disabled][href].button {
         ButtonFace
     );
     border-color: var(--prefix-sys-clr-button-border-active, ButtonFace);
-    --prefix-background: var(--prefix-sys-clr-button-bg-active, ButtonFace);
+    --prefix-background-color: var(
+        --prefix-sys-clr-button-bg-active,
+        ButtonFace
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-button-bg-active, ButtonFace)
     );
     color: var(--prefix-sys-clr-button-text-active, ButtonText);
@@ -2138,7 +2175,7 @@ td {
     padding-inline: var(--prefix-mrg-firm-300, 0.8125rem);
     min-width: 10em;
     background: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-background, Canvas)
     );
     vertical-align: top;
@@ -2158,9 +2195,9 @@ th {
     padding-bottom: var(--prefix-mrg-soft-200, 0.375rem);
     text-wrap: balance;
     text-wrap: pretty;
-    --prefix-background: var(--prefix-sys-clr-accent-bg, CanvasText);
+    --prefix-background-color: var(--prefix-sys-clr-accent-bg, CanvasText);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-sys-clr-accent-bg, CanvasText)
     );
     color: var(--prefix-sys-clr-accent-text, Canvas);

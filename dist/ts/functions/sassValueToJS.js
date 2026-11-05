@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.10.draft
+ * @maddimathon/utility-sass@0.1.0-beta.10
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -129,14 +129,14 @@ export async function sassValueToJS(sassValue, _recursionCounter = 0) {
     sassValueToJS.typeOf = typeOf;
     (function (typeOf) {
         /**
-         * @since 0.1.0-beta.10.draft
+         * @since 0.1.0-beta.10
          */
         function isMap(value) {
             return typeOf(value) === 'map';
         }
         typeOf.isMap = isMap;
         /**
-         * @since 0.1.0-beta.10.draft
+         * @since 0.1.0-beta.10
          */
         function isString(value) {
             return typeOf(value) === 'string';

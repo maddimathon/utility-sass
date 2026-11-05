@@ -247,14 +247,14 @@ export namespace sassValueToJS {
             | sass.SassString;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.10
          */
         export function isMap( value: TestType ): value is sass.SassMap {
             return typeOf( value ) === 'map';
         }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.10
          */
         export function isString( value: TestType ): value is sass.SassString {
             return typeOf( value ) === 'string';

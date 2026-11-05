@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.10.draft
+ * @maddimathon/utility-sass@0.1.0-beta.10
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -69,11 +69,11 @@ export declare namespace sassValueToJS {
          */
         type TestType = null | undefined | sass.SassArgumentList | sass.SassBoolean | sass.SassColor | sass.SassList | sass.SassMap | typeof sass.sassNull | sass.SassNumber | sass.SassString;
         /**
-         * @since 0.1.0-beta.10.draft
+         * @since 0.1.0-beta.10
          */
         function isMap(value: TestType): value is sass.SassMap;
         /**
-         * @since 0.1.0-beta.10.draft
+         * @since 0.1.0-beta.10
          */
         function isString(value: TestType): value is sass.SassString;
     }

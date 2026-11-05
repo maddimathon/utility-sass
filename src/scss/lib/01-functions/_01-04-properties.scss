@@ -17,8 +17,8 @@
 ///
 @function do-var($slug, $fallback: null, $args...) {
     @if $fallback == null {
-        @if $slug == background {
-            $fallback: tokens.$background;
+        @if $slug == background-color {
+            $fallback: tokens.$backgroundColor;
         } @else if map.has-key(tokens.$atProperties, $slug) {
             $fallback: map.get(tokens.$atProperties, $slug, initial-value);
         }

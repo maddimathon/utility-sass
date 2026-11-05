@@ -19,6 +19,31 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-beta.10** — 2026-11-05
+
+New font weight tokens, fixes to colour mode selectors
+
+### Added
+- New module config var:
+    - $map_merge_useCompilerFunction
+- New lib config var:
+    - $fn_fontSize_autoClampSizes
+- New token variables:
+    - $fontWeight
+    - $fontWeight_variable
+    - $fontWeight_semibold
+    - $fontWeight_semibold_variable
+    - $fontWeight_bold
+    - $fontWeight_bold_variable
+- New module mixin:
+    - selector.except
+    - selector.unify
+- New optional compiler function for map.merge()
+
+### Fixed
+- Fixes to colour mode selectors
+
+
 ## **0.1.0-beta.9** — 2026-10-23
 
 Another npm publish action test.

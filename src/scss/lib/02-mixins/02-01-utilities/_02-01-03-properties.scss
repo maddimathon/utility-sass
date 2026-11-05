@@ -415,8 +415,6 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
 ///
 @mixin prop-background(
     $value,
-    $setColor: true,
-    $setImage: false,
     //
     $allPrefixes: config.$mx_propBackground_allPrefixes,
     $important_prop: false,
@@ -424,24 +422,17 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     $setProp: true,
     $args...
 ) {
-    @if $setColor or $setImage {
-        @include prop(
-            if($setColor, background-color, background-image),
-            $value,
-            $cxSlug: background,
-            $useCustom: config.$mx_prop_useCustom_background,
-            $allPrefixes: $allPrefixes,
-            $important_prop: $important_prop,
-            $onlyFallbackPrefix: $onlyFallbackPrefix,
-            $setProp: $setProp,
-            $args...
-        );
-
-        @if $setProp and $setColor and $setImage {
-            background-image: do-var($slug, $value, $args...)
-                #{if($important_prop, '!important', '')};
-        }
-    }
+    @include prop(
+        background-color,
+        $value,
+        $cxSlug: background-color,
+        $useCustom: config.$mx_prop_useCustom_backgroundColor,
+        $allPrefixes: $allPrefixes,
+        $important_prop: $important_prop,
+        $onlyFallbackPrefix: $onlyFallbackPrefix,
+        $setProp: $setProp,
+        $args...
+    );
 }
 
 ///
@@ -451,9 +442,9 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
 ///
 @function var-prop-background($fallback, $args...) {
     @return if(
-        config.$mx_prop_useCustom_background,
+        config.$mx_prop_useCustom_backgroundColor,
         do-var(
-            background,
+            background-color,
             $fallback,
             $allPrefixes: config.$mx_propBackground_allPrefixes,
             $onlyFallbackPrefix: config.$mx_propBackground_onlyFallbackPrefix,
