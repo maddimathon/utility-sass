@@ -7,7 +7,7 @@ children:
 ---
 
 <!--README_HEADER-->
-# Utility Sass @ 0.1.0-beta.10
+# Utility Sass @ 0.1.0
 <!--/README_HEADER-->
 
 <!--README_DESC-->
@@ -31,10 +31,10 @@ or
 ```sh
 # for full releases only, add
 # `@maddimathon:registry=https://registry.npmjs.org` to your `.npmrc` file
-npm i -D @maddimathon/utility-sass
+npm i -D @maddimathon/utility-sass@^0.1.0
 
 # for pre-releases
-npm i -D github:maddimathon/utility-sass#semver:^0.1.0-beta.10
+npm i -D github:maddimathon/utility-sass#semver:^0.1.0
 ```
 <!--/README_INSTALL-->
 

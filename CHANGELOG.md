@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0** — 2026-11-07
+
+Updated dependencies. Full release.
+
+
 ## **0.1.0-beta.10** — 2026-11-05
 
 New font weight tokens, fixes to colour mode selectors

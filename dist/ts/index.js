@@ -6,7 +6,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0-beta.10
+ * @maddimathon/utility-sass@0.1.0
  * @license MIT
  */
 export * from './classes/CssColours.js';
