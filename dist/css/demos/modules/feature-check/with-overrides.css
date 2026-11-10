@@ -1,0 +1,799 @@
+/*!
+ * Utility Sass - Demo
+ * 
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ * 
+ * https://maddimathon.github.io/utility-sass
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
+ */
+@config-vars {
+    /* 
+        config.$featureCheck_jsOnlyAsNeeded = </> true
+     */
+    /* 
+        config.$featureCheck_neverUseJS = </> false
+     */
+    /*
+        config.$featureCheck_defaultToJS is a map:
+
+        "touch": </> true,
+        "whereSelector": </> true,
+     */
+    /*
+        config.$featureCheck_defaultToJS_supports is a map:
+
+        "touch": </> true,
+        "whereSelector": </> true,
+     */
+    /*
+        config.$featureCheck_defaultToJS_supports_not is a map:
+
+        "touch": </> true,
+        "whereSelector": </> true,
+        "aspectRatio": </> true,
+        "focusVisible": </> true,
+     */
+    /* 
+        config.$featureCheck_includeNoWhereSelectorFallback = </> true
+     */
+    /*
+        config.$featureCheck_includeNoWhereSelectorFallback_supports_not is a map:
+
+        "aspectRatio": </> true,
+        "focusVisible": </> true,
+        "touch": </> false,
+     */
+    /* 
+        config.$featureCheck_jsScreenMediaQuery = </> true
+     */
+    /*
+        config.$featureCheck_supports is a comma-separated list:
+
+        1: <S> aspectRatio,
+        2: <S> atProperty,
+        3: <S> backdropFilter,
+        4: <S> backgroundFixed,
+        5: <S> calc,
+        6: <S> displayContents,
+        7: <S> focusWithin,
+        8: <S> focusVisible,
+        9: <S> hasSelector,
+        10: <S> subgrid,
+        11: <S> textBox,
+        12: <S> touch,
+        13: <S> variableFonts,
+        14: <S> whereSelector,
+     */
+    /*
+        config.$featureCheck_supportsQueries is a map:
+
+        "aspectRatio": <S> "( aspect-ratio: 1 / 2 )",
+        "backdropFilter": <S> "( backdrop-filter: blur(0.5rem) )",
+        "backgroundFixed": <S> "( background-attachment: fixed )",
+        "calc": <S> "( width: calc( 0.25em + 10% ) )",
+        "displayContents": <S> "( display: contents )",
+        "focusWithin": <S> "selector( a:focus-within )",
+        "focusVisible": <S> "selector( a:focus-visible )",
+        "hasSelector": <S> "selector( :has( a ) )",
+        "subgrid": <S> "( grid-template-columns: subgrid )",
+        "textBox": <S> "( text-box-edge: cap alphabetic ) and ( text-box-trim: trim-both )",
+        "variableFonts": <S> "font-tech( variations )",
+        "whereSelector": <S> "selector( :where( a ) )",
+     */
+    /*
+        config.$featureCheck_supportsOverrides is a map:
+
+        "aspectRatio": </> true,
+        "atProperty": </> false,
+        "backdropFilter": </> true,
+        "backgroundFixed": </> false,
+        "calc": </> true,
+        "displayContents": </> false,
+        "focusWithin": </> true,
+        "focusVisible": </> false,
+        "hasSelector": </> true,
+        "subgrid": </> false,
+        "textBox": </> true,
+        "touch": </> false,
+        "variableFonts": </> true,
+        "whereSelector": </> false,
+     */
+}
+/* # MODULES - FEATURE CHECK
+ * ======================================================================== */
+@demo ( function: feature-check.get-selector ) {
+    .whereSelector--true {
+        /*
+            & is a comma-separated list:
+
+            1: <()> ( <S> .whereSelector--true ),
+         */
+        /*
+            feature-check.get-selector( whereSelector, $bool: true ) is a comma-separated list:
+
+            1: <()> ( <()> ( <S> :where(.js) <S> .whereSelector--true ) ),
+         */
+    }
+    @demo return {
+        :where(.js) .whereSelector--true {
+            /* returned selectors */
+        }
+    }
+}
+
+.whereSelector--false {
+    /*
+        feature-check.get-selector( whereSelector, $bool: false ) is a comma-separated list:
+
+        1: <()> ( <()> ( <S> :where(.js__no-whereSelector) <S> .whereSelector--false ) ),
+     */
+}
+.whereSelector--true.with-extra {
+    /*
+        feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) ) is a comma-separated list:
+
+        1: <S> extra-selector,
+        2: <()> ( <()> ( <S> :where(.js) <S> .whereSelector--true.with-extra ) ),
+     */
+}
+
+.aspectRatio--true {
+    /*
+        feature-check.get-selector( aspectRatio, $bool: true ) is a comma-separated list:
+
+        1: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true ) ),
+     */
+}
+.aspectRatio--false {
+    /*
+        feature-check.get-selector( aspectRatio, $bool: false ) is a comma-separated list:
+
+        1: <()> ( <()> ( <S> :where(.js__no-aspectRatio) <S> .aspectRatio--false ) ),
+     */
+}
+.aspectRatio--true.with-extra {
+    /*
+        feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) ) is a comma-separated list:
+
+        1: <S> extra-selector,
+        2: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true.with-extra ) ),
+     */
+}
+
+/* ## Modules - Feature Check - Mixins - JS ==================================== */
+@media screen {
+    :where(.js) {
+        /* @include feature-check.js */
+    }
+}
+
+.no-js,
+.js__no-whereSelector {
+    /* @include feature-check.no-js */
+}
+
+@media not screen {
+    :root {
+        /* @include feature-check.no-js */
+    }
+}
+/* ## Modules - Feature Check - All Supports Slugs ==================================== */
+/* aspectRatio ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( aspectRatio, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports (aspect-ratio: 1 / 2) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( aspectRatio, $multipleContentBlocks: true ) {} */
+    @demo output {
+        .no-js,
+        .js__no-whereSelector {
+            /* @content( <S> no-js ); */
+        }
+        :where(.js__no-aspectRatio) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+/* atProperty ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( atProperty, $multipleContentBlocks: true ) {} */
+    @demo output {
+        :where(.js__atProperty) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( atProperty, $multipleContentBlocks: true ) {} */
+    @demo output {
+        .no-js,
+        .js__no-whereSelector {
+            /* @content( <S> no-js ); */
+        }
+        :where(.js__no-atProperty) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+/* backdropFilter ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( backdropFilter, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports (backdrop-filter: blur(0.5rem)) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( backdropFilter, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports not (backdrop-filter: blur(0.5rem)) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* backgroundFixed ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( backgroundFixed, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports (background-attachment: fixed) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( backgroundFixed, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports not (background-attachment: fixed) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* calc ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( calc, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports (width: calc(0.25em + 10%)) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( calc, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports not (width: calc(0.25em + 10%)) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* displayContents ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( displayContents, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports (display: contents) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( displayContents, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports not (display: contents) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* focusWithin ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( focusWithin, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports selector(a:focus-within) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( focusWithin, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports not selector(a:focus-within) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* focusVisible ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( focusVisible, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports selector(a:focus-visible) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( focusVisible, $multipleContentBlocks: true ) {} */
+    @demo output {
+        .no-js,
+        .js__no-whereSelector {
+            /* @content( <S> no-js ); */
+        }
+        :where(.js__no-focusVisible) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+/* hasSelector ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( hasSelector, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports selector(:has(a)) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( hasSelector, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports not selector(:has(a)) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* subgrid ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( subgrid, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports (grid-template-columns: subgrid) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( subgrid, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports not (grid-template-columns: subgrid) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* textBox ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( textBox, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports (text-box-edge: cap alphabetic) and (text-box-trim: trim-both) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( textBox, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports not (
+            (text-box-edge: cap alphabetic) and (text-box-trim: trim-both)
+        ) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* touch ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( touch, $multipleContentBlocks: true ) {} */
+    @demo output {
+        :where(.js__touch) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( touch, $multipleContentBlocks: true ) {} */
+    @demo output {
+        :where(.js__no-touch) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+/* variableFonts ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( variableFonts, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports font-tech(variations) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( variableFonts, $multipleContentBlocks: true ) {} */
+    @demo output {
+        @supports not font-tech(variations) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* whereSelector ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( whereSelector, $multipleContentBlocks: true ) {} */
+    @demo output {
+        :where(.js) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( whereSelector, $multipleContentBlocks: true ) {} */
+    @demo output {
+        .no-js,
+        .js__no-whereSelector {
+            /* @content( <S> no-js ); */
+        }
+    }
+}
+/* ## Modules - Feature Check - Mixins - Supports ==================================== */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( whereSelector, $multipleContentBlocks: true, $viaQuery: false ) {} */
+    @demo output {
+        :where(.js) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( aspectRatio, $multipleContentBlocks: true, $viaQuery: false ) {} */
+    @demo output {
+        :where(.js__aspectRatio) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( aspectRatio, $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: false ) {} */
+    @demo output {
+        extra-selector,
+        :where(.js__aspectRatio) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector ) {} */
+    @demo output {
+        @supports (width: calc(0.25em + 10%)) and selector(:has(a)) and
+            font-tech(variations) {
+            extra-selector,
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: false ) {} */
+    @demo output {
+        extra-selector,
+        :where(.js__calc):where(.js__hasSelector):where(.js__variableFonts) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+/* ### Feature Check - Supports - CSS ------------------ */
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( whereSelector, $multipleContentBlocks: true, $viaQuery: true ) {} */
+    @demo output {
+        @supports selector(:where(a)) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( aspectRatio, $multipleContentBlocks: true, $viaQuery: true ) {} */
+    @demo output {
+        @supports (aspect-ratio: 1 / 2) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( aspectRatio, $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: true ) {} */
+    @demo output {
+        @supports (aspect-ratio: 1 / 2) {
+            extra-selector,
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector ) {} */
+    @demo output {
+        @supports (width: calc(0.25em + 10%)) and selector(:has(a)) and
+            font-tech(variations) {
+            extra-selector,
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports ) {
+    /* @include feature-check.supports( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: true ) {} */
+    @demo output {
+        @supports (width: calc(0.25em + 10%)) and selector(:has(a)) and
+            font-tech(variations) {
+            extra-selector,
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* ## Modules - Feature Check - Mixins - Supports Not ==================================== */
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( whereSelector, $multipleContentBlocks: true, $viaQuery: false ) {} */
+    @demo output {
+        .no-js,
+        .js__no-whereSelector {
+            /* @content( <S> no-js ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( aspectRatio, $multipleContentBlocks: true, $viaQuery: false ) {} */
+    @demo output {
+        .no-js,
+        .js__no-whereSelector {
+            /* @content( <S> no-js ); */
+        }
+        :where(.js__no-aspectRatio) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( aspectRatio, $multipleContentBlocks: true, $includeNoWhereSelectorFallback: false, $viaQuery: false ) {} */
+    @demo output {
+        :where(.js__no-aspectRatio) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( aspectRatio, $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: false ) {} */
+    @demo output {
+        .no-js,
+        .js__no-whereSelector {
+            /* @content( <S> no-js ); */
+        }
+        extra-selector,
+        :where(.js__no-aspectRatio) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector ) {} */
+    @demo output {
+        @supports (not (width: calc(0.25em + 10%))) and (not selector(:has(a)))
+            and (not font-tech(variations)) {
+            extra-selector,
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: false ) {} */
+    @demo output {
+        .no-js,
+        .js__no-whereSelector {
+            /* @content( <S> no-js ); */
+        }
+        extra-selector,
+        :where(.js__no-calc):where(.js__no-hasSelector):where(
+                .js__no-variableFonts
+            ) {
+            /* @content( <S> where ); */
+        }
+    }
+}
+/* ### Feature Check - Supports Not - CSS ------------------ */
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( whereSelector, $multipleContentBlocks: true, $viaQuery: true ) {} */
+    @demo output {
+        @supports not selector(:where(a)) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( aspectRatio, $multipleContentBlocks: true, $viaQuery: true ) {} */
+    @demo output {
+        @supports not (aspect-ratio: 1 / 2) {
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( aspectRatio, $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: true ) {} */
+    @demo output {
+        @supports not (aspect-ratio: 1 / 2) {
+            extra-selector,
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector ) {} */
+    @demo output {
+        @supports (not (width: calc(0.25em + 10%))) and (not selector(:has(a)))
+            and (not font-tech(variations)) {
+            extra-selector,
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+@demo ( mixin: feature-check.supports-not ) {
+    /* @include feature-check.supports-not( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: true ) {} */
+    @demo output {
+        @supports (not (width: calc(0.25em + 10%))) and (not selector(:has(a)))
+            and (not font-tech(variations)) {
+            extra-selector,
+            :root {
+                /* @content( <S> at-supports ); */
+            }
+        }
+    }
+}
+/* ## Modules - Feature Check - Mixins - Aspect Ratio (fallback) ==================================== */
+@demo ( mixin: feature-check.aspect-ratio ) {
+    .ar-0_5 {
+        /* @include feature-check.aspect-ratio( 0.5, $includeComments: false ) {} */
+    }
+    @demo output {
+        .ar-0_5 {
+            aspect-ratio: 0.5;
+            /* @content( <S> root ); */
+        }
+        .no-js .ar-0_5,
+        .js__no-whereSelector .ar-0_5 {
+            position: relative;
+            /* @content( <S> supports-not ); */
+        }
+        .no-js .ar-0_5::before,
+        .js__no-whereSelector .ar-0_5::before {
+            content: '';
+            float: left;
+            padding-top: 200%;
+            /* @content( <S> supports-not--before ); */
+        }
+        .no-js .ar-0_5::after,
+        .js__no-whereSelector .ar-0_5::after {
+            content: '';
+            display: block;
+            clear: both;
+            /* @content( <S> supports-not--after ); */
+        }
+        :where(.js__no-aspectRatio) .ar-0_5 {
+            position: relative;
+            /* @content( <S> supports-not ); */
+        }
+        :where(.js__no-aspectRatio) .ar-0_5::before {
+            content: '';
+            float: left;
+            padding-top: 200%;
+            /* @content( <S> supports-not--before ); */
+        }
+        :where(.js__no-aspectRatio) .ar-0_5::after {
+            content: '';
+            display: block;
+            clear: both;
+            /* @content( <S> supports-not--after ); */
+        }
+    }
+}
+
+@demo ( mixin: feature-check.aspect-ratio ) {
+    .ar-8-7 {
+        /* @include feature-check.aspect-ratio( 8, 7, $includeComments: false ) {} */
+    }
+    @demo output {
+        .ar-8-7 {
+            aspect-ratio: 8 / 7;
+            /* @content( <S> root ); */
+        }
+        .no-js .ar-8-7,
+        .js__no-whereSelector .ar-8-7 {
+            position: relative;
+            /* @content( <S> supports-not ); */
+        }
+        .no-js .ar-8-7::before,
+        .js__no-whereSelector .ar-8-7::before {
+            content: '';
+            float: left;
+            padding-top: 87.5%;
+            /* @content( <S> supports-not--before ); */
+        }
+        .no-js .ar-8-7::after,
+        .js__no-whereSelector .ar-8-7::after {
+            content: '';
+            display: block;
+            clear: both;
+            /* @content( <S> supports-not--after ); */
+        }
+        :where(.js__no-aspectRatio) .ar-8-7 {
+            position: relative;
+            /* @content( <S> supports-not ); */
+        }
+        :where(.js__no-aspectRatio) .ar-8-7::before {
+            content: '';
+            float: left;
+            padding-top: 87.5%;
+            /* @content( <S> supports-not--before ); */
+        }
+        :where(.js__no-aspectRatio) .ar-8-7::after {
+            content: '';
+            display: block;
+            clear: both;
+            /* @content( <S> supports-not--after ); */
+        }
+    }
+}

@@ -1,0 +1,246 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha.33
+///
+
+@forward '../../config';
+@forward '../../header';
+
+@use '../../../modules/demo';
+@use '../../../modules/feature-check';
+@use '../../../modules/meta';
+
+@use '../../config';
+// @use '../../../lib';
+
+@include meta.at(config-vars) {
+    @include meta.var-dump(
+        'config.$featureCheck_jsOnlyAsNeeded',
+        config.$featureCheck_jsOnlyAsNeeded
+    );
+    @include meta.var-dump('config.$featureCheck_neverUseJS', config.$featureCheck_neverUseJS);
+    @include meta.var-dump('config.$featureCheck_defaultToJS', config.$featureCheck_defaultToJS);
+    @include meta.var-dump(
+        'config.$featureCheck_defaultToJS_supports',
+        config.$featureCheck_defaultToJS_supports
+    );
+    @include meta.var-dump(
+        'config.$featureCheck_defaultToJS_supports_not',
+        config.$featureCheck_defaultToJS_supports_not
+    );
+    @include meta.var-dump(
+        'config.$featureCheck_includeNoWhereSelectorFallback',
+        config.$featureCheck_includeNoWhereSelectorFallback
+    );
+    @include meta.var-dump(
+        'config.$featureCheck_includeNoWhereSelectorFallback_supports_not',
+        config.$featureCheck_includeNoWhereSelectorFallback_supports_not
+    );
+    @include meta.var-dump(
+        'config.$featureCheck_jsScreenMediaQuery',
+        config.$featureCheck_jsScreenMediaQuery
+    );
+    @include meta.var-dump('config.$featureCheck_supports', config.$featureCheck_supports);
+    @include meta.var-dump(
+        'config.$featureCheck_supportsQueries',
+        config.$featureCheck_supportsQueries
+    );
+    @include meta.var-dump(
+        'config.$featureCheck_supportsOverrides',
+        config.$featureCheck_supportsOverrides
+    );
+}
+
+/* # MODULES - FEATURE CHECK
+ * ======================================================================== */
+
+$_fn_get_selector: meta.get-function('get-selector', $module: 'feature-check');
+
+@mixin _demo-fn-get-selector($args...) {
+    @include demo.selector-function('feature-check.get-selector', $_fn_get_selector, $args);
+}
+
+.whereSelector {
+    &--true {
+        @include _demo-fn-get-selector(whereSelector, $bool: true);
+    }
+
+    &--false {
+        @include meta.var-dump(
+            'feature-check.get-selector( whereSelector, $bool: false )',
+            feature-check.get-selector(whereSelector, $bool: false)
+        );
+    }
+
+    &--true.with-extra {
+        @include meta.var-dump(
+            'feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) )',
+            feature-check.get-selector(whereSelector, $bool: true, $addSelectors: (extra-selector))
+        );
+    }
+}
+
+.aspectRatio {
+    &--true {
+        @include meta.var-dump(
+            'feature-check.get-selector( aspectRatio, $bool: true )',
+            feature-check.get-selector(aspectRatio, $bool: true)
+        );
+    }
+
+    &--false {
+        @include meta.var-dump(
+            'feature-check.get-selector( aspectRatio, $bool: false )',
+            feature-check.get-selector(aspectRatio, $bool: false)
+        );
+    }
+
+    &--true.with-extra {
+        @include meta.var-dump(
+            'feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) )',
+            feature-check.get-selector(aspectRatio, $bool: true, $addSelectors: (extra-selector))
+        );
+    }
+}
+
+/* ## Modules - Feature Check - Mixins - JS ==================================== */
+
+@include feature-check.js {
+    /* @include feature-check.js */
+}
+
+@include feature-check.no-js {
+    /* @include feature-check.no-js */
+}
+
+/* ## Modules - Feature Check - All Supports Slugs ==================================== */
+
+$_mx_supports: meta.get-mixin('supports', $module: 'feature-check');
+
+@mixin _demo-mx-supports($key, $multipleContentBlocks: true, $args...) {
+    @include demo.mixin(
+        'feature-check.supports',
+        $_mx_supports,
+        meta.arglist($key, $multipleContentBlocks: $multipleContentBlocks, $args...),
+        //
+        // $callSignature: demo.mixin-signature-dump(
+        //     'feature-check.supports',
+        //     $args: meta.arglist($key, $args...),
+        //     $getMixin: $_mx_supports,
+         // ),
+    );
+}
+
+$_mx_supports_not: meta.get-mixin('supports-not', $module: 'feature-check');
+
+@mixin _demo-mx-supports-not($key, $multipleContentBlocks: true, $args...) {
+    @include demo.mixin(
+        'feature-check.supports-not',
+        $_mx_supports_not,
+        meta.arglist($key, $multipleContentBlocks: $multipleContentBlocks, $args...),
+        //
+        // $callSignature: demo.mixin-signature-dump(
+        //     'feature-check.supports-not',
+        //     $args: meta.arglist($key, $args...),
+        //     $getMixin: $_mx_supports_not,
+         // ),
+    );
+}
+
+@each $slug in config.$featureCheck_supports {
+    /* #{$slug} ------------------ */
+
+    @include _demo-mx-supports($slug);
+
+    @include _demo-mx-supports-not($slug);
+}
+
+/* ## Modules - Feature Check - Mixins - Supports ==================================== */
+
+@include _demo-mx-supports(whereSelector, $viaQuery: false);
+
+@include _demo-mx-supports(aspectRatio, $viaQuery: false);
+
+@include _demo-mx-supports(aspectRatio, $addSelectors: (extra-selector), $viaQuery: false);
+
+@include _demo-mx-supports((calc, hasSelector, variableFonts), $addSelectors: (extra-selector));
+
+@include _demo-mx-supports(
+    (calc, hasSelector, variableFonts),
+    $addSelectors: (extra-selector),
+    $viaQuery: false
+);
+
+/* ### Feature Check - Supports - CSS ------------------ */
+
+@include _demo-mx-supports(whereSelector, $viaQuery: true);
+
+@include _demo-mx-supports(aspectRatio, $viaQuery: true);
+
+@include _demo-mx-supports(aspectRatio, $addSelectors: (extra-selector), $viaQuery: true);
+
+@include _demo-mx-supports((calc, hasSelector, variableFonts), $addSelectors: (extra-selector));
+
+@include _demo-mx-supports(
+    (calc, hasSelector, variableFonts),
+    $addSelectors: (extra-selector),
+    $viaQuery: true
+);
+
+/* ## Modules - Feature Check - Mixins - Supports Not ==================================== */
+
+@include _demo-mx-supports-not(whereSelector, $viaQuery: false);
+
+@include _demo-mx-supports-not(aspectRatio, $viaQuery: false);
+
+@include _demo-mx-supports-not(
+    aspectRatio,
+    $includeNoWhereSelectorFallback: false,
+    $viaQuery: false
+);
+
+@include _demo-mx-supports-not(aspectRatio, $addSelectors: (extra-selector), $viaQuery: false);
+
+@include _demo-mx-supports-not((calc, hasSelector, variableFonts), $addSelectors: (extra-selector));
+
+@include _demo-mx-supports-not(
+    (calc, hasSelector, variableFonts),
+    $addSelectors: (extra-selector),
+    $viaQuery: false
+);
+
+/* ### Feature Check - Supports Not - CSS ------------------ */
+
+@include _demo-mx-supports-not(whereSelector, $viaQuery: true);
+
+@include _demo-mx-supports-not(aspectRatio, $viaQuery: true);
+
+@include _demo-mx-supports-not(aspectRatio, $addSelectors: (extra-selector), $viaQuery: true);
+
+@include _demo-mx-supports-not((calc, hasSelector, variableFonts), $addSelectors: (extra-selector));
+
+@include _demo-mx-supports-not(
+    (calc, hasSelector, variableFonts),
+    $addSelectors: (extra-selector),
+    $viaQuery: true
+);
+
+/* ## Modules - Feature Check - Mixins - Aspect Ratio (fallback) ==================================== */
+
+$_mx_aspect_ratio: meta.get-mixin('aspect-ratio', $module: 'feature-check');
+
+@mixin _demo-mx-aspect-ratio($key, $args...) {
+    @include demo.mixin(
+        'feature-check.aspect-ratio',
+        $_mx_aspect_ratio,
+        meta.arglist($key, $args...)
+    );
+}
+
+.ar-0_5 {
+    @include _demo-mx-aspect-ratio(0.5, $includeComments: false);
+}
+
+.ar-8-7 {
+    @include _demo-mx-aspect-ratio(8, 7, $includeComments: false);
+}

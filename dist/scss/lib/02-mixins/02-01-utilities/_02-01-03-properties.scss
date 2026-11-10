@@ -1,7 +1,7 @@
 ///
 /// Utilities for printing any kind of css property.
 ///
-/// @package @maddimathon/utility-sass@0.1.0
+/// @package @maddimathon/utility-sass@0.2.0-draft
 /// @since 0.1.0-alpha.12
 ///
 
@@ -49,7 +49,7 @@ $_allowAllPrefixes: (
     }
 
     @if $important {
-        $value: #{$value} !important;
+        $value: $value !important;
     }
 
     @return $value;
@@ -77,11 +77,25 @@ $_allowAllPrefixes: (
     }
     $allPrefixes: $allPrefixes and $_allowAllPrefixes;
 
+    $_input_value: $value;
+
     $value: _custom-property--value(
         $value: $value,
         $important: $important,
         $quoteString: $quoteString,
     );
+
+    @if (meta.type-of($_input_value) == color) or
+        (meta.type-of($value) == color)
+    {
+        @include meta.var-dump('$_input_value', $_input_value);
+
+        @if $value == transparent {
+            $value: string.unquote('transparent');
+        }
+
+        @include meta.var-dump('$value', $value);
+    }
 
     @if $allPrefixes {
         @if $comment {

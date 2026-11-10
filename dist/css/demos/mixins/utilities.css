@@ -11,6 +11,25 @@
  */
 /* # MIXINS - UTILITIES
  * ======================================================================== */
+/* ## Mixin - custom-property or cx-prop ==================================== */
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( quoted-string, "quoted string" ); */
+    @demo output {
+        --quoted-string: 'quoted string';
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( unquoted-string, unquoted-string ); */
+    @demo output {
+        --unquoted-string: unquoted-string;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( list, ( 1, 2, "three" ) ); */
+    @demo output {
+        --list: 1, 2, three;
+    }
+}
 /* ## Mixin - container-query-cx-prop ==================================== */
 @demo ( mixin: container-query-cx-prop ) {
     /* @include container-query-cx-prop( "outline-width" ) {} */

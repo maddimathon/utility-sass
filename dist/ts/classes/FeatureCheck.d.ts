@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0
+ * @maddimathon/utility-sass@0.2.0-draft
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -83,6 +83,7 @@ T_CustomCheckerSlug extends string = string> {
             focusVisible: true;
             hasSelector: true;
             subgrid: true;
+            textBox: true;
             touch: true;
             variableFonts: true;
             whereSelector: true;
@@ -209,6 +210,10 @@ export declare namespace FeatureCheck {
      */
     type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backdropFilter" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid"
     /**
+     * @since 0.2.0-draft
+     */
+     | "textBox"
+    /**
      * Tries to detect if this device accepts touch input — this is useful
      * for increasing spacing for buttons and other click targets.
      */
@@ -300,99 +305,6 @@ export declare namespace FeatureCheck {
      * @since 0.1.0-beta.0
      */
     const CHECKERS: {
-        /**
-         * Checks for `aspect-ratio` css property support.
-         *
-         * @experimental
-         * @source
-         */
-        aspectRatio: () => Promise<boolean>;
-        /**
-         * Checks for css `@property` at-rule support.
-         *
-         * @experimental
-         * @source
-         */
-        atProperty: () => Promise<boolean>;
-        /**
-         * Checks for `backdrop-filter: blur(0.5rem)` css rule support.
-         *
-         * @experimental
-         * @source
-         */
-        backdropFilter: () => Promise<boolean>;
-        /**
-         * Checks for `background-attachment: fixed` css rule support.
-         *
-         * @experimental
-         * @source
-         */
-        backgroundFixed: () => Promise<boolean>;
-        /**
-         * Checks for `calc()` css value support.
-         *
-         * @experimental
-         * @source
-         */
-        calc: () => Promise<boolean>;
-        /**
-         * Checks for `display: contents` css rule support.
-         *
-         * @experimental
-         * @source
-         */
-        displayContents: () => Promise<boolean>;
-        /**
-         * Checks for `:focus-within` css selector support.
-         *
-         * @experimental
-         * @source
-         */
-        focusWithin: () => Promise<boolean>;
-        /**
-         * Checks for `:focus-visible` css selector support.
-         *
-         * @experimental
-         * @source
-         */
-        focusVisible: () => Promise<boolean>;
-        /**
-         * Checks for `:has()` css selector support.
-         *
-         * @experimental
-         * @source
-         */
-        hasSelector: () => Promise<boolean>;
-        /**
-         * Checks for `grid-template-columns: subgrid` css rule support.
-         *
-         * @experimental
-         * @source
-         */
-        subgrid: () => Promise<boolean>;
-        /**
-         * Tries to detect if this device accepts touch input — this is useful for
-         * increasing spacing for buttons and other click targets.
-         *
-         * @experimental
-         * @source
-         */
-        touch: () => Promise<boolean>;
-        /**
-         * Checks for `grid-template-columns: subgrid` css rule support.
-         *
-         * @since 0.1.0-beta.0
-         *
-         * @experimental
-         * @source
-         */
-        variableFonts: () => Promise<boolean>;
-        /**
-         * Checks for `:where()` css selector support.
-         *
-         * @experimental
-         * @source
-         */
-        whereSelector: () => Promise<boolean>;
+        [K in DefaultCheckSlug]: () => Promise<boolean>;
     };
 }

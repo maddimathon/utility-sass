@@ -1,0 +1,20 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since 0.1.0-alpha
+///
+
+@use 'sass:map';
+
+@forward '../config';
+
+@use '../config' as *;
+
+@use '../meta';
+
+@each $key, $value in $featureCheck_supportsOverrides {
+    $featureCheck_supportsOverrides: map.set(
+        $featureCheck_supportsOverrides,
+        $key,
+        meta.is-truthy($value)
+    );
+}

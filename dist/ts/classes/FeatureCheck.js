@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.1.0
+ * @maddimathon/utility-sass@0.2.0-draft
  * @license MIT
  */
 var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
@@ -137,6 +137,7 @@ export class FeatureCheck {
             focusVisible: true,
             hasSelector: true,
             subgrid: true,
+            textBox: true,
             touch: true,
             variableFonts: true,
             whereSelector: true,
@@ -380,6 +381,13 @@ _FeatureCheck_checkCache = new WeakMap();
          * @source
          */
         subgrid: async () => FeatureCheck.supportsCSS('grid-template-columns: subgrid'),
+        /**
+         * Checks for `text-box-edge` and `text-box-trim` css rule support.
+         *
+         * @experimental
+         * @source
+         */
+        textBox: async () => FeatureCheck.supportsCSS('text-box-edge: cap alphabetic') && FeatureCheck.supportsCSS('text-box-trim: trim-both'),
         /**
          * Tries to detect if this device accepts touch input — this is useful for
          * increasing spacing for buttons and other click targets.

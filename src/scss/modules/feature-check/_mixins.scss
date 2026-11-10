@@ -5,13 +5,13 @@
 
 @use 'sass:map';
 @use 'sass:math';
-@use 'sass:string';
 
-@use '../config';
+@use '_config' as config;
 
 @use '../list';
 @use '../meta';
 @use '../selector';
+@use '../string';
 
 @use 'functions';
 
@@ -235,98 +235,127 @@
     @return (query: $allQueries, selector: $allSelectors, selector_noJS: $allSelectors_noJS);
 }
 
-///
-/// @since 0.1.0-beta.0
-///
-@mixin at-supports-if-any($queries: ()) {
-    @if meta.is-truthy($queries) {
-        @supports #{$queries} {
-            @content;
-        }
-    } @else {
-        @content;
-    }
-}
+$_featureCheck_overrideKeys: map.keys(config.$featureCheck_supportsOverrides);
 
 ///
 /// @since 0.1.0-beta.0
 ///
 @mixin _supports-template($key, $bool, $debug: false, $args...) {
-    $_queryOrSelector: prepare-query-and-selector(
-        $key: $key,
-        $bool: $bool,
-        $debug: $debug,
-        $args...,
-    );
+    @if meta.type-of($key) != list {
+        $key: ($key);
+    }
 
-    $query: map.get($_queryOrSelector, query);
-    $selector: map.get($_queryOrSelector, selector);
-    $selector_noJS: map.get($_queryOrSelector, selector_noJS);
+    // $allKeysHaveOverrideValues: list.length($key) == list.length(list.only-any($key, $_featureCheck_overrideKeys));
+    $allKeysHaveOverrideValues: false;
 
-    @at-root {
-        @if $debug {
-            /* #{if($bool, supports, supports-not)}#{demo.args-dump($args)} */
-            @include meta.var-dump('$query', $query);
-            @include meta.var-dump('$selector', $selector);
-            @include meta.var-dump('$selector_noJS', $selector_noJS);
+    @if $allKeysHaveOverrideValues {
+        $hasOverrideValue: ();
 
-            $args: meta.keywords($args);
+        @each $__key in $key {
+            @if map.has-key(config.$featureCheck_supportsOverrides, $__key) {
+                $__value: map.get(config.$featureCheck_supportsOverrides, $__key);
 
-            @include meta.var-dump('$neverUseJS', map.get($args, neverUseJS));
-            @include meta.var-dump('$viaQuery', map.get($args, viaQuery));
-            @include meta.var-dump(
-                '$includeNoWhereSelectorFallback',
-                map.get($args, includeNoWhereSelectorFallback)
-            );
-
-            @include meta.var-dump(
-                'functions.param-never-use-js()',
-                functions.param-never-use-js(map.get($args, neverUseJS))
-            );
-
-            @each $_key in $key {
-                @include meta.var-dump(
-                    'functions.param-via-query( #{$_key} )',
-                    functions.param-via-query(
-                        $key: $_key,
-                        $bool: $bool,
-                        $neverUseJS: map.get($args, neverUseJS),
-                        $viaQuery: map.get($args, viaQuery)
-                    )
-                );
-            }
-
-            @each $_key in $key {
-                @include meta.var-dump(
-                    'functions.param-include-no-where-selector( #{$_key} )',
-                    functions.param-include-no-where-selector(
-                        $key: $_key,
-                        $includeNoWhereSelectorFallback: map.get(
-                                $args,
-                                includeNoWhereSelectorFallback
-                            )
-                    )
-                );
+                @if $__value == $bool {
+                    $hasOverrideValue: list.append($hasOverrideValue, $__value, $separator: comma);
+                }
             }
         }
 
-        $_query_exists: meta.is-truthy($query);
-        $_selector_noJS_exists: meta.is-truthy($selector_noJS);
-        $_selector_exists: meta.is-truthy($selector);
+        $addSelectors: map.get(meta.keywords($args), addSelectors);
 
-        @include at-supports-if-any($query) {
-            @if $_selector_noJS_exists {
-                #{$selector_noJS} {
-                    @if $debug {
-                        /* [noJS] */
-                    }
-                    @content (if($_query_exists, at-supports--no-js, no-js));
+        @if (list.length($key) == list.length($hasOverrideValue)) {
+            @if selector.exists($addSelectors) {
+                @at-root #{$addSelectors},
+                    #{selector.parent-or-root()} {
+                    @content (override);
+                }
+            } @else if selector.parent-exists() {
+                @content (override);
+            } @else {
+                #{config.$selector_root} {
+                    @content (override);
+                }
+            }
+        }
+
+        $args: meta.keywords($args);
+    } @else {
+        $_queryOrSelector: prepare-query-and-selector(
+            $key: $key,
+            $bool: $bool,
+            $debug: $debug,
+            $args...,
+        );
+
+        $query: map.get($_queryOrSelector, query);
+        $selector: map.get($_queryOrSelector, selector);
+        $selector_noJS: map.get($_queryOrSelector, selector_noJS);
+
+        @at-root {
+            @if $debug {
+                /* #{if($bool, supports, supports-not)}#{demo.args-dump($args)} */
+                @include meta.var-dump('$query', $query);
+                @include meta.var-dump('$selector', $selector);
+                @include meta.var-dump('$selector_noJS', $selector_noJS);
+
+                $args: meta.keywords($args);
+
+                @include meta.var-dump('$neverUseJS', map.get($args, neverUseJS));
+                @include meta.var-dump('$viaQuery', map.get($args, viaQuery));
+                @include meta.var-dump(
+                    '$includeNoWhereSelectorFallback',
+                    map.get($args, includeNoWhereSelectorFallback)
+                );
+
+                @include meta.var-dump(
+                    'functions.param-never-use-js()',
+                    functions.param-never-use-js(map.get($args, neverUseJS))
+                );
+
+                @each $_key in $key {
+                    @include meta.var-dump(
+                        'functions.param-via-query( #{$_key} )',
+                        functions.param-via-query(
+                            $key: $_key,
+                            $bool: $bool,
+                            $neverUseJS: map.get($args, neverUseJS),
+                            $viaQuery: map.get($args, viaQuery)
+                        )
+                    );
+                }
+
+                @each $_key in $key {
+                    @include meta.var-dump(
+                        'functions.param-include-no-where-selector( #{$_key} )',
+                        functions.param-include-no-where-selector(
+                            $key: $_key,
+                            $includeNoWhereSelectorFallback: map.get(
+                                    $args,
+                                    includeNoWhereSelectorFallback
+                                )
+                        )
+                    );
                 }
             }
 
-            @if $_selector_exists {
-                #{$selector} {
-                    @content (if($_query_exists, at-supports, where));
+            $_query_exists: meta.is-truthy($query);
+            $_selector_noJS_exists: meta.is-truthy($selector_noJS);
+            $_selector_exists: meta.is-truthy($selector);
+
+            @include meta.at-supports-if-any($query) {
+                @if $_selector_noJS_exists {
+                    #{$selector_noJS} {
+                        @if $debug {
+                            /* [noJS] */
+                        }
+                        @content (if($_query_exists, at-supports--no-js, no-js));
+                    }
+                }
+
+                @if $_selector_exists {
+                    #{$selector} {
+                        @content (if($_query_exists, at-supports, where));
+                    }
                 }
             }
         }

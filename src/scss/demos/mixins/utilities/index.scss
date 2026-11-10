@@ -18,6 +18,25 @@
 /* # MIXINS - UTILITIES
  * ======================================================================== */
 
+/* ## Mixin - custom-property or cx-prop ==================================== */
+
+$_mx_custom_property: meta.get-mixin('custom-property');
+
+@mixin _demo-custom-property($args...) {
+    @include demo.mixin('custom-property', $_mx_custom_property, $args);
+}
+
+@each $key, $value,
+    $args
+        in (
+            (quoted-string, 'quoted string', meta.arglist()),
+            (unquoted-string, unquoted-string, meta.arglist()),
+            (list, (1, 2, 'three'), meta.arglist())
+        )
+{
+    @include _demo-custom-property($key, $value, $args...);
+}
+
 /* ## Mixin - container-query-cx-prop ==================================== */
 
 $_mx_container_query_style: meta.get-mixin('container-query-cx-prop');

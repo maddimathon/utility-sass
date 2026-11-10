@@ -5,12 +5,12 @@
 
 @use 'sass:list';
 @use 'sass:map';
-@use 'sass:string';
 
-@use '../config';
+@use '_config' as config;
 
 @use '../meta';
 @use '../selector';
+@use '../string';
 
 ///
 /// @since 0.1.0-beta.0
@@ -69,7 +69,19 @@
 
     $query: map.get(config.$featureCheck_supportsQueries, $key);
 
-    @return if(meta.is-truthy($query), if($bool, $query, 'not #{$query}'), null);
+    @return if(
+        meta.is-truthy($query),
+        if(
+            $bool,
+            $query,
+            if(
+                string.match(#{$query}, '\\)\\s*(,|and|or)\\s*\\(|\\bnot\\b') != null,
+                'not ( #{$query} )',
+                'not #{$query}'
+            )
+        ),
+        null
+    );
 }
 
 ///

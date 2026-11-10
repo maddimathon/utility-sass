@@ -3,6 +3,8 @@
 /// @since 0.1.0-beta.0
 ///
 
+@use 'is-truthy';
+
 ///
 /// Make any at rule without your IDE's linter fussing about it. Use with caution.
 ///
@@ -10,6 +12,20 @@
 ///
 @mixin at($rule, $value: '') {
     @#{$rule} #{$value} {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-beta.0
+/// @since ___PKG_VERSION___ — Moved from feature-check to meta module.
+///
+@mixin at-supports-if-any($queries: ()) {
+    @if is-truthy.is-truthy($queries) {
+        @supports #{$queries} {
+            @content;
+        }
+    } @else {
         @content;
     }
 }

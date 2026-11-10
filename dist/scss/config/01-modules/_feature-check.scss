@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0
+/// @package @maddimathon/utility-sass@0.2.0-draft
 /// @since 0.1.0-beta.0
 ///
 
@@ -121,6 +121,7 @@ $featureCheck_supports: list.join(
         focusVisible,
         hasSelector,
         subgrid,
+        textBox,
         touch,
         variableFonts,
         whereSelector
@@ -149,8 +150,28 @@ $featureCheck_supportsQueries: map.merge(
         focusVisible: 'selector( a:focus-visible )',
         hasSelector: 'selector( :has( a ) )',
         subgrid: '( grid-template-columns: subgrid )',
+        textBox:
+            '( text-box-edge: cap alphabetic ) and ( text-box-trim: trim-both )',
         variableFonts: 'font-tech( variations )',
         whereSelector: 'selector( :where( a ) )',
     ),
     $featureCheck_supportsQueries
+);
+
+///
+/// Set some features to be always supported or not supported, without including
+/// any tests.
+///
+/// In practice, this means mixins either directly include the content block in
+/// the parent (if truthy for `supports` or if falsey for `supports-not`) or not
+/// at all (if falsey for `supports` or if truthy for `supports-not`).
+///
+/// @since 0.2.0-draft
+///
+$featureCheck_supportsOverrides: () !default;
+$featureCheck_supportsOverrides: config-enforce-type-or-warn(
+    $value: $featureCheck_supportsOverrides,
+    $varName: 'featureCheck_supportsOverrides',
+    $type: 'map',
+    $fallback: (),
 );

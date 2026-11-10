@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.1.0
+/// @package @maddimathon/utility-sass@0.2.0-draft
 /// @since 0.1.0-beta.0
 ///
 
@@ -154,6 +154,7 @@
     $mixinName,
     $getMixin,
     $args: meta.arglist(),
+    $callSignature: null,
     $displayOutput_callSignature: config.$demo_displayOutput_callSignature,
     $includeNameWithContent: config.$demo_includeNameWithContent,
     $parentSelector_dump: config.$demo_parentSelector_dump,
@@ -173,10 +174,14 @@
 
     @if $getMixin {
         $acceptsContent: meta.accepts-content($getMixin);
-        $callSignature: args-dump.mixin-signature-dump(
-            $mixinName: $mixinName,
-            $args: $args,
-            $getMixin: $getMixin,
+        $callSignature: if(
+            $callSignature,
+            $callSignature,
+            args-dump.mixin-signature-dump(
+                $mixinName: $mixinName,
+                $args: $args,
+                $getMixin: $getMixin,
+            )
         );
 
         @if not $acceptsContent {

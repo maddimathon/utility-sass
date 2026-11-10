@@ -46,7 +46,7 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     }
 
     @if $important {
-        $value: #{$value} !important;
+        $value: $value !important;
     }
 
     @return $value;
@@ -70,11 +70,23 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     }
     $allPrefixes: $allPrefixes and $_allowAllPrefixes;
 
+    $_input_value: $value;
+
     $value: _custom-property--value(
         $value: $value,
         $important: $important,
         $quoteString: $quoteString,
     );
+
+    @if (meta.type-of($_input_value) == color) or (meta.type-of($value) == color) {
+        @include meta.var-dump('$_input_value', $_input_value);
+
+        @if $value == transparent {
+            $value: string.unquote('transparent');
+        }
+
+        @include meta.var-dump('$value', $value);
+    }
 
     @if $allPrefixes {
         @if $comment {

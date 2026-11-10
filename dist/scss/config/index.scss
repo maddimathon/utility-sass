@@ -1,10 +1,24 @@
 ///
 /// Import in any config (!default) variables to this file.
 ///
-/// @package @maddimathon/utility-sass@0.1.0
+/// @package @maddimathon/utility-sass@0.2.0-draft
 /// @since 0.1.0-pre.0
 ///
 
 @forward '01-modules';
 @forward '02-lib';
 @forward '03-template';
+
+@use 'sass:map';
+
+@use '01-modules' as *;
+
+@use '../modules/meta';
+
+@each $key, $value in $featureCheck_supportsOverrides {
+    $featureCheck_supportsOverrides: map.set(
+        $featureCheck_supportsOverrides,
+        $key,
+        meta.is-truthy($value)
+    );
+}

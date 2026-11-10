@@ -241,6 +241,7 @@ export class FeatureCheck<
             focusVisible: true,
             hasSelector: true,
             subgrid: true,
+            textBox: true,
             touch: true,
             variableFonts: true,
             whereSelector: true,
@@ -259,6 +260,7 @@ export class FeatureCheck<
             focusVisible: true,
             hasSelector: true,
             subgrid: true,
+            textBox: true,
             touch: true,
             variableFonts: true,
             whereSelector: true,
@@ -541,6 +543,10 @@ export namespace FeatureCheck {
         | "focusVisible"
         | "hasSelector"
         | "subgrid"
+        /**
+         * @since ___PKG_VERSION___
+         */
+        | "textBox"
         /** 
          * Tries to detect if this device accepts touch input — this is useful
          * for increasing spacing for buttons and other click targets.
@@ -659,7 +665,9 @@ export namespace FeatureCheck {
      * 
      * @since 0.1.0-beta.0
      */
-    export const CHECKERS = {
+    export const CHECKERS: {
+        [ K in DefaultCheckSlug ]: () => Promise<boolean>;
+    } = {
         /**
          * Checks for `aspect-ratio` css property support.
          * 
@@ -739,6 +747,14 @@ export namespace FeatureCheck {
          * @source
          */
         subgrid: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'grid-template-columns: subgrid' ),
+
+        /**
+         * Checks for `text-box-edge` and `text-box-trim` css rule support.
+         * 
+         * @experimental
+         * @source
+         */
+        textBox: async (): Promise<boolean> => FeatureCheck.supportsCSS( 'text-box-edge: cap alphabetic' ) && FeatureCheck.supportsCSS( 'text-box-trim: trim-both' ),
 
         /**
          * Tries to detect if this device accepts touch input — this is useful for
