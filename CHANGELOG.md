@@ -19,6 +19,17 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.2.0** — 2026-11-10
+
+### Misc. Breaking
+- Moved mixin from feature-check to meta module: at-supports-if-any
+
+### Added
+- New config var:
+    - $featureCheck_supportsOverrides
+- Added `text-box` to FeatureCheck
+
+
 ## **0.1.0** — 2026-11-07
 
 Updated dependencies. Full release.

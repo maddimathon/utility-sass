@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0-draft
+ * @maddimathon/utility-sass@0.2.0
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -210,7 +210,7 @@ export declare namespace FeatureCheck {
      */
     type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backdropFilter" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid"
     /**
-     * @since 0.2.0-draft
+     * @since 0.2.0
      */
      | "textBox"
     /**

@@ -1,7 +1,7 @@
 ///
 /// Utilities for printing any kind of css property.
 ///
-/// @package @maddimathon/utility-sass@0.2.0-draft
+/// @package @maddimathon/utility-sass@0.2.0
 /// @since 0.1.0-alpha.12
 ///
 
@@ -84,18 +84,6 @@ $_allowAllPrefixes: (
         $important: $important,
         $quoteString: $quoteString,
     );
-
-    @if (meta.type-of($_input_value) == color) or
-        (meta.type-of($value) == color)
-    {
-        @include meta.var-dump('$_input_value', $_input_value);
-
-        @if $value == transparent {
-            $value: string.unquote('transparent');
-        }
-
-        @include meta.var-dump('$value', $value);
-    }
 
     @if $allPrefixes {
         @if $comment {

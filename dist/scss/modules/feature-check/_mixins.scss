@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.2.0-draft
+/// @package @maddimathon/utility-sass@0.2.0
 /// @since 0.1.0-alpha
 ///
 
@@ -279,6 +279,10 @@ $_featureCheck_overrideKeys: map.keys(config.$featureCheck_supportsOverrides);
 /// @since 0.1.0-beta.0
 ///
 @mixin _supports-template($key, $bool, $debug: false, $args...) {
+    @if meta.type-of($key) != list {
+        $key: ($key);
+    }
+
     // $allKeysHaveOverrideValues: list.length($key) == list.length(list.only-any($key, $_featureCheck_overrideKeys));
     $allKeysHaveOverrideValues: false;
 
@@ -302,8 +306,15 @@ $_featureCheck_overrideKeys: map.keys(config.$featureCheck_supportsOverrides);
             }
         }
 
+        $addSelectors: map.get(meta.keywords($args), addSelectors);
+
         @if (list.length($key) == list.length($hasOverrideValue)) {
-            @if selector.parent-exists() {
+            @if selector.exists($addSelectors) {
+                @at-root #{$addSelectors},
+                    #{selector.parent-or-root()} {
+                    @content (override);
+                }
+            } @else if selector.parent-exists() {
                 @content (override);
             } @else {
                 #{config.$selector_root} {

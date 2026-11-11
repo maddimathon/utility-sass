@@ -78,16 +78,6 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
         $quoteString: $quoteString,
     );
 
-    @if (meta.type-of($_input_value) == color) or (meta.type-of($value) == color) {
-        @include meta.var-dump('$_input_value', $_input_value);
-
-        @if $value == transparent {
-            $value: string.unquote('transparent');
-        }
-
-        @include meta.var-dump('$value', $value);
-    }
-
     @if $allPrefixes {
         @if $comment {
             --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value}; /* #{$comment} */
