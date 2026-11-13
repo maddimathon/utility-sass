@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  * 
  * @packageDocumentation
  */
@@ -33,7 +33,7 @@ import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
  * checks:
  * {@includeCode ./FeatureCheck.docs.ts#Custom}
  *
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  */
 export class FeatureCheck<
     /**
@@ -121,7 +121,7 @@ export class FeatureCheck<
      * 
      * Overloaded for better (but ott) return typeing.
      * 
-     * @since 0.1.0-beta.0 — Added overloads for better typing. Added optional ignorePrefix param.
+     * @since 0.1.0-beta — Added overloads for better typing. Added optional ignorePrefix param.
      * 
      * @experimental
      */
@@ -142,7 +142,7 @@ export class FeatureCheck<
          * Whether to exclude the 'js__' prefix. This is only used to set the
          * 'js' and 'no-js' classes.
          * 
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          *
          * @inline
          * @internal
@@ -296,21 +296,21 @@ export class FeatureCheck<
      * Built from combining {@link FeatureCheck.customCheckSlugs} and the keys
      * of {@link FeatureCheck.opts.checks}.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     protected readonly allCheckSlugs: ( FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug )[];
 
     /**
      * Built from combining the keys of {@link FeatureCheck.opts.checks}.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     protected readonly defaultCheckSlugs: Set<FeatureCheck.DefaultCheckSlug>;
 
     /**
      * Checks if the given slug is a default test.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     public isDefaultCheck( slug: string ): slug is FeatureCheck.DefaultCheckSlug {
         return this.defaultCheckSlugs.has( slug as FeatureCheck.DefaultCheckSlug );
@@ -320,7 +320,7 @@ export class FeatureCheck<
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     protected readonly customCheckSlugs: Set<T_CustomCheckerSlug>;
 
@@ -328,7 +328,7 @@ export class FeatureCheck<
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     public isCustomCheck( slug: string ): slug is T_CustomCheckerSlug {
         return this.customCheckSlugs.has( slug as T_CustomCheckerSlug );
@@ -402,7 +402,7 @@ export class FeatureCheck<
     /**
      * Gets a copied array of all check slugs.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     public getCheckSlugs(): ( FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug )[] {
         return [ ...this.allCheckSlugs ];
@@ -523,14 +523,14 @@ export class FeatureCheck<
  * 
  * @category Module Support
  * 
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  */
 export namespace FeatureCheck {
 
     /**
      * Built-in feature-check methods.
      * 
-     * @since 0.1.0-beta.0 Renamed from Checker to DefaultCheckSlug.
+     * @since 0.1.0-beta Renamed from Checker to DefaultCheckSlug.
      */
     export type DefaultCheckSlug =
         | "aspectRatio"
@@ -607,7 +607,7 @@ export namespace FeatureCheck {
         };
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type Opts<
         /**
@@ -635,7 +635,7 @@ export namespace FeatureCheck {
     /**
      * Partially partialized.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type OptsInput<
         /**
@@ -663,7 +663,7 @@ export namespace FeatureCheck {
     /**
      * The default checker functions.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export const CHECKERS: {
         [ K in DefaultCheckSlug ]: () => Promise<boolean>;
@@ -793,7 +793,7 @@ export namespace FeatureCheck {
         /**
          * Checks for `grid-template-columns: subgrid` css rule support.
          * 
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          * 
          * @experimental
          * @source

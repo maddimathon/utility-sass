@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 
 @use '../../../modules/map';
@@ -14,8 +14,8 @@
 ///
 /// Uses the border width tokens to prepare the appropriate numerical value (rem).
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-alpha.19 — Added $multiplier and $unit param.
+/// @since 0.1.0-pre
+/// @since 0.1.0-alpha — Added $multiplier and $unit param.
 ///
 @function border-width-value($level, $multiplier: 1, $unit: 1rem) {
     $value: map.get(tokens.$border_width, '200');
@@ -43,7 +43,7 @@
 /// Uses the border-width config tokens to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @function var-border-width($level, $fallbackOnly: false, $args...) {
     $fallback: border-width-value($level);
@@ -59,8 +59,8 @@
 ///
 /// Uses the stroke relative tokens to prepare the appropriate numerical value (rem).
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-alpha.19 — Added $multiplier and $unit param.
+/// @since 0.1.0-pre
+/// @since 0.1.0-alpha — Added $multiplier and $unit param.
 ///
 @function stroke-relative-value($level, $multiplier: 1, $unit: 1em) {
     $value: map.get(tokens.$stroke_relative, '200');
@@ -88,7 +88,7 @@
 /// Uses the stroke-relative tokens to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @function var-stroke-relative($level, $fallbackOnly: false, $args...) {
     @return do-var(

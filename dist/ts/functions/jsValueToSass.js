@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.31
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import { OrderedMap } from 'immutable';
@@ -15,7 +15,7 @@ import { CssColours } from '../classes/CssColours.js';
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-alpha.31
+ * @since 0.1.0-alpha
  */
 export async function jsValueToSass(value, _opts) {
     var _a, _b;

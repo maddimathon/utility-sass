@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -31,8 +31,8 @@ export async function sassAssertValueType( name: string, type: sassAssertValueTy
  * 
  * @category Utilities – Sass API
  * 
- * @since 0.1.0-alpha.29
- * @since 0.1.0-beta.0 Added required `name` param and optional `convertValue` param (defaults to false).
+ * @since 0.1.0-alpha
+ * @since 0.1.0-beta Added required `name` param and optional `convertValue` param (defaults to false).
  */
 export async function sassAssertValueType(
     name: string,
@@ -100,14 +100,14 @@ export async function sassAssertValueType(
  * 
  * @category Utilities – Sass API
  * 
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export namespace sassAssertValueType {
 
     /**
      * Strings to assert a type.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type AllowedTypes = "bool" | "list" | "map" | "number" | "string";
 }

@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  * 
  * @packageDocumentation
  */
@@ -21,7 +21,7 @@ import { sassValueToJS } from '../functions/sassValueToJS.js';
 /**
  * To use with sass object instances for better output.
  * 
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export class SassVariableInspector<
     T_InspectionType extends VariableInspector.InspectionType = VariableInspector.InspectionType,
@@ -77,7 +77,7 @@ export class SassVariableInspector<
      * 
      * @see {@link VariableInspector.constructor}
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     protected override _parseInputParams(
         validVar: { [ key: string ]: SassVariableInspector.InputType<T_InspectionType>; },
@@ -211,12 +211,12 @@ export class SassVariableInspector<
 /**
  * Utils for the {@link SassVariableInspector} class.
  * 
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export namespace SassVariableInspector {
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type SassInput<T_Type extends sass.Value> =
         | ( T_Type extends undefined ? undefined : never )
@@ -225,7 +225,7 @@ export namespace SassVariableInspector {
         | ( T_Type extends sass.SassBoolean ? boolean : never );
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type SassInputObjects =
         | sass.SassArgumentList
@@ -239,7 +239,7 @@ export namespace SassVariableInspector {
         | Collection<number | string | symbol, unknown>;
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type InputType<T_InspectionType extends VariableInspector.InspectionType> = (
         T_InspectionType extends sass.Value ? SassInput<T_InspectionType> : any
@@ -249,7 +249,7 @@ export namespace SassVariableInspector {
      * A wrapper class to create better variable inspections for sass.Value
      * objects.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export class SassWrapper<T_Type extends SassInputObjects> {
 

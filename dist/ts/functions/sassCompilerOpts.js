@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import { sassCompilerFunctions } from './sassCompilerFunctions.js';
@@ -15,7 +15,7 @@ import { sassCompilerFunctions } from './sassCompilerFunctions.js';
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  */
 export function sassCompilerOpts(args, partial) {
     var _a, _b;

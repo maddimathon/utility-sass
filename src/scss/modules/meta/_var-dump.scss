@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 
 @use 'sass:list';
@@ -31,7 +31,7 @@ $_varType_abbreviations: (
 ///
 /// @return {string}
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @function var-type-abbreviator($type) {
     $abbr: map.get($_varType_abbreviations, $type);
@@ -74,8 +74,8 @@ $_varType_abbreviations: (
 ///
 /// @return {string}
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0 — Added optional $keys_withType, $keys_shortType, $keys_alwaysQuote, $keys_neverQuote, $child_withType, $child_shortType, $child_typeJoiner, $child_alwaysQuote, $child_neverQuote params. Added string and string list support to $withType.
+/// @since 0.1.0-pre
+/// @since 0.1.0-beta — Added optional $keys_withType, $keys_shortType, $keys_alwaysQuote, $keys_neverQuote, $child_withType, $child_shortType, $child_typeJoiner, $child_alwaysQuote, $child_neverQuote params. Added string and string list support to $withType.
 ///
 @function var-dump(
     $var,
@@ -301,7 +301,7 @@ $_varType_abbreviations: (
 /// @param {string} $name  Name of the variable to use for print.
 /// @param {any}    $var   Value to dump.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin var-dump($name, $var, $alwaysQuote: false, $neverQuote: false, $args...) {
     $typeOf: meta.type-of($var);

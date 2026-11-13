@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import { OrderedMap } from 'immutable';
@@ -16,7 +16,7 @@ import semver from 'semver';
  *
  * @category Sass API - Compiler Functions
  *
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  */
 export function sassFn_getCurrentVersion() {
     return {

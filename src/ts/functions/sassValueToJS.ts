@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -31,7 +31,7 @@ export function sassValueToJS(
  * 
  * @category Utilities – Sass API
  * 
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  */
 export async function sassValueToJS(
     sassValue: sassValueToJS.AcceptedValues,
@@ -121,29 +121,29 @@ export async function sassValueToJS(
  * 
  * @category Utilities – Sass API
  * 
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  */
 export namespace sassValueToJS {
 
     /**
-     * @since 0.1.0-alpha.29
+     * @since 0.1.0-alpha
      */
     export type AcceptedValues = null | SassNull | sass.Value;
 
     /**
-     * @since 0.1.0-alpha.29
+     * @since 0.1.0-alpha
      */
     export type AcceptedReturns = null | undefined | bigint | Map<any, any> | boolean | number | string | unknown[];
 
     /**
-     * @since 0.1.0-alpha.29
+     * @since 0.1.0-alpha
      */
     export interface SassNull extends Omit<sass.Value, 'realNull'> {
         realNull: null;
     }
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export function isSassValue<T_Value>( value: T_Value ): value is Extract<T_Value, sass.Value> {
         return (
@@ -154,7 +154,7 @@ export namespace sassValueToJS {
     /**
      * Gets the type of a sass value.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export function typeOf<T_Type extends typeOf.TestType | sass.Value>( value: T_Type ): typeOf.Return {
 
@@ -208,14 +208,14 @@ export namespace sassValueToJS {
         /**
          * Possible return values for {@link typeOf}. 
          * 
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         export type Return = "args" | "boolean" | "color" | "list" | "map" | "null" | "number" | "string" | "undefined";
 
         /**
          * Possible return values for {@link typeOf}, generically. 
          * 
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         export type ReturnGeneric<T_Type extends TestType> =
             | ( T_Type extends undefined ? "undefined" : never )
@@ -247,14 +247,14 @@ export namespace sassValueToJS {
             | sass.SassString;
 
         /**
-         * @since 0.1.0-beta.10
+         * @since 0.1.0-beta
          */
         export function isMap( value: TestType ): value is sass.SassMap {
             return typeOf( value ) === 'map';
         }
 
         /**
-         * @since 0.1.0-beta.10
+         * @since 0.1.0-beta
          */
         export function isString( value: TestType ): value is sass.SassString {
             return typeOf( value ) === 'string';
@@ -278,7 +278,7 @@ export namespace sassValueToJS {
     export function sync( sassValue: sass.SassList, _recursionCounter?: number ): unknown[];
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export function sync(
         sassValue: AcceptedValues,

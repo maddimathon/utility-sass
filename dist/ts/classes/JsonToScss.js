@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import { CssColours } from './CssColours.js';
@@ -14,7 +14,7 @@ import { CssColours } from './CssColours.js';
  *
  * @category Utilities
  *
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  */
 export var JsonToScss;
 (function (JsonToScss) {
@@ -165,7 +165,7 @@ export var JsonToScss;
     /**
      * Quotes the given string for scss output.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function quote_string(input, unquote = false) {
         const hasSingleQuote = input.match(/'/) !== null;

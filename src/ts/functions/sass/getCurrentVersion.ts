@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -18,7 +18,7 @@ import semver from 'semver';
  *
  * @category Sass API - Compiler Functions
  *
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  */
 export function sassFn_getCurrentVersion(): {
     'mmutils-global-getCurrentVersion()': sass.CustomFunction<'async'>;

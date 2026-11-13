@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -22,44 +22,44 @@ export declare function sassValueToJS(sassValue: sassValueToJS.AcceptedValues, _
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  */
 export declare namespace sassValueToJS {
     /**
-     * @since 0.1.0-alpha.29
+     * @since 0.1.0-alpha
      */
     type AcceptedValues = null | SassNull | sass.Value;
     /**
-     * @since 0.1.0-alpha.29
+     * @since 0.1.0-alpha
      */
     type AcceptedReturns = null | undefined | bigint | Map<any, any> | boolean | number | string | unknown[];
     /**
-     * @since 0.1.0-alpha.29
+     * @since 0.1.0-alpha
      */
     interface SassNull extends Omit<sass.Value, 'realNull'> {
         realNull: null;
     }
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function isSassValue<T_Value>(value: T_Value): value is Extract<T_Value, sass.Value>;
     /**
      * Gets the type of a sass value.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function typeOf<T_Type extends typeOf.TestType | sass.Value>(value: T_Type): typeOf.Return;
     namespace typeOf {
         /**
          * Possible return values for {@link typeOf}.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type Return = "args" | "boolean" | "color" | "list" | "map" | "null" | "number" | "string" | "undefined";
         /**
          * Possible return values for {@link typeOf}, generically.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type ReturnGeneric<T_Type extends TestType> = (T_Type extends undefined ? "undefined" : never) | (T_Type extends null | typeof sass.sassNull ? "null" : never) | (T_Type extends sass.SassArgumentList ? "args" : never) | (T_Type extends sass.SassColor ? "color" : never) | (T_Type extends sass.SassList ? "list" : never) | (T_Type extends sass.SassBoolean ? "boolean" : never) | (T_Type extends sass.SassNumber ? "number" : never) | (T_Type extends sass.SassMap ? "map" : never) | (T_Type extends sass.SassString ? "string" : never);
         /**
@@ -69,11 +69,11 @@ export declare namespace sassValueToJS {
          */
         type TestType = null | undefined | sass.SassArgumentList | sass.SassBoolean | sass.SassColor | sass.SassList | sass.SassMap | typeof sass.sassNull | sass.SassNumber | sass.SassString;
         /**
-         * @since 0.1.0-beta.10
+         * @since 0.1.0-beta
          */
         function isMap(value: TestType): value is sass.SassMap;
         /**
-         * @since 0.1.0-beta.10
+         * @since 0.1.0-beta
          */
         function isString(value: TestType): value is sass.SassString;
     }

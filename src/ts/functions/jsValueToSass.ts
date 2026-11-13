@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-alpha.31
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -33,7 +33,7 @@ export function jsValueToSass(
  * 
  * @category Utilities – Sass API
  * 
- * @since 0.1.0-alpha.31
+ * @since 0.1.0-alpha
  */
 export async function jsValueToSass(
     value?: jsValueToSass.AcceptedValues,
@@ -171,17 +171,17 @@ export async function jsValueToSass(
  * 
  * @category Utilities – Sass API
  * 
- * @since 0.1.0-alpha.31
+ * @since 0.1.0-alpha
  */
 export namespace jsValueToSass {
 
     /**
-     * @since 0.1.0-alpha.31
+     * @since 0.1.0-alpha
      */
     export type AcceptedReturns = sass.Value;
 
     /**
-     * @since 0.1.0-alpha.31
+     * @since 0.1.0-alpha
      */
     export type AcceptedValues =
         | SimpleAcceptedValues
@@ -191,7 +191,7 @@ export namespace jsValueToSass {
     /**
      * Options for the conversions.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export interface Opts {
 
@@ -218,7 +218,7 @@ export namespace jsValueToSass {
     }
 
     /**
-     * @since 0.1.0-alpha.31
+     * @since 0.1.0-alpha
      */
     export type SimpleAcceptedValues =
         | bigint

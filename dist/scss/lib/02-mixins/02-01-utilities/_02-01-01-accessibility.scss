@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/utility-sass@0.2.0
-/// @since 0.1.0-pre.0
+/// @package @maddimathon/utility-sass@0.2.1
+/// @since 0.1.0-pre
 ///
 
 @use '../../../config';
@@ -20,7 +20,7 @@
 ///
 /// @param {bool} $bool  Whether the selectors for select to include motion (true; `prefers-reduced-motion: no-preference`) or not (falsee; `prefers-reduced-motion: less`).
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @mixin _any-motion(
     $bool,
@@ -57,7 +57,7 @@
 /// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
 /// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @mixin motion($args...) {
     @include _any-motion(true, $args...) {
@@ -71,7 +71,7 @@
 /// @param {bool} $nestParent   Optional. Whether to nest the parent selector inside the motion selector. Default true.
 /// @param {bool} $unifyParent  Optional. Whether to unify the parent selector with the motion selector. Default false.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @mixin no-motion($args...) {
     @include _any-motion(false, $args...) {
@@ -82,7 +82,7 @@
 ///
 /// Iterates through each motion mode, passing a boolean representing if motion is permitted or not.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin each-motion(
     $includeQuery: config.$mx_motion_includeQuery,

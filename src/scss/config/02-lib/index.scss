@@ -3,7 +3,7 @@
 /// second config group.
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 
 @forward 'functions';
@@ -16,7 +16,7 @@
 @use 'functions' as *;
 
 ///
-/// @since 0.1.0-beta.4
+/// @since 0.1.0-beta
 ///
 $mx_propBackground_allPrefixes: null !default;
 $mx_propBackground_allPrefixes: config-valid-bool(
@@ -26,7 +26,7 @@ $mx_propBackground_allPrefixes: config-valid-bool(
 );
 
 ///
-/// @since 0.1.0-beta.4
+/// @since 0.1.0-beta
 ///
 $mx_propBackground_onlyFallbackPrefix: null !default;
 $mx_propBackground_onlyFallbackPrefix: config-valid-bool(
@@ -36,7 +36,17 @@ $mx_propBackground_onlyFallbackPrefix: config-valid-bool(
 );
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.2.1
+///
+$mx_propBackground_transparentDoesNotUseVar: null !default;
+$mx_propBackground_transparentDoesNotUseVar: config-valid-bool(
+    $mx_propBackground_transparentDoesNotUseVar,
+    'mx_propBackground_transparentDoesNotUseVar',
+    $default: true
+);
+
+///
+/// @since 0.1.0-beta
 ///
 $mx_propDisplay_allPrefixes: null !default;
 $mx_propDisplay_allPrefixes: config-valid-bool(
@@ -46,7 +56,7 @@ $mx_propDisplay_allPrefixes: config-valid-bool(
 );
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 $mx_propDisplay_onlyFallbackPrefix: null !default;
 $mx_propDisplay_onlyFallbackPrefix: config-valid-bool(

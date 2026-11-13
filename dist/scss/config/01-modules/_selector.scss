@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/utility-sass@0.2.0
-/// @since 0.1.0-beta.0
+/// @package @maddimathon/utility-sass@0.2.1
+/// @since 0.1.0-beta
 ///
 
 @use 'sass:list';
@@ -13,7 +13,7 @@
 @use 'feature-check';
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 $breakpoints_attributeOverrides: null !default;
 $breakpoints_attributeOverrides: config-valid-list-strings(
@@ -23,7 +23,7 @@ $breakpoints_attributeOverrides: config-valid-list-strings(
 );
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 $breakpoints_attributeOverrides_includeRoot: null !default;
 $breakpoints_attributeOverrides_includeRoot: config-valid-bool(
@@ -37,7 +37,7 @@ $breakpoints_attributeOverrides_includeRoot: config-valid-bool(
 ///
 /// @default 'attribute'
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 $selectorType_mode: null !default;
 $selectorType_mode: config-valid-selector-type(
@@ -51,7 +51,7 @@ $selectorType_mode: config-valid-selector-type(
 ///
 /// @default 'attribute'
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 $selectorType_motion: null !default;
 $selectorType_motion: config-valid-selector-type(
@@ -61,7 +61,7 @@ $selectorType_motion: config-valid-selector-type(
 );
 
 ///
-/// @since 0.1.0-beta.2
+/// @since 0.1.0-beta
 ///
 @function config-get-selector-type-motion($bool) {
     $mode: if($bool, 'no-preference', 'reduce');
@@ -83,8 +83,8 @@ $selectorType_motion: config-valid-selector-type(
 ///
 /// @default ( body )
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0 — Moved to module config.
+/// @since 0.1.0-pre
+/// @since 0.1.0-beta — Moved to module config.
 ///
 $selector_body: null !default;
 $selector_body: config-valid-selector($selector_body, 'selector_body', body);
@@ -92,7 +92,7 @@ $selector_body: config-valid-selector($selector_body, 'selector_body', body);
 ///
 /// Additional selectors to be recognized as body selectors in utility functions.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 $selector_body_aliases: null !default;
 $selector_body_aliases: config-selector-body-aliases(
@@ -110,8 +110,8 @@ $selector_body_aliases: config-selector-body-aliases(
 ///
 /// @default '%null'
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0 — Moved to module config.
+/// @since 0.1.0-pre
+/// @since 0.1.0-beta — Moved to module config.
 ///
 $selector_null: null !default;
 $selector_null: config-valid-selector($selector_null, 'selector_null', '%null');
@@ -122,8 +122,8 @@ $selector_null: config-valid-selector($selector_null, 'selector_null', '%null');
 ///
 /// @default ':root'
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0 — Moved to module config.
+/// @since 0.1.0-pre
+/// @since 0.1.0-beta — Moved to module config.
 ///
 $selector_root: null !default;
 $selector_root: config-valid-selector($selector_root, 'selector_root', ':root');
@@ -131,7 +131,7 @@ $selector_root: config-valid-selector($selector_root, 'selector_root', ':root');
 ///
 /// Additional selectors to be recognized as root selectors in utility functions.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 $selector_root_aliases: null !default;
 $selector_root_aliases: config-selector-root-aliases(

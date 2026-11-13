@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.31
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import type { RecursiveRecord } from '@maddimathon/utility-typescript/types';
@@ -21,21 +21,21 @@ export declare function jsValueToSass(sassValue: jsValueToSass.AcceptedValues, o
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-alpha.31
+ * @since 0.1.0-alpha
  */
 export declare namespace jsValueToSass {
     /**
-     * @since 0.1.0-alpha.31
+     * @since 0.1.0-alpha
      */
     type AcceptedReturns = sass.Value;
     /**
-     * @since 0.1.0-alpha.31
+     * @since 0.1.0-alpha
      */
     type AcceptedValues = SimpleAcceptedValues | AcceptedValues[] | RecursiveRecord<number | string, SimpleAcceptedValues>;
     /**
      * Options for the conversions.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     interface Opts {
         /**
@@ -58,7 +58,7 @@ export declare namespace jsValueToSass {
         requiredQuotesRegex?: RegExp;
     }
     /**
-     * @since 0.1.0-alpha.31
+     * @since 0.1.0-alpha
      */
     type SimpleAcceptedValues = bigint | boolean | null | number | string | undefined | Map<number | string, SimpleAcceptedValues> | SimpleAcceptedValues[];
 }

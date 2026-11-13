@@ -1,7 +1,7 @@
 /**
  * @mergeModuleWith <project>
  * 
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  * 
  * @packageDocumentation
  */

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import { sassFn_getCurrentVersion } from './sass/getCurrentVersion.js';
@@ -29,7 +29,7 @@ import { sassFn_debugProgressCheckpoint } from './sass/debugProgressCheckpoint.j
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  */
 export function sassCompilerFunctions(args) {
     return {

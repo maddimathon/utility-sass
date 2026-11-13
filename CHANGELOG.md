@@ -19,6 +19,22 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.2.1** — 2026-11-13
+
+Small prop-background fix.
+
+Condensed/rewrote changelogs and comments for 0.1.0-pre, 0.1.0-alpha, and
+0.1.0-beta releases.
+
+### Added
+- New config var:
+    - $mx_propBackground_transparentDoesNotUseVar
+
+### Changed
+- prop-background mixin now default checks and outputs transparent values by
+  skipping cx prop setting
+
+
 ## **0.2.0** — 2026-11-10
 
 ### Misc. Breaking
@@ -35,89 +51,7 @@ and this project adheres to
 Updated dependencies. Full release.
 
 
-## **0.1.0-beta.10** — 2026-11-05
-
-New font weight tokens, fixes to colour mode selectors
-
-### Added
-- New module config var:
-    - $map_merge_useCompilerFunction
-- New lib config var:
-    - $fn_fontSize_autoClampSizes
-- New token variables:
-    - $fontWeight
-    - $fontWeight_variable
-    - $fontWeight_semibold
-    - $fontWeight_semibold_variable
-    - $fontWeight_bold
-    - $fontWeight_bold_variable
-- New module mixin:
-    - selector.except
-    - selector.unify
-- New optional compiler function for map.merge()
-
-### Fixed
-- Fixes to colour mode selectors
-
-
-## **0.1.0-beta.9** — 2026-10-23
-
-Another npm publish action test.
-
-
-## **0.1.0-beta.8** — 2026-10-23
-
-Another npm publish action test.
-
-
-## **0.1.0-beta.7** — 2026-10-23
-
-Another npm publish action test.
-
-
-## **0.1.0-beta.6** — 2026-10-23
-
-Another npm publish action test.
-
-
-## **0.1.0-beta.5** — 2026-10-23
-
-Updated dependencies. Minor improvements to publish actions.
-
-
-## **0.1.0-beta.4** — 2026-10-23
-
-Some new selector mixins.
-
-### Added
-- New lib function:
-    - var-prop-background()
-- New module mixins:
-    - selector.parent-or-body
-    - selector.parent-or-root
-    - selector.replace-all
-    - selector.replace-body-selector
-    - selector.replace-root-selector
-- Added background as a special cx property
-
-
-## **0.1.0-beta.3** — 2026-10-03
-
-Made selector.pseudo-list() public.
-
-
-## **0.1.0-beta.2** — 2026-09-30
-
-Added motion selectors to default root selector aliases. Some minor selector
-module fixes.
-
-
-## **0.1.0-beta.1** — 2026-09-19
-
-Dependency updates.
-
-
-## **0.1.0-beta.0** — 2026-09-19
+## All **0.1.0-beta** Releases — 2026-09-19 to 2026-11-05
 
 Tons of new config vars, tons of new selector module functions, plus list, map,
 math, meta, string module functions, and more.
@@ -250,9 +184,11 @@ math, meta, string module functions, and more.
     - $featureCheck_supportsQueries
     - $fn_breakpoints_gapDoubler
     - $fn_breakpointValue_roundToPixelFactor
+    - $fn_fontSize_autoClampSizes
     - $fn_var_replaceWithValue_resist
     - $include_linkVisitedState
     - $internal_utilitySass_stylesheetPath
+    - $map_merge_useCompilerFunction
     - $math_clampFontSize_viewport_max
     - $math_clampFontSize_viewport_min
     - $mx_colourModeCombo_includeForcedColorsSelectors
@@ -314,6 +250,12 @@ math, meta, string module functions, and more.
     - $atProperties
     - $brightnessMode_options
     - $contrastMode_options
+    - $fontWeight
+    - $fontWeight_bold
+    - $fontWeight_bold_variable
+    - $fontWeight_semibold
+    - $fontWeight_semibold_variable
+    - $fontWeight_variable
     - $lineHeight_multiplier
     - $systemFontList
     - $systemFontList_append
@@ -395,6 +337,7 @@ math, meta, string module functions, and more.
     - selector.parent-only()
     - selector.pop()
     - selector.popped()
+    - selector.pseudo-list()
     - selector.replace-simple-selector()
     - selector.unify-all()
     - string.concat()
@@ -411,12 +354,20 @@ math, meta, string module functions, and more.
     - meta.var-dump
     - selector.add-body-selector
     - selector.add-root-selector
+    - selector.except
     - selector.except-superselector
     - selector.only-superselector
+    - selector.parent-or-body
+    - selector.parent-or-root
     - selector.popped
+    - selector.replace-all
+    - selector.replace-body-selector
+    - selector.replace-root-selector
+    - selector.unify
 - New functions:
     - selector-add-visited()
     - selector-buttons-basic()
+    - var-prop-background()
 - New template functions:
     - get-extend-selectors-headings-global()
     - get-extend-selectors-headings-utils()
@@ -436,6 +387,7 @@ math, meta, string module functions, and more.
     - focus
     - focus-within
     - prop
+    - prop-background
     - prop-display
     - selector-all-headings
     - tokens-at-property
@@ -466,6 +418,8 @@ math, meta, string module functions, and more.
 - Added $important param to mixins: custom-property, prop, etc.
 - Added backdrop-filter style token
 - Added custom property support for page-top
+- Added motion selectors to default root selector aliases
+- New optional compiler function for map.merge()
 
 #### Added to TS
 - New ts {@link CssColours} namespace with types and sets for css colour
@@ -506,9 +460,12 @@ math, meta, string module functions, and more.
 - Improvements to heading selector extending
 - Improvements to breakpoint tokens & utilities
 - Minor changes to scroll padding
+- Fixes to colour mode selectors
 
 
-## **0.1.0-alpha** to **0.1.0-alpha.41** — 2025-10-29 to 2026-03-03
+
+
+## All **0.1.0-alpha** Releases — 2025-10-29 to 2026-03-03
 
 ### Removed
 - Removed button-secondary styles (as part of the slow move for templates to
@@ -641,7 +598,7 @@ math, meta, string module functions, and more.
 - Fixed gap tokens merging [0.1.0-alpha.41 — 2026-03-03]
 
 
-## **0.1.0-pre.0** to **0.1.0-pre.5** — 2025-10-18 to 2025-10-22
+## All **0.1.0-pre** Releases — 2025-10-18 to 2025-10-22
 
 First releases, mostly for testing.
 

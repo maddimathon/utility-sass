@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -23,7 +23,7 @@ import { sassCompilerFunctions } from './sassCompilerFunctions.js';
  * 
  * @category Utilities – Sass API
  * 
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  */
 export function sassCompilerOpts<
     T_Partial extends Stage.Compiler.Args.Sass | Partial<Stage.Compiler.Args.Sass>

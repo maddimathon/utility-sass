@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import type { Stage } from '@maddimathon/build-utilities';
@@ -15,6 +15,6 @@ import type { Stage } from '@maddimathon/build-utilities';
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  */
 export declare function sassCompilerOpts<T_Partial extends Stage.Compiler.Args.Sass | Partial<Stage.Compiler.Args.Sass>>(args: Stage, partial?: T_Partial): T_Partial & Partial<Stage.Compiler.Args.Sass>;

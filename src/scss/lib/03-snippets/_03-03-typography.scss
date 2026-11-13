@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 
 @use '../../config';
@@ -29,7 +29,7 @@ $_headingDefault_textTransform: none;
 /// Adds properties to reverse heading styles when a heading element is used for
 /// a11y and not display.
 ///
-/// @since 0.1.0-alpha.6 — Added optional $includeUnstyledHeadingProps prop.
+/// @since 0.1.0-alpha — Added optional $includeUnstyledHeadingProps prop.
 ///
 @mixin snippet-unstyled-heading($fontStyle: 'italic') {
     margin-block: $_headingDefault_marginBlockStart $_headingDefault_marginBlockEnd;
@@ -69,8 +69,8 @@ $_headingDefault_textTransform: none;
 ///
 /// Adds basic properties for the given heading level.
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-alpha.6 — Added optional $includeUnstyledHeadingProps prop.
+/// @since 0.1.0-pre
+/// @since 0.1.0-alpha — Added optional $includeUnstyledHeadingProps prop.
 ///
 @mixin snippet-heading($slug: '7', $includeUnstyledHeadingProps: true) {
     $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
@@ -189,7 +189,7 @@ $_headingDefault_textTransform: none;
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin snippet-blockquote(
     $display: block,
@@ -253,7 +253,7 @@ $_headingDefault_textTransform: none;
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin snippet-pre(
     $fontSize: var-fs(smaller-1),

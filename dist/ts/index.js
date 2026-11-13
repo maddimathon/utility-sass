@@ -1,12 +1,12 @@
 /**
  * @mergeModuleWith <project>
  *
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 export * from './classes/CssColours.js';

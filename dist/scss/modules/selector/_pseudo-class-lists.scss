@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/utility-sass@0.2.0
-/// @since 0.1.0-alpha.37
+/// @package @maddimathon/utility-sass@0.2.1
+/// @since 0.1.0-alpha
 ///
 
 @use 'sass:map';
@@ -18,9 +18,9 @@
 /// Takes given selectors (else *) and wraps them in individual
 /// :#{$pseudoType}() selectors.
 ///
-/// @since 0.1.0-alpha.37
-/// @since 0.1.0-beta.0 — Added optional $parentSelector, $split params.
-/// @since 0.1.0-beta.3 — Made public.
+/// @since 0.1.0-alpha
+/// @since 0.1.0-beta — Added optional $parentSelector, $split params.
+/// @since 0.1.0-beta — Made public.
 ///
 @function pseudo-list(
     $pseudoType,
@@ -212,7 +212,7 @@
 /// Takes given selectors (else *) and wraps them in individual
 /// :has() selectors.
 ///
-/// @since 0.1.0-alpha.37
+/// @since 0.1.0-alpha
 ///
 @function has-list($selectors: null, $args...) {
     @return pseudo-list($pseudoType: 'has', $selectors: $selectors, $args...);
@@ -222,7 +222,7 @@
 /// Takes given selectors (else *) and wraps them in individual
 /// :is() selectors.
 ///
-/// @since 0.1.0-alpha.37
+/// @since 0.1.0-alpha
 ///
 @function is-list($selectors: null, $split: false, $args...) {
     @return pseudo-list(
@@ -237,7 +237,7 @@
 /// Takes given selectors (else *) and wraps them in individual
 /// :not() selectors.
 ///
-/// @since 0.1.0-alpha.37
+/// @since 0.1.0-alpha
 ///
 @function not-list($selectors: null, $args...) {
     @return pseudo-list($pseudoType: 'not', $selectors: $selectors, $args...);
@@ -247,7 +247,7 @@
 /// Takes given selectors (else *) and wraps them in individual
 /// :where() selectors.
 ///
-/// @since 0.1.0-alpha.37
+/// @since 0.1.0-alpha
 ///
 @function where-list($selectors: null, $split: false, $args...) {
     @return pseudo-list(
@@ -262,7 +262,7 @@
 /// Nests given selectors inside parent selector, using the
 /// selector.#{$pseudoType}-list function.
 ///
-/// @since 0.1.0-alpha.37
+/// @since 0.1.0-alpha
 ///
 @mixin pseudo-class-content(
     $pseudoType,
@@ -291,7 +291,7 @@
 ///
 /// Nests given selectors inside parent selector, using selectors.has-list function.
 ///
-/// @since 0.1.0-alpha.37
+/// @since 0.1.0-alpha
 ///
 @mixin has($args...) {
     @include pseudo-class-content('has', $args...) {
@@ -302,7 +302,7 @@
 ///
 /// Nests given selectors inside parent selector, using selectors.is-list function.
 ///
-/// @since 0.1.0-alpha.37
+/// @since 0.1.0-alpha
 ///
 @mixin is($args...) {
     @include pseudo-class-content('is', $args...) {
@@ -313,7 +313,7 @@
 ///
 /// Nests given selectors inside parent selector, using selectors.not-list function.
 ///
-/// @since 0.1.0-alpha.37
+/// @since 0.1.0-alpha
 ///
 @mixin not($args...) {
     @include pseudo-class-content('not', $args...) {
@@ -324,7 +324,7 @@
 ///
 /// Nests given selectors inside parent selector, using selectors.where-list function.
 ///
-/// @since 0.1.0-alpha.37
+/// @since 0.1.0-alpha
 ///
 @mixin where($args...) {
     @include pseudo-class-content('where', $args...) {

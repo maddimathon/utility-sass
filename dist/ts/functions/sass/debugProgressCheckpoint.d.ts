@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import type { Stage } from '@maddimathon/build-utilities';
@@ -15,7 +15,7 @@ import * as sass from "sass-embedded";
  *
  * @category Sass API - Compiler Functions
  *
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  */
 export declare function sassFn_debugProgressCheckpoint({ console, params }: Stage): {
     'mmutils-global-debugProgressCheckpoint( $location, $output: false, $level: 1, $verbose: false )': sass.CustomFunction<'async'>;

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import { deleteUndefinedProps, objectMap } from '@maddimathon/utility-typescript';
@@ -13,14 +13,14 @@ import { deleteUndefinedProps, objectMap } from '@maddimathon/utility-typescript
  *
  * @category Utilities
  *
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export var CssColours;
 (function (CssColours) {
     /**
      * Types that represent CSS colour functions/values.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      *
      * @internal
      * @sortStrategy source-order
@@ -28,7 +28,7 @@ export var CssColours;
     let Functions;
     (function (Functions) {
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          *
          * @internal
          */
@@ -41,7 +41,7 @@ export var CssColours;
      * Regular expressions to use for matching against css colour function
      * strings.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      *
      * ## Format Examples
      * {@include ./CssColours.docs.md#test-all}
@@ -57,7 +57,7 @@ export var CssColours;
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-hex}
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         Regex.hex = {
             strict: /^\s*#(?:([0-9a-h])([0-9a-h])([0-9a-h])|([0-9a-h]{2})([0-9a-h]{2})([0-9a-h]{2})(\d{2})?)\s*$/i,
@@ -69,7 +69,7 @@ export var CssColours;
              * Match input against the {@link Regex.hex} regex with a better
              * return type.
              *
-             * @since 0.1.0-beta.0
+             * @since 0.1.0-beta
              *
              * @sortStrategy source-order
              */
@@ -137,7 +137,7 @@ export var CssColours;
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-hsl}
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         Regex.hsl = new RegExp([
             '^\\s*hsla?\\(\\s*', // open bracket
@@ -154,7 +154,7 @@ export var CssColours;
              * Match input against the {@link Regex.hsl} regex with a better
              * return type.
              *
-             * @since 0.1.0-beta.0
+             * @since 0.1.0-beta
              */
             function hsl(value) {
                 const matches = value.match(Regex.hsl);
@@ -213,7 +213,7 @@ export var CssColours;
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-hwb}
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         Regex.hwb = new RegExp([
             '^\\s*hwb\\(\\s*', // open bracket
@@ -230,7 +230,7 @@ export var CssColours;
              * Match input against the {@link Regex.hwb} regex with a better
              * return type.
              *
-             * @since 0.1.0-beta.0
+             * @since 0.1.0-beta
              */
             function hwb(value) {
                 const matches = value.match(Regex.hwb);
@@ -289,7 +289,7 @@ export var CssColours;
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-lab}
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         Regex.lab = new RegExp([
             '^\\s*lab\\(\\s*', // open bracket
@@ -306,7 +306,7 @@ export var CssColours;
              * Match input against the {@link Regex.lab} regex with a better
              * return type.
              *
-             * @since 0.1.0-beta.0
+             * @since 0.1.0-beta
              */
             function lab(value) {
                 const matches = value.match(Regex.lab);
@@ -365,7 +365,7 @@ export var CssColours;
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-oklab}
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         Regex.oklab = new RegExp([
             '^\\s*oklab\\(\\s*', // open bracket
@@ -382,7 +382,7 @@ export var CssColours;
              * Match input against the {@link Regex.oklab} regex with a better
              * return type.
              *
-             * @since 0.1.0-beta.0
+             * @since 0.1.0-beta
              */
             function oklab(value) {
                 const matches = value.match(Regex.oklab);
@@ -441,7 +441,7 @@ export var CssColours;
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-lch}
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         Regex.lch = new RegExp([
             '^\\s*lch\\(\\s*', // open bracket
@@ -458,7 +458,7 @@ export var CssColours;
              * Match input against the {@link Regex.lch} regex with c better
              * return type.
              *
-             * @since 0.1.0-beta.0
+             * @since 0.1.0-beta
              */
             function lch(value) {
                 const matches = value.match(Regex.lch);
@@ -517,7 +517,7 @@ export var CssColours;
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-oklch}
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         Regex.oklch = new RegExp([
             '^\\s*oklch\\(\\s*', // open bracket
@@ -534,7 +534,7 @@ export var CssColours;
              * Match input against the {@link Regex.oklch} regex with c better
              * return type.
              *
-             * @since 0.1.0-beta.0
+             * @since 0.1.0-beta
              */
             function oklch(value) {
                 const matches = value.match(Regex.oklch);
@@ -593,7 +593,7 @@ export var CssColours;
          * The resulting regex is equivolent to:
          * {@include ./CssColours.docs.md#regex-rgb}
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         Regex.rgb = new RegExp([
             '^\\s*rgba?\\(\\s*', // open bracket
@@ -610,7 +610,7 @@ export var CssColours;
              * Match input against the {@link Regex.rgb} regex with a better
              * return type.
              *
-             * @since 0.1.0-beta.0
+             * @since 0.1.0-beta
              */
             function rgb(value) {
                 const matches = value.match(Regex.rgb);
@@ -670,7 +670,7 @@ export var CssColours;
      *
      * @see {@link CssColours.parseFunction} — Used to check for valid formats.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      *
      * ## Format Examples
      * {@include ./CssColours.docs.md#test-all}
@@ -684,7 +684,7 @@ export var CssColours;
      *
      * @see {@link CssColours.Regex} — Has the regexes used for parsing colour codes.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      *
      * @useDeclaredType
      *
@@ -741,14 +741,14 @@ export var CssColours;
     /**
      * Utilities for the {@link parseFunction} function.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     (function (parseFunction) {
         /**
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         function hex(value, strict = true) {
             const hexMatches = Regex.Match.hex(value, strict);
@@ -786,7 +786,7 @@ export var CssColours;
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         function hsl(value, roundingFactor) {
             const hslMatches = Regex.Match.hsl(value);
@@ -830,7 +830,7 @@ export var CssColours;
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         function hwb(value, roundingFactor) {
             const hwbMatches = Regex.Match.hwb(value);
@@ -874,7 +874,7 @@ export var CssColours;
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         function lab(value, roundingFactor) {
             const labMatches = Regex.Match.lab(value);
@@ -918,7 +918,7 @@ export var CssColours;
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         function oklab(value, roundingFactor) {
             const oklabMatches = Regex.Match.oklab(value);
@@ -962,7 +962,7 @@ export var CssColours;
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         function lch(value, roundingFactor) {
             const lchMatches = Regex.Match.lch(value);
@@ -1006,7 +1006,7 @@ export var CssColours;
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         function oklch(value, roundingFactor) {
             const oklchMatches = Regex.Match.oklch(value);
@@ -1050,7 +1050,7 @@ export var CssColours;
          * @return  False means no match. Null means that it matched the regex
          *          as a whole but something in the parts was malformed.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         function rgb(value, roundingFactor) {
             const rgbMatches = Regex.Match.rgb(value);
@@ -1092,7 +1092,7 @@ export var CssColours;
         parseFunction.rgb = rgb;
     })(parseFunction = CssColours.parseFunction || (CssColours.parseFunction = {}));
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     const arrays = {
         keywords: [
@@ -1275,19 +1275,19 @@ export var CssColours;
     /**
      * A set used to check if a string is a {@link Keyword} type.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     CssColours.keywords = new Set(arrays.keywords);
     /**
      * A set used to check if a string is a {@link Slug} type.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     CssColours.slugs = new Set(arrays.slugs);
     /**
      * A set used to check if a string is a {@link SystemColor} type.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     CssColours.systemColors = new Set(arrays.systemColors);
     /**
@@ -1295,7 +1295,7 @@ export var CssColours;
      * valid css <color> values but that do not represent a specific colour
      * [e.g., 'transparent']).
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function isKeyword(value) {
         return CssColours.keywords.has(value);
@@ -1305,7 +1305,7 @@ export var CssColours;
      * Whether this is one of the keywords in {@link CssColours.Slug} (i.e.,
      * keywords used for defined web-safe colours).
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function isSlug(value) {
         return CssColours.slugs.has(value);
@@ -1315,7 +1315,7 @@ export var CssColours;
      * Whether this is one of the system colors in
      * {@link CssColours.SystemColor} (i.e., forced-colors mode keywords).
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function isSystemColor(value) {
         return CssColours.systemColors.has(value);

@@ -16,7 +16,7 @@
 @use 'functions';
 
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 /// @since 0.1.0-alpha — Moved from library to own module.
 ///
 @mixin js($args...) {
@@ -38,7 +38,7 @@
 }
 
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 /// @since 0.1.0-alpha — Moved from library to own module.
 ///
 @mixin no-js($args...) {
@@ -65,7 +65,7 @@
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function get-query-or-selector(
     $key,
@@ -178,7 +178,7 @@
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function prepare-query-and-selector(
     $key,
@@ -238,7 +238,7 @@
 $_featureCheck_overrideKeys: map.keys(config.$featureCheck_supportsOverrides);
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin _supports-template($key, $bool, $debug: false, $args...) {
     @if meta.type-of($key) != list {
@@ -363,10 +363,9 @@ $_featureCheck_overrideKeys: map.keys(config.$featureCheck_supportsOverrides);
 }
 
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-alpha — Moved from library to own module.
-/// @since 0.1.0-alpha.5 — Changed name from `js-support` to `supports`.
-/// @since 0.1.0-beta.0 — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params. Added list support to $key. Now using @supports instead (via config.$featureCheck_supportsQueries).
+/// @since 0.1.0-pre
+/// @since 0.1.0-alpha — Moved from library to own module. Changed name from `js-support` to `supports`.
+/// @since 0.1.0-beta — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params. Added list support to $key. Now using @supports instead (via config.$featureCheck_supportsQueries).
 ///
 @mixin supports($key, $multipleContentBlocks: false, $args...) {
     @include _supports-template($key: $key, $bool: true, $args...) using ($location) {
@@ -379,11 +378,10 @@ $_featureCheck_overrideKeys: map.keys(config.$featureCheck_supportsOverrides);
 }
 
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 /// @since 0.1.0-alpha — Moved from library to own module.
-/// @since 0.1.0-alpha.5 — Changed name from `js-no-support` to `supports-not`.
-/// @since 0.1.0-alpha.33 — Added $includeNoWhereSelectorFallback param, default true.
-/// @since 0.1.0-beta.0 — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params to use @supports instead (via config.$featureCheck_supportsQueries). Added list support to $key.
+/// @since 0.1.0-alpha — Changed name from `js-no-support` to `supports-not`. Added $includeNoWhereSelectorFallback param, default true.
+/// @since 0.1.0-beta — Added optional $debug, $multipleContentBlocks, $neverUseJS, $viaQuery params to use @supports instead (via config.$featureCheck_supportsQueries). Added list support to $key.
 ///
 @mixin supports-not($key, $multipleContentBlocks: false, $args...) {
     @include _supports-template($key: $key, $bool: false, $args...) using ($location) {
@@ -399,8 +397,8 @@ $_featureCheck_overrideKeys: map.keys(config.$featureCheck_supportsOverrides);
 /// Declares an aspect-ratio property and then inserts a fallback if aspect
 /// ratio is unsupported.
 ///
-/// @since 0.1.0-alpha.5
-/// @since 0.1.0-beta.0 — Added $includeNoWhereSelectorFallback, $includeNoWhereSelectorFallback params with config defaults. Made $h param optional.
+/// @since 0.1.0-alpha
+/// @since 0.1.0-beta — Added $includeNoWhereSelectorFallback, $includeNoWhereSelectorFallback params with config defaults. Made $h param optional.
 ///
 @mixin aspect-ratio($w, $h: null, $includeComments: true, $args...) {
     aspect-ratio: if(not $h, $w, list.slash($w, $h));

@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -27,7 +27,7 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
  *
  * @category Sass API - Compiler Functions
  *
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  */
 export function sassFn_jsVarDump(
     { console, params, try: tryFn }: Stage,

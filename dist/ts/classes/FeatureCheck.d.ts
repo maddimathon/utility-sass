@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -31,7 +31,7 @@ import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
  * checks:
  * {@includeCode ./FeatureCheck.docs.ts#Custom}
  *
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  */
 export declare class FeatureCheck<
 /**
@@ -107,33 +107,33 @@ T_CustomCheckerSlug extends string = string> {
      * Built from combining {@link FeatureCheck.customCheckSlugs} and the keys
      * of {@link FeatureCheck.opts.checks}.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     protected readonly allCheckSlugs: (FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug)[];
     /**
      * Built from combining the keys of {@link FeatureCheck.opts.checks}.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     protected readonly defaultCheckSlugs: Set<FeatureCheck.DefaultCheckSlug>;
     /**
      * Checks if the given slug is a default test.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     isDefaultCheck(slug: string): slug is FeatureCheck.DefaultCheckSlug;
     /**
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     protected readonly customCheckSlugs: Set<T_CustomCheckerSlug>;
     /**
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     isCustomCheck(slug: string): slug is T_CustomCheckerSlug;
     constructor(
@@ -153,7 +153,7 @@ T_CustomCheckerSlug extends string = string> {
     /**
      * Gets a copied array of all check slugs.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     getCheckSlugs(): (FeatureCheck.DefaultCheckSlug | T_CustomCheckerSlug)[];
     /**
@@ -200,13 +200,13 @@ T_CustomCheckerSlug extends string = string> {
  *
  * @category Module Support
  *
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  */
 export declare namespace FeatureCheck {
     /**
      * Built-in feature-check methods.
      *
-     * @since 0.1.0-beta.0 Renamed from Checker to DefaultCheckSlug.
+     * @since 0.1.0-beta Renamed from Checker to DefaultCheckSlug.
      */
     type DefaultCheckSlug = "aspectRatio" | "atProperty" | "backdropFilter" | "backgroundFixed" | "calc" | "displayContents" | "focusWithin" | "focusVisible" | "hasSelector" | "subgrid"
     /**
@@ -256,7 +256,7 @@ export declare namespace FeatureCheck {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type Opts<
     /**
@@ -279,7 +279,7 @@ export declare namespace FeatureCheck {
     /**
      * Partially partialized.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type OptsInput<
     /**
@@ -302,7 +302,7 @@ export declare namespace FeatureCheck {
     /**
      * The default checker functions.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     const CHECKERS: {
         [K in DefaultCheckSlug]: () => Promise<boolean>;

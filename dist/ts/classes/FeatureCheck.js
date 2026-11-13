@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
@@ -36,7 +36,7 @@ var _FeatureCheck_checkCache;
  * checks:
  * {@includeCode ./FeatureCheck.docs.ts#Custom}
  *
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  */
 export class FeatureCheck {
     /**
@@ -45,7 +45,7 @@ export class FeatureCheck {
      *
      * Overloaded for better (but ott) return typeing.
      *
-     * @since 0.1.0-beta.0 — Added overloads for better typing. Added optional ignorePrefix param.
+     * @since 0.1.0-beta — Added overloads for better typing. Added optional ignorePrefix param.
      *
      * @experimental
      */
@@ -64,7 +64,7 @@ export class FeatureCheck {
      * Whether to exclude the 'js__' prefix. This is only used to set the
      * 'js' and 'no-js' classes.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      *
      * @inline
      * @internal
@@ -151,7 +151,7 @@ export class FeatureCheck {
     /**
      * Checks if the given slug is a default test.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     isDefaultCheck(slug) {
         return this.defaultCheckSlugs.has(slug);
@@ -160,7 +160,7 @@ export class FeatureCheck {
      * Built from the {@link FeatureCheck.Opts<T_CustomCheckerSlug>['custom']}
      * config keys, so every key in here has a custom test.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     isCustomCheck(slug) {
         return this.customCheckSlugs.has(slug);
@@ -210,7 +210,7 @@ export class FeatureCheck {
     /**
      * Gets a copied array of all check slugs.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     getCheckSlugs() {
         return [...this.allCheckSlugs];
@@ -302,13 +302,13 @@ _FeatureCheck_checkCache = new WeakMap();
  *
  * @category Module Support
  *
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  */
 (function (FeatureCheck) {
     /**
      * The default checker functions.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     FeatureCheck.CHECKERS = {
         /**
@@ -416,7 +416,7 @@ _FeatureCheck_checkCache = new WeakMap();
         /**
          * Checks for `grid-template-columns: subgrid` css rule support.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          *
          * @experimental
          * @source

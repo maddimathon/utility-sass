@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 
 @use '../../../../modules/list';
@@ -16,7 +16,7 @@
 ///
 /// @returns {"brightness"|"contrast"|null}
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @function get-colour-mode-type($mode) {
     @if list.index(tokens.$brightnessMode_options, $mode) != null {
@@ -35,7 +35,7 @@
 ///
 /// @param {string|list<string>} $modes  Mode slug(s) to test.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 /// @since 0.1.0-alpha — Now accepts mode lists.
 ///
 @function is-colour-mode-default($modes) {
@@ -67,7 +67,7 @@
 ///
 /// @param {string} $mode  Mode slug to test.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @function is-colour-mode-type-default-only($mode) {
     $modeType: get-colour-mode-type($mode);
@@ -88,8 +88,8 @@
 ///
 /// @param {string} $mode  Mode slug to test.
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0 — Renamed from `is-colour-mode-included` to `is-colour-mode-active`.
+/// @since 0.1.0-pre
+/// @since 0.1.0-beta — Renamed from `is-colour-mode-included` to `is-colour-mode-active`.
 ///
 @function is-colour-mode-active($mode) {
     $modeType: get-colour-mode-type($mode);

@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  * 
  * @packageDocumentation
  */
@@ -16,14 +16,14 @@ import { CssColours } from './CssColours.js';
  *
  * @category Utilities
  *
- * @since 0.1.0-pre.0
+ * @since 0.1.0-pre
  */
 export namespace JsonToScss {
 
     /**
      * Options for the conversion function.
      * 
-     * @since 0.1.0-alpha.32
+     * @since 0.1.0-alpha
      */
     export interface Opts {
 
@@ -32,7 +32,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         alwaysQuoteKeys?: boolean;
 
@@ -43,7 +43,7 @@ export namespace JsonToScss {
          *
          * @default true
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         alwaysQuoteNumberKeys?: boolean;
 
@@ -53,7 +53,7 @@ export namespace JsonToScss {
          *
          * @default false
          *
-         * @since 0.1.0-alpha.32
+         * @since 0.1.0-alpha
          */
         coloursAsStrings?: boolean;
 
@@ -63,7 +63,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         convertUnitStringsToNumbers?: boolean;
 
@@ -73,7 +73,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         convertZeroStringsToNumbers?: boolean;
 
@@ -83,7 +83,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         cssFunctionsAsStrings?: boolean;
 
@@ -92,7 +92,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         onlyQuoteAsNeeded?: boolean;
 
@@ -102,7 +102,7 @@ export namespace JsonToScss {
          *
          * @default /[^a-z|0-9|\-|_]/i
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         requiredQuotesRegex?: RegExp;
 
@@ -112,7 +112,7 @@ export namespace JsonToScss {
          * 
          * @default /[^a-z|0-9|\-|_]/i
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         requiredQuotesKeyRegex?: RegExp;
 
@@ -122,7 +122,7 @@ export namespace JsonToScss {
          *
          * @default true
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         unquoteNumberString?: boolean;
 
@@ -132,7 +132,7 @@ export namespace JsonToScss {
          * 
          * @default false
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         useStringModule?: boolean;
     }
@@ -359,7 +359,7 @@ export namespace JsonToScss {
     /**
      * Quotes the given string for scss output.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function quote_string( input: string, unquote: boolean = false ) {
 

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -14,8 +14,8 @@ import { sassValueToJS } from './sassValueToJS.js';
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-alpha.29
- * @since 0.1.0-beta.0 Added required `name` param and optional `convertValue` param (defaults to false).
+ * @since 0.1.0-alpha
+ * @since 0.1.0-beta Added required `name` param and optional `convertValue` param (defaults to false).
  */
 export async function sassAssertValueType(name, type, value, convertValue = false) {
     // returns

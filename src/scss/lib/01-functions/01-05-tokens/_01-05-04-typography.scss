@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/utility-sass@___CURRENT_VERSION___
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 
 @use '../../../modules/list';
@@ -28,11 +28,9 @@
 ///
 /// @return {list<number|calc>}
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-alpha.18 — Added $relative param.
-/// @since 0.1.0-alpha.19 — Added $multiplier param.
-/// @since 0.1.0-alpha.41 — Added $roundingFactor param.
-/// @since 0.1.0-beta.0 — Renamed $fontScale to $sizeBase.
+/// @since 0.1.0-pre
+/// @since 0.1.0-alpha — Added $multiplier, $relative, $roundingFactor params.
+/// @since 0.1.0-beta — Renamed $fontScale to $sizeBase.
 ///
 @function fs-value(
     $slug,
@@ -103,8 +101,8 @@
 ///
 /// @return {number}
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-alpha.19 — Added $multiplier param.
+/// @since 0.1.0-pre
+/// @since 0.1.0-alpha — Added $multiplier param.
 ///
 @function line-height-value($level, $multiplier: 1) {
     $value: map.get(tokens.$line_height, '400');
@@ -128,7 +126,7 @@
 /// Uses the line height config tokens to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @function var-line-height($slug, $fallbackOnly: false, $args...) {
     $fallback: line-height-value($slug);
@@ -145,8 +143,8 @@
 /// Uses the font size config tokens to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-alpha.18 — Added $relative param.
+/// @since 0.1.0-pre
+/// @since 0.1.0-alpha — Added $relative param.
 ///
 @function var-fs($slug, $fallback: null, $fallbackOnly: false, $relative: false, $args...) {
     //

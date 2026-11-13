@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -13,7 +13,7 @@ import * as sass from "sass-embedded";
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  */
 export async function sassValueToJS(sassValue, _recursionCounter = 0) {
     var _a, _b, _c;
@@ -75,11 +75,11 @@ export async function sassValueToJS(sassValue, _recursionCounter = 0) {
  *
  * @category Utilities – Sass API
  *
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  */
 (function (sassValueToJS) {
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function isSassValue(value) {
         var _a;
@@ -89,7 +89,7 @@ export async function sassValueToJS(sassValue, _recursionCounter = 0) {
     /**
      * Gets the type of a sass value.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function typeOf(value) {
         // returns
@@ -129,14 +129,14 @@ export async function sassValueToJS(sassValue, _recursionCounter = 0) {
     sassValueToJS.typeOf = typeOf;
     (function (typeOf) {
         /**
-         * @since 0.1.0-beta.10
+         * @since 0.1.0-beta
          */
         function isMap(value) {
             return typeOf(value) === 'map';
         }
         typeOf.isMap = isMap;
         /**
-         * @since 0.1.0-beta.10
+         * @since 0.1.0-beta
          */
         function isString(value) {
             return typeOf(value) === 'string';
@@ -144,7 +144,7 @@ export async function sassValueToJS(sassValue, _recursionCounter = 0) {
         typeOf.isString = isString;
     })(typeOf = sassValueToJS.typeOf || (sassValueToJS.typeOf = {}));
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     function sync(sassValue, _recursionCounter = 0) {
         var _a, _b, _c;

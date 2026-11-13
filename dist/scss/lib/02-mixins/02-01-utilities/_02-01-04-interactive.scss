@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/utility-sass@0.2.0
-/// @since 0.1.0-pre.0
+/// @package @maddimathon/utility-sass@0.2.1
+/// @since 0.1.0-pre
 ///
 
 @use '../../../config';
@@ -25,7 +25,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Whether to include a warning about using $includeSelf.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function _include-self-warning($selector: &) {
     // UPGRADE - make this work instead of warning?  it might be a sass issue
@@ -41,7 +41,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Whether to separate the self rule.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function _include-self-separately($selector: &) {
     // returns
@@ -53,7 +53,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin visited($selector: &, $appendToSelector: true, $args...) {
     @if config.$include_linkVisitedState {
@@ -66,7 +66,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin _interactive-template(
     /// The built-in pseudo class selector for this state
@@ -207,7 +207,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 /// Declares selectors for active states by both pseudo class and value of
 /// config.$selector_interactiveState_active.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin active(
     $addSelectors_pseudo: (),
@@ -286,7 +286,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Whether a child is active. Uses &:has().
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin active-within(
     $addSelectors_pseudo: (),
@@ -363,7 +363,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 /// Declares selectors for focus states by both pseudo class and value of
 /// config.$selector_interactiveState_focus.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin focus(
     $addSelectors_pseudo: (),
@@ -444,7 +444,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 /// Declares selectors for focus-within states by both pseudo class and value of
 /// config.$selector_interactiveState_focus.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin focus-within(
     $includeParentSelector: true,
@@ -497,7 +497,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 /// To be nested IN the target element to add a fallback for `focus-visible` (and
 /// `focus-visible`, plus any additional selectors).
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @mixin focus-visible(
     $addSelectors: (),
@@ -708,7 +708,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 /// `focus-visible` and `focus-within` is set separately for slightly better
 /// compatibility.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @mixin focus-visible-or-within(
     $multipleContentBlocks: false,
@@ -743,7 +743,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 }
 
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @mixin _hover(
     $addSelectors_pseudo: (),
@@ -811,7 +811,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Adds `hover` to `focus-visible` mixin.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @mixin hover-focus-visible(
     $addSelectors_noJS: (),
@@ -888,7 +888,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Adds `hover` to `focus-visible-or-within` mixin.
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @mixin hover-focus-visible-or-within(
     $addSelectors_noJS: (),
@@ -962,7 +962,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Adds `active` to `focus-visible` mixin.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin _active-focus-visible(
     $addSelectors: (),
@@ -1063,7 +1063,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Adds `active` to `focus-visible-or-within` mixin.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin _active-focus-visible-or-within(
     $addSelectors: (),
@@ -1123,7 +1123,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Adds `hover` to `active` mixin.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin _active-hover(
     $multipleContentBlocks: false,
@@ -1153,7 +1153,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Adds `active` to `hover-focus-visible` mixin.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin active-hover-focus-visible(
     $addSelectors: (),
@@ -1212,7 +1212,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Adds `active-within` to `focus-within` mixin.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin _active-within-focus-within(
     $includeParentSelector: true,
@@ -1286,7 +1286,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 ///
 /// Adds `active` and `active-within` to `hover-focus-visible-or-within` mixin.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin active-hover-focus-visible-or-within(
     $includeSelf: false,
@@ -1343,7 +1343,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin _visited(
     $includeParentSelector: true,
@@ -1391,7 +1391,7 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 }
 
 ///
-/// @since 0.1.0-pre.0
+/// @since 0.1.0-pre
 ///
 @mixin _nothing($includeSelf: false, $multipleContentBlocks: false, $args...) {
     $args: meta.keywords($args);
@@ -1419,8 +1419,8 @@ $_includeSelfWarning: '$includeSelf is not recommended for complex selectors (es
 /// Minimizes rule repetition by combining compatible selectors (by browser
 /// support), including fallbacks for focus-visible.
 ///
-/// @since 0.1.0-pre.0
-/// @since 0.1.0-beta.0 — Added optional $active, $activeWithin, $self, $visited selectors.
+/// @since 0.1.0-pre
+/// @since 0.1.0-beta — Added optional $active, $activeWithin, $self, $visited selectors.
 ///
 @mixin apply-interactive-mixin(
     $active: false,

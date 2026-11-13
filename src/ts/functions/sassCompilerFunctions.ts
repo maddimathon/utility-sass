@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -37,7 +37,7 @@ import { sassFn_debugProgressCheckpoint } from './sass/debugProgressCheckpoint.j
  * 
  * @category Utilities – Sass API
  * 
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  */
 export function sassCompilerFunctions(
     args: Stage,

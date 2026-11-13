@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -14,7 +14,7 @@ import * as sass from "sass-embedded";
  *
  * @category Sass API - Compiler Functions
  *
- * @since 0.1.0-alpha.8
+ * @since 0.1.0-alpha
  */
 export declare function sassFn_getCurrentVersion(): {
     'mmutils-global-getCurrentVersion()': sass.CustomFunction<'async'>;

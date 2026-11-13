@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -17,7 +17,7 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
  *
  * @category Sass API - Compiler Functions
  *
- * @since 0.1.0-alpha.29
+ * @since 0.1.0-alpha
  */
 export function sassFn_jsVarDump({ console, params, try: tryFn }) {
     return {
