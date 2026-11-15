@@ -8,6 +8,7 @@
 @use 'sass:meta';
 @use 'sass:string';
 
+@use 'docblock-printer';
 @use 'global-compiler-fn';
 @use 'var-dump';
 
@@ -16,21 +17,27 @@
 ///
 /// @since 0.1.0-alpha
 /// @since 0.1.0-beta — Moved from lib to meta module. Added optional $useUniqueID param.
+/// @since ___PKG_VERSION___ — Added optional $returnInspection param.
 ///
-@function js-var-dump($var, $name: 'var', $level: 1, $useUniqueID: false) {
-    $function: 'mmutils-global-jsVarDump';
-
+@function js-var-dump(
+    $var,
+    $name: 'var',
+    $level: 1,
+    $useUniqueID: false,
+    $returnInspection: false
+) {
     // returns
-    @if meta.function-exists($function) {
+    @if meta.function-exists('mmutils-global-jsVarDump') {
         @return global-compiler-fn.call-global-compiler-fn(
-            $function,
+            'mmutils-global-jsVarDump',
             'meta.js-var-dump',
             $isRequired: false,
             //
             $uniqueID: if($useUniqueID, string.unique-id(), ''),
             $value: $var,
             $name: $name,
-            $level: $level
+            $level: $level,
+            $returnInspection: $returnInspection
         );
     }
 
@@ -38,4 +45,23 @@
 
     @debug '#{$name} = #{$_dump}';
     @return $_dump;
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin js-var-dump($var, $name: 'var', $level: 1, $useUniqueID: false) {
+    $inspection: global-compiler-fn.call-global-compiler-fn(
+        'mmutils-global-jsVarDump',
+        'meta.js-var-dump',
+        $isRequired: false,
+        //
+        $uniqueID: if($useUniqueID, string.unique-id(), ''),
+        $value: $var,
+        $name: $name,
+        $level: $level,
+        $returnInspection: true
+    );
+
+    @include docblock-printer.docblock-printer($inspection, $asComment: true);
 }

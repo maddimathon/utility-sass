@@ -47,12 +47,13 @@
 @demo-section current-version {
     /*
         meta.current-version() is a map:
-
-        "major": <#> 1,
-        "minor": <#> 97,
-        "patch": <#> 3,
-        "prerelease": <-> null,
-        "meta": <-> null,
+        <:> (
+            "major": <#> 1,
+            "minor": <#> 97,
+            "patch": <#> 3,
+            "prerelease": <-> null,
+            "meta": <-> null,
+        )
      */
 }
 /* ## MODULES - META - arglist() ==================================== */
@@ -77,12 +78,13 @@
      */
     /*
         meta.call-global-compiler-fn( 'mmutils-global-getCurrentVersion', 'demo-functions/getCurrentVersion' ) is a map:
-
-        "major": <#> 1,
-        "minor": <#> 97,
-        "patch": <#> 3,
-        "prerelease": <-> null,
-        "meta": <-> null,
+        <:> (
+            "major": <#> 1,
+            "minor": <#> 97,
+            "patch": <#> 3,
+            "prerelease": <-> null,
+            "meta": <-> null,
+        )
      */
 }
 /* ## MODULES - META - docblock-printer() ==================================== */
@@ -218,21 +220,17 @@
     /*
         meta.keywords-list( one, two ) is a map:
 
-        1: <S> one,
-        2: <S> two,
+        <:> ( 1: <S> one, 2: <S> two )
      */
     /*
         meta.keywords-list( $param: one, $value: two ) is a map:
 
-        "param": <S> one,
-        "value": <S> two,
+        <:> ( "param": <S> one, "value": <S> two )
      */
     /*
         meta.keywords-list( something, $param: one, $value: two ) is a map:
 
-        1: <S> something,
-        "param": <S> one,
-        "value": <S> two,
+        <:> ( 1: <S> something, "param": <S> one, "value": <S> two )
      */
 }
 /* ## MODULES - META - keywords-list-to-arglist() ==================================== */
@@ -331,9 +329,9 @@ meta.is-truthy {
 /* ## MODULES - META - js-var-dump() ==================================== */
 @demo-section js-var-dump {
     /* 
-        meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> meta.js-var-dump() [id: uw7vvwt] - demo-var-1
+        meta.js-var-dump( hello, $name: "demo-var-1" ) = <S> [meta.js-var-dump - id: uvxkxnq]
      */
     /* 
-        meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> meta.js-var-dump() [id: uw7vvxm] - demo-var-2
+        meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) = <S> [meta.js-var-dump - id: uvxkxnz]
      */
 }

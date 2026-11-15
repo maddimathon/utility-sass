@@ -10,6 +10,7 @@
 
 @use 'docblock-printer';
 @use 'is-truthy';
+@use 'global-compiler-fn';
 
 $_varType_abbreviations: (
     'string': 'S',
@@ -295,6 +296,195 @@ $_varType_abbreviations: (
 }
 
 ///
+/// @since ___PKG_VERSION___
+///
+@function _var-dump--string-regex-replace(
+    $string,
+    $search,
+    $replace: '',
+    $flags: 'gi',
+    $fallbackValue: $string
+) {
+    @return global-compiler-fn.call-global-compiler-fn(
+        'mmutils-string-regex-replace',
+        $caller: 'meta.var-dump',
+        //
+        $fallbackValue: $fallbackValue,
+        $includeWarning: false,
+        $isCompilerFunction: true,
+        $isRequired: false,
+        //
+        $string: $string,
+        $search: $search,
+        $replace: $replace,
+        $flags: $flags
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function _var-dump--inspection-lines(
+    $var,
+    $indent,
+    $alwaysQuote,
+    $neverQuote,
+    $shortType,
+    $outputMultiline,
+    $alwaysOutputMultiline,
+    $_depth: 1
+) {
+    $typeOf: meta.type-of($var);
+
+    $typeString: '<#{if($shortType, var-type-abbreviator($typeOf), $typeOf)}> ';
+
+    $doMultilineOutput: ($typeOf == list and list.length($var) > 0) or
+        ($typeOf == map and list.length(map.keys($var)) > 0);
+
+    // returns
+    @if not $doMultilineOutput {
+        @return (#{var-dump($var, $alwaysQuote: $alwaysQuote, $neverQuote: $neverQuote)});
+    }
+
+    $listSeparator: ',';
+
+    @if $typeOf == list {
+        $_listSeparator: list.separator($var);
+
+        @if $_listSeparator != comma {
+            $listSeparator: '';
+        }
+    }
+
+    $_hasSubInspection: false;
+
+    $lines: ();
+
+    @if $typeOf == map {
+        @each $_key, $_val in $var {
+            $_keyDisplay: if(
+                not $neverQuote and ($alwaysQuote or meta.type-of($_key) == string),
+                '"#{string.unquote(#{$_key})}"',
+                string.unquote(#{$_key})
+            );
+
+            $_subinspection: _var-dump--inspection-lines(
+                $var: $_val,
+                $indent: '#{$indent}  ',
+                $alwaysQuote: $alwaysQuote,
+                $neverQuote: $neverQuote,
+                $shortType: $shortType,
+                $alwaysOutputMultiline: $alwaysOutputMultiline,
+                $outputMultiline: $alwaysOutputMultiline or
+                    (
+                        $outputMultiline and ($_depth == 1),
+                    ),
+                $_depth: $_depth + 1,
+            );
+
+            $_subinspection: list.set-nth(
+                $_subinspection,
+                1,
+                '#{$indent}  #{$_keyDisplay}: #{list.nth($_subinspection, 1)}'
+            );
+
+            $_subinspection: list.set-nth(
+                $_subinspection,
+                -1,
+                '#{list.nth($_subinspection, -1)}#{$listSeparator}'
+            );
+
+            @if (not $_hasSubInspection) and
+                ((meta.type-of($_val) == map) or (list.length($_subinspection) > 1))
+            {
+                $_hasSubInspection: true;
+            }
+
+            $lines: list.join($lines, $_subinspection);
+        }
+    } @else {
+        $i: 1;
+
+        @each $_val in $var {
+            $_subinspection: _var-dump--inspection-lines(
+                $var: $_val,
+                $indent: '#{$indent}  ',
+                $alwaysQuote: $alwaysQuote,
+                $neverQuote: $neverQuote,
+                $shortType: $shortType,
+                $alwaysOutputMultiline: $alwaysOutputMultiline,
+                $outputMultiline: $alwaysOutputMultiline or
+                    (
+                        $outputMultiline and ($_depth == 1),
+                    ),
+                $_depth: $_depth + 1,
+            );
+
+            $_subinspection: list.set-nth(
+                $_subinspection,
+                1,
+                '#{$indent}  #{$i}: #{list.nth($_subinspection, 1)}'
+            );
+
+            $_subinspection: list.set-nth(
+                $_subinspection,
+                -1,
+                '#{list.nth($_subinspection, -1)}#{$listSeparator}'
+            );
+
+            @if (not $_hasSubInspection) and
+                ((meta.type-of($_val) == map) or (list.length($_subinspection) > 1))
+            {
+                $_hasSubInspection: true;
+            }
+
+            $lines: list.join($lines, $_subinspection);
+
+            $i: $i + 1;
+        }
+    }
+
+    $_removeIndices: $listSeparator == '' or list.length($lines) < 2;
+    $_regex_lineTrimmer: if($_removeIndices, '(^\\s*(\\d+:\\s*)?|\\s*$)', '(^\\s*|\\s*$)');
+
+    $_regex_spaceReplacer: if($_removeIndices, '\\s+(?=\\<|\\d+:\\s*)', '\\s+(?=\\<)');
+
+    @if (not $_hasSubInspection) and
+        (not $alwaysOutputMultiline) and
+        meta.function-exists('mmutils-string-regex-replace') and
+        (
+            string.length(
+                    "#{$indent}#{$typeString}#{_var-dump--string-regex-replace( _var-dump--string-regex-replace(#{$lines}, $_regex_spaceReplacer, ' '), $_regex_lineTrimmer )}"
+                ) <
+                75
+        )
+    {
+        $_newLines: ();
+
+        @each $line in $lines {
+            $_newLines: list.append(
+                $_newLines,
+                _var-dump--string-regex-replace(
+                    $string: $line,
+                    $search: $_regex_lineTrimmer,
+                )
+            );
+        }
+
+        $_newLines: _var-dump--string-regex-replace(#{$_newLines}, ',\\s*$');
+
+        $lines: ('#{$typeString}( #{$_newLines} )');
+    } @else if list.length($lines) > 0 {
+        $lines: list.join(('#{$typeString}('), $lines);
+        $lines: list.append($lines, '#{$indent})');
+    } @else {
+        $lines: ('#{$typeString}(#{$lines})');
+    }
+
+    @return $lines;
+}
+
+///
 /// A mixin to dump variables as css comments, allowing for multi-line output
 /// for lists and maps.
 ///
@@ -303,7 +493,18 @@ $_varType_abbreviations: (
 ///
 /// @since 0.1.0-beta
 ///
-@mixin var-dump($name, $var, $alwaysQuote: false, $neverQuote: false, $args...) {
+@mixin var-dump(
+    $name,
+    $var,
+    $alwaysQuote: false,
+    $neverQuote: false,
+    $shortType: true,
+    $useCompilerFn: false,
+    $useUniqueID: false,
+    $alwaysOutputMultiline: false,
+    $outputMultiline: false,
+    $console_level: 1
+) {
     $typeOf: meta.type-of($var);
 
     $typeOf_string: $typeOf;
@@ -326,15 +527,19 @@ $_varType_abbreviations: (
         $typeOf_string: '#{$typeOf_string} list';
     }
 
-    $args: map.set($args, alwaysQuote, $alwaysQuote);
-    $args: map.set($args, neverQuote, $neverQuote);
-
     $doMultilineOutput: ($typeOf == list and list.length($var) > 0) or
         ($typeOf == map and list.length(map.keys($var)) > 0);
 
     @if not $doMultilineOutput {
+        $_inspection: var-dump(
+            $var,
+            $alwaysQuote: $alwaysQuote,
+            $neverQuote: $neverQuote,
+            $shortType: $shortType
+        );
+
         /* 
-          #{$name} = #{var-dump($var, $args...)}
+          #{$name} = #{$_inspection}
          */
     } @else {
         // UPGRADE - add option to output wrapped in a media query
@@ -343,29 +548,18 @@ $_varType_abbreviations: (
 
         $_first_line: '#{$name} is a #{$typeOf_string}:';
 
-        $lines: ('');
+        $lines: _var-dump--inspection-lines(
+            $var,
+            $indent: '',
+            $alwaysOutputMultiline: $alwaysOutputMultiline,
+            $alwaysQuote: $alwaysQuote,
+            $neverQuote: $neverQuote,
+            $outputMultiline: $outputMultiline,
+            $shortType: $shortType
+        );
 
-        @if $typeOf == map {
-            @each $_key, $_val in $var {
-                $_keyDisplay: if(
-                    not $neverQuote and ($alwaysQuote or meta.type-of($_key) == string),
-                    '"#{string.unquote(#{$_key})}"',
-                    string.unquote(#{$_key})
-                );
-
-                $lines: list.append(
-                    $lines,
-                    '#{$_keyDisplay}: #{var-dump($_val, $args...)}#{$listSeparator}'
-                );
-            }
-        } @else {
-            $i: 1;
-
-            @each $_val in $var {
-                $lines: list.append($lines, '#{$i}: #{var-dump($_val, $args...)}#{$listSeparator}');
-
-                $i: $i + 1;
-            }
+        @if list.length($lines) < 3 {
+            $lines: list.join((''), $lines);
         }
 
         @if list.length($lines) <= docblock-printer.$docblock_maxLines {

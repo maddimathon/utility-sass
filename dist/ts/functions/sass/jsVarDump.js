@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.1
+ * @maddimathon/utility-sass@0.3.0-draft
  * @license MIT
  */
 import * as sass from "sass-embedded";
@@ -21,25 +21,26 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
  */
 export function sassFn_jsVarDump({ console, params, try: tryFn }) {
     return {
-        'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': async (args) => {
-            let [uniqueID, varName = 'var', level = 1,] = await Promise.all([
+        'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level, $returnInspection )': async (args) => {
+            let [uniqueID, varName = 'var', level = 1, returnInspection = false,] = await Promise.all([
                 sassAssertValueType('uniqueID', 'string', args[0], true),
                 sassAssertValueType('name', 'string', args[2], true),
                 sassAssertValueType('level', 'number', args[3], true),
+                sassAssertValueType('returnInspection', 'bool', args[4], true),
             ]);
             const value = args[1];
             if (params.verbose) {
                 level = level + 2;
             }
             const inspection = tryFn(SassVariableInspector.stringify, level, [{ [varName]: value }], { exitProcess: false }, false);
-            const returnString = `meta.js-var-dump()${uniqueID ? ` [id: ${uniqueID}]` : ''} - ${varName}`;
+            const returnString = `[meta.js-var-dump${uniqueID ? ` - id: ${uniqueID}` : ''}]`;
             // returns on error
             if (!inspection) {
-                return new sass.SassString(`${returnString} [error]`, { quotes: false });
+                return new sass.SassString(`${returnString} - ${varName} [error]`, { quotes: false });
             }
             console.log([
                 [
-                    `[Sass: meta.js-var-dump()]${uniqueID ? ` [id: ${uniqueID}]` : ''}`,
+                    `[Sass: meta.js-var-dump()]${uniqueID ? ` [id: ${uniqueID}]` : ''} - ${varName}:`,
                     { bold: true, clr: 'grey' },
                 ],
                 [inspection, { clr: 'black', maxWidth: null }],
@@ -50,6 +51,13 @@ export function sassFn_jsVarDump({ console, params, try: tryFn }) {
                 linesIn: 0,
                 linesOut: 0,
             });
+            // returns
+            if (returnInspection) {
+                return new sass.SassList([
+                    new sass.SassString(returnString, { quotes: false }),
+                    ...inspection.split(/\n/g).map(line => new sass.SassString(line, { quotes: false })),
+                ]);
+            }
             return new sass.SassString(returnString, { quotes: false });
         },
     };

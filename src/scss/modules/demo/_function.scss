@@ -24,8 +24,10 @@
     $getFunction,
     $args: meta.arglist(),
     $argsDump: null,
+    $useCompilerFn: false,
     $wrapOutput: config.$demo_wrapOutput_function,
-    $wrapOutput_withName: config.$demo_wrapOutput_function_withName
+    $wrapOutput_withName: config.$demo_wrapOutput_function_withName,
+    $var_dump_args...
 ) {
     $getFunction: config.config-valid-function(
         $getFunction,
@@ -44,16 +46,22 @@
             @include meta.at(demo, if($wrapOutput_withName, '( function: #{$functionName} )', '')) {
                 @include meta.var-dump(
                     $name: '#{$functionName}#{$argsDump}',
-                    $var: meta.call($getFunction, $args...)
+                    $var: meta.call($getFunction, $args...),
+                    $useCompilerFn: $useCompilerFn,
+                    $var_dump_args...
                 );
             }
         } @else {
             @include meta.var-dump(
                 $name: '#{$functionName}#{$argsDump}',
-                $var: meta.call($getFunction, $args...)
+                $var: meta.call($getFunction, $args...),
+                $useCompilerFn: $useCompilerFn,
+                $var_dump_args...
             );
         }
     }
+
+    $args: meta.keywords($args);
 }
 
 ///
@@ -143,7 +151,9 @@
     $nestSelectorInParent: null,
     $parentSelector: &,
     $parentSelector_dump: config.$demo_parentSelector_dump_function,
-    $wrapOutput: config.$demo_wrapOutput
+    $useCompilerFn: false,
+    $wrapOutput: config.$demo_wrapOutput,
+    $var_dump_args...
 ) {
     $getFunction: config.config-valid-function(
         $getFunction,
@@ -163,9 +173,19 @@
             $wrapOutput: $wrapOutput
         ) {
             @if $parentSelector_dump {
-                @include meta.var-dump($name: '&', $var: &);
+                @include meta.var-dump(
+                    $name: '&',
+                    $var: &,
+                    $useCompilerFn: $useCompilerFn,
+                    $var_dump_args...
+                );
             }
-            @include meta.var-dump($name: $callSignature, $var: $returnValue);
+            @include meta.var-dump(
+                $name: $callSignature,
+                $var: $returnValue,
+                $useCompilerFn: $useCompilerFn,
+                $var_dump_args...
+            );
 
             @if $displayResult {
                 // display the selector result
@@ -178,4 +198,6 @@
             }
         }
     }
+
+    $args: meta.keywords($args);
 }

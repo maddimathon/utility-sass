@@ -1,0 +1,60 @@
+///
+/// @package @maddimathon/utility-sass@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../config' with (
+    $selector_headingsByRole: true
+);
+@forward '../tokens';
+@forward '../header';
+
+@use '../../modules/demo';
+@use '../../modules/meta';
+
+@use '../../lib' as *;
+
+/* # FUNCTIONS - SELECTORS
+ * ======================================================================== */
+
+/* selector-buttons-basic() ==================================== */
+$_fn_getSels_buttonsBasic: meta.get-function(selector-buttons-basic);
+@include demo.function(selector-buttons-basic, $_fn_getSels_buttonsBasic);
+@include demo.function(
+    selector-buttons-basic,
+    $_fn_getSels_buttonsBasic,
+    meta.arglist($withLinkVariants: true)
+);
+@include demo.function(
+    selector-buttons-basic,
+    $_fn_getSels_buttonsBasic,
+    meta.arglist($withLinkVariants: false)
+);
+
+$_allFunctions: ('get-extend-selectors-a', 'get-extend-selectors-all-buttons');
+
+@each $fnName in $_allFunctions {
+    /* #{$fnName}() ==================================== */
+
+    @include demo.function($fnName, meta.get-function($fnName), $outputMultiline: true);
+}
+
+/* get-extend-selectors-headings-global() ==================================== */
+$_fn_getSels_headingsGlobal: meta.get-function(get-extend-selectors-headings-global);
+@include demo.function(
+    get-extend-selectors-headings-global,
+    $_fn_getSels_headingsGlobal,
+    meta.arglist(token-all-heading-levels()),
+    $argsDump: '( token-all-heading-levels() )',
+    $outputMultiline: true
+);
+
+/* get-extend-selectors-headings-utils() ==================================== */
+$_fn_getSels_headingsGlobal: meta.get-function(get-extend-selectors-headings-utils);
+@include demo.function(
+    get-extend-selectors-headings-utils,
+    $_fn_getSels_headingsGlobal,
+    meta.arglist(token-all-heading-levels()),
+    $argsDump: '( token-all-heading-levels() )',
+    $outputMultiline: true
+);

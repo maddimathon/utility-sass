@@ -19,87 +19,90 @@
     /*
         config.$featureCheck_defaultToJS is a map:
 
-        "touch": </> true,
-        "whereSelector": </> true,
+        <:> ( "touch": </> true, "whereSelector": </> true )
      */
     /*
         config.$featureCheck_defaultToJS_supports is a map:
 
-        "touch": </> true,
-        "whereSelector": </> true,
+        <:> ( "touch": </> true, "whereSelector": </> true )
      */
     /*
         config.$featureCheck_defaultToJS_supports_not is a map:
-
-        "touch": </> true,
-        "whereSelector": </> true,
-        "aspectRatio": </> true,
-        "focusVisible": </> true,
+        <:> (
+            "touch": </> true,
+            "whereSelector": </> true,
+            "aspectRatio": </> true,
+            "focusVisible": </> true,
+        )
      */
     /* 
         config.$featureCheck_includeNoWhereSelectorFallback = </> true
      */
     /*
         config.$featureCheck_includeNoWhereSelectorFallback_supports_not is a map:
-
-        "aspectRatio": </> true,
-        "focusVisible": </> true,
-        "touch": </> false,
+        <:> (
+            "aspectRatio": </> true,
+            "focusVisible": </> true,
+            "touch": </> false,
+        )
      */
     /* 
         config.$featureCheck_jsScreenMediaQuery = </> true
      */
     /*
         config.$featureCheck_supports is a comma-separated list:
-
-        1: <S> aspectRatio,
-        2: <S> atProperty,
-        3: <S> backdropFilter,
-        4: <S> backgroundFixed,
-        5: <S> calc,
-        6: <S> displayContents,
-        7: <S> focusWithin,
-        8: <S> focusVisible,
-        9: <S> hasSelector,
-        10: <S> subgrid,
-        11: <S> textBox,
-        12: <S> touch,
-        13: <S> variableFonts,
-        14: <S> whereSelector,
+        <()> (
+            1: <S> aspectRatio,
+            2: <S> atProperty,
+            3: <S> backdropFilter,
+            4: <S> backgroundFixed,
+            5: <S> calc,
+            6: <S> displayContents,
+            7: <S> focusWithin,
+            8: <S> focusVisible,
+            9: <S> hasSelector,
+            10: <S> subgrid,
+            11: <S> textBox,
+            12: <S> touch,
+            13: <S> variableFonts,
+            14: <S> whereSelector,
+        )
      */
     /*
         config.$featureCheck_supportsQueries is a map:
-
-        "aspectRatio": <S> "( aspect-ratio: 1 / 2 )",
-        "backdropFilter": <S> "( backdrop-filter: blur(0.5rem) )",
-        "backgroundFixed": <S> "( background-attachment: fixed )",
-        "calc": <S> "( width: calc( 0.25em + 10% ) )",
-        "displayContents": <S> "( display: contents )",
-        "focusWithin": <S> "selector( a:focus-within )",
-        "focusVisible": <S> "selector( a:focus-visible )",
-        "hasSelector": <S> "selector( :has( a ) )",
-        "subgrid": <S> "( grid-template-columns: subgrid )",
-        "textBox": <S> "( text-box-edge: cap alphabetic ) and ( text-box-trim: trim-both )",
-        "variableFonts": <S> "font-tech( variations )",
-        "whereSelector": <S> "selector( :where( a ) )",
+        <:> (
+            "aspectRatio": <S> "( aspect-ratio: 1 / 2 )",
+            "backdropFilter": <S> "( backdrop-filter: blur(0.5rem) )",
+            "backgroundFixed": <S> "( background-attachment: fixed )",
+            "calc": <S> "( width: calc( 0.25em + 10% ) )",
+            "displayContents": <S> "( display: contents )",
+            "focusWithin": <S> "selector( a:focus-within )",
+            "focusVisible": <S> "selector( a:focus-visible )",
+            "hasSelector": <S> "selector( :has( a ) )",
+            "subgrid": <S> "( grid-template-columns: subgrid )",
+            "textBox": <S> "( text-box-edge: cap alphabetic ) and ( text-box-trim: trim-both )",
+            "variableFonts": <S> "font-tech( variations )",
+            "whereSelector": <S> "selector( :where( a ) )",
+        )
      */
     /*
         config.$featureCheck_supportsOverrides is a map:
-
-        "aspectRatio": </> true,
-        "atProperty": </> false,
-        "backdropFilter": </> true,
-        "backgroundFixed": </> false,
-        "calc": </> true,
-        "displayContents": </> false,
-        "focusWithin": </> true,
-        "focusVisible": </> false,
-        "hasSelector": </> true,
-        "subgrid": </> false,
-        "textBox": </> true,
-        "touch": </> false,
-        "variableFonts": </> true,
-        "whereSelector": </> false,
+        <:> (
+            "aspectRatio": </> true,
+            "atProperty": </> false,
+            "backdropFilter": </> true,
+            "backgroundFixed": </> false,
+            "calc": </> true,
+            "displayContents": </> false,
+            "focusWithin": </> true,
+            "focusVisible": </> false,
+            "hasSelector": </> true,
+            "subgrid": </> false,
+            "textBox": </> true,
+            "touch": </> false,
+            "variableFonts": </> true,
+            "whereSelector": </> false,
+        )
      */
 }
 /* # MODULES - FEATURE CHECK
@@ -109,12 +112,12 @@
         /*
             & is a comma-separated list:
 
-            1: <()> ( <S> .whereSelector--true ),
+            <()> ( <()> ( <S> .whereSelector--true ) )
          */
         /*
             feature-check.get-selector( whereSelector, $bool: true ) is a comma-separated list:
 
-            1: <()> ( <()> ( <S> :where(.js) <S> .whereSelector--true ) ),
+            <()> ( <()> ( <S> :where(.js) <S> .whereSelector--true ) )
          */
     }
     @demo return {
@@ -128,15 +131,16 @@
     /*
         feature-check.get-selector( whereSelector, $bool: false ) is a comma-separated list:
 
-        1: <()> ( <()> ( <S> :where(.js__no-whereSelector) <S> .whereSelector--false ) ),
+        <()> ( <()> ( <S> :where(.js__no-whereSelector) <S> .whereSelector--false ) )
      */
 }
 .whereSelector--true.with-extra {
     /*
         feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) ) is a comma-separated list:
-
-        1: <S> extra-selector,
-        2: <()> ( <()> ( <S> :where(.js) <S> .whereSelector--true.with-extra ) ),
+        <()> (
+            1: <S> extra-selector,
+            2: <()> ( <S> :where(.js) <S> .whereSelector--true.with-extra ),
+        )
      */
 }
 
@@ -144,22 +148,23 @@
     /*
         feature-check.get-selector( aspectRatio, $bool: true ) is a comma-separated list:
 
-        1: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true ) ),
+        <()> ( <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true ) )
      */
 }
 .aspectRatio--false {
     /*
         feature-check.get-selector( aspectRatio, $bool: false ) is a comma-separated list:
 
-        1: <()> ( <()> ( <S> :where(.js__no-aspectRatio) <S> .aspectRatio--false ) ),
+        <()> ( <()> ( <S> :where(.js__no-aspectRatio) <S> .aspectRatio--false ) )
      */
 }
 .aspectRatio--true.with-extra {
     /*
         feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) ) is a comma-separated list:
-
-        1: <S> extra-selector,
-        2: <()> ( <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true.with-extra ) ),
+        <()> (
+            1: <S> extra-selector,
+            2: <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true.with-extra ),
+        )
      */
 }
 

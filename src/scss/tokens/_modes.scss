@@ -123,3 +123,16 @@ $contrastMode_default: config.config-valid-string(
     $default: list.nth($contrastMode_all, 1),
     $options: $contrastMode_all,
 );
+
+///
+/// Selectors for all button variations.
+///
+/// @since ___PKG_VERSION___
+///
+$selector_button_variants: null !default;
+$selector_button_variants: config.config-valid-map-selector(
+    $selector_button_variants,
+    'selector_button_variants',
+    $default: (),
+    $allowEmpty: false
+);

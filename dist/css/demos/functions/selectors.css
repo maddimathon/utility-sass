@@ -1,0 +1,370 @@
+/*!
+ * Utility Sass - Demo
+ * 
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ * 
+ * https://maddimathon.github.io/utility-sass
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
+ */
+/* # FUNCTIONS - SELECTORS
+ * ======================================================================== */
+/* selector-buttons-basic() ==================================== */
+/*
+    selector-buttons-basic() is a comma-separated list:
+    <()> (
+        1: <S> button,
+        2: <S> [role=button],
+        3: <S> input[type=button],
+        4: <S> input[type=reset],
+        5: <S> input[type=submit],
+        6: <()> ( <S> a[href].button ),
+        7: <()> ( <S> a[href].button-primary ),
+        8: <()> ( <S> a[href].button-secondary ),
+    )
+ */
+/*
+    selector-buttons-basic( $withLinkVariants: true ) is a comma-separated list:
+    <()> (
+        1: <S> button,
+        2: <S> [role=button],
+        3: <S> input[type=button],
+        4: <S> input[type=reset],
+        5: <S> input[type=submit],
+        6: <()> ( <S> a[href].button ),
+        7: <()> ( <S> a[href].button-primary ),
+        8: <()> ( <S> a[href].button-secondary ),
+    )
+ */
+/*
+    selector-buttons-basic( $withLinkVariants: false ) is a comma-separated list:
+    <()> (
+        1: <S> button,
+        2: <S> [role=button],
+        3: <S> input[type=button],
+        4: <S> input[type=reset],
+        5: <S> input[type=submit],
+        6: <()> ( <S> a[href].button ),
+    )
+ */
+/* get-extend-selectors-a() ==================================== */
+/*
+    get-extend-selectors-a() is a comma-separated list:
+    <()> (
+        1: <()> ( 1: <S> a[href], 2: <S> a ),
+        2: <()> (
+            1: <()> ( <()> ( <S> a[href][aria-disabled=true] ) ),
+            2: <S> a-disabled,
+        ),
+        3: <()> ( 1: <()> ( <()> ( <S> a[href]:visited ) ), 2: <S> a-visited ),
+        4: <()> (
+            1: <()> ( <()> ( <S> a[href][aria-disabled=true]:visited ) ),
+            2: <S> a-disabled-visited,
+        ),
+    )
+ */
+/* get-extend-selectors-all-buttons() ==================================== */
+/*
+    get-extend-selectors-all-buttons() is a comma-separated list:
+    <()> (
+        1: <()> (
+            1: <()> (
+                1: <()> ( <S> button ),
+                2: <()> ( <S> [role=button] ),
+                3: <()> ( <S> input[type=button] ),
+                4: <()> ( <S> input[type=reset] ),
+                5: <()> ( <S> input[type=submit] ),
+                6: <()> ( <S> a[href].button ),
+            ),
+            2: <S> "button",
+        ),
+        2: <()> (
+            1: <()> (
+                1: <()> ( <S> button[aria-disabled=true] ),
+                2: <()> ( <S> button[disabled] ),
+                3: <()> ( <S> [role=button][aria-disabled=true] ),
+                4: <()> ( <S> [role=button][disabled] ),
+                5: <()> ( <S> input[type=button][aria-disabled=true] ),
+                6: <()> ( <S> input[type=button][disabled] ),
+                7: <()> ( <S> input[type=reset][aria-disabled=true] ),
+                8: <()> ( <S> input[type=reset][disabled] ),
+                9: <()> ( <S> input[type=submit][aria-disabled=true] ),
+                10: <()> ( <S> input[type=submit][disabled] ),
+                11: <()> ( <S> a[href].button[aria-disabled=true] ),
+                12: <()> ( <S> a[href].button[disabled] ),
+            ),
+            2: <S> "button-disabled",
+        ),
+        3: <()> (
+            1: <()> (
+                1: <()> ( <S> [role=button]:visited ),
+                2: <()> ( <S> a[href].button:visited ),
+            ),
+            2: <S> "button-visited",
+        ),
+        4: <()> (
+            1: <()> (
+                1: <()> ( <S> [role=button][aria-disabled=true]:visited ),
+                2: <()> ( <S> [role=button][disabled]:visited ),
+                3: <()> ( <S> a[href].button[aria-disabled=true]:visited ),
+                4: <()> ( <S> a[href].button[disabled]:visited ),
+            ),
+            2: <S> "button-disabled-visited",
+        ),
+        5: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-primary ),
+                2: <()> ( <S> button.button-primary ),
+                3: <()> ( <S> [role=button].button-primary ),
+                4: <()> ( <S> input[type=button].button-primary ),
+                5: <()> ( <S> input[type=reset].button-primary ),
+                6: <()> ( <S> input[type=submit].button-primary ),
+                7: <()> ( <S> a[href].button-primary:visited ),
+                8: <()> ( <S> [role=button].button-primary:visited ),
+            ),
+            2: <S> "button-primary",
+        ),
+        6: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-primary[aria-disabled=true] ),
+                2: <()> ( <S> a[href].button-primary[disabled] ),
+                3: <()> ( <S> button.button-primary[aria-disabled=true] ),
+                4: <()> ( <S> button.button-primary[disabled] ),
+                5: <()> ( <S> [role=button].button-primary[aria-disabled=true] ),
+                6: <()> ( <S> [role=button].button-primary[disabled] ),
+                7: <()> ( <S> input[type=button].button-primary[aria-disabled=true] ),
+                8: <()> ( <S> input[type=button].button-primary[disabled] ),
+                9: <()> ( <S> input[type=reset].button-primary[aria-disabled=true] ),
+                10: <()> ( <S> input[type=reset].button-primary[disabled] ),
+                11: <()> ( <S> input[type=submit].button-primary[aria-disabled=true] ),
+                12: <()> ( <S> input[type=submit].button-primary[disabled] ),
+            ),
+            2: <S> "button-disabled",
+        ),
+        7: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-primary:visited ),
+                2: <()> ( <S> [role=button].button-primary:visited ),
+            ),
+            2: <S> "button-visited",
+        ),
+        8: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-primary[aria-disabled=true]:visited ),
+                2: <()> ( <S> a[href].button-primary[disabled]:visited ),
+                3: <()> ( <S> [role=button].button-primary[aria-disabled=true]:visited ),
+                4: <()> ( <S> [role=button].button-primary[disabled]:visited ),
+            ),
+            2: <S> "button-disabled-visited",
+        ),
+        9: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-secondary ),
+                2: <()> ( <S> button.button-secondary ),
+                3: <()> ( <S> [role=button].button-secondary ),
+                4: <()> ( <S> input[type=button].button-secondary ),
+                5: <()> ( <S> input[type=reset].button-secondary ),
+                6: <()> ( <S> input[type=submit].button-secondary ),
+                7: <()> ( <S> a[href].button-secondary:visited ),
+                8: <()> ( <S> [role=button].button-secondary:visited ),
+            ),
+            2: <S> "button-secondary",
+        ),
+        10: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-secondary[aria-disabled=true] ),
+                2: <()> ( <S> a[href].button-secondary[disabled] ),
+                3: <()> ( <S> button.button-secondary[aria-disabled=true] ),
+                4: <()> ( <S> button.button-secondary[disabled] ),
+                5: <()> ( <S> [role=button].button-secondary[aria-disabled=true] ),
+                6: <()> ( <S> [role=button].button-secondary[disabled] ),
+                7: <()> ( <S> input[type=button].button-secondary[aria-disabled=true] ),
+                8: <()> ( <S> input[type=button].button-secondary[disabled] ),
+                9: <()> ( <S> input[type=reset].button-secondary[aria-disabled=true] ),
+                10: <()> ( <S> input[type=reset].button-secondary[disabled] ),
+                11: <()> ( <S> input[type=submit].button-secondary[aria-disabled=true] ),
+                12: <()> ( <S> input[type=submit].button-secondary[disabled] ),
+            ),
+            2: <S> "button-disabled",
+        ),
+        11: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-secondary:visited ),
+                2: <()> ( <S> [role=button].button-secondary:visited ),
+            ),
+            2: <S> "button-visited",
+        ),
+        12: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-secondary[aria-disabled=true]:visited ),
+                2: <()> ( <S> a[href].button-secondary[disabled]:visited ),
+                3: <()> ( <S> [role=button].button-secondary[aria-disabled=true]:visited ),
+                4: <()> ( <S> [role=button].button-secondary[disabled]:visited ),
+            ),
+            2: <S> "button-disabled-visited",
+        ),
+    )
+ */
+/* get-extend-selectors-headings-global() ==================================== */
+/*
+    get-extend-selectors-headings-global( token-all-heading-levels() ) is a comma-separated list:
+    <()> (
+        1: <S> h1,
+        2: <S> h2,
+        3: <S> h3,
+        4: <S> h4,
+        5: <S> h5,
+        6: <S> h6,
+        7: <()> ( 1: <S> "hgroup %h1", 2: <S> "h1--hgroup" ),
+        8: <()> (
+            1: <S> ':where( [role=heading][aria-level="1"] )',
+            2: <S> "h1--where",
+        ),
+        9: <()> (
+            1: <S> 'hgroup :where( [role=heading][aria-level="1"] )',
+            2: <S> "h1--where--hgroup",
+        ),
+        10: <()> ( 1: <S> "hgroup %h2", 2: <S> "h2--hgroup" ),
+        11: <()> (
+            1: <S> ':where( [role=heading][aria-level="2"] )',
+            2: <S> "h2--where",
+        ),
+        12: <()> (
+            1: <S> 'hgroup :where( [role=heading][aria-level="2"] )',
+            2: <S> "h2--where--hgroup",
+        ),
+        13: <()> ( 1: <S> "hgroup %h3", 2: <S> "h3--hgroup" ),
+        14: <()> (
+            1: <S> ':where( [role=heading][aria-level="3"] )',
+            2: <S> "h3--where",
+        ),
+        15: <()> (
+            1: <S> 'hgroup :where( [role=heading][aria-level="3"] )',
+            2: <S> "h3--where--hgroup",
+        ),
+        16: <()> ( 1: <S> "hgroup %h4", 2: <S> "h4--hgroup" ),
+        17: <()> (
+            1: <S> ':where( [role=heading][aria-level="4"] )',
+            2: <S> "h4--where",
+        ),
+        18: <()> (
+            1: <S> 'hgroup :where( [role=heading][aria-level="4"] )',
+            2: <S> "h4--where--hgroup",
+        ),
+        19: <()> ( 1: <S> "hgroup %h5", 2: <S> "h5--hgroup" ),
+        20: <()> (
+            1: <S> ':where( [role=heading][aria-level="5"] )',
+            2: <S> "h5--where",
+        ),
+        21: <()> (
+            1: <S> 'hgroup :where( [role=heading][aria-level="5"] )',
+            2: <S> "h5--where--hgroup",
+        ),
+        22: <()> ( 1: <S> "hgroup %h6", 2: <S> "h6--hgroup" ),
+        23: <()> (
+            1: <S> ':where( [role=heading][aria-level="6"] )',
+            2: <S> "h6--where",
+        ),
+        24: <()> (
+            1: <S> 'hgroup :where( [role=heading][aria-level="6"] )',
+            2: <S> "h6--where--hgroup",
+        ),
+        25: <()> ( 1: <S> "hgroup %h7", 2: <S> "h7--hgroup" ),
+        26: <()> (
+            1: <S> ':where( [role=heading][aria-level="7"] )',
+            2: <S> "h7--where",
+        ),
+        27: <()> (
+            1: <S> 'hgroup :where( [role=heading][aria-level="7"] )',
+            2: <S> "h7--where--hgroup",
+        ),
+        28: <()> ( 1: <S> "hgroup %h8", 2: <S> "h8--hgroup" ),
+        29: <()> (
+            1: <S> ':where( [role=heading][aria-level="8"] )',
+            2: <S> "h8--where",
+        ),
+        30: <()> (
+            1: <S> 'hgroup :where( [role=heading][aria-level="8"] )',
+            2: <S> "h8--where--hgroup",
+        ),
+    )
+ */
+/* get-extend-selectors-headings-utils() ==================================== */
+/*
+    get-extend-selectors-headings-utils( token-all-heading-levels() ) is a comma-separated list:
+    <()> (
+        1: <()> ( 1: <S> ".unstyled-heading", 2: <S> unstyled-heading--class ),
+        2: <()> (
+            1: <S> "hgroup .unstyled-heading",
+            2: <S> unstyled-heading--class--hgroup,
+        ),
+        3: <()> (
+            1: <S> ".unstyled-heading__hgroup",
+            2: <S> unstyled-heading--class__hgroup,
+        ),
+        4: <()> (
+            1: <S> ".unstyled-heading__subheading",
+            2: <S> unstyled-heading--class__subheading,
+        ),
+        5: <()> (
+            1: <S> "hgroup %unstyled-heading",
+            2: <S> unstyled-heading--hgroup,
+        ),
+        6: <()> (
+            1: <S> "hgroup %unstyled-heading--where",
+            2: <S> unstyled-heading--where--hgroup,
+        ),
+        7: <()> ( 1: <S> ".unstyled-heading", 2: <S> unstyled-heading ),
+        8: <()> (
+            1: <S> ".unstyled-heading__hgroup",
+            2: <S> unstyled-heading__hgroup,
+        ),
+        9: <()> (
+            1: <S> ".unstyled-heading__subheading",
+            2: <S> unstyled-heading__subheading,
+        ),
+        10: <()> ( 1: <S> ".page-title", 2: <S> title ),
+        11: <()> ( 1: <S> ".page-title__subheading", 2: <S> title__subheading ),
+        12: <()> ( 1: <S> ".h1", 2: <S> "h1" ),
+        13: <()> ( 1: <S> ".h1__hgroup", 2: <S> "h1__hgroup" ),
+        14: <()> ( 1: <S> ".h1__subheading", 2: <S> "h1__subheading" ),
+        15: <()> ( 1: <S> ".h2", 2: <S> "h2" ),
+        16: <()> ( 1: <S> ".h2__hgroup", 2: <S> "h2__hgroup" ),
+        17: <()> ( 1: <S> ".h2__subheading", 2: <S> "h2__subheading" ),
+        18: <()> ( 1: <S> ".h3", 2: <S> "h3" ),
+        19: <()> ( 1: <S> ".h3__hgroup", 2: <S> "h3__hgroup" ),
+        20: <()> ( 1: <S> ".h3__subheading", 2: <S> "h3__subheading" ),
+        21: <()> ( 1: <S> ".h4", 2: <S> "h4" ),
+        22: <()> ( 1: <S> ".h4__hgroup", 2: <S> "h4__hgroup" ),
+        23: <()> ( 1: <S> ".h4__subheading", 2: <S> "h4__subheading" ),
+        24: <()> ( 1: <S> ".h5", 2: <S> "h5" ),
+        25: <()> ( 1: <S> ".h5__hgroup", 2: <S> "h5__hgroup" ),
+        26: <()> ( 1: <S> ".h5__subheading", 2: <S> "h5__subheading" ),
+        27: <()> ( 1: <S> ".h6", 2: <S> "h6" ),
+        28: <()> ( 1: <S> ".h6__hgroup", 2: <S> "h6__hgroup" ),
+        29: <()> ( 1: <S> ".h6__subheading", 2: <S> "h6__subheading" ),
+        30: <()> ( 1: <S> ".h7", 2: <S> "h7" ),
+        31: <()> ( 1: <S> ".h7__hgroup", 2: <S> "h7__hgroup" ),
+        32: <()> ( 1: <S> ".h7__subheading", 2: <S> "h7__subheading" ),
+        33: <()> ( 1: <S> ".h8", 2: <S> "h8" ),
+        34: <()> ( 1: <S> ".h8__hgroup", 2: <S> "h8__hgroup" ),
+        35: <()> ( 1: <S> ".h8__subheading", 2: <S> "h8__subheading" ),
+        36: <()> (
+            1: <()> (
+                1: <()> ( <S> h1.unstyled-heading ),
+                2: <()> ( <S> h2.unstyled-heading ),
+                3: <()> ( <S> h3.unstyled-heading ),
+                4: <()> ( <S> h4.unstyled-heading ),
+                5: <()> ( <S> h5.unstyled-heading ),
+                6: <()> ( <S> h6.unstyled-heading ),
+            ),
+            2: <S> "unstyled-heading",
+        ),
+        37: <()> (
+            1: <S> ".unstyled-heading:where([role=heading])",
+            2: <S> "unstyled-heading--where",
+        ),
+    )
+ */

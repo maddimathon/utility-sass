@@ -31,19 +31,21 @@ import { sassAssertValueType } from '../sassAssertValueType.js';
  */
 export function sassFn_jsVarDump(
     { console, params, try: tryFn }: Stage,
-): { 'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': sass.CustomFunction<'async'>; } {
+): { 'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level, $returnInspection )': sass.CustomFunction<'async'>; } {
 
     return {
-        'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': async ( args: sass.Value[] ) => {
+        'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level, $returnInspection )': async ( args: sass.Value[] ) => {
 
             let [
                 uniqueID,
                 varName = 'var',
                 level = 1,
+                returnInspection = false,
             ] = await Promise.all( [
                 sassAssertValueType( 'uniqueID', 'string', args[ 0 ], true ),
                 sassAssertValueType( 'name', 'string', args[ 2 ], true ),
                 sassAssertValueType( 'level', 'number', args[ 3 ], true ),
+                sassAssertValueType( 'returnInspection', 'bool', args[ 4 ], true ),
             ] );
 
             const value = args[ 1 ];
@@ -61,17 +63,17 @@ export function sassFn_jsVarDump(
                 false,
             );
 
-            const returnString = `meta.js-var-dump()${ uniqueID ? ` [id: ${ uniqueID }]` : '' } - ${ varName }`;
+            const returnString = `[meta.js-var-dump${ uniqueID ? ` - id: ${ uniqueID }` : '' }]`;
 
             // returns on error
             if ( !inspection ) {
-                return new sass.SassString( `${ returnString } [error]`, { quotes: false } );
+                return new sass.SassString( `${ returnString } - ${ varName } [error]`, { quotes: false } );
             }
 
             console.log(
                 [
                     [
-                        `[Sass: meta.js-var-dump()]${ uniqueID ? ` [id: ${ uniqueID }]` : '' }`,
+                        `[Sass: meta.js-var-dump()]${ uniqueID ? ` [id: ${ uniqueID }]` : '' } - ${ varName }:`,
                         { bold: true, clr: 'grey' },
                     ],
                     [ inspection, { clr: 'black', maxWidth: null } ],
@@ -85,6 +87,19 @@ export function sassFn_jsVarDump(
                     linesOut: 0,
                 },
             );
+
+            // returns
+            if ( returnInspection ) {
+
+                return new sass.SassList(
+                    [
+                        new sass.SassString( returnString, { quotes: false } ),
+                        ...inspection.split( /\n/g ).map(
+                            line => new sass.SassString( line, { quotes: false } )
+                        ),
+                    ]
+                );
+            }
 
             return new sass.SassString( returnString, { quotes: false } );
         },

@@ -4,9 +4,10 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.1
+ * @maddimathon/utility-sass@0.3.0-draft
  * @license MIT
  */
+import { sassFn_debugProgressCheckpoint } from './sass/debugProgressCheckpoint.js';
 import { sassFn_getCurrentVersion } from './sass/getCurrentVersion.js';
 import { sassFn_jsVarDump } from './sass/jsVarDump.js';
 import { sassFn_colour_isColourLike } from './sass/colour_isColourLike.js';
@@ -21,7 +22,6 @@ import { sassFn_string_match } from './sass/string_match.js';
 import { sassFn_string_regexReplace } from './sass/string_regexReplace.js';
 import { sassFn_string_regexSplit } from './sass/string_regexSplit.js';
 import { sassFn_string_softWrap } from './sass/string_softWrap.js';
-import { sassFn_debugProgressCheckpoint } from './sass/debugProgressCheckpoint.js';
 /**
  * Compiles the functions available from this package (intended as compiler
  * functions to support the package's modules) into a {@link sass.Options}-ready

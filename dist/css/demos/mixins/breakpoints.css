@@ -344,8 +344,12 @@
                     breakpoints {
                     /*
                         & is a comma-separated list:
-
-                        1: <()> ( <S> :where(:root:not([data-viewport-width-mobile=min])) <S> breakpoints ),
+                        <()> (
+                            1: <()> (
+                                1: <S> :where(:root:not([data-viewport-width-mobile=min]))
+                                2: <S> breakpoints
+                            ),
+                        )
                      */
                     /* @include feature-check.supports( whereSelector ) {} */
                 }
@@ -357,8 +361,12 @@
                         /* [feature-check.supports] @content; */
                         /*
                             & is a comma-separated list:
-
-                            1: <()> ( <S> :where(:root:not([data-viewport-width-mobile=min])):where(.js) <S> breakpoints ),
+                            <()> (
+                                1: <()> (
+                                    1: <S> :where(:root:not([data-viewport-width-mobile=min])):where(.js)
+                                    2: <S> breakpoints
+                                ),
+                            )
                          */
                     }
                 }
@@ -371,8 +379,9 @@
             :where([data-viewport-width-mobile='max']) breakpoints {
                 /*
                     & is a comma-separated list:
-
-                    1: <()> ( <S> :where([data-viewport-width-mobile=max]) <S> breakpoints ),
+                    <()> (
+                        1: <()> ( <S> :where([data-viewport-width-mobile=max]) <S> breakpoints ),
+                    )
                  */
                 /* @include feature-check.supports( whereSelector ) {} */
             }
@@ -382,8 +391,12 @@
                     /* [feature-check.supports] @content; */
                     /*
                         & is a comma-separated list:
-
-                        1: <()> ( <S> :where([data-viewport-width-mobile=max]):where(.js) <S> breakpoints ),
+                        <()> (
+                            1: <()> (
+                                1: <S> :where([data-viewport-width-mobile=max]):where(.js)
+                                2: <S> breakpoints
+                            ),
+                        )
                      */
                 }
             }

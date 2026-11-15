@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.2.1
+/// @package @maddimathon/utility-sass@0.3.0-draft
 /// @since 0.1.0-beta
 ///
 
@@ -105,9 +105,9 @@
             }
         }
 
-        $merged_selectors: list.append(
+        $merged_selectors: list.join(
             $merged_selectors,
-            $singleSelector,
+            selector.parse(#{$singleSelector}),
             $separator: comma
         );
     }

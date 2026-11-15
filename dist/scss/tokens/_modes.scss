@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.2.1
+/// @package @maddimathon/utility-sass@0.3.0-draft
 /// @since 0.1.0-pre
 ///
 
@@ -126,4 +126,17 @@ $contrastMode_default: config.config-valid-string(
     $name: 'contrastMode_default',
     $default: list.nth($contrastMode_all, 1),
     $options: $contrastMode_all,
+);
+
+///
+/// Selectors for all button variations.
+///
+/// @since 0.3.0-draft
+///
+$selector_button_variants: null !default;
+$selector_button_variants: config.config-valid-map-selector(
+    $selector_button_variants,
+    'selector_button_variants',
+    $default: (),
+    $allowEmpty: false
 );

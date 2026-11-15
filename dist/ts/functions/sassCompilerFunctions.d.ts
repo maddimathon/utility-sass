@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.1
+ * @maddimathon/utility-sass@0.3.0-draft
  * @license MIT
  */
 import type { Stage } from '@maddimathon/build-utilities';
@@ -24,7 +24,7 @@ export declare function sassCompilerFunctions(args: Stage): Readonly<{
     'mmutils-colour-is-colour-like( $clr )': sass.CustomFunction<'async'>;
     'mmutils-colour-is-keyword( $clr )': sass.CustomFunction<'async'>;
     'mmutils-colour-is-system-color( $clr )': sass.CustomFunction<'async'>;
-    'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': sass.CustomFunction<'async'>;
+    'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level, $returnInspection )': sass.CustomFunction<'async'>;
     'mmutils-list-slice( $list, $start: 1, $end: null )': sass.CustomFunction<'async'>;
     'mmutils-map-merge( $defaults, $inputs, $recursive: false, $respectUNDEFINED: false, $sort: false, $sortAs: "string", $sortReverse: false )': sass.CustomFunction<'async'>;
     'mmutils-math-coerce-unit( $num, $unit )': sass.CustomFunction<'async'>;

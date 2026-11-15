@@ -48,7 +48,9 @@
     $parentSelector_dump,
     $separateSignature,
     $signatureAsRegion,
-    $signatureAtRoot
+    $signatureAtRoot,
+    $useCompilerFn,
+    $var_dump_args...
 ) {
     @if $acceptsContent {
         $_contentRule_mixinName: if($includeNameWithContent, $mixinName, null);
@@ -68,7 +70,12 @@
                     $mixinName: $_contentRule_mixinName
                 );
                 @if $parentSelector_dump {
-                    @include meta.var-dump('&', &);
+                    @include meta.var-dump(
+                        '&',
+                        &,
+                        $useCompilerFn: $useCompilerFn,
+                        $var_dump_args...
+                    );
                 }
                 @content;
             }
@@ -161,8 +168,10 @@
     $separateSignature: config.$demo_separateSignature,
     $signatureAsRegion: config.$demo_signatureAsRegion,
     $signatureAtRoot: config.$demo_signatureAtRoot,
+    $useCompilerFn: false,
     $wrapOutput: config.$demo_wrapOutput,
-    $wrapCallSignature: $wrapOutput and config.$demo_wrapCallSignature_mixin
+    $wrapCallSignature: $wrapOutput and config.$demo_wrapCallSignature_mixin,
+    $var_dump_args...
 ) {
     $getMixin: config.config-valid-mixin(
         $getMixin,
@@ -197,7 +206,12 @@
 
                 @if $separateSignature {
                     @if $parentSelector_dump {
-                        @include meta.var-dump('&', &);
+                        @include meta.var-dump(
+                            '&',
+                            &,
+                            $useCompilerFn: $useCompilerFn,
+                            $var_dump_args...
+                        );
                     }
                     @include _signature(
                         $args: $args,
@@ -223,7 +237,9 @@
                                 $parentSelector_dump: $parentSelector_dump,
                                 $separateSignature: $separateSignature,
                                 $signatureAsRegion: $signatureAsRegion,
-                                $signatureAtRoot: $signatureAtRoot
+                                $signatureAtRoot: $signatureAtRoot,
+                                $useCompilerFn: $useCompilerFn,
+                                $var_dump_args...
                             ) {
                                 @content;
                             }
@@ -232,7 +248,12 @@
                 } @else {
                     @include meta.at(demo, output) {
                         @if $parentSelector_dump {
-                            @include meta.var-dump('&', &);
+                            @include meta.var-dump(
+                                '&',
+                                &,
+                                $useCompilerFn: $useCompilerFn,
+                                $var_dump_args...
+                            );
                         }
                         @if $displayOutput_callSignature {
                             /* #{$callSignature} */
@@ -248,7 +269,9 @@
                             $parentSelector_dump: $parentSelector_dump,
                             $separateSignature: $separateSignature,
                             $signatureAsRegion: $signatureAsRegion,
-                            $signatureAtRoot: $signatureAtRoot
+                            $signatureAtRoot: $signatureAtRoot,
+                            $useCompilerFn: $useCompilerFn,
+                            $var_dump_args...
                         ) {
                             @content;
                         }
@@ -256,7 +279,12 @@
                 }
             } @else {
                 @if $parentSelector_dump {
-                    @include meta.var-dump('&', &);
+                    @include meta.var-dump(
+                        '&',
+                        &,
+                        $useCompilerFn: $useCompilerFn,
+                        $var_dump_args...
+                    );
                 }
 
                 @if $separateSignature {
@@ -279,7 +307,9 @@
                             $parentSelector_dump: $parentSelector_dump,
                             $separateSignature: $separateSignature,
                             $signatureAsRegion: $signatureAsRegion,
-                            $signatureAtRoot: $signatureAtRoot
+                            $signatureAtRoot: $signatureAtRoot,
+                            $useCompilerFn: $useCompilerFn,
+                            $var_dump_args...
                         ) {
                             @content;
                         }
@@ -295,7 +325,9 @@
                         $parentSelector_dump: $parentSelector_dump,
                         $separateSignature: $separateSignature,
                         $signatureAsRegion: $signatureAsRegion,
-                        $signatureAtRoot: $signatureAtRoot
+                        $signatureAtRoot: $signatureAtRoot,
+                        $useCompilerFn: $useCompilerFn,
+                        $var_dump_args...
                     ) {
                         @content;
                     }
@@ -303,4 +335,6 @@
             }
         }
     }
+
+    $args: meta.keywords($args);
 }

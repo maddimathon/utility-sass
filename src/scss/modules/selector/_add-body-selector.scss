@@ -91,7 +91,11 @@
             }
         }
 
-        $merged_selectors: list.append($merged_selectors, $singleSelector, $separator: comma);
+        $merged_selectors: list.join(
+            $merged_selectors,
+            selector.parse(#{$singleSelector}),
+            $separator: comma
+        );
     }
 
     @return $merged_selectors;

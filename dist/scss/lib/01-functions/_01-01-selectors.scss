@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.2.1
+/// @package @maddimathon/utility-sass@0.3.0-draft
 /// @since 0.1.0-pre
 ///
 
@@ -319,11 +319,29 @@ $_selector_buttons: list.join(
     $separator: comma
 );
 
+$_selector_buttons_link_variants: ();
+
+@each $variant, $sel_variant in tokens.$selector_button_variants {
+    $_selector_buttons_link_variants: list.join(
+        $_selector_buttons_link_variants,
+        selector.unify(config.$selector_a, $sel_variant),
+        $separator: comma
+    );
+}
+
 ///
 /// @since 0.1.0-beta
 ///
-@function selector-buttons-basic() {
-    @return $_selector_buttons;
+@function selector-buttons-basic($withLinkVariants: true) {
+    @return if(
+        $withLinkVariants,
+        list.join(
+            $_selector_buttons,
+            $_selector_buttons_link_variants,
+            $separator: comma
+        ),
+        $_selector_buttons
+    );
 }
 
 ///

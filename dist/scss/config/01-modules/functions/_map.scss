@@ -1,0 +1,214 @@
+///
+/// @package @maddimathon/utility-sass@0.3.0-draft
+/// @since 0.3.0-draft
+///
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+
+@use 'number' as *;
+@use 'selector' as *;
+@use 'string' as *;
+@use 'warnings' as *;
+
+///
+/// Validates the value of a config variable that should be a map.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}       $value  The variable's value.
+/// @param {string}    $name   The variable's name.
+///
+/// @param {string[]} $default  Default value to return if $value is invalid.
+///
+/// @since 0.3.0-draft
+///
+@function config-valid-map($value, $name, $default) {
+    // returns - value is to be default
+    @if $value == null {
+        @return $default;
+    }
+
+    // returns - empty list
+    @if list.length($value) < 1 {
+        @return $value;
+    }
+
+    // returns - value is not a map
+    @if meta.type-of($value) != map {
+        @warn #{config-warning-message-bad-type( $value: $value, $type: map, $varName: $varName )};
+        @return $default;
+    }
+
+    $valid_map: ();
+
+    @each $key, $item in $value {
+        $valid_map: map.set($valid_map, $key, $item);
+    }
+
+    @return $valid_map;
+}
+
+///
+/// Validates the value of a config variable that should be a map with number values.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}       $value  The variable's value.
+/// @param {string}    $name   The variable's name.
+///
+/// @param {string[]} $default  Default value to return if $value is invalid.
+///
+/// @since 0.3.0-draft
+///
+@function config-valid-map-number($value, $name, $default, $args...) {
+    // returns - value is to be default
+    @if $value == null {
+        $args: meta.keywords($args);
+        @return $default;
+    }
+
+    // returns - empty list
+    @if list.length($value) < 1 {
+        $args: meta.keywords($args);
+        @return $value;
+    }
+
+    // returns - value is not a map
+    @if meta.type-of($value) != map {
+        $args: meta.keywords($args);
+        @warn #{config-warning-message-bad-type( $value: $value, $type: map, $varName: $varName )};
+        @return $default;
+    }
+
+    $valid_map: ();
+
+    $fail_return: 'FAILED_VALIDATION_1568413546dsafdgfsd354scadsvnsfgnj65';
+
+    @each $key, $item in $value {
+        // validates the item
+        $valid_item: config-valid-number(
+            $item,
+            '#{$name}.#{$key}',
+            $default: $fail_return,
+            $args...
+        );
+
+        @if $valid_item != $fail_return {
+            // adds item to the valid list
+            $valid_map: map.set($valid_map, $key, $valid_item);
+        }
+    }
+
+    @return $valid_map;
+}
+
+///
+/// Validates the value of a config variable that should be a map with selector values.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}       $value  The variable's value.
+/// @param {string}    $name   The variable's name.
+///
+/// @param {string[]} $default  Default value to return if $value is invalid.
+///
+/// @since 0.3.0-draft
+///
+@function config-valid-map-selector($value, $name, $default, $args...) {
+    // returns - value is to be default
+    @if $value == null {
+        $args: meta.keywords($args);
+        @return $default;
+    }
+
+    // returns - empty list
+    @if list.length($value) < 1 {
+        $args: meta.keywords($args);
+        @return $value;
+    }
+
+    // returns - value is not a map
+    @if meta.type-of($value) != map {
+        $args: meta.keywords($args);
+        @warn #{config-warning-message-bad-type( $value: $value, $type: map, $varName: $varName )};
+        @return $default;
+    }
+
+    $valid_map: ();
+
+    $fail_return: 'FAILED_VALIDATION_1568413546dsafdgfsd354scadsvnsfgnj65';
+
+    @each $key, $item in $value {
+        // validates the item
+        $valid_item: config-valid-selector(
+            $item,
+            '#{$name}.#{$key}',
+            $default: $fail_return,
+            $args...
+        );
+
+        @if $valid_item != $fail_return {
+            // adds item to the valid list
+            $valid_map: map.set($valid_map, $key, $valid_item);
+        }
+    }
+
+    @return $valid_map;
+}
+
+///
+/// Validates the value of a config variable that should be a map with string values.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}       $value  The variable's value.
+/// @param {string}    $name   The variable's name.
+///
+/// @param {string[]} $default  Default value to return if $value is invalid.
+///
+/// @since 0.3.0-draft
+///
+@function config-valid-map-string($value, $name, $default, $args...) {
+    // returns - value is to be default
+    @if $value == null {
+        $args: meta.keywords($args);
+        @return $default;
+    }
+
+    // returns - empty list
+    @if list.length($value) < 1 {
+        $args: meta.keywords($args);
+        @return $value;
+    }
+
+    // returns - value is not a map
+    @if meta.type-of($value) != map {
+        $args: meta.keywords($args);
+        @warn #{config-warning-message-bad-type( $value: $value, $type: map, $varName: $varName )};
+        @return $default;
+    }
+
+    $valid_map: ();
+
+    $fail_return: 'FAILED_VALIDATION_1568413546dsafdgfsd354scadsvnsfgnj65';
+
+    @each $key, $item in $value {
+        // validates the item
+        $valid_item: config-valid-string(
+            $item,
+            '#{$name}.#{$key}',
+            $default: $fail_return,
+            $args...
+        );
+
+        @if $valid_item != $fail_return {
+            // adds item to the valid list
+            $valid_map: map.set($valid_map, $key, $valid_item);
+        }
+    }
+
+    @return $valid_map;
+}

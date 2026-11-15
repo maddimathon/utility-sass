@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.2.1
+ * @maddimathon/utility-sass@0.3.0-draft
  * @license MIT
  */
 import type { Stage } from '@maddimathon/build-utilities';
@@ -18,5 +18,5 @@ import * as sass from "sass-embedded";
  * @since 0.1.0-alpha
  */
 export declare function sassFn_jsVarDump({ console, params, try: tryFn }: Stage): {
-    'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level )': sass.CustomFunction<'async'>;
+    'mmutils-global-jsVarDump( $uniqueID, $value, $name, $level, $returnInspection )': sass.CustomFunction<'async'>;
 };

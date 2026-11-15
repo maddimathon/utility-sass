@@ -544,7 +544,7 @@ export namespace FeatureCheck {
         | "hasSelector"
         | "subgrid"
         /**
-         * @since 0.2.0
+         * since 0.2.0
          */
         | "textBox"
         /** 
