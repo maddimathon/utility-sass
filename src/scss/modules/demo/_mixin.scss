@@ -44,6 +44,7 @@
     $callSignature,
     $getMixin,
     $includeNameWithContent,
+    $maxWidth,
     $mixinName,
     $parentSelector_dump,
     $separateSignature,
@@ -73,6 +74,7 @@
                     @include meta.var-dump(
                         '&',
                         &,
+                        $maxWidth: $maxWidth,
                         $useCompilerFn: $useCompilerFn,
                         $var_dump_args...
                     );
@@ -171,6 +173,7 @@
     $useCompilerFn: false,
     $wrapOutput: config.$demo_wrapOutput,
     $wrapCallSignature: $wrapOutput and config.$demo_wrapCallSignature_mixin,
+    $maxWidth: config.$meta_varDump_maxWidth - if($wrapOutput, 8, 4),
     $var_dump_args...
 ) {
     $getMixin: config.config-valid-mixin(
@@ -209,6 +212,7 @@
                         @include meta.var-dump(
                             '&',
                             &,
+                            $maxWidth: $maxWidth,
                             $useCompilerFn: $useCompilerFn,
                             $var_dump_args...
                         );
@@ -233,6 +237,7 @@
                                 $callSignature: $callSignature,
                                 $getMixin: $getMixin,
                                 $includeNameWithContent: $includeNameWithContent,
+                                $maxWidth: $maxWidth,
                                 $mixinName: $mixinName,
                                 $parentSelector_dump: $parentSelector_dump,
                                 $separateSignature: $separateSignature,
@@ -251,6 +256,7 @@
                             @include meta.var-dump(
                                 '&',
                                 &,
+                                $maxWidth: $maxWidth,
                                 $useCompilerFn: $useCompilerFn,
                                 $var_dump_args...
                             );
@@ -265,6 +271,7 @@
                             $getMixin: $getMixin,
                             $acceptsContent: $acceptsContent,
                             $includeNameWithContent: $includeNameWithContent,
+                            $maxWidth: $maxWidth,
                             $mixinName: $mixinName,
                             $parentSelector_dump: $parentSelector_dump,
                             $separateSignature: $separateSignature,
@@ -282,6 +289,7 @@
                     @include meta.var-dump(
                         '&',
                         &,
+                        $maxWidth: $maxWidth,
                         $useCompilerFn: $useCompilerFn,
                         $var_dump_args...
                     );
@@ -303,6 +311,7 @@
                             $callSignature: $callSignature,
                             $getMixin: $getMixin,
                             $includeNameWithContent: $includeNameWithContent,
+                            $maxWidth: $maxWidth,
                             $mixinName: $mixinName,
                             $parentSelector_dump: $parentSelector_dump,
                             $separateSignature: $separateSignature,
@@ -321,6 +330,7 @@
                         $callSignature: $callSignature,
                         $getMixin: $getMixin,
                         $includeNameWithContent: $includeNameWithContent,
+                        $maxWidth: $maxWidth,
                         $mixinName: $mixinName,
                         $parentSelector_dump: $parentSelector_dump,
                         $separateSignature: $separateSignature,

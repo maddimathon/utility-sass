@@ -27,6 +27,7 @@
     $useCompilerFn: false,
     $wrapOutput: config.$demo_wrapOutput_function,
     $wrapOutput_withName: config.$demo_wrapOutput_function_withName,
+    $maxWidth: config.$meta_varDump_maxWidth - if($wrapOutput, 8, 4),
     $var_dump_args...
 ) {
     $getFunction: config.config-valid-function(
@@ -50,6 +51,7 @@
                 @include meta.var-dump(
                     $name: '#{$functionName}#{$argsDump}',
                     $var: meta.call($getFunction, $args...),
+                    $maxWidth: $maxWidth,
                     $useCompilerFn: $useCompilerFn,
                     $var_dump_args...
                 );
@@ -58,6 +60,7 @@
             @include meta.var-dump(
                 $name: '#{$functionName}#{$argsDump}',
                 $var: meta.call($getFunction, $args...),
+                $maxWidth: $maxWidth,
                 $useCompilerFn: $useCompilerFn,
                 $var_dump_args...
             );
@@ -170,6 +173,7 @@
     $parentSelector_dump: config.$demo_parentSelector_dump_function,
     $useCompilerFn: false,
     $wrapOutput: config.$demo_wrapOutput,
+    $maxWidth: config.$meta_varDump_maxWidth - if($wrapOutput, 8, 4),
     $var_dump_args...
 ) {
     $getFunction: config.config-valid-function(
@@ -193,6 +197,7 @@
                 @include meta.var-dump(
                     $name: '&',
                     $var: &,
+                    $maxWidth: $maxWidth,
                     $useCompilerFn: $useCompilerFn,
                     $var_dump_args...
                 );
@@ -200,6 +205,7 @@
             @include meta.var-dump(
                 $name: $callSignature,
                 $var: $returnValue,
+                $maxWidth: $maxWidth,
                 $useCompilerFn: $useCompilerFn,
                 $var_dump_args...
             );

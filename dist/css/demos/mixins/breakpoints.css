@@ -380,7 +380,10 @@
                 /*
                     & is a comma-separated list:
                     <()> (
-                        1: <()> ( <S> :where([data-viewport-width-mobile=max]) <S> breakpoints ),
+                        1: <()> (
+                            1: <S> :where([data-viewport-width-mobile=max])
+                            2: <S> breakpoints
+                        ),
                     )
                  */
                 /* @include feature-check.supports( whereSelector ) {} */

@@ -8,6 +8,8 @@
 @use 'sass:meta';
 @use 'sass:string';
 
+@use '../config';
+
 @use 'docblock-printer';
 @use 'is-truthy';
 @use 'global-compiler-fn';
@@ -38,6 +40,311 @@ $_varType_abbreviations: (
     $abbr: map.get($_varType_abbreviations, $type);
 
     @return string.unquote(if($abbr != null, $abbr, $type));
+}
+
+///
+/// @since 0.3.0-draft
+///
+@function _var-dump--regex-line-trimmer($removeIndices) {
+    @return if($removeIndices, '(^\\s*(\\d+:\\s*)?|\\s*$)', '(^\\s*|\\s*$)');
+}
+
+///
+/// @since 0.3.0-draft
+///
+@function _var-dump--list-length-is-under-one-line(
+    $lines,
+    $indent,
+    $maxWidth,
+    $removeIndices,
+    $typeString
+) {
+    // returns
+    @if not meta.function-exists('mmutils-string-regex-replace') {
+        @return string.length(#{$lines}) <= $maxWidth;
+    }
+
+    $_regex_spaceReplacer: if(
+        $removeIndices,
+        '\\s\\s*(\\d+:\\s*)?(?=\\<)',
+        '\\s+(?=\\<|\\d+:\\s*)'
+    );
+
+    $replacedLines: _var-dump--string-regex-replace(
+        _var-dump--string-regex-replace(#{$lines}, $_regex_spaceReplacer, ' '),
+        '^\\s+|[,\\s]\\s*$'
+    );
+
+    @return string.length('#{$indent}#{$indent}#{$typeString}#{$replacedLines}')
+        <= $maxWidth;
+}
+
+///
+/// @since 0.3.0-draft
+///
+@function _var-dump--value-is-subinspection(
+    $value,
+    $subinspection,
+    $indent,
+    $maxWidth,
+    $typeString
+) {
+    $_typeof: meta.type-of($value);
+
+    // returns
+    @if $_typeof == map {
+        @return true;
+    }
+
+    // returns
+    @if $_typeof != list {
+        @return false;
+    }
+
+    // returns
+    @if list.length($value) < 2 {
+        @return false;
+    }
+
+    // prettier-ignore
+    @return not _var-dump--list-length-is-under-one-line(
+        $lines: $subinspection,
+        $indent: $indent,
+        $maxWidth: $maxWidth,
+        $removeIndices: list.separator($value) == 'space' or list.length($subinspection) < 2,
+        $typeString: $typeString
+    );
+}
+
+///
+/// @since 0.3.0-draft
+///
+@function _var-dump--string-regex-replace(
+    $string,
+    $search,
+    $replace: '',
+    $flags: 'gi',
+    $fallbackValue: $string
+) {
+    // returns
+    @if not meta.function-exists('mmutils-string-regex-replace') {
+        @return $fallbackValue;
+    }
+
+    @return global-compiler-fn.call-global-compiler-fn(
+        'mmutils-string-regex-replace',
+        $caller: 'meta.var-dump',
+        //
+        $fallbackValue: $fallbackValue,
+        $includeWarning: false,
+        $isCompilerFunction: true,
+        $isRequired: false,
+        //
+        $string: $string,
+        $search: $search,
+        $replace: $replace,
+        $flags: $flags
+    );
+}
+
+///
+/// @since 0.3.0-draft
+///
+@function _var-dump--inspection-lines(
+    $var,
+    $indent,
+    $alwaysQuote,
+    $neverQuote,
+    $shortType,
+    $alwaysOutputMultiline,
+    $outputMultiline,
+    $maxWidth,
+    $_depth: 1,
+    $childArgs: (),
+    $keyArgs: ()
+) {
+    $typeOf: meta.type-of($var);
+
+    $typeString: '<#{if($shortType, var-type-abbreviator($typeOf), $typeOf)}> ';
+
+    $doMultilineOutput: ($typeOf == list and list.length($var) > 0) or
+        ($typeOf == map and list.length(map.keys($var)) > 0);
+
+    // returns
+    @if not $doMultilineOutput {
+        @return (
+            #{var-dump(
+                    $var,
+                    $alwaysQuote: $alwaysQuote,
+                    $neverQuote: $neverQuote,
+                    $shortType: $shortType
+                )}
+        );
+    }
+
+    $separator: comma;
+    $stringSeparator: ',';
+
+    @if $typeOf == list {
+        $separator: list.separator($var);
+
+        @if $separator != comma {
+            $stringSeparator: '';
+        }
+    }
+
+    $_hasSubInspection: false;
+
+    // prettier-ignore
+    $local_childArgs: map.merge(
+        (
+            alwaysOutputMultiline: $alwaysOutputMultiline,
+            alwaysQuote: $alwaysQuote,
+            neverQuote: $neverQuote,
+            outputMultiline: $alwaysOutputMultiline or ($outputMultiline and $_depth == 1),
+            shortType: $shortType,
+        ),
+        $childArgs
+    );
+
+    $local_keyArgs: map.merge(
+        (
+            alwaysQuote: $alwaysQuote or not $neverQuote,
+            neverQuote: $neverQuote,
+            shortType: $shortType,
+            withType: false,
+        ),
+        $keyArgs
+    );
+
+    $lines: ();
+
+    @if $typeOf == map {
+        @each $_key, $_val in $var {
+            $_keyDisplay: var-dump($_key, $local_keyArgs...);
+
+            $_subinspection: _var-dump--inspection-lines(
+                $var: $_val,
+                $indent: '#{$indent}  ',
+                $_depth: $_depth + 1,
+                $maxWidth: $maxWidth,
+                $childArgs: $childArgs,
+                $keyArgs: $keyArgs,
+                $local_childArgs...,
+            );
+
+            $_subinspection: list.set-nth(
+                $_subinspection,
+                1,
+                '#{$indent}  #{$_keyDisplay}: #{list.nth($_subinspection, 1)}'
+            );
+
+            $_subinspection: list.set-nth(
+                $_subinspection,
+                -1,
+                '#{list.nth($_subinspection, -1)}#{$stringSeparator}'
+            );
+
+            @if (not $_hasSubInspection) and
+                _var-dump--value-is-subinspection(
+                    $value: $_val,
+                    $subinspection: $_subinspection,
+                    $indent: $indent,
+                    $maxWidth: $maxWidth,
+                    $typeString: $typeString
+                )
+            {
+                $_hasSubInspection: true;
+            }
+
+            $lines: list.join($lines, $_subinspection, $separator: space);
+        }
+    } @else {
+        $i: 1;
+
+        @each $_val in $var {
+            $_subinspection: _var-dump--inspection-lines(
+                $var: $_val,
+                $indent: '#{$indent}  ',
+                $_depth: $_depth + 1,
+                $maxWidth: $maxWidth,
+                $childArgs: $childArgs,
+                $keyArgs: $keyArgs,
+                $local_childArgs...,
+            );
+
+            $_subinspection: list.set-nth(
+                $_subinspection,
+                1,
+                '#{$indent}  #{$i}: #{list.nth($_subinspection, 1)}'
+            );
+
+            $_subinspection: list.set-nth(
+                $_subinspection,
+                -1,
+                '#{list.nth($_subinspection, -1)}#{$stringSeparator}'
+            );
+
+            @if (not $_hasSubInspection) and
+                _var-dump--value-is-subinspection(
+                    $value: $_val,
+                    $subinspection: $_subinspection,
+                    $indent: $indent,
+                    $maxWidth: $maxWidth,
+                    $typeString: $typeString
+                )
+            {
+                $_hasSubInspection: true;
+            }
+
+            $lines: list.join($lines, $_subinspection, $separator: space);
+
+            $i: $i + 1;
+        }
+    }
+
+    $removeIndices: $stringSeparator == '' or list.length($lines) < 2;
+
+    @if (not $_hasSubInspection) and
+        (not $outputMultiline) and
+        (not $alwaysOutputMultiline) and
+        _var-dump--list-length-is-under-one-line(
+            $lines: $lines,
+            $indent: $indent,
+            $maxWidth: $maxWidth,
+            $removeIndices: $removeIndices,
+            $typeString: $typeString
+        )
+    {
+        $_regex_lineTrimmer: _var-dump--regex-line-trimmer($removeIndices);
+
+        $_newLines: ();
+
+        @each $line in $lines {
+            $_newLines: list.append(
+                $_newLines,
+                _var-dump--string-regex-replace(
+                    $string: $line,
+                    $search: $_regex_lineTrimmer,
+                ),
+                $separator: space
+            );
+        }
+
+        $_newLines: _var-dump--string-regex-replace(
+            #{$_newLines},
+            '^\\s+|[,\\s]\\s*$'
+        );
+
+        $lines: ('#{$typeString}( #{$_newLines} )');
+    } @else if list.length($lines) > 0 {
+        $lines: list.join(('#{$typeString}('), $lines, $separator: space);
+        $lines: list.append($lines, '#{$indent})', $separator: space);
+    } @else {
+        $lines: ('#{$typeString}(#{$lines})');
+    }
+
+    @return $lines;
 }
 
 @function _var-dump--return(
@@ -77,10 +384,12 @@ $_varType_abbreviations: (
 ///
 /// @since 0.1.0-pre
 /// @since 0.1.0-beta — Added optional $keys_withType, $keys_shortType, $keys_alwaysQuote, $keys_neverQuote, $child_withType, $child_shortType, $child_typeJoiner, $child_alwaysQuote, $child_neverQuote params. Added string and string list support to $withType.
+/// @since 0.3.0-draft — Added option $returnMultiline param.
 ///
 @function var-dump(
     $var,
     $withType: true,
+    $returnMultiline: false,
     //
     $alwaysQuote: false,
     $detectParentSelector: false,
@@ -102,6 +411,9 @@ $_varType_abbreviations: (
     $child_typeJoiner: null,
     $child_withType: null,
     //
+    $alwaysOutputMultiline: false,
+    $outputMultiline: false,
+    $maxWidth: config.$meta_varDump_maxWidth,
     $varType_overrides: ()
 ) {
     $type: meta.type-of($var);
@@ -177,8 +489,6 @@ $_varType_abbreviations: (
     $_withType_type: meta.type-of($withType);
     @if $_withType_type == list or $_withType_type == string {
         $withType: list.index($withType, $type) != null;
-        // } @else if $_withType_type == string {
-        //     $withType: #{$withType} == #{$type};
     }
 
     @if $type == 'arglist' {
@@ -264,37 +574,50 @@ $_varType_abbreviations: (
 
         $inspection: ();
 
-        @each $item in $var {
-            $inspection: list.append(
+        @if $returnMultiline {
+            $inspection: _var-dump--inspection-lines(
+                $var,
+                $indent: '',
+                $alwaysOutputMultiline: $alwaysOutputMultiline,
+                $alwaysQuote: $alwaysQuote,
+                $maxWidth: $maxWidth,
+                $neverQuote: $neverQuote,
+                $outputMultiline: $outputMultiline,
+                $shortType: $shortType
+            );
+        } @else {
+            @each $item in $var {
+                $inspection: list.append(
+                    $inspection,
+                    var-dump(
+                        $item,
+                        $varType_overrides: $varType_overrides,
+                        $childArgs...
+                    ),
+                    $separator: $separator
+                );
+            }
+
+            $inspection: if(
+                list.length($inspection) > 0,
                 $inspection,
-                var-dump(
-                    $item,
-                    $varType_overrides: $varType_overrides,
-                    $childArgs...
+                meta.inspect(())
+            );
+
+            $inspection: if(
+                $showParens,
+                if(
+                    $bracketed,
+                    string.unquote('( [ #{$inspection} ] )'),
+                    string.unquote('( #{$inspection} )')
                 ),
-                $separator: $separator
+                if(
+                    $bracketed,
+                    string.unquote('[ #{$inspection} ]'),
+                    string.unquote('#{$inspection}')
+                )
             );
         }
-
-        $inspection: if(
-            list.length($inspection) > 0,
-            $inspection,
-            meta.inspect(())
-        );
-
-        $inspection: if(
-            $showParens,
-            if(
-                $bracketed,
-                string.unquote('( [ #{$inspection} ] )'),
-                string.unquote('( #{$inspection} )')
-            ),
-            if(
-                $bracketed,
-                string.unquote('[ #{$inspection} ]'),
-                string.unquote('#{$inspection}')
-            )
-        );
     }
     //
     @else if $type == 'map' {
@@ -352,217 +675,6 @@ $_varType_abbreviations: (
 }
 
 ///
-/// @since 0.3.0-draft
-///
-@function _var-dump--string-regex-replace(
-    $string,
-    $search,
-    $replace: '',
-    $flags: 'gi',
-    $fallbackValue: $string
-) {
-    @return global-compiler-fn.call-global-compiler-fn(
-        'mmutils-string-regex-replace',
-        $caller: 'meta.var-dump',
-        //
-        $fallbackValue: $fallbackValue,
-        $includeWarning: false,
-        $isCompilerFunction: true,
-        $isRequired: false,
-        //
-        $string: $string,
-        $search: $search,
-        $replace: $replace,
-        $flags: $flags
-    );
-}
-
-///
-/// @since 0.3.0-draft
-///
-@function _var-dump--inspection-lines(
-    $var,
-    $indent,
-    $alwaysQuote,
-    $neverQuote,
-    $shortType,
-    $outputMultiline,
-    $alwaysOutputMultiline,
-    $_depth: 1
-) {
-    $typeOf: meta.type-of($var);
-
-    $typeString: '<#{if($shortType, var-type-abbreviator($typeOf), $typeOf)}> ';
-
-    $doMultilineOutput: ($typeOf == list and list.length($var) > 0) or
-        ($typeOf == map and list.length(map.keys($var)) > 0);
-
-    // returns
-    @if not $doMultilineOutput {
-        @return (
-            #{var-dump(
-                    $var,
-                    $alwaysQuote: $alwaysQuote,
-                    $neverQuote: $neverQuote
-                )}
-        );
-    }
-
-    $listSeparator: ',';
-
-    @if $typeOf == list {
-        $_listSeparator: list.separator($var);
-
-        @if $_listSeparator != comma {
-            $listSeparator: '';
-        }
-    }
-
-    $_hasSubInspection: false;
-
-    $lines: ();
-
-    @if $typeOf == map {
-        @each $_key, $_val in $var {
-            $_keyDisplay: if(
-                not
-                    $neverQuote and
-                    ($alwaysQuote or meta.type-of($_key) == string),
-                '"#{string.unquote(#{$_key})}"',
-                string.unquote(#{$_key})
-            );
-
-            $_subinspection: _var-dump--inspection-lines(
-                $var: $_val,
-                $indent: '#{$indent}  ',
-                $alwaysQuote: $alwaysQuote,
-                $neverQuote: $neverQuote,
-                $shortType: $shortType,
-                $alwaysOutputMultiline: $alwaysOutputMultiline,
-                $outputMultiline: $alwaysOutputMultiline or
-                    (
-                        $outputMultiline and ($_depth == 1),
-                    ),
-                $_depth: $_depth + 1,
-            );
-
-            $_subinspection: list.set-nth(
-                $_subinspection,
-                1,
-                '#{$indent}  #{$_keyDisplay}: #{list.nth($_subinspection, 1)}'
-            );
-
-            $_subinspection: list.set-nth(
-                $_subinspection,
-                -1,
-                '#{list.nth($_subinspection, -1)}#{$listSeparator}'
-            );
-
-            @if (not $_hasSubInspection) and
-                (
-                    (meta.type-of($_val) == map) or
-                        (list.length($_subinspection) > 1)
-                )
-            {
-                $_hasSubInspection: true;
-            }
-
-            $lines: list.join($lines, $_subinspection);
-        }
-    } @else {
-        $i: 1;
-
-        @each $_val in $var {
-            $_subinspection: _var-dump--inspection-lines(
-                $var: $_val,
-                $indent: '#{$indent}  ',
-                $alwaysQuote: $alwaysQuote,
-                $neverQuote: $neverQuote,
-                $shortType: $shortType,
-                $alwaysOutputMultiline: $alwaysOutputMultiline,
-                $outputMultiline: $alwaysOutputMultiline or
-                    (
-                        $outputMultiline and ($_depth == 1),
-                    ),
-                $_depth: $_depth + 1,
-            );
-
-            $_subinspection: list.set-nth(
-                $_subinspection,
-                1,
-                '#{$indent}  #{$i}: #{list.nth($_subinspection, 1)}'
-            );
-
-            $_subinspection: list.set-nth(
-                $_subinspection,
-                -1,
-                '#{list.nth($_subinspection, -1)}#{$listSeparator}'
-            );
-
-            @if (not $_hasSubInspection) and
-                (
-                    (meta.type-of($_val) == map) or
-                        (list.length($_subinspection) > 1)
-                )
-            {
-                $_hasSubInspection: true;
-            }
-
-            $lines: list.join($lines, $_subinspection);
-
-            $i: $i + 1;
-        }
-    }
-
-    $_removeIndices: $listSeparator == '' or list.length($lines) < 2;
-    $_regex_lineTrimmer: if(
-        $_removeIndices,
-        '(^\\s*(\\d+:\\s*)?|\\s*$)',
-        '(^\\s*|\\s*$)'
-    );
-
-    $_regex_spaceReplacer: if(
-        $_removeIndices,
-        '\\s+(?=\\<|\\d+:\\s*)',
-        '\\s+(?=\\<)'
-    );
-
-    @if (not $_hasSubInspection) and
-        (not $alwaysOutputMultiline) and
-        meta.function-exists('mmutils-string-regex-replace') and
-        (
-            string.length(
-                    "#{$indent}#{$typeString}#{_var-dump--string-regex-replace( _var-dump--string-regex-replace(#{$lines}, $_regex_spaceReplacer, ' '), $_regex_lineTrimmer )}"
-                ) <
-                75
-        )
-    {
-        $_newLines: ();
-
-        @each $line in $lines {
-            $_newLines: list.append(
-                $_newLines,
-                _var-dump--string-regex-replace(
-                    $string: $line,
-                    $search: $_regex_lineTrimmer,
-                )
-            );
-        }
-
-        $_newLines: _var-dump--string-regex-replace(#{$_newLines}, ',\\s*$');
-
-        $lines: ('#{$typeString}( #{$_newLines} )');
-    } @else if list.length($lines) > 0 {
-        $lines: list.join(('#{$typeString}('), $lines);
-        $lines: list.append($lines, '#{$indent})');
-    } @else {
-        $lines: ('#{$typeString}(#{$lines})');
-    }
-
-    @return $lines;
-}
-
-///
 /// A mixin to dump variables as css comments, allowing for multi-line output
 /// for lists and maps.
 ///
@@ -580,6 +692,7 @@ $_varType_abbreviations: (
     $useCompilerFn: false,
     $useUniqueID: false,
     $alwaysOutputMultiline: false,
+    $maxWidth: config.$meta_varDump_maxWidth,
     $outputMultiline: false,
     $console_level: 1
 ) {
@@ -587,13 +700,13 @@ $_varType_abbreviations: (
 
     $typeOf_string: $typeOf;
 
-    $listSeparator: ',';
+    $stringSeparator: ',';
 
     @if $typeOf == list {
         $_listSeparator: list.separator($var);
 
         @if $_listSeparator != comma {
-            $listSeparator: '';
+            $stringSeparator: '';
         }
 
         $typeOf_string: '#{$_listSeparator}-separated';
@@ -631,6 +744,7 @@ $_varType_abbreviations: (
             $indent: '',
             $alwaysOutputMultiline: $alwaysOutputMultiline,
             $alwaysQuote: $alwaysQuote,
+            $maxWidth: $maxWidth,
             $neverQuote: $neverQuote,
             $outputMultiline: $outputMultiline,
             $shortType: $shortType

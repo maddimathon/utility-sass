@@ -788,8 +788,9 @@
         :root another.child .grandchild {
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true ) is a comma-separated list:
-
-                <()> ( <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ) )
+                <()> (
+                    1: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                )
              */
         }
         @demo return {
@@ -802,8 +803,9 @@
         :root another.child .grandchild {
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $wrap: true ) is a comma-separated list:
-
-                <()> ( <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ) )
+                <()> (
+                    1: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                )
              */
         }
         @demo return {
@@ -1367,8 +1369,14 @@
                     1: <()> ( <S> [data-brightness-mode=light] ),
                     2: <()> ( <S> [data-contrast-mode=low] ),
                     3: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] ),
-                    4: <()> ( <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] ),
-                    5: <()> ( <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] ),
+                    4: <()> (
+                        1: <S> [data-brightness-mode=light]
+                        2: <S> [data-contrast-mode=low]
+                    ),
+                    5: <()> (
+                        1: <S> [data-contrast-mode=low]
+                        2: <S> [data-brightness-mode=light]
+                    ),
                 )
              */
         }
@@ -1391,13 +1399,21 @@
                     2: <()> ( <S> [data-contrast-mode=low] ),
                     3: <()> ( <S> [data-contrast-mode=average] ),
                     4: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] ),
-                    5: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=average] ),
-                    6: <()> ( <S> [data-brightness-mode=light] <S> [data-contrast-mode=low] ),
+                    5: <()> (
+                        1: <S> [data-brightness-mode=light][data-contrast-mode=average]
+                    ),
+                    6: <()> (
+                        1: <S> [data-brightness-mode=light]
+                        2: <S> [data-contrast-mode=low]
+                    ),
                     7: <()> (
                         1: <S> [data-brightness-mode=light]
                         2: <S> [data-contrast-mode=average]
                     ),
-                    8: <()> ( <S> [data-contrast-mode=low] <S> [data-brightness-mode=light] ),
+                    8: <()> (
+                        1: <S> [data-contrast-mode=low]
+                        2: <S> [data-brightness-mode=light]
+                    ),
                     9: <()> (
                         1: <S> [data-contrast-mode=average]
                         2: <S> [data-brightness-mode=light]
@@ -4158,11 +4174,7 @@ body:where(.has-a-class) {
             selector.replace-body-selector( &, "[replaced-body]" ) is a comma-separated list:
             <()> (
                 1: <()> (
-                    1: <()> (
-                        1: <S> %root:has(.class-name)
-                        2: <S> [replaced-body]
-                        3: <S> .grandchild
-                    ),
+                    1: <()> ( <S> %root:has(.class-name) <S> [replaced-body] <S> .grandchild ),
                 ),
             )
          */
@@ -4177,11 +4189,7 @@ body:where(.has-a-class) {
             selector.replace-root-selector( &, "[replaced-root]" ) is a comma-separated list:
             <()> (
                 1: <()> (
-                    1: <()> (
-                        1: <S> [replaced-root]:has(.class-name)
-                        2: <S> %body
-                        3: <S> .grandchild
-                    ),
+                    1: <()> ( <S> [replaced-root]:has(.class-name) <S> %body <S> .grandchild ),
                 ),
             )
          */
@@ -4191,11 +4199,7 @@ body:where(.has-a-class) {
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> %root[special-root]:has(.class-name)
-                    2: <S> %body
-                    3: <S> .grandchild
-                ),
+                1: <()> ( <S> %root[special-root]:has(.class-name) <S> %body <S> .grandchild ),
             )
          */
     }
@@ -4204,11 +4208,7 @@ body:where(.has-a-class) {
         /*
             selector.add-body-selector( <S> "[special-body]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> %root:has(.class-name)
-                    2: <S> %body[special-body]
-                    3: <S> .grandchild
-                ),
+                1: <()> ( <S> %root:has(.class-name) <S> %body[special-body] <S> .grandchild ),
             )
          */
     }
@@ -4217,11 +4217,7 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> %root:has(.class-name)
-                    2: <S> %body[special-body]
-                    3: <S> .grandchild
-                ),
+                1: <()> ( <S> %root:has(.class-name) <S> %body[special-body] <S> .grandchild ),
             )
          */
         /*
@@ -4545,9 +4541,8 @@ body:where(.has-a-class) {
          */
         /*
             selector.replace-root-selector( &, "[replaced-root]" ) is a comma-separated list:
-            <()> (
-                1: <()> ( <()> ( <S> [replaced-root]:where(.js) <S> .not-root-or-body ) ),
-            )
+
+            <()> ( <()> ( <()> ( <S> [replaced-root]:where(.js) <S> .not-root-or-body ) ) )
          */
     }
     [special-root]:where(.js) .not-root-or-body {
@@ -4692,11 +4687,7 @@ body:where(.has-a-class) {
             selector.replace-body-selector( &, "[replaced-body]" ) is a comma-separated list:
             <()> (
                 1: <()> (
-                    1: <()> (
-                        1: <S> :root:where(.js__subgrid)
-                        2: <S> [replaced-body]
-                        3: <S> .child
-                    ),
+                    1: <()> ( <S> :root:where(.js__subgrid) <S> [replaced-body] <S> .child ),
                 ),
                 2: <()> ( <()> ( <S> :where(.js__subgrid) <S> [replaced-body] <S> .child ) ),
                 3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
@@ -4740,11 +4731,7 @@ body:where(.has-a-class) {
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> [special-root]:root:where(.js__subgrid)
-                    2: <S> body
-                    3: <S> .child
-                ),
+                1: <()> ( <S> [special-root]:root:where(.js__subgrid) <S> body <S> .child ),
                 2: <()> ( <S> [special-root]:where(.js__subgrid) <S> body <S> .child ),
                 3: <()> (
                     1: <S> [special-root]:where(.js__subgrid)
@@ -4761,11 +4748,7 @@ body:where(.has-a-class) {
         /*
             selector.add-body-selector( <S> "[special-body]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> :root:where(.js__subgrid)
-                    2: <S> body[special-body]
-                    3: <S> .child
-                ),
+                1: <()> ( <S> :root:where(.js__subgrid) <S> body[special-body] <S> .child ),
                 2: <()> ( <S> :where(.js__subgrid) <S> body[special-body] <S> .child ),
                 3: <()> (
                     1: <S> :where(.js__subgrid)
@@ -4783,11 +4766,7 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> :root:where(.js__subgrid)
-                    2: <S> body[special-body]
-                    3: <S> .child
-                ),
+                1: <()> ( <S> :root:where(.js__subgrid) <S> body[special-body] <S> .child ),
                 2: <()> ( <S> :where(.js__subgrid) <S> body[special-body] <S> .child ),
                 3: <()> (
                     1: <S> :where(.js__subgrid)
