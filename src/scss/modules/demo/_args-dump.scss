@@ -3,8 +3,8 @@
 /// @since 0.1.0-beta
 ///
 
-@use 'sass:map';
-
+@use '../list';
+@use '../map';
 @use '../meta';
 @use '../string';
 
@@ -17,19 +17,27 @@ $_emptyReturn: string.unquote('()');
     $args,
     $emptyReturn: $_emptyReturn,
     //
+    $withType: arglist,
+    //
     $alwaysQuote: false,
     $detectParentSelector: true,
     $shortType: true,
-    $withType: arglist,
-    $typeJoiner: if($withType == true, ' ', ''),
     //
-    $child_alwaysQuote: $alwaysQuote,
-    $child_withType: $withType,
-    $child_typeJoiner: $typeJoiner,
     $keys_alwaysQuote: false,
     $keys_neverQuote: true,
+    $keys_shortType: null,
+    $keys_showParens: null,
+    $keys_withType: null,
     //
-    $varType_overrides: ()
+    $child_alwaysQuote: false,
+    $child_neverQuote: null,
+    $child_shortType: null,
+    $child_showParens: null,
+    $child_withType: arglist,
+    $child_typeJoiner: if($child_withType == true, ' ', ''),
+    //
+    $returnMultiline: false,
+    $varType_overrides: (arglist: 'meta.arglist')
 ) {
     // returns
     @if not meta.is-truthy($args) {
@@ -47,29 +55,29 @@ $_emptyReturn: string.unquote('()');
         }
     }
 
-    @if $withType == arglist {
-        $varType_overrides: map.merge(
-            (
-                arglist: 'meta.arglist',
-            ),
-            $varType_overrides
-        );
-    }
-
     @return meta.var-dump(
         $args,
-        $alwaysQuote: true,
-        $detectParentSelector: $detectParentSelector,
-        $shortType: $shortType,
         $typeJoiner: '',
         $withType: false,
         //
-        $child_alwaysQuote: $child_alwaysQuote,
-        $child_withType: $child_withType,
-        $child_typeJoiner: $child_typeJoiner,
+        $alwaysQuote: $alwaysQuote,
+        $detectParentSelector: $detectParentSelector,
+        $shortType: $shortType,
+        //
         $keys_alwaysQuote: $keys_alwaysQuote,
         $keys_neverQuote: $keys_neverQuote,
+        $keys_shortType: $keys_shortType,
+        $keys_showParens: $keys_showParens,
+        $keys_withType: $keys_withType,
         //
+        $child_alwaysQuote: $child_alwaysQuote,
+        $child_neverQuote: $child_neverQuote,
+        $child_shortType: $child_shortType,
+        $child_showParens: $child_showParens,
+        $child_typeJoiner: $child_typeJoiner,
+        $child_withType: $child_withType,
+        //
+        $returnMultiline: $returnMultiline,
         $varType_overrides: $varType_overrides
     );
 }
@@ -77,48 +85,100 @@ $_emptyReturn: string.unquote('()');
 ///
 /// @since 0.1.0-beta
 ///
-@function content-args-dump($args, $mixinName: null, $varType_overrides: ()) {
-    @return string.unquote(
-        string.concat(
-            if(meta.is-truthy($mixinName), '[#{$mixinName}] @content', '@content'),
-            args-dump(
-                $args,
-                $emptyReturn: string.unquote(''),
-                $withType: true,
-                $varType_overrides: $varType_overrides
-            ),
-            ';'
-        )
+@function content-args-dump(
+    $args,
+    $mixinName: null,
+    $child_withType: true,
+    $returnMultiline: true,
+    $varType_overrides: (),
+    $dump_args...
+) {
+    $lines: args-dump(
+        $args,
+        $emptyReturn: string.unquote(''),
+        $child_withType: $child_withType,
+        $returnMultiline: false,
+        $varType_overrides: $varType_overrides,
+        $dump_args...
     );
+
+    $firstLine: if(meta.is-truthy($mixinName), '[#{$mixinName}] @content', '@content');
+    $lastLine: ';';
+
+    // returns
+    @if $returnMultiline {
+        $lines: list.set-nth($lines, 1, #{$firstLine}#{list.nth($lines, 1)});
+
+        $lines: list.set-nth($lines, -1, #{list.nth($lines, -1)}#{$lastLine});
+
+        @return $lines;
+    }
+
+    @return #{$firstLine}#{$lines}#{$lastLine};
 }
 
 ///
 /// @since 0.1.0-beta
 ///
-@mixin content-args-dump($args, $params...) {
-    /* #{content-args-dump( $args, $params... )} */
+@mixin content-args-dump($args, $dump_args...) {
+    $lines: content-args-dump($args, $dump_args...);
+
+    @if list.length($lines) == 1 {
+        /* #{$lines} */
+    } @else if list.length($lines) <= meta.$docblock_maxLines {
+        @include meta.docblock-printer($lines, $asComment: true);
+    } @else {
+        @each $line in $lines {
+            /* #{$line} */
+        }
+    }
 }
 
 ///
 /// @since 0.1.0-beta
 ///
-@function mixin-signature-dump($mixinName, $args, $getMixin: null, $varType_overrides: ()) {
-    @return string.unquote(
-        string.concat(
-            '@include #{$mixinName}',
-            args-dump(
-                $args,
-                $emptyReturn: string.unquote(''),
-                $varType_overrides: $varType_overrides
-            ),
-            if($getMixin, if(meta.accepts-content($getMixin), ' {}', ';'), '')
-        )
+@function mixin-signature-dump(
+    $mixinName,
+    $args,
+    $getMixin: null,
+    $returnMultiline: true,
+    $dump_args...
+) {
+    $lines: args-dump(
+        $args,
+        $emptyReturn: string.unquote(''),
+        $returnMultiline: $returnMultiline,
+        $dump_args...
     );
+
+    $firstLine: '@include #{$mixinName}';
+    $lastLine: if($getMixin, if(meta.accepts-content($getMixin), ' {}', ';'), '');
+
+    // returns
+    @if $returnMultiline {
+        $lines: list.set-nth($lines, 1, #{$firstLine}#{list.nth($lines, 1)});
+
+        $lines: list.set-nth($lines, -1, #{list.nth($lines, -1)}#{$lastLine});
+
+        @return $lines;
+    }
+
+    @return #{$firstLine}#{$lines}#{$lastLine};
 }
 
 ///
 /// @since 0.1.0-beta
 ///
-@mixin mixin-signature-dump($mixinName, $args, $params...) {
-    /* #{mixin-signature-dump( $mixinName, $args, $params... )} */
+@mixin mixin-signature-dump($mixinName, $args, $dump_args...) {
+    $lines: mixin-signature-dump($mixinName, $args, $dump_args...);
+
+    @if list.length($lines) == 1 {
+        /* #{$lines} */
+    } @else if list.length($lines) <= meta.$docblock_maxLines {
+        @include meta.docblock-printer($lines, $asComment: true);
+    } @else {
+        @each $line in $lines {
+            /* #{$line} */
+        }
+    }
 }

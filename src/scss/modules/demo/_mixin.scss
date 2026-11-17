@@ -7,6 +7,7 @@
 
 @use '../config';
 
+@use '../list';
 @use '../meta';
 @use '../selector';
 
@@ -99,29 +100,59 @@
 ) {
     @if $signatureAtRoot {
         @at-root {
+            @if list.length($callSignature) == 1 {
+                @if $signatureAsRegion {
+                    /* #region #{$callSignature} */
+                } @else {
+                    /* #{$callSignature} */
+                }
+            } @else if list.length($callSignature) <= meta.$docblock_maxLines {
+                @if $signatureAsRegion {
+                    /* #region #{$mixinName} */
+                }
+                @include meta.docblock-printer($callSignature, $asComment: true);
+            } @else {
+                @if $signatureAsRegion {
+                    /* #region #{$mixinName} */
+                }
+                @each $line in $callSignature {
+                    /* #{$line} */
+                }
+            }
+        }
+    } @else {
+        @if list.length($callSignature) == 1 {
             @if $signatureAsRegion {
                 /* #region #{$callSignature} */
             } @else {
                 /* #{$callSignature} */
             }
-        }
-    } @else {
-        @if $signatureAsRegion {
-            /* #region #{$callSignature} */
+        } @else if list.length($callSignature) <= meta.$docblock_maxLines {
+            @if $signatureAsRegion {
+                /* #region #{$mixinName} */
+            }
+            @include meta.docblock-printer($callSignature, $asComment: true);
         } @else {
-            /* #{$callSignature} */
+            @if $signatureAsRegion {
+                /* #region #{$mixinName} */
+            }
+            @each $line in $callSignature {
+                /* #{$line} */
+            }
         }
     }
 
     @content;
 
     @if $signatureAsRegion {
+        $_oneLine_callSignature: if(list.length($callSignature) == 1, $callSignature, $mixinName);
+
         @if $signatureAtRoot {
             @at-root {
-                /* #endregion #{$callSignature} */
+                /* #endregion #{$_oneLine_callSignature} */
             }
         } @else {
-            /* #endregion #{$callSignature} */
+            /* #endregion #{$_oneLine_callSignature} */
         }
     }
 }
@@ -228,7 +259,18 @@
                     ) {
                         @include meta.at(demo, output) {
                             @if $displayOutput_callSignature {
-                                /* #{$callSignature} */
+                                @if list.length($callSignature) == 1 {
+                                    /* #{$callSignature} */
+                                } @else if list.length($callSignature) <= meta.$docblock_maxLines {
+                                    @include meta.docblock-printer(
+                                        $callSignature,
+                                        $asComment: true
+                                    );
+                                } @else {
+                                    @each $line in $callSignature {
+                                        /* #{$line} */
+                                    }
+                                }
                             }
 
                             @include _apply-mixin(
@@ -262,7 +304,15 @@
                             );
                         }
                         @if $displayOutput_callSignature {
-                            /* #{$callSignature} */
+                            @if list.length($callSignature) == 1 {
+                                /* #{$callSignature} */
+                            } @else if list.length($callSignature) <= meta.$docblock_maxLines {
+                                @include meta.docblock-printer($callSignature, $asComment: true);
+                            } @else {
+                                @each $line in $callSignature {
+                                    /* #{$line} */
+                                }
+                            }
                         }
 
                         @include _apply-mixin(

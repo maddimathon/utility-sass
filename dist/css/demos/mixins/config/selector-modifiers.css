@@ -17,12 +17,12 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %a ) )
+            <()> ( <()> ( <S> %a ), )
          */
         /*
             config.selector-a-current() is a comma-separated list:
 
-            <()> ( <()> ( <S> %a[aria-current] ) )
+            <()> ( <()> ( <S> %a[aria-current] ), )
          */
     }
     @demo return {
@@ -37,12 +37,12 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> button ) )
+            <()> ( <()> ( <S> button ), )
          */
         /*
             config.selector-a-current() is a comma-separated list:
 
-            <()> ( <()> ( <S> button[aria-current] ) )
+            <()> ( <()> ( <S> button[aria-current] ), )
          */
     }
     @demo return {
@@ -58,16 +58,18 @@
     input[type='button'],
     input[type='reset'],
     input[type='submit'],
-    a[href].button {
+    a[href].button,
+    a[href].button-primary,
+    a[href].button-secondary {
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %button ) )
+            <()> ( <()> ( <S> %button ), )
          */
         /*
             config.selector-a-current() is a comma-separated list:
 
-            <()> ( <()> ( <S> %button[aria-current] ) )
+            <()> ( <()> ( <S> %button[aria-current] ), )
          */
     }
     @demo return {
@@ -76,7 +78,9 @@
         input[aria-current][type='button'],
         input[aria-current][type='reset'],
         input[aria-current][type='submit'],
-        a[aria-current][href].button {
+        a[aria-current][href].button,
+        a[aria-current][href].button-primary,
+        a[aria-current][href].button-secondary {
             /* returned selectors */
         }
     }
@@ -88,7 +92,7 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %a ) )
+            <()> ( <()> ( <S> %a ), )
          */
         /* @include config.selector-a-current {} */
     }
@@ -98,7 +102,7 @@
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %a[aria-current] ) )
+                <()> ( <()> ( <S> %a[aria-current] ), )
              */
         }
     }
@@ -109,7 +113,7 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %a ) )
+            <()> ( <()> ( <S> %a ), )
          */
         /* @include config.selector-a-current( $appendToSelector: true ) {} */
     }
@@ -119,7 +123,7 @@
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %a ) )
+                <()> ( <()> ( <S> %a ), )
              */
         }
         a[aria-current][href] {
@@ -127,7 +131,7 @@
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %a[aria-current] ) )
+                <()> ( <()> ( <S> %a[aria-current] ), )
              */
         }
     }
@@ -138,7 +142,7 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %a ) )
+            <()> ( <()> ( <S> %a ), )
          */
         /* @include config.selector-a-current( $is: true ) {} */
     }
@@ -148,7 +152,7 @@
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %a:is([aria-current]) ) )
+                <()> ( <()> ( <S> %a:is([aria-current]) ), )
              */
         }
     }
@@ -159,7 +163,7 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %a ) )
+            <()> ( <()> ( <S> %a ), )
          */
         /* @include config.selector-a-current( $appendToSelector: true, $is: true ) {} */
     }
@@ -169,7 +173,7 @@
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %a ) )
+                <()> ( <()> ( <S> %a ), )
              */
         }
         a[href]:is([aria-current]) {
@@ -177,7 +181,7 @@
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %a:is([aria-current]) ) )
+                <()> ( <()> ( <S> %a:is([aria-current]) ), )
              */
         }
     }
@@ -188,7 +192,7 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> button ) )
+            <()> ( <()> ( <S> button ), )
          */
         /* @include config.selector-a-current {} */
     }
@@ -198,7 +202,7 @@
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> button[aria-current] ) )
+                <()> ( <()> ( <S> button[aria-current] ), )
              */
         }
     }
@@ -209,7 +213,7 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> button ) )
+            <()> ( <()> ( <S> button ), )
          */
         /* @include config.selector-a-current( $appendToSelector: true ) {} */
     }
@@ -220,7 +224,7 @@
             /*
                 & is a comma-separated list:
 
-                <()> ( 1: <()> ( <S> button ), 2: <()> ( <S> button[aria-current] ) )
+                <()> ( 1: <()> ( <S> button ), 2: <()> ( <S> button[aria-current] ), )
              */
         }
     }
@@ -231,7 +235,7 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> button ) )
+            <()> ( <()> ( <S> button ), )
          */
         /* @include config.selector-a-current( $is: true ) {} */
     }
@@ -241,7 +245,7 @@
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> button:is([aria-current]) ) )
+                <()> ( <()> ( <S> button:is([aria-current]) ), )
              */
         }
     }
@@ -252,7 +256,7 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> button ) )
+            <()> ( <()> ( <S> button ), )
          */
         /* @include config.selector-a-current( $appendToSelector: true, $is: true ) {} */
     }
@@ -277,11 +281,13 @@
     input[type='button'],
     input[type='reset'],
     input[type='submit'],
-    a[href].button {
+    a[href].button,
+    a[href].button-primary,
+    a[href].button-secondary {
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %button ) )
+            <()> ( <()> ( <S> %button ), )
          */
         /* @include config.selector-a-current {} */
     }
@@ -291,12 +297,14 @@
         input[aria-current][type='button'],
         input[aria-current][type='reset'],
         input[aria-current][type='submit'],
-        a[aria-current][href].button {
+        a[aria-current][href].button,
+        a[aria-current][href].button-primary,
+        a[aria-current][href].button-secondary {
             /* @content; */
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %button[aria-current] ) )
+                <()> ( <()> ( <S> %button[aria-current] ), )
              */
         }
     }
@@ -308,11 +316,13 @@
     input[type='button'],
     input[type='reset'],
     input[type='submit'],
-    a[href].button {
+    a[href].button,
+    a[href].button-primary,
+    a[href].button-secondary {
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %button ) )
+            <()> ( <()> ( <S> %button ), )
          */
         /* @include config.selector-a-current( $appendToSelector: true ) {} */
     }
@@ -322,12 +332,14 @@
         input[type='button'],
         input[type='reset'],
         input[type='submit'],
-        a[href].button {
+        a[href].button,
+        a[href].button-primary,
+        a[href].button-secondary {
             /* @content; */
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %button ) )
+                <()> ( <()> ( <S> %button ), )
              */
         }
         button[aria-current],
@@ -335,12 +347,14 @@
         input[aria-current][type='button'],
         input[aria-current][type='reset'],
         input[aria-current][type='submit'],
-        a[aria-current][href].button {
+        a[aria-current][href].button,
+        a[aria-current][href].button-primary,
+        a[aria-current][href].button-secondary {
             /* @content; */
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %button[aria-current] ) )
+                <()> ( <()> ( <S> %button[aria-current] ), )
              */
         }
     }
@@ -352,11 +366,13 @@
     input[type='button'],
     input[type='reset'],
     input[type='submit'],
-    a[href].button {
+    a[href].button,
+    a[href].button-primary,
+    a[href].button-secondary {
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %button ) )
+            <()> ( <()> ( <S> %button ), )
          */
         /* @include config.selector-a-current( $is: true ) {} */
     }
@@ -366,12 +382,14 @@
         input[type='button']:is([aria-current]),
         input[type='reset']:is([aria-current]),
         input[type='submit']:is([aria-current]),
-        a[href].button:is([aria-current]) {
+        a[href].button:is([aria-current]),
+        a[href].button-primary:is([aria-current]),
+        a[href].button-secondary:is([aria-current]) {
             /* @content; */
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %button:is([aria-current]) ) )
+                <()> ( <()> ( <S> %button:is([aria-current]) ), )
              */
         }
     }
@@ -383,11 +401,13 @@
     input[type='button'],
     input[type='reset'],
     input[type='submit'],
-    a[href].button {
+    a[href].button,
+    a[href].button-primary,
+    a[href].button-secondary {
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> %button ) )
+            <()> ( <()> ( <S> %button ), )
          */
         /* @include config.selector-a-current( $appendToSelector: true, $is: true ) {} */
     }
@@ -397,12 +417,14 @@
         input[type='button'],
         input[type='reset'],
         input[type='submit'],
-        a[href].button {
+        a[href].button,
+        a[href].button-primary,
+        a[href].button-secondary {
             /* @content; */
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %button ) )
+                <()> ( <()> ( <S> %button ), )
              */
         }
         button:is([aria-current]),
@@ -410,12 +432,14 @@
         input[type='button']:is([aria-current]),
         input[type='reset']:is([aria-current]),
         input[type='submit']:is([aria-current]),
-        a[href].button:is([aria-current]) {
+        a[href].button:is([aria-current]),
+        a[href].button-primary:is([aria-current]),
+        a[href].button-secondary:is([aria-current]) {
             /* @content; */
             /*
                 & is a comma-separated list:
 
-                <()> ( <()> ( <S> %button:is([aria-current]) ) )
+                <()> ( <()> ( <S> %button:is([aria-current]) ), )
              */
         }
     }

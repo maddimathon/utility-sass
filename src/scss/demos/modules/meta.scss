@@ -201,12 +201,18 @@ meta.is-truthy {
 
 $_fn_varDump: meta.get-function('var-dump', $module: 'meta');
 @mixin _demo-var-dump-fn($args...) {
-    @include demo.function('meta.var-dump', $_fn_varDump, $args);
+    @include demo.function(
+        'meta.var-dump',
+        $_fn_varDump,
+        $args,
+        $wrapOutput: true,
+        $wrapOutput_withName: true
+    );
 }
 
 $_mx_varDump: meta.get-mixin('var-dump', $module: 'meta');
 @mixin _demo-var-dump-mx($args...) {
-    @include demo.mixin('meta.var-dump', $_mx_varDump, $args);
+    @include demo.mixin('meta.var-dump', $_mx_varDump, $args, $wrapOutput: true);
 }
 
 // #region $_map
@@ -228,24 +234,28 @@ $_map: (
 
 $_list: value is a list;
 
-@include meta.at(demo-section, var-dump) {
-    list {
-        // @include meta.var-dump('meta.var-dump( $_list )', meta.var-dump($_list));
-        @include _demo-var-dump-fn($_list);
-    }
-    map {
-        @include meta.var-dump('meta.var-dump( $_map )', meta.var-dump($_map));
-        // @include _demo-var-dump-fn($_map);
-    }
-    number {
-        // @include meta.var-dump('meta.var-dump( 42 )', meta.var-dump(42));
-        @include _demo-var-dump-fn(42);
-    }
-    string {
-        @include meta.var-dump('meta.var-dump( hello-there )', meta.var-dump(hello-there));
-        // @include _demo-var-dump-fn(hello-there);
-    }
+list {
+    @include _demo-var-dump-fn($_list);
 }
+map {
+    @include _demo-var-dump-fn($_map);
+}
+number {
+    @include _demo-var-dump-fn(42);
+}
+string {
+    @include _demo-var-dump-fn(hello-there);
+}
+
+@include _demo-var-dump-mx(
+    'complex-calc',
+    calc(1vw + 3em + var(--some-variable-custom-property-that-makes-this-longer, 1rem))
+);
+
+@include _demo-var-dump-mx(
+    'complex-clamp',
+    clamp(1px, 3em, var(--some-variable-custom-property-that-makes-this-longer, 1rem))
+);
 
 /* ## MODULES - META - js-var-dump() ==================================== */
 

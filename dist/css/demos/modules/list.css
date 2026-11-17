@@ -158,7 +158,7 @@ list.only {
     /*
         list.only( $list, one ) is a comma-separated list:
 
-        <()> ( 1: <S> one, 2: <S> one )
+        <()> ( 1: <S> one, 2: <S> one, )
      */
 }
 
@@ -182,12 +182,12 @@ list.only-any {
     /*
         list.only-any( $list, (one, B) ) is a comma-separated list:
 
-        <()> ( 1: <S> one, 2: <S> one, 3: <S> B, 4: <S> B )
+        <()> ( 1: <S> one, 2: <S> one, 3: <S> B, 4: <S> B, )
      */
     /*
         list.only-any( $list, (C, two) ) is a comma-separated list:
 
-        <()> ( 1: <S> two, 2: <S> two, 3: <S> C )
+        <()> ( 1: <S> two, 2: <S> two, 3: <S> C, )
      */
 }
 
@@ -211,7 +211,7 @@ list.slice {
     /*
         list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), 1, 6 ) is a comma-separated list:
 
-        <()> ( 1: <S> one, 2: <S> two, 3: <S> two, 4: <S> one, 5: <S> A )
+        <()> ( 1: <S> one, 2: <S> two, 3: <S> two, 4: <S> one, 5: <S> A, )
      */
     /*
         list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), 6 ) is a comma-separated list:
@@ -242,17 +242,17 @@ list.slice {
     /*
         list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), 2, 6 ) is a comma-separated list:
 
-        <()> ( 1: <S> two, 2: <S> two, 3: <S> one, 4: <S> A )
+        <()> ( 1: <S> two, 2: <S> two, 3: <S> one, 4: <S> A, )
      */
     /*
         list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), 2, -4 ) is a comma-separated list:
 
-        <()> ( 1: <S> two, 2: <S> two, 3: <S> one, 4: <S> A, 5: <S> B, 6: <S> C )
+        <()> ( 1: <S> two, 2: <S> two, 3: <S> one, 4: <S> A, 5: <S> B, 6: <S> C, )
      */
     /*
         list.slice( ( one, two, two, one, A, B, C, yet, another, list, B ), -4 ) is a comma-separated list:
 
-        <()> ( 1: <S> yet, 2: <S> another, 3: <S> list, 4: <S> B )
+        <()> ( 1: <S> yet, 2: <S> another, 3: <S> list, 4: <S> B, )
      */
 }
 
@@ -260,7 +260,7 @@ list.slice {
     /*
         list.repeat( 1, "once" ) is a comma-separated list:
 
-        <()> ( <S> "once" )
+        <()> ( <S> "once", )
      */
     /*
         list.repeat( 2, "twice", space ) is a space-separated list:
@@ -362,14 +362,17 @@ list.text-join {
             11: <S> B,
         )
      */
-    /* 
-        list.text-join( $list ) = <S> "one, two, two, one, A, B, C, yet, another, list, B"
+    /*
+        list.text-join( $list ) =
+        <S> "one, two, two, one, A, B, C, yet, another, list, B"
      */
-    /* 
-        list.text-join( $list, " - " ) = <S> "one - two - two - one - A - B - C - yet - another - list - B"
+    /*
+        list.text-join( $list, " - " ) =
+        <S> "one - two - two - one - A - B - C - yet - another - list - B"
      */
-    /* 
-        list.text-join( $list, " | " ) = <S> "one | two | two | one | A | B | C | yet | another | list | B"
+    /*
+        list.text-join( $list, " | " ) =
+        <S> "one | two | two | one | A | B | C | yet | another | list | B"
      */
 }
 

@@ -3,11 +3,11 @@
 /// @since 0.1.0-beta
 ///
 
-@use 'sass:list';
 @use 'sass:string';
 
 @use '../config';
 
+@use '../list';
 @use '../meta';
 @use '../selector';
 
@@ -38,9 +38,15 @@
         $warnOnWrongType: true
     );
 
-    @if not meta.is-truthy($argsDump) {
-        $argsDump: args-dump.args-dump($args);
+    @if $argsDump == null {
+        $argsDump: args-dump.args-dump($args, $returnMultiline: true);
     }
+
+    $nameStr: list.set-nth(
+        $argsDump,
+        1,
+        '#{$functionName}#{list.nth($argsDump, 1)}'
+    );
 
     @if $getFunction {
         @if $wrapOutput {
@@ -49,8 +55,9 @@
                 if($wrapOutput_withName, '( function: #{$functionName} )', '')
             ) {
                 @include meta.var-dump(
-                    $name: '#{$functionName}#{$argsDump}',
+                    $name: $nameStr,
                     $var: meta.call($getFunction, $args...),
+                    // $equals: 'returns:',
                     $maxWidth: $maxWidth,
                     $useCompilerFn: $useCompilerFn,
                     $var_dump_args...
@@ -58,8 +65,9 @@
             }
         } @else {
             @include meta.var-dump(
-                $name: '#{$functionName}#{$argsDump}',
+                $name: $nameStr,
                 $var: meta.call($getFunction, $args...),
+                // $equals: 'returns:',
                 $maxWidth: $maxWidth,
                 $useCompilerFn: $useCompilerFn,
                 $var_dump_args...

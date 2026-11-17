@@ -58,15 +58,15 @@
             2: <S> a,
         ),
         2: <()> (
-            1: <()> ( <()> ( <S> a[href][aria-disabled=true] ) ),
+            1: <()> ( <()> ( <S> a[href][aria-disabled=true] ), ),
             2: <S> a-disabled,
         ),
         3: <()> (
-            1: <()> ( <()> ( <S> a[href]:visited ) ),
+            1: <()> ( <()> ( <S> a[href]:visited ), ),
             2: <S> a-visited,
         ),
         4: <()> (
-            1: <()> ( <()> ( <S> a[href][aria-disabled=true]:visited ) ),
+            1: <()> ( <()> ( <S> a[href][aria-disabled=true]:visited ), ),
             2: <S> a-disabled-visited,
         ),
     )
@@ -83,6 +83,8 @@
                 4: <()> ( <S> input[type=reset] ),
                 5: <()> ( <S> input[type=submit] ),
                 6: <()> ( <S> a[href].button ),
+                7: <()> ( <S> a[href].button-primary ),
+                8: <()> ( <S> a[href].button-secondary ),
             ),
             2: <S> "button",
         ),
@@ -100,6 +102,42 @@
                 10: <()> ( <S> input[type=submit][disabled] ),
                 11: <()> ( <S> a[href].button[aria-disabled=true] ),
                 12: <()> ( <S> a[href].button[disabled] ),
+                13: <()> ( <S> a[href].button-primary[aria-disabled=true] ),
+                14: <()> ( <S> a[href].button-primary[disabled] ),
+                15: <()> ( <S> a[href].button-secondary[aria-disabled=true] ),
+                16: <()> ( <S> a[href].button-secondary[disabled] ),
+                17: <()> ( <S> button.button-primary[aria-disabled=true] ),
+                18: <()> ( <S> button.button-primary[disabled] ),
+                19: <()> ( <S> [role=button].button-primary[aria-disabled=true] ),
+                20: <()> ( <S> [role=button].button-primary[disabled] ),
+                21: <()> (
+                    1: <S> input[type=button].button-primary[aria-disabled=true]
+                ),
+                22: <()> ( <S> input[type=button].button-primary[disabled] ),
+                23: <()> (
+                    1: <S> input[type=reset].button-primary[aria-disabled=true]
+                ),
+                24: <()> ( <S> input[type=reset].button-primary[disabled] ),
+                25: <()> (
+                    1: <S> input[type=submit].button-primary[aria-disabled=true]
+                ),
+                26: <()> ( <S> input[type=submit].button-primary[disabled] ),
+                27: <()> ( <S> button.button-secondary[aria-disabled=true] ),
+                28: <()> ( <S> button.button-secondary[disabled] ),
+                29: <()> ( <S> [role=button].button-secondary[aria-disabled=true] ),
+                30: <()> ( <S> [role=button].button-secondary[disabled] ),
+                31: <()> (
+                    1: <S> input[type=button].button-secondary[aria-disabled=true]
+                ),
+                32: <()> ( <S> input[type=button].button-secondary[disabled] ),
+                33: <()> (
+                    1: <S> input[type=reset].button-secondary[aria-disabled=true]
+                ),
+                34: <()> ( <S> input[type=reset].button-secondary[disabled] ),
+                35: <()> (
+                    1: <S> input[type=submit].button-secondary[aria-disabled=true]
+                ),
+                36: <()> ( <S> input[type=submit].button-secondary[disabled] ),
             ),
             2: <S> "button-disabled",
         ),
@@ -107,6 +145,10 @@
             1: <()> (
                 1: <()> ( <S> [role=button]:visited ),
                 2: <()> ( <S> a[href].button:visited ),
+                3: <()> ( <S> a[href].button-primary:visited ),
+                4: <()> ( <S> a[href].button-secondary:visited ),
+                5: <()> ( <S> [role=button].button-primary:visited ),
+                6: <()> ( <S> [role=button].button-secondary:visited ),
             ),
             2: <S> "button-visited",
         ),
@@ -116,118 +158,61 @@
                 2: <()> ( <S> [role=button][disabled]:visited ),
                 3: <()> ( <S> a[href].button[aria-disabled=true]:visited ),
                 4: <()> ( <S> a[href].button[disabled]:visited ),
+                5: <()> ( <S> a[href].button-primary[aria-disabled=true]:visited ),
+                6: <()> ( <S> a[href].button-primary[disabled]:visited ),
+                7: <()> (
+                    1: <S> a[href].button-secondary[aria-disabled=true]:visited
+                ),
+                8: <()> ( <S> a[href].button-secondary[disabled]:visited ),
+                9: <()> (
+                    1: <S> [role=button].button-primary[aria-disabled=true]:visited
+                ),
+                10: <()> ( <S> [role=button].button-primary[disabled]:visited ),
+                11: <()> (
+                    1: <S> [role=button].button-secondary[aria-disabled=true]:visited
+                ),
+                12: <()> ( <S> [role=button].button-secondary[disabled]:visited ),
             ),
             2: <S> "button-disabled-visited",
         ),
         5: <()> (
             1: <()> (
+                1: <()> ( <S> button ),
+                2: <()> ( <S> [role=button] ),
+                3: <()> ( <S> input[type=button] ),
+                4: <()> ( <S> input[type=reset] ),
+                5: <()> ( <S> input[type=submit] ),
+                6: <()> ( <S> a[href].button ),
+                7: <()> ( <S> a[href].button-primary ),
+                8: <()> ( <S> a[href].button-secondary ),
+            ),
+            2: <S> button-basic,
+        ),
+        6: <()> (
+            1: <()> (
                 1: <()> ( <S> a[href].button-primary ),
-                2: <()> ( <S> button.button-primary ),
-                3: <()> ( <S> [role=button].button-primary ),
-                4: <()> ( <S> input[type=button].button-primary ),
-                5: <()> ( <S> input[type=reset].button-primary ),
-                6: <()> ( <S> input[type=submit].button-primary ),
-                7: <()> ( <S> a[href].button-primary:visited ),
+                2: <()> ( <S> a[href].button-primary:visited ),
+                3: <()> ( <S> button.button-primary ),
+                4: <()> ( <S> [role=button].button-primary ),
+                5: <()> ( <S> input[type=button].button-primary ),
+                6: <()> ( <S> input[type=reset].button-primary ),
+                7: <()> ( <S> input[type=submit].button-primary ),
                 8: <()> ( <S> [role=button].button-primary:visited ),
             ),
             2: <S> "button-primary",
         ),
-        6: <()> (
-            1: <()> (
-                1: <()> ( <S> a[href].button-primary[aria-disabled=true] ),
-                2: <()> ( <S> a[href].button-primary[disabled] ),
-                3: <()> ( <S> button.button-primary[aria-disabled=true] ),
-                4: <()> ( <S> button.button-primary[disabled] ),
-                5: <()> ( <S> [role=button].button-primary[aria-disabled=true] ),
-                6: <()> ( <S> [role=button].button-primary[disabled] ),
-                7: <()> (
-                    1: <S> input[type=button].button-primary[aria-disabled=true]
-                ),
-                8: <()> ( <S> input[type=button].button-primary[disabled] ),
-                9: <()> (
-                    1: <S> input[type=reset].button-primary[aria-disabled=true]
-                ),
-                10: <()> ( <S> input[type=reset].button-primary[disabled] ),
-                11: <()> (
-                    1: <S> input[type=submit].button-primary[aria-disabled=true]
-                ),
-                12: <()> ( <S> input[type=submit].button-primary[disabled] ),
-            ),
-            2: <S> "button-disabled",
-        ),
         7: <()> (
             1: <()> (
-                1: <()> ( <S> a[href].button-primary:visited ),
-                2: <()> ( <S> [role=button].button-primary:visited ),
-            ),
-            2: <S> "button-visited",
-        ),
-        8: <()> (
-            1: <()> (
-                1: <()> ( <S> a[href].button-primary[aria-disabled=true]:visited ),
-                2: <()> ( <S> a[href].button-primary[disabled]:visited ),
-                3: <()> (
-                    1: <S> [role=button].button-primary[aria-disabled=true]:visited
-                ),
-                4: <()> ( <S> [role=button].button-primary[disabled]:visited ),
-            ),
-            2: <S> "button-disabled-visited",
-        ),
-        9: <()> (
-            1: <()> (
                 1: <()> ( <S> a[href].button-secondary ),
-                2: <()> ( <S> button.button-secondary ),
-                3: <()> ( <S> [role=button].button-secondary ),
-                4: <()> ( <S> input[type=button].button-secondary ),
-                5: <()> ( <S> input[type=reset].button-secondary ),
-                6: <()> ( <S> input[type=submit].button-secondary ),
-                7: <()> ( <S> a[href].button-secondary:visited ),
+                2: <()> ( <S> a[href].button-secondary:visited ),
+                3: <()> ( <S> button.button-secondary ),
+                4: <()> ( <S> [role=button].button-secondary ),
+                5: <()> ( <S> input[type=button].button-secondary ),
+                6: <()> ( <S> input[type=reset].button-secondary ),
+                7: <()> ( <S> input[type=submit].button-secondary ),
                 8: <()> ( <S> [role=button].button-secondary:visited ),
             ),
             2: <S> "button-secondary",
-        ),
-        10: <()> (
-            1: <()> (
-                1: <()> ( <S> a[href].button-secondary[aria-disabled=true] ),
-                2: <()> ( <S> a[href].button-secondary[disabled] ),
-                3: <()> ( <S> button.button-secondary[aria-disabled=true] ),
-                4: <()> ( <S> button.button-secondary[disabled] ),
-                5: <()> ( <S> [role=button].button-secondary[aria-disabled=true] ),
-                6: <()> ( <S> [role=button].button-secondary[disabled] ),
-                7: <()> (
-                    1: <S> input[type=button].button-secondary[aria-disabled=true]
-                ),
-                8: <()> ( <S> input[type=button].button-secondary[disabled] ),
-                9: <()> (
-                    1: <S> input[type=reset].button-secondary[aria-disabled=true]
-                ),
-                10: <()> ( <S> input[type=reset].button-secondary[disabled] ),
-                11: <()> (
-                    1: <S> input[type=submit].button-secondary[aria-disabled=true]
-                ),
-                12: <()> ( <S> input[type=submit].button-secondary[disabled] ),
-            ),
-            2: <S> "button-disabled",
-        ),
-        11: <()> (
-            1: <()> (
-                1: <()> ( <S> a[href].button-secondary:visited ),
-                2: <()> ( <S> [role=button].button-secondary:visited ),
-            ),
-            2: <S> "button-visited",
-        ),
-        12: <()> (
-            1: <()> (
-                1: <()> (
-                    1: <S> a[href].button-secondary[aria-disabled=true]:visited
-                ),
-                2: <()> ( <S> a[href].button-secondary[disabled]:visited ),
-                3: <()> (
-                    1: <S> [role=button].button-secondary[aria-disabled=true]:visited
-                ),
-                4: <()> ( <S> [role=button].button-secondary[disabled]:visited ),
-            ),
-            2: <S> "button-disabled-visited",
         ),
     )
  */

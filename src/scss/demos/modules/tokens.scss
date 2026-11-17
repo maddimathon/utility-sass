@@ -25,6 +25,6 @@ tokens-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/tokens'` */
     @include meta.var-dump(
         'meta.module-variables(tokens)',
-        map.ksort(meta.module-variables(tokens))
+        map.ksort(meta.module-variables(tokens), $recursive: true)
     );
 }

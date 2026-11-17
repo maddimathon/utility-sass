@@ -19,12 +19,12 @@
     /*
         config.$featureCheck_defaultToJS is a map:
 
-        <:> ( "touch": </> true, "whereSelector": </> true )
+        <:> ( "touch": </> true, "whereSelector": </> true, )
      */
     /*
         config.$featureCheck_defaultToJS_supports is a map:
 
-        <:> ( "touch": </> true, "whereSelector": </> true )
+        <:> ( "touch": </> true, "whereSelector": </> true, )
      */
     /*
         config.$featureCheck_defaultToJS_supports_not is a map:
@@ -112,12 +112,12 @@
         /*
             & is a comma-separated list:
 
-            <()> ( <()> ( <S> .whereSelector--true ) )
+            <()> ( <()> ( <S> .whereSelector--true ), )
          */
         /*
             feature-check.get-selector( whereSelector, $bool: true ) is a comma-separated list:
 
-            <()> ( <()> ( <S> :where(.js) <S> .whereSelector--true ) )
+            <()> ( <()> ( <S> :where(.js) <S> .whereSelector--true ), )
          */
     }
     @demo return {
@@ -131,7 +131,7 @@
     /*
         feature-check.get-selector( whereSelector, $bool: false ) is a comma-separated list:
 
-        <()> ( <()> ( <S> :where(.js__no-whereSelector) <S> .whereSelector--false ) )
+        <()> ( <()> ( <S> :where(.js__no-whereSelector) <S> .whereSelector--false ), )
      */
 }
 .whereSelector--true.with-extra {
@@ -148,14 +148,14 @@
     /*
         feature-check.get-selector( aspectRatio, $bool: true ) is a comma-separated list:
 
-        <()> ( <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true ) )
+        <()> ( <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true ), )
      */
 }
 .aspectRatio--false {
     /*
         feature-check.get-selector( aspectRatio, $bool: false ) is a comma-separated list:
 
-        <()> ( <()> ( <S> :where(.js__no-aspectRatio) <S> .aspectRatio--false ) )
+        <()> ( <()> ( <S> :where(.js__no-aspectRatio) <S> .aspectRatio--false ), )
      */
 }
 .aspectRatio--true.with-extra {

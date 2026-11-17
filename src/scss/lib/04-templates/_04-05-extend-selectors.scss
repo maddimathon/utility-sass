@@ -8,6 +8,7 @@
 
 @use '../../modules/feature-check';
 @use '../../modules/list';
+@use '../../modules/map';
 @use '../../modules/meta';
 @use '../../modules/selector';
 
@@ -120,34 +121,71 @@ $_optionalDefault: if(config.$isTemplate, false, true);
 /// @since 0.1.0-beta
 ///
 @function get-extend-selectors-all-buttons($args...) {
-    $base_buttons: list.join(
-        config.$selector_a,
-        selector.except-superselector(selector-buttons-basic(), config.$selector_a),
+    $base_buttons: selector.except-superselector(selector-buttons-basic(), config.$selector_a);
+
+    $mapped_sels: ();
+
+    $sels: list.append(
+        get-extend-selectors-button(selector-buttons-basic(), $args...),
+        (selector-buttons-basic(), button-basic),
         $separator: comma
     );
 
-    $sels: get-extend-selectors-button(
-        list.join(
-            selector.except-superselector($base_buttons, config.$selector_a),
-            selector.unify(config.$selector_a, '.button'),
-            $separator: comma
-        ),
-        $args...
-    );
+    @each $selectors, $pseudoSelector in $sels {
+        $mapped_sels: map.set(
+            $mapped_sels,
+            $pseudoSelector,
+            list.append(
+                meta.defined-else(map.get($mapped_sels, $pseudoSelector), ()),
+                $selectors,
+                $separator: comma
+            )
+        );
+    }
 
     @each $variant, $sel_variant in tokens.$selector_button_variants {
-        $sels: list.join(
-            $sels,
+        $new_sels: list.join(
+            // add link buttons
             get-extend-selectors-button(
-                selector.unify($base_buttons, $sel_variant),
-                $variant: $variant,
-                $args...
-            ),
+                    selector.unify(config.$selector_a, $sel_variant),
+                    $variant: $variant,
+                    $args...
+                ),
+            // add button buttons
+            get-extend-selectors-button(
+                    selector.unify($base_buttons, $sel_variant),
+                    $variant: $variant,
+                    $args...
+                ),
+            $separator: comma
+        );
+
+        @each $selectors, $pseudoSelector in $new_sels {
+            $mapped_sels: map.set(
+                $mapped_sels,
+                $pseudoSelector,
+                list.append(
+                    meta.defined-else(map.get($mapped_sels, $pseudoSelector), ()),
+                    $selectors,
+                    $separator: comma
+                )
+            );
+        }
+
+        $sels: list.join($sels, $new_sels, $separator: comma);
+    }
+
+    $relisted: ();
+
+    @each $pseudoSelector, $selectors in $mapped_sels {
+        $relisted: list.append(
+            $relisted,
+            (list.unique(selector.parse(#{$selectors})), $pseudoSelector),
             $separator: comma
         );
     }
 
-    @return $sels;
+    @return $relisted;
 }
 
 ///

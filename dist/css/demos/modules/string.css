@@ -16,11 +16,13 @@ string.concat {
     /* 
         string.concat( "hello", " ", "there" ) = <S> "hello there"
      */
-    /* 
-        string.concat( "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ) = <S> "hello1bad:practice-to-put-maps-or-lists there"
+    /*
+        string.concat( "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ) =
+        <S> "hello1bad:practice-to-put-maps-or-lists there"
      */
-    /* 
-        string.concat( "\f139", "\f132", " ", "\f139" ) = <S> "\f139\f132  \f139"
+    /*
+        string.concat( "\f139", "\f132", " ", "\f139" ) =
+        <S> "\f139\f132  \f139"
      */
 }
 
@@ -37,11 +39,13 @@ string.join {
     /* 
         string.join( " ",  "hello", "there", "more" ) = <S> "hello there more"
      */
-    /* 
-        string.join( "  —  ", "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ) = <S> "hello  —  1  —  bad: practice-to-put-maps-or-lists  —     —  there"
+    /*
+        string.join( "  —  ", "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ) =
+        <S> "hello  —  1  —  bad: practice-to-put-maps-or-lists  —     —  there"
      */
-    /* 
-        string.join( " + ",  "\f139", "\f132", "\f139" ) = <S> "\f139  + \f132  + \f139"
+    /*
+        string.join( " + ",  "\f139", "\f132", "\f139" ) =
+        <S> "\f139  + \f132  + \f139"
      */
 }
 
@@ -49,7 +53,7 @@ string.match {
     /*
         string.match( "hello there", "^hello" ) is a comma-separated list:
 
-        <()> ( <S> "hello" )
+        <()> ( <S> "hello", )
      */
     /* 
         string.match( "hello there", "^Hello" ) = <-> null
@@ -57,12 +61,12 @@ string.match {
     /*
         string.match( "hello there", "^Hello", "i" ) is a comma-separated list:
 
-        <()> ( <S> "hello" )
+        <()> ( <S> "hello", )
      */
     /*
         string.match( "hello there", "[^\\s] ([^\\s]+)$", "i" ) is a comma-separated list:
 
-        <()> ( 1: <S> "o there", 2: <S> "there" )
+        <()> ( 1: <S> "o there", 2: <S> "there", )
      */
 }
 
@@ -70,29 +74,36 @@ string.replace {
     /* 
         string.replace( "hello there", "hello", "goodbye" ) = <S> goodbye there
      */
-    /* 
-        string.replace( "remove this part but not the rest", "remove this part " ) = <S> but not the rest
+    /*
+        string.replace( "remove this part but not the rest", "remove this part " ) =
+        <S> but not the rest
      */
 }
 
 string.regex-replace {
-    /* 
-        string.regex-replace( "hello there", "^hello", "goodbye" ) = <S> "goodbye there"
+    /*
+        string.regex-replace( "hello there", "^hello", "goodbye" ) =
+        <S> "goodbye there"
      */
-    /* 
-        string.regex-replace( "hello there", "^Hello", "goodbye" ) = <S> "hello there"
+    /*
+        string.regex-replace( "hello there", "^Hello", "goodbye" ) =
+        <S> "hello there"
      */
-    /* 
-        string.regex-replace( "hello there", "^Hello", "goodbye", $flags: "gi" ) = <S> "goodbye there"
+    /*
+        string.regex-replace( "hello there", "^Hello", "goodbye", $flags: "gi" ) =
+        <S> "goodbye there"
      */
-    /* 
-        string.regex-replace( "hello there", "^([^\\s]+)", "goodbye" ) = <S> "goodbye"
+    /*
+        string.regex-replace( "hello there", "^([^\\s]+)", "goodbye" ) =
+        <S> "goodbye"
      */
-    /* 
-        string.regex-replace( "hello there", "^hello\\s*(.*)$", "goodbye $1" ) = <S> "goodbye there"
+    /*
+        string.regex-replace( "hello there", "^hello\\s*(.*)$", "goodbye $1" ) =
+        <S> "goodbye there"
      */
-    /* 
-        string.regex-replace( "remove this part but not the rest", "^remove this part\\s+" ) = <S> "but not the rest"
+    /*
+        string.regex-replace( "remove this part but not the rest", "^remove this part\\s+" ) =
+        <S> "but not the rest"
      */
 }
 
@@ -100,22 +111,22 @@ string.regex-split {
     /*
         string.regex-split( "hello there", "^hello" ) is a comma-separated list:
 
-        <()> ( 1: <S> "", 2: <S> " there" )
+        <()> ( 1: <S> "", 2: <S> " there", )
      */
     /*
         string.regex-split( "hello there", "^Hello" ) is a comma-separated list:
 
-        <()> ( <S> "hello there" )
+        <()> ( <S> "hello there", )
      */
     /*
         string.regex-split( "hello there", "^Hello",  $flags: "i" ) is a comma-separated list:
 
-        <()> ( 1: <S> "", 2: <S> " there" )
+        <()> ( 1: <S> "", 2: <S> " there", )
      */
     /*
         string.regex-split( "remove this part but not the rest", "\\s+this part but\\s+" ) is a comma-separated list:
 
-        <()> ( 1: <S> "remove", 2: <S> "not the rest" )
+        <()> ( 1: <S> "remove", 2: <S> "not the rest", )
      */
     /*
         string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+" ) is a comma-separated list:
@@ -146,7 +157,7 @@ string.regex-split {
     /*
         string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+", $limit: 2 ) is a comma-separated list:
 
-        <()> ( 1: <S> "Lorem", 2: <S> "ipsum" )
+        <()> ( 1: <S> "Lorem", 2: <S> "ipsum", )
      */
 }
 
@@ -169,14 +180,16 @@ string.slugify {
     /* 
         string.slugify( "ÑŃñń" ) = <S> nnnn
      */
-    /* 
-        string.slugify( "something & something else" ) = <S> something-and-something-else
+    /*
+        string.slugify( "something & something else" ) =
+        <S> something-and-something-else
      */
     /* 
         string.slugify( "eXamPle(-–—_:;/) 2346" ) = <S> example-_-2346
      */
-    /* 
-        string.slugify( "- hello – — _ : there ; / 56498d *%$#" ) = <S> -hello-_-there-56498d-
+    /*
+        string.slugify( "- hello – — _ : there ; / 56498d *%$#" ) =
+        <S> -hello-_-there-56498d-
      */
 }
 
@@ -184,7 +197,7 @@ string.soft-wrap {
     /*
         string.soft-wrap( "hello there" ) is a comma-separated list:
 
-        <()> ( <S> "hello there" )
+        <()> ( <S> "hello there", )
      */
     /*
         string.soft-wrap( "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis non vulputate a, tempor aliquam ex." ) is a comma-separated list:

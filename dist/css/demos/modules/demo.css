@@ -33,17 +33,21 @@
     /* 
         demo.args-dump( meta.arglist( one, two ) ) = <S> ( one, two )
      */
-    /* 
-        demo.args-dump( meta.arglist( $param: one, $value: two ) ) = <S> ( $param: one, $value: two )
+    /*
+        demo.args-dump( meta.arglist( $param: one, $value: two ) ) =
+        <S> ( $param: one, $value: two )
      */
-    /* 
-        demo.args-dump( meta.arglist( something, $param: one, $value: two ) ) = <S> ( something, $param: one, $value: two )
+    /*
+        demo.args-dump( meta.arglist( something, $param: one, $value: two ) ) =
+        <S> ( something, $param: one, $value: two )
      */
 }
 @demo-section content-args-dump {
     @demo {
-        /* 
-            demo.content-args-dump( meta.arglist() ) = <S> @content;
+        /*
+            demo.content-args-dump( meta.arglist() ) is a space-separated list:
+
+            <()> ( <S> @content; )
          */
     }
     @demo ( mixin: demo.content-args-dump ) {
@@ -53,8 +57,10 @@
         }
     }
     @demo {
-        /* 
-            demo.content-args-dump( meta.arglist( one, two ) ) = <S> @content( <S> one, <S> two );
+        /*
+            demo.content-args-dump( meta.arglist( one, two ) ) is a space-separated list:
+
+            <()> ( <S> @content( <S> one, <S> two ); )
          */
     }
     @demo ( mixin: demo.content-args-dump ) {
@@ -64,8 +70,10 @@
         }
     }
     @demo {
-        /* 
-            demo.content-args-dump( meta.arglist( $param: one, $value: two ) ) = <S> @content( $param: <S> one, $value: <S> two );
+        /*
+            demo.content-args-dump( meta.arglist( $param: one, $value: two ) ) is a space-separated list:
+
+            <()> ( <S> @content( $param: <S> one, $value: <S> two ); )
          */
     }
     @demo ( mixin: demo.content-args-dump ) {
@@ -75,8 +83,11 @@
         }
     }
     @demo {
-        /* 
-            demo.content-args-dump( meta.arglist( something, $param: one, $value: two ) ) = <S> @content( <S> something, $param: <S> one, $value: <S> two );
+        /*
+            demo.content-args-dump( meta.arglist( something, $param: one, $value: two ) ) is a space-separated list:
+            <()> (
+                1: <S> @content( <S> something, $param: <S> one, $value: <S> two );
+            )
          */
     }
     @demo ( mixin: demo.content-args-dump ) {
@@ -88,8 +99,10 @@
 }
 @demo-section mixin-signature-dump {
     @demo {
-        /* 
-            demo.mixin-signature-dump( fake-mixin, meta.arglist(), $getMixin: get-mixin("mixin-signature-dump") ) = <S> @include fake-mixin;
+        /*
+            demo.mixin-signature-dump( fake-mixin, meta.arglist(), $getMixin: get-mixin("mixin-signature-dump") ) is a space-separated list:
+
+            <()> ( <S> @include fake-mixin; )
          */
     }
     @demo ( mixin: demo.mixin-signature-dump ) {
@@ -99,8 +112,10 @@
         }
     }
     @demo {
-        /* 
-            demo.mixin-signature-dump( fake-mixin, meta.arglist( one, two ), $getMixin: get-mixin("mixin-signature-dump") ) = <S> @include fake-mixin( one, two );
+        /*
+            demo.mixin-signature-dump( fake-mixin, meta.arglist( one, two ), $getMixin: get-mixin("mixin-signature-dump") ) is a space-separated list:
+
+            <()> ( <S> @include fake-mixin( one, two ); )
          */
     }
     @demo ( mixin: demo.mixin-signature-dump ) {
@@ -110,8 +125,10 @@
         }
     }
     @demo {
-        /* 
-            demo.mixin-signature-dump( fake-mixin, meta.arglist( $param: one, $value: two ), $getMixin: get-mixin("mixin-signature-dump") ) = <S> @include fake-mixin( $param: one, $value: two );
+        /*
+            demo.mixin-signature-dump( fake-mixin, meta.arglist( $param: one, $value: two ), $getMixin: get-mixin("mixin-signature-dump") ) is a space-separated list:
+
+            <()> ( <S> @include fake-mixin( $param: one, $value: two ); )
          */
     }
     @demo ( mixin: demo.mixin-signature-dump ) {
@@ -121,8 +138,10 @@
         }
     }
     @demo {
-        /* 
-            demo.mixin-signature-dump( fake-mixin, meta.arglist( something, $param: one, $value: two ), $getMixin: get-mixin("mixin-signature-dump") ) = <S> @include fake-mixin( something, $param: one, $value: two );
+        /*
+            demo.mixin-signature-dump( fake-mixin, meta.arglist( something, $param: one, $value: two ), $getMixin: get-mixin("mixin-signature-dump") ) is a space-separated list:
+
+            <()> ( <S> @include fake-mixin( something, $param: one, $value: two ); )
          */
     }
     @demo ( mixin: demo.mixin-signature-dump ) {

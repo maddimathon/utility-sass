@@ -10,6 +10,7 @@
 
 @use '../config';
 
+@use 'arglist';
 @use 'docblock-printer';
 @use 'is-truthy';
 @use 'global-compiler-fn';
@@ -45,13 +46,6 @@ $_varType_abbreviations: (
 ///
 /// @since 0.3.0-draft
 ///
-@function _var-dump--regex-line-trimmer($removeIndices) {
-    @return if($removeIndices, '(^\\s*(\\d+:\\s*)?|\\s*$)', '(^\\s*|\\s*$)');
-}
-
-///
-/// @since 0.3.0-draft
-///
 @function _var-dump--list-length-is-under-one-line(
     $lines,
     $indent,
@@ -72,7 +66,7 @@ $_varType_abbreviations: (
 
     $replacedLines: _var-dump--string-regex-replace(
         _var-dump--string-regex-replace(#{$lines}, $_regex_spaceReplacer, ' '),
-        '^\\s+|[,\\s]\\s*$'
+        '^\\s+|\\s+$'
     );
 
     @return string.length('#{$indent}#{$indent}#{$typeString}#{$replacedLines}')
@@ -153,32 +147,81 @@ $_varType_abbreviations: (
 @function _var-dump--inspection-lines(
     $var,
     $indent,
+    //
+    $withType,
+    //
     $alwaysQuote,
+    $detectParentSelector,
     $neverQuote,
     $shortType,
+    $showParens,
+    $typeJoiner,
+    //
     $alwaysOutputMultiline,
-    $outputMultiline,
     $maxWidth,
-    $_depth: 1,
-    $childArgs: (),
-    $keyArgs: ()
+    $outputMultiline,
+    $varType_overrides,
+    //
+    $keys_alwaysQuote: null,
+    $keys_neverQuote: null,
+    $keys_shortType: null,
+    $keys_showParens: null,
+    $keys_withType: null,
+    //
+    $child_alwaysQuote: null,
+    $child_neverQuote: null,
+    $child_shortType: null,
+    $child_showParens: null,
+    $child_typeJoiner: null,
+    $child_withType: null,
+    //
+    $_depth: 1
 ) {
     $typeOf: meta.type-of($var);
 
-    $typeString: '<#{if($shortType, var-type-abbreviator($typeOf), $typeOf)}> ';
+    $typeString: _var-dump--type-string(
+        $shortType: $shortType,
+        $type: $typeOf,
+        $typeJoiner: $typeJoiner,
+        $withType: $withType,
+        $varType_overrides: $varType_overrides,
+    );
 
-    $doMultilineOutput: ($typeOf == list and list.length($var) > 0) or
+    $doMultilineOutput: ($typeOf == calculation) or
+        ($typeOf == list and list.length($var) > 0) or
         ($typeOf == map and list.length(map.keys($var)) > 0);
 
     // returns
     @if not $doMultilineOutput {
-        @return (
-            #{var-dump(
-                    $var,
-                    $alwaysQuote: $alwaysQuote,
-                    $neverQuote: $neverQuote,
-                    $shortType: $shortType
-                )}
+        @return var-dump(
+            $var,
+            //
+            $withType: $withType,
+            //
+            $alwaysQuote: $alwaysQuote,
+            $detectParentSelector: $detectParentSelector,
+            $neverQuote: $neverQuote,
+            $shortType: $shortType,
+            $showParens: $showParens,
+            $typeJoiner: $typeJoiner,
+            //
+            $alwaysOutputMultiline: $alwaysOutputMultiline,
+            $maxWidth: $maxWidth,
+            $outputMultiline: $outputMultiline,
+            $varType_overrides: $varType_overrides,
+            //
+            $keys_alwaysQuote: $keys_alwaysQuote,
+            $keys_neverQuote: $keys_neverQuote,
+            $keys_shortType: $keys_shortType,
+            $keys_showParens: $keys_showParens,
+            $keys_withType: $keys_withType,
+            //
+            $child_alwaysQuote: $child_alwaysQuote,
+            $child_neverQuote: $child_neverQuote,
+            $child_shortType: $child_shortType,
+            $child_showParens: $child_showParens,
+            $child_typeJoiner: $child_typeJoiner,
+            $child_withType: $child_withType
         );
     }
 
@@ -195,42 +238,54 @@ $_varType_abbreviations: (
 
     $_hasSubInspection: false;
 
-    // prettier-ignore
-    $local_childArgs: map.merge(
-        (
-            alwaysOutputMultiline: $alwaysOutputMultiline,
-            alwaysQuote: $alwaysQuote,
-            neverQuote: $neverQuote,
-            outputMultiline: $alwaysOutputMultiline or ($outputMultiline and $_depth == 1),
-            shortType: $shortType,
-        ),
-        $childArgs
+    $child_alwaysQuote: is-truthy.defined-else(
+        $child_alwaysQuote,
+        $alwaysQuote
     );
-
-    $local_keyArgs: map.merge(
-        (
-            alwaysQuote: $alwaysQuote or not $neverQuote,
-            neverQuote: $neverQuote,
-            shortType: $shortType,
-            withType: false,
-        ),
-        $keyArgs
-    );
+    $child_neverQuote: is-truthy.defined-else($child_neverQuote, $neverQuote);
+    $child_shortType: is-truthy.defined-else($child_shortType, $shortType);
+    $child_showParens: is-truthy.defined-else($child_showParens, $showParens);
+    $child_typeJoiner: is-truthy.defined-else($child_typeJoiner, $typeJoiner);
+    $child_withType: is-truthy.defined-else($child_withType, $withType);
 
     $lines: ();
 
     @if $typeOf == map {
-        @each $_key, $_val in $var {
-            $_keyDisplay: var-dump($_key, $local_keyArgs...);
+        $keys_neverQuote: is-truthy.defined-else($keys_neverQuote, false);
+        $keys_alwaysQuote: is-truthy.defined-else($keys_alwaysQuote, true);
+        $keys_shortType: is-truthy.defined-else($keys_shortType, true);
+        $keys_showParens: is-truthy.defined-else($keys_showParens, $showParens);
+        $keys_withType: is-truthy.defined-else($keys_withType, false);
 
+        @each $_key, $_val in $var {
+            $_keyDisplay: var-dump(
+                $_key,
+                $alwaysQuote: $keys_alwaysQuote,
+                $detectParentSelector: $detectParentSelector,
+                $neverQuote: $keys_neverQuote,
+                $shortType: $keys_shortType,
+                $showParens: $keys_showParens,
+                $typeJoiner: $typeJoiner,
+                $withType: $keys_withType
+            );
+
+            // prettier-ignore
             $_subinspection: _var-dump--inspection-lines(
                 $var: $_val,
                 $indent: '#{$indent}  ',
                 $_depth: $_depth + 1,
+                $varType_overrides: $varType_overrides,
+                //
+                $alwaysOutputMultiline: $alwaysOutputMultiline,
+                $alwaysQuote: is-truthy.defined-else($child_alwaysQuote, false),
+                $detectParentSelector: $detectParentSelector,
                 $maxWidth: $maxWidth,
-                $childArgs: $childArgs,
-                $keyArgs: $keyArgs,
-                $local_childArgs...,
+                $neverQuote: is-truthy.defined-else($child_neverQuote, false),
+                $outputMultiline: $alwaysOutputMultiline or ($outputMultiline and $_depth == 1),
+                $shortType: is-truthy.defined-else($child_shortType, $shortType),
+                $showParens: is-truthy.defined-else($child_showParens, $showParens),
+                $typeJoiner: is-truthy.defined-else($child_typeJoiner, $typeJoiner),
+                $withType: is-truthy.defined-else($child_withType, true),
             );
 
             $_subinspection: list.set-nth(
@@ -259,18 +314,86 @@ $_varType_abbreviations: (
 
             $lines: list.join($lines, $_subinspection, $separator: space);
         }
-    } @else {
+    } @else if $typeOf == calculation {
+        $typeString: #{$typeString}#{meta.calc-name($var)};
+
+        $_calc_args: meta.calc-args($var);
+        $_calc_args_length: list.length($_calc_args);
+
         $i: 1;
 
-        @each $_val in $var {
+        @each $_val in $_calc_args {
+            // prettier-ignore
             $_subinspection: _var-dump--inspection-lines(
                 $var: $_val,
                 $indent: '#{$indent}  ',
                 $_depth: $_depth + 1,
+                $varType_overrides: $varType_overrides,
+                //
+                $alwaysOutputMultiline: $alwaysOutputMultiline,
+                $alwaysQuote: is-truthy.defined-else($child_alwaysQuote, false),
+                $detectParentSelector: $detectParentSelector,
                 $maxWidth: $maxWidth,
-                $childArgs: $childArgs,
-                $keyArgs: $keyArgs,
-                $local_childArgs...,
+                $neverQuote: is-truthy.defined-else($child_neverQuote, false),
+                $outputMultiline: $alwaysOutputMultiline or ($outputMultiline and $_depth == 1),
+                $shortType: is-truthy.defined-else($child_shortType, $shortType),
+                $showParens: is-truthy.defined-else($child_showParens, $showParens),
+                $typeJoiner: is-truthy.defined-else($child_typeJoiner, $typeJoiner),
+                $withType: is-truthy.defined-else($child_withType, true),
+            );
+
+            $_subinspection: list.set-nth(
+                $_subinspection,
+                1,
+                '#{$indent}  #{list.nth($_subinspection, 1)}'
+            );
+
+            // only add string separator if this is not the last list item
+            @if $i < $_calc_args_length {
+                $_subinspection: list.set-nth(
+                    $_subinspection,
+                    -1,
+                    '#{list.nth($_subinspection, -1)}#{$stringSeparator}'
+                );
+            }
+
+            @if (not $_hasSubInspection) and
+                _var-dump--value-is-subinspection(
+                    $value: $_val,
+                    $subinspection: $_subinspection,
+                    $indent: $indent,
+                    $maxWidth: $maxWidth,
+                    $typeString: $typeString
+                )
+            {
+                $_hasSubInspection: true;
+            }
+
+            $lines: list.join($lines, $_subinspection, $separator: space);
+
+            $i: $i + 1;
+        }
+    } @else {
+        $i: 1;
+
+        @each $_val in $var {
+            // prettier-ignore
+            $_subinspection: _var-dump--inspection-lines(
+                $var: $_val,
+                $indent: '#{$indent}  ',
+                $_depth: $_depth + 1,
+                $varType_overrides: $varType_overrides,
+                //
+                $alwaysOutputMultiline: $alwaysOutputMultiline,
+                $alwaysQuote: is-truthy.defined-else($child_alwaysQuote, false),
+                $detectParentSelector: $detectParentSelector,
+                $maxWidth: $maxWidth,
+                $neverQuote: is-truthy.defined-else($child_neverQuote, false),
+                $outputMultiline: $alwaysOutputMultiline or ($outputMultiline and $_depth == 1),
+                $shortType: is-truthy.defined-else($child_shortType, $shortType),
+                $showParens: is-truthy.defined-else($child_showParens, $showParens),
+                $typeJoiner: is-truthy.defined-else($child_typeJoiner, $typeJoiner),
+                $withType: is-truthy.defined-else($child_withType, true),
             );
 
             $_subinspection: list.set-nth(
@@ -316,7 +439,11 @@ $_varType_abbreviations: (
             $typeString: $typeString
         )
     {
-        $_regex_lineTrimmer: _var-dump--regex-line-trimmer($removeIndices);
+        $_regex_lineTrimmer: if(
+            $removeIndices,
+            '^\\s*(\\d+:\\s*)?|\\s*$',
+            '^\\s*|\\s*$'
+        );
 
         $_newLines: ();
 
@@ -333,7 +460,7 @@ $_varType_abbreviations: (
 
         $_newLines: _var-dump--string-regex-replace(
             #{$_newLines},
-            '^\\s+|[,\\s]\\s*$'
+            '^\\s+|\\s+$'
         );
 
         $lines: ('#{$typeString}( #{$_newLines} )');
@@ -344,11 +471,10 @@ $_varType_abbreviations: (
         $lines: ('#{$typeString}(#{$lines})');
     }
 
-    @return $lines;
+    @return if(list.length($lines) > 1, $lines, #{$lines});
 }
 
-@function _var-dump--return(
-    $inspection,
+@function _var-dump--type-string(
     $shortType,
     $type,
     $typeJoiner,
@@ -357,17 +483,49 @@ $_varType_abbreviations: (
 ) {
     $_typeOverride: map.get($varType_overrides, $type);
 
-    @if $withType == true or (list.index($withType, $type) != null) {
-        $_type: if(
-            $_typeOverride == null,
-            '<#{if($shortType, var-type-abbreviator($type), $type)}>#{$typeJoiner}',
-            $_typeOverride
+    $_type: '';
+
+    @if $withType ==
+        true or
+        #{$withType} ==
+        $type or
+        (list.index($withType, $type) != null)
+    {
+        $_type: is-truthy.defined-else(
+            map.get($varType_overrides, $type),
+            '<#{if($shortType, var-type-abbreviator($type), $type)}>'
         );
 
-        $inspection: '#{$_type}#{$inspection}';
+        $_type: '#{$_type}#{$typeJoiner}';
     }
 
-    @return string.unquote($inspection);
+    @return $_type;
+}
+
+@function _var-dump--return(
+    $inspection,
+    $returnMultiline,
+    $shortType,
+    $type,
+    $typeJoiner,
+    $withType,
+    $varType_overrides
+) {
+    $typeStr: _var-dump--type-string(
+        $shortType: $shortType,
+        $type: $type,
+        $typeJoiner: $typeJoiner,
+        $withType: $withType,
+        $varType_overrides: $varType_overrides,
+    );
+
+    $lines: list.set-nth(
+        $inspection,
+        1,
+        #{$typeStr}#{list.nth($inspection, 1)}
+    );
+
+    @return if($returnMultiline and list.length($lines) > 1, $lines, #{$lines});
 }
 
 ///
@@ -428,16 +586,12 @@ $_varType_abbreviations: (
                     @if #{$var} == #{&} {
                         @return _var-dump--return(
                             $inspection: string.unquote('&'),
+                            $returnMultiline: $returnMultiline,
                             $shortType: $shortType,
                             $type: $type,
                             $typeJoiner: $typeJoiner,
-                            $withType: (
-                                $withType == true,
-                            )
-                            or
-                            (
+                            $withType: $withType == true or
                                 list.index($withType, selector) != null,
-                            ),
                             $varType_overrides: $varType_overrides
                         );
                     }
@@ -446,49 +600,68 @@ $_varType_abbreviations: (
         }
     }
 
-    $childArgs: (
-        alwaysQuote: if(
-                $child_alwaysQuote == null,
-                $alwaysQuote,
-                $child_alwaysQuote
-            ),
-        detectParentSelector: $detectParentSelector,
-        neverQuote: if(
-                $child_neverQuote == null,
-                $neverQuote,
-                $child_neverQuote
-            ),
-        shortType: if($child_shortType == null, $shortType, $child_shortType),
-        showParens: if(
-                $child_showParens == null,
-                $showParens,
-                $child_showParens
-            ),
-        typeJoiner: if(
-                $child_typeJoiner == null,
-                $typeJoiner,
-                $child_typeJoiner
-            ),
-        withType: if($child_withType == null, $withType, $child_withType),
-    );
+    $_init_child_withType: $child_withType;
 
-    $keyArgs: (
-        alwaysQuote: if(
-                $keys_alwaysQuote == null,
-                not $keys_neverQuote,
-                $keys_alwaysQuote
-            ),
-        detectParentSelector: $detectParentSelector,
-        neverQuote: if($keys_neverQuote == null, $neverQuote, $keys_neverQuote),
-        shortType: if($keys_shortType == null, $shortType, $keys_shortType),
-        showParens: if($keys_showParens == null, $showParens, $keys_showParens),
-        typeJoiner: $typeJoiner,
-        withType: if($keys_withType == null, false, $keys_withType),
+    $child_alwaysQuote: is-truthy.defined-else(
+        $child_alwaysQuote,
+        $alwaysQuote
     );
+    $child_neverQuote: is-truthy.defined-else($child_neverQuote, $neverQuote);
+    $child_shortType: is-truthy.defined-else($child_shortType, $shortType);
+    $child_showParens: is-truthy.defined-else($child_showParens, $showParens);
+    $child_typeJoiner: is-truthy.defined-else($child_typeJoiner, $typeJoiner);
+    $child_withType: is-truthy.defined-else($child_withType, $withType);
 
-    $_withType_type: meta.type-of($withType);
-    @if $_withType_type == list or $_withType_type == string {
-        $withType: list.index($withType, $type) != null;
+    $keys_neverQuote: is-truthy.defined-else($keys_neverQuote, false);
+    $keys_alwaysQuote: is-truthy.defined-else($keys_alwaysQuote, true);
+    $keys_shortType: is-truthy.defined-else($keys_shortType, true);
+    $keys_showParens: is-truthy.defined-else($keys_showParens, false);
+    $keys_withType: is-truthy.defined-else($keys_withType, false);
+
+    // returns
+    @if $returnMultiline and
+        (
+            $type ==
+                'arglist' or
+                $type ==
+                'calculation' or
+                $type ==
+                'list' or
+                $type ==
+                'map'
+        )
+    {
+        @return _var-dump--inspection-lines(
+            $var: $var,
+            $indent: '',
+            //
+            $withType: $withType,
+            //
+            $alwaysQuote: $alwaysQuote,
+            $detectParentSelector: $detectParentSelector,
+            $neverQuote: $neverQuote,
+            $shortType: $shortType,
+            $showParens: $showParens,
+            $typeJoiner: $typeJoiner,
+            //
+            $alwaysOutputMultiline: $alwaysOutputMultiline,
+            $maxWidth: $maxWidth,
+            $outputMultiline: $outputMultiline,
+            $varType_overrides: $varType_overrides,
+            //
+            $keys_alwaysQuote: $keys_alwaysQuote,
+            $keys_neverQuote: $keys_neverQuote,
+            $keys_shortType: $keys_shortType,
+            $keys_showParens: $keys_showParens,
+            $keys_withType: $keys_withType,
+            //
+            $child_alwaysQuote: $child_alwaysQuote,
+            $child_neverQuote: $child_neverQuote,
+            $child_shortType: $child_shortType,
+            $child_showParens: $child_showParens,
+            $child_typeJoiner: $child_typeJoiner,
+            $child_withType: $child_withType
+        );
     }
 
     @if $type == 'arglist' {
@@ -500,19 +673,40 @@ $_varType_abbreviations: (
                 $inspection,
                 var-dump(
                     $arg,
-                    $varType_overrides: $varType_overrides,
-                    $childArgs...
+                    $withType: $child_withType,
+                    $returnMultiline: $returnMultiline,
+                    //
+                    $alwaysQuote: $child_alwaysQuote,
+                    $detectParentSelector: $detectParentSelector,
+                    $neverQuote: $child_neverQuote,
+                    $shortType: $child_shortType,
+                    $showParens: $child_showParens,
+                    $typeJoiner: $child_typeJoiner,
+                    //
+                    $keys_alwaysQuote: $keys_alwaysQuote,
+                    $keys_neverQuote: $keys_neverQuote,
+                    $keys_shortType: $keys_shortType,
+                    $keys_showParens: $keys_showParens,
+                    $keys_withType: $keys_withType,
+                    //
+                    $varType_overrides: $varType_overrides
                 ),
                 $separator: comma
             );
         }
 
-        $keyArgs: map.set($keyArgs, neverQuote, true);
-        $keyArgs: map.remove($keyArgs, alwaysQuote);
-
         @if list.length(map.values(meta.keywords($var))) > 0 {
             @each $key, $value in meta.keywords($var) {
-                $key: var-dump($key, $keyArgs...);
+                $key: var-dump(
+                    $key,
+                    $alwaysQuote: false,
+                    $detectParentSelector: $detectParentSelector,
+                    $neverQuote: true,
+                    $shortType: $keys_shortType,
+                    $showParens: $keys_showParens,
+                    $typeJoiner: $typeJoiner,
+                    $withType: $keys_withType
+                );
 
                 $inspection: list.append(
                     $inspection,
@@ -520,8 +714,23 @@ $_varType_abbreviations: (
                         string.unquote('$#{$key}:')
                             var-dump(
                                 $value,
-                                $varType_overrides: $varType_overrides,
-                                $childArgs...
+                                $withType: $child_withType,
+                                $returnMultiline: $returnMultiline,
+                                //
+                                $alwaysQuote: $child_alwaysQuote,
+                                $detectParentSelector: $detectParentSelector,
+                                $neverQuote: $child_neverQuote,
+                                $shortType: $child_shortType,
+                                $showParens: $child_showParens,
+                                $typeJoiner: $child_typeJoiner,
+                                //
+                                $keys_alwaysQuote: $keys_alwaysQuote,
+                                $keys_neverQuote: $keys_neverQuote,
+                                $keys_shortType: $keys_shortType,
+                                $keys_showParens: $keys_showParens,
+                                $keys_withType: $keys_withType,
+                                //
+                                $varType_overrides: $varType_overrides
                             )
                     ),
                     $separator: comma
@@ -547,25 +756,76 @@ $_varType_abbreviations: (
     @else if $type == 'calculation' {
         $inspection: ();
 
-        $childArgs: map.set($childArgs, alwaysQuote, true);
-        $childArgs: map.remove($childArgs, neverQuote);
+        $_calc_args: meta.calc-args($var);
 
-        @each $item in meta.calc-args($var) {
-            $inspection: list.append(
+        $_calc_args_length: list.length($_calc_args);
+
+        $i: 1;
+
+        @each $item in $_calc_args {
+            $_item_inspection: var-dump(
+                $item,
+                $withType: $child_withType,
+                $returnMultiline: $returnMultiline,
+                //
+                $alwaysQuote: $child_alwaysQuote,
+                $detectParentSelector: $detectParentSelector,
+                $neverQuote: $child_neverQuote,
+                $shortType: $child_shortType,
+                $showParens: $child_showParens,
+                $typeJoiner: $child_typeJoiner,
+                //
+                $keys_alwaysQuote: $keys_alwaysQuote,
+                $keys_neverQuote: $keys_neverQuote,
+                $keys_shortType: $keys_shortType,
+                $keys_showParens: $keys_showParens,
+                $keys_withType: $keys_withType,
+                //
+                $varType_overrides: $varType_overrides
+            );
+
+            @if $i < $_calc_args_length {
+                $_item_inspection: list.set-nth(
+                    $_item_inspection,
+                    -1,
+                    #{list.nth($_item_inspection, -1)}#{','}
+                );
+            }
+
+            $inspection: list.join(
                 $inspection,
-                var-dump(
-                    $item,
-                    $varType_overrides: $varType_overrides,
-                    $childArgs...
-                ),
+                $_item_inspection,
+                $separator: space
+            );
+
+            $i: $i + 1;
+        }
+
+        @if $returnMultiline and list.length($inspection) > 1 {
+            $inspection: list.join(
+                (#{meta.calc-name($var)}#{'('}),
+                $inspection,
                 $separator: comma
             );
+            $inspection: list.join($inspection, (#{')'}), $separator: comma);
+        } @else {
+            $inspection: list.set-nth(
+                $inspection,
+                1,
+                #{meta.calc-name($var)}#{'('}#{list.nth($inspection, 1)}
+            );
+
+            $_lastLine: list.nth($inspection, -1);
+            $inspection: list.set-nth(
+                $inspection,
+                -1,
+                #{$_lastLine}#{if(
+                        string.length(#{$_lastLine}) > 0,
+                        ' ',
+                        ''
+                    )}#{')'}
+            );
         }
-        $inspection: if(
-            list.length($inspection) > 0,
-            string.unquote('#{meta.calc-name( $var )}( #{$inspection} )'),
-            string.unquote('#{meta.calc-name( $var )}()')
-        );
     }
     //
     @else if $type == 'list' {
@@ -574,49 +834,75 @@ $_varType_abbreviations: (
 
         $inspection: ();
 
-        @if $returnMultiline {
-            $inspection: _var-dump--inspection-lines(
-                $var,
-                $indent: '',
-                $alwaysOutputMultiline: $alwaysOutputMultiline,
-                $alwaysQuote: $alwaysQuote,
-                $maxWidth: $maxWidth,
-                $neverQuote: $neverQuote,
-                $outputMultiline: $outputMultiline,
-                $shortType: $shortType
-            );
-        } @else {
-            @each $item in $var {
-                $inspection: list.append(
-                    $inspection,
-                    var-dump(
-                        $item,
-                        $varType_overrides: $varType_overrides,
-                        $childArgs...
-                    ),
-                    $separator: $separator
-                );
-            }
-
-            $inspection: if(
-                list.length($inspection) > 0,
+        @each $item in $var {
+            $inspection: list.append(
                 $inspection,
-                meta.inspect(())
-            );
-
-            $inspection: if(
-                $showParens,
-                if(
-                    $bracketed,
-                    string.unquote('( [ #{$inspection} ] )'),
-                    string.unquote('( #{$inspection} )')
+                var-dump(
+                    $item,
+                    $withType: $child_withType,
+                    $returnMultiline: $returnMultiline,
+                    //
+                    $alwaysQuote: $child_alwaysQuote,
+                    $detectParentSelector: $detectParentSelector,
+                    $neverQuote: $child_neverQuote,
+                    $shortType: $child_shortType,
+                    $showParens: $child_showParens,
+                    $typeJoiner: $child_typeJoiner,
+                    //
+                    $keys_alwaysQuote: $keys_alwaysQuote,
+                    $keys_neverQuote: $keys_neverQuote,
+                    $keys_shortType: $keys_shortType,
+                    $keys_showParens: $keys_showParens,
+                    $keys_withType: $keys_withType,
+                    //
+                    $varType_overrides: $varType_overrides
                 ),
-                if(
-                    $bracketed,
-                    string.unquote('[ #{$inspection} ]'),
-                    string.unquote('#{$inspection}')
-                )
+                $separator: $separator
             );
+        }
+
+        @if $showParens {
+            @if list.length($inspection) > 0 {
+                $inspection: list.set-nth(
+                    $inspection,
+                    1,
+                    #{if($bracketed, '( [ ', '( ')}#{list.nth($inspection, 1)}
+                );
+
+                $_lastLine: list.nth($inspection, -1);
+                $inspection: list.set-nth(
+                    $inspection,
+                    -1,
+                    #{$_lastLine}#{if(
+                            string.length(#{$_lastLine}) > 0,
+                            ' ',
+                            ''
+                        )}#{if($bracketed, '] )', ')')}
+                );
+            } @else {
+                $inspection: string.unquote('()');
+            }
+        } @else {
+            @if list.length($inspection) > 0 {
+                $inspection: list.set-nth(
+                    $inspection,
+                    1,
+                    #{'[ '}#{list.nth($inspection, 1)}
+                );
+
+                $_lastLine: list.nth($inspection, -1);
+                $inspection: list.set-nth(
+                    $inspection,
+                    -1,
+                    #{$_lastLine}#{if(
+                            string.length(#{$_lastLine}) > 0,
+                            ' ',
+                            ''
+                        )}#{']'}
+                );
+            } @else {
+                $inspection: string.unquote('[]');
+            }
         }
     }
     //
@@ -624,7 +910,17 @@ $_varType_abbreviations: (
         $inspection: ();
 
         @each $key, $value in $var {
-            $key: var-dump($key, $keyArgs...);
+            $key: var-dump(
+                $key,
+                //
+                $alwaysQuote: $keys_alwaysQuote,
+                $detectParentSelector: $detectParentSelector,
+                $neverQuote: $keys_neverQuote,
+                $shortType: $keys_shortType,
+                $showParens: $keys_showParens,
+                $typeJoiner: $typeJoiner,
+                $withType: $keys_withType
+            );
 
             $inspection: list.append(
                 $inspection,
@@ -632,40 +928,64 @@ $_varType_abbreviations: (
                     string.unquote('#{$key}:')
                         var-dump(
                             $value,
-                            $varType_overrides: $varType_overrides,
-                            $childArgs...
+                            $withType: $child_withType,
+                            $returnMultiline: $returnMultiline,
+                            //
+                            $alwaysQuote: $child_alwaysQuote,
+                            $detectParentSelector: $detectParentSelector,
+                            $neverQuote: $child_neverQuote,
+                            $shortType: $child_shortType,
+                            $showParens: $child_showParens,
+                            $typeJoiner: $child_typeJoiner,
+                            //
+                            $keys_alwaysQuote: $keys_alwaysQuote,
+                            $keys_neverQuote: $keys_neverQuote,
+                            $keys_shortType: $keys_shortType,
+                            $keys_showParens: $keys_showParens,
+                            $keys_withType: $keys_withType,
+                            //
+                            $varType_overrides: $varType_overrides
                         )
                 ),
                 $separator: comma
             );
         }
 
-        $inspection: if(
-            $showParens,
-            if(
-                list.length($inspection) > 0,
-                string.unquote('( #{$inspection} )'),
-                string.unquote('()')
-            ),
-            if(
-                list.length($inspection) > 0,
-                string.unquote('#{$inspection}'),
-                string.unquote('')
-            )
-        );
+        @if $showParens {
+            @if list.length($inspection) > 0 {
+                $inspection: list.set-nth(
+                    $inspection,
+                    1,
+                    #{'( '}#{list.nth($inspection, 1)}
+                );
+
+                $_lastLine: list.nth($inspection, -1);
+                $inspection: list.set-nth(
+                    $inspection,
+                    -1,
+                    #{$_lastLine}#{if(
+                            string.length(#{$_lastLine}) > 0,
+                            ' ',
+                            ''
+                        )}#{')'}
+                );
+            } @else {
+                $inspection: string.unquote('()');
+            }
+        }
     }
     //
     @else if $type == 'string' {
-        @if $alwaysQuote {
-            $inspection: string.quote($var);
-        }
         @if $neverQuote {
             $inspection: string.unquote($var);
+        } @else if $alwaysQuote {
+            $inspection: meta.inspect(string.quote($var));
         }
     }
 
     @return _var-dump--return(
-        $inspection: meta.inspect($inspection),
+        $inspection: $inspection,
+        $returnMultiline: $returnMultiline,
         $shortType: $shortType,
         $type: $type,
         $typeJoiner: $typeJoiner,
@@ -686,86 +1006,178 @@ $_varType_abbreviations: (
 @mixin var-dump(
     $name,
     $var,
+    $withType: true,
+    //
     $alwaysQuote: false,
+    $detectParentSelector: false,
     $neverQuote: false,
     $shortType: true,
-    $useCompilerFn: false,
-    $useUniqueID: false,
+    $showParens: true,
+    $typeJoiner: ' ',
+    //
+    $keys_alwaysQuote: null,
+    $keys_neverQuote: null,
+    $keys_shortType: null,
+    $keys_showParens: null,
+    $keys_withType: null,
+    //
+    $child_alwaysQuote: null,
+    $child_neverQuote: null,
+    $child_shortType: null,
+    $child_showParens: null,
+    $child_typeJoiner: null,
+    $child_withType: null,
+    //
     $alwaysOutputMultiline: false,
+    $equals: null,
     $maxWidth: config.$meta_varDump_maxWidth,
     $outputMultiline: false,
-    $console_level: 1
+    $varType_overrides: (),
+    //
+    $useCompilerFn: false,
+    $useUniqueID: false
 ) {
     $typeOf: meta.type-of($var);
 
-    $typeOf_string: $typeOf;
-
     $stringSeparator: ',';
 
-    @if $typeOf == list {
-        $_listSeparator: list.separator($var);
+    // prettier-ignore
+    $doMultilineOutput: (list.length($name) == 1) and (($typeOf == list and list.length($var) > 0) or
+        ($typeOf == map and list.length(map.keys($var)) > 0));
 
-        @if $_listSeparator != comma {
-            $stringSeparator: '';
+    @if $equals == null {
+        $typeOf_string: $typeOf;
+
+        @if $typeOf == list {
+            $_listSeparator: list.separator($var);
+
+            @if $_listSeparator != comma {
+                $stringSeparator: '';
+            }
+
+            $typeOf_string: '#{$_listSeparator}-separated';
+
+            @if list.is-bracketed($var) {
+                $typeOf_string: '#{$typeOf_string} and bracketed';
+            }
+
+            $typeOf_string: '#{$typeOf_string} list';
         }
 
-        $typeOf_string: '#{$_listSeparator}-separated';
-
-        @if list.is-bracketed($var) {
-            $typeOf_string: '#{$typeOf_string} and bracketed';
-        }
-
-        $typeOf_string: '#{$typeOf_string} list';
+        $equals: if($doMultilineOutput, 'is a #{$typeOf_string}:', '=');
     }
 
-    $doMultilineOutput: ($typeOf == list and list.length($var) > 0) or
-        ($typeOf == map and list.length(map.keys($var)) > 0);
+    $child_alwaysQuote: is-truthy.defined-else(
+        $child_alwaysQuote,
+        $alwaysQuote
+    );
+    $child_neverQuote: is-truthy.defined-else($child_neverQuote, $neverQuote);
+    $child_shortType: is-truthy.defined-else($child_shortType, $shortType);
+    $child_showParens: is-truthy.defined-else($child_showParens, $showParens);
+    $child_typeJoiner: is-truthy.defined-else($child_typeJoiner, $typeJoiner);
+    $child_withType: is-truthy.defined-else($child_withType, $withType);
 
-    @if not $doMultilineOutput {
-        $_inspection: var-dump(
-            $var,
-            $alwaysQuote: $alwaysQuote,
-            $neverQuote: $neverQuote,
-            $shortType: $shortType
-        );
+    $keys_neverQuote: is-truthy.defined-else($keys_neverQuote, false);
+    $keys_alwaysQuote: is-truthy.defined-else($keys_alwaysQuote, true);
+    $keys_shortType: is-truthy.defined-else($keys_shortType, true);
+    $keys_showParens: is-truthy.defined-else($keys_showParens, false);
+    $keys_withType: is-truthy.defined-else($keys_withType, false);
 
-        /* 
-          #{$name} = #{$_inspection}
-         */
-    } @else {
-        // UPGRADE - add option to output wrapped in a media query
-        // @media var-dump and ( var: '#{$name}' ) and ( type: '#{$typeOf}' ) {
-        // }
+    // UPGRADE - add option to output wrapped in a media query
+    // @media var-dump and ( var: '#{$name}' ) and ( type: '#{$typeOf}' ) {
+    // }
 
-        $_first_line: '#{$name} is a #{$typeOf_string}:';
+    $_first_lines: list.set-nth(
+        $name,
+        -1,
+        string.unquote('#{list.nth($name, -1)} #{$equals}')
+    );
 
-        $lines: _var-dump--inspection-lines(
-            $var,
-            $indent: '',
-            $alwaysOutputMultiline: $alwaysOutputMultiline,
-            $alwaysQuote: $alwaysQuote,
-            $maxWidth: $maxWidth,
-            $neverQuote: $neverQuote,
-            $outputMultiline: $outputMultiline,
-            $shortType: $shortType
-        );
+    $lines: var-dump(
+        $var: $var,
+        $withType: $withType,
+        //
+        $alwaysQuote: $alwaysQuote,
+        $detectParentSelector: $detectParentSelector,
+        $neverQuote: $neverQuote,
+        $shortType: $shortType,
+        $showParens: $showParens,
+        $typeJoiner: $typeJoiner,
+        //
+        $keys_alwaysQuote: $keys_alwaysQuote,
+        $keys_neverQuote: $keys_neverQuote,
+        $keys_shortType: $keys_shortType,
+        $keys_showParens: $keys_showParens,
+        $keys_withType: $keys_withType,
+        //
+        $child_alwaysQuote: $child_alwaysQuote,
+        $child_neverQuote: $child_neverQuote,
+        $child_shortType: $child_shortType,
+        $child_showParens: $child_showParens,
+        $child_typeJoiner: $child_typeJoiner,
+        $child_withType: $child_withType,
+        //
+        $alwaysOutputMultiline: $alwaysOutputMultiline,
+        $maxWidth: $maxWidth,
+        $outputMultiline: $outputMultiline,
+        $returnMultiline: true,
+        $varType_overrides: $varType_overrides,
+    );
 
-        @if list.length($lines) < 3 {
-            $lines: list.join((''), $lines);
+    @if (list.length($name) == 1) and
+        list.length($lines) <
+        3 and
+        string.length(#{$equals}) >
+        3
+    {
+        $lines: list.join((''), $lines);
+    }
+
+    $_isOneLine: false;
+
+    @if (list.length($name) == 1) and (list.length($lines) == 1) {
+        $_typeOf: meta.type-of($var);
+
+        $stringSeparator: ',';
+
+        @if $_typeOf == list {
+            $separator: list.separator($var);
+
+            @if $separator != comma {
+                $stringSeparator: '';
+            }
         }
 
-        @if list.length($lines) <= docblock-printer.$docblock_maxLines {
-            @include docblock-printer.docblock-printer(
-                list.join(($_first_line), $lines),
-                $asComment: true
-            );
-        } @else {
-            /* 
-                #{$_first_line}
-             */
-            @each $line in $lines {
-                /* #{$line} */
-            }
+        $_isOneLine: _var-dump--list-length-is-under-one-line(
+            list.join($_first_lines, $lines),
+            $indent: '',
+            $maxWidth: $maxWidth,
+            $removeIndices: $stringSeparator == '' or list.length($lines) < 2,
+            $typeString: _var-dump--type-string(
+                    $shortType: $shortType,
+                    $type: $_typeOf,
+                    $typeJoiner: $typeJoiner,
+                    $withType: $withType,
+                    $varType_overrides: $varType_overrides,
+                )
+        );
+    }
+
+    @if $_isOneLine {
+        /* 
+          #{$_first_lines} #{$lines}
+         */
+    } @else if list.length($lines) <= docblock-printer.$docblock_maxLines {
+        @include docblock-printer.docblock-printer(
+            list.join($_first_lines, $lines),
+            $asComment: true
+        );
+    } @else {
+        /* 
+          #{$_first_lines}
+         */
+        @each $line in $lines {
+            /* #{$line} */
         }
     }
 }

@@ -6,7 +6,7 @@ modules.config-vars {
     /*
         default vars is a map:
         <:> (
-            "breakpoints-attributeOverrides": <()> ( () ),
+            "breakpoints-attributeOverrides": <()> (),
             "breakpoints-attributeOverrides-includeRoot": </> false,
             "colour-allowModernOpacitySyntax": </> false,
             "colour-channelLists-separator": <S> comma,
@@ -40,8 +40,8 @@ modules.config-vars {
             "demo-wrapOutput": </> false,
             "demo-wrapOutput-function": </> false,
             "demo-wrapOutput-function-withName": </> false,
-            "featureCheck-defaultToJS": <:> ( "touch": </> true, "whereSelector": </> true ),
-            "featureCheck-defaultToJS-supports": <:> ( "touch": </> true, "whereSelector": </> true ),
+            "featureCheck-defaultToJS": <:> ( "touch": </> true, "whereSelector": </> true, ),
+            "featureCheck-defaultToJS-supports": <:> ( "touch": </> true, "whereSelector": </> true, ),
             "featureCheck-defaultToJS-supports-not": <:> (
                 "touch": </> true,
                 "whereSelector": </> true,
@@ -73,7 +73,7 @@ modules.config-vars {
                 13: <S> variableFonts,
                 14: <S> whereSelector,
             ),
-            "featureCheck-supportsOverrides": <()> ( () ),
+            "featureCheck-supportsOverrides": <()> (),
             "featureCheck-supportsQueries": <:> (
                 "aspectRatio": <S> "( aspect-ratio: 1 / 2 )",
                 "backdropFilter": <S> "( backdrop-filter: blur(0.5rem) )",
@@ -179,9 +179,9 @@ lib.config-vars {
             "selector-a": <S> a[href],
             "selector-a-current": <S> [aria-current],
             "selector-a-disabled": <S> [aria-disabled=true],
-            "selector-button-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]" ),
+            "selector-button-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]", ),
             "selector-headingsByRole": </> false,
-            "selector-input-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]" ),
+            "selector-input-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]", ),
             "selector-input-readonly": <S> [readonly],
         )
      */
@@ -219,7 +219,7 @@ template.config-vars {
             "fn-breakpointValue-roundToPixelFactor": <#> 8,
             "fn-colourMode-selectorsAsChildren": </> false,
             "fn-colourMode-selectorsAsChildren-individual": </> false,
-            "fn-doVar-allPrefixesSlugs": <()> ( <S> "focus-ring-outline-color" ),
+            "fn-doVar-allPrefixesSlugs": <()> ( <S> "focus-ring-outline-color", ),
             "fn-fontSize-autoClampSizes": </> false,
             "fn-gapValue-block-layout-high": <S> "800",
             "fn-gapValue-block-layout-low": <S> "600",
@@ -246,8 +246,8 @@ template.config-vars {
             "mx-colourMode-includeSelectors": </> true,
             "mx-colourModeCombo-includeForcedColorsSelectors": </> false,
             "mx-colourModeEach-includeForcedColorsSelectors": </> false,
-            "mx-customProperty-allPrefixesSlugs": <()> ( 1: <S> "focus-ring-outline-color", 2: <S> "display" ),
-            "mx-customProperty-allPrefixesSlugs-except": <()> ( () ),
+            "mx-customProperty-allPrefixesSlugs": <()> ( 1: <S> "focus-ring-outline-color", 2: <S> "display", ),
+            "mx-customProperty-allPrefixesSlugs-except": <()> (),
             "mx-focusVisible-fallbacksOnly": </> false,
             "mx-focusVisible-includeFallbacks": </> true,
             "mx-focusVisible-includeNoWhereSelectorFallback": </> true,
