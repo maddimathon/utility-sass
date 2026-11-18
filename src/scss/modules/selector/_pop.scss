@@ -3,26 +3,38 @@
 /// @since 0.1.0-beta
 ///
 
+@use 'sass:map';
 @use 'sass:selector';
 
 @use '../config';
 
 @use '../list';
+@use '../meta';
+@use '../string';
 
 @use 'exists';
+@use 'pseudo-class-lists';
 
 ///
 /// Returns the last selector(s) in space-separated selectors.
 ///
 /// @since 0.1.0-beta
+/// @since ___PKG_VERSION___ — Added optional $withCombinators param.
 ///
-@function pop($selectors: (), $fallback_selector: config.$selector_null) {
+@function pop($selectors: (), $fallback_selector: config.$selector_null, $withCombinators: true) {
     $selectors: selector.parse(#{$selectors});
 
     $listed: ();
 
     @each $selector_single in if(list.separator($selectors) == comma, $selectors, ($selectors)) {
-        $_last_item: list.nth($selector_single, list.length($selector_single));
+        $_last_item: list.nth($selector_single, -1);
+
+        // if the last item is a combinator, we should add it to the return
+        @if $withCombinators and $_last_item and list.length($selector_single) > 1 {
+            @if string.match(#{list.nth($selector_single, -2)}, '^\\s*[\\+~>\\s]\\s*$') != null {
+                $_last_item: selector.nest(list.nth($selector_single, -2), $_last_item);
+            }
+        }
 
         $listed: list.append(
             $listed,
@@ -53,14 +65,11 @@
         $_list_length: list.length($selector_single);
 
         @if $_list_length > 1 {
-            $_popped: ();
+            $_popped: list.slice($selector_single, 1, -1);
 
-            @for $_nth from 1 through ($_list_length - 1) {
-                $_popped: list.append(
-                    $_popped,
-                    list.nth($selector_single, $_nth),
-                    $separator: space
-                );
+            // if the last item is a combinator, we should remove it
+            @if string.match(#{list.nth($_popped, -1)}, '^\\s*[\\+~>\\s]\\s*$') != null {
+                $_popped: list.slice($_popped, 1, -1);
             }
 
             @if list.length($_popped) > 0 {
@@ -95,6 +104,206 @@
         }
     } @else if exists.exists($popped) {
         @at-root #{$popped} {
+            @content;
+        }
+    }
+}
+
+///
+/// Returns the same selector, but with the last selector level wrapped in a
+/// pseudo-class selector.
+///
+/// @since ___PKG_VERSION___
+///
+@function _unpopped-pseudo(
+    $pseudo,
+    $selectors,
+    $fallback_selector: config.$selector_null,
+    $unify: $pseudo == 'has',
+    $pseudo_args...
+) {
+    $selectors: selector.parse(#{$selectors});
+
+    $indexed_by_parent: ();
+
+    @each $selector_single in if(list.separator($selectors) == comma, $selectors, ($selectors)) {
+        $_list_length: list.length($selector_single);
+
+        $_last_item: list.nth($selector_single, -1);
+
+        $_popped: ();
+
+        @if $_list_length > 1 {
+            $_popped: list.slice($selector_single, 1, -1);
+
+            // where the combinator goes depends on the pseudo-class (current 'has' is the only to nest)
+            // for all others, the combinator stays with the parent
+            @if $pseudo == 'has' and $unify {
+                @if string.match(#{list.nth($_popped, -1)}, '^\\s*[\\+~>\\s]\\s*$') != null {
+                    $_last_item: selector.nest(list.nth($_popped, -1), $_last_item);
+
+                    $_popped: list.slice($_popped, 1, -1);
+                }
+            }
+        }
+
+        $_parent_key: if(
+            list.length($_popped) > 0 and string.length(#{$_popped}) > 0,
+            #{$_popped},
+            ''
+        );
+
+        $indexed_by_parent: map.set(
+            $indexed_by_parent,
+            $_parent_key,
+            list.append(
+                meta.defined-else(map.get($indexed_by_parent, $_parent_key), ()),
+                $_last_item,
+                $separator: comma
+            )
+        );
+    }
+
+    $listed: ();
+
+    @each $_parent, $_child in $indexed_by_parent {
+        $listed: list.join(
+            $listed,
+            pseudo-class-lists.pseudo-list(
+                $pseudo,
+                $selectors: $_child,
+                $direct: false,
+                $parentSelector: if($_parent == '', (), $_parent),
+                $unify: $unify,
+                $pseudo_args...
+            ),
+            $separator: comma
+        );
+    }
+
+    // returns
+    @if list.length($listed) < 1 {
+        @return $fallback_selector;
+    }
+
+    @return list.unique($listed);
+}
+
+///
+/// Returns the same selector, but with the last selector level wrapped in a
+/// has selector.
+///
+/// @since ___PKG_VERSION___
+///
+@function unpopped-has($selectors: (), $args...) {
+    @return _unpopped-pseudo($pseudo: 'has', $selectors: $selectors, $args...);
+}
+
+///
+/// Returns the same selector, but with the last selector level wrapped in a
+/// is selector.
+///
+/// @since ___PKG_VERSION___
+///
+@function unpopped-is($selectors: (), $args...) {
+    @return _unpopped-pseudo($pseudo: 'is', $selectors: $selectors, $args...);
+}
+
+///
+/// Returns the same selector, but with the last selector level wrapped in a
+/// not selector.
+///
+/// @since ___PKG_VERSION___
+///
+@function unpopped-not($selectors: (), $args...) {
+    @return _unpopped-pseudo($pseudo: 'not', $selectors: $selectors, $args...);
+}
+
+///
+/// Returns the same selector, but with the last selector level wrapped in a
+/// where selector.
+///
+/// @since ___PKG_VERSION___
+///
+@function unpopped-where($selectors: (), $args...) {
+    @return _unpopped-pseudo($pseudo: 'where', $selectors: $selectors, $args...);
+}
+
+///
+/// Returns the same selector, but with the last selector level wrapped in a
+/// has selector.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin unpopped-has($selectors: &, $args...) {
+    $unpopped: _unpopped-pseudo(
+        $pseudo: 'has',
+        $selectors: $selectors,
+        $args...,
+    );
+
+    @if exists.exists($unpopped) {
+        @at-root #{$unpopped} {
+            @content;
+        }
+    }
+}
+
+///
+/// Returns the same selector, but with the last selector level wrapped in a
+/// is selector.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin unpopped-is($selectors: &, $args...) {
+    $unpopped: _unpopped-pseudo(
+        $pseudo: 'is',
+        $selectors: $selectors,
+        $args...,
+    );
+
+    @if exists.exists($unpopped) {
+        @at-root #{$unpopped} {
+            @content;
+        }
+    }
+}
+
+///
+/// Returns the same selector, but with the last selector level wrapped in a
+/// not selector.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin unpopped-not($selectors: &, $args...) {
+    $unpopped: _unpopped-pseudo(
+        $pseudo: 'not',
+        $selectors: $selectors,
+        $args...,
+    );
+
+    @if exists.exists($unpopped) {
+        @at-root #{$unpopped} {
+            @content;
+        }
+    }
+}
+
+///
+/// Returns the same selector, but with the last selector level wrapped in a
+/// where selector.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin unpopped-where($selectors: &, $args...) {
+    $unpopped: _unpopped-pseudo(
+        $pseudo: 'where',
+        $selectors: $selectors,
+        $args...,
+    );
+
+    @if exists.exists($unpopped) {
+        @at-root #{$unpopped} {
             @content;
         }
     }

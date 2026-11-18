@@ -52,7 +52,9 @@
         $args: $args,
         $parentSelector_dump: $parentSelector_dump,
         $demo_args...
-    );
+    ) {
+        @content;
+    }
 }
 
 /* ## Modules - Selector - replace-simple-selector() ==================================== */
@@ -503,19 +505,55 @@ root body {
         input {
             @include _pop-test;
         }
+
+        > .direct-child {
+            @include _pop-test;
+        }
     }
 }
 
 /* ## Modules - Selector - popped() ==================================== */
 
-$_pop_func: meta.get-function(popped, $module: selector);
-$_pop_mixin: meta.get-mixin(popped, $module: selector);
+$_popped_func: meta.get-function(popped, $module: selector);
+$_unpopped_has_func: meta.get-function(unpopped-has, $module: selector);
+$_unpopped_where_func: meta.get-function(unpopped-where, $module: selector);
+
+$_popped_mixin: meta.get-mixin(popped, $module: selector);
+$_unpopped_has_mixin: meta.get-mixin(unpopped-has, $module: selector);
+$_unpopped_where_mixin: meta.get-mixin(unpopped-where, $module: selector);
 
 @mixin _popped-test($args...) {
-    @include _selector-function('selector.popped', $_pop_func, meta.arglist(&, $args...));
+    @include _selector-function('selector.popped', $_popped_func, meta.arglist(&, $args...));
+
+    @include _selector-function(
+        'selector.unpopped-has',
+        $_unpopped_has_func,
+        meta.arglist(&, $args...)
+    );
+
+    @include _selector-function(
+        'selector.unpopped-where',
+        $_unpopped_where_func,
+        meta.arglist(&, $args...)
+    );
+
     @include demo.mixin(
         'selector.popped',
-        $_pop_mixin,
+        $_popped_mixin,
+        meta.arglist(&, $args...),
+        $signatureAtRoot: false
+    );
+
+    @include demo.mixin(
+        'selector.unpopped-has',
+        $_unpopped_has_mixin,
+        meta.arglist(&, $args...),
+        $signatureAtRoot: false
+    );
+
+    @include demo.mixin(
+        'selector.unpopped-where',
+        $_unpopped_where_mixin,
         meta.arglist(&, $args...),
         $signatureAtRoot: false
     );
@@ -531,6 +569,10 @@ root body {
 
         a,
         input {
+            @include _popped-test;
+        }
+
+        > .direct-child {
             @include _popped-test;
         }
     }

@@ -148,14 +148,7 @@
         }
 
         @if $_must_be_nested {
-            $_returnSel: selector.nest(
-                if(
-                    selector.exists($parentSelector),
-                    $parentSelector,
-                    config.$selector_html
-                ),
-                $_returnSel
-            );
+            $_returnSel: selector.nest('[return]', $_returnSel);
         }
 
         @at-root #{$_returnSel} {

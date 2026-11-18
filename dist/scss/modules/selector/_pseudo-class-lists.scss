@@ -21,13 +21,14 @@
 /// @since 0.1.0-alpha
 /// @since 0.1.0-beta — Added optional $parentSelector, $split params.
 /// @since 0.1.0-beta — Made public.
+/// @since 0.3.0-draft — Changed $split default to `$pseudo == 'not'`.
 ///
 @function pseudo-list(
     $pseudoType,
     $selectors: null,
     $direct: false,
-    $parentSelector: null,
-    $split: true,
+    $parentSelector: if(exists.parent-exists(), &, null),
+    $split: $pseudoType == 'not',
     $unify: false,
     $debug: false
 ) {
@@ -48,8 +49,12 @@
         $debug_vars: map.set($debug_vars, '[input] $selectors', $selectors);
     }
 
-    @if not exists.exists($parentSelector) {
-        $parentSelector: if(exists.parent-exists(), &, null);
+    @if list.length($parentSelector) <
+        1 or
+        string.length(#{$parentSelector}) <
+        1
+    {
+        $parentSelector: null;
     }
 
     // returns for not
@@ -65,6 +70,10 @@
                 selector.unify($parentSelector, $_notSel),
                 if($direct, selector.nest('>', $_notSel), $_notSel)
             );
+
+            @if $parentSelector != null and not $unify {
+                $_ret: selector.nest($parentSelector, $_ret);
+            }
 
             @if $debug {
                 $debug_vars: map.set($debug_vars, 'returning [A]', $_ret);
@@ -153,6 +162,10 @@
                 if($direct, selector.nest('>', $_notSel), $_notSel)
             );
 
+            @if $parentSelector != null and not $unify {
+                $_ret: selector.nest($parentSelector, $_ret);
+            }
+
             @if $debug {
                 $debug_vars: map.set($debug_vars, 'returning [B]', $_ret);
                 $_: meta.js-var-dump(
@@ -200,6 +213,10 @@
         selector.nest('>', $pseudo_selector_list),
         $pseudo_selector_list
     );
+
+    @if $parentSelector != null {
+        $_ret: selector.nest($parentSelector, $_ret);
+    }
 
     @if $debug {
         $debug_vars: map.set($debug_vars, 'returning [E]', $_ret);
@@ -268,20 +285,17 @@
     $pseudoType,
     $selectors: null,
     $includeParent: true,
-    $unifyParent: null,
-    $unify: if($unifyParent == null, false, $unifyParent),
+    $parentSelector: if($includeParent and exists.parent-exists(), &, ()),
+    $unify: false,
     $args...
 ) {
     $selectors: pseudo-list(
         $pseudoType: $pseudoType,
         $selectors: $selectors,
-        $unify: $includeParent and $unify,
+        $parentSelector: if($includeParent, $parentSelector, ()),
+        $unify: $unify,
         $args...,
     );
-
-    @if not $unify and $includeParent and exists.parent-exists() {
-        $selectors: selector.nest(&, $selectors);
-    }
 
     @at-root #{$selectors} {
         @content;

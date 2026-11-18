@@ -2857,6 +2857,22 @@
     }
 }
 
+@demo ( function: selector.pop ) {
+    root body > .direct-child,
+    root body main > .direct-child {
+        /*
+            selector.pop( & ) is a comma-separated list:
+
+            <()> ( <()> ( <()> ( <S> > <S> .direct-child ), ), )
+         */
+    }
+    @demo return {
+        [return] > .direct-child {
+            /* returned selectors */
+        }
+    }
+}
+
 /* ## Modules - Selector - popped() ==================================== */
 @demo ( function: selector.popped ) {
     root body button,
@@ -2893,6 +2909,140 @@
     }
 }
 
+@demo ( function: selector.unpopped-has ) {
+    root body button,
+    root body [role='button'],
+    root body input[type='button'],
+    root body input[type='reset'],
+    root body input[type='submit'],
+    root body a[href].button,
+    root body a[href].button-primary,
+    root body a[href].button-secondary,
+    root body p,
+    root body main button,
+    root body main [role='button'],
+    root body main input[type='button'],
+    root body main input[type='reset'],
+    root body main input[type='submit'],
+    root body main a[href].button,
+    root body main a[href].button-primary,
+    root body main a[href].button-secondary,
+    root body main p {
+        /*
+            selector.unpopped-has( & ) is a comma-separated list:
+            <()> (
+                1: <()> (
+                    1: <S> root
+                    2: <S> body:has(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
+                ),
+                2: <()> (
+                    1: <S> root
+                    2: <S> body
+                    3: <S> main:has(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
+                ),
+            )
+         */
+    }
+    @demo return {
+        root
+            body:has(
+                button,
+                [role='button'],
+                input[type='button'],
+                input[type='reset'],
+                input[type='submit'],
+                a[href].button,
+                a[href].button-primary,
+                a[href].button-secondary,
+                p
+            ),
+        root
+            body
+            main:has(
+                button,
+                [role='button'],
+                input[type='button'],
+                input[type='reset'],
+                input[type='submit'],
+                a[href].button,
+                a[href].button-primary,
+                a[href].button-secondary,
+                p
+            ) {
+            /* returned selectors */
+        }
+    }
+}
+
+@demo ( function: selector.unpopped-where ) {
+    root body button,
+    root body [role='button'],
+    root body input[type='button'],
+    root body input[type='reset'],
+    root body input[type='submit'],
+    root body a[href].button,
+    root body a[href].button-primary,
+    root body a[href].button-secondary,
+    root body p,
+    root body main button,
+    root body main [role='button'],
+    root body main input[type='button'],
+    root body main input[type='reset'],
+    root body main input[type='submit'],
+    root body main a[href].button,
+    root body main a[href].button-primary,
+    root body main a[href].button-secondary,
+    root body main p {
+        /*
+            selector.unpopped-where( & ) is a comma-separated list:
+            <()> (
+                1: <()> (
+                    1: <S> root
+                    2: <S> body
+                    3: <S> :where(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
+                ),
+                2: <()> (
+                    1: <S> root
+                    2: <S> body
+                    3: <S> main
+                    4: <S> :where(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
+                ),
+            )
+         */
+    }
+    @demo return {
+        root
+            body
+            :where(
+                button,
+                [role='button'],
+                input[type='button'],
+                input[type='reset'],
+                input[type='submit'],
+                a[href].button,
+                a[href].button-primary,
+                a[href].button-secondary,
+                p
+            ),
+        root
+            body
+            main
+            :where(
+                button,
+                [role='button'],
+                input[type='button'],
+                input[type='reset'],
+                input[type='submit'],
+                a[href].button,
+                a[href].button-primary,
+                a[href].button-secondary,
+                p
+            ) {
+            /* returned selectors */
+        }
+    }
+}
+
 @demo ( mixin: selector.popped ) {
     root body button,
     root body [role='button'],
@@ -2922,6 +3072,112 @@
     }
 }
 
+@demo ( mixin: selector.unpopped-has ) {
+    root body button,
+    root body [role='button'],
+    root body input[type='button'],
+    root body input[type='reset'],
+    root body input[type='submit'],
+    root body a[href].button,
+    root body a[href].button-primary,
+    root body a[href].button-secondary,
+    root body p,
+    root body main button,
+    root body main [role='button'],
+    root body main input[type='button'],
+    root body main input[type='reset'],
+    root body main input[type='submit'],
+    root body main a[href].button,
+    root body main a[href].button-primary,
+    root body main a[href].button-secondary,
+    root body main p {
+        /* @include selector.unpopped-has( & ) {} */
+    }
+    @demo output {
+        root
+            body:has(
+                button,
+                [role='button'],
+                input[type='button'],
+                input[type='reset'],
+                input[type='submit'],
+                a[href].button,
+                a[href].button-primary,
+                a[href].button-secondary,
+                p
+            ),
+        root
+            body
+            main:has(
+                button,
+                [role='button'],
+                input[type='button'],
+                input[type='reset'],
+                input[type='submit'],
+                a[href].button,
+                a[href].button-primary,
+                a[href].button-secondary,
+                p
+            ) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.unpopped-where ) {
+    root body button,
+    root body [role='button'],
+    root body input[type='button'],
+    root body input[type='reset'],
+    root body input[type='submit'],
+    root body a[href].button,
+    root body a[href].button-primary,
+    root body a[href].button-secondary,
+    root body p,
+    root body main button,
+    root body main [role='button'],
+    root body main input[type='button'],
+    root body main input[type='reset'],
+    root body main input[type='submit'],
+    root body main a[href].button,
+    root body main a[href].button-primary,
+    root body main a[href].button-secondary,
+    root body main p {
+        /* @include selector.unpopped-where( & ) {} */
+    }
+    @demo output {
+        root
+            body
+            :where(
+                button,
+                [role='button'],
+                input[type='button'],
+                input[type='reset'],
+                input[type='submit'],
+                a[href].button,
+                a[href].button-primary,
+                a[href].button-secondary,
+                p
+            ),
+        root
+            body
+            main
+            :where(
+                button,
+                [role='button'],
+                input[type='button'],
+                input[type='reset'],
+                input[type='submit'],
+                a[href].button,
+                a[href].button-primary,
+                a[href].button-secondary,
+                p
+            ) {
+            /* @content; */
+        }
+    }
+}
+
 @demo ( function: selector.popped ) {
     root body a,
     root body input,
@@ -2943,6 +3199,48 @@
     }
 }
 
+@demo ( function: selector.unpopped-has ) {
+    root body a,
+    root body input,
+    root body main a,
+    root body main input {
+        /*
+            selector.unpopped-has( & ) is a comma-separated list:
+            <()> (
+                1: <()> ( <S> root <S> body:has(a, input) ),
+                2: <()> ( <S> root <S> body <S> main:has(a, input) ),
+            )
+         */
+    }
+    @demo return {
+        root body:has(a, input),
+        root body main:has(a, input) {
+            /* returned selectors */
+        }
+    }
+}
+
+@demo ( function: selector.unpopped-where ) {
+    root body a,
+    root body input,
+    root body main a,
+    root body main input {
+        /*
+            selector.unpopped-where( & ) is a comma-separated list:
+            <()> (
+                1: <()> ( <S> root <S> body <S> :where(a, input) ),
+                2: <()> ( <S> root <S> body <S> main <S> :where(a, input) ),
+            )
+         */
+    }
+    @demo return {
+        root body :where(a, input),
+        root body main :where(a, input) {
+            /* returned selectors */
+        }
+    }
+}
+
 @demo ( mixin: selector.popped ) {
     root body a,
     root body input,
@@ -2953,6 +3251,132 @@
     @demo output {
         root body,
         root body main {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.unpopped-has ) {
+    root body a,
+    root body input,
+    root body main a,
+    root body main input {
+        /* @include selector.unpopped-has( & ) {} */
+    }
+    @demo output {
+        root body:has(a, input),
+        root body main:has(a, input) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.unpopped-where ) {
+    root body a,
+    root body input,
+    root body main a,
+    root body main input {
+        /* @include selector.unpopped-where( & ) {} */
+    }
+    @demo output {
+        root body :where(a, input),
+        root body main :where(a, input) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( function: selector.popped ) {
+    root body > .direct-child,
+    root body main > .direct-child {
+        /*
+            selector.popped( & ) is a comma-separated list:
+            <()> (
+                1: <()> ( <S> root <S> body ),
+                2: <()> ( <S> root <S> body <S> main ),
+            )
+         */
+    }
+    @demo return {
+        root body,
+        root body main {
+            /* returned selectors */
+        }
+    }
+}
+
+@demo ( function: selector.unpopped-has ) {
+    root body > .direct-child,
+    root body main > .direct-child {
+        /*
+            selector.unpopped-has( & ) is a comma-separated list:
+            <()> (
+                1: <()> ( <S> root <S> body:has(> .direct-child) ),
+                2: <()> ( <S> root <S> body <S> main:has(> .direct-child) ),
+            )
+         */
+    }
+    @demo return {
+        root body:has(> .direct-child),
+        root body main:has(> .direct-child) {
+            /* returned selectors */
+        }
+    }
+}
+
+@demo ( function: selector.unpopped-where ) {
+    root body > .direct-child,
+    root body main > .direct-child {
+        /*
+            selector.unpopped-where( & ) is a comma-separated list:
+            <()> (
+                1: <()> ( <S> root <S> body <S> > <S> :where(.direct-child) ),
+                2: <()> ( <S> root <S> body <S> main <S> > <S> :where(.direct-child) ),
+            )
+         */
+    }
+    @demo return {
+        root body > :where(.direct-child),
+        root body main > :where(.direct-child) {
+            /* returned selectors */
+        }
+    }
+}
+
+@demo ( mixin: selector.popped ) {
+    root body > .direct-child,
+    root body main > .direct-child {
+        /* @include selector.popped( & ) {} */
+    }
+    @demo output {
+        root body,
+        root body main {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.unpopped-has ) {
+    root body > .direct-child,
+    root body main > .direct-child {
+        /* @include selector.unpopped-has( & ) {} */
+    }
+    @demo output {
+        root body:has(> .direct-child),
+        root body main:has(> .direct-child) {
+            /* @content; */
+        }
+    }
+}
+
+@demo ( mixin: selector.unpopped-where ) {
+    root body > .direct-child,
+    root body main > .direct-child {
+        /* @include selector.unpopped-where( & ) {} */
+    }
+    @demo output {
+        root body > :where(.direct-child),
+        root body main > :where(.direct-child) {
             /* @content; */
         }
     }
@@ -4814,11 +5238,11 @@ body:where(.has-a-class) {
         /*
             selector.has-list() is a comma-separated list:
 
-            <()> ( <S> ":has( * )", )
+            <()> ( <()> ( <S> .parent <S> :has(*) ), )
          */
     }
     @demo return {
-        :has(*) {
+        .parent :has(*) {
             /* returned selectors */
         }
     }
@@ -4861,17 +5285,12 @@ body:where(.has-a-class) {
         .parent {
             /*
                 selector.has-list( ( div, p, body ) ) is a comma-separated list:
-                <()> (
-                    1: <S> ":has( div )",
-                    2: <S> ":has( p )",
-                    3: <S> ":has( body )",
-                )
+
+                <()> ( <()> ( <S> .parent <S> :has(div, p, body) ), )
              */
         }
         @demo return {
-            :has(div),
-            :has(p),
-            :has(body) {
+            .parent :has(div, p, body) {
                 /* returned selectors */
             }
         }
@@ -4882,11 +5301,11 @@ body:where(.has-a-class) {
                 /*
                     selector.has-list( ( div, p, body ), $split: false ) is a comma-separated list:
 
-                    <()> ( <S> ":has( div, p, body )", )
+                    <()> ( <()> ( <S> .parent <S> :has(div, p, body) ), )
                  */
             }
             @demo return {
-                :has(div, p, body) {
+                .parent :has(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -4897,17 +5316,12 @@ body:where(.has-a-class) {
             .parent {
                 /*
                     selector.has-list( ( div, p, body ), $direct: true ) is a comma-separated list:
-                    <()> (
-                        1: <S> ":has( > div )",
-                        2: <S> ":has( > p )",
-                        3: <S> ":has( > body )",
-                    )
+
+                    <()> ( <()> ( <S> .parent <S> :has(> div, > p, > body) ), )
                  */
             }
             @demo return {
-                :has(> div),
-                :has(> p),
-                :has(> body) {
+                .parent :has(> div, > p, > body) {
                     /* returned selectors */
                 }
             }
@@ -4918,11 +5332,11 @@ body:where(.has-a-class) {
                     /*
                         selector.has-list( ( div, p, body ), $direct: true, $split: false ) is a comma-separated list:
 
-                        <()> ( <S> ":has( > div, > p, > body )", )
+                        <()> ( <()> ( <S> .parent <S> :has(> div, > p, > body) ), )
                      */
                 }
                 @demo return {
-                    :has(> div, > p, > body) {
+                    .parent :has(> div, > p, > body) {
                         /* returned selectors */
                     }
                 }
@@ -4933,17 +5347,12 @@ body:where(.has-a-class) {
                 .parent {
                     /*
                         selector.has-list( ( div, p, body ), $direct: true, $unify: true ) is a comma-separated list:
-                        <()> (
-                            1: <()> ( <S> .parent:has(> div) ),
-                            2: <()> ( <S> .parent:has(> p) ),
-                            3: <()> ( <S> .parent:has(> body) ),
-                        )
+
+                        <()> ( <()> ( <S> .parent:has(> div, > p, > body) ), )
                      */
                 }
                 @demo return {
-                    .parent:has(> div),
-                    .parent:has(> p),
-                    .parent:has(> body) {
+                    .parent:has(> div, > p, > body) {
                         /* returned selectors */
                     }
                 }
@@ -5027,9 +5436,7 @@ body:where(.has-a-class) {
         /* @include selector.has( ( div, p, body ) ) {} */
     }
     @demo output {
-        .parent :has(div),
-        .parent :has(p),
-        .parent :has(body) {
+        .parent :has(div, p, body) {
             /* @content; */
         }
     }
@@ -5051,9 +5458,7 @@ body:where(.has-a-class) {
         /* @include selector.has( ( div, p, body ), $direct: true ) {} */
     }
     @demo output {
-        .parent :has(> div),
-        .parent :has(> p),
-        .parent :has(> body) {
+        .parent :has(> div, > p, > body) {
             /* @content; */
         }
     }
@@ -5075,9 +5480,7 @@ body:where(.has-a-class) {
         /* @include selector.has( ( div, p, body ), $unify: true ) {} */
     }
     @demo output {
-        .parent:has(div),
-        .parent:has(p),
-        .parent:has(body) {
+        .parent:has(div, p, body) {
             /* @content; */
         }
     }
@@ -5099,9 +5502,7 @@ body:where(.has-a-class) {
         /* @include selector.has( ( div, p, body ), $direct: true, $unify: true ) {} */
     }
     @demo output {
-        .parent:has(> div),
-        .parent:has(> p),
-        .parent:has(> body) {
+        .parent:has(> div, > p, > body) {
             /* @content; */
         }
     }
@@ -5123,11 +5524,11 @@ body:where(.has-a-class) {
         /*
             selector.is-list() is a comma-separated list:
 
-            <()> ( <S> ":is( * )", )
+            <()> ( <()> ( <S> .parent <S> :is(*) ), )
          */
     }
     @demo return {
-        :is(*) {
+        .parent :is(*) {
             /* returned selectors */
         }
     }
@@ -5171,11 +5572,11 @@ body:where(.has-a-class) {
             /*
                 selector.is-list( ( div, p, body ) ) is a comma-separated list:
 
-                <()> ( <S> ":is( div, p, body )", )
+                <()> ( <()> ( <S> .parent <S> :is(div, p, body) ), )
              */
         }
         @demo return {
-            :is(div, p, body) {
+            .parent :is(div, p, body) {
                 /* returned selectors */
             }
         }
@@ -5186,11 +5587,11 @@ body:where(.has-a-class) {
                 /*
                     selector.is-list( ( div, p, body ), $split: false ) is a comma-separated list:
 
-                    <()> ( <S> ":is( div, p, body )", )
+                    <()> ( <()> ( <S> .parent <S> :is(div, p, body) ), )
                  */
             }
             @demo return {
-                :is(div, p, body) {
+                .parent :is(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -5202,7 +5603,7 @@ body:where(.has-a-class) {
                 /*
                     selector.is-list( ( div, p, body ), $direct: true ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> > <S> :is(div, p, body) ), )
+                    <()> ( <()> ( <S> .parent <S> > <S> :is(div, p, body) ), )
                  */
             }
             @demo return {
@@ -5217,7 +5618,7 @@ body:where(.has-a-class) {
                     /*
                         selector.is-list( ( div, p, body ), $direct: true, $split: false ) is a comma-separated list:
 
-                        <()> ( <()> ( <S> > <S> :is(div, p, body) ), )
+                        <()> ( <()> ( <S> .parent <S> > <S> :is(div, p, body) ), )
                      */
                 }
                 @demo return {
@@ -5310,9 +5711,7 @@ body:where(.has-a-class) {
         /* @include selector.is( ( div, p, body ) ) {} */
     }
     @demo output {
-        .parent :is(div),
-        .parent :is(p),
-        .parent :is(body) {
+        .parent :is(div, p, body) {
             /* @content; */
         }
     }
@@ -5334,9 +5733,7 @@ body:where(.has-a-class) {
         /* @include selector.is( ( div, p, body ), $direct: true ) {} */
     }
     @demo output {
-        .parent > :is(div),
-        .parent > :is(p),
-        .parent > :is(body) {
+        .parent > :is(div, p, body) {
             /* @content; */
         }
     }
@@ -5358,9 +5755,7 @@ body:where(.has-a-class) {
         /* @include selector.is( ( div, p, body ), $unify: true ) {} */
     }
     @demo output {
-        .parent:is(div),
-        .parent:is(p),
-        .parent:is(body) {
+        .parent:is(div, p, body) {
             /* @content; */
         }
     }
@@ -5379,12 +5774,14 @@ body:where(.has-a-class) {
 
 @demo ( function: selector.not-list ) {
     .parent {
-        /* 
-            selector.not-list() = <S> :not( %null )
+        /*
+            selector.not-list() is a comma-separated list:
+
+            <()> ( <()> ( <S> .parent <S> * ), )
          */
     }
     @demo return {
-        * {
+        .parent * {
             /* returned selectors */
         }
     }
@@ -5426,12 +5823,13 @@ body:where(.has-a-class) {
     @demo ( function: selector.not-list ) {
         .parent {
             /*
-                selector.not-list( ( div, p, body ) ) =
-                <S> ":not( div ):not( p ):not( body )"
+                selector.not-list( ( div, p, body ) ) is a comma-separated list:
+
+                <()> ( <()> ( <S> .parent <S> :not(div):not(p):not(body) ), )
              */
         }
         @demo return {
-            :not(div):not(p):not(body) {
+            .parent :not(div):not(p):not(body) {
                 /* returned selectors */
             }
         }
@@ -5440,12 +5838,13 @@ body:where(.has-a-class) {
         @demo ( function: selector.not-list ) {
             .parent {
                 /*
-                    selector.not-list( ( div, p, body ), $split: false ) =
-                    <S> ":not( div, p, body )"
+                    selector.not-list( ( div, p, body ), $split: false ) is a comma-separated list:
+
+                    <()> ( <()> ( <S> .parent <S> :not(div, p, body) ), )
                  */
             }
             @demo return {
-                :not(div, p, body) {
+                .parent :not(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -5457,7 +5856,7 @@ body:where(.has-a-class) {
                 /*
                     selector.not-list( ( div, p, body ), $direct: true ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> > <S> :not(div):not(p):not(body) ), )
+                    <()> ( <()> ( <S> .parent <S> > <S> :not(div):not(p):not(body) ), )
                  */
             }
             @demo return {
@@ -5472,7 +5871,7 @@ body:where(.has-a-class) {
                     /*
                         selector.not-list( ( div, p, body ), $direct: true, $split: false ) is a comma-separated list:
 
-                        <()> ( <()> ( <S> > <S> :not(div, p, body) ), )
+                        <()> ( <()> ( <S> .parent <S> > <S> :not(div, p, body) ), )
                      */
                 }
                 @demo return {
@@ -5631,11 +6030,11 @@ body:where(.has-a-class) {
         /*
             selector.where-list() is a comma-separated list:
 
-            <()> ( <S> ":where( * )", )
+            <()> ( <()> ( <S> .parent <S> :where(*) ), )
          */
     }
     @demo return {
-        :where(*) {
+        .parent :where(*) {
             /* returned selectors */
         }
     }
@@ -5679,11 +6078,11 @@ body:where(.has-a-class) {
             /*
                 selector.where-list( ( div, p, body ) ) is a comma-separated list:
 
-                <()> ( <S> ":where( div, p, body )", )
+                <()> ( <()> ( <S> .parent <S> :where(div, p, body) ), )
              */
         }
         @demo return {
-            :where(div, p, body) {
+            .parent :where(div, p, body) {
                 /* returned selectors */
             }
         }
@@ -5694,11 +6093,11 @@ body:where(.has-a-class) {
                 /*
                     selector.where-list( ( div, p, body ), $split: false ) is a comma-separated list:
 
-                    <()> ( <S> ":where( div, p, body )", )
+                    <()> ( <()> ( <S> .parent <S> :where(div, p, body) ), )
                  */
             }
             @demo return {
-                :where(div, p, body) {
+                .parent :where(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -5710,7 +6109,7 @@ body:where(.has-a-class) {
                 /*
                     selector.where-list( ( div, p, body ), $direct: true ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> > <S> :where(div, p, body) ), )
+                    <()> ( <()> ( <S> .parent <S> > <S> :where(div, p, body) ), )
                  */
             }
             @demo return {
@@ -5725,7 +6124,7 @@ body:where(.has-a-class) {
                     /*
                         selector.where-list( ( div, p, body ), $direct: true, $split: false ) is a comma-separated list:
 
-                        <()> ( <()> ( <S> > <S> :where(div, p, body) ), )
+                        <()> ( <()> ( <S> .parent <S> > <S> :where(div, p, body) ), )
                      */
                 }
                 @demo return {
@@ -5818,9 +6217,7 @@ body:where(.has-a-class) {
         /* @include selector.where( ( div, p, body ) ) {} */
     }
     @demo output {
-        .parent :where(div),
-        .parent :where(p),
-        .parent :where(body) {
+        .parent :where(div, p, body) {
             /* @content; */
         }
     }
@@ -5842,9 +6239,7 @@ body:where(.has-a-class) {
         /* @include selector.where( ( div, p, body ), $direct: true ) {} */
     }
     @demo output {
-        .parent > :where(div),
-        .parent > :where(p),
-        .parent > :where(body) {
+        .parent > :where(div, p, body) {
             /* @content; */
         }
     }
@@ -5866,9 +6261,7 @@ body:where(.has-a-class) {
         /* @include selector.where( ( div, p, body ), $unify: true ) {} */
     }
     @demo output {
-        .parent:where(div),
-        .parent:where(p),
-        .parent:where(body) {
+        .parent:where(div, p, body) {
             /* @content; */
         }
     }
