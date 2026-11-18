@@ -27,9 +27,9 @@
     $pseudoType,
     $selectors: null,
     $direct: false,
-    $parentSelector: if(exists.parent-exists(), &, null),
     $split: $pseudoType == 'not',
     $unify: false,
+    $parentSelector: if($unify and exists.parent-exists(), &, null),
     $debug: false
 ) {
     $debug_vars: ();
@@ -101,7 +101,9 @@
             }
 
             @if $pseudoType == 'not' {
-                $_var: '#{if(list.length($pseudo_selector_list) > 0, $pseudo_selector_list, '')}:#{$pseudoType}( #{$sel} )';
+                $_var: string.unquote(
+                    '#{if(list.length($pseudo_selector_list) > 0, $pseudo_selector_list, '')}:#{$pseudoType}( #{$sel} )'
+                );
 
                 @if $debug {
                     $debug_vars: map.set(
@@ -116,7 +118,7 @@
             } @else {
                 $pseudo_selector_list: list.append(
                     $pseudo_selector_list,
-                    ':#{$pseudoType}( #{$sel} )',
+                    string.unquote(':#{$pseudoType}( #{$sel} )'),
                     $separator: comma
                 );
             }

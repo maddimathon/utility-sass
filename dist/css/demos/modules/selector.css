@@ -5238,11 +5238,11 @@ body:where(.has-a-class) {
         /*
             selector.has-list() is a comma-separated list:
 
-            <()> ( <()> ( <S> .parent <S> :has(*) ), )
+            <()> ( <S> :has( * ), )
          */
     }
     @demo return {
-        .parent :has(*) {
+        :has(*) {
             /* returned selectors */
         }
     }
@@ -5286,11 +5286,11 @@ body:where(.has-a-class) {
             /*
                 selector.has-list( ( div, p, body ) ) is a comma-separated list:
 
-                <()> ( <()> ( <S> .parent <S> :has(div, p, body) ), )
+                <()> ( <S> :has( div, p, body ), )
              */
         }
         @demo return {
-            .parent :has(div, p, body) {
+            :has(div, p, body) {
                 /* returned selectors */
             }
         }
@@ -5301,11 +5301,11 @@ body:where(.has-a-class) {
                 /*
                     selector.has-list( ( div, p, body ), $split: false ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> .parent <S> :has(div, p, body) ), )
+                    <()> ( <S> :has( div, p, body ), )
                  */
             }
             @demo return {
-                .parent :has(div, p, body) {
+                :has(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -5317,11 +5317,11 @@ body:where(.has-a-class) {
                 /*
                     selector.has-list( ( div, p, body ), $direct: true ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> .parent <S> :has(> div, > p, > body) ), )
+                    <()> ( <S> :has( > div, > p, > body ), )
                  */
             }
             @demo return {
-                .parent :has(> div, > p, > body) {
+                :has(> div, > p, > body) {
                     /* returned selectors */
                 }
             }
@@ -5332,11 +5332,11 @@ body:where(.has-a-class) {
                     /*
                         selector.has-list( ( div, p, body ), $direct: true, $split: false ) is a comma-separated list:
 
-                        <()> ( <()> ( <S> .parent <S> :has(> div, > p, > body) ), )
+                        <()> ( <S> :has( > div, > p, > body ), )
                      */
                 }
                 @demo return {
-                    .parent :has(> div, > p, > body) {
+                    :has(> div, > p, > body) {
                         /* returned selectors */
                     }
                 }
@@ -5524,11 +5524,11 @@ body:where(.has-a-class) {
         /*
             selector.is-list() is a comma-separated list:
 
-            <()> ( <()> ( <S> .parent <S> :is(*) ), )
+            <()> ( <S> :is( * ), )
          */
     }
     @demo return {
-        .parent :is(*) {
+        :is(*) {
             /* returned selectors */
         }
     }
@@ -5572,11 +5572,11 @@ body:where(.has-a-class) {
             /*
                 selector.is-list( ( div, p, body ) ) is a comma-separated list:
 
-                <()> ( <()> ( <S> .parent <S> :is(div, p, body) ), )
+                <()> ( <S> :is( div, p, body ), )
              */
         }
         @demo return {
-            .parent :is(div, p, body) {
+            :is(div, p, body) {
                 /* returned selectors */
             }
         }
@@ -5587,11 +5587,11 @@ body:where(.has-a-class) {
                 /*
                     selector.is-list( ( div, p, body ), $split: false ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> .parent <S> :is(div, p, body) ), )
+                    <()> ( <S> :is( div, p, body ), )
                  */
             }
             @demo return {
-                .parent :is(div, p, body) {
+                :is(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -5603,11 +5603,11 @@ body:where(.has-a-class) {
                 /*
                     selector.is-list( ( div, p, body ), $direct: true ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> .parent <S> > <S> :is(div, p, body) ), )
+                    <()> ( <()> ( <S> > <S> :is(div, p, body) ), )
                  */
             }
             @demo return {
-                .parent > :is(div, p, body) {
+                [return] > :is(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -5618,11 +5618,11 @@ body:where(.has-a-class) {
                     /*
                         selector.is-list( ( div, p, body ), $direct: true, $split: false ) is a comma-separated list:
 
-                        <()> ( <()> ( <S> .parent <S> > <S> :is(div, p, body) ), )
+                        <()> ( <()> ( <S> > <S> :is(div, p, body) ), )
                      */
                 }
                 @demo return {
-                    .parent > :is(div, p, body) {
+                    [return] > :is(div, p, body) {
                         /* returned selectors */
                     }
                 }
@@ -5774,14 +5774,12 @@ body:where(.has-a-class) {
 
 @demo ( function: selector.not-list ) {
     .parent {
-        /*
-            selector.not-list() is a comma-separated list:
-
-            <()> ( <()> ( <S> .parent <S> * ), )
+        /* 
+            selector.not-list() = <S> :not( %null )
          */
     }
     @demo return {
-        .parent * {
+        * {
             /* returned selectors */
         }
     }
@@ -5823,13 +5821,12 @@ body:where(.has-a-class) {
     @demo ( function: selector.not-list ) {
         .parent {
             /*
-                selector.not-list( ( div, p, body ) ) is a comma-separated list:
-
-                <()> ( <()> ( <S> .parent <S> :not(div):not(p):not(body) ), )
+                selector.not-list( ( div, p, body ) ) =
+                <S> :not( div ):not( p ):not( body )
              */
         }
         @demo return {
-            .parent :not(div):not(p):not(body) {
+            :not(div):not(p):not(body) {
                 /* returned selectors */
             }
         }
@@ -5838,13 +5835,12 @@ body:where(.has-a-class) {
         @demo ( function: selector.not-list ) {
             .parent {
                 /*
-                    selector.not-list( ( div, p, body ), $split: false ) is a comma-separated list:
-
-                    <()> ( <()> ( <S> .parent <S> :not(div, p, body) ), )
+                    selector.not-list( ( div, p, body ), $split: false ) =
+                    <S> :not( div, p, body )
                  */
             }
             @demo return {
-                .parent :not(div, p, body) {
+                :not(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -5856,11 +5852,11 @@ body:where(.has-a-class) {
                 /*
                     selector.not-list( ( div, p, body ), $direct: true ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> .parent <S> > <S> :not(div):not(p):not(body) ), )
+                    <()> ( <()> ( <S> > <S> :not(div):not(p):not(body) ), )
                  */
             }
             @demo return {
-                .parent > :not(div):not(p):not(body) {
+                [return] > :not(div):not(p):not(body) {
                     /* returned selectors */
                 }
             }
@@ -5871,11 +5867,11 @@ body:where(.has-a-class) {
                     /*
                         selector.not-list( ( div, p, body ), $direct: true, $split: false ) is a comma-separated list:
 
-                        <()> ( <()> ( <S> .parent <S> > <S> :not(div, p, body) ), )
+                        <()> ( <()> ( <S> > <S> :not(div, p, body) ), )
                      */
                 }
                 @demo return {
-                    .parent > :not(div, p, body) {
+                    [return] > :not(div, p, body) {
                         /* returned selectors */
                     }
                 }
@@ -6030,11 +6026,11 @@ body:where(.has-a-class) {
         /*
             selector.where-list() is a comma-separated list:
 
-            <()> ( <()> ( <S> .parent <S> :where(*) ), )
+            <()> ( <S> :where( * ), )
          */
     }
     @demo return {
-        .parent :where(*) {
+        :where(*) {
             /* returned selectors */
         }
     }
@@ -6078,11 +6074,11 @@ body:where(.has-a-class) {
             /*
                 selector.where-list( ( div, p, body ) ) is a comma-separated list:
 
-                <()> ( <()> ( <S> .parent <S> :where(div, p, body) ), )
+                <()> ( <S> :where( div, p, body ), )
              */
         }
         @demo return {
-            .parent :where(div, p, body) {
+            :where(div, p, body) {
                 /* returned selectors */
             }
         }
@@ -6093,11 +6089,11 @@ body:where(.has-a-class) {
                 /*
                     selector.where-list( ( div, p, body ), $split: false ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> .parent <S> :where(div, p, body) ), )
+                    <()> ( <S> :where( div, p, body ), )
                  */
             }
             @demo return {
-                .parent :where(div, p, body) {
+                :where(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -6109,11 +6105,11 @@ body:where(.has-a-class) {
                 /*
                     selector.where-list( ( div, p, body ), $direct: true ) is a comma-separated list:
 
-                    <()> ( <()> ( <S> .parent <S> > <S> :where(div, p, body) ), )
+                    <()> ( <()> ( <S> > <S> :where(div, p, body) ), )
                  */
             }
             @demo return {
-                .parent > :where(div, p, body) {
+                [return] > :where(div, p, body) {
                     /* returned selectors */
                 }
             }
@@ -6124,11 +6120,11 @@ body:where(.has-a-class) {
                     /*
                         selector.where-list( ( div, p, body ), $direct: true, $split: false ) is a comma-separated list:
 
-                        <()> ( <()> ( <S> .parent <S> > <S> :where(div, p, body) ), )
+                        <()> ( <()> ( <S> > <S> :where(div, p, body) ), )
                      */
                 }
                 @demo return {
-                    .parent > :where(div, p, body) {
+                    [return] > :where(div, p, body) {
                         /* returned selectors */
                     }
                 }
