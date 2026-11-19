@@ -31,12 +31,28 @@ $_mx_custom_property: meta.get-mixin('custom-property');
     $args
         in (
             (quoted-string, 'quoted string', meta.arglist()),
+            (quoted-string, 'quoted string', meta.arglist($allPrefixes: true)),
             (unquoted-string, unquoted-string, meta.arglist()),
+            (unquoted-string, unquoted-string, meta.arglist($allPrefixes: true)),
             (list, (1, 2, 'three'), meta.arglist())
         )
 {
     @include _demo-custom-property($key, $value, $args...);
 }
+
+@include _demo-custom-property(cx-prop-name, cx-value);
+@include _demo-custom-property(cx-prop-name, cx-value, $allPrefixes: true);
+@include _demo-custom-property(cx-prop-name, cx-value, $important: true);
+@include _demo-custom-property(cx-prop-name, cx-value, $allPrefixes: true, $important: true);
+@include _demo-custom-property(cx-prop-name, cx-value, $quoteString: true);
+@include _demo-custom-property(cx-prop-name, cx-value, $allPrefixes: true, $quoteString: true);
+@include _demo-custom-property(
+    cx-prop-name,
+    cx-value,
+    $allPrefixes: true,
+    $important: true,
+    $quoteString: true
+);
 
 /* ## Mixin - container-query-cx-prop ==================================== */
 

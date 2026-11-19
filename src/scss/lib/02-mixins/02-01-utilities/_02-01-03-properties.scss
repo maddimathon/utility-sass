@@ -63,11 +63,14 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     $comment: null,
     $allPrefixes: null,
     $important: false,
+    $prefix_important: false,
+    $prefix_value: $value,
     $quoteString: null
 ) {
-    @if $allPrefixes != false {
+    @if $allPrefixes == null {
         $allPrefixes: list.index(config.$mx_customProperty_allPrefixesSlugs, $slug) != null;
     }
+
     $allPrefixes: $allPrefixes and $_allowAllPrefixes;
 
     $_input_value: $value;
@@ -79,12 +82,18 @@ $_allowAllPrefixes: (#{config.$customPropertyPrefix} != #{config.$customProperty
     );
 
     @if $allPrefixes {
+        $prefix_value: _custom-property--value(
+            $value: $prefix_value,
+            $important: $prefix_important,
+            $quoteString: $quoteString,
+        );
+
         @if $comment {
             --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value}; /* #{$comment} */
-            --#{config.$customPropertyPrefix}#{$slug}: #{$value}; /* #{$comment} */
+            --#{config.$customPropertyPrefix}#{$slug}: #{$prefix_value}; /* #{$comment} */
         } @else {
             --#{config.$customPropertyPrefix_fallback}#{$slug}: #{$value};
-            --#{config.$customPropertyPrefix}#{$slug}: #{$value};
+            --#{config.$customPropertyPrefix}#{$slug}: #{$prefix_value};
         }
     } @else {
         @if $comment {

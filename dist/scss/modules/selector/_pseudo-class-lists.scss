@@ -299,8 +299,10 @@
         $args...,
     );
 
-    @at-root #{$selectors} {
-        @content;
+    @if exists.exists($selectors) {
+        @at-root #{$selectors} {
+            @content;
+        }
     }
 }
 

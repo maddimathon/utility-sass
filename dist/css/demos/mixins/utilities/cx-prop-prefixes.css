@@ -21,15 +21,75 @@
     }
 }
 @demo ( mixin: custom-property ) {
+    /* @include custom-property( quoted-string, "quoted string", $allPrefixes: true ); */
+    @demo output {
+        --fallback-quoted-string: 'quoted string';
+        --prefix-quoted-string: 'quoted string';
+    }
+}
+@demo ( mixin: custom-property ) {
     /* @include custom-property( unquoted-string, unquoted-string ); */
     @demo output {
         --fallback-unquoted-string: unquoted-string;
     }
 }
 @demo ( mixin: custom-property ) {
+    /* @include custom-property( unquoted-string, unquoted-string, $allPrefixes: true ); */
+    @demo output {
+        --fallback-unquoted-string: unquoted-string;
+        --prefix-unquoted-string: unquoted-string;
+    }
+}
+@demo ( mixin: custom-property ) {
     /* @include custom-property( list, ( 1, 2, "three" ) ); */
     @demo output {
         --fallback-list: 1, 2, three;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value ); */
+    @demo output {
+        --fallback-cx-prop-name: cx-value;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $allPrefixes: true ); */
+    @demo output {
+        --fallback-cx-prop-name: cx-value;
+        --prefix-cx-prop-name: cx-value;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $important: true ); */
+    @demo output {
+        --fallback-cx-prop-name: cx-value !important;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $allPrefixes: true, $important: true ); */
+    @demo output {
+        --fallback-cx-prop-name: cx-value !important;
+        --prefix-cx-prop-name: cx-value;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $quoteString: true ); */
+    @demo output {
+        --fallback-cx-prop-name: 'cx-value';
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $allPrefixes: true, $quoteString: true ); */
+    @demo output {
+        --fallback-cx-prop-name: 'cx-value';
+        --prefix-cx-prop-name: 'cx-value';
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $allPrefixes: true, $important: true, $quoteString: true ); */
+    @demo output {
+        --fallback-cx-prop-name: 'cx-value' !important;
+        --prefix-cx-prop-name: 'cx-value';
     }
 }
 /* ## Mixin - container-query-cx-prop ==================================== */

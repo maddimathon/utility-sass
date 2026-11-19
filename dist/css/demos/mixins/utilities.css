@@ -19,7 +19,19 @@
     }
 }
 @demo ( mixin: custom-property ) {
+    /* @include custom-property( quoted-string, "quoted string", $allPrefixes: true ); */
+    @demo output {
+        --quoted-string: 'quoted string';
+    }
+}
+@demo ( mixin: custom-property ) {
     /* @include custom-property( unquoted-string, unquoted-string ); */
+    @demo output {
+        --unquoted-string: unquoted-string;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( unquoted-string, unquoted-string, $allPrefixes: true ); */
     @demo output {
         --unquoted-string: unquoted-string;
     }
@@ -28,6 +40,48 @@
     /* @include custom-property( list, ( 1, 2, "three" ) ); */
     @demo output {
         --list: 1, 2, three;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value ); */
+    @demo output {
+        --cx-prop-name: cx-value;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $allPrefixes: true ); */
+    @demo output {
+        --cx-prop-name: cx-value;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $important: true ); */
+    @demo output {
+        --cx-prop-name: cx-value !important;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $allPrefixes: true, $important: true ); */
+    @demo output {
+        --cx-prop-name: cx-value !important;
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $quoteString: true ); */
+    @demo output {
+        --cx-prop-name: 'cx-value';
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $allPrefixes: true, $quoteString: true ); */
+    @demo output {
+        --cx-prop-name: 'cx-value';
+    }
+}
+@demo ( mixin: custom-property ) {
+    /* @include custom-property( cx-prop-name, cx-value, $allPrefixes: true, $important: true, $quoteString: true ); */
+    @demo output {
+        --cx-prop-name: 'cx-value' !important;
     }
 }
 /* ## Mixin - container-query-cx-prop ==================================== */
