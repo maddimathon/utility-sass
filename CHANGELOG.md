@@ -19,6 +19,12 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.3.1** — 2026-11-24
+
+### Fixed
+- Issue with bracketed list display in multiline meta.var-dump outputs
+
+
 ## **0.3.0** — 2026-11-24
 
 Selector module updates. Minor button selector changes. Improvements to

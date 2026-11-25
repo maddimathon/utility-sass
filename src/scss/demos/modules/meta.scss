@@ -200,14 +200,21 @@ meta.is-truthy {
 /* ## MODULES - META - var-dump() ==================================== */
 
 $_fn_varDump: meta.get-function('var-dump', $module: 'meta');
-@mixin _demo-var-dump-fn($args...) {
+@mixin _demo-var-dump-fn($var, $args...) {
     @include demo.function(
         'meta.var-dump',
         $_fn_varDump,
-        $args,
+        meta.arglist($var, $args...),
         $wrapOutput: true,
         $wrapOutput_withName: true
     );
+    // @include demo.function(
+    //     'meta.var-dump',
+    //     $_fn_varDump,
+    //     meta.arglist($var, $returnMultiline: false, $args...),
+    //     $wrapOutput: true,
+    //     $wrapOutput_withName: true
+    // );
 }
 
 $_mx_varDump: meta.get-mixin('var-dump', $module: 'meta');
@@ -236,6 +243,11 @@ $_list: value is a list;
 
 list {
     @include _demo-var-dump-fn($_list);
+    @include _demo-var-dump-fn([bracketed list items]);
+    @include _demo-var-dump-fn(
+        [bracketed list with a lot of items so that the output will be multiline for sure and we can
+            test it]
+    );
 }
 map {
     @include _demo-var-dump-fn($_map);

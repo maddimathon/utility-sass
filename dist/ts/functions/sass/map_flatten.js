@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.3.0
+ * @maddimathon/utility-sass@0.3.1
  * @license MIT
  */
 import Immutable from 'immutable';

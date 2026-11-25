@@ -122,7 +122,7 @@ export class Build extends BuildStage {
                 '$1\n' + escRegExpReplace( [
                     '```sh',
                     '# for full releases only, add',
-                    '# `@maddimathon:registry=https://registry.npmjs.org` to your `.npmrc` file',
+                    '# `@maddimathon/utility-sass:registry=https://registry.npmjs.org` to your `.npmrc` file',
                     'npm i -D @maddimathon/utility-sass' + versionStr_fullOnly,
                     '',
                     '# for pre-releases',

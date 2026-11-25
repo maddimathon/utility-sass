@@ -212,6 +212,14 @@ $_varType_abbreviations: (
         }
     }
 
+    $parensOpen: if($showParens, '(', '');
+    $parensClose: if($showParens, ')', '');
+
+    @if $showParens and list.is-bracketed($var) {
+        $parensOpen: '( [';
+        $parensClose: '] )';
+    }
+
     $typeString: _var-dump--type-string(
         $shortType: $shortType,
         $type: $type,
@@ -636,12 +644,12 @@ $_varType_abbreviations: (
             $search: if($type != 'list', '(^\\s+|,?\\s+$)', '(^\\s+|\\s+$)'),
         );
 
-        $lines: (string.unquote('#{$typeString}( #{$_newLines} )'));
+        $lines: (string.unquote('#{$typeString}#{$parensOpen} #{$_newLines} #{$parensClose}'));
     } @else if list.length($lines) > 0 {
-        $lines: list.join((string.unquote('#{$typeString}(')), $lines, $separator: space);
-        $lines: list.append($lines, string.unquote('#{$indent})'), $separator: space);
+        $lines: list.join((#{$typeString}#{$parensOpen}), $lines, $separator: space);
+        $lines: list.append($lines, #{$indent}#{$parensClose}, $separator: space);
     } @else {
-        $lines: string.unquote('#{$typeString}()');
+        $lines: #{$typeString}#{$parensOpen}#{$parensClose};
     }
 
     @return if(list.length($lines) > 1, $lines, #{$lines});
@@ -945,21 +953,14 @@ $_varType_abbreviations: (
         }
 
         @if $returnMultiline and list.length($inspection) > 1 {
-            $inspection: list.join((#{meta.calc-name($var)}#{'('}), $inspection, $separator: comma);
-            $inspection: list.join($inspection, (#{')'}), $separator: comma);
+            $inspection: list.join(
+                (string.unquote('#{meta.calc-name($var)}(')),
+                $inspection,
+                $separator: space
+            );
+            $inspection: list.append($inspection, string.unquote(')'), $separator: space);
         } @else {
-            $inspection: list.set-nth(
-                $inspection,
-                1,
-                #{meta.calc-name($var)}#{'('}#{list.nth($inspection, 1)}
-            );
-
-            $_lastLine: list.nth($inspection, -1);
-            $inspection: list.set-nth(
-                $inspection,
-                -1,
-                #{$_lastLine}#{if(string.length(#{$_lastLine}) > 0, ' ', '')}#{')'}
-            );
+            $inspection: string.unquote('#{meta.calc-name($var)}( #{$inspection} )');
         }
     }
     //
@@ -1004,35 +1005,15 @@ $_varType_abbreviations: (
 
         @if $showParens {
             @if list.length($inspection) > 0 {
-                $inspection: list.set-nth(
-                    $inspection,
-                    1,
-                    #{if($bracketed, '( [ ', '( ')}#{list.nth($inspection, 1)}
-                );
-
-                $_lastLine: list.nth($inspection, -1);
-                $inspection: list.set-nth(
-                    $inspection,
-                    -1,
-                    #{$_lastLine}#{if(string.length(#{$_lastLine}) > 0, ' ', '')}#{if(
-                            $bracketed,
-                            '] )',
-                            ')'
-                        )}
+                $inspection: string.unquote(
+                    '#{if($bracketed, "( [", "(")} #{$inspection} #{if($bracketed, "] )", ")")}'
                 );
             } @else {
-                $inspection: string.unquote('()');
+                $inspection: string.unquote(if($bracketed, '([])', '()'));
             }
-        } @else {
+        } @else if $bracketed {
             @if list.length($inspection) > 0 {
-                $inspection: list.set-nth($inspection, 1, #{'[ '}#{list.nth($inspection, 1)});
-
-                $_lastLine: list.nth($inspection, -1);
-                $inspection: list.set-nth(
-                    $inspection,
-                    -1,
-                    #{$_lastLine}#{if(string.length(#{$_lastLine}) > 0, ' ', '')}#{']'}
-                );
+                $inspection: string.unquote('[ #{$inspection} ]');
             } @else {
                 $inspection: string.unquote('[]');
             }
@@ -1086,14 +1067,7 @@ $_varType_abbreviations: (
 
         @if $showParens {
             @if list.length($inspection) > 0 {
-                $inspection: list.set-nth($inspection, 1, #{'( '}#{list.nth($inspection, 1)});
-
-                $_lastLine: list.nth($inspection, -1);
-                $inspection: list.set-nth(
-                    $inspection,
-                    -1,
-                    #{$_lastLine}#{if(string.length(#{$_lastLine}) > 0, ' ', '')}#{')'}
-                );
+                $inspection: string.unquote('( #{$inspection} )');
             } @else {
                 $inspection: string.unquote('()');
             }
