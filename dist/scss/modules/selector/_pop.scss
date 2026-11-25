@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.3.0-draft
+/// @package @maddimathon/utility-sass@0.3.0
 /// @since 0.1.0-beta
 ///
 
@@ -19,7 +19,7 @@
 /// Returns the last selector(s) in space-separated selectors.
 ///
 /// @since 0.1.0-beta
-/// @since 0.3.0-draft — Added optional $withCombinators param.
+/// @since 0.3.0 — Added optional $withCombinators param.
 ///
 @function pop(
     $selectors: (),
@@ -138,7 +138,7 @@
 /// Returns the same selector, but with the last selector level wrapped in a
 /// pseudo-class selector.
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 @function _unpopped-pseudo(
     $pseudo,
@@ -231,7 +231,7 @@
 /// Returns the same selector, but with the last selector level wrapped in a
 /// has selector.
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 @function unpopped-has($selectors: (), $args...) {
     @return _unpopped-pseudo($pseudo: 'has', $selectors: $selectors, $args...);
@@ -241,7 +241,7 @@
 /// Returns the same selector, but with the last selector level wrapped in a
 /// is selector.
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 @function unpopped-is($selectors: (), $args...) {
     @return _unpopped-pseudo($pseudo: 'is', $selectors: $selectors, $args...);
@@ -251,7 +251,7 @@
 /// Returns the same selector, but with the last selector level wrapped in a
 /// not selector.
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 @function unpopped-not($selectors: (), $args...) {
     @return _unpopped-pseudo($pseudo: 'not', $selectors: $selectors, $args...);
@@ -261,7 +261,7 @@
 /// Returns the same selector, but with the last selector level wrapped in a
 /// where selector.
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 @function unpopped-where($selectors: (), $args...) {
     @return _unpopped-pseudo(
@@ -275,7 +275,7 @@
 /// Returns the same selector, but with the last selector level wrapped in a
 /// has selector.
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 @mixin unpopped-has($selectors: &, $args...) {
     $unpopped: _unpopped-pseudo(
@@ -295,7 +295,7 @@
 /// Returns the same selector, but with the last selector level wrapped in a
 /// is selector.
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 @mixin unpopped-is($selectors: &, $args...) {
     $unpopped: _unpopped-pseudo(
@@ -315,7 +315,7 @@
 /// Returns the same selector, but with the last selector level wrapped in a
 /// not selector.
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 @mixin unpopped-not($selectors: &, $args...) {
     $unpopped: _unpopped-pseudo(
@@ -335,7 +335,7 @@
 /// Returns the same selector, but with the last selector level wrapped in a
 /// where selector.
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 @mixin unpopped-where($selectors: &, $args...) {
     $unpopped: _unpopped-pseudo(

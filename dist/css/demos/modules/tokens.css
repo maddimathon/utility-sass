@@ -4,7 +4,7 @@
 tokens-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/tokens'` */
     /*
-        meta.module-variables(tokens) is a map:
+        meta.module-variables(tokens) =
         <:> (
             "atProperties": <:> (
                 "backdrop-filter": <:> (
@@ -12,8 +12,8 @@ tokens-vars {
                     "initial-value": <S> blur(1rem),
                     "syntax": <S> "*",
                 ),
-                "background-color": <:> ( "inherits": </> true, "syntax": <S> "<color>", ),
-                "display": <:> ( "inherits": </> false, "syntax": <S> "*", ),
+                "background-color": <:> ( "inherits": </> true, "syntax": <S> "<color>" ),
+                "display": <:> ( "inherits": </> false, "syntax": <S> "*" ),
                 "focus-ring-outline-color": <:> (
                     "inherits": </> true,
                     "initial-value": <S> currentColor,
@@ -61,13 +61,19 @@ tokens-vars {
                 "sidebar": <#> 55.625,
                 "tablet": <#> 50,
             ),
-            "brightnessMode-all": <()> ( <S> light <S> dark ),
+            "brightnessMode-all": <()> ( 1: <S> light 2: <S> dark ),
             "brightnessMode-default": <S> light,
-            "brightnessMode-options": <()> ( <S> light <S> dark ),
+            "brightnessMode-options": <()> ( 1: <S> light 2: <S> dark ),
             "button-variation-default": <S> "primary",
-            "contrastMode-all": <()> ( <S> average <S> low <S> high <S> forced-colors ),
+            "contrastMode-all": <()> ( 1: <S> average 2: <S> low 3: <S> high 4: <S> forced-colors ),
             "contrastMode-default": <S> average,
-            "contrastMode-options": <()> ( <S> average <S> low <S> high <S> max <S> forced-colors ),
+            "contrastMode-options": <()> (
+                1: <S> average
+                2: <S> low
+                3: <S> high
+                4: <S> max
+                5: <S> forced-colors
+            ),
             "font-size": <:> (
                 "bigger-7": <#> 2.75,
                 "bigger-8": <#> 3.1875,
@@ -92,7 +98,7 @@ tokens-vars {
             "fontWeight-semibold-variable": <-> null,
             "fontWeight-variable": <-> null,
             "gap": <:> (
-                "block": <:> ( "layout": <#> 5, "layout-half": <#> 2.5, ),
+                "block": <:> ( "layout": <#> 5, "layout-half": <#> 2.5 ),
                 "inline": <:> (
                     "indent": <#> 9,
                     "layout": <#> 8,
@@ -127,8 +133,8 @@ tokens-vars {
             "scaleMultiplier": <#> 1.15625,
             "scrollPaddingTop-margin": <#> 5vw,
             "selector-button-variants": <:> (
-                "primary": <()> ( <()> ( <S> .button-primary ), ),
-                "secondary": <()> ( <()> ( <S> .button-secondary ), ),
+                "primary": <()> ( 1: <()> ( 1: <S> .button-primary ), ),
+                "secondary": <()> ( 1: <()> ( 1: <S> .button-secondary ), ),
             ),
             "stroke-relative": <:> (
                 "100": <#> 0.0625,

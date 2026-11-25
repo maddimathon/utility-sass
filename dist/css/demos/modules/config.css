@@ -4,7 +4,7 @@
 modules.config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/modules'` */
     /*
-        default vars is a map:
+        default vars =
         <:> (
             "breakpoints-attributeOverrides": <()> (),
             "breakpoints-attributeOverrides-includeRoot": </> false,
@@ -40,8 +40,8 @@ modules.config-vars {
             "demo-wrapOutput": </> false,
             "demo-wrapOutput-function": </> false,
             "demo-wrapOutput-function-withName": </> false,
-            "featureCheck-defaultToJS": <:> ( "touch": </> true, "whereSelector": </> true, ),
-            "featureCheck-defaultToJS-supports": <:> ( "touch": </> true, "whereSelector": </> true, ),
+            "featureCheck-defaultToJS": <:> ( "touch": </> true, "whereSelector": </> true ),
+            "featureCheck-defaultToJS-supports": <:> ( "touch": </> true, "whereSelector": </> true ),
             "featureCheck-defaultToJS-supports-not": <:> (
                 "touch": </> true,
                 "whereSelector": </> true,
@@ -96,6 +96,7 @@ modules.config-vars {
             "math-clampFontSize-viewport-min": <#> 25,
             "math-fontSize-roundingFactor": <#> 16,
             "meta-varDump-maxWidth": <#> 76,
+            "meta-varDump-removeIndices": </> false,
             "selector-body": <S> body,
             "selector-body-aliases": <-> null,
             "selector-null": <S> %null,
@@ -142,7 +143,7 @@ modules.config-vars {
 lib.config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/lib'` */
     /*
-        default vars is a map:
+        default vars =
         <:> (
             "config-validTokenLevels": <()> (
                 1: <S> "100",
@@ -179,9 +180,9 @@ lib.config-vars {
             "selector-a": <S> a[href],
             "selector-a-current": <S> [aria-current],
             "selector-a-disabled": <S> [aria-disabled=true],
-            "selector-button-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]", ),
+            "selector-button-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]" ),
             "selector-headingsByRole": </> false,
-            "selector-input-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]", ),
+            "selector-input-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]" ),
             "selector-input-readonly": <S> [readonly],
         )
      */
@@ -190,7 +191,7 @@ lib.config-vars {
 template.config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/template'` */
     /*
-        default vars is a map:
+        default vars =
         <:> (
             "config-validTokenLevels": <()> (
                 1: <S> "100",
@@ -219,7 +220,7 @@ template.config-vars {
             "fn-breakpointValue-roundToPixelFactor": <#> 8,
             "fn-colourMode-selectorsAsChildren": </> false,
             "fn-colourMode-selectorsAsChildren-individual": </> false,
-            "fn-doVar-allPrefixesSlugs": <()> ( <S> "focus-ring-outline-color", ),
+            "fn-doVar-allPrefixesSlugs": <()> ( 1: <S> "focus-ring-outline-color", ),
             "fn-fontSize-autoClampSizes": </> false,
             "fn-gapValue-block-layout-high": <S> "800",
             "fn-gapValue-block-layout-low": <S> "600",
@@ -246,7 +247,7 @@ template.config-vars {
             "mx-colourMode-includeSelectors": </> true,
             "mx-colourModeCombo-includeForcedColorsSelectors": </> false,
             "mx-colourModeEach-includeForcedColorsSelectors": </> false,
-            "mx-customProperty-allPrefixesSlugs": <()> ( 1: <S> "focus-ring-outline-color", 2: <S> "display", ),
+            "mx-customProperty-allPrefixesSlugs": <()> ( 1: <S> "focus-ring-outline-color", 2: <S> "display" ),
             "mx-customProperty-allPrefixesSlugs-except": <()> (),
             "mx-focusVisible-fallbacksOnly": </> false,
             "mx-focusVisible-includeFallbacks": </> true,

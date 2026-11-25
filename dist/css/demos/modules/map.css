@@ -13,25 +13,27 @@
  * ======================================================================== */
 map.flatten {
     /*
-        $map is a map:
+        $map =
         <:> (
             "$": <S> default,
             "one": <:> (
                 "$": <S> default,
                 "A": <S> value,
-                "B": <:> ( "$": <S> default, 1: <S> value, ),
+                "B": <:> ( "$": <S> default, 1: <S> value ),
             ),
             "two": <:> (
                 "A": <()> ( <()> ( <S> value <S> is <S> a <S> list ), ),
                 "B": <:> (
                     "$": <S> default,
-                    1: <()> ( <()> ( <S> value <S> is <S> a <S> list ), ),
+                    1: <()> (
+                        <()> ( <S> value <S> is <S> a <S> list ),
+                    ),
                 ),
             ),
         )
      */
     /*
-        map.flatten is a map:
+        map.flatten =
         <:> (
             "": <S> default,
             "one": <S> default,
@@ -46,7 +48,7 @@ map.flatten {
 }
 map.flatten > with-prefix {
     /*
-        map.flatten is a map:
+        map.flatten =
         <:> (
             "pre": <S> default,
             "pre-one": <S> default,
@@ -61,7 +63,7 @@ map.flatten > with-prefix {
 }
 map.flatten > with-suffix {
     /*
-        map.flatten is a map:
+        map.flatten =
         <:> (
             "suf": <S> default,
             "one-suf": <S> default,
@@ -76,7 +78,7 @@ map.flatten > with-suffix {
 }
 map.flatten > with-both {
     /*
-        map.flatten is a map:
+        map.flatten =
         <:> (
             "pre-suf": <S> default,
             "pre-one-suf": <S> default,
@@ -91,7 +93,7 @@ map.flatten > with-both {
 }
 map.flatten > with-both--underscored {
     /*
-        map.flatten is a map:
+        map.flatten =
         <:> (
             "pre_suf": <S> default,
             "pre_one_suf": <S> default,
@@ -107,32 +109,45 @@ map.flatten > with-both--underscored {
 
 map.ksort {
     /*
-        $map is a map:
+        $map =
         <:> (
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
-            "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
+            "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
             "option1": <S> A,
             "option3": <S> C,
             "option2": <S> B,
         )
      */
     /*
-        map.ksort() is a map:
+        map.ksort() =
         <:> (
             "option1": <S> A,
             "option2": <S> B,
             "option3": <S> C,
-            "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
+            "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
         )
      */
 }
 
 map.merge {
     /*
-        map.merge( ( optionSet: ( option1: S-A, option2: S-B, option3: S-C ), optionList: ( 1, 2, 3, 4, 5 ), option1: A, option3: C, option2: B ), ( option3: OVERRIDE, optionList: OVERRIDE, optionSet: ( option2: OVERRIDE ) ) ) is a map:
+        map.merge(
+            (
+                "optionSet": ( "option1": S-A, "option2": S-B, "option3": S-C ),
+                "optionList": ( 1, 2, 3, 4, 5 ),
+                "option1": A,
+                "option3": C,
+                "option2": B,
+            ),
+            (
+                "option3": OVERRIDE,
+                "optionList": OVERRIDE,
+                "optionSet": ( "option2": OVERRIDE ),
+            ),
+        ) =
         <:> (
-            "optionSet": <:> ( "option2": <S> OVERRIDE, ),
+            "optionSet": <:> ( "option2": <S> OVERRIDE ),
             "optionList": <S> OVERRIDE,
             "option1": <S> A,
             "option3": <S> OVERRIDE,
@@ -140,7 +155,21 @@ map.merge {
         )
      */
     /*
-        map.merge( ( optionSet: ( option1: S-A, option2: S-B, option3: S-C ), optionList: ( 1, 2, 3, 4, 5 ), option1: A, option3: C, option2: B ), ( option3: OVERRIDE, optionList: OVERRIDE, optionSet: ( option2: OVERRIDE ) ), $recursive: true ) is a map:
+        map.merge(
+            (
+                "optionSet": ( "option1": S-A, "option2": S-B, "option3": S-C ),
+                "optionList": ( 1, 2, 3, 4, 5 ),
+                "option1": A,
+                "option3": C,
+                "option2": B,
+            ),
+            (
+                "option3": OVERRIDE,
+                "optionList": OVERRIDE,
+                "optionSet": ( "option2": OVERRIDE ),
+            ),
+            $recursive: true,
+        ) =
         <:> (
             "optionSet": <:> (
                 "option1": <S> S-A,
@@ -154,7 +183,22 @@ map.merge {
         )
      */
     /*
-        map.merge( ( optionSet: ( option1: S-A, option2: S-B, option3: S-C ), optionList: ( 1, 2, 3, 4, 5 ), option1: A, option3: C, option2: B ), ( option3: OVERRIDE, optionList: OVERRIDE, optionSet: ( option2: OVERRIDE ) ), $recursive: true, $sort: true ) is a map:
+        map.merge(
+            (
+                "optionSet": ( "option1": S-A, "option2": S-B, "option3": S-C ),
+                "optionList": ( 1, 2, 3, 4, 5 ),
+                "option1": A,
+                "option3": C,
+                "option2": B,
+            ),
+            (
+                "option3": OVERRIDE,
+                "optionList": OVERRIDE,
+                "optionSet": ( "option2": OVERRIDE ),
+            ),
+            $recursive: true,
+            $sort: true,
+        ) =
         <:> (
             "option1": <S> A,
             "option2": <S> B,
@@ -171,27 +215,27 @@ map.merge {
 
 map.parse-args {
     /*
-        $defaults is a map:
+        $defaults =
         <:> (
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
-            "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
+            "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
             "option1": <S> A,
             "option3": <S> C,
             "option2": <S> B,
         )
      */
     /*
-        $inputs is a map:
+        $inputs =
         <:> (
             "option3": <S> OVERRIDE,
             "optionList": <S> OVERRIDE,
-            "optionSet": <:> ( "option2": <S> OVERRIDE, ),
+            "optionSet": <:> ( "option2": <S> OVERRIDE ),
         )
      */
     /*
-        map.parse-args( $recursive: false ) is a map:
+        map.parse-args( $recursive: false ) =
         <:> (
-            "optionSet": <:> ( "option2": <S> OVERRIDE, ),
+            "optionSet": <:> ( "option2": <S> OVERRIDE ),
             "optionList": <S> OVERRIDE,
             "option1": <S> A,
             "option3": <S> OVERRIDE,
@@ -199,7 +243,7 @@ map.parse-args {
         )
      */
     /*
-        map.parse-args( $recursive: true ) is a map:
+        map.parse-args( $recursive: true ) =
         <:> (
             "optionSet": <:> (
                 "option1": <S> S-A,
@@ -216,10 +260,10 @@ map.parse-args {
 
 map.pick {
     /*
-        $map is a map:
+        $map =
         <:> (
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
-            "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
+            "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
             "option1": <S> A,
             "option3": <S> C,
             "option2": <S> B,
@@ -229,20 +273,20 @@ map.pick {
         map.pick( $map, () ) = <:> ()
      */
     /*
-        map.pick( $map, ( "option1", "optionSet" ) ) is a map:
+        map.pick( $map, ( "option1", "optionSet" ) ) =
         <:> (
             "option1": <S> A,
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
         )
      */
 }
 
 map.regex-pick {
     /*
-        $map is a map:
+        $map =
         <:> (
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
-            "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
+            "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
             "option1": <S> A,
             "option3": <S> C,
             "option2": <S> B,
@@ -252,55 +296,54 @@ map.regex-pick {
         map.regex-pick( $map, "" ) = <:> ()
      */
     /*
-        map.regex-pick( $map, ( "option\\d" ) ) is a map:
-
-        <:> ( "option1": <S> A, "option3": <S> C, "option2": <S> B, )
+        map.regex-pick( $map, ( "option\\d" ) ) =
+        <:> ( "option1": <S> A, "option3": <S> C, "option2": <S> B )
      */
 }
 
 map.regex-remove {
     /*
-        $map is a map:
+        $map =
         <:> (
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
-            "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
+            "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
             "option1": <S> A,
             "option3": <S> C,
             "option2": <S> B,
         )
      */
     /*
-        map.regex-remove( $map, "" ) is a map:
+        map.regex-remove( $map, "" ) =
         <:> (
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
-            "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
+            "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
             "option1": <S> A,
             "option3": <S> C,
             "option2": <S> B,
         )
      */
     /*
-        map.regex-remove( $map, ( "option\\d" ) ) is a map:
+        map.regex-remove( $map, ( "option\\d" ) ) =
         <:> (
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
-            "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
+            "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
         )
      */
 }
 
 map.regex-divide {
     /*
-        $map is a map:
+        $map =
         <:> (
-            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C, ),
-            "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+            "optionSet": <:> ( "option1": <S> S-A, "option2": <S> S-B, "option3": <S> S-C ),
+            "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
             "option1": <S> A,
             "option3": <S> C,
             "option2": <S> B,
         )
      */
     /*
-        map.regex-divide( $map, "" ) is a map:
+        map.regex-divide( $map, "" ) =
         <:> (
             "pass": <:> (),
             "fail": <:> (
@@ -309,7 +352,7 @@ map.regex-divide {
                     "option2": <S> S-B,
                     "option3": <S> S-C,
                 ),
-                "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+                "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
                 "option1": <S> A,
                 "option3": <S> C,
                 "option2": <S> B,
@@ -317,16 +360,16 @@ map.regex-divide {
         )
      */
     /*
-        map.regex-divide( $map, ( "option\\d" ) ) is a map:
+        map.regex-divide( $map, ( "option\\d" ) ) =
         <:> (
-            "pass": <:> ( "option1": <S> A, "option3": <S> C, "option2": <S> B, ),
+            "pass": <:> ( "option1": <S> A, "option3": <S> C, "option2": <S> B ),
             "fail": <:> (
                 "optionSet": <:> (
                     "option1": <S> S-A,
                     "option2": <S> S-B,
                     "option3": <S> S-C,
                 ),
-                "optionList": <()> ( 1: <#> 1, 2: <#> 2, 3: <#> 3, 4: <#> 4, 5: <#> 5, ),
+                "optionList": <()> ( <#> 1, <#> 2, <#> 3, <#> 4, <#> 5 ),
             ),
         )
      */

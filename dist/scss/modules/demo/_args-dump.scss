@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.3.0-draft
+/// @package @maddimathon/utility-sass@0.3.0
 /// @since 0.1.0-beta
 ///
 
@@ -57,8 +57,9 @@ $_emptyReturn: string.unquote('()');
 
     @return meta.var-dump(
         $args,
-        $typeJoiner: '',
         $withType: false,
+        $returnMultiline: $returnMultiline,
+        $typeJoiner: '',
         //
         $alwaysQuote: $alwaysQuote,
         $detectParentSelector: $detectParentSelector,
@@ -77,7 +78,6 @@ $_emptyReturn: string.unquote('()');
         $child_typeJoiner: $child_typeJoiner,
         $child_withType: $child_withType,
         //
-        $returnMultiline: $returnMultiline,
         $varType_overrides: $varType_overrides
     );
 }
@@ -97,7 +97,7 @@ $_emptyReturn: string.unquote('()');
         $args,
         $emptyReturn: string.unquote(''),
         $child_withType: $child_withType,
-        $returnMultiline: false,
+        $returnMultiline: $returnMultiline,
         $varType_overrides: $varType_overrides,
         $dump_args...
     );
@@ -110,7 +110,7 @@ $_emptyReturn: string.unquote('()');
     $lastLine: ';';
 
     // returns
-    @if $returnMultiline {
+    @if $returnMultiline and list.length($lines) > 1 {
         $lines: list.set-nth($lines, 1, #{$firstLine}#{list.nth($lines, 1)});
 
         $lines: list.set-nth($lines, -1, #{list.nth($lines, -1)}#{$lastLine});
@@ -163,7 +163,7 @@ $_emptyReturn: string.unquote('()');
     );
 
     // returns
-    @if $returnMultiline {
+    @if $returnMultiline and list.length($lines) > 1 {
         $lines: list.set-nth($lines, 1, #{$firstLine}#{list.nth($lines, 1)});
 
         $lines: list.set-nth($lines, -1, #{list.nth($lines, -1)}#{$lastLine});

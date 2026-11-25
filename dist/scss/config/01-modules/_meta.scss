@@ -1,16 +1,26 @@
 ///
-/// @package @maddimathon/utility-sass@0.3.0-draft
-/// @since 0.3.0-draft
+/// @package @maddimathon/utility-sass@0.3.0
+/// @since 0.3.0
 ///
 
 @use 'functions' as *;
 
 ///
-/// @since 0.3.0-draft
+/// @since 0.3.0
 ///
 $meta_varDump_maxWidth: null !default;
 $meta_varDump_maxWidth: config-valid-number(
     $meta_varDump_maxWidth,
     'meta_varDump_maxWidth',
     $default: 76
+);
+
+///
+/// @since 0.3.0
+///
+$meta_varDump_removeIndices: null !default;
+$meta_varDump_removeIndices: config-valid-bool(
+    $meta_varDump_removeIndices,
+    'meta_varDump_removeIndices',
+    $default: true
 );

@@ -19,6 +19,49 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.3.0** — 2026-11-24
+
+Selector module updates. Minor button selector changes. Improvements to
+multi-line meta.var-dump() output.
+
+### Added
+- New config functions:
+    - config-valid-map()
+    - config-valid-map-number()
+    - config-valid-map-string()
+    - config-valid-map-selector()
+- New config var:
+    - $meta_varDump_maxWidth
+    - $meta_varDump_removeIndices
+- New token var:
+    - $button_variation_default
+    - $selector_button_variants
+- New module functions:
+    - selector.unpopped-has()
+    - selector.unpopped-is()
+    - selector.unpopped-not()
+    - selector.unpopped-where()
+- New module mixins:
+    - meta.js-var-dump
+    - selector.unpopped-has
+    - selector.unpopped-is
+    - selector.unpopped-not
+    - selector.unpopped-where
+- Added button-basic pseudo-selector
+
+### Changed
+- Added tokens.\$selector_button_variants unified with config.\$selector_a for
+  selector-buttons-basic() return
+- Improved output of nested lists and maps (including multi-line variable names)
+  in meta.var-dump mixin
+- Demo module functions now display multiline arg dumps as appropriate
+
+### Fixed
+- Fixed button variations in extending function
+- Fixed selector.pop() and selector.popped() for selectors with combinators
+- Made fixes to $allPrefixes printing in custom-property mixin
+
+
 ## **0.2.1** — 2026-11-13
 
 Small prop-background fix.

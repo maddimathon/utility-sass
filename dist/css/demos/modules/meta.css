@@ -46,7 +46,7 @@
  * ======================================================================== */
 @demo-section current-version {
     /*
-        meta.current-version() is a map:
+        meta.current-version() =
         <:> (
             "major": <#> 1,
             "minor": <#> 97,
@@ -80,7 +80,7 @@
         <-> null
      */
     /*
-        meta.call-global-compiler-fn( 'mmutils-global-getCurrentVersion', 'demo-functions/getCurrentVersion' ) is a map:
+        meta.call-global-compiler-fn( 'mmutils-global-getCurrentVersion', 'demo-functions/getCurrentVersion' ) =
         <:> (
             "major": <#> 1,
             "minor": <#> 97,
@@ -220,20 +220,16 @@
     /* 
         meta.keywords-list() = <:> ()
      */
-    /*
-        meta.keywords-list( one, two ) is a map:
-
-        <:> ( 1: <S> one, 2: <S> two, )
+    /* 
+        meta.keywords-list( one, two ) = <:> ( 1: <S> one, 2: <S> two )
      */
     /*
-        meta.keywords-list( $param: one, $value: two ) is a map:
-
-        <:> ( "param": <S> one, "value": <S> two, )
+        meta.keywords-list( $param: one, $value: two ) =
+        <:> ( "param": <S> one, "value": <S> two )
      */
     /*
-        meta.keywords-list( something, $param: one, $value: two ) is a map:
-
-        <:> ( 1: <S> something, "param": <S> one, "value": <S> two, )
+        meta.keywords-list( something, $param: one, $value: two ) =
+        <:> ( 1: <S> something, "param": <S> one, "value": <S> two )
      */
 }
 /* ## MODULES - META - keywords-list-to-arglist() ==================================== */
@@ -322,7 +318,17 @@ meta.is-truthy {
 @demo ( function: meta.var-dump ) {
     map {
         /*
-            meta.var-dump( ( $: default, one: ( $: default, A: value, B: ( $: default, 1: value ) ), two: "hello" ) ) =
+            meta.var-dump(
+                (
+                    "$": default,
+                    "one": (
+                        "$": default,
+                        "A": value,
+                        "B": ( "$": default, 1: value ),
+                    ),
+                    "two": "hello",
+                ),
+            ) =
             <S> <:> ( "$": <S> default, "one": <:> ( "$": <S> default, "A": <S> value, "B": <:> ( "$": <S> default, 1: <S> value ) ), "two": <S> "hello" )
          */
     }
@@ -345,7 +351,14 @@ meta.is-truthy {
 }
 
 @demo ( mixin: meta.var-dump ) {
-    /* @include meta.var-dump( "complex-calc", calc(1vw + 3em + var(--some-variable-custom-property-that-makes-this-longer, 1rem) ) ); */
+    /*
+        @include meta.var-dump(
+            "complex-calc",
+            calc(
+                1vw + 3em + var(--some-variable-custom-property-that-makes-this-longer, 1rem)
+            ),
+        );
+     */
     @demo output {
         /*
             complex-calc =
@@ -356,7 +369,16 @@ meta.is-truthy {
     }
 }
 @demo ( mixin: meta.var-dump ) {
-    /* @include meta.var-dump( "complex-clamp", clamp(1px, 3em, var(--some-variable-custom-property-that-makes-this-longer, 1rem) ) ); */
+    /*
+        @include meta.var-dump(
+            "complex-clamp",
+            clamp(
+                1px,
+                3em,
+                var(--some-variable-custom-property-that-makes-this-longer, 1rem)
+            ),
+        );
+     */
     @demo output {
         /*
             complex-clamp =
@@ -372,10 +394,10 @@ meta.is-truthy {
 @demo-section js-var-dump {
     /*
         meta.js-var-dump( hello, $name: "demo-var-1" ) =
-        <S> [meta.js-var-dump - id: utcesjk]
+        <S> [meta.js-var-dump - id: udw36sx]
      */
     /*
         meta.js-var-dump( (this: "is a", map: true), $name: "demo-var-2" ) =
-        <S> [meta.js-var-dump - id: utcesjq]
+        <S> [meta.js-var-dump - id: udw36tv]
      */
 }

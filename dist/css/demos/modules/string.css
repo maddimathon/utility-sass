@@ -20,9 +20,8 @@ string.concat {
         string.concat( "hello", ( 1, ( bad: practice-to-put-maps-or-lists ) ), " ", "there" ) =
         <S> "hello1bad:practice-to-put-maps-or-lists there"
      */
-    /*
-        string.concat( "\f139", "\f132", " ", "\f139" ) =
-        <S> "\f139\f132  \f139"
+    /* 
+        string.concat( "\f139", "\f132", " ", "\f139" ) = <S> "\f139\f132  \f139"
      */
 }
 
@@ -53,7 +52,7 @@ string.match {
     /*
         string.match( "hello there", "^hello" ) is a comma-separated list:
 
-        <()> ( <S> "hello", )
+        <()> ( 1: <S> "hello", )
      */
     /* 
         string.match( "hello there", "^Hello" ) = <-> null
@@ -61,12 +60,12 @@ string.match {
     /*
         string.match( "hello there", "^Hello", "i" ) is a comma-separated list:
 
-        <()> ( <S> "hello", )
+        <()> ( 1: <S> "hello", )
      */
     /*
         string.match( "hello there", "[^\\s] ([^\\s]+)$", "i" ) is a comma-separated list:
 
-        <()> ( 1: <S> "o there", 2: <S> "there", )
+        <()> ( 1: <S> "o there", 2: <S> "there" )
      */
 }
 
@@ -111,7 +110,7 @@ string.regex-split {
     /*
         string.regex-split( "hello there", "^hello" ) is a comma-separated list:
 
-        <()> ( 1: <S> "", 2: <S> " there", )
+        <()> ( <S> "", <S> " there" )
      */
     /*
         string.regex-split( "hello there", "^Hello" ) is a comma-separated list:
@@ -121,43 +120,43 @@ string.regex-split {
     /*
         string.regex-split( "hello there", "^Hello",  $flags: "i" ) is a comma-separated list:
 
-        <()> ( 1: <S> "", 2: <S> " there", )
+        <()> ( <S> "", <S> " there" )
      */
     /*
         string.regex-split( "remove this part but not the rest", "\\s+this part but\\s+" ) is a comma-separated list:
 
-        <()> ( 1: <S> "remove", 2: <S> "not the rest", )
+        <()> ( <S> "remove", <S> "not the rest" )
      */
     /*
         string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+" ) is a comma-separated list:
         <()> (
-            1: <S> "Lorem",
-            2: <S> "ipsum",
-            3: <S> "dolor",
-            4: <S> "sit",
-            5: <S> "amet,",
-            6: <S> "consectetur",
-            7: <S> "adipiscing",
-            8: <S> "elit.",
+            <S> "Lorem",
+            <S> "ipsum",
+            <S> "dolor",
+            <S> "sit",
+            <S> "amet,",
+            <S> "consectetur",
+            <S> "adipiscing",
+            <S> "elit.",
         )
      */
     /*
         string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+",  $flags: "is" ) is a comma-separated list:
         <()> (
-            1: <S> "Lorem",
-            2: <S> "ipsum",
-            3: <S> "dolor",
-            4: <S> "sit",
-            5: <S> "amet,",
-            6: <S> "consectetur",
-            7: <S> "adipiscing",
-            8: <S> "elit.",
+            <S> "Lorem",
+            <S> "ipsum",
+            <S> "dolor",
+            <S> "sit",
+            <S> "amet,",
+            <S> "consectetur",
+            <S> "adipiscing",
+            <S> "elit.",
         )
      */
     /*
         string.regex-split( "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "\\s+", $limit: 2 ) is a comma-separated list:
 
-        <()> ( 1: <S> "Lorem", 2: <S> "ipsum", )
+        <()> ( <S> "Lorem", <S> "ipsum" )
      */
 }
 
@@ -202,19 +201,19 @@ string.soft-wrap {
     /*
         string.soft-wrap( "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis non vulputate a, tempor aliquam ex." ) is a comma-separated list:
         <()> (
-            1: <S> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna",
-            2: <S> "eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis",
-            3: <S> "non vulputate a, tempor aliquam ex.",
+            <S> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna",
+            <S> "eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis",
+            <S> "non vulputate a, tempor aliquam ex.",
         )
      */
     /*
         string.soft-wrap( "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie magna eu nisl dignissim, ut feugiat eros scelerisque. Praesent purus neque, convallis non.", 42 ) is a comma-separated list:
         <()> (
-            1: <S> "Lorem ipsum dolor sit amet, consectetur",
-            2: <S> "adipiscing elit. Aenean molestie magna eu",
-            3: <S> "nisl dignissim, ut feugiat eros",
-            4: <S> "scelerisque. Praesent purus neque,",
-            5: <S> "convallis non.",
+            <S> "Lorem ipsum dolor sit amet, consectetur",
+            <S> "adipiscing elit. Aenean molestie magna eu",
+            <S> "nisl dignissim, ut feugiat eros",
+            <S> "scelerisque. Praesent purus neque,",
+            <S> "convallis non.",
         )
      */
 }

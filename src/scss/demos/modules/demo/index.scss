@@ -87,6 +87,14 @@ $_fn_demo_args_dump: meta.get-function('args-dump', $module: demo);
     @include _demo--args-dump(meta.arglist(one, two));
     @include _demo--args-dump(meta.arglist($param: one, $value: two));
     @include _demo--args-dump(meta.arglist(something, $param: one, $value: two));
+    @include _demo--args-dump(
+        meta.arglist(
+            something,
+            $param: one,
+            $value: two,
+            $anotherParam: 'that is very long such that this output should be multiline for sure'
+        )
+    );
 }
 
 $_fn_demo_content_args_dump: meta.get-function('content-args-dump', $module: demo);

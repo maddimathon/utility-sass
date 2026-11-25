@@ -17,12 +17,12 @@
         /*
             selector.replace-simple-selector( &, ".child", ".new-child" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <()> (
-                        1: <S> :root
-                        2: <S> .new-child
-                        3: <S> .grandchild
-                        4: <S> another.new-child
+                <()> (
+                    <()> (
+                        <S> :root
+                        <S> .new-child
+                        <S> .grandchild
+                        <S> another.new-child
                     ),
                 ),
             )
@@ -51,13 +51,13 @@
         /*
             selector.replace-simple-selector( &, :root, ( "html", "custom-html" ) ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <()> ( <S> html <S> .child <S> .grandchild <S> another.child ),
-                    2: <()> (
-                        1: <S> custom-html
-                        2: <S> .child
-                        3: <S> .grandchild
-                        4: <S> another.child
+                <()> (
+                    <()> ( <S> html <S> .child <S> .grandchild <S> another.child ),
+                    <()> (
+                        <S> custom-html
+                        <S> .child
+                        <S> .grandchild
+                        <S> another.child
                     ),
                 ),
             )
@@ -88,7 +88,7 @@
         /*
             selector.replace-simple-selector( &, ".non-existant-class", ".new-child" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> .child <S> .grandchild <S> another.child ),
+                <()> ( <S> :root <S> .child <S> .grandchild <S> another.child ),
             )
          */
     }
@@ -117,8 +117,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child" ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -204,8 +204,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -221,8 +221,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -238,8 +238,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -255,9 +255,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -274,8 +274,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -291,8 +291,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -308,8 +308,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
                 )
              */
         }
@@ -325,9 +325,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -344,9 +344,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -363,9 +363,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -382,10 +382,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -403,8 +403,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -420,8 +420,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
                 )
              */
         }
@@ -437,9 +437,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -456,8 +456,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -473,9 +473,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -492,9 +492,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -511,10 +511,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -532,9 +532,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -551,9 +551,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -570,9 +570,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
                 )
              */
         }
@@ -589,10 +589,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -610,10 +610,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -631,10 +631,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -652,11 +652,11 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
-                    5: <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -675,10 +675,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".grandchild" ), ".new-child" ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .child <S> .new-child ),
-                    4: <()> ( <S> :root <S> .new-child <S> .new-child ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .new-child ),
+                    <()> ( <S> :root <S> .new-child <S> .new-child ),
                 )
              */
         }
@@ -696,9 +696,9 @@
             /*
                 selector.extend-simple-selector( &, :root, ( "html", "custom-html" ) ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild ),
-                    2: <()> ( <S> html <S> .child <S> .grandchild ),
-                    3: <()> ( <S> custom-html <S> .child <S> .grandchild ),
+                    <()> ( <S> :root <S> .child <S> .grandchild ),
+                    <()> ( <S> html <S> .child <S> .grandchild ),
+                    <()> ( <S> custom-html <S> .child <S> .grandchild ),
                 )
              */
         }
@@ -731,8 +731,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child" ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
                 )
              */
         }
@@ -790,7 +790,7 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -805,7 +805,7 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -820,8 +820,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -837,8 +837,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -854,8 +854,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -871,9 +871,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $replace: false, $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -890,8 +890,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -907,8 +907,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -924,8 +924,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
                 )
              */
         }
@@ -941,9 +941,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -960,9 +960,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -979,9 +979,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -998,10 +998,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $self: false, $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -1019,8 +1019,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -1036,8 +1036,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
                 )
              */
         }
@@ -1053,9 +1053,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -1072,8 +1072,8 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -1089,9 +1089,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -1108,9 +1108,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -1127,10 +1127,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $replace: false, $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -1148,9 +1148,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -1167,9 +1167,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -1186,9 +1186,9 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
                 )
              */
         }
@@ -1205,10 +1205,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -1226,10 +1226,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -1247,10 +1247,10 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
                 )
              */
         }
@@ -1268,11 +1268,11 @@
             /*
                 selector.extend-simple-selector( &, ( ".child", ".non-existant-class" ), ".new-child", $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> another.child <S> .grandchild ),
-                    2: <()> ( <S> :root <S> another.new-child <S> .grandchild ),
-                    3: <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
-                    4: <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
-                    5: <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child.new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> another.child <S> .new-child <S> .grandchild ),
+                    <()> ( <S> :root <S> .new-child <S> another.child <S> .grandchild ),
                 )
              */
         }
@@ -1293,11 +1293,11 @@
             /*
                 selector.extend-simple-selector( &, ".child", ".new-child", $self: false ) is a comma-separated list:
                 <()> (
-                    1: <()> (
-                        1: <S> :root
-                        2: <S> .new-child
-                        3: <S> .grandchild
-                        4: <S> another.new-child
+                    <()> (
+                        <S> :root
+                        <S> .new-child
+                        <S> .grandchild
+                        <S> another.new-child
                     ),
                 )
              */
@@ -1313,7 +1313,7 @@
             /*
                 selector.extend-simple-selector( &, ".child", ".new-child", $replace: false ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> .child <S> .grandchild <S> another.child ),
+                    <()> ( <S> :root <S> .child <S> .grandchild <S> another.child ),
                 )
              */
         }
@@ -1328,11 +1328,11 @@
             /*
                 selector.extend-simple-selector( &, ".child", ".new-child", $self: false, $replace: false, $unify: true ) is a comma-separated list:
                 <()> (
-                    1: <()> (
-                        1: <S> :root
-                        2: <S> .child.new-child
-                        3: <S> .grandchild
-                        4: <S> another.new-child.child
+                    <()> (
+                        <S> :root
+                        <S> .child.new-child
+                        <S> .grandchild
+                        <S> another.new-child.child
                     ),
                 )
              */
@@ -1351,8 +1351,8 @@
             /*
                 selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> [data-brightness-mode=light] ),
-                    2: <()> ( <S> [data-contrast-mode=low] ),
+                    <()> ( <S> [data-brightness-mode=light] ),
+                    <()> ( <S> [data-contrast-mode=low] ),
                 )
              */
         }
@@ -1368,16 +1368,16 @@
             /*
                 selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> [data-brightness-mode=light] ),
-                    2: <()> ( <S> [data-contrast-mode=low] ),
-                    3: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] ),
-                    4: <()> (
-                        1: <S> [data-brightness-mode=light]
-                        2: <S> [data-contrast-mode=low]
+                    <()> ( <S> [data-brightness-mode=light] ),
+                    <()> ( <S> [data-contrast-mode=low] ),
+                    <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] ),
+                    <()> (
+                        <S> [data-brightness-mode=light]
+                        <S> [data-contrast-mode=low]
                     ),
-                    5: <()> (
-                        1: <S> [data-contrast-mode=low]
-                        2: <S> [data-brightness-mode=light]
+                    <()> (
+                        <S> [data-contrast-mode=low]
+                        <S> [data-brightness-mode=light]
                     ),
                 )
              */
@@ -1397,28 +1397,28 @@
             /*
                 selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> [data-brightness-mode=light] ),
-                    2: <()> ( <S> [data-contrast-mode=low] ),
-                    3: <()> ( <S> [data-contrast-mode=average] ),
-                    4: <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] ),
-                    5: <()> (
-                        1: <S> [data-brightness-mode=light][data-contrast-mode=average]
+                    <()> ( <S> [data-brightness-mode=light] ),
+                    <()> ( <S> [data-contrast-mode=low] ),
+                    <()> ( <S> [data-contrast-mode=average] ),
+                    <()> ( <S> [data-brightness-mode=light][data-contrast-mode=low] ),
+                    <()> (
+                        <S> [data-brightness-mode=light][data-contrast-mode=average]
                     ),
-                    6: <()> (
-                        1: <S> [data-brightness-mode=light]
-                        2: <S> [data-contrast-mode=low]
+                    <()> (
+                        <S> [data-brightness-mode=light]
+                        <S> [data-contrast-mode=low]
                     ),
-                    7: <()> (
-                        1: <S> [data-brightness-mode=light]
-                        2: <S> [data-contrast-mode=average]
+                    <()> (
+                        <S> [data-brightness-mode=light]
+                        <S> [data-contrast-mode=average]
                     ),
-                    8: <()> (
-                        1: <S> [data-contrast-mode=low]
-                        2: <S> [data-brightness-mode=light]
+                    <()> (
+                        <S> [data-contrast-mode=low]
+                        <S> [data-brightness-mode=light]
                     ),
-                    9: <()> (
-                        1: <S> [data-contrast-mode=average]
-                        2: <S> [data-brightness-mode=light]
+                    <()> (
+                        <S> [data-contrast-mode=average]
+                        <S> [data-brightness-mode=light]
                     ),
                 )
              */
@@ -1444,8 +1444,8 @@
             /*
                 selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]" ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child ),
-                    2: <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child ),
+                    <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child ),
+                    <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child ),
                 )
              */
         }
@@ -1461,24 +1461,24 @@
             /*
                 selector.extend-simple-selector( &, "[data-brightness-mode=light]", "[data-contrast-mode=low]", $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child ),
-                    2: <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child ),
-                    3: <()> (
-                        1: <S> :root
-                        2: <S> [data-brightness-mode=light][data-contrast-mode=low]
-                        3: <S> .child
+                    <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child ),
+                    <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child ),
+                    <()> (
+                        <S> :root
+                        <S> [data-brightness-mode=light][data-contrast-mode=low]
+                        <S> .child
                     ),
-                    4: <()> (
-                        1: <S> :root
-                        2: <S> [data-brightness-mode=light]
-                        3: <S> [data-contrast-mode=low]
-                        4: <S> .child
+                    <()> (
+                        <S> :root
+                        <S> [data-brightness-mode=light]
+                        <S> [data-contrast-mode=low]
+                        <S> .child
                     ),
-                    5: <()> (
-                        1: <S> :root
-                        2: <S> [data-contrast-mode=low]
-                        3: <S> [data-brightness-mode=light]
-                        4: <S> .child
+                    <()> (
+                        <S> :root
+                        <S> [data-contrast-mode=low]
+                        <S> [data-brightness-mode=light]
+                        <S> .child
                     ),
                 )
              */
@@ -1506,42 +1506,42 @@
             /*
                 selector.extend-simple-selector( &, "[data-brightness-mode=light]", ( "[data-contrast-mode=low]", "[data-contrast-mode=average]" ), $unify: true, $nest: true, $wrap: true ) is a comma-separated list:
                 <()> (
-                    1: <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child ),
-                    2: <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child ),
-                    3: <()> ( <S> :root <S> [data-contrast-mode=average] <S> .child ),
-                    4: <()> (
-                        1: <S> :root
-                        2: <S> [data-brightness-mode=light][data-contrast-mode=low]
-                        3: <S> .child
+                    <()> ( <S> :root <S> [data-brightness-mode=light] <S> .child ),
+                    <()> ( <S> :root <S> [data-contrast-mode=low] <S> .child ),
+                    <()> ( <S> :root <S> [data-contrast-mode=average] <S> .child ),
+                    <()> (
+                        <S> :root
+                        <S> [data-brightness-mode=light][data-contrast-mode=low]
+                        <S> .child
                     ),
-                    5: <()> (
-                        1: <S> :root
-                        2: <S> [data-brightness-mode=light][data-contrast-mode=average]
-                        3: <S> .child
+                    <()> (
+                        <S> :root
+                        <S> [data-brightness-mode=light][data-contrast-mode=average]
+                        <S> .child
                     ),
-                    6: <()> (
-                        1: <S> :root
-                        2: <S> [data-brightness-mode=light]
-                        3: <S> [data-contrast-mode=low]
-                        4: <S> .child
+                    <()> (
+                        <S> :root
+                        <S> [data-brightness-mode=light]
+                        <S> [data-contrast-mode=low]
+                        <S> .child
                     ),
-                    7: <()> (
-                        1: <S> :root
-                        2: <S> [data-brightness-mode=light]
-                        3: <S> [data-contrast-mode=average]
-                        4: <S> .child
+                    <()> (
+                        <S> :root
+                        <S> [data-brightness-mode=light]
+                        <S> [data-contrast-mode=average]
+                        <S> .child
                     ),
-                    8: <()> (
-                        1: <S> :root
-                        2: <S> [data-contrast-mode=low]
-                        3: <S> [data-brightness-mode=light]
-                        4: <S> .child
+                    <()> (
+                        <S> :root
+                        <S> [data-contrast-mode=low]
+                        <S> [data-brightness-mode=light]
+                        <S> .child
                     ),
-                    9: <()> (
-                        1: <S> :root
-                        2: <S> [data-contrast-mode=average]
-                        3: <S> [data-brightness-mode=light]
-                        4: <S> .child
+                    <()> (
+                        <S> :root
+                        <S> [data-contrast-mode=average]
+                        <S> [data-brightness-mode=light]
+                        <S> .child
                     ),
                 )
              */
@@ -1650,8 +1650,8 @@
         /*
             selector.except( &, "button" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> a.special-class ),
-                2: <()> ( <S> a.class-name[data-complex=selector]:focus ),
+                <()> ( <S> a.special-class ),
+                <()> ( <S> a.class-name[data-complex=selector]:focus ),
             )
          */
     }
@@ -1687,7 +1687,7 @@
         /*
             selector.except( &, ":focus" ) is a comma-separated list:
 
-            <()> ( 1: <()> ( <S> button ), 2: <()> ( <S> a.special-class ), )
+            <()> ( <()> ( <S> button ), <()> ( <S> a.special-class ) )
          */
     }
     @demo return {
@@ -1705,7 +1705,7 @@
         /*
             selector.except( &, "[data-complex=selector]" ) is a comma-separated list:
 
-            <()> ( 1: <()> ( <S> button ), 2: <()> ( <S> a.special-class ), )
+            <()> ( <()> ( <S> button ), <()> ( <S> a.special-class ) )
          */
     }
     @demo return {
@@ -1723,10 +1723,10 @@
         /*
             selector.except( &, "button" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> a.special-class <S> .should-not-stop-replacement ),
-                2: <()> (
-                    1: <S> a.class-name[data-complex=selector]:focus
-                    2: <S> .should-not-stop-replacement
+                <()> ( <S> a.special-class <S> .should-not-stop-replacement ),
+                <()> (
+                    <S> a.class-name[data-complex=selector]:focus
+                    <S> .should-not-stop-replacement
                 ),
             )
          */
@@ -1764,8 +1764,8 @@
         /*
             selector.except( &, ":focus" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> button <S> .should-not-stop-replacement ),
-                2: <()> ( <S> a.special-class <S> .should-not-stop-replacement ),
+                <()> ( <S> button <S> .should-not-stop-replacement ),
+                <()> ( <S> a.special-class <S> .should-not-stop-replacement ),
             )
          */
     }
@@ -1784,8 +1784,8 @@
         /*
             selector.except( &, "[data-complex=selector]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> button <S> .should-not-stop-replacement ),
-                2: <()> ( <S> a.special-class <S> .should-not-stop-replacement ),
+                <()> ( <S> button <S> .should-not-stop-replacement ),
+                <()> ( <S> a.special-class <S> .should-not-stop-replacement ),
             )
          */
     }
@@ -1868,8 +1868,8 @@
         /*
             selector.except-superselector( &, "button" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> a <S> .should-stop-replacement ),
-                2: <()> ( <S> button <S> .should-stop-replacement ),
+                <()> ( <S> a <S> .should-stop-replacement ),
+                <()> ( <S> button <S> .should-stop-replacement ),
             )
          */
     }
@@ -1887,8 +1887,8 @@
         /*
             selector.except-superselector( &, "a" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> a <S> .should-stop-replacement ),
-                2: <()> ( <S> button <S> .should-stop-replacement ),
+                <()> ( <S> a <S> .should-stop-replacement ),
+                <()> ( <S> button <S> .should-stop-replacement ),
             )
          */
     }
@@ -1907,8 +1907,8 @@
         /*
             selector.except-superselector( &, "button" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> a.special-class ),
-                2: <()> ( <S> a.class-name[data-complex=selector]:focus ),
+                <()> ( <S> a.special-class ),
+                <()> ( <S> a.class-name[data-complex=selector]:focus ),
             )
          */
     }
@@ -1944,7 +1944,7 @@
         /*
             selector.except-superselector( &, ":focus" ) is a comma-separated list:
 
-            <()> ( 1: <()> ( <S> button ), 2: <()> ( <S> a.special-class ), )
+            <()> ( <()> ( <S> button ), <()> ( <S> a.special-class ) )
          */
     }
     @demo return {
@@ -1962,7 +1962,7 @@
         /*
             selector.except-superselector( &, "[data-complex=selector]" ) is a comma-separated list:
 
-            <()> ( 1: <()> ( <S> button ), 2: <()> ( <S> a.special-class ), )
+            <()> ( <()> ( <S> button ), <()> ( <S> a.special-class ) )
          */
     }
     @demo return {
@@ -1980,8 +1980,8 @@
         /*
             selector.except-superselector( &, "button" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> body <S> a.special-class ),
-                2: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ),
+                <()> ( <S> body <S> a.special-class ),
+                <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ),
             )
          */
     }
@@ -2017,8 +2017,8 @@
         /*
             selector.except-superselector( &, ":focus" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> body <S> button ),
-                2: <()> ( <S> body <S> a.special-class ),
+                <()> ( <S> body <S> button ),
+                <()> ( <S> body <S> a.special-class ),
             )
          */
     }
@@ -2037,8 +2037,8 @@
         /*
             selector.except-superselector( &, "[data-complex=selector]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> body <S> button ),
-                2: <()> ( <S> body <S> a.special-class ),
+                <()> ( <S> body <S> button ),
+                <()> ( <S> body <S> a.special-class ),
             )
          */
     }
@@ -2057,11 +2057,11 @@
         /*
             selector.except-superselector( &, "button" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> button <S> .should-stop-replacement ),
-                2: <()> ( <S> a.special-class <S> .should-stop-replacement ),
-                3: <()> (
-                    1: <S> a.class-name[data-complex=selector]:focus
-                    2: <S> .should-stop-replacement
+                <()> ( <S> button <S> .should-stop-replacement ),
+                <()> ( <S> a.special-class <S> .should-stop-replacement ),
+                <()> (
+                    <S> a.class-name[data-complex=selector]:focus
+                    <S> .should-stop-replacement
                 ),
             )
          */
@@ -2082,11 +2082,11 @@
         /*
             selector.except-superselector( &, "a" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> button <S> .should-stop-replacement ),
-                2: <()> ( <S> a.special-class <S> .should-stop-replacement ),
-                3: <()> (
-                    1: <S> a.class-name[data-complex=selector]:focus
-                    2: <S> .should-stop-replacement
+                <()> ( <S> button <S> .should-stop-replacement ),
+                <()> ( <S> a.special-class <S> .should-stop-replacement ),
+                <()> (
+                    <S> a.class-name[data-complex=selector]:focus
+                    <S> .should-stop-replacement
                 ),
             )
          */
@@ -2107,11 +2107,11 @@
         /*
             selector.except-superselector( &, ":focus" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> button <S> .should-stop-replacement ),
-                2: <()> ( <S> a.special-class <S> .should-stop-replacement ),
-                3: <()> (
-                    1: <S> a.class-name[data-complex=selector]:focus
-                    2: <S> .should-stop-replacement
+                <()> ( <S> button <S> .should-stop-replacement ),
+                <()> ( <S> a.special-class <S> .should-stop-replacement ),
+                <()> (
+                    <S> a.class-name[data-complex=selector]:focus
+                    <S> .should-stop-replacement
                 ),
             )
          */
@@ -2132,11 +2132,11 @@
         /*
             selector.except-superselector( &, "[data-complex=selector]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> button <S> .should-stop-replacement ),
-                2: <()> ( <S> a.special-class <S> .should-stop-replacement ),
-                3: <()> (
-                    1: <S> a.class-name[data-complex=selector]:focus
-                    2: <S> .should-stop-replacement
+                <()> ( <S> button <S> .should-stop-replacement ),
+                <()> ( <S> a.special-class <S> .should-stop-replacement ),
+                <()> (
+                    <S> a.class-name[data-complex=selector]:focus
+                    <S> .should-stop-replacement
                 ),
             )
          */
@@ -2157,7 +2157,7 @@
         /*
             selector.omit-simple-selector( &, button ) is a comma-separated list:
 
-            <()> ( 1: <()> ( <S> * ), 2: <()> ( <S> .button-secondary ), )
+            <()> ( <()> ( <S> * ), <()> ( <S> .button-secondary ) )
          */
     }
     @demo return {
@@ -2173,10 +2173,8 @@
     button.button-secondary {
         /*
             selector.omit-simple-selector( &, ".non-existant-class" ) is a comma-separated list:
-            <()> (
-                1: <()> ( <S> button ),
-                2: <()> ( <S> button.button-secondary ),
-            )
+
+            <()> ( <()> ( <S> button ), <()> ( <S> button.button-secondary ) )
          */
     }
     @demo return {
@@ -2195,10 +2193,10 @@
         /*
             selector.omit-simple-selector( &, button ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> * <S> .child ),
-                2: <()> ( <S> * <S> .second-child ),
-                3: <()> ( <S> .button-secondary <S> .child ),
-                4: <()> ( <S> .button-secondary <S> .second-child ),
+                <()> ( <S> * <S> .child ),
+                <()> ( <S> * <S> .second-child ),
+                <()> ( <S> .button-secondary <S> .child ),
+                <()> ( <S> .button-secondary <S> .second-child ),
             )
          */
     }
@@ -2220,10 +2218,10 @@
         /*
             selector.omit-simple-selector( &, ".non-existant-class" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> button <S> .child ),
-                2: <()> ( <S> button <S> .second-child ),
-                3: <()> ( <S> button.button-secondary <S> .child ),
-                4: <()> ( <S> button.button-secondary <S> .second-child ),
+                <()> ( <S> button <S> .child ),
+                <()> ( <S> button <S> .second-child ),
+                <()> ( <S> button.button-secondary <S> .child ),
+                <()> ( <S> button.button-secondary <S> .second-child ),
             )
          */
     }
@@ -2245,10 +2243,10 @@
         /*
             selector.omit-simple-selector( &, button ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> body <S> * <S> .child ),
-                2: <()> ( <S> body <S> * <S> .second-child ),
-                3: <()> ( <S> body <S> .button-secondary <S> .child ),
-                4: <()> ( <S> body <S> .button-secondary <S> .second-child ),
+                <()> ( <S> body <S> * <S> .child ),
+                <()> ( <S> body <S> * <S> .second-child ),
+                <()> ( <S> body <S> .button-secondary <S> .child ),
+                <()> ( <S> body <S> .button-secondary <S> .second-child ),
             )
          */
     }
@@ -2270,10 +2268,10 @@
         /*
             selector.omit-simple-selector( &, ".non-existant-class" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> body <S> button <S> .child ),
-                2: <()> ( <S> body <S> button <S> .second-child ),
-                3: <()> ( <S> body <S> button.button-secondary <S> .child ),
-                4: <()> ( <S> body <S> button.button-secondary <S> .second-child ),
+                <()> ( <S> body <S> button <S> .child ),
+                <()> ( <S> body <S> button <S> .second-child ),
+                <()> ( <S> body <S> button.button-secondary <S> .child ),
+                <()> ( <S> body <S> button.button-secondary <S> .second-child ),
             )
          */
     }
@@ -2376,8 +2374,8 @@
         /*
             selector.only( &, "a" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> a.special-class ),
-                2: <()> ( <S> a.class-name[data-complex=selector]:focus ),
+                <()> ( <S> a.special-class ),
+                <()> ( <S> a.class-name[data-complex=selector]:focus ),
             )
          */
     }
@@ -2447,10 +2445,10 @@
         /*
             selector.only( &, "a" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> a.special-class <S> .should-not-stop-replacement ),
-                2: <()> (
-                    1: <S> a.class-name[data-complex=selector]:focus
-                    2: <S> .should-not-stop-replacement
+                <()> ( <S> a.special-class <S> .should-not-stop-replacement ),
+                <()> (
+                    <S> a.class-name[data-complex=selector]:focus
+                    <S> .should-not-stop-replacement
                 ),
             )
          */
@@ -2471,9 +2469,9 @@
         /*
             selector.only( &, ":focus" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> a.class-name[data-complex=selector]:focus
-                    2: <S> .should-not-stop-replacement
+                <()> (
+                    <S> a.class-name[data-complex=selector]:focus
+                    <S> .should-not-stop-replacement
                 ),
             )
          */
@@ -2493,9 +2491,9 @@
         /*
             selector.only( &, "[data-complex=selector]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> a.class-name[data-complex=selector]:focus
-                    2: <S> .should-not-stop-replacement
+                <()> (
+                    <S> a.class-name[data-complex=selector]:focus
+                    <S> .should-not-stop-replacement
                 ),
             )
          */
@@ -2619,8 +2617,8 @@
         /*
             selector.only-superselector( &, "a" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> a.special-class ),
-                2: <()> ( <S> a.class-name[data-complex=selector]:focus ),
+                <()> ( <S> a.special-class ),
+                <()> ( <S> a.class-name[data-complex=selector]:focus ),
             )
          */
     }
@@ -2690,8 +2688,8 @@
         /*
             selector.only-superselector( &, "a" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> body <S> a.special-class ),
-                2: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ),
+                <()> ( <S> body <S> a.special-class ),
+                <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ),
             )
          */
     }
@@ -2710,7 +2708,7 @@
         /*
             selector.only-superselector( &, ":focus" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ),
+                <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ),
             )
          */
     }
@@ -2728,7 +2726,7 @@
         /*
             selector.only-superselector( &, "[data-complex=selector]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ),
+                <()> ( <S> body <S> a.class-name[data-complex=selector]:focus ),
             )
          */
     }
@@ -2811,15 +2809,15 @@
         /*
             selector.pop( & ) is a comma-separated list:
             <()> (
-                1: <S> button,
-                2: <S> [role=button],
-                3: <S> input[type=button],
-                4: <S> input[type=reset],
-                5: <S> input[type=submit],
-                6: <S> a[href].button,
-                7: <S> a[href].button-primary,
-                8: <S> a[href].button-secondary,
-                9: <S> p,
+                <S> button,
+                <S> [role=button],
+                <S> input[type=button],
+                <S> input[type=reset],
+                <S> input[type=submit],
+                <S> a[href].button,
+                <S> a[href].button-primary,
+                <S> a[href].button-secondary,
+                <S> p,
             )
          */
     }
@@ -2846,7 +2844,7 @@
         /*
             selector.pop( & ) is a comma-separated list:
 
-            <()> ( 1: <S> a, 2: <S> input, )
+            <()> ( <S> a, <S> input )
          */
     }
     @demo return {
@@ -2896,8 +2894,8 @@
         /*
             selector.popped( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> root <S> body ),
-                2: <()> ( <S> root <S> body <S> main ),
+                <()> ( <S> root <S> body ),
+                <()> ( <S> root <S> body <S> main ),
             )
          */
     }
@@ -2931,14 +2929,14 @@
         /*
             selector.unpopped-has( & ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> root
-                    2: <S> body:has(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
+                <()> (
+                    <S> root
+                    <S> body:has(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
                 ),
-                2: <()> (
-                    1: <S> root
-                    2: <S> body
-                    3: <S> main:has(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
+                <()> (
+                    <S> root
+                    <S> body
+                    <S> main:has(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
                 ),
             )
          */
@@ -2996,16 +2994,16 @@
         /*
             selector.unpopped-where( & ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> root
-                    2: <S> body
-                    3: <S> :where(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
+                <()> (
+                    <S> root
+                    <S> body
+                    <S> :where(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
                 ),
-                2: <()> (
-                    1: <S> root
-                    2: <S> body
-                    3: <S> main
-                    4: <S> :where(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
+                <()> (
+                    <S> root
+                    <S> body
+                    <S> main
+                    <S> :where(button, [role=button], input[type=button], input[type=reset], input[type=submit], a[href].button, a[href].button-primary, a[href].button-secondary, p)
                 ),
             )
          */
@@ -3186,8 +3184,8 @@
         /*
             selector.popped( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> root <S> body ),
-                2: <()> ( <S> root <S> body <S> main ),
+                <()> ( <S> root <S> body ),
+                <()> ( <S> root <S> body <S> main ),
             )
          */
     }
@@ -3207,8 +3205,8 @@
         /*
             selector.unpopped-has( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> root <S> body:has(a, input) ),
-                2: <()> ( <S> root <S> body <S> main:has(a, input) ),
+                <()> ( <S> root <S> body:has(a, input) ),
+                <()> ( <S> root <S> body <S> main:has(a, input) ),
             )
          */
     }
@@ -3228,8 +3226,8 @@
         /*
             selector.unpopped-where( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> root <S> body <S> :where(a, input) ),
-                2: <()> ( <S> root <S> body <S> main <S> :where(a, input) ),
+                <()> ( <S> root <S> body <S> :where(a, input) ),
+                <()> ( <S> root <S> body <S> main <S> :where(a, input) ),
             )
          */
     }
@@ -3292,8 +3290,8 @@
         /*
             selector.popped( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> root <S> body ),
-                2: <()> ( <S> root <S> body <S> main ),
+                <()> ( <S> root <S> body ),
+                <()> ( <S> root <S> body <S> main ),
             )
          */
     }
@@ -3311,8 +3309,8 @@
         /*
             selector.unpopped-has( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> root <S> body:has(> .direct-child) ),
-                2: <()> ( <S> root <S> body <S> main:has(> .direct-child) ),
+                <()> ( <S> root <S> body:has(> .direct-child) ),
+                <()> ( <S> root <S> body <S> main:has(> .direct-child) ),
             )
          */
     }
@@ -3330,8 +3328,8 @@
         /*
             selector.unpopped-where( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> root <S> body <S> > <S> :where(.direct-child) ),
-                2: <()> ( <S> root <S> body <S> main <S> > <S> :where(.direct-child) ),
+                <()> ( <S> root <S> body <S> > <S> :where(.direct-child) ),
+                <()> ( <S> root <S> body <S> main <S> > <S> :where(.direct-child) ),
             )
          */
     }
@@ -3986,12 +3984,12 @@ body {
     /*
         selector.parent-or-body() is a comma-separated list:
 
-        <()> ( 1: <()> ( <S> html ), 2: <()> ( <S> body ), )
+        <()> ( <()> ( <S> html ), <()> ( <S> body ) )
      */
     /*
         selector.parent-or-root() is a comma-separated list:
 
-        <()> ( 1: <()> ( <S> html ), 2: <()> ( <S> body ), )
+        <()> ( <()> ( <S> html ), <()> ( <S> body ) )
      */
     /* 
         selector.parent-includes( ".has-a-class" ) = </> false
@@ -4076,15 +4074,15 @@ body:where(.has-a-class) {
     /*
         selector.parent-or-body() is a comma-separated list:
         <()> (
-            1: <()> ( <S> html:where(.has-a-class) ),
-            2: <()> ( <S> body:where(.has-a-class) ),
+            <()> ( <S> html:where(.has-a-class) ),
+            <()> ( <S> body:where(.has-a-class) ),
         )
      */
     /*
         selector.parent-or-root() is a comma-separated list:
         <()> (
-            1: <()> ( <S> html:where(.has-a-class) ),
-            2: <()> ( <S> body:where(.has-a-class) ),
+            <()> ( <S> html:where(.has-a-class) ),
+            <()> ( <S> body:where(.has-a-class) ),
         )
      */
     /* 
@@ -4515,7 +4513,7 @@ body:where(.has-a-class) {
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> %root[special-root]:has(.class-name) <S> %body[special-body] ),
+                <()> ( <S> %root[special-root]:has(.class-name) <S> %body[special-body] ),
             )
          */
     }
@@ -4604,8 +4602,8 @@ body:where(.has-a-class) {
         /*
             selector.replace-body-selector( &, "[replaced-body]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <()> ( <S> %root:has(.class-name) <S> [replaced-body] <S> .grandchild ),
+                <()> (
+                    <()> ( <S> %root:has(.class-name) <S> [replaced-body] <S> .grandchild ),
                 ),
             )
          */
@@ -4619,8 +4617,8 @@ body:where(.has-a-class) {
         /*
             selector.replace-root-selector( &, "[replaced-root]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <()> ( <S> [replaced-root]:has(.class-name) <S> %body <S> .grandchild ),
+                <()> (
+                    <()> ( <S> [replaced-root]:has(.class-name) <S> %body <S> .grandchild ),
                 ),
             )
          */
@@ -4630,7 +4628,7 @@ body:where(.has-a-class) {
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> %root[special-root]:has(.class-name) <S> %body <S> .grandchild ),
+                <()> ( <S> %root[special-root]:has(.class-name) <S> %body <S> .grandchild ),
             )
          */
     }
@@ -4639,7 +4637,7 @@ body:where(.has-a-class) {
         /*
             selector.add-body-selector( <S> "[special-body]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> %root:has(.class-name) <S> %body[special-body] <S> .grandchild ),
+                <()> ( <S> %root:has(.class-name) <S> %body[special-body] <S> .grandchild ),
             )
          */
     }
@@ -4648,16 +4646,16 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> ( <S> %root:has(.class-name) <S> %body[special-body] <S> .grandchild ),
+                <()> ( <S> %root:has(.class-name) <S> %body[special-body] <S> .grandchild ),
             )
          */
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> %root[special-root]:has(.class-name)
-                    2: <S> %body[special-body]
-                    3: <S> .grandchild
+                <()> (
+                    <S> %root[special-root]:has(.class-name)
+                    <S> %body[special-body]
+                    <S> .grandchild
                 ),
             )
          */
@@ -4673,10 +4671,10 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> .child ),
-                2: <()> ( <S> body <S> .child ),
-                3: <()> ( <S> :root <S> body <S> .child ),
-                4: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> .child ),
+                <()> ( <S> body <S> .child ),
+                <()> ( <S> :root <S> body <S> .child ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
         /* */
@@ -4723,43 +4721,43 @@ body:where(.has-a-class) {
         /*
             selector.except-is-body( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> .child ),
-                2: <()> ( <S> body <S> .child ),
-                3: <()> ( <S> :root <S> body <S> .child ),
-                4: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> .child ),
+                <()> ( <S> body <S> .child ),
+                <()> ( <S> :root <S> body <S> .child ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.except-is-root( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> .child ),
-                2: <()> ( <S> body <S> .child ),
-                3: <()> ( <S> :root <S> body <S> .child ),
-                4: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> .child ),
+                <()> ( <S> body <S> .child ),
+                <()> ( <S> :root <S> body <S> .child ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.except-is-root-or-body( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> .child ),
-                2: <()> ( <S> body <S> .child ),
-                3: <()> ( <S> :root <S> body <S> .child ),
-                4: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> .child ),
+                <()> ( <S> body <S> .child ),
+                <()> ( <S> :root <S> body <S> .child ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
         /* - - - */
         /*
             selector.except-has-body( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> .child ),
-                2: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> .child ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.except-has-root( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> body <S> .child ),
-                2: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <S> body <S> .child ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
         /*
@@ -4775,19 +4773,19 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> .child ),
-                2: <()> ( <S> body <S> .child ),
-                3: <()> ( <S> :root <S> body <S> .child ),
-                4: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> .child ),
+                <()> ( <S> body <S> .child ),
+                <()> ( <S> :root <S> body <S> .child ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.replace-body-selector( &, "[replaced-body]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> .child ),
-                2: <()> ( <()> ( <S> [replaced-body] <S> .child ), ),
-                3: <()> ( <()> ( <S> :root <S> [replaced-body] <S> .child ), ),
-                4: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> .child ),
+                <()> ( <()> ( <S> [replaced-body] <S> .child ), ),
+                <()> ( <()> ( <S> :root <S> [replaced-body] <S> .child ), ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
     }
@@ -4798,19 +4796,19 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> .child ),
-                2: <()> ( <S> body <S> .child ),
-                3: <()> ( <S> :root <S> body <S> .child ),
-                4: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> .child ),
+                <()> ( <S> body <S> .child ),
+                <()> ( <S> :root <S> body <S> .child ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.replace-root-selector( &, "[replaced-root]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <()> ( <S> [replaced-root] <S> .child ), ),
-                2: <()> ( <S> body <S> .child ),
-                3: <()> ( <()> ( <S> [replaced-root] <S> body <S> .child ), ),
-                4: <()> ( <S> .not-root-or-body <S> .child ),
+                <()> ( <()> ( <S> [replaced-root] <S> .child ), ),
+                <()> ( <S> body <S> .child ),
+                <()> ( <()> ( <S> [replaced-root] <S> body <S> .child ), ),
+                <()> ( <S> .not-root-or-body <S> .child ),
             )
          */
     }
@@ -4822,10 +4820,10 @@ body:where(.has-a-class) {
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> [special-root]:root <S> .child ),
-                2: <()> ( <S> [special-root] <S> body <S> .child ),
-                3: <()> ( <S> [special-root]:root <S> body <S> .child ),
-                4: <()> ( <S> [special-root] <S> .not-root-or-body <S> .child ),
+                <()> ( <S> [special-root]:root <S> .child ),
+                <()> ( <S> [special-root] <S> body <S> .child ),
+                <()> ( <S> [special-root]:root <S> body <S> .child ),
+                <()> ( <S> [special-root] <S> .not-root-or-body <S> .child ),
             )
          */
     }
@@ -4837,10 +4835,10 @@ body:where(.has-a-class) {
         /*
             selector.add-body-selector( <S> "[special-body]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> [special-body] <S> .child ),
-                2: <()> ( <S> body[special-body] <S> .child ),
-                3: <()> ( <S> :root <S> body[special-body] <S> .child ),
-                4: <()> ( <S> [special-body] <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> [special-body] <S> .child ),
+                <()> ( <S> body[special-body] <S> .child ),
+                <()> ( <S> :root <S> body[special-body] <S> .child ),
+                <()> ( <S> [special-body] <S> .not-root-or-body <S> .child ),
             )
          */
     }
@@ -4852,23 +4850,23 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root <S> [special-body] <S> .child ),
-                2: <()> ( <S> body[special-body] <S> .child ),
-                3: <()> ( <S> :root <S> body[special-body] <S> .child ),
-                4: <()> ( <S> [special-body] <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root <S> [special-body] <S> .child ),
+                <()> ( <S> body[special-body] <S> .child ),
+                <()> ( <S> :root <S> body[special-body] <S> .child ),
+                <()> ( <S> [special-body] <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> [special-root]:root <S> [special-body] <S> .child ),
-                2: <()> ( <S> [special-root] <S> body[special-body] <S> .child ),
-                3: <()> ( <S> [special-root]:root <S> body[special-body] <S> .child ),
-                4: <()> (
-                    1: <S> [special-root]
-                    2: <S> [special-body]
-                    3: <S> .not-root-or-body
-                    4: <S> .child
+                <()> ( <S> [special-root]:root <S> [special-body] <S> .child ),
+                <()> ( <S> [special-root] <S> body[special-body] <S> .child ),
+                <()> ( <S> [special-root]:root <S> body[special-body] <S> .child ),
+                <()> (
+                    <S> [special-root]
+                    <S> [special-body]
+                    <S> .not-root-or-body
+                    <S> .child
                 ),
             )
          */
@@ -4973,7 +4971,7 @@ body:where(.has-a-class) {
         /*
             selector.replace-root-selector( &, "[replaced-root]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <()> ( <S> [replaced-root]:where(.js) <S> .not-root-or-body ), ),
+                <()> ( <()> ( <S> [replaced-root]:where(.js) <S> .not-root-or-body ), ),
             )
          */
     }
@@ -5003,10 +5001,10 @@ body:where(.has-a-class) {
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> [special-root]:where(.js)
-                    2: <S> [special-body]
-                    3: <S> .not-root-or-body
+                <()> (
+                    <S> [special-root]:where(.js)
+                    <S> [special-body]
+                    <S> .not-root-or-body
                 ),
             )
          */
@@ -5021,9 +5019,9 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
-                2: <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
-                3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
             )
          */
         /* */
@@ -5070,25 +5068,25 @@ body:where(.has-a-class) {
         /*
             selector.except-is-body( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
-                2: <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
-                3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.except-is-root( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
-                2: <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
-                3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.except-is-root-or-body( & ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
-                2: <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
-                3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
             )
          */
         /* - - - */
@@ -5110,19 +5108,19 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
-                2: <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
-                3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.replace-body-selector( &, "[replaced-body]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <()> ( <S> :root:where(.js__subgrid) <S> [replaced-body] <S> .child ),
+                <()> (
+                    <()> ( <S> :root:where(.js__subgrid) <S> [replaced-body] <S> .child ),
                 ),
-                2: <()> ( <()> ( <S> :where(.js__subgrid) <S> [replaced-body] <S> .child ), ),
-                3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
+                <()> ( <()> ( <S> :where(.js__subgrid) <S> [replaced-body] <S> .child ), ),
+                <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
             )
          */
     }
@@ -5132,25 +5130,25 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
-                2: <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
-                3: <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
+                <()> ( <S> :root:where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> .not-root-or-body <S> .child ),
             )
          */
         /*
             selector.replace-root-selector( &, "[replaced-root]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <()> ( <S> [replaced-root]:where(.js__subgrid) <S> body <S> .child ),
+                <()> (
+                    <()> ( <S> [replaced-root]:where(.js__subgrid) <S> body <S> .child ),
                 ),
-                2: <()> (
-                    1: <()> ( <S> [replaced-root]:where(.js__subgrid) <S> body <S> .child ),
+                <()> (
+                    <()> ( <S> [replaced-root]:where(.js__subgrid) <S> body <S> .child ),
                 ),
-                3: <()> (
-                    1: <()> (
-                        1: <S> [replaced-root]:where(.js__subgrid)
-                        2: <S> .not-root-or-body
-                        3: <S> .child
+                <()> (
+                    <()> (
+                        <S> [replaced-root]:where(.js__subgrid)
+                        <S> .not-root-or-body
+                        <S> .child
                     ),
                 ),
             )
@@ -5163,12 +5161,12 @@ body:where(.has-a-class) {
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> [special-root]:root:where(.js__subgrid) <S> body <S> .child ),
-                2: <()> ( <S> [special-root]:where(.js__subgrid) <S> body <S> .child ),
-                3: <()> (
-                    1: <S> [special-root]:where(.js__subgrid)
-                    2: <S> .not-root-or-body
-                    3: <S> .child
+                <()> ( <S> [special-root]:root:where(.js__subgrid) <S> body <S> .child ),
+                <()> ( <S> [special-root]:where(.js__subgrid) <S> body <S> .child ),
+                <()> (
+                    <S> [special-root]:where(.js__subgrid)
+                    <S> .not-root-or-body
+                    <S> .child
                 ),
             )
          */
@@ -5180,13 +5178,13 @@ body:where(.has-a-class) {
         /*
             selector.add-body-selector( <S> "[special-body]" ) is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root:where(.js__subgrid) <S> body[special-body] <S> .child ),
-                2: <()> ( <S> :where(.js__subgrid) <S> body[special-body] <S> .child ),
-                3: <()> (
-                    1: <S> :where(.js__subgrid)
-                    2: <S> [special-body]
-                    3: <S> .not-root-or-body
-                    4: <S> .child
+                <()> ( <S> :root:where(.js__subgrid) <S> body[special-body] <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> body[special-body] <S> .child ),
+                <()> (
+                    <S> :where(.js__subgrid)
+                    <S> [special-body]
+                    <S> .not-root-or-body
+                    <S> .child
                 ),
             )
          */
@@ -5198,34 +5196,34 @@ body:where(.has-a-class) {
         /*
             & is a comma-separated list:
             <()> (
-                1: <()> ( <S> :root:where(.js__subgrid) <S> body[special-body] <S> .child ),
-                2: <()> ( <S> :where(.js__subgrid) <S> body[special-body] <S> .child ),
-                3: <()> (
-                    1: <S> :where(.js__subgrid)
-                    2: <S> [special-body]
-                    3: <S> .not-root-or-body
-                    4: <S> .child
+                <()> ( <S> :root:where(.js__subgrid) <S> body[special-body] <S> .child ),
+                <()> ( <S> :where(.js__subgrid) <S> body[special-body] <S> .child ),
+                <()> (
+                    <S> :where(.js__subgrid)
+                    <S> [special-body]
+                    <S> .not-root-or-body
+                    <S> .child
                 ),
             )
          */
         /*
             selector.add-root-selector( <S> "[special-root]" ) is a comma-separated list:
             <()> (
-                1: <()> (
-                    1: <S> [special-root]:root:where(.js__subgrid)
-                    2: <S> body[special-body]
-                    3: <S> .child
+                <()> (
+                    <S> [special-root]:root:where(.js__subgrid)
+                    <S> body[special-body]
+                    <S> .child
                 ),
-                2: <()> (
-                    1: <S> [special-root]:where(.js__subgrid)
-                    2: <S> body[special-body]
-                    3: <S> .child
+                <()> (
+                    <S> [special-root]:where(.js__subgrid)
+                    <S> body[special-body]
+                    <S> .child
                 ),
-                3: <()> (
-                    1: <S> [special-root]:where(.js__subgrid)
-                    2: <S> [special-body]
-                    3: <S> .not-root-or-body
-                    4: <S> .child
+                <()> (
+                    <S> [special-root]:where(.js__subgrid)
+                    <S> [special-body]
+                    <S> .not-root-or-body
+                    <S> .child
                 ),
             )
          */

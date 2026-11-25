@@ -17,17 +17,15 @@
         config.$featureCheck_neverUseJS = </> false
      */
     /*
-        config.$featureCheck_defaultToJS is a map:
-
-        <:> ( "touch": </> true, "whereSelector": </> true, )
+        config.$featureCheck_defaultToJS =
+        <:> ( "touch": </> true, "whereSelector": </> true )
      */
     /*
-        config.$featureCheck_defaultToJS_supports is a map:
-
-        <:> ( "touch": </> true, "whereSelector": </> true, )
+        config.$featureCheck_defaultToJS_supports =
+        <:> ( "touch": </> true, "whereSelector": </> true )
      */
     /*
-        config.$featureCheck_defaultToJS_supports_not is a map:
+        config.$featureCheck_defaultToJS_supports_not =
         <:> (
             "touch": </> true,
             "whereSelector": </> true,
@@ -39,7 +37,7 @@
         config.$featureCheck_includeNoWhereSelectorFallback = </> true
      */
     /*
-        config.$featureCheck_includeNoWhereSelectorFallback_supports_not is a map:
+        config.$featureCheck_includeNoWhereSelectorFallback_supports_not =
         <:> (
             "aspectRatio": </> true,
             "focusVisible": </> true,
@@ -52,24 +50,24 @@
     /*
         config.$featureCheck_supports is a comma-separated list:
         <()> (
-            1: <S> aspectRatio,
-            2: <S> atProperty,
-            3: <S> backdropFilter,
-            4: <S> backgroundFixed,
-            5: <S> calc,
-            6: <S> displayContents,
-            7: <S> focusWithin,
-            8: <S> focusVisible,
-            9: <S> hasSelector,
-            10: <S> subgrid,
-            11: <S> textBox,
-            12: <S> touch,
-            13: <S> variableFonts,
-            14: <S> whereSelector,
+            <S> aspectRatio,
+            <S> atProperty,
+            <S> backdropFilter,
+            <S> backgroundFixed,
+            <S> calc,
+            <S> displayContents,
+            <S> focusWithin,
+            <S> focusVisible,
+            <S> hasSelector,
+            <S> subgrid,
+            <S> textBox,
+            <S> touch,
+            <S> variableFonts,
+            <S> whereSelector,
         )
      */
     /*
-        config.$featureCheck_supportsQueries is a map:
+        config.$featureCheck_supportsQueries =
         <:> (
             "aspectRatio": <S> "( aspect-ratio: 1 / 2 )",
             "backdropFilter": <S> "( backdrop-filter: blur(0.5rem) )",
@@ -86,7 +84,7 @@
         )
      */
     /*
-        config.$featureCheck_supportsOverrides is a map:
+        config.$featureCheck_supportsOverrides =
         <:> (
             "aspectRatio": </> true,
             "atProperty": </> false,
@@ -138,8 +136,8 @@
     /*
         feature-check.get-selector( whereSelector, $bool: true, $addSelectors: ( extra-selector ) ) is a comma-separated list:
         <()> (
-            1: <S> extra-selector,
-            2: <()> ( <S> :where(.js) <S> .whereSelector--true.with-extra ),
+            <S> extra-selector,
+            <()> ( <S> :where(.js) <S> .whereSelector--true.with-extra ),
         )
      */
 }
@@ -162,8 +160,8 @@
     /*
         feature-check.get-selector( aspectRatio, $bool: true, $addSelectors: ( extra-selector ) ) is a comma-separated list:
         <()> (
-            1: <S> extra-selector,
-            2: <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true.with-extra ),
+            <S> extra-selector,
+            <()> ( <S> :where(.js__aspectRatio) <S> .aspectRatio--true.with-extra ),
         )
      */
 }
@@ -497,7 +495,14 @@
     }
 }
 @demo ( mixin: feature-check.supports ) {
-    /* @include feature-check.supports( aspectRatio, $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: false ) {} */
+    /*
+        @include feature-check.supports(
+            aspectRatio,
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+            $viaQuery: false,
+        ) {}
+     */
     @demo output {
         extra-selector,
         :where(.js__aspectRatio) {
@@ -506,7 +511,13 @@
     }
 }
 @demo ( mixin: feature-check.supports ) {
-    /* @include feature-check.supports( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector ) {} */
+    /*
+        @include feature-check.supports(
+            ( calc, hasSelector, variableFonts ),
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+        ) {}
+     */
     @demo output {
         @supports (width: calc(0.25em + 10%)) and selector(:has(a)) and
             font-tech(variations) {
@@ -518,7 +529,14 @@
     }
 }
 @demo ( mixin: feature-check.supports ) {
-    /* @include feature-check.supports( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: false ) {} */
+    /*
+        @include feature-check.supports(
+            ( calc, hasSelector, variableFonts ),
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+            $viaQuery: false,
+        ) {}
+     */
     @demo output {
         extra-selector,
         :where(.js__calc):where(.js__hasSelector):where(.js__variableFonts) {
@@ -548,7 +566,14 @@
     }
 }
 @demo ( mixin: feature-check.supports ) {
-    /* @include feature-check.supports( aspectRatio, $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: true ) {} */
+    /*
+        @include feature-check.supports(
+            aspectRatio,
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+            $viaQuery: true,
+        ) {}
+     */
     @demo output {
         @supports (aspect-ratio: 1 / 2) {
             extra-selector,
@@ -559,7 +584,13 @@
     }
 }
 @demo ( mixin: feature-check.supports ) {
-    /* @include feature-check.supports( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector ) {} */
+    /*
+        @include feature-check.supports(
+            ( calc, hasSelector, variableFonts ),
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+        ) {}
+     */
     @demo output {
         @supports (width: calc(0.25em + 10%)) and selector(:has(a)) and
             font-tech(variations) {
@@ -571,7 +602,14 @@
     }
 }
 @demo ( mixin: feature-check.supports ) {
-    /* @include feature-check.supports( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: true ) {} */
+    /*
+        @include feature-check.supports(
+            ( calc, hasSelector, variableFonts ),
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+            $viaQuery: true,
+        ) {}
+     */
     @demo output {
         @supports (width: calc(0.25em + 10%)) and selector(:has(a)) and
             font-tech(variations) {
@@ -605,7 +643,14 @@
     }
 }
 @demo ( mixin: feature-check.supports-not ) {
-    /* @include feature-check.supports-not( aspectRatio, $multipleContentBlocks: true, $includeNoWhereSelectorFallback: false, $viaQuery: false ) {} */
+    /*
+        @include feature-check.supports-not(
+            aspectRatio,
+            $multipleContentBlocks: true,
+            $includeNoWhereSelectorFallback: false,
+            $viaQuery: false,
+        ) {}
+     */
     @demo output {
         :where(.js__no-aspectRatio) {
             /* @content( <S> where ); */
@@ -613,7 +658,14 @@
     }
 }
 @demo ( mixin: feature-check.supports-not ) {
-    /* @include feature-check.supports-not( aspectRatio, $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: false ) {} */
+    /*
+        @include feature-check.supports-not(
+            aspectRatio,
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+            $viaQuery: false,
+        ) {}
+     */
     @demo output {
         .no-js,
         .js__no-whereSelector {
@@ -626,7 +678,13 @@
     }
 }
 @demo ( mixin: feature-check.supports-not ) {
-    /* @include feature-check.supports-not( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector ) {} */
+    /*
+        @include feature-check.supports-not(
+            ( calc, hasSelector, variableFonts ),
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+        ) {}
+     */
     @demo output {
         @supports (not (width: calc(0.25em + 10%))) and (not selector(:has(a)))
             and (not font-tech(variations)) {
@@ -638,7 +696,14 @@
     }
 }
 @demo ( mixin: feature-check.supports-not ) {
-    /* @include feature-check.supports-not( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: false ) {} */
+    /*
+        @include feature-check.supports-not(
+            ( calc, hasSelector, variableFonts ),
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+            $viaQuery: false,
+        ) {}
+     */
     @demo output {
         .no-js,
         .js__no-whereSelector {
@@ -674,7 +739,14 @@
     }
 }
 @demo ( mixin: feature-check.supports-not ) {
-    /* @include feature-check.supports-not( aspectRatio, $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: true ) {} */
+    /*
+        @include feature-check.supports-not(
+            aspectRatio,
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+            $viaQuery: true,
+        ) {}
+     */
     @demo output {
         @supports not (aspect-ratio: 1 / 2) {
             extra-selector,
@@ -685,7 +757,13 @@
     }
 }
 @demo ( mixin: feature-check.supports-not ) {
-    /* @include feature-check.supports-not( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector ) {} */
+    /*
+        @include feature-check.supports-not(
+            ( calc, hasSelector, variableFonts ),
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+        ) {}
+     */
     @demo output {
         @supports (not (width: calc(0.25em + 10%))) and (not selector(:has(a)))
             and (not font-tech(variations)) {
@@ -697,7 +775,14 @@
     }
 }
 @demo ( mixin: feature-check.supports-not ) {
-    /* @include feature-check.supports-not( ( calc, hasSelector, variableFonts ), $multipleContentBlocks: true, $addSelectors: extra-selector, $viaQuery: true ) {} */
+    /*
+        @include feature-check.supports-not(
+            ( calc, hasSelector, variableFonts ),
+            $multipleContentBlocks: true,
+            $addSelectors: extra-selector,
+            $viaQuery: true,
+        ) {}
+     */
     @demo output {
         @supports (not (width: calc(0.25em + 10%))) and (not selector(:has(a)))
             and (not font-tech(variations)) {

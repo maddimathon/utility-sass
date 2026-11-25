@@ -7,6 +7,7 @@
 @forward '../tokens';
 @forward '../header';
 
+@use '../../modules/demo';
 @use '../../modules/meta';
 @use '../../modules/string';
 
@@ -50,23 +51,16 @@ string.join {
     );
 }
 
+$_fn_string_match: meta.get-function('match', $module: 'string');
+@mixin _demo-string-match($args...) {
+    @include demo.function('string.match', $_fn_string_match, $args, $removeIndices: false);
+}
+
 string.match {
-    @include meta.var-dump(
-        'string.match( "hello there", "^hello" )',
-        string.match('hello there', '^hello')
-    );
-    @include meta.var-dump(
-        'string.match( "hello there", "^Hello" )',
-        string.match('hello there', '^Hello')
-    );
-    @include meta.var-dump(
-        'string.match( "hello there", "^Hello", "i" )',
-        string.match('hello there', '^Hello', 'i')
-    );
-    @include meta.var-dump(
-        'string.match( "hello there", "[^\\\\s] ([^\\\\s]+)$", "i" )',
-        string.match('hello there', '[^\\s] ([^\\s]+)$', 'i')
-    );
+    @include _demo-string-match('hello there', '^hello');
+    @include _demo-string-match('hello there', '^Hello');
+    @include _demo-string-match('hello there', '^Hello', 'i');
+    @include _demo-string-match('hello there', '[^\\s] ([^\\s]+)$', 'i');
 }
 
 string.replace {
