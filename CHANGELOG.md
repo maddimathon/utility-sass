@@ -19,6 +19,19 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.3.2** — 2026-11-26
+
+### Misc. Breaking
+- Removed css from the npm files inclusion
+
+### Added
+- New config var:
+    - $breakpoints_nav_mustSupportNotTouch
+
+### Changed
+- Increased support for docblock-printer up to 650 lines
+
+
 ## **0.3.1** — 2026-11-24
 
 ### Fixed

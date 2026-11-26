@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/utility-sass@0.3.2-draft
+ * @maddimathon/utility-sass@0.3.2
  * @license MIT
  */
 import { makeNumber, toTitleCase, typeOf, VariableInspector } from '@maddimathon/utility-typescript';
