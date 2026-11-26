@@ -3,28 +3,42 @@
 /// @since 0.1.0-pre
 ///
 
-@forward '../config' with (
-    $breakpoints_attributeOverrides: (
-        content,
-        indent,
-        mobile,
-        page,
-        sidebar,
-        tablet,
-    ),
+@forward '../../config' with (
     $demo_includeNameWithContent: true !default
 );
-@forward '../tokens';
-@forward '../header';
+@forward '../../tokens' with (
+    $breakpoints: (
+        nav: 64,
+    )
+);
+@forward '../../header';
 
-@use '../../modules/demo';
-@use '../../modules/feature-check';
-@use '../../modules/meta';
+@use '../../config';
+@use '../../tokens';
 
-@use '../../lib' as *;
+@use '../../../modules/demo';
+@use '../../../modules/feature-check';
+@use '../../../modules/meta';
+
+@use '../../../lib' as *;
 
 /* # MIXINS - BREAKPOINTS
  * ======================================================================== */
+
+@include meta.at(vars, config) {
+    @include meta.var-dump(
+        'config.$breakpoints_attributeOverrides',
+        config.$breakpoints_attributeOverrides
+    );
+    @include meta.var-dump(
+        'config.$breakpoints_nav_mustSupportNotTouch',
+        config.$breakpoints_nav_mustSupportNotTouch
+    );
+}
+
+@include meta.at(vars, tokens) {
+    @include meta.var-dump('tokens.$breakpoints', tokens.$breakpoints);
+}
 
 $_mixin_min_height: meta.get-mixin(min-height);
 $_mixin_max_height: meta.get-mixin(max-height);
@@ -103,8 +117,10 @@ $_mixin_minmax_width: meta.get-mixin(minmax-width);
 breakpoints {
     @include _demo-min-width(indent);
     @include _demo-min-width(0);
+    @include _demo-min-width(nav);
     @include _demo-max-width(mobile);
     @include _demo-max-width(0);
+    @include _demo-max-width(nav);
 
     @include _demo-min-height(50);
     @include _demo-min-height(0);
@@ -119,15 +135,19 @@ breakpoints {
     @include _demo-minmax-width(mobile, tablet);
     @include _demo-minmax-width(mobile, 50);
     @include _demo-minmax-width(0, 50);
+    // @include _demo-minmax-width(nav, 50);
     @include _demo-minmax-height(20, 35);
     @include _demo-minmax-height(0, 35);
     @include _demo-minmax-height(20, page);
+    // @include _demo-minmax-height(20, nav);
 
     @include feature-check.supports(whereSelector) {
         @include _demo-min-width(indent);
         @include _demo-min-width(0);
+        // @include _demo-min-width(nav);
         @include _demo-max-width(mobile);
         @include _demo-max-width(0);
+        // @include _demo-max-width(nav);
     }
 
     @include _demo-max-width(mobile, $useWhereFallback: false) {
@@ -142,4 +162,17 @@ breakpoints {
             $wrapOutput: true
         );
     }
+
+    // @include _demo-max-width(nav, $useWhereFallback: false) {
+    //     @include demo.mixin(
+    //         'feature-check.supports',
+    //         meta.get-mixin('supports', $module: 'feature-check'),
+    //         meta.arglist(whereSelector),
+    //         $includeNameWithContent: true,
+    //         $parentSelector_dump: true,
+    //         $signatureAsRegion: false,
+    //         $signatureAtRoot: false,
+    //         $wrapOutput: true
+    //     );
+    // }
 }

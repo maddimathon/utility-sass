@@ -94,6 +94,7 @@
     $addSelectors: (),
     $ignoreParentSelector: false,
     $include_noJS: true,
+    $useWhere: true,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -106,10 +107,14 @@
         $key == null or ($bool and $key == whereSelector),
         if(
             $bool,
-            ':where( .js )',
+            if($useWhere, ':where( .js )', '.js'),
             if($include_noJS, ('.no-js', '.js__no-whereSelector'), '.js__no-whereSelector')
         ),
-        ':where( .js__#{if( $bool, '', 'no-' )}#{$key} )'
+        if(
+            $useWhere,
+            ':where( .js__#{if( $bool, '', 'no-' )}#{$key} )',
+            '.js__#{if( $bool, '', 'no-' )}#{$key}'
+        )
     );
 
     @if not $ignoreParentSelector {

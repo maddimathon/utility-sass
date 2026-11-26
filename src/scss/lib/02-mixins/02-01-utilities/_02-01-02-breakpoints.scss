@@ -18,25 +18,101 @@
 
 // @use '02-01-01-accessibility' as *;
 
-/// # UTILITY MIXINS - Breakpoints
-/// ======================================================================== ///
-
 ///
 /// @since 0.1.0-beta
 ///
-@function _breakpoint-get-override-selector($point, $minOrMax, $property) {
+@function _breakpoint-get-override-selector($point, $minOrMax, $property, $toNegate) {
+    $hasOverrideSelector: list.index(config.$breakpoints_attributeOverrides, $point) != null;
+
     // returns
-    @if list.index(config.$breakpoints_attributeOverrides, $point) == null {
+    @if not
+        $hasOverrideSelector and
+        ($point != nav or not config.$breakpoints_nav_mustSupportNotTouch)
+    {
         @return null;
     }
 
-    $selector: '[data-viewport-#{$property}-#{$point}=#{$minOrMax}]';
+    $selector: ();
 
-    @return if(
-        config.$breakpoints_attributeOverrides_includeRoot,
-        selector.unify(config.$selector_root, $selector),
-        $selector
-    );
+    @if $hasOverrideSelector {
+        $selector: ('[data-viewport-#{$property}-#{$point}=#{$minOrMax}]');
+
+        @if config.$breakpoints_attributeOverrides_includeRoot {
+            $selector: selector.unify(config.$selector_root, $selector);
+        }
+    }
+
+    @if config.$breakpoints_nav_mustSupportNotTouch and $point == nav {
+        @if $minOrMax == 'max' {
+            @if $toNegate and $hasOverrideSelector {
+                $selector: selector.not-list($selector);
+            }
+
+            $_sel_supportsNot: feature-check.get-selector(
+                touch,
+                if($toNegate, false, true),
+                $ignoreParentSelector: true,
+                $useWhere: false
+            );
+
+            @if $toNegate and selector.exists($selector) {
+                $selector: selector.unify($selector, $_sel_supportsNot);
+            } @else {
+                $selector: list.join($selector, $_sel_supportsNot, $separator: comma);
+            }
+        } @else if $minOrMax == 'min' {
+            $_sel_supportsNot: if(
+                $hasOverrideSelector,
+                feature-check.get-selector(
+                    touch,
+                    if($toNegate and not $hasOverrideSelector, true, false),
+                    $ignoreParentSelector: true,
+                    $useWhere: false
+                ),
+                ()
+            );
+
+            @if $toNegate and $hasOverrideSelector {
+                $selector: selector.not-list(
+                    if(
+                        selector.exists($_sel_supportsNot),
+                        selector.unify($selector, $_sel_supportsNot),
+                        $selector
+                    )
+                );
+
+                $_sel_supportsNot: ();
+            }
+
+            $selector: if(
+                selector.exists($selector),
+                if(
+                    selector.exists($_sel_supportsNot),
+                    selector.unify($selector, $_sel_supportsNot),
+                    $selector
+                ),
+                $_sel_supportsNot
+            );
+        } @else if $toNegate and $hasOverrideSelector {
+            $selector: selector.not-list($selector);
+        }
+    } @else if $toNegate and $hasOverrideSelector {
+        $selector: selector.not-list($selector);
+
+        @if not
+            config.$breakpoints_attributeOverrides_includeRoot and not
+            selector.parent-has-root()
+        {
+            $selector: selector.unify(config.$selector_root, $selector);
+        }
+    }
+
+    // returns
+    @if not selector.exists($selector) {
+        @return null;
+    }
+
+    @return $selector;
 }
 
 ///
@@ -86,22 +162,26 @@
         $point: $point_min,
         $property: $property,
         $minOrMax: min,
+        $toNegate: false,
     );
     $min_attribute_override__not: _breakpoint-get-override-selector(
         $point: $point_min,
         $property: $property,
         $minOrMax: max,
+        $toNegate: true,
     );
 
     $max_attribute_override: _breakpoint-get-override-selector(
         $point: $point_max,
         $property: $property,
         $minOrMax: max,
+        $toNegate: false,
     );
     $max_attribute_override__not: _breakpoint-get-override-selector(
         $point: $point_max,
         $property: $property,
         $minOrMax: min,
+        $toNegate: true,
     );
 
     $point_min: breakpoint-get-value(
@@ -115,14 +195,21 @@
 
     $selector: if(
         $min_attribute_override__not or $max_attribute_override__not,
-        selector.not-list(
-            list.join(
-                if($min_attribute_override__not, $min_attribute_override__not, ()),
-                if($max_attribute_override__not, $max_attribute_override__not, ()),
-                $separator: comma
-            ),
-            $parentSelector: config.$selector_root,
-            $unify: true
+        selector.unify(
+            config.$selector_root,
+            if(
+                $min_attribute_override__not and $max_attribute_override__not,
+                selector.unify($min_attribute_override__not, $max_attribute_override__not),
+                if(
+                    $min_attribute_override__not,
+                    $min_attribute_override__not,
+                    if(
+                        $max_attribute_override__not,
+                        $max_attribute_override__not,
+                        config.$selector_null
+                    )
+                )
+            )
         ),
         null
     );
@@ -148,7 +235,7 @@
 
         @if $_queryString {
             @media ( #{$_queryString} ) {
-                @if $useWhereFallback {
+                @if $useWhereFallback and ($min_attribute_override or $max_attribute_override) {
                     @include feature-check.supports-not(whereSelector, $include_noJS: false) {
                         @content;
                     }
@@ -222,42 +309,37 @@
             $point: $input_point,
             $minOrMax: $minOrMax,
             $property: $property,
+            $toNegate: false,
         );
 
         $attribute_override__not: null;
 
-        @if $attribute_override {
-            $minOrMax__opposite: if($minOrMax == 'min', 'max', if($minOrMax == 'max', 'min', null));
+        $minOrMax__opposite: if($minOrMax == 'min', 'max', if($minOrMax == 'max', 'min', null));
 
-            @if $minOrMax__opposite {
-                $attribute_override__not: _breakpoint-get-override-selector(
-                    $point: $input_point,
-                    $minOrMax: $minOrMax__opposite,
-                    $property: $property,
-                );
+        @if $minOrMax__opposite {
+            $attribute_override__not: _breakpoint-get-override-selector(
+                $point: $input_point,
+                $minOrMax: $minOrMax__opposite,
+                $property: $property,
+                $toNegate: true,
+            );
 
+            @if $attribute_override__not and not selector.has-root($attribute_override__not) {
                 @if selector.parent-exists() {
                     @if not
                         config.$breakpoints_attributeOverrides_includeRoot and not
                         selector.has-root(&)
                     {
-                        $attribute_override__not: selector.not-list(
-                            $attribute_override__not,
-                            $parentSelector: config.$selector_root,
-                            $unify: true
-                        );
-                    } @else {
-                        $attribute_override__not: selector.not-list(
-                            $attribute_override__not,
-                            $parentSelector: null
+                        $attribute_override__not: selector.unify(
+                            config.$selector_root,
+                            $attribute_override__not
                         );
                     }
                 } @else {
                     // parent doesn't exist, so we need to add not to the root so it is meaningful
-                    $attribute_override__not: selector.not-list(
-                        $attribute_override__not,
-                        $parentSelector: config.$selector_root,
-                        $unify: true
+                    $attribute_override__not: selector.unify(
+                        config.$selector_root,
+                        $attribute_override__not
                     );
                 }
             }

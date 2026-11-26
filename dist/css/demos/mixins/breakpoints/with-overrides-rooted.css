@@ -1,0 +1,468 @@
+/*!
+ * Utility Sass - Demo
+ * 
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ * 
+ * https://maddimathon.github.io/utility-sass
+ * 
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
+ */
+/* # MIXINS - BREAKPOINTS
+ * ======================================================================== */
+@vars config {
+    /*
+        config.$breakpoints_attributeOverrides is a space-separated list:
+        <()> (
+            <S> content
+            <S> indent
+            <S> mobile
+            <S> nav
+            <S> page
+            <S> sidebar
+            <S> tablet
+        )
+     */
+    /* 
+        config.$breakpoints_nav_mustSupportNotTouch = </> false
+     */
+}
+@vars tokens {
+    /*
+        tokens.$breakpoints =
+        <:> (
+            "mobile": <#> 25,
+            "tablet": <#> 50,
+            "content": <#> 40.875,
+            "page": <#> 66.75,
+            "sidebar": <#> 55.625,
+            "indent": <#> 29.875,
+            "nav": <#> 64,
+        )
+     */
+}
+@demo ( mixin: min-width ) {
+    breakpoints {
+        /* @include min-width( indent ) {} */
+    }
+    @demo output {
+        @media (width >= 29.875em) {
+            .js__no-whereSelector breakpoints {
+                /* [min-width] @content; */
+            }
+            :where(:root:not([data-viewport-width-indent='max'])) breakpoints {
+                /* [min-width] @content; */
+            }
+        }
+        :where([data-viewport-width-indent='min']) breakpoints {
+            /* [min-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: min-width ) {
+    breakpoints {
+        /* @include min-width( 0 ) {} */
+    }
+    @demo output {
+        breakpoints {
+            /* [min-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: min-width ) {
+    breakpoints {
+        /* @include min-width( nav ) {} */
+    }
+    @demo output {
+        @media (width >= 64em) {
+            .js__no-whereSelector breakpoints {
+                /* [min-width] @content; */
+            }
+            :where(:root:not([data-viewport-width-nav='max'])) breakpoints {
+                /* [min-width] @content; */
+            }
+        }
+        :where([data-viewport-width-nav='min']) breakpoints {
+            /* [min-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: max-width ) {
+    breakpoints {
+        /* @include max-width( mobile ) {} */
+    }
+    @demo output {
+        @media (width < 25em) {
+            .js__no-whereSelector breakpoints {
+                /* [max-width] @content; */
+            }
+            :where(:root:not([data-viewport-width-mobile='min'])) breakpoints {
+                /* [max-width] @content; */
+            }
+        }
+        :where([data-viewport-width-mobile='max']) breakpoints {
+            /* [max-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: max-width ) {
+    breakpoints {
+        /* @include max-width( 0 ) {} */
+    }
+    @demo output {
+    }
+}
+
+@demo ( mixin: max-width ) {
+    breakpoints {
+        /* @include max-width( nav ) {} */
+    }
+    @demo output {
+        @media (width < 64em) {
+            .js__no-whereSelector breakpoints {
+                /* [max-width] @content; */
+            }
+            :where(:root:not([data-viewport-width-nav='min'])) breakpoints {
+                /* [max-width] @content; */
+            }
+        }
+        :where([data-viewport-width-nav='max']) breakpoints {
+            /* [max-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: min-height ) {
+    breakpoints {
+        /* @include min-height( 50 ) {} */
+    }
+    @demo output {
+        @media (height >= 50em) {
+            breakpoints {
+                /* [min-height] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: min-height ) {
+    breakpoints {
+        /* @include min-height( 0 ) {} */
+    }
+    @demo output {
+        breakpoints {
+            /* [min-height] @content; */
+        }
+    }
+}
+
+@demo ( mixin: max-height ) {
+    breakpoints {
+        /* @include max-height( 50 ) {} */
+    }
+    @demo output {
+        @media (height < 50em) {
+            breakpoints {
+                /* [max-height] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: max-height ) {
+    breakpoints {
+        /* @include max-height( 0 ) {} */
+    }
+    @demo output {
+    }
+}
+
+@demo ( mixin: min-viewport-both ) {
+    breakpoints {
+        /* @include min-viewport-both( 20, 30 ) {} */
+    }
+    @demo output {
+        @media (width >= 20em) and (height >= 30em) {
+            breakpoints {
+                /* [min-viewport-both] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: min-viewport-both ) {
+    breakpoints {
+        /* @include min-viewport-both( 0, 30 ) {} */
+    }
+    @demo output {
+        @media (height >= 30em) {
+            breakpoints {
+                /* [min-viewport-both] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: max-viewport-both ) {
+    breakpoints {
+        /* @include max-viewport-both( 20, 30 ) {} */
+    }
+    @demo output {
+        @media (width < 20em) and (height < 30em) {
+            breakpoints {
+                /* [max-viewport-both] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: max-viewport-both ) {
+    breakpoints {
+        /* @include max-viewport-both( 0, 30 ) {} */
+    }
+    @demo output {
+    }
+}
+
+@demo ( mixin: minmax-width ) {
+    breakpoints {
+        /* @include minmax-width( mobile, tablet ) {} */
+    }
+    @demo output {
+        @media (25em <= width < 50em) {
+            .js__no-whereSelector breakpoints {
+                /* [minmax-width] @content; */
+            }
+            :where(
+                    :root:not([data-viewport-width-mobile='max']):not(
+                            [data-viewport-width-tablet='min']
+                        )
+                )
+                breakpoints {
+                /* [minmax-width] @content; */
+            }
+        }
+        :where(
+                [data-viewport-width-mobile='min'][data-viewport-width-tablet='max']
+            )
+            breakpoints {
+            /* [minmax-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: minmax-width ) {
+    breakpoints {
+        /* @include minmax-width( mobile, 50 ) {} */
+    }
+    @demo output {
+        @media (25em <= width < 50em) {
+            .js__no-whereSelector breakpoints {
+                /* [minmax-width] @content; */
+            }
+            :where(:root:not([data-viewport-width-mobile='max'])) breakpoints {
+                /* [minmax-width] @content; */
+            }
+        }
+        @media (width < 50em) {
+            :where([data-viewport-width-mobile='min']) breakpoints {
+                /* [minmax-width] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: minmax-width ) {
+    breakpoints {
+        /* @include minmax-width( 0, 50 ) {} */
+    }
+    @demo output {
+        @media (width < 50em) {
+            breakpoints {
+                /* [minmax-width] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: minmax-height ) {
+    breakpoints {
+        /* @include minmax-height( 20, 35 ) {} */
+    }
+    @demo output {
+        @media (20em <= height < 35em) {
+            breakpoints {
+                /* [minmax-height] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: minmax-height ) {
+    breakpoints {
+        /* @include minmax-height( 0, 35 ) {} */
+    }
+    @demo output {
+        @media (height < 35em) {
+            breakpoints {
+                /* [minmax-height] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: minmax-height ) {
+    breakpoints {
+        /* @include minmax-height( 20, page ) {} */
+    }
+    @demo output {
+        @media (20em <= height < 66.75em) {
+            .js__no-whereSelector breakpoints {
+                /* [minmax-height] @content; */
+            }
+            :where(:root:not([data-viewport-height-page='min'])) breakpoints {
+                /* [minmax-height] @content; */
+            }
+        }
+        @media (20em <= height) {
+            :where([data-viewport-height-page='max']) breakpoints {
+                /* [minmax-height] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: min-width ) {
+    :where(.js) breakpoints {
+        /* @include min-width( indent ) {} */
+    }
+    @demo output {
+        @media (width >= 29.875em) {
+            :where(.js):where(:not([data-viewport-width-indent='max']))
+                breakpoints {
+                /* [min-width] @content; */
+            }
+        }
+        :where(.js):where([data-viewport-width-indent='min']) breakpoints {
+            /* [min-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: min-width ) {
+    :where(.js) breakpoints {
+        /* @include min-width( 0 ) {} */
+    }
+    @demo output {
+        :where(.js) breakpoints {
+            /* [min-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: max-width ) {
+    :where(.js) breakpoints {
+        /* @include max-width( mobile ) {} */
+    }
+    @demo output {
+        @media (width < 25em) {
+            :where(.js):where(:not([data-viewport-width-mobile='min']))
+                breakpoints {
+                /* [max-width] @content; */
+            }
+        }
+        :where(.js):where([data-viewport-width-mobile='max']) breakpoints {
+            /* [max-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: max-width ) {
+    :where(.js) breakpoints {
+        /* @include max-width( 0 ) {} */
+    }
+    @demo output {
+    }
+}
+
+@demo ( mixin: max-width ) {
+    breakpoints {
+        /* @include max-width( mobile, $useWhereFallback: false ) {} */
+    }
+    @demo output {
+        @media (width < 25em) {
+            :where(:root:not([data-viewport-width-mobile='min'])) breakpoints {
+                /* [max-width] @content; */
+            }
+            @demo ( mixin: feature-check.supports ) {
+                :where(:root:not([data-viewport-width-mobile='min']))
+                    breakpoints {
+                    /*
+                        & is a comma-separated list:
+                        <()> (
+                            <()> (
+                                <S> :where(:root:not([data-viewport-width-mobile=min]))
+                                <S> breakpoints
+                            ),
+                        )
+                     */
+                    /* @include feature-check.supports( whereSelector ) {} */
+                }
+                @demo output {
+                    :where(:root:not([data-viewport-width-mobile='min'])):where(
+                            .js
+                        )
+                        breakpoints {
+                        /* [feature-check.supports] @content; */
+                        /*
+                            & is a comma-separated list:
+                            <()> (
+                                <()> (
+                                    <S> :where(:root:not([data-viewport-width-mobile=min])):where(.js)
+                                    <S> breakpoints
+                                ),
+                            )
+                         */
+                    }
+                }
+            }
+        }
+        :where([data-viewport-width-mobile='max']) breakpoints {
+            /* [max-width] @content; */
+        }
+        @demo ( mixin: feature-check.supports ) {
+            :where([data-viewport-width-mobile='max']) breakpoints {
+                /*
+                    & is a comma-separated list:
+                    <()> (
+                        <()> (
+                            <S> :where([data-viewport-width-mobile=max])
+                            <S> breakpoints
+                        ),
+                    )
+                 */
+                /* @include feature-check.supports( whereSelector ) {} */
+            }
+            @demo output {
+                :where([data-viewport-width-mobile='max']):where(.js)
+                    breakpoints {
+                    /* [feature-check.supports] @content; */
+                    /*
+                        & is a comma-separated list:
+                        <()> (
+                            <()> (
+                                <S> :where([data-viewport-width-mobile=max]):where(.js)
+                                <S> breakpoints
+                            ),
+                        )
+                     */
+                }
+            }
+        }
+    }
+}
