@@ -1,12 +1,15 @@
 ///
-/// @package @maddimathon/utility-sass@0.3.2
+/// @package @maddimathon/utility-sass@0.3.3-draft
 ///
 /// @since 0.1.0-pre
 /// @since 0.1.0-beta — Moved to module config.
 ///
 
 @use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
 @use 'sass:meta';
+@use 'sass:string';
 
 @use 'warnings' as *;
 
@@ -23,7 +26,13 @@
 ///
 /// @returns {string}  If $options is a list, the string is one of those values.
 ///
-@function config-valid-string($value, $name, $default, $options: null) {
+@function config-valid-string(
+    $value,
+    $name,
+    $default,
+    $options: null,
+    $warn: true
+) {
     // returns - value is to be default
     @if $value == null {
         @return $default;
@@ -33,6 +42,7 @@
     @if config-enforce-type-or-warn(
             $value: $value,
             $type: string,
+            $warn: $warn,
             $varName: $name
         ) ==
         false
@@ -54,7 +64,9 @@
                 );
             }
 
-            @warn "[config] $#{$name} must be one of: #{$optsList} (not '#{$value}')";
+            @if $warn {
+                @warn "[config] $#{$name} must be one of: #{$optsList} (not '#{$value}')";
+            }
             @return $default;
         }
     }
@@ -83,6 +95,34 @@ $config_validTokenLevels: (
 ) !default;
 
 ///
+/// @since 0.3.3-draft
+///
+@function _num-to-token($value, $method: null) {
+    @if $method == 'ceil' {
+        $value: math.ceil($value * 0.02);
+    } @else if $method == 'floor' {
+        $value: math.floor($value * 0.02);
+    } @else {
+        $value: math.round($value * 0.02);
+    }
+    $value: math.div($value, 0.02); // round to multiple of 50
+
+    $value: #{$value};
+
+    $_str_length: string.length($value);
+
+    @if $_str_length == 2 {
+        $value: '0#{$value}';
+    } @else if $_str_length == 1 {
+        $value: '00#{$value}';
+    } @else if $_str_length < 1 {
+        $value: '000';
+    }
+
+    @return #{$value};
+}
+
+///
 /// Validates the value of a config variable that should be a css token level.
 ///
 /// If value is null, the default is returned without warning.
@@ -96,26 +136,157 @@ $config_validTokenLevels: (
     $value,
     $name,
     $default,
-    $options: $config_validTokenLevels
+    $options: $config_validTokenLevels,
+    $warn: true
 ) {
     @if meta.type-of($value) == number {
-        $value: #{$value};
-
-        $_str_length: string.length($value);
-
-        @if string.length($_str_length) == 2 {
-            $value: '0#{$value}';
-        } @else if string.length($_str_length) == 1 {
-            $value: '00#{$value}';
-        } @else if string.length($_str_length) < 1 {
-            $value: '000';
-        }
+        $value: _num-to-token($value);
     }
 
     @return config-valid-string(
         $value: $value,
         $name: $name,
         $default: $default,
-        $options: $options
+        $options: $options,
+        $warn: $warn
     );
+}
+
+///
+/// Get the number value of a string of a number.
+/// https://stackoverflow.com/a/47633235
+///
+/// @param {number|string} $string
+///
+/// @return {number}
+///
+/// @since 0.3.3-draft
+///
+@function config-num-val($string) {
+    // returns
+    @if meta.type-of($string) == 'number' {
+        @return $string;
+    } @else if meta.type-of($string) != 'string' {
+        @warn '[math.num-val] value (#{$string}) is a #{meta.type-of( $string )} but should be a number or string.';
+        @return $string;
+    }
+
+    $result: 0;
+    $digits: 0;
+    $minus: string.slice($string, 1, 1) == '-';
+    $digitsList: (
+        '0': 0,
+        '1': 1,
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5,
+        '6': 6,
+        '7': 7,
+        '8': 8,
+        '9': 9,
+    );
+
+    @for $i from if($minus, 2, 1) through string.length($string) {
+        $character: string.slice($string, $i, $i);
+
+        @if list.index(map.keys($digitsList), $character) or $character == '.' {
+            $charDigit: map.get($digitsList, $character);
+
+            @if $character == '.' {
+                $digits: 1;
+            } @else if $digits == 0 {
+                $result: $result * 10 + $charDigit;
+            } @else {
+                $digits: $digits * 10;
+                $result: $result + math.div($charDigit, $digits);
+            }
+        }
+    }
+
+    @return if($minus, -$result, $result);
+}
+
+///
+/// Validates the value of a config variable that should be a css token level.
+///
+/// If value is null, the default is returned without warning.
+///
+/// @param {any}    $value  The variable's value.
+/// @param {string} $name   The variable's name.
+///
+/// @param {string} $default  Default value to return if $value is invalid.
+///
+/// @since 0.3.3-draft
+///
+@function coerce-valid-token-level(
+    $value,
+    $name,
+    $default,
+    $options: $config_validTokenLevels,
+    $method: null,
+    $maxRoundingLevels: 20
+) {
+    // returns
+    @if $value == null {
+        @return $default;
+    }
+
+    $valid_value: config-valid-token-level(
+        $value: $value,
+        $name: $name,
+        $default: null,
+        $options: $options,
+        $warn: false,
+    );
+
+    // returns
+    @if $valid_value != null {
+        @return $valid_value;
+    }
+
+    $num_value: config-num-val($value);
+
+    // returns
+    @if meta.type-of($num_value) != number {
+        @return $default;
+    }
+
+    $_new_level: _num-to-token($num_value, $method: $method);
+
+    // returns
+    @if list.index($options, #{$_new_level}) != null {
+        @return #{$_new_level};
+    }
+
+    $_increment_list: ();
+
+    @if $method == 'ceil' {
+        $_increment_list: (50);
+    } @else if $method == 'floor' {
+        $_increment_list: (-50);
+    } @else {
+        $_increment_list: if(
+            $num_value - math.div(math.round($num_value * 0.02), 0.02) < 0,
+            (-50, 50),
+            (50, -50)
+        );
+    }
+
+    // returns on success
+    @for $i from 1 through $maxRoundingLevels {
+        @each $_increment in $_increment_list {
+            $_new_level: _num-to-token(
+                $num_value + ($i * $_increment),
+                $method: $method
+            );
+
+            // returns
+            @if list.index($options, #{$_new_level}) != null {
+                @return #{$_new_level};
+            }
+        }
+    }
+
+    @return $default;
 }

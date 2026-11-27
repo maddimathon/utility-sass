@@ -118,9 +118,11 @@ breakpoints {
     @include _demo-min-width(indent);
     @include _demo-min-width(0);
     @include _demo-min-width(nav);
+    @include _demo-min-width(nav, $useWhereFallback: false);
     @include _demo-max-width(mobile);
     @include _demo-max-width(0);
     @include _demo-max-width(nav);
+    @include _demo-max-width(nav, $useWhereFallback: false);
 
     @include _demo-min-height(50);
     @include _demo-min-height(0);
@@ -144,10 +146,10 @@ breakpoints {
     @include feature-check.supports(whereSelector) {
         @include _demo-min-width(indent);
         @include _demo-min-width(0);
-        // @include _demo-min-width(nav);
+        @include _demo-min-width(nav);
         @include _demo-max-width(mobile);
         @include _demo-max-width(0);
-        // @include _demo-max-width(nav);
+        @include _demo-max-width(nav);
     }
 
     @include _demo-max-width(mobile, $useWhereFallback: false) {

@@ -577,15 +577,15 @@
                     @include prop-background(var-sys-colour(background), $setCxProp: false);
                     color: var-sys-colour(text);
 
-                    @if config.$include_html {
-                        @include max-width(mobile) {
-                            hyphens: auto;
-                        }
-                    }
-
                     @if tokens.$fontWeight_variable {
                         @include feature-check.supports(variableFonts) {
                             font-weight: tokens.$fontWeight_variable;
+                        }
+                    }
+
+                    @if config.$include_html {
+                        @include max-width(tokens.$typography_breakpoint_hyphens) {
+                            hyphens: auto;
                         }
                     }
                 }

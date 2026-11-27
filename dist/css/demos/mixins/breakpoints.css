@@ -70,6 +70,19 @@
     }
 }
 
+@demo ( mixin: min-width ) {
+    breakpoints {
+        /* @include min-width( nav, $useWhereFallback: false ) {} */
+    }
+    @demo output {
+        @media (width >= 64em) {
+            breakpoints {
+                /* [min-width] @content; */
+            }
+        }
+    }
+}
+
 @demo ( mixin: max-width ) {
     breakpoints {
         /* @include max-width( mobile ) {} */
@@ -94,6 +107,19 @@
 @demo ( mixin: max-width ) {
     breakpoints {
         /* @include max-width( nav ) {} */
+    }
+    @demo output {
+        @media (width < 64em) {
+            breakpoints {
+                /* [max-width] @content; */
+            }
+        }
+    }
+}
+
+@demo ( mixin: max-width ) {
+    breakpoints {
+        /* @include max-width( nav, $useWhereFallback: false ) {} */
     }
     @demo output {
         @media (width < 64em) {
@@ -298,6 +324,19 @@
     }
 }
 
+@demo ( mixin: min-width ) {
+    :where(.js) breakpoints {
+        /* @include min-width( nav ) {} */
+    }
+    @demo output {
+        @media (width >= 64em) {
+            :where(.js) breakpoints {
+                /* [min-width] @content; */
+            }
+        }
+    }
+}
+
 @demo ( mixin: max-width ) {
     :where(.js) breakpoints {
         /* @include max-width( mobile ) {} */
@@ -316,6 +355,19 @@
         /* @include max-width( 0 ) {} */
     }
     @demo output {
+    }
+}
+
+@demo ( mixin: max-width ) {
+    :where(.js) breakpoints {
+        /* @include max-width( nav ) {} */
+    }
+    @demo output {
+        @media (width < 64em) {
+            :where(.js) breakpoints {
+                /* [max-width] @content; */
+            }
+        }
     }
 }
 

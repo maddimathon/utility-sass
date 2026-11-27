@@ -10,7 +10,9 @@
 @forward '../tokens';
 
 // @forward '../header';
+@use '../../config';
 
+@use '../../modules/demo';
 @use '../../modules/map';
 @use '../../modules/meta';
 
@@ -37,4 +39,89 @@ lib.config-vars {
 template.config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/template'` */
     @include meta.var-dump('default vars', map.ksort(meta.module-variables(configTemplate)));
+}
+
+/* ## FUNCTIONS ==================================== */
+
+$_fn_coerce_valid_token_level: meta.get-function('coerce-valid-token-level', $module: 'config');
+
+@mixin _demo-config-coerce-valid-token-level(
+    $value,
+    $name: 'sample_level',
+    $default: '000',
+    $options: ('100', '500', '900'),
+    $method: null,
+    $args...
+) {
+    @if $method == null {
+        @include demo.function(
+            'config.coerce-valid-token-level',
+            $_fn_coerce_valid_token_level,
+            meta.arglist($value, $name, $default: $default, $options: $options, $args...)
+        );
+        @include demo.function(
+            'config.coerce-valid-token-level',
+            $_fn_coerce_valid_token_level,
+            meta.arglist(
+                $value,
+                $name,
+                $default: $default,
+                $options: $options,
+                $method: floor,
+                $args...
+            )
+        );
+        @include demo.function(
+            'config.coerce-valid-token-level',
+            $_fn_coerce_valid_token_level,
+            meta.arglist(
+                $value,
+                $name,
+                $default: $default,
+                $options: $options,
+                $method: ceil,
+                $args...
+            )
+        );
+    } @else {
+        @include demo.function(
+            'config.coerce-valid-token-level',
+            $_fn_coerce_valid_token_level,
+            meta.arglist(
+                $value,
+                $name,
+                $default: $default,
+                $options: $options,
+                $method: $method,
+                $args...
+            )
+        );
+    }
+}
+
+@include _demo-config-coerce-valid-token-level('178');
+@include _demo-config-coerce-valid-token-level('222');
+
+@include _demo-config-coerce-valid-token-level('178', $options: ('150', '250', '900'));
+@include _demo-config-coerce-valid-token-level('222', $options: ('150', '250', '900'));
+
+// test the rounding - ceil
+// prettier-ignore
+@each $level in ('122', '563', '917') {
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '150', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '200', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '250', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '300', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '350', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '400', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '450', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '500', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '550', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '600', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '650', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '700', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '750', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '800', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '850', '900'));
+    @include _demo-config-coerce-valid-token-level($level, $options: ('100', '900'));
 }

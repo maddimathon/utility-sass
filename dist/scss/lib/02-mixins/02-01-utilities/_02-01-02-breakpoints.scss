@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-sass@0.3.2
+/// @package @maddimathon/utility-sass@0.3.3-draft
 /// @since 0.1.0-pre
 ///
 
@@ -45,10 +45,6 @@
 
     @if $hasOverrideSelector {
         $selector: ('[data-viewport-#{$property}-#{$point}=#{$minOrMax}]');
-
-        @if config.$breakpoints_attributeOverrides_includeRoot {
-            $selector: selector.unify(config.$selector_root, $selector);
-        }
     }
 
     @if config.$breakpoints_nav_mustSupportNotTouch and $point == nav {
@@ -109,15 +105,20 @@
         } @else if $toNegate and $hasOverrideSelector {
             $selector: selector.not-list($selector);
         }
+
+        @if config.$breakpoints_attributeOverrides_includeRoot {
+            $selector: selector.unify(config.$selector_root, $selector);
+        }
     } @else if $toNegate and $hasOverrideSelector {
         $selector: selector.not-list($selector);
 
-        @if not
-            config.$breakpoints_attributeOverrides_includeRoot and not
+        @if config.$breakpoints_attributeOverrides_includeRoot or not
             selector.parent-has-root()
         {
             $selector: selector.unify(config.$selector_root, $selector);
         }
+    } @else if config.$breakpoints_attributeOverrides_includeRoot {
+        $selector: selector.unify(config.$selector_root, $selector);
     }
 
     // returns

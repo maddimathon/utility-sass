@@ -294,6 +294,13 @@ $_gaps_inline: map.get(tokens.$gap, inline);
     @if $dir == block {
         //
         @if $slug == layout or $slug == layout-half {
+            $_simpleVal: math.add-unit($num, 1vw);
+
+            // returns
+            @if $returnAsNumber {
+                @return $_simpleVal;
+            }
+
             $_clamp_low: var-mrg-soft(
                 config.$fn_gapValue_block_layout_low,
                 $multiplier: $multiplier,
@@ -306,18 +313,12 @@ $_gaps_inline: map.get(tokens.$gap, inline);
                 $fallbackOnly: $useMarginValue
             );
 
-            $_simpleVal: math.add-unit($num, 1vw);
-
-            @return if(
-                $returnAsNumber,
+            @return (
                 $_simpleVal,
-                (
-                    $_simpleVal,
-                    clamp(
-                        if($slug == layout, $_clamp_low, calc($_clamp_low/2)),
-                        math.add-unit($num, 1svw),
-                        if($slug == layout, $_clamp_high, calc($_clamp_high/2))
-                    )
+                clamp(
+                    if($slug == layout, $_clamp_low, calc($_clamp_low/2)),
+                    math.add-unit($num, 1svw),
+                    if($slug == layout, $_clamp_high, calc($_clamp_high/2))
                 )
             );
         }

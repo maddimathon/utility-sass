@@ -92,6 +92,23 @@
     }
 }
 
+@demo ( mixin: min-width ) {
+    breakpoints {
+        /* @include min-width( nav, $useWhereFallback: false ) {} */
+    }
+    @demo output {
+        @media (width >= 64em) {
+            :where(.js__no-touch:not([data-viewport-width-nav='max']))
+                breakpoints {
+                /* [min-width] @content; */
+            }
+        }
+        :where([data-viewport-width-nav='min'].js__no-touch) breakpoints {
+            /* [min-width] @content; */
+        }
+    }
+}
+
 @demo ( mixin: max-width ) {
     breakpoints {
         /* @include max-width( mobile ) {} */
@@ -128,6 +145,23 @@
             .js__no-whereSelector breakpoints {
                 /* [max-width] @content; */
             }
+            :where(:root:not([data-viewport-width-nav='min'].js__no-touch))
+                breakpoints {
+                /* [max-width] @content; */
+            }
+        }
+        :where([data-viewport-width-nav='max'], .js__touch) breakpoints {
+            /* [max-width] @content; */
+        }
+    }
+}
+
+@demo ( mixin: max-width ) {
+    breakpoints {
+        /* @include max-width( nav, $useWhereFallback: false ) {} */
+    }
+    @demo output {
+        @media (width < 64em) {
             :where(:root:not([data-viewport-width-nav='min'].js__no-touch))
                 breakpoints {
                 /* [max-width] @content; */
@@ -367,6 +401,26 @@
     }
 }
 
+@demo ( mixin: min-width ) {
+    :where(.js) breakpoints {
+        /* @include min-width( nav ) {} */
+    }
+    @demo output {
+        @media (width >= 64em) {
+            :where(.js):where(
+                    .js__no-touch:not([data-viewport-width-nav='max'])
+                )
+                breakpoints {
+                /* [min-width] @content; */
+            }
+        }
+        :where(.js):where([data-viewport-width-nav='min'].js__no-touch)
+            breakpoints {
+            /* [min-width] @content; */
+        }
+    }
+}
+
 @demo ( mixin: max-width ) {
     :where(.js) breakpoints {
         /* @include max-width( mobile ) {} */
@@ -389,6 +443,26 @@
         /* @include max-width( 0 ) {} */
     }
     @demo output {
+    }
+}
+
+@demo ( mixin: max-width ) {
+    :where(.js) breakpoints {
+        /* @include max-width( nav ) {} */
+    }
+    @demo output {
+        @media (width < 64em) {
+            :where(.js):where(
+                    :not([data-viewport-width-nav='min'].js__no-touch)
+                )
+                breakpoints {
+                /* [max-width] @content; */
+            }
+        }
+        :where(.js):where([data-viewport-width-nav='max'], .js__touch)
+            breakpoints {
+            /* [max-width] @content; */
+        }
     }
 }
 
